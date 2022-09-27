@@ -7,7 +7,7 @@ permalink: index.html
 summary: We publish the extensive paper reviews about data mining (DM) and artificial intelligence (AI) to provide high quality reviews for deep-learning beginners.
 ---
 
-{% include note.html content="The paper reviews on this sites were written by students participated in KSE527 and KSE801 course" %}
+{% include note.html content="The paper reviews on this sites were written by students participated in KSE527 or KSE801 course" %}
 
 ## KSE801 (2022F)
 
