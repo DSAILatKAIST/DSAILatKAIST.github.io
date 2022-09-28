@@ -2,7 +2,7 @@
 title: Paper reviews on KSE527 (2022) 
 sidebar: review_sidebar
 keywords: reviews
-permalink: KSE527_2022.html
+permalink: reviews_kse527_2022.html
 toc: true
 folder: reviews
 ---
