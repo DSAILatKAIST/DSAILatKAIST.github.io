@@ -1,5 +1,5 @@
 ---
-title: Review template
+title: Review template (Example)
 sidebar: Introduction_sidebar
 keywords: introduction
 permalink: template.html
@@ -8,9 +8,7 @@ folder: introduction
 ---
 
 
----
-description : 1st author / title / conference-year(description)  
----
+{% include note.html content="This template is just one example and " %}
 
 # **Title** 
 

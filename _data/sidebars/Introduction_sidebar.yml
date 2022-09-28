@@ -11,7 +11,7 @@ entries:
     - title: How to contribute?
       url: /how_to_contribute.html
       output: web
-    - title: Review template
+    - title: Review template (Example)
       url: /template.html
       output: web
 

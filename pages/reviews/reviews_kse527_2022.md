@@ -5,11 +5,9 @@ keywords: reviews
 permalink: reviews_kse527_2022.html
 toc: true
 folder: reviews
+summary: Archive to save the reviews from KSE527 (2022S)
 ---
 
 
-## Overview
 
-This site is to save the reviews on KSE527_2022
 
-## Reviews
