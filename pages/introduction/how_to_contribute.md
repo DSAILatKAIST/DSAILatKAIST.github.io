@@ -9,36 +9,25 @@ folder: introduction
 
 
 ---
-description : 글 작성 방법(How to write)  
----
-
-# How to contribute?  
 
 이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.
 
-This writing is the guideline of how to write review.
+This script is the guideline of how to write review.
 
 ## Preparing for your manuscript  
 
-### **Follow with video**  
-
-**Fork**부터 **Pull Request**까지의 Contribution 과정을 Video를 통해서 쉽게 따라할 수 있습니다.  
-
-아래의 설명 과정에서 이해하기 어려운 부분은 Video를 참고해주시기 바랍니다.  
-
-You can easily follow the procedure of contribution from **Fork** to **Pull Request** through video.  
-If you have difficulty understanding on below explanation, please refer to video.  
-
-[[KSE527-Spring] Paper Review Submission Guideline](https://youtu.be/3oPv_uUPFw8)  
-
 ### **Fork repository**  
 
-먼저, [awesome-reviews-kaist](https://github.com/DSAILatKAIST/awesome-reviews-kaist) repository를 자신의 github repository에 fork하여 추가합니다.  
+먼저, [github repository](https://github.com/DSAILatKAIST/DSAILatKAIST.github.io)를 자신의 github repository에 fork하여 추가합니다.  
 
-At first, you should fork the [awesome-reviews-kaist](https://github.com/DSAILatKAIST/awesome-reviews-kaist) repository to make a repository on your account.  
+At first, you should fork the [github repository](https://github.com/DSAILatKAIST/DSAILatKAIST.github.io) to make a repository on your account.  
 
-<p align="center"><img width="1200" src=".gitbook/main/fork_2.png"></p>  
+<p align="center"><img width="1500" src="/images/fork.png"></p>
 
+### **Find your review paper**
+**'_posts'** directory에서 각자 맡은 논문을 확인하여 파일을 실행 시킵니다.
+
+Check your assigned review papers on **'_posts'** directory and open this file.
 
 ### **Write reviews on .md format**  
 
@@ -55,85 +44,33 @@ For the beginner of markdown, [Tutorial](https://www.markdowntutorial.com/) site
 It is possible to write conveniently when you utilize the [Typora](https://typora.io/) edition.  
 It is also okay to utilize your own edition.  
 
-### **Directory Structure**  
+### **Attach image file**
 
-본 메인 리뷰 파일(.md)는 "paper-review/2022-spring" 위치에 넣어주세요.   
+리뷰 작성 시 사진을 첨부한다면, "/images/{논문이름}/{이미지파일 이름}.png"위치에 사진 파일을 넣어주세요.
 
-You should put the main review file(.md) on "paper-review/2022-spring" directory.  
+If you want to attach an image file to elaborate your review paper, please put your image file on "/images/{Paper}/{Image}.png"
 
-사진을 첨부한다면, ".gitbook/2022-spring-assets/\<ReviewerName_1or2\>/\<image.png\>" 위치에 사진 파일을 넣어주세요.  
-메인 리뷰 파일에서도 사진 위치에 맞는 파일명을 넣어주세요.   
+그 이후에 아래와 같은 명령어로 Image를 첨부 하실 수 있습니다.
 
-If you want to put an image, you should put an image on ".gitbook/2022-spring-assets/\<ReviewerName_1or2\>/\<image.png\>" location.  
-You also write the file name corresponding to image path on main review file.  
+Then you can load your image file as follows:
 
-**E.g.**
+
+**E.g.**  
+Paper title : GCN / Image file name : GCN_Encoder.png
 ``` bash  
-<img width="140" src=".gitbook/2022-spring-assets/HongGildong_1/intro.png">  
+<img width="140" src="/images/GCN/GCN_Encoder.png">  
 ```  
 
-### **SUMMRAY.md**  
+### **Rename your file**  
 
-SUMMARY.md는 리뷰 파일의 위치를 Gitbook에 알려주는 용도로 사용이 됩니다.  
-SUMMARY.md에 자신이 작성한 메인 리뷰 파일의 위치를 적어야 합니다.  
+제출 날짜에 맞게 파일 이름을 변경해주세요. (YYYY-MM-DD-{Do not change})
 
-SUMMARY.md file is used for recognizing the location of review file path on Gitbook.  
-You should write the location of path of your own review file on SUMMARY.md.  
-
-**E.g.**
-``` bash  
-* [\[2022 Spring\] Paper Review](paper-review/README.md) 
-    * [BGNN](paper-review/2022-spring/bgnn.md) # [Title](path) 
-```  
-
-### **Description**  
-
-메인 리뷰 파일 상단에는 description 포맷을 써주시길 바랍니다.  
-descrpition을 작성할 경우 아래 그림의 "Paper Review" 글씨에 들어가게 됩니다.  
-
-You should write description format on the top of main review file.  
-Referred to above figure, "Paper Review" font will be put as you write description format.  
-
-Description 양식을 아래와 같이 지켜주시길 바랍니다.   
-You should follow the below description format.  
-
-저자 / 제목 / 학회-년도  
-Author / Title / Conference-year  
+Please Rename your file according to your submission data. (YYYY-MM-DD-{Do not change})
 
 **E.g.**  
 
-``` bash  
----
-description: Li et al./ Bipartite Graph Network With Adaptive Message Passing For Unbiased Scene Graph Generation / CVPR-2021
----   
-```  
+2022-10-13-A_User_Centered_Investigation_of_Personal_Music_Tours.md
 
-
-
-<p align="center"><img width="500" src=".gitbook/main/description.png"></p>
-
-
-
-### **File Name**  
-
-메인 리뷰 파일명은 아래와 같은 양식을 지켜서 만들어주시길 바랍니다.  
-
-You should follow the above format to make the name of review file.  
-
-``` bash  
-학회-연도-제목
-Conference-Year-Title  
-```  
-위와 같은 양식으로 파일명에는 하이픈(-)으로 구별해주시길 바랍니다.  
-또한, 파일명은 소문자로만 구성되어야 합니다.    
-
-Following to above format, hyphen(-) is used to split the file name.  
-Also, file name should be composed of lower case.
-
-**E.g.**  
-```bash  
-cvpr-2021-bgnn
-```  
 
 ### **Pull Request**  
 
@@ -143,19 +80,19 @@ cvpr-2021-bgnn
 If you want to submit it, you should enter your repository which has been forked and pull request.  
 As shown in above picture, go to "Pull Requests" and click "New pull request".  
 
-<p align="center"><img width="1000" src=".gitbook/main/pull_1.png"></p>
+<p align="center"><img width="1500" src="/images/pull_request.png"></p>
 
-제출할 때 반드시! **master**가 아닌 **2022-Spring** branch로 제출해주시길 바랍니다.   
+제출할 때 반드시! **gh-pages** branch로 제출해주시길 바랍니다.   
   
-You should submit it to **2022-Spring** branch, not **master** branch.  
+You should submit it to **gh-pages** branch.  
 
-<p align="center"><img width="1000" src=".gitbook/main/pull_2.png"></p>
+<p align="center"><img width="1500" src="images/branch.png"></p>
 
 ### **Review Format**  
 
-리뷰 포맷은 [Review Format](https://github.com/DSAILatKAIST/awesome-reviews-kaist/blob/master/paper-review/template.md)을 통해서 확인할 수 있습니다.  
+예제 리뷰 포맷은 [Review Format](/pages/introduction/template.html)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
 
-You can check the review format on [Review Format](https://github.com/DSAILatKAIST/awesome-reviews-kaist/blob/master/paper-review/template.md) link. 
+You can check the example review format on [Review Format](/pages/introduction/template.html) link but you don't have to follow this framework. 
 
 ### **Mathematical Equation**  
 수학식을 작성 할 때는 ```$~$```가 아닌 ```$$~$$```을 통해서 작성할 수 있습니다.   

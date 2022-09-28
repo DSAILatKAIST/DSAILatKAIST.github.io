@@ -4,4 +4,4 @@ permalink: Graph_Information_Bottleneck_for_Subgraph_Recognition.html
 tags: [reviews]
 ---
 
-연준 2
+Write your comments
