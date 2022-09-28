@@ -8,7 +8,7 @@ folder: introduction
 ---
 
 
-{% include note.html content="This template is just one example and " %}
+{% include note.html content="This template is an example, so you don't have to follow this templates!" %}
 
 # **Title** 
 
