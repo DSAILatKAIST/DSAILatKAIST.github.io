@@ -13,13 +13,13 @@ folder: introduction
 
 또한, 동료 평가를 통하여 논문 리뷰 수준을 향상시킬 계획입니다.
 
-작성 및 제출 방법과 관련해서는 [How to contribute](how-to-contribute.md) 링크를 참고해주세요.
+작성 및 제출 방법과 관련해서는 [How to contribute](/how_to_contribute.html) 링크를 참고해주세요.
 
 From 2022 Fall semester, we will upload reviews on recent deep learning papers as a course project of **KSE801: Recommender System and Machine Learning on Graph**. A student will need to write reviews on one paper.
 
 Also, we are going to improve the quality of paper review by peer evaluation.
 
-Please refer to the following link [How to contribute](how-to-contribute.md) to understand how to submit and write.
+Please refer to the following link [How to contribute](/how_to_contribute.html) to understand how to submit and write.
 
 
 ## Course Information
