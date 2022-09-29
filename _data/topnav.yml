@@ -7,8 +7,6 @@ topnav:
       url: /introduction
     - title: KAIST ISysE
       external_url: https://statistics.kaist.ac.kr/
-    - title: DSAIL
-      external_url: https://dsail.kaist.ac.kr/
 
 #Topnav dropdowns
 topnav_dropdowns:
