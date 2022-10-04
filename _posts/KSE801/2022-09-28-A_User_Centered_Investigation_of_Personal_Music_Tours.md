@@ -32,14 +32,14 @@ The two algorithms proposed are  "Greedy" and "Optimal" according to their behav
 e.g. where an artist was born; dates, e.g. when an artist was born; record labels, e.g. who published a song; and relationships
 between artists, between songs, and between artists and songs. The full information about the graph can be found in the additional matrial, but for simplification the following figure shows a simple exmaple of a music knowledge graph from another paper: 
 
-<img width="1400" src="/images/Music Graph.png">
+<img width="1400" src="/images/A User-Centered Investigation of Personal Music Tours/Music Graph.png">
 
 The difference between the Greedy and Optimal algorithm is the approach of choosing the paths in the graph. Greedy is a heuristic, which chooses the next song according to the instrestingness of it segue, i.e. the song with the most intersting segue is iteratively choosen next. Therefore it uses the function _interestingness_. The interestingness is calculated based on the infrequency and conciseness of the knowledge graph's paths. That is, the more unique a relationship between two song is, the more interesting it is. On the other hand, if the path contains just very general information, e.g. about the same, broad genre, it should be considered as less interesting.
 The Optimal algorithm builds the tour by  translating the problem to a Traveling Salesman Problem and solves it optimally. That is, the solution of Ptimally guarantees the best tour in terms of overall interstingness. Greedy can not guarantee that. 
 
 An example for the results of the two algorithm gives the following figure. It shows the tour of Greedy and Optimal respectively, build on the same set of given songs.
 
-<img width="1400" src="/images/Greedy Optimal tours.png">
+<img width="1400" src="/images/A User-Centered Investigation of Personal Music Tours/Greedy Optimal tours.png">
 
 
 ## **4. Experiment**  
