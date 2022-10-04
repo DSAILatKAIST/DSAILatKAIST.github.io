@@ -1,0 +1,50 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: Sidebar
+  levels: one
+  folders:
+
+  - title: How to contribute
+    output: web
+    folderitems:
+    - title: How to contribute?
+      url: /how_to_contribute.html
+      output: web
+    - title: Review template (Example)
+      url: /template.html
+      output: web
+  - title: Reviews
+    output: web
+    folderitems:
+    - title: KSE527 (2022S)
+      url: /reviews_kse527_2022.html
+      output: web
+    - title: KSE801 (2022F)
+      url: /reviews_kse801_2022.html
+      output: web
+
+
+# entries:
+# - title: Sidebar
+#   levels: one
+#   folders:
+
+#   - title: Products
+#     output: web
+#     folderitems:
+#     - title: News
+#       url: /news.html
+#       output: web
+#     - title: Theme instructions
+#       url: /mydoc_introduction.html
+#       output: web
+#     - title: Product 1
+#       url: /p1_landing_page.html
+#       output: web
+#     - title: Product 2
+#       url: /p2_landing_page.html
+#       output: web
+
+# Copyright 2021 Google LLC
