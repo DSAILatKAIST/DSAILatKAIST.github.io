@@ -79,15 +79,48 @@ Optimal. In fact, neither algorithm optimizes for song arrangement, but for segu
 
 Interviewees mostly agree that Greedy produces overall better tours than Optimal.
 
+The following table provides an overview of the results:
+
 <img width="1200" src="/images/A User-Centered Investigation of Personal Music Tours/Results table.png">
 
+Nine out of 16 participants like the presented concept of tours and find segues interesting. However, it was also mentioned that tours a more suited for active listening than passive listening in the background.
+
+Several improvments were proposed by participants, e.g. specific segues are more interesting than general ones; the text of segues should be limited, long segues are undesirable; prior knowledge should not be contradicted by segues and controversies should be avoided in segues.
+
+The authors conclude from these answers that the used _interestingness_ function in the algorithm is imperfect. Instead of maximizing  the sum of the individual interestingness of the segues the diversity between the segues should also be taken into account.
 
 ## **6. Conclusion**  
 
-Please summarize the paper.  
-It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
 
+### **Key Findings**
 
+According to the interviewees, tours recommended by Greedy feature a
+segue top-bottombias, that is the first segue tends to bemore interesting than the last segue, while tours recommended
+by Optimal do not. Tours do not always feature segue diversity, but tours recommended by Greedy are found to be more diverse than tours recommended by Optimal. Tours do not always feature segue narrativity, that is the
+quality that the sequence of segues in tours presents a narrative with a coherent text, but tours recommended by Optimal are found to feature more narrativity than tours recommended by Greedy. Tours do not always feature
+good song arrangement, and tours recommended by Greedy are found to be equally good in song arrangement to tours recommended by Optimal.
+
+In conclusion, segue diversity and song arrangement appear to be the
+two most important attributes of the tours investigated in this work.
+
+Greedy seems to recommend higher quality tours
+than Optimal. Interviewees motivate their choice mentioning higher segue interestingness and better song arrangement.
+
+For further improvments, prior knowledge controversies and diversity should be taken into account when building the segues.
+
+### **Personal Opinion from Reviewer**
+
+The authors described their goal, method and results well in the paper. However, there are some limitations to this work, which restrict the usage and validity of the findings. First, the findings are based on the personal impression of the users. Of course, this is due to the aim of an user-cenetered investigtion. On the other hand, it reflects just a single experience of the user. Their statements could be biased, since they knew they are in astudy. Instead, real observations, e.g. from platform users like Spotify, could be used to conduct a data-driven evaluation. 
+
+Even more concerning is the fact that the number of participants was only 16 in total, which is a rather small sample. On top of that, for several participants there are no answers to some questions. This limits the power of the results drsatically. With a larger sample and clear quantifiable ratings as answers one could test statistical hypothesis.
+
+The authors only investigated tours and compared two algoritms for tours. In the same study, the users should also have been presented playlists without segues and asked to compare the tours to playlists. Thsi would make the study comparable to previous work.
+
+As mentioned in the paper, similarity between songs is an important feture of tours. Yet, it is unclear how to measure this similarity. It remains subject to further research to find a suited metric.
+
+When aiming for most interesting tours and segues, one should probably try to use the largest knowledge graph possible in order to find the most unique connections. That is, knowledge graphs from Google etc. could contain valuable information to improve the user experience. 
+
+Similar to this, since it was found thaht tours are more suited for active listening, one could show the actual used graph to the user. By this, the user would have the option to explore all connections on her or his own and to discover new music as well. 
 
 ---  
 ## **Author Information**  
@@ -99,7 +132,7 @@ It is free to write all you want. e.g, your opinion, take home message(오늘의
     * Insight Centre for Data Analytics, School of Computer Science & IT, University College Cork, Ireland
     * Research Topic:  Case-Based Reasoning (CBR), Recommender Systems, natural language processing, machine learning, ant algorithms
 
-## **6. Reference & Additional materials**  
+## **Reference & Additional materials**  
 
 
 * Reference: Giovanni Gabbolini and Derek Bridge. 2022. A User-Centered Investigation of Personal Music Tours. In _Sixteenth ACM Conference on
