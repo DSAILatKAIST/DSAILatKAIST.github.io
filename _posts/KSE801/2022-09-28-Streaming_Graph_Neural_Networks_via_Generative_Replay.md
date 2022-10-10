@@ -1,20 +1,37 @@
 ---
 description: >-
-  Y Rubanova et al./ Latent ODEs for Irregularly-Sampled Time Series /
-  NeurIPS-2019
+  Wang, Junshan et al./ Streaming Graph Neural Networks with Generative Replay /
+  KDD-2022
 ---
 
-# Latent ODEs
-
-## **Latent ODEs for Irregularly-Sampled Time Series**
+# Streaming Graph Neural Networks with Generative Replay
 
 ## **1. Problem Definition**
 
-> 시계열 데이터를 다루는 Deep learning에 **미분방정식 (Ordinary Differential Equation)** 을 접목시키자!
+> **Continual learning에서 사용할 replay buffer를 Generative model을 활용시켜 생성한다!**
 
-본 논문은 continuous-time dynamics를 가지는 `RNN(Recurrent Neural Networks)`의 hidden dynamics를 ODEs(Ordinary Differential Equations)로 정의해 새로운 모델 `ODE-RNN`을 만들어냅니다.
+본 논문은 Continual learning을 `Graph Neural Network(GNN)`과 접목시킴과 동시에 이에 사용할 replay buffer를 Generative model을 사용해 생성합니다.
 
-또한 NeurIPS에 2018년에 publish 된 '[Neural ordinary differential equations](https://arxiv.org/abs/1806.07366)' 라는 논문에서 제시한 `Latent ODE model`의 recognition network을 `ODE-RNN`으로 대체합니다. 이를 통해 관측값 사이의 임의의 time gap을 다룰 수 있습니다.
+이미 Continual learning에 Generative model을 사용한 연구는 [여기](https://proceedings.neurips.cc/paper/2017/hash/0efbe98067c6c73dba1250d2beaa81f9-Abstract.html) 예전에도 있었으나, 이는 이미지 데이터를 주로 targeting 한 반면에 지금 다루는 논문은 Graph domain의 데이터에 적용, 그에 맞는 특성(structure of graph)를 고려했다는 점에서 novelty가 있습니다.
+
+> **Continual learning이란?**
+
+Continaul learning은 Lifelong learning, Incremental learning이라고도 불리며, 과거의 정보를 최대한 유지하며 새로운 정보를 학습하는 방법론입니다.
+
+예를 들어, 인간이 '강아지' 라는 지식을 알고 있는 상태로, '고양이'라는 지식을 새로 습득했을 때, '강아지'를 잊지 않고 '강아지'와 '고양이'를 구별해 낼 수 있는 것 처럼, 지속적으로 들어오는 새로운 데이터를 학습함과 동시에 이전에 학습되었던 데이터를 잊지 않도록 인공지능을 설계하는 것이 Continual learning의 목적입니다.
+
+> **Catastrophic Forgetting이란?**
+Continual learning에서, 새로운 데이터가 들어옴에 따라 이전에 학습했던 데이터의 정보를 망각하는 현상을 `Catastrophic Forgetting`이라고 합니다. 아래 그림을 보시겠습니다. 
+
+![image](https://user-images.githubusercontent.com/99710438/194873406-84f4a722-c562-4c39-adec-5ecc498a498f.png)
+
+그림에서 볼 수 있듯이, Task 1에서는 파란색 node들을 구별하도록 학습합니다. Task 2에서는 새로운 보라색 node가 추가되면서 파란색과 보라색을 포함해 학습시키고, Task 3에서는 빨간색의 새로운 node가 추가되면서 새롭게 학습이 진행됩니다. 이 과정이 Continual learning 입니다.
+
+그리고 Task가 진행됨에 따라 이전 Task에서 학습했던 node들에 대한 예측 성능이 떨어지는 것을 볼 수 있습니다. 
+
+예를 들어, Task 1에서 파란 node들을 분류하는 데에는 95%의 성능을 보였으나, Task 2에서는 55%로 줄었고, Task 2에서 학습했던 보라색 node들도 Task 3에서의 성능은 현저히 줄어든 것을 볼 수 있습니다. 이러한 현상이 앞서 말씀드린 `Catastrophic Forgetting`입니다. 
+
+Continual learning 중 Replay approach는 이전 Task에서 학습했던 데이터중 **일부**만을 sampling하여 이후 Task에 사용합니다. 전체 데이터를 계속해서 누적하여 학습하면 효율이 좋지 않기 때문이죠. 이 과정에서 `Catastrophic Forgetting`현상이 일어나게 되는데, 이 현상을 최소화 하도록 이전 Task에서 학습했던 데이터를 잘 대표하는 데이터를 sampling하는 것이 관건입니다.
 
 ## **2. Motivation**
 
@@ -284,7 +301,7 @@ Neural ODE라는 새로운 방식을 여러 방면에 접목시킨 논문들이 
 
 * Wonjoong Kim
   * Affiliation: [DSAIL@KAIST](http://dsail.kaist.ac.kr)
-  * Research Topic: GNN, NeuralODE, Active learning
+  * Research Topic: Graph Nerual Network, Continual Learning
   * Contact: wjkim@kaist.ac.kr
 
 ## **6. Reference & Additional materials**
@@ -292,7 +309,5 @@ Neural ODE라는 새로운 방식을 여러 방면에 접목시킨 논문들이 
 * Github Implementation
   * None
 * Reference
-  * [Recurrent Neural Networks](https://wikidocs.net/22886)
-  * [Neural Ordinary Differential Equations](https://arxiv.org/abs/1806.07366)
-  * [Variational Autoencoder](https://arxiv.org/abs/1312.6114)
-  * [CS231n lecture slide](http://cs231n.stanford.edu/slides/)
+  * [Overcoming catastrophic forgetting in graph neural networks with experience replay](https://ojs.aaai.org/index.php/AAAI/article/view/16602)
+  * [Continual learning with deep generative replay](https://proceedings.neurips.cc/paper/2017/hash/0efbe98067c6c73dba1250d2beaa81f9-Abstract.html)
