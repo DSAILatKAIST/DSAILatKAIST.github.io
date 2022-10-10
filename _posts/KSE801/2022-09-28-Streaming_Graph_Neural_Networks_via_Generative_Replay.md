@@ -88,8 +88,31 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
 > **Model Framework**
 
+저자들은 이 논문에서 `SGNN-GR`이라는 방법론을 제시합니다. 모델 구조는 아래 그림과 같습니다.
+
 ![image](https://user-images.githubusercontent.com/99710438/194887946-3f736cc4-1c2c-47ca-97aa-4516da0ae42e.png)
 
+지금부터 `SGNN-GR`의 자세한 내용을 살펴보겠습니다. 
+
+Streaming GNN의 time $$t$$에서의 loss는 다음과 같습니다.
+
+$$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t) + \lambda \mathcal{R} (\theta^{t-1} ; \mathcal{G}_S^t)$$
+
+우변의 첫 항은 incremental learning에 관한 것이고, 두 번째 항은 historical knowledge에 관한 것입니다. 
+
+본 논문에서 $$\mathcal{G}_A^t$$ 는 graph의 affected part, $$\mathcal{G}_S^t$$ 는 grpah의 stable part로 정의합니다. 
+
+이 때 $$\Delta \mathcal{G}^t \subset \mathcal{G}_A^t$$ 이고 $$\mathcal{G}_S^t \subset \mathcal{G}^{t-1}$$ 입니다. 몇몇 node들이 새롭게 바뀐 node들에 대해서 영향을 받는 것입니다.
+
+각 time step에서 모델은 main model(`GNN`)과 generative model로 구성됩니다. 위 그림에서 확인할 수 있듯이, generative model은 $$\mathcal{G}_A^t$$에서 바뀐 node들과 $$\mathcal{G}^{t-1}$$에서의 replayed node를 training data로 받습니다. 이 때 replayed node는 이전 time step의 generative model로부터 나옵니다. 
+
+이 논문에서는 generative model로 `GAN`을 사용하였습니다. `GAN`에 대한 자세한 설명은 생략하며, 원 논문은 [여기](https://dl.acm.org/doi/abs/10.1145/3422622)를 참고하시기 바랍니다. 
+
+`GNN` 모델도 changed node와 replayed node를 똑같이 input으로 받습니다. 
+
+Main model의 loss function은 다음과 같습니다.
+
+$$\mathcal{L}_{GNN} (\theta^t) = r$$
 
 > **Generative Model for Node Neighborhood**
 
@@ -97,133 +120,13 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 > **Incremental Learning on Graphs**
 
 
+
+아래의 알고리즘을 통해 지금까지 설명했던 내용들을 확인할 수 있습니다.
+
 ![image](https://user-images.githubusercontent.com/99710438/194888070-5da986d2-1702-4cd5-b77e-cfa3d76a0467.png)
 
 
 
-**1. RNN**
-
-`RNN`은 hiddent layer에서 나온 결과값을 output layer로도 보내면서, 다시 다음 hidden layer의 input으로도 보내는 특징을 가지고 있습니다.
-
-아래 그림을 보시겠습니다.
-
-![RNN의 구조](https://user-images.githubusercontent.com/99710438/164171475-fe065e6c-5bbf-4c9f-bc59-37c954b9717e.png)
-
-$$x_{t}$$ 는 input layer의 input vector, $$y_{t}$$ 는 output layer의 output vector입니다. 실제로는 bias $$b$$ 도 존재할 수 있지만, 편의를 위해 생략합니다.
-
-`RNN`에서 hidden layer에서 activation function을 통해 결과를 내보내는 역할을 하는 node를 셀(cell)이라고 표현합니다. 이 셀은 이전 값을 기억하려는 일종의 메모리 역할을 수행하므로 이를 **메모리 셀** 또는 **RNN 셀**이라고 합니다.
-
-이를 식으로 나타내면 다음과 같습니다.
-
-* Hidden layer: $$h_{t}=tanh(W_{x}x_{t}+W_{h}h_{t-1}+b)$$
-* Output layer: $$y_{t}=f(W_{y}h_{t}+b)$$
-
-Hidden layer의 메모리 셀은 각각의 시점(time step)에서 바로 이전 시점에서의 메모리 셀에서 나온 값을 자신의 입력으로 사용하는 재귀적(recurrent) 활동을 하고 있습니다. 그러나 그림에서 보이듯이, `RNN`은 **각 time step에서만 정보를 처리하므로 time step이 불규칙적이거나, 각 time step 사이의 값에 대해서는 예측 성능이 좋지 않습니다**.
-
-또한, RNN이 가진 문제를 해결한 `RNN-Decay`, `GRU` 등 다양한 모델이 있으나 본 포스팅에서 설명은 생략하겠습니다.
-
-_저자들은 이런 **discrete한 hidden layer를 ODE를 사용해서 continuous하게** 바꾸려는 겁니다._
-
-**2. Neural Ordinary Differential Equations**
-
-`Neural ODE`는 continuous-time model의 일종으로, 지금까지 discrete하게 정의되었던 hidden state $$h_{t}$$ 를 ODE initial-value problem의 solution으로 정의합니다. 이를 식으로 나타내면 다음과 같습니다.
-
-$$dh_{t}/dt=f_{\theta}(h(t),t) where h(t_{0})=h_{0}$$
-
-여기서, $$f_{\theta}$$ 는 hidden state의 dynamics를 의미하는 neural network입니다. Hidden state $$h(t_{0})$$ 는 모든 시간에 대해 정의되어있으므로, **어떠한 desired time에 대해서도** 아래의 식을 통해 evaluate 될 수 있습니다.
-
-$$h_{0},...,h_{N}=ODESolve(f_{\theta},h_{0},(t_{0},...,t_{N}))$$
-
-위 식으로 우리는 hidden layer를 continuous 하게 정의할 수 있으며 이 방식은 다음과 같은 장점들이 있습니다.
-
-* Discrete한 hidden layer를 사용할 때는 각 layer마다 parameter가 있었으나, 이 방식은 **하나의 parameter**($$\theta$$)로 연산 가능하여 **computational cost**가 적습니다.
-* Hidden layer가 **연속적인 하나의 layer**로 생각될 수 있으므로, interpolation이나 extrapolation 등의 예측에 뛰어납니다.
-
-**3. Variational Autoencoder**
-
-Variational Autoencoder(`VAE`)는 측정 불가한 분포를 갖는 어떤 잠재변수로부터 효과적인 근사 추론을 하는 것이 목적인 모델입니다. 유명한 deep generative model인 `GAN`과 같은 생성 모델의 일종이며, 구조가 `Auto-encoder`와 비슷해 이름이 이렇게 붙여졌습니다.
-
-![VAE의 구조](https://user-images.githubusercontent.com/99710438/164225634-2f599b17-30ff-45bf-a8be-2cc98e5f1aab.png)
-
-위 그림을 간단하게 설명하자면, 어떤 input data $$x$$ 가 있을 때, Encoder network가 잠재변수 $$z$$ 의 분포(평균과 분산)을 근사합니다. 만들어진 분포에서 $$z$$ 를 sampling 하고 Decoder network는 $$\hat{x}$$ 을 만들어냅니다.
-
-본 논문에서 저자들은 이 `VAE`의 구조 중 Encoder network에 `ODE-RNN`을 쓰고 Decoder network에 `RNN`을 사용한 `Latent ODE`를 소개합니다.
-
-> #### **ODE-RNN**
-
-앞서 설명드린 바와 같이, `ODE-RNN`은 `RNN`의 **discrete한 hidden layer에 ODE를 통해 continuous한 정보**를 담게 하는 모델입니다.
-
-그 방법은 굉장히 단순한데, `Neural ODE`를 사용한 hidden state를 정의해서, `RNN` cell에 정보를 흘려보내주는 겁니다.
-
-`ODE-RNN`이 작동하는 원리는 아래와 같습니다.
-
-![ODE-RNN의 알고리즘](https://user-images.githubusercontent.com/99710438/164017436-f435d0f4-24f9-4d66-9fcc-87ec0c1775bf.png)
-
-위 알고리즘을 설명해보면, 저자들은 **각 observation 사이의 state**을 다음과 같이 하나의 ODE의 solution으로 정의했습니다.
-
-$$h'_{i}=ODESolve(f_{\theta},h_{i-1},(t_{i-1},t_{i}))$$
-
-그리고 **각 observation의 hidden state**는 기본 `RNN`cell로 해주면, $$h_{i}=RNNCELL(h'_{i},x_{i})$$ 과 같이 되게 됩니다.
-
-이것이 ODE를 `RNN`에 접목시킨 아이디어의 전부입니다.
-
-그러면 지금까지 `RNN`과 `ODE-RNN`을 알아보았는데요, 그들의 hidden state가 어떻게 정의되는지를 보면 다음과 같습니다. (`RNN-Decay`와 `GRU-D` 또한 `RNN`의 일종이라고 생각하시면 됩니다)
-
-![Definition of hidden state](https://user-images.githubusercontent.com/99710438/164017531-002e6512-f1c5-4430-904d-d19f82f2a9e4.png)
-
-앞서 설명해드린 바와 같이, `RNN` 기반 모델들은 각 observation이 있을 때만 **discrete한 hidden state**가 정의되는 반면에 `ODE-RNN` 모델은 각 observation **사이 시간**도 고려합니다.
-
-위의 모델들은 저자들이 모델의 성능을 평가하기 위한 baseline으로 사용합니다.
-
-_RNN의 **Discrete한 layer** 사이에 **continuous한 하나의 ODE**로 **모든 time step의 정보**를 저장한다!_
-
-> #### **Latent ODEs**
-
-앞서 소개한 `RNN`이나 `ODE-RNN`은 **autoregressive model**이라고 합니다. Autoregressive model은 다음 결과가 이전 결과에 영향을 받는 모델을 의미하는데, train이 쉽고 빠른 prediction이 가능하게 합니다.
-
-하지만, autoregressive model은 **해석하기가 어렵고**, **observation이 sparse** 할 때 성능이 떨어집니다.
-
-Autoregressive model 중 한 가지로 latent variable model이 있는데, 저자들이 본 논문에서 제시하는 `Latent ODE`가 바로 latent variable model 중 하나입니다.
-
-`Latent ODE`는 위에서 설명드린 `VAE`의 encoder에 `ODE-RNN`을 사용한 구조입니다.
-
-`ODE-RNN`의 아이디어만큼이나 간단한데요, 먼저 구조를 그림으로 보여드리겠습니다.
-
-![Latent ODE model with an ODE-RNN encoder](https://user-images.githubusercontent.com/99710438/164017572-bacb1d58-885d-4659-b6cc-4c0fd5035876.png)
-
-이 모델이 prediction을 할 때, `ODE-RNN` encoder가 initial state의 posterior $$q(z_{0}|{x_{i},t_{i}})$$ 를 근사하기 위해 time을 거슬러 backward로 작동합니다.
-
-그리고 $$z_{0}$$ 가 주어지면 **어떤 time point**든 ODE initial value problem을 풀어 latent state를 구할 수 있습니다.
-
-`Latent ODEs`를 구성하는 수식은 아래와 같습니다.
-
-$$z_{0}{\sim}p(z_{0})$$
-
-$$z_{0},...,z_{N}=ODESolve(f_{\theta},z_{0},(t_{0},...,t_{N}))$$
-
-$$x_{i}{\sim}p(x_{i}|z_{i})$$
-
-$$q(z_{0}|{x_{i},t_{i}})=N({\mu}_{z_{0}},{\sigma}_{z_{0}}) where {\mu}_{z_{0}},{\sigma}_{z_{0}}=g(ODERNN_{\phi}({x_{i},t_{i}}))$$
-
-간단히 설명해보면, 위에서 정의한 `ODE-RNN`을 사용해 $$z_{0}$$ 의 conditional distribution의 평균과 표준편차를 구합니다. 이 때 conditional distribution은 구하기 쉬운 정규분포로 가정합니다. 그리고 그 분포에서 $$z_{0}$$ 를 sampling 한 다음, ODE를 풀어 모든 time step에서의 $$z_{i}$$ 를 구하고, 그로부터 $$\hat{x}_{i}$$를 생성할 수 있게 됩니다.
-
-이 논문에서는 `VAE`의 encoder에 `ODE-RNN`을 쓰고 decoder에 `ODE`를 썼지만, encoder와 decoder에 다양한 모델을 적용시킬 수 있습니다.
-
-저자들이 모델의 성능 비교를 위해 사용한 baseline의 구조들은 다음과 같습니다.
-
-![Different encoder-decoder architectures](https://user-images.githubusercontent.com/99710438/164017499-a8fcab15-b16c-40bd-a0be-cf6d272cd574.png)
-
-지금까지 `ODE-RNN`과 그것을 encoder로 사용한 `Latent ODEs`를 알아보았습니다. 지금부터는 두 모델의 성능을 확인해보겠습니다.
-
-_`VAE`의 encoder로 `ODE-RNN`을 사용하고, decoder로 `ODE`를 사용해 **모든 time에 대해 latent state**를 구할 수 있다!_
-
-> #### **Latent ODE vs. ODE-RNN**
-
-저자들은 autoregressive modle은 dynamics가 hidden state update에 따라 implicit하게 encode 된다고 하면서 이 점이 모델에 대한 해석을 어렵게 한다고 합니다.
-
-반면에, Latent variable 모델은 state를 $$z_{t}$$ 를 통해 explicit하게 represent하고, dynamics를 generative model로 explicit하게 represent한다고 했습니다.
-
-후에 experiment 파트에서도 Latent variable 모델이 autoregressive model보다 조금 더 좋은 성능을 내는 것을 확인할 수 있습니다.
 
 ## **4. Experiment**
 
