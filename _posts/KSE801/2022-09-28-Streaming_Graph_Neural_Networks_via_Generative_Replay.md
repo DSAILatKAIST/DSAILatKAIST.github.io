@@ -71,7 +71,15 @@ $$h_{i}^{(0)}$$은 node $$v_{i}$$의 input feature를 나타내고, $$\mathcal{A
 
 본 논문에서는 다양한 `GNN`중 `GraphSAGE`라는 모델을 사용하는데, 이 `GraphSage`의 $$k$$번째 layer는 다음과 같이 정의됩니다:
 
-$$h_{v}^{k} = \sigma(W^k) \cdot MEAN({h_v^(k-1)} \cup {h_u^(k-1), \forall u \in \mathcal{N}(v)})$$
+$$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^{k-1}, \forall u \in \mathcal{N}(v)\rbrace)$$
+
+> **Streaming Grpahs**
+
+Continual learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
+
+$$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, \mathcal{G}^T,)$$, where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\delta \mathcal{G}^t$$
+
+여기서 $$\mathcal{G} = (A^t, X^t)$$ 는 attributed graph at time $$t$$이고, $$\delta \mathcal{G} = (\delta A^t , \delta X^t)$$는 time $$t$$에서의 node attribute와 network의 structure의 변화량을 나타냅니다.
 
 
 **1. RNN**
