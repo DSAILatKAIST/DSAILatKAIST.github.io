@@ -73,13 +73,32 @@ $$h_{i}^{(0)}$$은 node $$v_{i}$$의 input feature를 나타내고, $$\mathcal{A
 
 $$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^{k-1}, \forall u \in \mathcal{N}(v)\rbrace)$$
 
-> **Streaming Grpahs**
+> **Problem Definition**
 
 Continual learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 
-$$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, \mathcal{G}^T,)$$, where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\delta \mathcal{G}^t$$
+$$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$ 
 
-여기서 $$\mathcal{G} = (A^t, X^t)$$ 는 attributed graph at time $$t$$이고, $$\delta \mathcal{G} = (\delta A^t , \delta X^t)$$는 time $$t$$에서의 node attribute와 network의 structure의 변화량을 나타냅니다.
+where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
+
+여기서 $$\mathcal{G} = (A^t, X^t)$$ 는 attributed graph at time $$t$$이고, $$\Delta \mathcal{G} = (\Delta A^t , \Delta X^t)$$는 time $$t$$에서의 node attribute와 network의 structure의 변화량을 나타냅니다.
+
+이 때 Streaming GNN은 traditional GNN을 streaming setting으로 확장한 것이 됩니다. Streaming graph가 있을 때, continual learning의 목적은 $$(\theta^1, \theta^2, ..., \theta^T)$$ 를 배우는 것입니다. 이 때 $$\theta^t$$ 는 time $$t$$ 에서의 GNN parameter를 의미합니다. 
+
+
+> **Model Framework**
+
+![image](https://user-images.githubusercontent.com/99710438/194887946-3f736cc4-1c2c-47ca-97aa-4516da0ae42e.png)
+
+
+> **Generative Model for Node Neighborhood**
+
+
+> **Incremental Learning on Graphs**
+
+
+![image](https://user-images.githubusercontent.com/99710438/194888070-5da986d2-1702-4cd5-b77e-cfa3d76a0467.png)
+
 
 
 **1. RNN**
