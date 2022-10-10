@@ -110,17 +110,17 @@ For further improvments, prior knowledge controversies and diversity should be t
 
 ### **Personal Opinion from Reviewer**
 
-The authors described their goal, method and results well in the paper. However, there are some limitations to this work, which restrict the usage and validity of the findings. First, the findings are based on the personal impression of the users. Of course, this is due to the aim of an user-cenetered investigtion. On the other hand, it reflects just a single experience of the user. Their statements could be biased, since they knew they are in astudy. Instead, real observations, e.g. from platform users like Spotify, could be used to conduct a data-driven evaluation. 
+The authors described their goal, method and results well in the paper. However, there are some limitations to this work, which restrict the usage and validity of the findings. First, the findings are based on the personal impression of the users. Of course, this is due to the aim of an user-centered investigation. On the other hand, it reflects just a single experience of the user. Their statements could be biased, since they knew they are in a study. Instead, real observations, e.g. from platform users like Spotify, could be used to conduct a data-driven evaluation. 
 
-Even more concerning is the fact that the number of participants was only 16 in total, which is a rather small sample. On top of that, for several participants there are no answers to some questions. This limits the power of the results drsatically. With a larger sample and clear quantifiable ratings as answers one could test statistical hypothesis.
+Even more concerning is the fact that the number of participants was only 16 in total, which is a rather small sample. On top of that, for several participants there are no answers to some questions. This limits the power of the results drastically. With a larger sample and clear quantifiable ratings as answers one could test statistical hypothesis.
 
-The authors only investigated tours and compared two algoritms for tours. In the same study, the users should also have been presented playlists without segues and asked to compare the tours to playlists. Thsi would make the study comparable to previous work.
+The authors only investigated tours and compared two algoritms for tours. In the same study, the users should also have been presented playlists without segues and asked to compare the tours to playlists. This would make the study comparable to previous work.
 
-As mentioned in the paper, similarity between songs is an important feture of tours. Yet, it is unclear how to measure this similarity. It remains subject to further research to find a suited metric.
+As mentioned in the paper, similarity between songs is an important feature of tours. Yet, it is unclear how to measure this similarity. It remains subject to further research to find a suited metric.
 
 When aiming for most interesting tours and segues, one should probably try to use the largest knowledge graph possible in order to find the most unique connections. That is, knowledge graphs from Google etc. could contain valuable information to improve the user experience. 
 
-Similar to this, since it was found thaht tours are more suited for active listening, one could show the actual used graph to the user. By this, the user would have the option to explore all connections on her or his own and to discover new music as well. 
+Similar to this, since it was found that tours are more suited for active listening, one could show the actual used graph to the user. By this, the user would have the option to explore all connections on her or his own and to discover new music as well. 
 
 ---  
 ## **Author Information**  
