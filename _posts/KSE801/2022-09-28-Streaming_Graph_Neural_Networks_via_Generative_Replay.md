@@ -112,7 +112,10 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 Main model의 loss function은 다음과 같습니다.
 
-$$\mathcal{L_{GNN}} (\theta^t) = r\mathbf{E_ {\upsilon \sim \mathcal{G_A^t}} \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r)\mathbf{E}_{\upsilon ' \sim \mathcal{G_{\phi^{t-1}}}} \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
+$$\mathcal{L_{GNN}} (\theta^t) = rE \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r)E \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
+
+여기서 $$v$$는 changed node, $$v'$$는 replayed node입니다. 즉, 이 모델은 새로 들어온 node와 이전에 학습했던 node(replayed)를 동시에 학습합니다.
+
 
 > **Generative Model for Node Neighborhood**
 
