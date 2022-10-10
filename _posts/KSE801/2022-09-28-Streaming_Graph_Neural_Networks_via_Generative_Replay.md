@@ -69,6 +69,10 @@ $$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l
 
 $$h_{i}^{(0)}$$은 node $$v_{i}$$의 input feature를 나타내고, $$\mathcal{A}$$는 neighbors의 aggregation strategy이며, `GNN`의 핵심 중 하나입니다.
 
+본 논문에서는 다양한 `GNN`중 `GraphSAGE`라는 모델을 사용하는데, 이 `GraphSage`의 $$k$$번째 layer는 다음과 같이 정의됩니다:
+
+$$h_{v}^{k} = \sigma(W^k) \cdot MEAN({h_v^(k-1)} \cup {h_u^(k-1), \forall u \in \mathcal{N}(v)})$$
+
 
 **1. RNN**
 
