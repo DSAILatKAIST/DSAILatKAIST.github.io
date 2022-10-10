@@ -112,7 +112,7 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 Main model의 loss function은 다음과 같습니다.
 
-$$\mathcal{L}_{GNN} (\theta^t) = r$$
+$$\mathcal{L_{GNN}} (\theta^t) = r\mathbf{E_ {\upsilon \sim \mathcal{G_A^t}} \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r)\mathbf{E}_{\upsilon ' \sim \mathcal{G_{\phi^{t-1}}}} \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
 
 > **Generative Model for Node Neighborhood**
 
