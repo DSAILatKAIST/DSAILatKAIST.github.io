@@ -81,8 +81,12 @@ Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고
 Few-shot learning에서는 train task와 test task 모두 support set과 query set으로 이루어져있다. 다시 말해, Train/Test 상관 없이 support set으로 query set의 label을 맞추는 task를 하는 것인데 주목해야할 점은 train task에 들어가는 데이터의 class와 test task에 들어가는 데이터 class가 겹치지 않는다는 점이다. 즉, test 때는 unseen class, unseen nodes들로 구성된 task를 풀어낸다. 결론적으로 하고자하는 것은 test 때의 상황을 train 때도 모방해서 학습하자는 것이다(episodic training).  
 $\prod$개로 구성된 N-way K-shot meta-training tasks들은 다음과 같이 표현할 수 있다. 
 
-![image](https://user-images.githubusercontent.com/37684658/195109664-c7e8a87c-d22c-4918-a544-47b33a1bcbd3.png)
+<div align="center">
+ 
+![image](https://user-images.githubusercontent.com/37684658/195113947-1c2618dd-3c03-4b58-88e7-e3ab55942a38.png)
 
+ </div>
+ 
 ## **3. Method**  
 
 ## **4. Experiment**  
