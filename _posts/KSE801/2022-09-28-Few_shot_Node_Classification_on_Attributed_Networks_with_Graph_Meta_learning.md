@@ -72,11 +72,33 @@ Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고
 하지만 이런 방법으로 만들어진 task들은 서로 큰 차이가 있을 수 있다. 예를 들어, social networks에서 user node의 종류가 유명인들으로 구성된 task와 일반인들로 구성된 task는 구조적인 패턴이 다르게 나타날 것이기 때문에 이런 차이를 인지하고 adaptive하게 다루어야 할 것이다. 본 논문은 task마다 learnable parameter를 adaptive하게 scaling하는 방법으로 이 문제를 다루고자 한다.  
 
 
-## **3. Method**  
-![image](https://user-images.githubusercontent.com/37684658/195105466-015e14b8-3a97-4fea-af2b-ea93c69fe6cc.png)
+### 1-3 Annotation    
+<div align="center">
+ 
+![image](https://user-images.githubusercontent.com/37684658/195105466-015e14b8-3a97-4fea-af2b-ea93c69fe6cc.png)  
+ 
+</div>  
+Few-shot learning에서는 train task와 test task 모두 support set과 query set으로 이루어져있다. 다시 말해, Train/Test 상관 없이 support set으로 query set의 label을 맞추는 task를 하는 것인데 주목해야할 점은 train task에 들어가는 데이터의 class와 test task에 들어가는 데이터 class가 겹치지 않는다는 점이다. 즉, test 때는 unseen class, unseen nodes들로 구성된 task를 풀어낸다. 결론적으로 하고자하는 것은 test 때의 상황을 train 때도 모방해서 학습하자는 것이다(episodic training).  
+$\prod$개로 구성된 N-way K-shot meta-training tasks들은 다음과 같이 표현할 수 있다. 
+
+![image](https://user-images.githubusercontent.com/37684658/195109664-c7e8a87c-d22c-4918-a544-47b33a1bcbd3.png)
 
 ## **3. Method**  
 
 ## **4. Experiment**  
 
 ## **5. Conclusion**  
+
+
+## KaTeX
+
+You can render LaTeX mathematical expressions using [KaTeX](https://khan.github.io/KaTeX/):
+
+The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
+
+$$
+\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
+$$
+
+> You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
+http://detexify.kirelabs.org/classify.html
