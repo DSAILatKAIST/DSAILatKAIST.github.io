@@ -92,13 +92,16 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
 ![image](https://user-images.githubusercontent.com/99710438/194887946-3f736cc4-1c2c-47ca-97aa-4516da0ae42e.png)
 
-한 눈에 보자면, 새로운 task가 오면 `GAN`으로 sequence를 생성(이게 `replay buffer`가 되는 것이죠)해서 이번 task의 그래프와 같이 `GNN`을 학습합니다. 이러면 이 `GNN`은 현재 그래프를 학습함과 동시에 이전의 정보까지 기억하게 될 것입니다. 또한 이번 task에서 새롭게 생성된 node들과 그것들로부터 영향받은 node들을 다시 `GAN`의 input으로 주어 학습시킵니다. 이러면 다음 task에서는 `GAN`은 더 양질의 `reaply buffer`를 만들어 낼 수 있을 것입니다. 
+**모델을 요약하자면, 아래와 같습니다.**
 
-이 그림을 잘 참고하면서 아래 설명을 따라오시기 바랍니다.
+* 새로운 task가 오면 `GAN`으로 sequence를 생성(이게 `replay buffer`가 되는 것이죠)해서 이번 task의 그래프와 **같이** `GNN`을 학습합니다. 
+* 이러면 이 `GNN`은 **현재 그래프를 학습함과 동시에 이전의 정보까지 기억**하게 될 것입니다. 
+* 또한 이번 task에서 새롭게 생성된 node들과 그것들로부터 영향받은 node들을 다시 `GAN`의 input으로 주어 학습시킵니다. 
+* 이러면 다음 task에서는 `GAN`은 더 양질의 `reaply buffer`를 만들어 낼 수 있을 것입니다. 
 
-지금부터 `SGNN-GR`의 자세한 내용을 살펴보겠습니다. 
+지금부터 `SGNN-GR`의 자세한 내용을 살펴보겠습니다. 위 그림을 잘 참고하면서 아래 설명을 따라오시기 바랍니다.
 
-Streaming GNN의 time $$t$$에서의 loss는 다음과 같습니다.
+가장 먼저, Streaming GNN의 time $$t$$에서의 loss는 다음과 같습니다.
 
 $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t) + \lambda \mathcal{R} (\theta^{t-1} ; \mathcal{G}_S^t)$$
 
@@ -163,12 +166,17 @@ $$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_
 
 이런 affected node들은 이전 그래프가 가지고 있지 않은 새로운 패턴을 가지고 있으므로, generative model에 input으로 넣어 학습시킨 뒤에 다음 task부터 새로운 패턴을 반영해서 좋은 `replay buffer`를 만들도록 합니다.
 
-이 때, 이런 의문이 들 수 있습니다.
+추가로, 저자들은 간단한 filter를 추가해 generator가 생성한 node $$v_i$$가 affected node $$v_j$$와 **많이 비슷한 경우**, 패턴의 redundancy를 줄이기 위해 아래의 식처럼 필터링합니다.
 
-계속 새로운 그래프의 패턴이 생길텐데, 더 이상 존재하지 않는 패턴들을 generator가 생성하면 안 될 텐데?
+$$p_{reject} = max(p_{sim} (v_i, v_j) , j \subset \mathcal{V}_ C^t) \times p_r$$ 
 
-그에 따라 저자들은 모델에 간단한 filter를 추가합니다.
+여기서 $$p_r$$은 disappearacne rate로 사전에 정의하고, similarity는 다음과 같이 정의됩니다. 
 
+$$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}) - F_ {\theta^{t-1}}(v_j, \mathcal{G}^{t-1})  \rVert)$$ 
+
+이때 $$\sigma$$는 sigmoid function이고, 위 식도 직관적으로 두 node의 representation의 차이가 적으면 비슷하다고 보는 겁니다.
+
+이 filter를 통해 저자들은 중복되는 지식은 점차 잊혀지고 바뀌는 distribution이 안정적으로 학습될 것이라 했습니다.
 
 
 
@@ -181,114 +189,104 @@ $$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_
 
 ## **4. Experiment**
 
-> 본 논문에서 저자들은 다양한 baseline과 실험을 통해 `ODE-RNN`과 `Latent ODEs`를 비교했습니다.
+> 본 논문에서 저자들은 다양한 dataset을 통해 baseline들과 `SGNN-GR`을 비교했습니다.
 
 ### **Experiment setup**
 
 * Dataset
-  * Toy dataset (extrapolation)
-  * MuJoCo (extrapolation, interpolation)
-  * Physionet (time-series prediction)
-  * Human Activity (time-series prediction)
+  * Cora
+  * Citeseer
+  * Elliptic (bitcoin transaction)
+  * DBLP
 * baseline
-  * Autoregressive model
-    1. **ODE-RNN**
-    2. RNN
-    3. RNN-Decay
-    4. RNN-Impute (missing values imputed by weighted average of previous value)
-    5. GRU-D (GRU-Decay)
-  * Encoder-Decoder model
-    1. **Latent ODE**
-    2. RNN-VAE
-    3. ODE-RNN
-* Evaluation Metric
-  * Mean squared error
-  * AUC
-  * Accuracy
+  * SkipGram models
+    1. LINE
+    2. DNE
+  * GNNs (Retrained)
+    1. GraphSAGE
+    2. GCN
+  * GNNs (Incremental)
+    1. PretrainedGNN (첫 time step때만 학습되고 이후로는 학습하지 않음)
+    2. SingleGNN (각 time step마다 한 번씩 학습)
+    3. OnlineGNN (Continual learning setting, without knowledge consolidation)
+    4. GNN-EWC
+    5. GNN-ER
+    6. DiCGRL
+    7. TWP
+    8. ContinualGNN
+  * `SGNN-GR`
+
+여기서 Retrained GNN은 각 time step마다 Graph **전체**를 학습시킨 것으로, Continual learning model 성능의 upper bound라고 생각하면 됩니다. Incremental GNN이 continual learning model들이라고 생각하시면 됩니다.
+
 
 ### **Result**
 
-* Toy dataset
+* Overall Results
 
-저자들은 1000개의 periodic trajectories를로 toy dataset을 만들었습니다.
+위의 data를 사용한 실험의 결과는 아래와 같습니다. 저자들은 average Macro/Micro-F1를 성능 평가 지표로 사용했습니다.
 
-그리고 `RNN`을 encoder로 쓴 `Latent ODE`와 `ODE-RNN`을 encoder로 쓴 `Latent ODE`로 각 trajectory의 20%를 학습시킨 뒤, 다음을 trajectory를 예측하도록(extrapolation) 했습니다.
+![image](https://user-images.githubusercontent.com/99710438/195345047-bd69d686-e6d3-4ea6-ab81-4baff5f95e1e.png)
 
-![Approximate posterior smaples](https://user-images.githubusercontent.com/99710438/164261107-8f595251-839d-4fd2-90a6-c2c71af14e24.png)
+말씀드린대로, LINE, RetrainedGCN, RetrainedSAGE는 각 task에서 그래프 **전부**를 사용해서 Continual learning setting의 성능을 상회합니다. 하지만 저자들의 `SGNN-GR`의 성능 또한 Retrained model과 유사한 것으로 보아 generator가 꼭 필요한 sample들만 생성해줬음을 알 수 있습니다. 
 
-위 그림에서 확인할 수 있듯이, `ODE-RNN`을 encoder로 쓴 `Latent ODE`는 training data를 한참 넘는 구간을 periodic dynamics을 유지하면서 잘 extrapolate 합니다.
+* Analysis of Catastrophic Forgetting
 
-반면에, `RNN`을 encoder로 쓴 `Latent ODE`는 periodic dynamics를 잘 extrapolate 하지 못하는 것을 확인할 수 있습니다.
+앞서 `catastrophic forgetting`을 방지하는 것이 continual learning에서 가장 중요한 포인트 중 하나라고 말씀드렸는데, 저자들의 모델은 얼마나 이전의 정보를 잘 기억했는지 보겠습니다.
 
-* MuJoco Physics Simulation
+![image](https://user-images.githubusercontent.com/99710438/195346345-51daec92-bc57-4c36-a6d5-a4b883a6aeb2.png)
 
-이 데이터는 어떤 물체가 껑충 뛰는 physical simulation으로 이루어져 있습니다. 각 hopper의 initial position과 velocity를 sampling 하고, 이 trajectory들은 initial state에 대한 function으로 이루어져 있습니다. 저자들은 이 데이터에 대해 interpolation과 extrapolation을 각각 진행하고, MSE를 측정했습니다.
+왼쪽 (a) 그림은 Cora dataset에서 모델이 14 step을 가는동안 0번째 task를 얼마나 잘 기억하는지 보여주는 그래프이고, 오른쪽 (b) 그림은 6번째 task를 얼마나 잘 기억하는지 보여주느 그래프입니다.
 
-![MSE(\*0.01) on the MuJoCo dataset](https://user-images.githubusercontent.com/99710438/164263996-b1907e81-c7e9-4848-9c7c-8bae5343434b.png)
+OnlineGNN 이전 task의 정보를 거의 저장하지 못하는 것을 확인할 수 있고, 저자들의 방법론이 `GNN-ER`보다 더 이전 task의 지식을 잘 보존하는 것을 볼 수 있습니다.
 
-위 표는 각각 10, 20, 30, 50%의 observation을 주고 autoregressive 모델과 Encoder-Decoder(Latent model) 모델로 interpolation과 extapolation을 한 결과입니다.
 
-위 표에서 볼 수 있듯이, Interpolation에서는 Autoregressive 모델의 `ODE-RNN`이, Encoder-Decoder 모델의 `Latent ODE`(`ODE-RNN` encoder)가 성능이 가장 좋게 나왔습니다.
+* Anaylsis of Generative Model
 
-Extrapolation에는 Encoder-Decoder 모델은 같은 결과가 나왔으나 Autoregressive 모델에서는 `ODE-RNN` 모델의 성능이 좋지 않은 것을 확인할 수 있었습니다. 이는 autoregressive model은 one-step-ahead prediction을 위해 training 되었으므로 예견된 결과라고 합니다.
+그렇다면 과연 저자들이 `replay buffer`를 generative model로 생성한 것은 옳은 선택이었을까요?
 
-주목할 것은 `RNN`과 `ODE-RNN`의 성능 차이가 데이터가 sparse해 질수록(observation이 적어질수록) 커진다는 것입니다. 이를 통해 ODE 기반 모델이 sparse한 데이터에도 더 적합하다는 것을 확인할 수 있었습니다.
+![image](https://user-images.githubusercontent.com/99710438/195347882-15c5016a-3f55-4799-892a-4e73935493b6.png)
 
-저자들은 또한 latent state의 norm이 trajectory에 따라 어떻게 변화하는지도 확인했습니다.
+그림 (a) 는 실제 그래프의 label당 node 개수(파란색)와 generative model로 생성된 label당 node 개수(빨간색)을 보여줍니다. Generative model이 실제 그래프의 label 분포와 굉장히 유사하게 node를 생성하고 있음을 보여줍니다.
 
-![Trajectory from MuJoCo dataset & Norm of the dynamic functions](https://user-images.githubusercontent.com/99710438/164266880-12d49223-d6fb-4e44-9187-580a754236ba.png)
+또한 오른쪽 그림 (b) 는 generated 된 데이터를 보여주는데, 다양한 topological 정보를 담고 있음을 볼 수 있습니다.
 
-위 그림에서 확인할 수 있듯이, `Latent ODE`는 data의 trajectory를 잘 따라가는 것을 확인할 수 있었습니다.
 
-또한, `Latent ODE`의 norm은 trajectory가 급변할 때(hopper가 땅을 박차고 올라올 때) norm이 변하는 반면, `RNN`의 norm은 특별한 규칙 없이 변하는 것을 확인할 수 있었습니다.
+* Ablation Study
 
-이는 `Latent ODE`가 `RNN`보다 hidden state에 더 유의미한 정보를 담고있는 것을 의미합니다.
+![image](https://user-images.githubusercontent.com/99710438/195348924-c5e2fe7f-5238-4acb-a127-ba4bd18bdfbc.png)
 
-* Physionet
+마지막으로, 저자들은 `SGNN-GR`의 두 part들이 얼마나 성능 향상에 도움을 주는지 ablation study를 통해 Cora, Citeseer에서 확인했습니다. 
 
-이 데이터는 8000개의 time-series 포인트로 구성되어 있고, irregular time step과 sparse한 것이 특징입니다. 여기서 저자들은 observation time에 Poisson Process likelihood를 포함시켜 Latent ODE 모델과 같이 학습시켰을 때의 성능도 확인해 봤습니다.
+여기서 Non-Affected는 새롭게 추가된 node들만 고려하고, 그로 인한 affected node들은 고려하지 않은 모델입니다. 또한 Non-Generator는 모든 affected node를 찾아 다시 학습시키지만, generator는 쓰지 않은 모델입니다.
 
-![MSE on PhysioNet, Autoregressive models](https://user-images.githubusercontent.com/99710438/164268642-c8f5bfd2-e176-41c9-a077-dfd5f93aaff0.png)
-
-![MSE on PhysioNet, Encoder-Decoder models](https://user-images.githubusercontent.com/99710438/164268796-d70189f3-e74d-4224-b3be-2bb398bc736f.png)
-
-위 테이블에서 확인할 수 있듯이, Autoregressive 모델과 Encoder-Decoder 모델에서 역시 저자들의 모델이 다른 baseline보다 좋은 성능을 내고 있습니다.
-
-* Human Activity dataset
-
-이 데이터에는 다섯가지 activity(걷기, 앉기, 눕기 등)에 대한 time series data가 포함되어 있습니다.
-
-![Per-time-point classification, accuracy on Human Activity](https://user-images.githubusercontent.com/99710438/164271166-69bc6eb2-3159-46f3-aff4-1c48df1c9755.png)
-
-이 데이터에서도 저자들의 모델의 성능이 다른 모델의 성능보다 좋은 것을 확인할 수 있었습니다.
+당연하게 `SGNN-GR`이 가장 좋은 성능을 보이는 것을 확인할 수 있습니다.
 
 ## **5. Conclusion**
 
 > **Summary**
 
-이 논문에서는 hidden state dynamics를 `Neural ODE`로 구성한 `ODE-RNN`을 소개했습니다.
+이 논문에서는 
 
-또한 이 모델을 `VAE`의 encoder로 사용한 `Latent ODE`도 제안했습니다.
 
-이를 통해 지금까지 **discrete한 hidden layer**를 가졌던 모형들이 아닌, **continuous한 hidden layer**를 가진 모형으로서 기존 방법론들의 단점(irregular time step, sparse data에서 성능이 저하되는 현상)을 극복할 수 있었습니다.
 
-`Latent ODE`는 비교적 hidden state에 대한 설명력을 가지며 **observation time에 구애받지도, 전처리 과정에 data를 impute 할 필요도 없습니다**.
 
-이에 수많은 irregularly-sampled time series data에 적용 가능할 것으로 보입니다.
+> **개인적인 생각**
 
-> **내 생각...**
+> 올게 왔구나
 
-본 논문은 2018년 NeurIPS에서 best paper를 받은 `Neural ODE`를 `RNN`과 `VAE`에 적용시킨 후속 연구입니다.
+본 논문은 Graph Neural Network에서의 Continual learning에 Generative model을 접목시킨 방법입니다. 사실 이 논문이 나오는 것은 시간문제라고 생각하던 찰나에 역시나 등장했습니다.
 
-Neural ODE라는 새로운 방식을 여러 방면에 접목시킨 논문들이 우후죽순 생겨나고 있습니다.
+이미 Continaul learning에 Generative model을 접목시킨 연구는 꽤 오래전에(AI 연구의 속도가 매우 빠른 것을 감안하면) 등장했지만, GNN에 접목된 것은 없었기 때문이죠.
 
-처음 시도되는 방법론이다 보니 특별한 theoretical contribution이 없어도 접목만 잘 시키면 논문이 publish 되기가 용이한 것 같습니다.
+관련 연구를 하시는 분들은 아시겠지만, 이 논문이 novelty가 엄청 높다거나, 기존의 상식을 깨는 새로운 발견을 한 논문은 아닙니다. (**분명히 좋은** 논문입니다, 오해금지)
 
-우리도 지금 어떤 연구가 trend인지 잘 follow up하는 자세가 필요할 것입니다.
+하지만 가장 큰 contribution은 특정 분야에서 처음 시도된 연구, 적절한 시기에 등장한 연구인 것 같습니다. Novelty만을 좇는게 아니라, trend에 맞는 연구를 하는 능력도 필요해 보입니다. 
 
-또한 연구도 융합의 시대인 것 같습니다. 분야를 가리지 않고 여러 방법론을 창의적으로 녹여내는 것이 새로운 연구의 창을 열 수 있을 것입니다.
+우리도 최신 논문을 잘 follow up 하는 '트렌디한' 연구자가 되도록 합시다.
+
 
 ***
+
 
 ## **Author Information**
 
@@ -297,7 +295,7 @@ Neural ODE라는 새로운 방식을 여러 방면에 접목시킨 논문들이 
   * Research Topic: Graph Nerual Network, Continual Learning
   * Contact: wjkim@kaist.ac.kr
 
-## **6. Reference & Additional materials**
+## **Reference & Additional materials**
 
 * Github Implementation
   * None
