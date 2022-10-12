@@ -8,47 +8,47 @@ description: >-
 
 ## **1. Problem Definition**
 
-> **Continual learning에서 사용할 replay buffer를 Generative model을 활용시켜 생성한다!**
+> **Continual Learning에서 사용할 Replay Buffer를 Generative Model을 활용시켜 생성한다!**
 
-본 논문은 Continual learning을 `Graph Neural Network(GNN)`과 접목시킴과 동시에 이에 사용할 replay buffer를 Generative model을 사용해 생성합니다.
+본 논문은 Continual Learning을 Graph Neural Network(`GNN`)과 접목시킴과 동시에 이에 사용할 `Replay buffer`를 Generative Model을 사용해 생성합니다.
 
-이미 Continual learning에 Generative model을 사용한 연구는 예전에도 있었으나 [(여기)](https://proceedings.neurips.cc/paper/2017/hash/0efbe98067c6c73dba1250d2beaa81f9-Abstract.html), 이는 이미지 데이터를 주로 targeting한 반면에 지금 다루는 논문은 Graph domain의 데이터에 적용, 그에 맞는 특성(structure of graph)를 고려했다는 점에서 novelty가 있습니다.
+이미 Continual Learning에 Generative Model을 사용한 연구는 예전에도 있었으나 [(여기)](https://proceedings.neurips.cc/paper/2017/hash/0efbe98067c6c73dba1250d2beaa81f9-Abstract.html), 이는 이미지 데이터를 주로 targeting한 반면에 지금 다루는 논문은 Graph domain의 데이터에 적용, 그에 맞는 특성(structure of graph)를 고려했다는 점에서 novelty가 있습니다.
 
-> **Continual learning이란?**
+> **Continual Learning이란?**
 
-Continaul learning은 Lifelong learning, Incremental learning이라고도 불리며, 과거의 정보를 최대한 유지하며 새로운 정보를 학습하는 방법론입니다.
+Continaul Learning은 Lifelong Learning, Incremental Learning이라고도 불리며, 과거의 정보를 최대한 유지하며 새로운 정보를 학습하는 방법론입니다.
 
-예를 들어, 인간이 '강아지' 라는 지식을 알고 있는 상태로, '고양이'라는 지식을 새로 습득했을 때, '강아지'를 잊지 않고 '강아지'와 '고양이'를 구별해 낼 수 있는 것 처럼, 지속적으로 들어오는 새로운 데이터를 학습함과 동시에 이전에 학습되었던 데이터를 잊지 않도록 인공지능을 설계하는 것이 Continual learning의 목적입니다.
+예를 들어, 인간이 '강아지' 라는 지식을 알고 있는 상태로, '고양이'라는 지식을 새로 습득했을 때, '강아지'를 잊지 않고 '강아지'와 '고양이'를 구별해 낼 수 있는 것 처럼, 지속적으로 들어오는 새로운 데이터를 학습함과 동시에 이전에 학습되었던 데이터를 잊지 않도록 인공지능을 설계하는 것이 Continual Learning의 목적입니다.
 
 > **Catastrophic Forgetting이란?**
 > 
-Continual learning에서, 새로운 데이터가 들어옴에 따라 이전에 학습했던 데이터의 정보를 망각하는 현상을 `Catastrophic Forgetting`이라고 합니다. 아래 그림을 보시겠습니다. 
+Continual Learning에서, 새로운 데이터가 들어옴에 따라 이전에 학습했던 데이터의 정보를 망각하는 현상을 `Catastrophic Forgetting`이라고 합니다. 아래 그림을 보시겠습니다. 
 
 ![image](https://user-images.githubusercontent.com/99710438/194873406-84f4a722-c562-4c39-adec-5ecc498a498f.png)
 
-그림에서 볼 수 있듯이, Task 1에서는 파란색 node들을 구별하도록 학습합니다. Task 2에서는 새로운 보라색 node가 추가되면서 파란색과 보라색을 포함해 학습시키고, Task 3에서는 빨간색의 새로운 node가 추가되면서 새롭게 학습이 진행됩니다. 이 과정이 Continual learning 입니다.
+그림에서 볼 수 있듯이, Task 1에서는 파란색 node들을 구별하도록 학습합니다. Task 2에서는 새로운 보라색 node가 추가되면서 파란색과 보라색을 포함해 학습시키고, Task 3에서는 빨간색의 새로운 node가 추가되면서 새롭게 학습이 진행됩니다. 이 과정이 Continual Learning 입니다.
 
 그리고 Task가 진행됨에 따라 이전 Task에서 학습했던 node들에 대한 예측 성능이 떨어지는 것을 볼 수 있습니다. 
 
 예를 들어, Task 1에서 파란 node들을 분류하는 데에는 95%의 성능을 보였으나, Task 2에서는 55%로 줄었고, Task 2에서 학습했던 보라색 node들도 Task 3에서의 성능은 현저히 줄어든 것을 볼 수 있습니다. 이러한 현상이 앞서 말씀드린 `Catastrophic Forgetting`입니다. 
 
-Continual learning 중 Replay approach는 이전 Task에서 학습했던 데이터 중 **일부**만을 sampling하여 이후 Task에 사용합니다. 전체 데이터를 계속해서 누적하여 학습하면 효율이 좋지 않기 때문이죠. 이렇게 sampling되어 이후 Task에서 같이 학습될 data를 `Replay buffer`라고 부릅니다. 이 과정에서 `Catastrophic Forgetting`현상이 일어나게 되는데, 이 현상을 최소화 하도록 이전 Task에서 학습했던 데이터를 잘 대표하는 데이터를 sampling하는 것이 관건입니다.
+Continual Learning 중 Replay approach는 이전 Task에서 학습했던 데이터 중 **일부**만을 sampling하여 이후 Task에 사용합니다. 전체 데이터를 계속해서 누적하여 학습하면 효율이 좋지 않기 때문이죠. 이렇게 sampling되어 이후 Task에서 같이 학습될 data를 `Replay buffer`라고 부릅니다. 이 과정에서 `Catastrophic Forgetting`현상이 일어나게 되는데, 이 현상을 최소화 하도록 이전 Task에서 학습했던 데이터를 잘 대표하는 데이터를 sampling하는 것이 관건입니다.
 
 ## **2. Motivation**
 
-> **기존 Replay based Continual learning 방법들은 storage limitation을 가진다!**
+> **기존 Replay based Continual Learning 방법들은 storage limitation을 가진다!**
 
-앞서 언급한대로, Replay based Continual learning은 이전에 학습했던 데이터 중 전체 데이터를 잘 represent하는 **일부**의 데이터를 sampling해서 이후 Task에서 등장하는 데이터와 같이 학습시킵니다. 
+앞서 언급한대로, Replay based Continual Learning은 이전에 학습했던 데이터 중 전체 데이터를 잘 represent하는 **일부**의 데이터를 sampling해서 이후 Task에서 등장하는 데이터와 같이 학습시킵니다. 
 
 하지만 이럴 경우 Task가 계속해서 진행됨에 따라, 각 Task에서 아무리 적은 데이터를 sampling한다 해도 기억해야하는 데이터가 지속적으로 늘어나고, 결국에는 memory를 다 사용해버리는 일이 생길 것입니다. 
 
-저자들은 이런 한계를 지적하며 Generative model을 도입해 `Replay buffer`에 데이터를 누적시키는 것이 아니라, Task가 시작될 때 마다 필요한 만큼 Generative model로 `Replay buffer`를 생성해 학습을 진행하고자 합니다. 
+저자들은 이런 한계를 지적하며 Generative Model을 도입해 `Replay buffer`에 데이터를 누적시키는 것이 아니라, Task가 시작될 때 마다 필요한 만큼 Generative Model로 `Replay buffer`를 생성해 학습을 진행하고자 합니다. 
 
-> **기존 Replay based Continual learning 방법들은 온전한 graph distribution을 보존하지 못한다!**
+> **기존 Replay based Continual Learning 방법들은 온전한 graph distribution을 보존하지 못한다!**
 
 Image 도메인과 달리, Grpah 도메인의 데이터를 다룰 때는 각 데이터의 성질(feature)뿐 만 아니라 그래프의 전체적인 structure도 고려해야 합니다. 어떤 node가 어떤 node와 연결되어 있으며, 연결된 node들은 어떤 특성을 가지고 있는지까지 종합적으로 고려되어야 한다는 것이죠. 
 
-저자들은 Continual learning 중에서 `Replay buffer`를 생성할 때 각 node들의 feature만 고려될 뿐, 전체적인 그래프의 distribution(structure)이 보존되지 못한다고 주장합니다. 이는 Grapn Neural Network가 학습될 때 성능 저하를 야기하는 가장 큰 문제 중 하나로, 이 논문에서는 Generative model을 통해 이러한 topological information까지 저장하도록 하는 것을 목표로 합니다.
+저자들은 Continual Learning 중에서 `Replay buffer`를 생성할 때 각 node들의 feature만 고려될 뿐, 전체적인 그래프의 distribution(structure)이 보존되지 못한다고 주장합니다. 이는 `Grapn Neural Network`가 학습될 때 성능 저하를 야기하는 가장 큰 문제 중 하나로, 이 논문에서는 Generative Model을 통해 이러한 topological information까지 저장하도록 하는 것을 목표로 합니다.
 
 
 ## **3. Method**
@@ -75,7 +75,7 @@ $$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^
 
 > **Problem Definition**
 
-Continual learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
+Continual Learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 
 $$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$ 
 
@@ -83,7 +83,7 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
 여기서 $$\mathcal{G} = (A^t, X^t)$$ 는 attributed graph at time $$t$$이고, $$\Delta \mathcal{G} = (\Delta A^t , \Delta X^t)$$는 time $$t$$에서의 node attribute와 network의 structure의 변화량을 나타냅니다.
 
-이 때 Streaming GNN은 traditional GNN을 streaming setting으로 확장한 것이 됩니다. Streaming graph가 있을 때, continual learning의 목적은 $$(\theta^1, \theta^2, ..., \theta^T)$$ 를 배우는 것입니다. 이 때 $$\theta^t$$ 는 time $$t$$ 에서의 GNN parameter를 의미합니다. 
+이 때 Streaming `GNN`은 traditional `GNN`을 streaming setting으로 확장한 것이 됩니다. Streaming graph가 있을 때, Continual Learning의 목적은 $$(\theta^1, \theta^2, ..., \theta^T)$$ 를 배우는 것입니다. 이 때 $$\theta^t$$ 는 time $$t$$ 에서의 `GNN` parameter를 의미합니다. 
 
 
 > **Model Framework**
@@ -111,9 +111,9 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 이 때 $$\Delta \mathcal{G}^t \subset \mathcal{G}_A^t$$ 이고 $$\mathcal{G}_S^t \subset \mathcal{G}^{t-1}$$ 입니다. 몇몇 node들이 새롭게 바뀐 node들에 대해서 영향을 받는 것입니다.
 
-각 time step에서 모델은 main model(`GNN`)과 generative model로 구성됩니다. 위 그림에서 확인할 수 있듯이, generative model은 $$\mathcal{G}_ A^t$$에서 바뀐 node들과 $$\mathcal{G}^{t-1}$$에서의 replayed node를 training data로 받습니다. 이 때 replayed node는 이전 time step의 generative model로부터 나옵니다. 
+각 time step에서 모델은 main model(`GNN`)과 Generative Model로 구성됩니다. 위 그림에서 확인할 수 있듯이, Generative Model은 $$\mathcal{G}_ A^t$$에서 바뀐 node들과 $$\mathcal{G}^{t-1}$$에서의 replayed node를 training data로 받습니다. 이 때 replayed node는 이전 time step의 Generative Model로부터 나옵니다. 
 
-이 논문에서는 generative model로 `GAN`을 사용하였습니다. `GAN`에 대한 자세한 설명은 생략하며, 원 논문은 [여기](https://dl.acm.org/doi/abs/10.1145/3422622)를 참고하시기 바랍니다. 
+이 논문에서는 Generative Model로 `GAN`을 사용하였습니다. `GAN`에 대한 자세한 설명은 생략하며, 원 논문은 [여기](https://dl.acm.org/doi/abs/10.1145/3422622)를 참고하시기 바랍니다. 
 
 `GNN` 모델도 changed node와 replayed node를 똑같이 input으로 받습니다. 
 
@@ -126,9 +126,9 @@ $$\mathcal{L}_ {GNN} (\theta^t) = r \mathbf{E}_ {v \sim \mathcal{G}_ A^t } \[ l(
 
 > **Generative Model for Node Neighborhood**
 
-앞서 언급한대로, 일반적인 generative model(ex. `GAN`)은 주로 computer vision 분야에서 활발하게 연구되었으나, graph data는 structure에 dependent하기 때문에, edge의 생성은 independent한 event가 아니라 jointly structured 되어야 합니다. 
+앞서 언급한대로, 일반적인 Generative model(ex. `GAN`)은 주로 computer vision 분야에서 활발하게 연구되었으나, graph data는 structure에 dependent하기 때문에, edge의 생성은 independent한 event가 아니라 jointly structured 되어야 합니다. 
 
-`NetGan`이나 `GraphRNN`같은 graph generative model들이 있지만, 이는 전체 그래프를 생성하기 위함이지 node의 neighborhood를 생성하기 위함이 아니어서, 저자들은 `ego network`라는 node neighborhood 생성모델을 제시합니다. 이 `ego network`는 `GAN`의 프레임워크와 유사하지만, 그래프 상에서의 random walks with restart, 즉 `RWRs`를 학습하는 방향으로 사용합니다. 
+`NetGan`이나 `GraphRNN`같은 Graph Generative model들이 있지만, 이는 전체 그래프를 생성하기 위함이지 node의 neighborhood를 생성하기 위함이 아니어서, 저자들은 `ego network`라는 node neighborhood 생성모델을 제시합니다. 이 `ego network`는 `GAN`의 프레임워크와 유사하지만, 그래프 상에서의 random walks with restart, 즉 `RWRs`를 학습하는 방향으로 사용합니다. 
 
 `RWRs`는 일반적인 `Random Walk`모델에서 일정 확률로 starting node로 돌아가고, 그렇지 않으면 neighborhood node로 넘어갑니다. 이는 기존 `RWRs`가 `Random Walk`보다 훨씬 적은 step으로 explore가 가능하게 한다고 합니다. 
 
@@ -154,17 +154,21 @@ $$s_l = (v_l \oplus x_l) \cdot W_{down}$$
 
 > **Incremental Learning on Graphs**
 
-지금부터는 continual learning이 어떻게 이루어지는지 보겠습니다.
+지금부터는 Continual Learning이 어떻게 이루어지는지 보겠습니다.
 
 먼저 저자들은 affected nodes를 정의합니다. 
 
-그래프가 time step에 따라 변하면서, 새로운 node나 edge가 생성되면 주위 K(`GNN`의 layer 수)-hop 이내의 neighborhood만 change 됩니다. (`GNN`의 layer가 2개라면, 한 node가 변할 때 그 node와 edge 2개 이내로만 연결되어 있는 node들만 변한다는 의미입니다.) Changed node중에 **크게 변한 것들**이 있을 것이고, **유의미한 변화가 없는 것들**이 있을 것입니다. 이 **크게 변한 것들**이 전체적인 neighborhood의 패턴을 바꿀 가능성이 있는 node 들이라, 학습에 사용해야하는데, 크게 변했다는 것을 어떻게 확인할 수 있을까요? 저자들은 아래와 같은 influenced degree를 정의하고 그 influence degree가 threshold $$\delta$$ 보다 크다면 affected node라고 취급합니다.
+그래프가 time step에 따라 변하면서, 새로운 node나 edge가 생성되면 주위 K(`GNN`의 layer 수)-hop 이내의 neighborhood만 change 됩니다. (`GNN`의 layer가 2개라면, 한 node가 변할 때 그 node와 edge 2개 이내로만 연결되어 있는 node들만 변한다는 의미입니다.) 
+
+Changed node중에 **크게 변한 것들**이 있을 것이고, **유의미한 변화가 없는 것들**이 있을 것입니다. 이 **크게 변한 것들**이 전체적인 neighborhood의 패턴을 바꿀 가능성이 있는 node 들이라, 학습에 사용해야하는데, 크게 변했다는 것을 어떻게 확인할 수 있을까요? 
+
+저자들은 아래와 같은 influenced degree를 정의하고 그 influence degree가 threshold $$\delta$$ 보다 크다면 affected node라고 취급합니다.
 
 $$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_{\theta^{t-1}} (v, \mathcal{G}^{t-1}) \rVert > \delta \rbrace$$
 
 위 식을 해석해보면, 어떤 node $$v$$의 이전 그래프 $$\mathcal{G}^{t-1}$$에서의 representation와 현재 그래프 $$\mathcal{G}^t$$에서의 representation이 많이 차이난다면, 이 node는 이전 그래프에서 현재 그래프로 넘어오면서 영향을 받았다고 보는 겁니다. 꽤 직관적인 해석입니다.
 
-이런 affected node들은 이전 그래프가 가지고 있지 않은 새로운 패턴을 가지고 있으므로, generative model에 input으로 넣어 학습시킨 뒤에 다음 task부터 새로운 패턴을 반영해서 좋은 `replay buffer`를 만들도록 합니다.
+이런 affected node들은 이전 그래프가 가지고 있지 않은 새로운 패턴을 가지고 있으므로, Generative Model에 input으로 넣어 학습시킨 뒤에 다음 task부터 새로운 패턴을 반영해서 좋은 `replay buffer`를 만들도록 합니다.
 
 추가로, 저자들은 간단한 filter를 추가해 generator가 생성한 node $$v_i$$가 affected node $$v_j$$와 **많이 비슷한 경우**, 패턴의 redundancy를 줄이기 위해 아래의 식처럼 필터링합니다.
 
@@ -208,7 +212,7 @@ $$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}
   * GNNs (Incremental)
     1. PretrainedGNN (첫 time step때만 학습되고 이후로는 학습하지 않음)
     2. SingleGNN (각 time step마다 한 번씩 학습)
-    3. OnlineGNN (Continual learning setting, without knowledge consolidation)
+    3. OnlineGNN (Continual Learning setting, without knowledge consolidation)
     4. GNN-EWC
     5. GNN-ER
     6. DiCGRL
@@ -216,7 +220,7 @@ $$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}
     8. ContinualGNN
   * `SGNN-GR`
 
-여기서 Retrained GNN은 각 time step마다 Graph **전체**를 학습시킨 것으로, Continual learning model 성능의 upper bound라고 생각하면 됩니다. Incremental GNN이 continual learning model들이라고 생각하시면 됩니다.
+여기서 Retrained `GNN`은 각 time step마다 Graph **전체**를 학습시킨 것으로, Continual Learning model 성능의 upper bound라고 생각하면 됩니다. Incremental `GNN`이 Continual Learning model들이라고 생각하시면 됩니다.
 
 
 ### **Result**
@@ -227,26 +231,26 @@ $$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}
 
 ![image](https://user-images.githubusercontent.com/99710438/195345047-bd69d686-e6d3-4ea6-ab81-4baff5f95e1e.png)
 
-말씀드린대로, LINE, RetrainedGCN, RetrainedSAGE는 각 task에서 그래프 **전부**를 사용해서 Continual learning setting의 성능을 상회합니다. 하지만 저자들의 `SGNN-GR`의 성능 또한 Retrained model과 유사한 것으로 보아 generator가 꼭 필요한 sample들만 생성해줬음을 알 수 있습니다. 
+말씀드린대로, `LINE`, `RetrainedGCN`, `RetrainedSAGE`는 각 task에서 그래프 **전부**를 사용해서 Continual Learning setting의 성능을 상회합니다. 하지만 저자들의 `SGNN-GR`의 성능 또한 Retrained model과 유사한 것으로 보아 generator가 꼭 필요한 sample들만 생성해줬음을 알 수 있습니다. 
 
 * Analysis of Catastrophic Forgetting
 
-앞서 `catastrophic forgetting`을 방지하는 것이 continual learning에서 가장 중요한 포인트 중 하나라고 말씀드렸는데, 저자들의 모델은 얼마나 이전의 정보를 잘 기억했는지 보겠습니다.
+앞서 `catastrophic forgetting`을 방지하는 것이 Continual Learning에서 가장 중요한 포인트 중 하나라고 말씀드렸는데, 저자들의 모델은 얼마나 이전의 정보를 잘 기억했는지 보겠습니다.
 
 ![image](https://user-images.githubusercontent.com/99710438/195346345-51daec92-bc57-4c36-a6d5-a4b883a6aeb2.png)
 
 왼쪽 (a) 그림은 Cora dataset에서 모델이 14 step을 가는동안 0번째 task를 얼마나 잘 기억하는지 보여주는 그래프이고, 오른쪽 (b) 그림은 6번째 task를 얼마나 잘 기억하는지 보여주느 그래프입니다.
 
-OnlineGNN 이전 task의 정보를 거의 저장하지 못하는 것을 확인할 수 있고, 저자들의 방법론이 `GNN-ER`보다 더 이전 task의 지식을 잘 보존하는 것을 볼 수 있습니다.
+`OnlineGNN`은 이전 task의 정보를 거의 저장하지 못하는 것을 확인할 수 있고, 저자들의 방법론이 `GNN-ER`보다 더 이전 task의 지식을 잘 보존하는 것을 볼 수 있습니다.
 
 
 * Anaylsis of Generative Model
 
-그렇다면 과연 저자들이 `replay buffer`를 generative model로 생성한 것은 옳은 선택이었을까요?
+그렇다면 과연 저자들이 `replay buffer`를 Generative Model로 생성한 것은 옳은 선택이었을까요?
 
 ![image](https://user-images.githubusercontent.com/99710438/195347882-15c5016a-3f55-4799-892a-4e73935493b6.png)
 
-그림 (a) 는 실제 그래프의 label당 node 개수(파란색)와 generative model로 생성된 label당 node 개수(빨간색)을 보여줍니다. Generative model이 실제 그래프의 label 분포와 굉장히 유사하게 node를 생성하고 있음을 보여줍니다.
+그림 (a) 는 실제 그래프의 label당 node 개수(파란색)와 Generative Model로 생성된 label당 node 개수(빨간색)을 보여줍니다. Generative Model이 실제 그래프의 label 분포와 굉장히 유사하게 node를 생성하고 있음을 보여줍니다.
 
 또한 오른쪽 그림 (b) 는 generated 된 데이터를 보여주는데, 다양한 topological 정보를 담고 있음을 볼 수 있습니다.
 
@@ -265,24 +269,24 @@ OnlineGNN 이전 task의 정보를 거의 저장하지 못하는 것을 확인�
 
 > **Summary**
 
-이 논문에서는 지속적으로 들어오는 Graph 데이터를 학습하는 데, generative model을 사용해 이전에 학습했던 그래프와 비슷한 그래프를 계속 생성해 새로운 데이터와 함께 학습시킵니다.
+이 논문에서는 지속적으로 들어오는 Graph 데이터를 학습하는 데, Generative Model을 사용해 이전에 학습했던 그래프와 비슷한 그래프를 계속 생성해 새로운 데이터와 함께 학습시킵니다.
 
-기존 replay based continual learning은 task가 진행됨에 따라 `replay buffer`에 그래프의 일부를 저장하고, task가 많이 늘어나면 그에 따라 요구되는 메모리도 커지는데 비에, generative model로 그때그때 `replay buffer`를 생성해서 메모리 효율을 높였습니다.
+기존 replay based Continual Learning은 task가 진행됨에 따라 `replay buffer`에 그래프의 일부를 저장하고, task가 많이 늘어나면 그에 따라 요구되는 메모리도 커지는데 비에, Generative Model로 그때그때 `replay buffer`를 생성해서 메모리 효율을 높였습니다.
 
-단순히 메모리 효율을 높인 것에 그치지 않고, 새롭게 등장하는 패턴은 적극적으로 학습하면서 불필요해 보이는 패턴은 줄이도록 학습해서 단순한 continual learning을 보완했습니다.
+단순히 메모리 효율을 높인 것에 그치지 않고, 새롭게 등장하는 패턴은 적극적으로 학습하면서 불필요해 보이는 패턴은 줄이도록 학습해서 단순한 Continual Learning을 보완했습니다.
 
-그 사이사이에 Random walk가 아니라 Random walk with restart를 쓴 것과 같은 디테일, 본인들이 주장하는 모델의 장점을 잘 보여주는 알찬 실험들까지, 좋은 연구인 습니다.
+그 사이사이에 `Random Walk`가 아니라 `Random Walk with Restart`를 쓴 것과 같은 디테일, 본인들이 주장하는 모델의 장점을 잘 보여주는 알찬 실험들까지, 좋은 연구인 습니다.
 
-이 논문 뿐만 아니라 Continual leanring에서 generative model은 중대한 역할을 할 것으로 보이며 관련 연구들이 꼭 필요할 것으로 보입니다.
+이 논문 뿐만 아니라 Continual leanring에서 Generative Model은 중대한 역할을 할 것으로 보이며 관련 연구들이 꼭 필요할 것으로 보입니다.
 
 
 > **개인적인 생각**
 
 **올게 왔구나**
 
-본 논문은 Graph Neural Network에서의 Continual learning에 Generative model을 접목시킨 방법입니다. 사실 이 논문이 나오는 것은 시간문제라고 생각하던 찰나에 역시나 등장했습니다.
+본 논문은 Graph Neural Network에서의 Continual Learning에 Generative Model을 접목시킨 방법입니다. 사실 이 논문이 나오는 것은 시간문제라고 생각하던 찰나에 역시나 등장했습니다.
 
-이미 Continaul learning에 Generative model을 접목시킨 연구는 꽤 오래전에(AI 연구의 속도가 매우 빠른 것을 감안하면) 등장했지만, GNN에 접목된 것은 없었기 때문이죠.
+이미 Continual Learning에 Generative Model을 접목시킨 연구는 꽤 오래전에(AI 연구의 속도가 매우 빠른 것을 감안하면) 등장했지만, GNN에 접목된 것은 없었기 때문이죠.
 
 관련 연구를 하시는 분들은 아시겠지만, 이 논문이 novelty가 엄청 높다거나, 기존의 상식을 깨는 굉장한 발견을 한 논문이라기 보단.. (**분명히 좋은** 논문입니다, 오해금지)
 
