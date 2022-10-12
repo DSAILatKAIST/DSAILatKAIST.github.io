@@ -92,6 +92,10 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
 ![image](https://user-images.githubusercontent.com/99710438/194887946-3f736cc4-1c2c-47ca-97aa-4516da0ae42e.png)
 
+한 눈에 보자면, 새로운 task가 오면 `GAN`으로 sequence를 생성(이게 `replay buffer`가 되는 것이죠)해서 이번 task의 그래프와 같이 `GNN`을 학습합니다. 이러면 이 `GNN`은 현재 그래프를 학습함과 동시에 이전의 정보까지 기억하게 될 것입니다. 또한 이번 task에서 새롭게 생성된 node들과 그것들로부터 영향받은 node들을 다시 `GAN`의 input으로 주어 학습시킵니다. 이러면 다음 task에서는 `GAN`은 더 양질의 `reaply buffer`를 만들어 낼 수 있을 것입니다. 
+
+이 그림을 잘 참고하면서 아래 설명을 따라오시기 바랍니다.
+
 지금부터 `SGNN-GR`의 자세한 내용을 살펴보겠습니다. 
 
 Streaming GNN의 time $$t$$에서의 loss는 다음과 같습니다.
@@ -104,7 +108,7 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 이 때 $$\Delta \mathcal{G}^t \subset \mathcal{G}_A^t$$ 이고 $$\mathcal{G}_S^t \subset \mathcal{G}^{t-1}$$ 입니다. 몇몇 node들이 새롭게 바뀐 node들에 대해서 영향을 받는 것입니다.
 
-각 time step에서 모델은 main model(`GNN`)과 generative model로 구성됩니다. 위 그림에서 확인할 수 있듯이, generative model은 $$\mathcal{G}_A^t$$에서 바뀐 node들과 $$\mathcal{G}^{t-1}$$에서의 replayed node를 training data로 받습니다. 이 때 replayed node는 이전 time step의 generative model로부터 나옵니다. 
+각 time step에서 모델은 main model(`GNN`)과 generative model로 구성됩니다. 위 그림에서 확인할 수 있듯이, generative model은 $$\mathcal{G}_ A^t$$에서 바뀐 node들과 $$\mathcal{G}^{t-1}$$에서의 replayed node를 training data로 받습니다. 이 때 replayed node는 이전 time step의 generative model로부터 나옵니다. 
 
 이 논문에서는 generative model로 `GAN`을 사용하였습니다. `GAN`에 대한 자세한 설명은 생략하며, 원 논문은 [여기](https://dl.acm.org/doi/abs/10.1145/3422622)를 참고하시기 바랍니다. 
 
@@ -112,15 +116,59 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 Main model의 loss function은 다음과 같습니다.
 
-$$\mathcal{L_{GNN}} (\theta^t) = rE \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r)E \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
+$$\mathcal{L}_ {GNN} (\theta^t) = r \mathbf{E}_ {v \sim \mathcal{G}_ A^t } \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r) \mathbf{E}_ {v' \sim G_{\phi^{t-1}}} \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
 
 여기서 $$v$$는 changed node, $$v'$$는 replayed node입니다. 즉, 이 모델은 새로 들어온 node와 이전에 학습했던 node(replayed)를 동시에 학습합니다.
 
 
 > **Generative Model for Node Neighborhood**
 
+앞서 언급한대로, 일반적인 generative model(ex. `GAN`)은 주로 computer vision 분야에서 활발하게 연구되었으나, graph data는 structure에 dependent하기 때문에, edge의 생성은 independent한 event가 아니라 jointly structured 되어야 합니다. 
+
+`NetGan`이나 `GraphRNN`같은 graph generative model들이 있지만, 이는 전체 그래프를 생성하기 위함이지 node의 neighborhood를 생성하기 위함이 아니어서, 저자들은 `ego network`라는 node neighborhood 생성모델을 제시합니다. 이 `ego network`는 `GAN`의 프레임워크와 유사하지만, 그래프 상에서의 random walks with restart, 즉 `RWRs`를 학습하는 방향으로 사용합니다. 
+
+`RWRs`는 일반적인 `Random Walk`모델에서 일정 확률로 starting node로 돌아가고, 그렇지 않으면 neighborhood node로 넘어갑니다. 이는 기존 `RWRs`가 `Random Walk`보다 훨씬 적은 step으로 explore가 가능하게 한다고 합니다. 
+
+지금부터 generator에 관한 설명을 보겠습니다.
+
+저자들은 node간의 dependency를 capture하기 위해 **m**이라는 graph state를 정의합니다. 각 walk step에서 $$m_l$$과 $$v_l$$을 계산하는데, 이 때의 input은 last state $$m_{l-1}$$과 last input $$s_{l-1}$$입니다. 이 $$s_{l-1}$$은 node idnetity $$v_{l-1}$$과 node attribute $$x_{l-1}$$을 포함하고 있습니다. 
+
+Current state $$m_ l$$은 neural network $$f$$로 계산됩니다. 
+
+Generator의 update process는 다음과 같습니다.
+
+$$m_l = f(m_{l-1}, s_{l-1}),$$
+
+$$v_l = softmax(m_l \cdot W_{up,adj}),$$
+
+$$x_l = m_l \cdot W_{up,fea},$$
+
+$$s_l = (v_l \oplus x_l) \cdot W_{down}$$
+
+여기서 $$W_{up}, W_{down}$$은 차원을 맞춰주기 위한 projection matrix라고 생각하시면 됩니다. 
+
+저자들은 `WGAN` 프레임워크를 사용해 모델을 학습을 진행했고, 위의 그림에서 확인할 수 있듯이 이 generator는 새로운 그래프 $$\mathcal{G}_ t$$ 에서 `RWRs`로 생성된 Sequence들을 input으로 받아 학습을 진행하고, 다음 task에서 `replay buffer`에 넣을 sequence를 뱉어줍니다. `GNN`은 이 sequence까지 포함해 학습하여 `catastrophic forgetting`을 방지합니다. 
 
 > **Incremental Learning on Graphs**
+
+지금부터는 continual learning이 어떻게 이루어지는지 보겠습니다.
+
+먼저 저자들은 affected nodes를 정의합니다. 
+
+그래프가 time step에 따라 변하면서, 새로운 node나 edge가 생성되면 주위 K(`GNN`의 layer 수)-hop 이내의 neighborhood만 change 됩니다. (`GNN`의 layer가 2개라면, 한 node가 변할 때 그 node와 edge 2개 이내로만 연결되어 있는 node들만 변한다는 의미입니다.) Changed node중에 **크게 변한 것들**이 있을 것이고, **유의미한 변화가 없는 것들**이 있을 것입니다. 이 **크게 변한 것들**이 전체적인 neighborhood의 패턴을 바꿀 가능성이 있는 node 들이라, 학습에 사용해야하는데, 크게 변했다는 것을 어떻게 확인할 수 있을까요? 저자들은 아래와 같은 influenced degree를 정의하고 그 influence degree가 threshold $$\delta$$ 보다 크다면 affected node라고 취급합니다.
+
+$$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_{\theta^{t-1}} (v, \mathcal{G}^{t-1}) \rVert > \delta \rbrace$$
+
+위 식을 해석해보면, 어떤 node $$v$$의 이전 그래프 $$\mathcal{G}^{t-1}$$에서의 representation와 현재 그래프 $$\mathcal{G}^t$$에서의 representation이 많이 차이난다면, 이 node는 이전 그래프에서 현재 그래프로 넘어오면서 영향을 받았다고 보는 겁니다. 꽤 직관적인 해석입니다.
+
+이런 affected node들은 이전 그래프가 가지고 있지 않은 새로운 패턴을 가지고 있으므로, generative model에 input으로 넣어 학습시킨 뒤에 다음 task부터 새로운 패턴을 반영해서 좋은 `replay buffer`를 만들도록 합니다.
+
+이 때, 이런 의문이 들 수 있습니다.
+
+계속 새로운 그래프의 패턴이 생길텐데, 더 이상 존재하지 않는 패턴들을 generator가 생성하면 안 될 텐데?
+
+그에 따라 저자들은 모델에 간단한 filter를 추가합니다.
+
 
 
 
