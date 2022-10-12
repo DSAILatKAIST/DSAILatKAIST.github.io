@@ -265,22 +265,28 @@ OnlineGNN 이전 task의 정보를 거의 저장하지 못하는 것을 확인�
 
 > **Summary**
 
-이 논문에서는 
+이 논문에서는 지속적으로 들어오는 Graph 데이터를 학습하는 데, generative model을 사용해 이전에 학습했던 그래프와 비슷한 그래프를 계속 생성해 새로운 데이터와 함께 학습시킵니다.
 
+기존 replay based continual learning은 task가 진행됨에 따라 `replay buffer`에 그래프의 일부를 저장하고, task가 많이 늘어나면 그에 따라 요구되는 메모리도 커지는데 비에, generative model로 그때그때 `replay buffer`를 생성해서 메모리 효율을 높였습니다.
 
+단순히 메모리 효율을 높인 것에 그치지 않고, 새롭게 등장하는 패턴은 적극적으로 학습하면서 불필요해 보이는 패턴은 줄이도록 학습해서 단순한 continual learning을 보완했습니다.
+
+그 사이사이에 Random walk가 아니라 Random walk with restart를 쓴 것과 같은 디테일, 본인들이 주장하는 모델의 장점을 잘 보여주는 알찬 실험들까지, 좋은 연구인 습니다.
+
+이 논문 뿐만 아니라 Continual leanring에서 generative model은 중대한 역할을 할 것으로 보이며 관련 연구들이 꼭 필요할 것으로 보입니다.
 
 
 > **개인적인 생각**
 
-> 올게 왔구나
+**올게 왔구나**
 
 본 논문은 Graph Neural Network에서의 Continual learning에 Generative model을 접목시킨 방법입니다. 사실 이 논문이 나오는 것은 시간문제라고 생각하던 찰나에 역시나 등장했습니다.
 
 이미 Continaul learning에 Generative model을 접목시킨 연구는 꽤 오래전에(AI 연구의 속도가 매우 빠른 것을 감안하면) 등장했지만, GNN에 접목된 것은 없었기 때문이죠.
 
-관련 연구를 하시는 분들은 아시겠지만, 이 논문이 novelty가 엄청 높다거나, 기존의 상식을 깨는 새로운 발견을 한 논문은 아닙니다. (**분명히 좋은** 논문입니다, 오해금지)
+관련 연구를 하시는 분들은 아시겠지만, 이 논문이 novelty가 엄청 높다거나, 기존의 상식을 깨는 굉장한 발견을 한 논문이라기 보단.. (**분명히 좋은** 논문입니다, 오해금지)
 
-하지만 가장 큰 contribution은 특정 분야에서 처음 시도된 연구, 적절한 시기에 등장한 연구인 것 같습니다. Novelty만을 좇는게 아니라, trend에 맞는 연구를 하는 능력도 필요해 보입니다. 
+가장 큰 contribution은 특정 분야에서 처음 시도된 연구, 적절한 시기에 등장한 연구인 것 같습니다. Novelty만을 좇는게 아니라, trend에 맞는 연구를 하는 능력도 필요해 보입니다. 
 
 우리도 최신 논문을 잘 follow up 하는 '트렌디한' 연구자가 되도록 합시다.
 
