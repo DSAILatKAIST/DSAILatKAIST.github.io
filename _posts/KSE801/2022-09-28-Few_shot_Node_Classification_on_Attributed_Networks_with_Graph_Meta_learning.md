@@ -108,7 +108,26 @@ $$
 대부분의 GNNs은 주변 노드들의 정보를 취합(aggregation)하여 본인의 정보를 업데이트하는 message passing mechanism을 따른다. 
 
 $$
-s_{v}^{l}=AGGREGATE({h_{u}^{l-1}:u\in\mathcal{N}_ {v}) 
+s_v^l=AGGREGATE(\textbraceleft h_u^{l-1}:u\in\mathcal{N}_ v\textbraceright)
+$$
+
+$$
+h_v^l=COMBINE(h_v^{l-1}, s_v^l)
+$$
+
+$\mathcal{N}$ is the set of neighbors of node $v$ (**including node $v$**)  
+여기서 주목할 점은 본인 노드와 이웃 노드들의 메시지를 모두 더해서(AGGREGATE) 평균을 내는 방식(COMBINE)으로 정보를 취합한다는 점이다. 즉, 본인 노드와 이웃 노드들은 같은 class임을 가정하에 메시지를 취합하기 때문에 이는 homophilc을 가정하고 취합한다고 볼 수 있다. Meta-GPS에서는 real-world attributed networks에서 발생할 수 있는 heterophilic을 다루기 위해서 자기 자신과 이웃 노드를 섞지 않고(더하지 않고) 따로 병합하는 방법을 사용한다. 즉, 본인의 임베딩이 이웃의 임베딩과 너무 비슷해지지 않도록 한 것이라고 보면된다. 더 자세히 설명하자면, $AGGREGATE$ 함수에서 이웃 노드 $\mathcal{N}$의 정의를 자기 자신을 제외한 $\mathcal{\tilde{N}}$로 바꾸고, $COMBINE$ 함수를 평균 또는 가중평균이 아니라 concatenation 함수로 재정의한다. 식으로 정리하면,  
+
+$$
+s_v^l=AGGREGATE(\textbraceleft h_u^{l-1}:u\in\mathcal{\tilde{N}}_ i(v)_ v\textbraceright)
+$$
+
+$$
+\mathbf{F}=\sigma(\mathbf{XW}_ f), 　 \mathbf{H}_ 0 \equiv \mathbf{F}, 　 \mathbf{H}_ i = \tilde{\mathbf{A}_ i}\mathbf{F},
+$$
+
+$$
+\mathbf{R}=\parallel_{i=0}^l \mathbf{H}_ i, 　 \eta=\sigma(\mathbf{RW}_ r), 　 \mathbf{Z} = \mathrm{Squ}(\mathrm{Res}(\eta)\mathbf{R})  
 $$
 
 ### 3-2. Prototype-based Parameter Initialization  
