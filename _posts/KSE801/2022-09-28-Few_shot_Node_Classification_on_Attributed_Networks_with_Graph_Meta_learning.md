@@ -60,7 +60,7 @@ MAML은 최적화 학습 방식의 Meta Learning 방법론으로서 가장 대�
 
 </div>
 
-### 1-2 Problem Definition  
+### 1-2. Problem Definition  
 Citation networks, social media networks, traffic networks와 같은 attribute networks는 실생활에서 발생할 수 있는 수많은 문제들을 풀기 위해 활용되고 있다. Attribute networks들의 node classification 문제는 fundamental하면서도 굉장히 중요한 task이다. 이 문제를 풀기위해 많은 graph neural network(GNN) 모델들이 연구되었지만, 이들은 모두 labeled data가 충분한 상황을 가정하고 있다. Section 1-1에서 설명한 바와 같이, labeled data가 충분하지 않은 상황에서 node classification의 할 수 있는 방안을 모색하고자 GNN 분야에서도 Few-shot learning에 대한 연구가 점차 활발해지고 있고, 이를 풀기 위해 (graph) meta-learning 기반의 많은 방법들이 나오고 있다. 하지만 본 논문은 기존 Graph Few-shot Learning 모델에서 가지고 있는 3가지 limitation을 제시하고 해결하고자 한다.  
 
 #### (I) Attributed networks가 homophilic이라는 가정은 real-world attributed networks에서 unreasonable하다.  
@@ -72,7 +72,7 @@ Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고
 하지만 이런 방법으로 만들어진 task들은 서로 큰 차이가 있을 수 있다. 예를 들어, social networks에서 user node의 종류가 유명인들으로 구성된 task와 일반인들로 구성된 task는 구조적인 패턴이 다르게 나타날 것이기 때문에 이런 차이를 인지하고 adaptive하게 다루어야 할 것이다. 본 논문은 task마다 learnable parameter를 adaptive하게 scaling하는 방법으로 이 문제를 다루고자 한다.  
 
 
-### 1-3 Annotation    
+### 1-3. Annotation    
 <div align="center">
  
 ![image](https://user-images.githubusercontent.com/37684658/195105466-015e14b8-3a97-4fea-af2b-ea93c69fe6cc.png)  
@@ -81,13 +81,42 @@ Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고
 Few-shot learning에서는 train task와 test task 모두 support set과 query set으로 이루어져있다. 다시 말해, Train/Test 상관 없이 support set으로 query set의 label을 맞추는 task를 하는 것인데 주목해야할 점은 train task에 들어가는 데이터의 class와 test task에 들어가는 데이터 class가 겹치지 않는다는 점이다. 즉, test 때는 unseen class, unseen nodes들로 구성된 task를 풀어낸다. 결론적으로 하고자하는 것은 test 때의 상황을 train 때도 모방해서 학습하자는 것이다(episodic training).  
 $\prod$개로 구성된 N-way K-shot meta-training tasks들은 다음과 같이 표현할 수 있다. 
 
-<div align="center">
- 
-![image](https://user-images.githubusercontent.com/37684658/195113947-1c2618dd-3c03-4b58-88e7-e3ab55942a38.png)
+$$
+\mathcal{T}_ {tr}=\textbraceleft \mathcal{T} \textbraceright_ {i=1}^{\prod}, \mathcal{T}_ {i}=\{\mathcal{S}_ i, \mathcal{Q}_ i\} , 
+$$
 
- </div>
+$$
+\newline \mathcal{S}_ i=\textbraceleft(v_{i,1},y_{i,1}),(v_{i,2},y_{i,2}),...,(v_{i,k},y_{i,k})\textbraceright_ {k=1}^{N\times K},
+$$
+
+$$
+\newline \mathcal{Q}_ i=\textbraceleft(\bar{v}_ {i,1},\bar{y}_ {i,1}),(\bar{v}_ {i,2},\bar{y}_ {i,2}),...(\bar{v}_ {i,k},\bar{y}_ {i,k})\textbraceright_ {k=1}^{N\times K},
+$$
  
 ## **3. Method**  
+모델의 전체적인 구조는 다음과 같다.  
+
+<div align="center">
+ 
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/37684658/195232172-ae904c09-613b-4aec-a211-31054e064943.png">
+
+ </div>
+
+3-1에서 Network Encoder에서는 attributed network를 heterophilic한 가정으로 인코딩하는 과정을 설명하고, 3-2에서는 샘플링 된 task에 속한 class에 따라 parameter를 initialization하는 과정을 설명한다. 그리고 3-3에서는 task-level에서 parameter를 scaling하고 shifting하는 방법을 설명한다. 마지막으로 3-4에서는 MAML 기반으로 parameter를 optimization하는 방법을 서술한다. 
+
+### 3-1. Network Encoder  
+대부분의 GNNs은 주변 노드들의 정보를 취합(aggregation)하여 본인의 정보를 업데이트하는 message passing mechanism을 따른다. 
+
+$$
+s_{v}^{l}=AGGREGATE({h_{u}^{l-1}:u\in\mathcal{N}_ {v}) 
+$$
+
+### 3-2. Prototype-based Parameter Initialization  
+
+### 3-3. $S^2$ Transformation for DIfferent Tasks  
+
+### 3-4. Meta-optimization    
+
 
 ## **4. Experiment**  
 
@@ -106,3 +135,4 @@ $$
 
 > You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
 http://detexify.kirelabs.org/classify.html
+https://stackedit.io/app#
