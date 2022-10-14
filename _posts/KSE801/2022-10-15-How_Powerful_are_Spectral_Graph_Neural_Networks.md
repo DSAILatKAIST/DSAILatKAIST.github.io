@@ -19,7 +19,7 @@ Message Passing Framework를 활용하여 이웃한 노드의 정보를 aggregat
  1. 이 논문에서는 비선형성(non-linearlity)이 없는, 간단한 형태의 Linear Spectral GNN조차도 강력한 표현력이 있음(universal함)을 이론적으로 보이며, 그런 표현력을 갖추기 위한 조건을 제시하고 이에 대해 분석합니다.
  2. 또한, Linear Spectral GNN의 Universality 조건과 그래프 동형 테스트(Graph Isomorphism Test; GI Test)와의 연관성에 대해서도 분석합니다. 이런 GI Test를 활용한 GNN의 표현력 분석은 Spatial한 GNN에서 다뤄진 바 있습니다[5].
  3. 여러 Spectral GNN의 실험적인 성능 차이를 최적화 관점에서 분석하고, 이를 통해 그래프 신호 Density에 맞는 basis function으로 그래프 신호 필터를 구성하는 것이 중요함을 보여줍니다.
- 4. 위의 분석을 기반으로 JacobiNet이라는 Spectral GNN 모델을 제시합니다. JacobiNet은 비선형성 없이도 synthetic 및 real-world dataset에서 다른 Spectral GNN baseline들을 상회하는 성능을 보여줍니다.
+ 4. 위의 분석을 기반으로 JacobiConv이라는 Spectral GNN 모델을 제시합니다. JacobiConv은 비선형성 없이도 synthetic 및 real-world dataset에서 다른 Spectral GNN baseline들을 상회하는 성능을 보여줍니다.
 
 <br/> 
    
@@ -29,20 +29,36 @@ Message Passing Framework를 활용하여 이웃한 노드의 정보를 aggregat
 
 ## **2. Preliminaries**  
 
-Please write the motivation of paper. The paper would tackle the limitations or challenges in each fields.
+이 섹션에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다.
+아래는 행렬의 행, 열에 대한 Notation입니다.
+$$\forall M \in \mathbb{R}^{a\times b}: M_i=\mathrm{row}_{i}(M), M_{:i}=\mathrm{col}_{i}(M).$$
 
-After writing the motivation, please write the discriminative idea compared to existing works briefly.
+아래는 행렬의 condition number의 정의입니다. 이 개념은 전술했던 Contribution 3번에서의 분석과 관련이 있습니다. 여기서 $\lambda_{max}$는 행렬의 Maximum Eigenvalue, $\lambda_{min}은 행렬의 Minimum Eigenvalue를 의미합니다.
+$$\kappa(M)=\frac{\lambda_{max}}{\lambda_{min}}$$
+
+이때, 주어진 행렬 $M$이 singular(=not invertible; 역행렬이 존재하지 않는 경우)라면 $\kappa(M)=$ [6]
+
+
+
+### **2.1. Graph Isomorphism**
 
 <br/> 
 
-## **3. Method**  
+## **3. Analyses**  
 
 Please write the methodology author have proposed.  
 We recommend you to provide example for understanding it more easily.  
 
 <br/> 
 
-## **4. Experiment**  
+## **4. Methodology-JacobiConv**  
+
+Please write the methodology author have proposed.  
+We recommend you to provide example for understanding it more easily.  
+
+<br/>
+
+## **5. Experiment**  
 
 In this section, please write the overall experiment results.  
 At first, write experiment setup that should be composed of contents.  
@@ -59,7 +75,7 @@ You can attach the tables or figures, but you don't have to cover all the result
 
 <br/> 
 
-## **5. Conclusion**  
+## **6. Conclusion**  
 
 Please summarize the paper.  
 It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
@@ -77,13 +93,14 @@ It is free to write all you want. e.g, your opinion, take home message(오늘의
 
 <br/> 
 
-## **6. Reference & Additional materials**   
+## **7. Reference & Additional materials**   
 The Official Implementation은 [여기](https://github.com/GraphPKU/JacobiConv)에서 확인 가능합니다.
- 1. Xiyuan Wang and Muhan Zhang. _How Powerful are Spectral Graph Neural Networks_. ICML, 2022.
+ 1. Xiyuan Wang and Muhan Zhang. [_How Powerful are Spectral Graph Neural Networks_](https://arxiv.org/abs/2205.11172). ICML, 2022.
  2. Thomas N. Kipf and Max Welling. _Semi-Supervised Classification with Graph Convolutional Networks_. ICLR, 2017.
  3. Petar Veličković et al. _Graph Attention Networks_. ICLR, 2018.
  4. Michaël Defferrard et al. _Convolutional neural networks on graphs with fast localized spectral filtering_. NeurIPS, 2016.
  5. Keyulu Xu et al. _How Powerful are Graph Neural Networks?_ ICLR, 2019.
- 6. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
- 7. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
+ 6. [_Eigenvalues and eigenvectors_](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors). Wikipedia. 2022.
+ 7. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
+ 8. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
 
