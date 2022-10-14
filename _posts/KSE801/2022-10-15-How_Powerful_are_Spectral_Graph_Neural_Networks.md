@@ -105,7 +105,8 @@ $$g(\hat{L})=\sum_{k=0}^{K}{\alpha_{k}\hat{L}^{k}}$$
 로 정의하면, 필터링 과정은 아래와 같이 표현 가능합니다.
 $$Ug(\Lambda)U^{T}X=\sum_{k=0}^{K}{\alpha_{k}U\Lambda^{k}U^{T}X}=\sum_{k=0}^{K}{\alpha_{k}\hat{L}^{k}X}=g(\hat{L})X$$
 
-여러 널리 알려진 spectral GNN의 
+ChebyNet 등 여러 널리 알려진 spectral GNN의 filter form은 아래 표에 정리되어 있습니다.
+<img width="140" src="/images/How Powerful are Spectral Graph Neural Networks/Table_5.png"> 
 
 
 
