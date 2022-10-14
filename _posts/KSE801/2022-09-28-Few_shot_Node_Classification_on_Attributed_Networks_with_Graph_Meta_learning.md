@@ -143,7 +143,29 @@ $\mathrm{Squ},\mathrm{Res}$ : 'squeeze' and 'reshape' operations to match the ma
 
 
 ### 3-2. Prototype-based Parameter Initialization  
+이 세션에서는 class마다 prototype으 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정으 따릊 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내어 task에서 다른 class를 샘플링하면서 발생하는 variance를 줄인다.
 
+$$
+\mathbf{P}_ j= {1 \over {\textbar \mathcal{V}_ j \textbar}} \Sigma_ {k\in{\mathcal{V}_ j}} \mathbf{Z}_ k
+$$
+
+$\mathbf{Z}_ k$는 node $v_k$의 feature이며, $\textbar \mathcal{V}_ j \textbar$는 class $j$에 속하는 node set이다. 각 class마다 node feature의 평균을 구해서 prototype을 만들고 이 prototyped을 MLP layer에 전달하여 class-specific initialized parameters를 만든다.  
+
+$$
+\varphi_ j = \mathbf{MLP}(\mathbf{P}_ j;\theta_ p), j = 1, ..., N
+$$
+
+> $\varphi_ j \in \mathbb{R}^{d'}$ for class $j$  
+> $N$ is the number of categories of a task (i.e., $N$-way)  
+
+class마다 initial parameter가 설정되면 task $\mathcal{T}_ i$의 support set $\mathcal{S}_ i$로 추가적인 adaptation을 진행한다. 
+
+$$
+\varphi'_ i=\varphi-\alpha \nabla_\varphi\mathcal{L_{\mathcal{T}_ i}}(f(\mathcal{S}_ i ; \varphi, \Theta))
+$$
+
+> $\Theta = \textbraceleft \theta_ e, \theta_ p \textbraceright$ : prior parameters  
+> $\mathcal{L_{\mathcal{T}_ i}}(\cdot)$ : cross-entropy loss function
 ### 3-3. $S^2$ Transformation for DIfferent Tasks  
 
 ### 3-4. Meta-optimization    
