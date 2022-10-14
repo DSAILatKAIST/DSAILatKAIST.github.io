@@ -163,7 +163,7 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 <p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
 
-Proposition 4.2.의 조건에서 $X$ is not a full row-rank matrix, 즉 $\mathrm{rank}(X)<n$이라는 조건은 자명합니다. 보통의 경우 output dimension 값은 node 갯수 $n$보다 작은 값을 갖기 때문입니다.
+Proposition 4.2.의 조건에서 $X$ is not a full row-rank matrix, 즉 $\mathrm{rank}(X) < n $이라는 조건은 자명합니다. 보통의 경우 output dimension 값은 node 갯수 $n$보다 작은 값을 갖기 때문입니다.
 
 Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출하는 경우에는 충분히 강력하지만, 위의 Propsition 때문에 Multiple channel을 갖는 prediction을 산출하기 위해서는 각기 다른 polynomial filter를 필요로 하게 됩니다.
 
