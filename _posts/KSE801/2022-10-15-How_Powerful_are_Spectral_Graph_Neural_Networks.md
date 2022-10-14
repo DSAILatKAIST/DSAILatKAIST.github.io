@@ -17,10 +17,15 @@ Message Passing Framework를 활용하여 이웃한 노드의 정보를 aggregat
 
 이 논문의 Contribution은 아래와 같이 정리할 수 있습니다.
  1. 이 논문에서는 비선형성(non-linearlity)이 없는, 간단한 형태의 Linear Spectral GNN조차도 강력한 표현력이 있음(universal함)을 이론적으로 보이며, 그런 표현력을 갖추기 위한 조건을 제시하고 이에 대해 분석합니다.
- 2. 또한, Linear Spectral GNN의 Universality 조건과 그래프 동형 테스트(Graph Isomorphism Test; GI Test)와의 연관성에 대해서도 분석합니다. 이런 GI Test를  분석은 Spatial한 GNN에서 다뤄진 바 있으며, 
- 3. 
+ 2. 또한, Linear Spectral GNN의 Universality 조건과 그래프 동형 테스트(Graph Isomorphism Test; GI Test)와의 연관성에 대해서도 분석합니다. 이런 GI Test를 활용한 GNN의 표현력 분석은 Spatial한 GNN에서 다뤄진 바 있습니다[5].
+ 3. 여러 Spectral GNN의 실험적인 성능 차이를 최적화 관점에서 분석하고, 이를 통해 그래프 신호 Density에 맞는 basis function으로 그래프 신호 필터를 구성하는 것이 중요함을 보여줍니다.
+ 4. 위의 분석을 기반으로 JacobiNet이라는 Spectral GNN 모델을 제시합니다. JacobiNet은 비선형성 없이도 synthetic 및 real-world dataset에서 다른 Spectral GNN baseline들을 상회하는 성능을 보여줍니다.
 
+<br/> 
+   
+*본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 그런 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
 
+<br/> 
 
 ## **2. Preliminaries**  
 
@@ -28,11 +33,14 @@ Please write the motivation of paper. The paper would tackle the limitations or 
 
 After writing the motivation, please write the discriminative idea compared to existing works briefly.
 
+<br/> 
 
 ## **3. Method**  
 
 Please write the methodology author have proposed.  
 We recommend you to provide example for understanding it more easily.  
+
+<br/> 
 
 ## **4. Experiment**  
 
@@ -49,12 +57,14 @@ Then, show the experiment results which demonstrate the proposed method.
 You can attach the tables or figures, but you don't have to cover all the results.  
   
 
-
+<br/> 
 
 ## **5. Conclusion**  
 
 Please summarize the paper.  
 It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
+
+<br/> 
 
 ---  
 ## **Author Information**  
@@ -64,6 +74,8 @@ It is free to write all you want. e.g, your opinion, take home message(오늘의
 * Muhan Zhang
     * Institute for Artificial Intelligence, Peking University
     * Beijing Institute for General Artificial Intelligence
+
+<br/> 
 
 ## **6. Reference & Additional materials**   
 The Official Implementation은 [여기](https://github.com/GraphPKU/JacobiConv)에서 확인 가능합니다.
