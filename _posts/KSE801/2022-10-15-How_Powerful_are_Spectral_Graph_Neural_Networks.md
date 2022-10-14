@@ -5,7 +5,10 @@ tags: [reviews]
 ---
 
 # **How Powerful are Spectral Graph Neural Networks** 
- 
+
+이 리뷰에서 소개하는 논문 'How Powerful are Spectral Graph Neural Networks'는 [이번 ICML 2022에서 Spotlight로 선정된 논문](https://icml.cc/virtual/2022/spotlight/17796) 중 하나입니다. 이 논문에서는 Spectral GNN의 표현력에 대한 분석 및 이를 기반으로 한 새로운 Spectral GNN인 'JacobiConv'를 소개하고 있습니다.
+
+<br/>
 
 ## **1. Introduction**  
 
@@ -13,7 +16,7 @@ Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 
 
 그 한 갈래인 Spectral GNN은, Spatial한 그래프 신호(graph signal)를 Graph Laplacian을 활용해 Spectral domain으로 변환하여 필터링하고  필터링된 신호를 다시 Spatial domain으로 가져와 prediction을 수행합니다. GCN[2], GAT[3]과 같이 Popular한 모델이 등장하기 이전부터도 ChebyNet[4]과 같은 Spectral GNN이 연구되었고, 그중 GCN의 경우 ChebyNet에서의 Spectral 필터를 단순화한 모델입니다.
 
-이외에도 이 논문에서 언급되는 여러 Spectral GNN 모델들이 등장하지만, 저자들은 이러한 Spectral GNN 모델의 표현력(expressive power)에 대해 분석하고 연구한 논문이 없었음을 지적합니다. 저자들은 이 논문을 통해 Spectral GNN 모델의 표현력에 대해 이론적인 분석을 제시하고, 이를 바탕으로 JacobiConv라는 Spectral GNN 모델을 제안합니다.
+이외에도 이 논문에서 언급되는 여러 Spectral GNN 모델들이 등장하지만, 저자들은 이러한 Spectral GNN 모델의 표현력(expressive power)에 대해 분석하고 연구한 논문이 없었음을 지적합니다. 저자들은 이 논문을 통해 Spectral GNN 모델의 표현력에 대해 이론적인 분석을 제시하고, 이를 바탕으로 'JacobiConv'라는  Spectral GNN 모델을 제안합니다.
 
 이 논문의 Contribution은 아래와 같이 정리할 수 있습니다.
  1. 이 논문에서는 비선형성(non-linearlity)이 없는, 간단한 형태의 Linear Spectral GNN조차도 강력한 표현력이 있음(universal함)을 이론적으로 보이며, 그런 표현력을 갖추기 위한 조건을 제시하고 이에 대해 분석합니다.
@@ -114,16 +117,23 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 여기서 $Z$는 prediction, $\phi, \psi$는 Multi-Layer Perceptron(MLP)와 같은 함수입니다.
 
-이때, spectral GNN의 filter가 그 어떤 polynomial filter function이라도 근사할 수 있다면, 그 GNN이 **Polynomial-Filter-Most-Expressive(PFME)** 하다라고 정의하고, arbitrary한 real-valued filter function을 근사할 수 있다면 **Filter-Most-Expressive(FME)** 라고 정의합니다. 
+이때, spectral GNN의 filter가 그 어떤 polynomial filter function이라도 근사할 수 있다면, 그 GNN이 **Polynomial-Filter-Most-Expressive(PFME)** 하다라고 정의하고, arbitrary한 real-valued filter function을 근사할 수 있다면 **Filter-Most-Expressive(FME)** 라고 정의합니다.
 
-여기서 정의하는 PFME, FME Property에 대해서 논문 본문에서 자세하게 서술된 바는 없습니다. Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 노드를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 아쉽게도 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다. 다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 논문의 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. 
+이러한 PFME, FME property는 spectral GNN의 표현력에 있어서 중요한 성질인 것으로 보입니다. Frequency component를 scaling 함으로써 말 그대로 필터링을 해주는 Filter의 역할을 생각해봤을 때, arbitrary한 filter을 학습할 수 있느냐(=FME)는 spectral GNN의 표현력(주어진 두 node를 구별하는 능력)에 분명 큰 역할을 할 것이라고 생각할 수 있습니다.
 
+이 논문에서는 $\phi, \psi$가 linear한 경우에 초점을 두고 있기 때문에, 'Linear GNN', linear한 spectral GNN을 아래와 같이 정의합니다.
 
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Definition_2_1.png"></p>
 
+아래의 Proposition 2.2는 Linear GNN이 PFME, 즉 충분히 강한 표현력을 갖고 있고, General한 spectral GNN의 표현력의 Lower bound가 됨을 서술하고 있습니다.
 
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_2_2.png"></p>
 
+비록 길었지만, 이 논문의 중요 개념을 이해하는데에 필요한 부분은 모두 짚어보았습니다. 나머지는 분석에 앞서, 이 논문에서 가정하고 있는 부분에 대한 서술입니다.
 
+우선, 이 논문에서는 Fixed graph, fixed node features에서 오직 node property prediction task만 처리한다고 가정합니다.
 
+이러한 가정은 PFME=FME라는 결론을 도출합니다. 왜냐하면 PFME가 polynomial filter function만 근사할 수 있지만, fixed graph setting에서는 eigenvalue $\lambda$가 discrete하기 때문에 arbitrary filter function을 근사할 수 있는 interpolation [10]
 
 <br/> 
 
@@ -163,6 +173,8 @@ You can attach the tables or figures, but you don't have to cover all the result
 Please summarize the paper.  
 It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
 
+이 논문에서 가장 아쉬운 부분은 PFME/FME property에 대해 자세히 서술하지 않은 점입니다. 앞의 Section에서 전술했듯 Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 node를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다. 다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다. 
+
 <br/> 
 
 ---  
@@ -187,6 +199,7 @@ The Official Implementation은 [여기](https://github.com/GraphPKU/JacobiConv)�
  7. [_Graph Isomorphism_](https://en.wikipedia.org/wiki/Graph_isomorphism). Wikipedia, 2022.
  8. David I Shuman et al. [_The emerging field of signal processing on graphs: Extending high-dimensional data analysis to networks and other irregular domains_](https://ieeexplore.ieee.org/document/6494675). IEEE Signal Process Magazine, 2013.
  9. Fan R. K. Chung. _Spectral Graph Theory_. Americal Mathematical Society, 1996.
- 10. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
- 11. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
+ 10. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
+ 11. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
+ 12. 
 
