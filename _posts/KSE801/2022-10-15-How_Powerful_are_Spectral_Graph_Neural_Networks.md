@@ -9,7 +9,7 @@ tags: [reviews]
 
 ## **1. Introduction**  
 
-Message Passing Framework를 활용하여 이웃한 노드의 정보를 aggregate 함으로써 노드들의 표현(representation)을 학습하는 Graph Neural Network(GNN)는, 그동안의 Graph Representation Learning 방법론들 가운데 여러 Downstream Task에서 State-of-the-art(SOTA) 성능을 보여줬습니다.
+Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 함으로써 node들의 표현(representation)을 학습하는 Graph Neural Network(GNN)는, 그동안의 Graph Representation Learning 방법론들 가운데 여러 Downstream Task에서 State-of-the-art(SOTA) 성능을 보여줬습니다.
 
 그 한 갈래인 Spectral GNN은, Spatial한 그래프 신호(graph signal)를 Graph Laplacian을 활용해 Spectral하게 필터링하고 필터링된 신호를 다시 Spatial domain으로 가져와 prediction을 수행합니다. GCN[2], GAT[3]과 같이 Popular한 모델이 등장하기 이전부터도 ChebyNet[4]과 같은 Spectral GNN이 연구되었고, 그중 GCN의 경우 ChebyNet에서의 Spectral 필터를 단순화한 모델입니다.
 
@@ -23,24 +23,40 @@ Message Passing Framework를 활용하여 이웃한 노드의 정보를 aggregat
 
 <br/> 
    
-*본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 그런 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
+*(주) 본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 그런 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
 
 <br/> 
 
 ## **2. Preliminaries**  
 
-이 섹션에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다.
-아래는 행렬의 행, 열에 대한 Notation입니다.
+이 섹션에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다. 아래는 matrix의 행, 열에 대한 Notation입니다.
 $$\forall M \in \mathbb{R}^{a\times b}: M_i=\mathrm{row}_{i}(M), M_{:i}=\mathrm{col}_{i}(M).$$
 
-아래는 행렬의 condition number의 정의입니다. 이 개념은 전술했던 Contribution 3번에서의 분석과 관련이 있습니다. 여기서 $\lambda_{max}$는 행렬의 Maximum Eigenvalue, $\lambda_{min}은 행렬의 Minimum Eigenvalue를 의미합니다.
-$$\kappa(M)=\frac{\lambda_{max}}{\lambda_{min}}$$
+그리고, 주어진 node $i\in\mathbb{V}$에 대해서 그 이웃을 $N(i)$로 표기합니다.
 
-이때, 주어진 행렬 $M$이 singular(=not invertible; 역행렬이 존재하지 않는 경우)라면 $\kappa(M)=$ [6]
+아래는 matrix의 condition number의 정의입니다. 이 개념은 전술했던 Contribution 3번에서의 분석과 관련이 있습니다. 여기서 $\lambda_{max}$는 matrix의 Maximum Eigenvalue, $\lambda_{min}은 matrix의 Minimum Eigenvalue를 의미합니다.
+$$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$$
 
+이때, 주어진 matrix $M$이 singular(=not invertible; inverse가 존재하지 않는 경우)라면 $\kappa(M)=+\infty$이고, 이는 matrix의 모든 eigenvalue가 non-zero 값을 갖는 것이 matrix의 invertiblility와 동치이기 때문입니다. [6]
+
+*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다. $|\lambda|_{max}, |\lambda|_{min}$이 맞는 표기이지 않을까 싶습니다.
+
+아래는 Graph와 관련된 Notation입니다. $\mathcal{G}=(\mathbb{V}, \mathbb{E}, X)$는 주어진 Graph이고, 여기서 $\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X\in\mathbb{R}^{n\times d}$는 각각 Node set, Edge set, node feature matrix입니다.
+
+$A, D$를 각각 Adjacency, Degree matrix라고 하면, normalized adjacency는 $\hat{A}=D^{-1/2}AD^{-1/2}$이고 symmetric normalized graph Laplacian은 $\hat{L}=I-\hat{A}$입니다. Graph Laplacian은 Real symmetric이기에 orthogonally diagonalizable하고, 따라서 아래와 같이 Eigen-decomposition할 수 있습니다.
+$$\hat{L}=U\Lambda U^{T}$$
+
+U는 ith column이 $\hat{L}$의 ith eigenvalue에 해당하는 eigenvector인 orthogonal matrix이고, $\Lambda$는 eigenvalue들을 diagonal entry들로 갖는 diagonal matrix입니다.
 
 
 ### **2.1. Graph Isomorphism**
+
+Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem, proposition의 증명을 상세히 다루지 않고 그 안에 담긴 의미에 대해서만 다룰 예정이기에 논문 본문에서 서술한 것 대신, 널리 알려진 정의[7]에 대해서 서술하도록 하겠습니다.
+
+두 그래프 $\mathcal{G_1}=(\mathbb{V_1}, \mathbb{E_1}, X_1), \mathcal{G_2}=(\mathbb{V_2}, \mathbb{E_2}, X_2)$에 대해서, 
+
+### **2..**
+
 
 <br/> 
 
