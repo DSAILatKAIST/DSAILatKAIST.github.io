@@ -5,3 +5,14 @@ tags: [reviews]
 ---
 
 Write your comments
+# Generalization and Representational Limits of Graph Neural Networks
+
+### 1. Problem Definition
+
+### 2. Motivation
+
+### 3. Method
+
+### 4. Experiment
+
+### 5. Conclusion
