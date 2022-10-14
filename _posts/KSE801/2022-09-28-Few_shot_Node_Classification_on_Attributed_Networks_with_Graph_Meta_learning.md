@@ -118,9 +118,9 @@ $$
 $\mathcal{N}$ is the set of neighbors of node $v$ (**including node $v$**)  
 여기서 주목할 점은 본인 노드와 이웃 노드들의 메시지를 모두 더해서(AGGREGATE) 평균을 내는 방식(COMBINE)으로 정보를 취합한다는 점이다. 즉, 본인 노드와 이웃 노드들은 같은 class임을 가정하에 메시지를 취합하기 때문에 이는 homophilc을 가정하고 취합한다고 볼 수 있다. Meta-GPS에서는 real-world attributed networks에서 발생할 수 있는 heterophilic을 다루기 위해서 자기 자신과 이웃 노드를 섞지 않고(더하지 않고) 따로 병합하는 방법을 사용한다. 즉, 본인의 임베딩이 이웃의 임베딩과 너무 비슷해지지 않도록 한 것이라고 보면된다. 더 자세히 설명하자면, $AGGREGATE$ 함수에서 이웃 노드 $\mathcal{N}$의 정의를 자기 자신을 제외한 $\mathcal{\tilde{N}}$로 바꾸고, $COMBINE$ 함수를 평균 또는 가중평균이 아니라 concatenation 함수로 재정의한다. 식으로 정리하면,  
 
-$$
+<!-- $$
 s_v^l=AGGREGATE(\textbraceleft h_u^{l-1}:u\in\mathcal{\tilde{N}}_ i(v)_ v\textbraceright)
-$$
+$$ -->
 
 $$
 \mathbf{F}=\sigma(\mathbf{XW}_ f), 　 \mathbf{H}_ 0 \equiv \mathbf{F}, 　 \mathbf{H}_ i = \tilde{\mathbf{A}_ i}\mathbf{F},
@@ -129,6 +129,18 @@ $$
 $$
 \mathbf{R}=\parallel_{i=0}^l \mathbf{H}_ i, 　 \eta=\sigma(\mathbf{RW}_ r), 　 \mathbf{Z} = \mathrm{Squ}(\mathrm{Res}(\eta)\mathbf{R})  
 $$
+
+> $\mathbf{X} \in \mathbb{R}^{n \texttimes d}$ : node features  
+$\sigma(\cdot)$ : non-linear transformation  
+$\tilde{\mathbf{A}}_ i=\bar{\mathbf{D}}_ i^ {-1/2} \bar{\mathbf{A}}_ i \bar{\mathbf{D}}_ i^ {-1/2}$ : $i$-hop neighbors' normalized symmetric adjacency matrix **without self-loops**  
+$\parallel$ : concatenation operator  
+$\mathbf{F}, \mathbf{H}_ i, \mathbf{Z} \in \mathbb{R}^{n \texttimes d'}$  
+$\mathbf{R} \in \mathbb{R}^{n \texttimes(l+1)\texttimes d'}$ : the concatenated embeddings  
+$\eta \in \mathbb{R}^{n \texttimes(l+1)\texttimes 1}$ : the attention coefficient for different-hop neighbors  
+$\mathrm{Squ},\mathrm{Res}$ : 'squeeze' and 'reshape' operations to match the matrix's dimensions  
+
+위 식들을 정리해보면 $H_0$는 자기 자신을 포함한 ego-embeddings이고, $i$-hop의 정보를 취합할 때는 self-loop를 제외한 Adjacency matrix를 활용하여 자기 자신과 이웃들의 정보를 분리시킨다. 또한 합, 평균, 가중평균이 아닌 concatenation으로 정보를 합치는 방법으로 heterophilic graphs에 적합한 convolution layer를 설계하였다. 해당 layer는 $\theta_e \ \textbraceleft \mathbf{W}_ f, \mathbf{W}_ r \textbraceright$의 파라미터를 가지고 있다.
+
 
 ### 3-2. Prototype-based Parameter Initialization  
 
@@ -155,3 +167,4 @@ $$
 > You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
 http://detexify.kirelabs.org/classify.html
 https://stackedit.io/app#
+https://rayc20.tistory.com/151
