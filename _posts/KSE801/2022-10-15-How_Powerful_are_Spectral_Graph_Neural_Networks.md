@@ -11,7 +11,7 @@ tags: [reviews]
 
 Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 함으로써 node들의 표현(representation)을 학습하는 Graph Neural Network(GNN)는, 그동안의 Graph Representation Learning 방법론들 가운데 여러 Downstream Task에서 State-of-the-art(SOTA) 성능을 보여줬습니다.
 
-그 한 갈래인 Spectral GNN은, Spatial한 그래프 신호(graph signal)를 Graph Laplacian을 활용해 Spectral하게 필터링하고 필터링된 신호를 다시 Spatial domain으로 가져와 prediction을 수행합니다. GCN[2], GAT[3]과 같이 Popular한 모델이 등장하기 이전부터도 ChebyNet[4]과 같은 Spectral GNN이 연구되었고, 그중 GCN의 경우 ChebyNet에서의 Spectral 필터를 단순화한 모델입니다.
+그 한 갈래인 Spectral GNN은, Spatial한 그래프 신호(graph signal)를 Graph Laplacian을 활용해 Spectral domain으로 변환하여 필터링하고  필터링된 신호를 다시 Spatial domain으로 가져와 prediction을 수행합니다. GCN[2], GAT[3]과 같이 Popular한 모델이 등장하기 이전부터도 ChebyNet[4]과 같은 Spectral GNN이 연구되었고, 그중 GCN의 경우 ChebyNet에서의 Spectral 필터를 단순화한 모델입니다.
 
 이외에도 이 논문에서 언급되는 여러 Spectral GNN 모델들이 등장하지만, 저자들은 이러한 Spectral GNN 모델의 표현력(expressive power)에 대해 분석하고 연구한 논문이 없었음을 지적합니다. 저자들은 이 논문을 통해 Spectral GNN 모델의 표현력에 대해 이론적인 분석을 제시하고, 이를 바탕으로 JacobiConv라는 Spectral GNN 모델을 제안합니다.
 
@@ -42,7 +42,7 @@ $$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$$
 
 이때, 주어진 matrix $M$이 singular(=not invertible; inverse가 존재하지 않는 경우)라면 $\kappa(M)=+\infty$이고, 이는 matrix의 모든 eigenvalue가 non-zero 값을 갖는 것이 matrix의 invertiblility와 동치이기 때문입니다. [6]
 
-*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다. $| \lambda | _{max}$, $| \lambda | _{min}$이 맞는 표기이지 않을까 싶습니다.*
+*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다.* $|\lambda | _{max}$, $|\lambda | _{min}$ *가 맞는 표기이지 않을까 싶습니다.*
 
 아래는 Graph와 관련된 Notation입니다. 기본적으로 주어진 Graph는 undirected입니다. $\mathcal{G}=(\mathbb{V}, \mathbb{E}, X)$는 주어진 Graph이고, 여기서 
 $$\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X\in\mathbb{R}^{n\times d}$$
@@ -78,7 +78,8 @@ $$X=U^{T}\tilde{X}$$
 
 와 같이 정의합니다. 여기서 $U$의 $i^{\mathrm{th}}$ column은 eigenvalue $\lambda_{i}$에 해당하는 frequency component(eigenvector)입니다.
 
-Eigenvalue $\lambda$에 해당하는 eigenvector를 $U_{:\lambda}^{T}$라고 하면, frequency $\lambda$에 해당하는 $X$의 frequency component는 $\tilde{X_{\lambda}}=U_{:\lambda}^{T}X$로 정의합니다.
+Eigenvalue $\lambda$에 해당하는 eigenvector를 $U_{:\lambda}^{T}$라고 하면, frequency $\lambda$에 해당하는 $X$의 frequency component를 $\tilde{X_{\lambda}}=U_{:\lambda}^{T}X$로 정의합니다.  
+이때, $\tilde{X_{\lambda}}\neq\mathbb{0}$라면 $X$가 $\lambda$ frequency component를 갖고 있다고 정의합니다. 그렇지 않은 경우, $\lambda$ frequency component가 $X$에서 missing되었다고 정의합니다.
 
 Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Signal(Graph에서는 Node feature $X$)을 Frequency(Graph에서는 Laplacian $\hat{L}$의 Eigenvalue $\lambda$) domain으로 transform한다는 점에서 동일합니다.
 
@@ -87,6 +88,24 @@ Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Si
 이 이상의 Graph Fourier Transform에 대한 자세한 서술은 이 리뷰의 범위를 벗어나므로 생략하도록 하겠습니다.
 
 *(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다.*
+
+이젠 Graph Signal Filter에 대해서 서술하도록 하겠습니다. Graph Signal Filter는 signal의 frequency component를 필터링하는 역할을 수행합니다.
+
+Filter $g:[0,2]\rightarrow\mathbb{R}$는 $g(\lambda)$ 값을 각각의 frequency component에 곱해주는 방식으로 필터링을 수행합니다. Signal $X$에 spectral filter $g$를 적용하는 것은 다음과 같이 정의합니다.
+$$Ug(\Lambda)U^{T}X$$
+
+*(주) filter의 정의역이 [0,2]인 것은 Normalized Graph Laplacian의 성질에 기인합니다.[9]*
+
+여기서 filter $g$는 $\Lambda$에 element-wise하게 적용됩니다. Filter를 parametrize하기 위해, $g$는 아래와 같이 degree $K$의 polynomial로 설정합니다.
+$$g(\lambda):=\sum_{k=0}^{K}{\alpha_{k}\lambda^{k}}$$
+
+여기서 $g(\hat{L})$을
+$$g(\hat{L})=\sum_{k=0}^{K}{\alpha_{k}\hat{L}^{k}}$$
+
+로 정의하면, 필터링 과정은 아래와 같이 표현 가능합니다.
+$$Ug(\Lambda)U^{T}X=\sum_{k=0}^{K}{\alpha_{k}U\Lambda^{k}U^{T}X}=\sum_{k=0}^{K}{\alpha_{k}\hat{L}^{k}X}=g(\hat{L})X$$
+
+여러 널리 알려진 spectral GNN의 
 
 
 
@@ -152,6 +171,7 @@ The Official Implementation은 [여기](https://github.com/GraphPKU/JacobiConv)�
  6. [_Eigenvalues and eigenvectors_](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors). Wikipedia, 2022.
  7. [_Graph Isomorphism_](https://en.wikipedia.org/wiki/Graph_isomorphism). Wikipedia, 2022.
  8. David I Shuman et al. [_The emerging field of signal processing on graphs: Extending high-dimensional data analysis to networks and other irregular domains_](https://ieeexplore.ieee.org/document/6494675). IEEE Signal Process Magazine, 2013.
- 9. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
- 10. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
+ 9. Fan R. K. Chung. _Spectral Graph Theory_. Americal Mathematical Society, 1996.
+ 10. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
+ 11. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
 
