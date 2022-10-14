@@ -34,7 +34,7 @@ Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 
 
 ## **2. Preliminaries**  
 
-이 섹션에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다. 아래는 matrix의 행, 열에 대한 Notation입니다.
+이 Section에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다. 아래는 matrix의 행, 열에 대한 Notation입니다.
 
 $$\forall M \in \mathbb{R}^{a\times b}: M_{i}=\mathrm{row_{i}}(M), M_{:i}=\mathrm{col_{i}}(M)$$
 
@@ -60,7 +60,7 @@ U는 $i^{\mathrm{th}}$ column이 $\hat{L}$의 $i^{\mathrm{th}}$ eigenvalue에 �
 
 ### **2.1. Graph Isomorphism**
 
-이 섹션에서는 Graph Isomorphism에 대해 간략하게 다룹니다.
+이 Section에서는 Graph Isomorphism에 대해 간략하게 다룹니다.
 
 Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem, proposition의 증명을 상세히 다루지 않고 그 안에 담긴 의미에 대해서만 다룰 예정이기에 논문 본문에서 서술한 것 대신, 널리 알려진 정의[7]에 대해서 서술하도록 하겠습니다.
 
@@ -70,7 +70,7 @@ Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem,
 
 ### **2.2. Graph Signal Filter and Spectral GNNs**
 
-이 섹션에서는 Graph Signal Filter와 Spectral GNN의 개념, 그리고 논문에서 주로 다루는 Linear Spectral GNN(linear GNN in original paper)에 대해 서술합니다. 그리고 Filter의 표현력에 대한 개념인 _Polynomial-Filter-Most-Expressive_(PFME)와 _Filter-Most-Expressive_(FME)에 대해서도 소개하겠습니다.
+이 Section에서는 Graph Signal Filter와 Spectral GNN의 개념, 그리고 논문에서 주로 다루는 Linear Spectral GNN(linear GNN in original paper)에 대해 서술합니다. 그리고 Filter의 표현력에 대한 개념인 _Polynomial-Filter-Most-Expressive_(PFME)와 _Filter-Most-Expressive_(FME)에 대해서도 소개하겠습니다.
 
 **Graph Fourier Transform**의 정의는 논문에서 정의된 바와 같이, (Shuman et al., 2013)[8]의 정의를 따릅니다.
 Signal $X\in\mathbb{R}^{n\times d}$의 Graph Fourier Transform은
@@ -97,7 +97,7 @@ Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Si
 Filter $g:[0,2]\rightarrow\mathbb{R}$는 $g(\lambda)$ 값을 각각의 frequency component에 곱해주는 방식으로 필터링을 수행합니다. Signal $X$에 spectral filter $g$를 적용하는 것은 다음과 같이 정의합니다.
 $$Ug(\Lambda)U^{T}X$$
 
-*(주) filter의 정의역이 [0,2]인 것은 Normalized Graph Laplacian의 성질에 기인합니다.[9]*
+*(주) filter의 정의역이 [0,2]인 것은 Normalized Graph Laplacian의 성질에 기인합니다.[9, Lemma 1.7.]*
 
 여기서 filter $g$는 $\Lambda$에 element-wise하게 적용됩니다. Filter를 parametrize하기 위해, $g$는 아래와 같이 degree $K$의 polynomial로 설정합니다.
 $$g(\lambda):=\sum_{k=0}^{K}{\alpha_{k}\lambda^{k}}$$
@@ -133,21 +133,66 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 우선, 이 논문에서는 Fixed graph, fixed node features에서 오직 node property prediction task만 처리한다고 가정합니다.
 
-이러한 가정은 PFME=FME라는 결론을 도출합니다. 왜냐하면 PFME가 polynomial filter function만 근사할 수 있지만, fixed graph setting에서는 eigenvalue $\lambda$가 discrete하기 때문에 arbitrary filter function을 근사할 수 있는 interpolation [10]
+위와 같은 Setting에서는 PFME=FME가 성립하게 됩니다. 왜냐하면 PFME한 GNN이 비록 polynomial filter function만 표현할 수 있지만, fixed graph setting에서는 eigenvalue $\lambda$가 discrete하기 때문에 arbitrary filter function을 충분히 근사할 수 있는 interpolation polynomial을 얻을 수 있고[10, Theorem 3.1., 3.3.], 이 polynomial은 PFME GNN으로 표현 가능하기 때문입니다. 이를 위해, 추가적으로 Linear GNN의 Polynomial Filter가 충분히 큰 degree K를 가지도록 설정합니다.
 
 <br/> 
 
-## **3. Analyses**  
+## **3. Analyses: The Expressive Power of Linear GNNs**  
 
-Please write the methodology author have proposed.  
-We recommend you to provide example for understanding it more easily.  
+이 Section에서는 세 가지 조건 아래에서 linear GNN이 Universal하다는 것을 증명합니다. 이어지는 3개의 sub-section에서는 세 가지 Universality 조건을 분석하여, spectral GNN이 얼마나 강력한 표현력을 가질 수 있는 지에 대해 다룹니다.
+
+나머지 sub-section에서는 Graph Isomorphism과의 연관성(3.4.), spectral GNN에서 Non-linearlity의 역할(3.5.)에 대해 분석합니다.
+
+본문에 들어가기에 앞서, Linear GNN $Z=g(\hat{L})XW$의 두 핵심 Component에 대해 다시 한 번 짚어보겠습니다.
+ 1. **Linear Transformation** $W$:  
+
+이 논문의 핵심인, Linear GNN의 Universal Theorem은 아래와 같습니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_1.png"></p>
+
+따라서, Universality를 얻기 위해서는 아래의 세 가지 조건이 필요합니다.
+ 1) 1-dimensional prediction
+ 2) Graph Laplacian has no multiple eigenvalues
+ 3) Node feature has no missing frequency components
+
+이 조건은 linear GNN의 표현력의 소위 'Bottleneck'이라 할 수 있습니다. 따라서 아래 sub-section들에서는 이 세 가지 Bottleneck에 대해서 자세하게 분석합니다.
+
+### **3.1. About Multi-dimensional Prediction**
+
+아래 Proposition을 통해, 논문에서는 Linear GNN이 multi-dimensional prediction에 대해서는 Universal하지 않다는 것을 서술하고 있습니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
+
+Proposition 4.2.의 조건에서 $X$ is not a full row-rank matrix, 즉 $\mathrm{rank}(X)<n$이라는 조건은 자명합니다. 보통의 경우 output dimension 값은 node 갯수 $n$보다 작은 값을 갖기 때문입니다.
+
+Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출하는 경우에는 충분히 강력하지만, 위의 Propsition 때문에 Multiple channel을 갖는 prediction을 산출하기 위해서는 각기 다른 polynomial filter를 필요로 하게 됩니다.
+
+이에 대해서는 Figure 1에 묘사되어 있는 Toy Example을 보도록 하겠습니다. (b), (c)를 보면, (a)에서 주어진 Node feature을 이용해 여러 dimension의 output을 만들기 위해서는 서로 다른(하나는 High-pass, 다른 하나는 Low-pass) filter가 필요하다는 것을 서술하고 있습니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_1.png"></p>
+
+이 Toy Example을 통해서 우리는 논문에서 서술하고 있는 위의 내용 이외에도, GNN의 표현력, Universality에 있어서 arbitary filter을 근사하는 능력인 FME property가 왜 중요한 지에 대해서 생각해볼 수 있습니다. 만약 Model에서 사용하는 filter가 특정 filter를 근사할 수 없다면, 이는 특정 prediction 값을 산출할 수 없다는 것이고 다시 말해 universal하지 못하게 된다는 것을 의미합니다.
+
+### **3.2. About Multiple Eigenvalue**
+
+Graph Laplacian이 multiple eigenvalue을 갖는다는 것은 두 개의 frequency component가 같은 eigenvalue $\lambda$를 갖는 경우이며, 이는 다른 frequency component가 같은 scale $g(\lambda)$로 scaling 된다는 것을 의미합니다.
+
+다시 말해, 서로 다른 두 frequency component에 대해서 Model이 다르게 필터링할 수 없다는 것입니다. 우린 이와 같은 경우가 Linear GNN의 표현력을 저해할 수 있다고 생각할 수 있습니다.
+
+### **3.3. About Missing Frequency Components**
+
+Filter 
+
+### **3.4. About the Connection to Graph Isomorphism**
+
+### **3.5. About the Role of Non-linearlity**
+
 
 <br/> 
 
 ## **4. Methodology-JacobiConv**  
 
-Please write the methodology author have proposed.  
-We recommend you to provide example for understanding it more easily.  
+이 Section에서는 Polynomial Filter을 구성하는 Basis function 선택의 영향에 대해, Optimization 관점에서 분석합니다. 그리고 이를 바탕으로 논문에서 제안한 JacobiConv 모델에 대해 다룹니다.
 
 <br/>
 
