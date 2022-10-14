@@ -61,7 +61,7 @@ U는 $i^{\mathrm{th}}$ column이 $\hat{L}$의 $i^{\mathrm{th}}$ eigenvalue에 �
 
 Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem, proposition의 증명을 상세히 다루지 않고 그 안에 담긴 의미에 대해서만 다룰 예정이기에 논문 본문에서 서술한 것 대신, 널리 알려진 정의[7]에 대해서 서술하도록 하겠습니다.
 
-두 graph $\mathcal{G_1}=(\mathbb{V_1}, \mathbb{E_1}, X_1),\ \mathcal{G_2}=(\mathbb{V_2}, \mathbb{E_2}, X_2)$에 대해 bijective(1 to 1 correspondence; 일대일대응) mapping $f:\mathbb{V_1}\rightarrow\mathbb{V_2}$가 존재해서, $(i,j)\in\mathbb{E_1}$인 임의의 두 node $i, j\in\mathbb{V_1}$의 mapped node $f(i),f(j)\in\mathbb{V_2}$가 $(f(i),f(j))\in\mathbb{E_2}$일 때 두 graph $\mathcal{G_1},\mathcal{G_2}$를 isomorphic하다고 하고, $f$를 isomorphism이라고 부릅니다.
+두 graph $\mathcal{G_1}=(\mathbb{V_1}, \mathbb{E_1}, X_1),\ \mathcal{G_2}=(\mathbb{V_2}, \mathbb{E_2}, X_2)$에 대해 bijective(1 to 1 correspondence; 일대일대응) mapping $f:\mathbb{V_1}\rightarrow\mathbb{V_2}$가 존재해서, $(i,j)\in\mathbb{E_1}$인 임의의 두 node $i, j\in\mathbb{V_1}$의 mapped node $f(i),f(j)\in\mathbb{V_2}$가 $(f(i),f(j))\in\mathbb{E_2}$일 때 두 graph $\mathcal{G_1},\mathcal{G_2}$를 **isomorphic**하다고 하고, $f$를 **isomorphism**이라고 부릅니다.
 
 간단하게 말하자면, 두 graph의 구조가 같은 것을 의미합니다.
 
@@ -69,11 +69,11 @@ Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem,
 
 이 섹션에서는 Graph Signal Filter와 Spectral GNN의 개념, 그리고 논문에서 주로 다루는 Linear Spectral GNN(linear GNN in original paper)에 대해 서술합니다. 그리고 Filter의 표현력에 대한 개념인 _Polynomial-Filter-Most-Expressive_(PFME)와 _Filter-Most-Expressive_(FME)에 대해서도 소개하겠습니다.
 
-Graph Fourier Transform의 정의는 논문에서 정의된 바와 같이, (Shuman et al., 2013)[8]의 정의를 따릅니다.
+**Graph Fourier Transform**의 정의는 논문에서 정의된 바와 같이, (Shuman et al., 2013)[8]의 정의를 따릅니다.
 Signal $X\in\mathbb{R}^{n\times d}$의 Graph Fourier Transform은
 $$\tilde{X}=U^{T}X\in\mathbb{R}^{n\times d}$$
 
-로 정의하며, inverse transform은
+로 정의하며, **inverse transform**은
 $$X=U^{T}\tilde{X}$$
 
 와 같이 정의합니다. 여기서 $U$의 $i^{\mathrm{th}}$ column은 eigenvalue $\lambda_{i}$에 해당하는 frequency component(eigenvector)입니다.
@@ -87,7 +87,7 @@ Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Si
 
 이 이상의 Graph Fourier Transform에 대한 자세한 서술은 이 리뷰의 범위를 벗어나므로 생략하도록 하겠습니다.
 
-*(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다.*
+*(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다. 또 Graph Fourier Transform에 대해서 더 자세히 알고 싶으시다면 (Shuman et al., 2013)[8]을 참고하시면 좋을 것 같습니다.*
 
 이젠 Graph Signal Filter에 대해서 서술하도록 하겠습니다. Graph Signal Filter는 signal의 frequency component를 필터링하는 역할을 수행합니다.
 
@@ -111,6 +111,12 @@ ChebyNet 등 여러 널리 알려진 spectral GNN의 filter form은 아래 표�
 
 일반적으로, spectral-based GNN은 아래와 같은 form으로 정리할 수 있습니다.
 $$Z=\phi(g(\hat{L}))\psi(X)$$
+
+여기서 $Z$는 prediction, $\phi, \psi$는 Multi-Layer Perceptron(MLP)와 같은 함수입니다.
+
+이때, spectral GNN의 filter가 그 어떤 polynomial filter function이라도 근사할 수 있다면, 그 GNN이 **Polynomial-Filter-Most-Expressive(PFME)** 하다라고 정의하고, arbitrary한 real-valued filter function을 근사할 수 있다면 **Filter-Most-Expressive(FME)** 라고 정의합니다. 
+
+여기서 정의하는 PFME, FME Property에 대해서 논문 본문에서 자세하게 서술된 바는 없습니다. Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 노드를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 아쉽게도 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다. 다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 논문의 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. 
 
 
 
