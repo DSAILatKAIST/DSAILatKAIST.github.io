@@ -21,7 +21,7 @@ Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 
  3. 여러 Spectral GNN의 실험적인 성능 차이를 최적화 관점에서 분석하고, 이를 통해 그래프 신호 Density에 맞는 basis function으로 그래프 신호 필터를 구성하는 것이 중요함을 보여줍니다.
  4. 위의 분석을 기반으로 JacobiConv이라는 Spectral GNN 모델을 제시합니다. JacobiConv은 비선형성 없이도 synthetic 및 real-world dataset에서 다른 Spectral GNN baseline들을 상회하는 성능을 보여줍니다.
 
-논문의 서술 흐름이 좋기 때문에, 이 리뷰는 논문의 순서를 그대로 따라 서술되어 있습니다. 이 리뷰를 읽으시면서 좀 더 자세하고 엄밀한 부분이 필요하다면 논문을 참고하셔도 좋습니다.
+논문에서 내용을 서술하는 흐름이 자연스럽기 때문에, 이 리뷰는 논문의 내용 순서를 그대로 따라 서술되어 있습니다. 이 리뷰를 읽으시면서 좀 더 자세하고 엄밀한 부분이 필요하다면 논문을 참고하셔도 좋습니다.
 
 <br/> 
    
@@ -42,7 +42,7 @@ $$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$$
 
 이때, 주어진 matrix $M$이 singular(=not invertible; inverse가 존재하지 않는 경우)라면 $\kappa(M)=+\infty$이고, 이는 matrix의 모든 eigenvalue가 non-zero 값을 갖는 것이 matrix의 invertiblility와 동치이기 때문입니다. [6]
 
-*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다. $| \lambda | _{max}$, $| \lambda | _{min}$이 맞는 표기이지 않을까 싶습니다.
+*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다. $| \lambda | _{max}$, $| \lambda | _{min}$이 맞는 표기이지 않을까 싶습니다.*
 
 아래는 Graph와 관련된 Notation입니다. 기본적으로 주어진 Graph는 undirected입니다. $\mathcal{G}=(\mathbb{V}, \mathbb{E}, X)$는 주어진 Graph이고, 여기서 
 $$\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X\in\mathbb{R}^{n\times d}$$
@@ -52,7 +52,7 @@ $$\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X
 $A, D$를 각각 Adjacency, Degree matrix라고 하면, normalized adjacency는 $\hat{A}=D^{-1/2}AD^{-1/2}$이고 symmetric normalized graph Laplacian은 $\hat{L}=I-\hat{A}$입니다. Graph Laplacian은 Real symmetric이기에 orthogonally diagonalizable하고, 따라서 아래와 같이 Eigen-decomposition할 수 있습니다.
 $$\hat{L}=U\Lambda U^{T}$$
 
-U는 ith column이 $\hat{L}$의 ith eigenvalue에 해당하는 eigenvector인 orthogonal matrix이고, $\Lambda$는 eigenvalue들을 diagonal entry들로 갖는 diagonal matrix입니다.
+U는 $i^{\mathrm{th}}$ column이 $\hat{L}$의 $i^{\mathrm{th}}$ eigenvalue에 해당하는 eigenvector인 orthogonal matrix이고, $\Lambda$는 eigenvalue들을 diagonal entry들로 갖는 diagonal matrix입니다.
 
 
 ### **2.1. Graph Isomorphism**
@@ -71,9 +71,23 @@ Graph Isomorphism은 중요한 개념이긴 하나, 이 리뷰에서는 Theorem,
 
 Graph Fourier Transform의 정의는 논문에서 정의된 바와 같이, (Shuman et al., 2013)[8]의 정의를 따릅니다.
 Signal $X\in\mathbb{R}^{n\times d}$의 Graph Fourier Transform은
-$$\tilde{X}=U^{T}X$$
+$$\tilde{X}=U^{T}X\in\mathbb{R}^{n\times d}$$
 
-로 정의하며, 
+로 정의하며, inverse transform은
+$$X=U^{T}\tilde{X}$$
+
+와 같이 정의합니다. 여기서 $U$의 $i^{\mathrm{th}}$ column은 eigenvalue $\lambda_{i}$에 해당하는 frequency component(eigenvector)입니다.
+
+Eigenvalue $\lambda$에 해당하는 eigenvector를 $U_{:\lambda}^{T}$라고 하면, frequency $\lambda$에 해당하는 $X$의 frequency component는 $\tilde{X_{\lambda}}=U_{:\lambda}^{T}X$로 정의합니다.
+
+Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Signal(Graph에서는 Node feature $X$)을 Frequency(Graph에서는 Laplacian $\hat{L}$의 Eigenvalue $\lambda$) domain으로 transform한다는 점에서 동일합니다.
+
+또한 Fourier Transform의 경우 주어진 signal을 Function space에서의 orthonormal basis를 이용해 변환하는데, Graph Fourier Transform의 경우 주어진 signal을 vector space의 orthonormal basis인 eigenvector를 이용해 변환한다는 점에서 연관성이 있습니다.
+
+이 이상의 Graph Fourier Transform에 대한 자세한 서술은 이 리뷰의 범위를 벗어나므로 생략하도록 하겠습니다.
+
+*(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다.*
+
 
 
 
