@@ -32,25 +32,7 @@ TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한
 본격적으로 설명하기 앞서, 두 가지 사항을 짚고 넘어가도록 하겠습니다. Notation을 확인하고, 추출하려는 대상이 무엇인지 파악하도록 합니다.
 
 ## 2.1 Notation
-
-- $\mathcal{G}=(\mathcal{L}, \mathcal{E})$
-    - $\mathcal{G}$ : 도로 네트워크
-    - $\mathcal{L}$ : 링크는 도로 세그먼트로 $l \in \mathcal{L}$ 인 링크의 집합
-    - $\mathcal{E}$ : 엣지는 링크와 링크를 잇는 연결점으로, $e_{ij}\in\mathcal{E}$ 는 서로 이웃한 링크 $l_i$ 와 $l_j$ 를 잇는 엣지
-- $r=[l_1, l_2, ..., l_m]$
-    - $r$ :  $m$ 개의 링크를 가지고 있는 경로, 루트.
-- $req=(r,s)$
-    
-    유저가 요청하는 인풋  $req$으로, TTE의 목적은 소요시간 $y$를 예측하는 것 
-    
-    - $r$ : 루트
-    - $s$  : 출발 시각
-- $\mathcal{D}=\{(req^{(i)},y^{(i)})\}^n_{i=1}$
-    - $\mathcal{D}$ : 데이터셋
-    - $n$ : 데이터셋의 샘플 수
-    - $y^{(i)}$ : $req^{(i)}$에 대한 실제 소요시간
-    - $y^{(i)}=\sum^{m^{(i)}}_{j=1}y_j^{(i)}$ : 실제 소요시간은 각 링크의 소요시간의 합
-    - $y_j^{(i)}$ : 요청 $req^{(i)}$의 루트 $r^{(i)}$에서 $j$번째 링크 $l_j^{(i)}$의 소요시간
+![Notation_01](https://user-images.githubusercontent.com/52244004/195804203-91877da2-3bdb-4376-81f1-bbefe876f9fe.PNG)
 
 ## 2.2 Feature Extraction
 
@@ -88,13 +70,10 @@ TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한
 
 ![Figure 3.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_3.png)
 
-Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발시간 s 를 인풋으로 받아 앞으로의 교통상황을 예측합니다. 여기서 시간-공간 관계를 포착하기 위해 Graph attention network의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과적으로 1번 식과 같이 출발시간 이수 T_{f}개의 타임슬롯에 대한 교통상황을 예측하도록 하는 것입니다.
+Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발시간 s 를 인풋으로 받아 앞으로의 교통상황을 예측합니다. 여기서 시간-공간 관계를 포착하기 위해 Graph attention n
+etwork의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과적으로 1번 식과 같이 출발시간 이수 T_{f}개의 타임슬롯에 대한 교통상황을 예측하도록 하는 것입니다.
 
-1. $[C^{s-T_h}, \cdot\cdot\cdot, C^{s-1};\mathcal{G}] \rightarrow [\hat C^{s}, \hat C^{s+1}, \cdot\cdot\cdot, \hat C^{s+T_f-1}]$
-    - $C^t$ : Traffic conditions observed on graph $\mathcal{G}$ at time slot $t$
-    - $c^t_l$ : Traffic conditions observed on graph $\mathcal{G}$ at time slot $t$, on link $l$
-    - $T_f$ : Number of the predicted future time slots
-    - $T_h$ : Number of the historical time slots used to train the model
+![Notation_02](https://user-images.githubusercontent.com/52244004/195804388-b1867422-7761-4e39-8aa5-7ebda292ca9f.PNG)
 
 이를 구현하기 위한 단계는 크게 3개 단계가 있겠습니다.
 
@@ -102,27 +81,11 @@ Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발�
 
 이를 진행하기 위해 우선 Spatial-temporal tensor $X_i^{^{(MST)}}$을 추출합니다.  $X_i^{^{(MST)}}$는 교통 히스토리  $X^{(ST)}_i$, 이웃 링크 특성 $X^{(S)}_i$, 타임슬롯 특성$X^{(T)}$ 행렬을 결합함으로써 얻을 수 있습니다. 세부 내용은 아래를 참조하세요. 
 
-- $X_i^{^{(MST)}}\in\mathbb{R}^{|\mathcal{NB}(l_i)|T_h\times d^{(MST)}}$
-    
-    New spatial-temporal matrix by merging $X^{(ST)}_i$, $X^{(S)}_i$, $X^{(T)}$
-    
-    $d^{(MST)}$$=d^{(ST)}+d^{(S)}+d^{(T)}$
-    
-    - $\mathcal{NB}(l_i)=\{l_j|e_{ij}\in\mathcal{E}\}$ : Neighbor set of link $l_i$
-    - $X_i^{(ST)}\in\mathbb{R}^{|\mathcal{NB}(l_i)|T_h\times d^{(ST)}}$ : Historical traffic conditions matrix
-        - $|\mathcal{NB}(l_i)|$ : Number of neighbors for link $l_i$
-        - $T_h$ : Number of the historical time slots used to train the model
-        - $d^{(ST)}$ : Dimension of the features
-        - $X^{(ST)}_{i, (j-1)T_h+k}$ : Traffic condition of the $k$-th time slot of the $j$-th neighbor of link $i$, with $j\in[1,\mathcal{NB(l_i)}]$ and $k \in [1, T_h]$
-    - $X_i^{(S)}\in\mathbb{R}^{|\mathcal{NB}(l_i)|\times d^{(S)}}$ : Features of the neighbor links
-        - $d^{(S)}$ : Dimension of the features for spatial information
-    - $X^{(T)}\in\mathbb{R}^{T_h\times d^{(T)}}$ : Features of the historical time slots
-        - $d^{(T)}$ : Dimension of the features for temporal information
+![Notation_03](https://user-images.githubusercontent.com/52244004/195804461-a99865c6-1724-4403-9bff-d0d903371aed.PNG)
 
 조금 더 구체적으로 들어가자면, $k$번째 타임슬롯에서 링크 $i$의 이웃인 링크 $j$의 시공간 행렬은 Concat을 통해 구현될 수 있고, 이를 통해 기존의 행렬이 3D-tensor로 변환됩니다. 이 3D-tensor는 $l_i$에서의 교통상황을 예측할 spatio-temporal tensor (ST-tensor)를 만들기 위해서 반드시 가져야 할 형태이기도 합니다.
 
-1. $X^{(MST)}_{i,j,k}= \mathbf{Concat}(X^{(ST)}_{i, (j-1)T_h+k},\; X_{ij}^{(S)},\;X_{k}^{(T)})$ $, j\in[1, \mathcal{NB}(l_i)],k\in[1,T_h]$
-    - $X^{(MST)}_i$$\in\mathbb{R}^{|\mathcal{NB}(l_i)|\times T_h\times d^{(ST)}}$
+![Notation_04](https://user-images.githubusercontent.com/52244004/195804513-869f2f04-d4e7-4d96-a53d-e7557daf9d88.PNG)
 
 **2단계 ) Attention Mechanism으로 시간과 공간의 연관 정보 추출하기 : 교통상황 파악**
 
@@ -134,13 +97,7 @@ Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발�
 
 이를 바탕으로 3D-attention은 다음과 같이 전개됩니다.
 
-1. $Q_i=\mathbf{Dense}(\mathbf{Concat}(x^{(CI)}_{i,w}, x^{(B)}_{i}))$
-2. $K_{i,j,k}=\mathbf{Dense}(X^{(MST)}_{i,j,k})$
-3. $V_{i,j,k}=\mathbf{Dense}(X^{(MST)}_{i,j,k})$
-4. $f(Q_i, K_{i,j,k}) = \frac{Q_i^T\cdot K_{i,j,k}}{\sqrt{d^{(H)}}}$
-    - $d^{(H)}$ : Hidden size of attention mechanism
-5. $\alpha(Q_i, K_{i,j,k}) = \frac{exp(f(Q_i, K_{i,j,k}))}{\sum_{j',k'}exp(f(Q_i, K_{i,j',k'}))}$
-6. $Attention(Q_i, K_i, V_i)=\sum_{j,k}\alpha(Q_i,K_{i,j,k})V_{i,j,k}$
+![Notation_05](https://user-images.githubusercontent.com/52244004/195804543-f44a6c2f-79d6-4d6d-9949-764b1614bd8b.PNG)
 
 이에 따라 링크 $l_i$에서 지난 교통 히스토리와 query간의 관계는 8번 식에 따라  $x_i^{(TC)}=Attention(Q_i, K_i, V_i)$ 로 정리될 수 있습니다. 따라서 이렇게 3D-attention으로 구현한 GNN을 “3DGAT”라 부릅니다.
 
@@ -166,7 +123,8 @@ Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발�
 
 이처럼 이 모델은 특정 링크의 travel time은 주변 노드의 상황으로부터 영향을 받는다는 가정을 깔고 있는데, 이런 상황에서 CNN은 주변 정보, 즉 지역적 의존성을 수집하기 효율적인 방법입니다. 다음과 같이 $l_i$의 주변 정보를 인코딩 합니다.
 
-1. $x^{(CI)}_{i,w}=\mathbf{Dense}(\mathbf{Concat}(\mathbf{Emb}(l_{i-w}),\cdot\cdot\cdot,\mathbf{Emb}(l_{i}),\cdot\cdot\cdot,\mathbf{Emb}(l_{i+w})))$
+![Notation_06](https://user-images.githubusercontent.com/52244004/195804610-c4ff1423-8eaa-4efe-aecc-ff270434c786.PNG)
+
 
 이렇게 도출된 주변 정보 인코딩은 앞서 살펴보았던 Traffic Prediction Module의 쿼리와 Integration Module에 사용됩니다.
 
@@ -174,11 +132,11 @@ Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발�
 
 이제 최종 예측을 위한 모듈인 Integration Module만 남았습니다. 이 단계에서는 Traffic Prediction Module $x^{(TC)}_{i}$, Context Information Module $x^{(CI)}_{i,w}$, Background Information $x^{(B)}_{i}$ 이 세개로부터 인풋을 받습니다. 이렇게 받은 인풋은 그림과 같이 Concatenation을 거쳐 Multiple Fully-connected Layer을 지나 루트안에 있는 모든 링크의 travel timed을 예측합니다.
 
-1. $\hat y_i=\mathbf{MLP}(\mathbf{Concat}(x_{i,w}^{(CI)},x_{i}^{(B)},x_{i}^{(TC)}))$
+![Notation_07](https://user-images.githubusercontent.com/52244004/195804664-6a31f149-7ab7-4fbb-9362-c2c243b52d12.PNG)
 
 각각 계산된 링크들의 travel time을 모두 더해 전체 루트의 travel time을 구하므로써 끝이 납니다.
 
-1. $\hat y=\sum^m_{i=1}\hat y_i$
+![Notation_08](https://user-images.githubusercontent.com/52244004/195804804-a7e26d78-f6c8-47a6-83f7-c239d4a27b13.PNG)
 
 **3단계 ) Loss 계산**
 
@@ -186,7 +144,7 @@ Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발�
 
 Segment-based method 차원에서 사용한 손실함수는 Huber Loss로, 루트 안에 포함된 모든 각각의 링크의 travel time에 대해 계산합니다. 한편, End-to-end method 차원에서 사용한 손실함수는 APE로, 합산된 루트의 travel time에 대해 계산합니다. 이 두 방식을 한번에 담은 손실함수는 다음과 같고, 이 손실함수를 최소화 하는 방향으로 학습이 진행됩니다.
 
-1. $L=\frac{1}{n}\sum^n_{i=1}(\frac{1}{m^{(i)}}\sum^{m^{(i)}}_{j=1}L_{link}(\hat y_j^{(i)},y_j^{(i)})+L_{route}(\hat y^{(i)},y^{(i)}))$
+![Notation_09](https://user-images.githubusercontent.com/52244004/195804769-700a8888-55a5-4389-883f-a244787cae9e.PNG)
 
 **4단계 ) 현실 적용**
 
