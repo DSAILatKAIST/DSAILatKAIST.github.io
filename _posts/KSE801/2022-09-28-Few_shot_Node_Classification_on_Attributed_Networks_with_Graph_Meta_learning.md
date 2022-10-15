@@ -165,10 +165,60 @@ $$
 $$
 
 > $\Theta = \textbraceleft \theta_ e, \theta_ p \textbraceright$ : prior parameters  
-> $\mathcal{L_{\mathcal{T}_ i}}(\cdot)$ : cross-entropy loss function
-### 3-3. $S^2$ Transformation for DIfferent Tasks  
+> $\mathcal{L_{\mathcal{T}_ i}}(\cdot)$ : cross-entropy loss function  
+> $score$=softmax( $\mathbf{Z} \varphi^{T} + b), score \in \mathbb{R}^{N \texttimes d'}$
+
+### 3-3. $S^2$ Transformation for Different Tasks  
+Task마다 구성된 class와 node가 다름으로 인해서, task간의 variance 차이로 발생한다. 따라서 inter-task간의 difference를 파악하여, parameters를 task-specific하게 바꿔주는 방법을 제시하는데, $S^2$ transformation을 이용한다. 먼저 task를 대표할 수 있는 representation vector $t_i$를 만든다(task의 prototype이라고 생각하면 된다). Task의 prototype은 task 내 포함되어 있는 모든 node embeddings을 mean해주는 방법으로 만든다. 이렇게 만든 prototype으로 scaling vector $\lambda_ i$와 shifting vector $\mu_ i$를 생성하는 데, task $\mathcal{T}_ i$의 성질을 인코딩하는 것이다.   
+
+$$
+t_i = {1 \over {\textbar \mathcal{V}_ {t_i} \textbar}} \Sigma_ {k\in{\mathcal{V}_ {t_i}}}, \lambda_i=g(t_i;\psi_ \lambda), \mu_ i = g(t_ i; \psi_\mu)
+$$
+
+>  $\mathcal{V}_ {t_i}$ : set of nodes involved in $\mathcal{T}_ i$  
+>  $\lambda_ i, \mu_ i \in \mathbb{R}^{\textbar \Theta \textbar}$  
+> $\psi_\lambda, \psi_\mu$ : paramters of two $MLPs$ with the neural network used in prototype-based parameter initialization.  
+
+위에서 생성한 scaling/shifting vector로 다음과 같이 task's prior meta-parameters $\Theta$를 transformation해준다.  
+
+$$
+\Theta_i = \lambda_i \odot \Theta + \mu_i
+$$
+
+이를 통해 비슷한 task는 비슷하게 transformation하는 식으로 task-specific하게 parameter를 바꿔줄 수 있다.  
 
 ### 3-4. Meta-optimization    
+마지막으로 model을 optimization하기 위해서 Meta-GPS는 meta-learning 방법을 활용한다. 그 중에서도 MAML의 방법을 따라가는데, 이는 Meta-training, Meta-testing phase로 나눌 수 있다.  
+
+##### Meta-training  
+특정 task $\mathcal{T}_ i$를 잘 맞추기 위해서 support set(labeled data)가 먼저 투입된다. support set의 label을 이용해서 cross-entropy로 task loss $\mathcal{L}_ {\mathcal{T}_ i}$을 계산한다.  
+
+$$
+\mathcal{L}_ {\mathcal{T}_ i} (\mathcal{S}_ i, \psi'_ i, \Theta_ i)= -\sum_ {(v_ i, y_ i) \in \mathcal{S}_ i} (y_ i \log f(v_ i; \psi'_ i, \Theta_ i)+(1-y_ i)\log(1-f(v_ i;\psi'_ i, \Theta_ i))) 
+$$
+
+이 loss를 task $\mathcal{T}_ i$에 adaptation하기 위해 $\Theta_ i$를 수 번의 gradient descent step을 통해 업데이트하게 된다.  
+
+$$
+\Theta'_ i=\Theta-\alpha \nabla_\Theta\mathcal{L_{\mathcal{T}_ i}}(f(\mathcal{S}_ i ; \varphi'_ i, \Theta))
+$$  
+
+> $\alpha$ : meta-step size (Meta-training의 learning rate)  
+
+support set으로 $\Theta'_ i$를 optimization을 하고 나서, 이제는 label을 모르는 query set을 이용해 loss를 구하고 이 loss를 minimize 시키는 것이 meta-objective function이다.  
+
+$$
+\min_ {\Theta, \Psi} \mathcal{L}  ( f_ {\varphi'}, \Theta, g_{\psi}})= \min_ {\Theta, \Psi} \sum_ {\mathcal{T}_ i ~ p(\mathcal{T})} \mathcal{L}_ {\mathcal{T}_ i}(f(\mathcal{Q}_ i; \varphi'_ i, \Theta'_ i))+\gamma \textbardbl \Psi \textbardbl^2_ 2
+$$
+
+> $\Psi=\textbraceleft \psi_\lambda, \psi_\lambda \textbraceright$  
+
+이제 tasks 전반에 걸쳐 meta-optimization을 하게된다.  
+
+$$
+\Theta=\Theta-\beta \nabla_ {\Theta} \mathcal{L}(f_ {\varphi'}, \Theta, g_{\psi}), \Psi = \Psi-\beta \nabla_\Psi\mathcal{L}  ( f_ {\varphi'}, \Theta, g_{\psi})
+$$
+
 
 
 ## **4. Experiment**  
