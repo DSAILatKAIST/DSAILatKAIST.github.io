@@ -118,7 +118,7 @@ $$
 먼저 inner loop에서 $\phi_{2}^{* }$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킨다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
 
 
-## **4. Experiment **  
+## 4. Experiment  
 
 실험은 총 3가지 실험을 진행하였고, graph classification과 graph interpretation(해석), graph denoising(노이즈 제거)의 관점에서 본 논문에서 제안된 GIB(Graph Information Bottleneck)을 평가합니다. 
 
@@ -138,7 +138,11 @@ MUTAG, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classif
 
 GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다. 본 실험에서는 GIB와 attention 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 50%(Att05), 70%(Att07)로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였으며, $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 제외하고 학습을 진행하였습니다.  
 
+250000여개의 분자를 포함하는 ZINC dataset을 사용하고, 4가지 분자의 특성에 대해서 그래프 해석 작업을 진행합니다. QED는 0에서 1까지의 범위로 약물의 유사성을 측정합니다. DRD2는 0에서 1까지의 범위로 분자가 도파민 수용체에 대해서 활성일 확률을 나타냅니다. HLM-CLint와 MLM-CLint는 시험관 내에서 인간과 쥐의 간 마이크로솜의 대사 안정성을 추정한 값입니다. 각 작업에 대해서 training set, validation set, test set의 비율을 85%, 5%, 10%로 분할합니다.  
 
+![image](https://user-images.githubusercontent.com/67723054/196010105-30456233-e17b-4bea-8626-2d06a9758b16.PNG)
+
+ QED는 범위(0, 1:0) 내에서 경계를 이루는 분자의 약물 유사성을 측정합니다. DRD2는 분자가 (0; 1:0)에 결합된 도파민 2형 수용체에 대해 활성일 확률을 측정합니다. HLM-CLint 및 MLM-CLint는 시험관 내 인간 및 마우스 간 마이크로솜 대사 안정성의 추정값입니다(mL/min/g의 기본 10 로그). 각 작업에 대해 QED 0:85, DRD2 0:50, HLM-CLint 2, MLM-CLint 2로 분자를 샘플링합니다. 우리는 이러한 분자의 85%를 훈련에, 5%를 검증에, 10%를 테스트에 사용합니다. 
 그래프 분류 개선: 그래프 분류 개선을 위해 GIB는 하위 그래프 정보를 집계하여 그래프 표현을 생성합니다. 우리는 GCN [19], GAT [30], GIN [32] 및 GraphSAGE [14]를 포함한 다양한 백본에 GIB를 연결합니다. 제안된 방법을 다음과 비교합니다.
 분류 정확도 측면에서 평균/합계 집계 [19, 30, 14, 32] 및 풀링 집계 [38, 26, 35, 6].
 
