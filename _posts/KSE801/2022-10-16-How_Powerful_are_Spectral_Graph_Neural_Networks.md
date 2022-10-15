@@ -8,6 +8,8 @@ tags: [reviews]
 
 이 리뷰에서 소개하는 논문 'How Powerful are Spectral Graph Neural Networks'는 [이번 ICML 2022에서 Spotlight로 선정된 논문](https://icml.cc/virtual/2022/spotlight/17796) 중 하나입니다. 이 논문에서는 Spectral GNN의 표현력에 대한 분석 및 이를 기반으로 한 새로운 Spectral GNN인 'JacobiConv'를 소개하고 있습니다.
 
+참고로, 이 리뷰 본문에서의 Section X.X.와 같이 어떤 section을 언급하는 부분은 리뷰 기준이고, Proposition X.X 와 같이 어떤 Theorem 등을 언급하는 것은 논문 본문 기준임을 알드립니다.
+
 <br/>
 
 ## **1. Introduction**  
@@ -156,11 +158,11 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
  2) Graph Laplacian has no multiple eigenvalues
  3) Node feature has no missing frequency components
 
-이 조건은 linear GNN의 표현력의 소위 'Bottleneck'이라 할 수 있습니다. 따라서 아래 sub-section들에서는 이 세 가지 Bottleneck에 대해서 자세하게 분석합니다.
+상기한 조건들은 linear GNN 표현력의 소위 'Bottleneck'이라 할 수 있습니다. 따라서 아래 sub-section들에서는 이 세 가지 Bottleneck이 되는 요소들에 대해서 자세하게 분석합니다.
 
 ### **3.1. About Multi-dimensional Prediction**
 
-아래 Proposition을 통해, 논문에서는 Linear GNN이 multi-dimensional prediction에 대해서는 Universal하지 않다는 것을 서술하고 있습니다.
+아래 Proposition을 통해, 논문에서는 Linear GNN이 multi-dimensional prediction을 해내는 데에 있어서는 Universal하지 않다는 것을 서술하고 있습니다.
 
 <p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
 
@@ -178,7 +180,7 @@ Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출�
 
 Graph Laplacian이 multiple eigenvalue을 갖는다는 것은 두 개의 frequency component가 같은 eigenvalue $\lambda$를 갖는 경우이며, 이는 다른 frequency component가 같은 scale $g(\lambda)$로 scaling 된다는 것을 의미합니다.
 
-다시 말해, 서로 다른 두 frequency component에 대해서 Model이 다르게 필터링할 수 없다는 것입니다. 우린 이와 같은 경우가 Linear GNN의 표현력을 저해할 수 있다고 생각할 수 있습니다.
+다시 말해, 서로 다른 두 frequency component를 Model이 다르게 필터링할 수 없다는 것입니다. 우린 이와 같은 경우가 Linear GNN의 표현력을 저해할 수 있다고 생각할 수 있습니다.
 
 이러한 Multiple eigenvalue는 주어진 graph의 topology, 즉 구조와 연관되어 있습니다.
 
@@ -186,7 +188,7 @@ Graph Laplacian이 multiple eigenvalue을 갖는다는 것은 두 개의 frequen
 
 ### **3.3. About Missing Frequency Components**
 
-위에서 전술했듯이, Filter는 frequency component를 scaling해주는 역할만을 수행합니다. 만약 node feature의 어느 frequency component가 missing되었다면, prediction에 해당 frequency component가 반영되지 못하게 됩니다.
+전술했듯이, Filter는 frequency component를 scaling해주는 역할만을 수행합니다. 그렇기에 만약 node feature의 어느 frequency component가 missing되었다면, prediction에 해당 frequency component가 반영되지 못하게 됩니다.
 
 아래 Figure 2에는 missing frequency component가 생기는 Toy graph를 다루고 있습니다.  
  *(주) Figure 2에 있는 1-dim node feature와 graph structure을 이용해 계산해보면, 왼쪽의 node feature로는 frequency, 즉 eigenvalue=2에 해당하는 frequency component가 0이 됩니다.*
@@ -271,10 +273,10 @@ $W$의 gradient는 filter function 전체에 dependent합니다. 충분히 표�
 
 Loss $R$는 convex합니다. 이때, Gradient Descent 알고리즘의 Convergence rate은 loss $R$의 Hessian Matrix $H$의 condition number $\kappa(H)$에 dependent한 것[11]이 알려져 있습니다. Condition number가 작을수록 convergence rate은 빨라집니다.
 
-총 loss 값은 output dimension에 걸쳐 더해지고, 각 dimension에 따라 다른 coefficient $\alpha_{kl}$을 사용하므로 우리는 Hessian Matrix를 각 dimension마다 독립적으로 분석할 수 있습니다. Hessian matrix의 $(k_{1}, k_{2})$ entry는 아래와 같이 계산할 수 있습니다.
+Loss function이 각 entry의 제곱을 모두 더하는 Frobenius norm의 형태이기에, 총 loss 값은 output dimension에 걸쳐 더해지고, 각 dimension에 따라 다른 coefficient $\alpha_{kl}$을 사용하므로 우리는 Hessian Matrix를 dimension마다 독립적으로 분석할 수 있습니다. 그래서 output dimension $l$을 무시하면 Hessian matrix의 $(k_{1}, k_{2})$ entry는 아래와 같이 계산할 수 있습니다.
 $$\frac{\partial R}{\partial\alpha_{k_{1}}\partial\alpha_{k_{2}}}=X^{T}g_{k_{2}}(\hat{L})g_{k_{1}}(\hat{L})X=\sum_{i=1}^{n}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})\tilde{X}_ {\lambda_{i}} ^{2}}$$
 
-$\lambda$보다 작은 frequency를 갖는 signal의 accumulated amplitude를 $F(\lambda):=\sum_{\lambda_{i}\leq\lambda}{\tilde{X}_ {\lambda_{i}} ^{2}}$라고 하고, 위의 Hessian entry 값을 아래와 같이 Riemann sum으로 나타낼 수 있습니다.
+$\lambda$보다 작은 frequency를 갖는 signal의 accumulated amplitude를 $F(\lambda):=\sum_{\lambda_{i}\leq\lambda}{\tilde{X}_ {\lambda_{i}} ^{2}}$라고 하면, 위의 Hessian entry 값을 아래와 같이 Riemann sum으로 나타낼 수 있습니다.
 $$\sum_{i=1}^{n}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})\frac{F(\lambda_{i})-F(\lambda_{i-1})}{\lambda_{i}-\lambda_{i-1}}}(\lambda_{i}-\lambda_{i-1})$$
 
 $n \rightarrow +\infty$ 일 때, Frequency $\lambda$에서의 Signal density $f(\lambda)=\Delta F(\lambda)/\Delta \lambda$를 이용하면 아래와 같이 Hessian entry 값을 얻을 수 있습니다.
@@ -322,28 +324,49 @@ $$P_{k}^{a,b}(\hat{A})\hat{X}=\gamma_{k}\theta_{k}\hat{A}P_{k-1}^{a,b}(\hat{A})\
 
 ## **5. Experiment**  
 
-In this section, please write the overall experiment results.  
-At first, write experiment setup that should be composed of contents.  
+이 Section에서는 논문 본문에 공유된 실험 결과에 대해 소개합니다. 논문에서는 Real Image로 만든 Synthetic grid graph에서 Filter 표현력(filter를 잘 학습할 수 있는지)을 비교하는 실험과, Real-world dataset에서의 성능을 비교한 실험을 수행했습니다.
 
-### **Experiment setup**  
+### **5.1. Experimental setup**  
 * Dataset  
-* baseline  
-* Evaluation Metric  
+Filter 학습 evaluation 실험에서는 이전 연구인 BernNet[12]의 실험 세팅을 따라, 50개의 Real image를 grid graph로 변환한 Synthetic graph dataset을 사용합니다. Task는 original graph signal을 이용해 filtered signal에 fit하여, 5가지 filter function(Low, High, Band, Reject, Comb)을 잘 배울 수 있는 지를 평가하는 Regression Task입니다.  
+Real-world dataset의 경우, Homogeneous Graph로는 Cora, CiteSeer, Pubmed의 널리 쓰이는 Citation network와 2개의 Amazon co-purchase graph를 사용했다 합니다. 추가적으로 Heterogeneous graph인 2개의 Wikipedia graph Chameleon과 Squirrel, 그리고 Actor co-occurence graph, 2개의 webpage graph Texas, Cornell을 사용했다고 합니다. Task는 node classification이며, train/valid/test split은 60%/20%/20% 입니다.
 
-### **Result**  
-Then, show the experiment results which demonstrate the proposed method.  
-You can attach the tables or figures, but you don't have to cover all the results.  
-  
+* baseline  
+Synthetic dataset에서는 Task가 filter를 잘 배울 수 있느냐이니 만큼, PFME GNN들인 GPRGNN[14], ARMA[15], BernNet[12], ChebyNet[4]을 Baseline model로 사용해 JacobiConv와 비교합니다. 또한, Jacobi bases가 아닌 다른 Chebyshev, Monomial, Bernstein 등의 bases들을 이용한 linear GNN 모델과도 비교합니다. 이때, JacobiConv를 포함한 Linear GNN들은 PCD technique를 사용하지 않습니다.  
+Real-world dataset에서는 다른 spectral GNN들인 GCN[2], APPNP, ChebyNet, GPRGNN, BernNet을 사용합니다.
+
+* Evaluation Metric  
+Synthetic Dataset에서는 실질적으로 Regression Task이기 때문에 총 50개 graph에서의 실험 결과를 평균낸, MSE를 metric으로 활용합니다.  
+Real-world Dataset에서는 accuracy가 metric입니다.
+
+
+### **5.2. Result**  
+
+원래 논문에서는 아래 소개할 실험 결과 이외에도 Ablation Study, Scalability 관련 실험을 포함하고 있으나, 이 리뷰에서는 다루지 않도록 하겠습니다. 
+
+#### **5.2.a. Synthetic Dataset Result: evaluating model on learning filters**
+
+JacobiConv가 다른 PFME GNN이나 다른 Bases를 사용한 linear GNN에 비해 Filter를 잘 학습할 수 있는지를 보여주는 실험입니다. 아래 Table 1은 다른 모델과 비교했을 때 JacobiConv의 우수성을 보여주고 있습니다. 이 실험 결과는 Section 4.1.에서의 Analysis를 뒷받침하고 있습니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_1.png"></p>
+
+#### **5.2.b Real-world Dataset**
+
+아래 Table 2에서 보이듯, 총 10개의 Dataset 중 9개에서 보여지는 JacobiConv의 우수한 성능은 표현력이 강한 Linear한 Spectral GNN을 사용하는 것으로도 충분히 강력한 성능을 얻을 수 있음을 보여줍니다.
+
+<p align="center"><img width="600" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_2.png"></p>
 
 <br/> 
 
 ## **6. Conclusion**  
 
-이 논문은 Spectral GNN의 Expressive Power, 표현력에 대해 이론적인 분석을 제시한 첫 연구입니다. Spatial GNN에서의 표현력 분석과는 다르게 주로 Universality 측면에서 표현력을 분석했지만, 이를 Spatial GNN 표현력 분석 연구에서 쓰인 Graph Isomorphism Test 측면과의 연결성 역시 제시했습니다.
+이 논문은 Spectral GNN의 Expressive Power, 표현력에 대해 이론적인 분석을 제시한 첫 연구입니다. 이미 있었던 Spatial GNN의 표현을 분석한 연구와는 다르게 주로 Universality 측면에서 표현력을 분석했지만, 이를 Spatial GNN 표현력 분석 연구에서 쓰인 Graph Isomorphism Test 측면과의 연결성 역시 제시했습니다. 또한 Spectral GNN이 사용하는 Filter 구성 선택의 차이가 실험적인 성능에 영향을 어떻게 미칠 수 있는 지도 분석하였습니다.
 
-이런 표현력에 대한 분석을 바탕으로 새로운 Spectral GNN 모델인 JacobiConv를 제시하였고, 실험적으로도 우수한 성능을 보임을 광범위한 실험을 통해 입증하였습니다.
+이런 표현력에 대한 분석을 바탕으로 이 논문에서 저자들은 새로운 Spectral GNN 모델 'JacobiConv'를 제시하였고, 실험적으로도 우수한 성능을 보임을 광범위한 실험을 통해 입증하였습니다.
 
 이 논문은 AI/ML 분야에서 최고 중 하나로 인정받는 학회인 ICML의 Spotlght paper로 선정된 논문입니다. 그만큼의 기대를 충족시킬만한 정말 좋은 논문이었다고 생각합니다. Problem Formulation, Theoretical Background & Analysis, Extensive Experiments 등 좋은 논문을 만드는 요소는 다 포함하고 있는 연구인 것 같습니다. 비록 제가 Spectral GNN에 대해서 배경지식이 부족하여 깊게 이해하지 못하고 그래서 이 리뷰에서 미흡한 부분이 있습니다만, 만약 Spectral GNN에 대해 어느정도의 배경지식을 갖고 계신 분이라면 많은 것을 얻어갈 수 있는 논문이라고 생각합니다.
+
+가장 마음에 들었던 부분은 핵심인 Universality보다도, Optimization 측면에서 표현력이 같은 기존 spectral GNN들의 실험적 성능에 차이가 생길 수밖에 없는 이유를 분석하고 JacobiConv를 motivate한 부분이었습니다. Gradient Descent의 알려진 성질을 이용해서 왜 Filter을 구성하는 Polynomial Bases가 중요한 지에 대해 분석하고 해답을 제시한 부분에서 깊은 인상이 남았습니다.
 
 그렇지만 이 논문에서도 아쉬웠던 부분이 없지는 않았습니다.
 
@@ -379,5 +402,8 @@ The Official Implementation은 [여기](https://github.com/GraphPKU/JacobiConv)�
  9. Fan R. K. Chung. _Spectral Graph Theory_. Americal Mathematical Society, 1996.
  10. Richard Burden and J. Douglas Faires. _Numerical Analysis_. Cengage Learning, 2005.
  11. Stephen Boyd and Lieven Vandenberghe. _Convex Optimization_. Cambridge University Press, 2009.
- 12. 
+ 12. Mingguo He et al. _BernNet: Learning Arbitrary Graph Spectral Filters via Bernstein Approximation_. NeurIPS, 2021.
+ 13. Johannes Gasteiger et al. _Predict then Propagate: Graph Neural Networks meet Personalized PageRank_. ICLR, 2019.
+ 14. Eli Chien et al. _Adaptive Universal Generalized PageRank Graph Neural Network_. ICLR, 2021.
+ 15. Filippo Maria Bianchi et al. _Graph neural networks with convolutional ARMA filters_. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2021.
 
