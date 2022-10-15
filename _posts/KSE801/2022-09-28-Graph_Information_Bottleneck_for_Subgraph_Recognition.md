@@ -107,17 +107,33 @@ $$\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \fr
 그래프 데이터의 Mutual Information 근사과정을 통해서 $I(Y,\mathcal{G}_ {sub})$의 최대화 과정과 $I(\mathcal{G},\mathcal{G}_ {sub})$의 최소화 과정을 결합하여 최종적으로 다음과 같은 최적화 과정을 설계할 수 있습니다.  inner loop에서는 IB-subgraph를 통해 나온 임베딩을 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$를 최소화하는 과정을 거칩니다. $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 좋은 추정이 이루어지면, outer loop에서 mutual information, classification loss, connectivity loss를 사용하여 GIB의 목적함수를 최적화합니다.
 
 $$
-\min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {\rm MI}(\phi_ {2}^{* },\mathcal{G}_ {sub})  $$     
+\min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {\rm MI}(\phi_ {2}^{* },\mathcal{G}_ {sub}) 
+$$  
 
 $$
 \text{ s.t. }  \phi_{2}^{*} = \arg\max_{\phi_ {2}}\mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) 
 $$  
 
 
-먼저 내부 루프로 T 단계에 대해 Eq 12를 최적화하여 2로 표기된 차선책 2를 유도합니다. 내부 루프의 T-단계 최적화가 끝난 후, Eq 10은 외부 루프로서 GIB 목적에 대한 MI 최소화를 위한 프록시입니다. 그런 다음 매개변수 1과 하위 그래프 Gsub가 IB 하위 그래프를 생성하도록 최적화됩니다. 그러나 외부 루프에서 G 및 Gsub의 이산적인 특성은 기울기 기반 방법을 적용하여 bi-level 목표를 최적화하고 IB-subgraph를 찾는 데 방해가 됩니다.
+먼저 inner loop에서 $\phi_{2}^{* }$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킨다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
 
 
+## **4. Experiment **  
 
+실험은 총 3가지 실험을 진행하였고, graph classification과 graph interpretation(해석), graph denoising(노이즈 제거)의 관점에서 본 논문에서 제안된 GIB(Graph Information Bottleneck)을 평가합니다. 
+
+> **Graph Classification**  
+GIB 알고리즘은 subgraph $\mathcal{G}_ {sub}$의 representation을 활용하여 $\mathcal{L}_ {cls}$을 기반으로 graph classification task를 진행합니다. 이 과정에서 GCN, GAT, GIN, GraphSAGE를 포함한 여러가지 backbone에 GIB를 연결합니다. 이 모델들을 다양한 aggregation 방식들의 모델과 비교합니다.  
+* pooling 기반 aggregation : SortPool, ASAPool, DiffPool, EdgePool, AttPool
+* mean/sum 기반 aggregation : GCN, GraphSAGE, GIN, GAT
+
+MUTAg, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classification을 진행합니다. 그 결과는 아래와 같습니다.
+
+Table 1에서 제안하는 방법과 그래프 분류 개선 기준을 종합적으로 평가하였다. 다양한 백본에서 GIB를 훈련하고 하위 그래프에서만 그래프 표현을 집계합니다. 프레임워크의 성능을 평균/합계 집계 및 풀링 집계와 비교합니다. 이는 GIB가 그래프 구조의 중복을 줄임으로써 그래프 분류를 개선함을 보여줍니다.
+
+
+그래프 분류 개선: 그래프 분류 개선을 위해 GIB는 하위 그래프 정보를 집계하여 그래프 표현을 생성합니다. 우리는 GCN [19], GAT [30], GIN [32] 및 GraphSAGE [14]를 포함한 다양한 백본에 GIB를 연결합니다. 제안된 방법을 다음과 비교합니다.
+분류 정확도 측면에서 평균/합계 집계 [19, 30, 14, 32] 및 풀링 집계 [38, 26, 35, 6].
 
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
