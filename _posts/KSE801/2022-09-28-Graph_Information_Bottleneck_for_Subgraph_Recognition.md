@@ -33,7 +33,11 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
 > **Preliminaries**
 논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GNN`의 개념을 소개하겠습니다.
 
-N개의 그래프로 구성된 집합 $\{(\gG_1, Y_1),\dots,(\gG_N, Y_N)\}$에서 $\gG_n$은 n번째 그래프를 나타내고 $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다. $\gG_n=(\sV,\mathbb{E}, \mA, \mX)$에서 해당 그래프는 속하는 노드 집합 $\sV=\{V_i|i=1,\dots,\mM_n\}$, edge 집합 $\mathbb{E}=\{(V_i, V_j)|i>j; V_i,V_j \text{ is connected}\}$, 인접행렬 $\mA\in \{0,1\}^{\mM_n\times \mM_n}$, feature 행렬 $\mX\in \sR^{\mM_n\times d}$로 구성되어 있습니다. 
+N개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G} _1, Y_1),\dots,(\mathcal{G}_N, Y_N) \rbrace$에서 $\\mathcal{G}_n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
+$\mathcal{G}_n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{E}=\lbrace V_i|i=1,\dots, M_n \rbrace$,   
+edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$,  
+인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$,   
+feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
 
 the $n$-th graph of size $\mM_n$ with node set $\sV=\{V_i|i=1,\dots,\mM_n\}$, edge set $\mathbb{E}=\{(V_i, V_j)|i>j; V_i,V_j \text{ is connected}\}$,
 % \in \sV\}$, 
