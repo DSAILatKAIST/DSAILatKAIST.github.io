@@ -17,23 +17,33 @@ description: >-
 ---
 # Graph Information Bottleneck for Subgraph Recognition
 ## **1. Problem Definition**
-> **graph classification 작업에 중요한 역할을 하는 subgraph를 추출한다.**  
-그래프의 기본 레이블 분류하는 작업은 다양한 분야에서 적용될 수 있고 그래프 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 그래프에는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 그래프에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 그래프 분류하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 subgraph를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 functional group를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
-
-
+> **Graph classification 작업에 중요한 역할을 하는 압축된 데이터를 추출한다.**  
+레이블을 기반으로 분류하는 작업은 다양한 분야에서 적용될 수 있고 딥러닝 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 데이터에서는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 데이터에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 실제로 분류작업을 하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 정보를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 functional group를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
+  
+![image](http://snap.stanford.edu/gib/venn.png)
+  
 ## **2. Motivation**
-> **기존 Replay based Continual Learning 방법들은 storage limitation을 가진다!**
-앞서 언급한대로, Replay based Continual Learning은 이전에 학습했던 데이터 중 전체 데이터를 잘 represent하는 **일부**의 데이터를 sampling해서 이후 Task에서 등장하는 데이터와 같이 학습시킵니다.
-하지만 이럴 경우 Task가 계속해서 진행됨에 따라, 각 Task에서 아무리 적은 데이터를 sampling한다 해도 기억해야하는 데이터가 지속적으로 늘어나고, 결국에는 memory를 다 사용해버리는 일이 생길 것입니다.
-저자들은 이런 한계를 지적하며 Generative Model을 도입해 `Replay buffer`에 데이터를 누적시키는 것이 아니라, Task가 시작될 때 마다 필요한 만큼 Generative Model로 `Replay buffer`를 생성해 학습을 진행하고자 합니다.
-> **기존 Replay based Continual Learning 방법들은 온전한 graph distribution을 보존하지 못한다!**
-Image 도메인과 달리, Grpah 도메인의 데이터를 다룰 때는 각 데이터의 성질(feature)뿐 만 아니라 그래프의 전체적인 structure도 고려해야 합니다. 어떤 node가 어떤 node와 연결되어 있으며, 연결된 node들은 어떤 특성을 가지고 있는지까지 종합적으로 고려되어야 한다는 것이죠.
-저자들은 Continual Learning 중에서 `Replay buffer`를 생성할 때 각 node들의 feature만 고려될 뿐, 전체적인 그래프의 distribution(structure)이 보존되지 못한다고 주장합니다. 이는 `Grapn Neural Network`가 학습될 때 성능 저하를 야기하는 가장 큰 문제 중 하나로, 이 논문에서는 Generative Model을 통해 이러한 topological information까지 저장하도록 하는 것을 목표로 합니다.
+> **Graph 데이터를 Information Bottleneck의 관점에서 접근한다.**  
+subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래프의 label을 예측하는데 있어서, 정보 손실을 최소화하면서 압축된 subgraph를 어떻게 추출할 수 있을지에 대해서 개발하는 작업이 지속되고 있습니다. 최근 Information Bottleneck(IB)이라는 정보 이론 분야에서 이러한 문제에 대해서 다루고 있습니다. 이는 그래프 label의 정보를 가장 잘 담고 있는 정보를 유지한 채로 원본 데이터에서 압축된 방식으로 추출하는 것을 목표로 하고 있습니다. deep learning으로 강화된 IB는 컴퓨터 비전, 강화학습, 자연어 처리 분야에 적용되어, 다양한 분야에서 적절한 feature를 학습할 수 있도록 하는데 성공하였습니다.   
+그러나 현재의 IB 방법은 상호간에 관계적인 정보와 이산적인 데이터를 담고 있는 그래프 데이터를 처리하는데 어려움이 있습니다. IB가 정보 손실을 최소화하면서 원본 그래프의 하위 그래프와 같은 불규칙한 그래프 데이터를 압축하는 것은 여전히 어려운 일이라고 할 수 있습니다.   
+따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 GIB(Graph Information Bottleneck) 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
+
+
 ## **3. Method**
-> **Preliminaries: `GNN`**
-논문에서 제안한 방법론을 이해하기 위해서는 `GNN`의 개념을 알고 있어야 합니다.
-본 리뷰에서는 간단하게 소개를 하겠습니다.
-$$N$$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
+> **Preliminaries**
+논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GNN`의 개념을 소개하겠습니다.
+
+N개의 그래프로 구성된 집합 $\{(\gG_1, Y_1),\dots,(\gG_N, Y_N)\}$에서 $\gG_n$은 n번째 그래프를 나타내고 $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다. $\gG_n=(\sV,\mathbb{E}, \mA, \mX)$에서 해당 그래프는 속하는 노드 집합 $\sV=\{V_i|i=1,\dots,\mM_n\}$, edge 집합 $\mathbb{E}=\{(V_i, V_j)|i>j; V_i,V_j \text{ is connected}\}$, 인접행렬 $\mA\in \{0,1\}^{\mM_n\times \mM_n}$, feature 행렬 $\mX\in \sR^{\mM_n\times d}$로 구성되어 있습니다. 
+
+the $n$-th graph of size $\mM_n$ with node set $\sV=\{V_i|i=1,\dots,\mM_n\}$, edge set $\mathbb{E}=\{(V_i, V_j)|i>j; V_i,V_j \text{ is connected}\}$,
+% \in \sV\}$, 
+adjacent matrix $\mA\in \{0,1\}^{\mM_n\times \mM_n}$, and feature matrix $\mX\in \sR^{\mM_n\times d}$ of $\mV$ with $d$ dimensions, respectively. Denote the neighborhood of $V_i$ as $\mathcal{N}(V_i)=\{V_j|(V_i, V_j)\in \mathbb{E}\}$. 
+We use 
+$\gG_{sub}$ as a specific subgraph and $\overline{\gG}_{sub}$ as the complementary structure of $\gG_{sub}$ in $\gG$. Let $f:\sG \rightarrow \sR / [0,1,\cdots,n] $ be the mapping from graphs to the real value property or category, $\mY$, $\sG$ is the domain of the input graphs. $I(\mX,\mY)$ refers to the Shannon mutual information of two random variables.
+
+
+
+$N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
 $$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$$
 이 때, $$\mathcal{N}(i)$$ 는 $$v_{i}$$의 neighbors를 의미하고, $$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 transform matrix를 나타냅니다.
