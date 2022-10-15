@@ -17,19 +17,8 @@ description: >-
 ---
 # Graph Information Bottleneck for Subgraph Recognition
 ## **1. Problem Definition**
-> **Continual Learning에서 사용할 Replay Buffer를 Generative Model을 활용시켜 생성한다!**  
-본 논문은 Continual Learning을 Graph Neural Network(`GNN`)과 접목시킴과 동시에 이에 사용할 `Replay buffer`를 Generative Model을 사용해 생성합니다.
-이미 Continual Learning에 Generative Model을 사용한 연구는 예전에도 있었으나 [(여기)](https://proceedings.neurips.cc/paper/2017/hash/0efbe98067c6c73dba1250d2beaa81f9-Abstract.html), 이는 이미지 데이터를 주로 targeting한 반면에 지금 다루는 논문은 Graph domain의 데이터에 적용, 그에 맞는 특성(structure of graph)를 고려했다는 점에서 novelty가 있습니다.  
-> **Continual Learning이란?**
-Continaul Learning은 Lifelong Learning, Incremental Learning이라고도 불리며, 과거의 정보를 최대한 유지하며 새로운 정보를 학습하는 방법론입니다.
-예를 들어, 인간이 '강아지' 라는 지식을 알고 있는 상태로, '고양이'라는 지식을 새로 습득했을 때, '강아지'를 잊지 않고 '강아지'와 '고양이'를 구별해 낼 수 있는 것 처럼, 지속적으로 들어오는 새로운 데이터를 학습함과 동시에 이전에 학습되었던 데이터를 잊지 않도록 인공지능을 설계하는 것이 Continual Learning의 목적입니다.  
-> **Catastrophic Forgetting이란?**  
-Continual Learning에서, 새로운 데이터가 들어옴에 따라 이전에 학습했던 데이터의 정보를 망각하는 현상을 `Catastrophic Forgetting`이라고 합니다. 아래 그림을 보시겠습니다.
-![image](https://user-images.githubusercontent.com/99710438/194873406-84f4a722-c562-4c39-adec-5ecc498a498f.png)
-그림에서 볼 수 있듯이, Task 1에서는 파란색 node들을 구별하도록 학습합니다. Task 2에서는 새로운 보라색 node가 추가되면서 파란색과 보라색을 포함해 학습시키고, Task 3에서는 빨간색의 새로운 node가 추가되면서 새롭게 학습이 진행됩니다. 이 과정이 Continual Learning 입니다.
-그리고 Task가 진행됨에 따라 이전 Task에서 학습했던 node들에 대한 예측 성능이 떨어지는 것을 볼 수 있습니다.
-예를 들어, Task 1에서 파란 node들을 분류하는 데에는 95%의 성능을 보였으나, Task 2에서는 55%로 줄었고, Task 2에서 학습했던 보라색 node들도 Task 3에서의 성능은 현저히 줄어든 것을 볼 수 있습니다. 이러한 현상이 앞서 말씀드린 `Catastrophic Forgetting`입니다.
-Continual Learning 중 Replay approach는 이전 Task에서 학습했던 데이터 중 **일부**만을 sampling하여 이후 Task에 사용합니다. 전체 데이터를 계속해서 누적하여 학습하면 효율이 좋지 않기 때문이죠. 이렇게 sampling되어 이후 Task에서 같이 학습될 data를 `Replay buffer`라고 부릅니다. 이 과정에서 `Catastrophic Forgetting`현상이 일어나게 되는데, 이 현상을 최소화 하도록 이전 Task에서 학습했던 데이터를 잘 대표하는 데이터를 sampling하는 것이 관건입니다.
+> **graph classification 작업에 중요한 역할을 하는 subgraph를 추출한다.**  
+그래프의 기본 레이블 분류하는 작업은 다양한 분야에서 적용될 수 있고 그래프 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 그래프에는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 그래프에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 그래프 분류하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 subgraph를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 functional group를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
 
 
 ## **2. Motivation**
