@@ -20,10 +20,10 @@ description: >-
 > **Graph classification 작업에 중요한 역할을 하는 압축된 데이터를 추출한다.**  
 레이블을 기반으로 분류하는 작업은 다양한 분야에서 적용될 수 있고 딥러닝 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 데이터에서는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 데이터에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 실제로 분류작업을 하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 정보를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 functional group를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
   
-![image](http://snap.stanford.edu/gib/venn.png)
+![image](https://distill.pub/2021/gnn-intro/graph_xai.bce4532f.png)
   
 ## **2. Motivation**
-> **Graph 데이터를 Information Bottleneck의 관점에서 접근한다.**  
+> **Graph 데이터를 Information Bottleneck의 관점에서 접근한다.**   
 subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래프의 label을 예측하는데 있어서, 정보 손실을 최소화하면서 압축된 subgraph를 어떻게 추출할 수 있을지에 대해서 개발하는 작업이 지속되고 있습니다. 최근 Information Bottleneck(IB)이라는 정보 이론 분야에서 이러한 문제에 대해서 다루고 있습니다. 이는 그래프 label의 정보를 가장 잘 담고 있는 정보를 유지한 채로 원본 데이터에서 압축된 방식으로 추출하는 것을 목표로 하고 있습니다. deep learning으로 강화된 IB는 컴퓨터 비전, 강화학습, 자연어 처리 분야에 적용되어, 다양한 분야에서 적절한 feature를 학습할 수 있도록 하는데 성공하였습니다.   
 그러나 현재의 IB 방법은 상호간에 관계적인 정보와 이산적인 데이터를 담고 있는 그래프 데이터를 처리하는데 어려움이 있습니다. IB가 정보 손실을 최소화하면서 원본 그래프의 하위 그래프와 같은 불규칙한 그래프 데이터를 압축하는 것은 여전히 어려운 일이라고 할 수 있습니다.   
 따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 GIB(Graph Information Bottleneck) 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
@@ -52,7 +52,10 @@ $$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hatAD^{-\frac{1}
 
 > **Graph Information Bottleneck**
 
-먼저 Graph Information Bottleneck 현상과 IB subgraph를 정의합니다.
+먼저 Graph Information Bottleneck 현상과 IB subgraph를 정의합니다.  
+
+![image](http://snap.stanford.edu/gib/venn.png)  
+
 Information Bottleneck 현상의 원리를 일반화하여 불규칙하고 복합적인 그래프의 정보 표현을 학습하며, 이를 통해 그래프 정보 병목 현상(GIB)을 도출합니다.  
 그래프 $\mathcal{G}$와 레이블 $Y$가 있을 때, GIB는 가장 유용하지만 압축된 representation $Z$를 탐색합니다. 탐색 과정은 아래와 같습니다. 
 
@@ -61,6 +64,15 @@ $$ \max_{Z}{I(Y,Z)}  \text{ s.t. } I(\mathcal{G} ,Z) \leq I_{c} $$
 여기서 $I_c$는 $\mathcal{G}$와 $Z$ 사이의 정보량의 제한을 나타내기 위해 사용됩니다. 즉, 압축된 형태로 나타내는 것을 목적으로 하기 때문에 $\mathcal{G}와 $Z$ 사이의 Mutual Information을 최소화하는 방식으로 최적화가 진행됩니다. 여기에서 Lagrange multiplier $\beta$를 도입하여, 제약 조건을 제거합니다.
 
 $$ \max_{Z}{ I(Y,Z) - \beta I(\mathcal{G},Z) } $$
+
+위의 식은 Graph Information Bottleneck의 핵심 과정을 나타냅니다. 여기서, subgraph 인식에서는 그래프 속성 측면에서 중요한 정보 손실을 최소화하면서 정보를 최대한 압축하는데에 집중하고 있습니다.  
+최종적으로 도출된 핵심 subgraph(IB-subgraph)는 유용하면서도 최소한의 그래프를 담아야 하고, 그 결과는 다음과 같이 표현될 수 있습니다.
+
+$$ \max_{\mathcal{G}_{sub}\in \mathcal{G}_{sub}} I(Y,\mathcal{G}_{sub})-\beta I(\mathcal{G},\mathcal{G}_{sub}).
+
+이와 같이 도출된 IB-subgraph는 그래프 분류 개선, 그래프 해석, 그래프 잡음 제거 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
+
+
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
 $$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$$
@@ -69,7 +81,7 @@ $$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 
 
 
 
-> **Problem Definition**
+> **Graph Information Bottleneck의 목적함수 최적화 과정**
 Continual Learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 $$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$
 where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
