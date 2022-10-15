@@ -22,8 +22,10 @@ description: >-
   
 ![image](https://distill.pub/2021/gnn-intro/graph_xai.bce4532f.png)
   
-## **2. Motivation**
+## **2. Motivation**  
+
 > **Graph 데이터를 Information Bottleneck의 관점에서 접근한다.**   
+
 subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래프의 label을 예측하는데 있어서, 정보 손실을 최소화하면서 압축된 subgraph를 어떻게 추출할 수 있을지에 대해서 개발하는 작업이 지속되고 있습니다. 최근 Information Bottleneck(IB)이라는 정보 이론 분야에서 이러한 문제에 대해서 다루고 있습니다. 이는 그래프 label의 정보를 가장 잘 담고 있는 정보를 유지한 채로 원본 데이터에서 압축된 방식으로 추출하는 것을 목표로 하고 있습니다. deep learning으로 강화된 IB는 컴퓨터 비전, 강화학습, 자연어 처리 분야에 적용되어, 다양한 분야에서 적절한 feature를 학습할 수 있도록 하는데 성공하였습니다.   
 그러나 현재의 IB 방법은 상호간에 관계적인 정보와 이산적인 데이터를 담고 있는 그래프 데이터를 처리하는데 어려움이 있습니다. IB가 정보 손실을 최소화하면서 원본 그래프의 하위 그래프와 같은 불규칙한 그래프 데이터를 압축하는 것은 여전히 어려운 일이라고 할 수 있습니다.   
 따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 GIB(Graph Information Bottleneck) 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
@@ -66,21 +68,20 @@ $$ \max_{Z}{I(Y,Z)}  \text{ s.t. } I(\mathcal{G} ,Z) \leq I_{c} $$
 $$ \max_{Z}{ I(Y,Z) - \beta I(\mathcal{G},Z) } $$
 
 위의 식은 Graph Information Bottleneck의 핵심 과정을 나타냅니다. 여기서, subgraph 인식에서는 그래프 속성 측면에서 중요한 정보 손실을 최소화하면서 정보를 최대한 압축하는데에 집중하고 있습니다.  
-최종적으로 도출된 핵심 subgraph(IB-subgraph)는 유용하면서도 최소한의 그래프를 담아야 하고, 그 결과는 다음과 같이 표현될 수 있습니다.
+최종적으로 도출된 핵심 subgraph(IB-subgraph)는 유용하면서도 최소한의 그래프를 담아야 하고, 그 결과는 다음과 같이 표현될 수 있습니다.  
 
-$$ \max_{\mathcal{G}_{sub}\in \mathcal{G}_{sub}} I(Y,\mathcal{G}_{sub})-\beta I(\mathcal{G},\mathcal{G}_{sub}).
+$$ \max_{\mathcal{G}_ {sub}\in \mathcal{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta I(\mathcal{G},\mathcal{G}_{sub}) $$  
 
 이와 같이 도출된 IB-subgraph는 그래프 분류 개선, 그래프 해석, 그래프 잡음 제거 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
 
 
-
-
 > **Graph Information Bottleneck의 목적함수 최적화 과정**  
 
-위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. I(Y; Gsub)를 다음과 같이 확장할 수 있습니다.
+위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. I(Y; Gsub)를 다음과 같이 확장할 수 있습니다.  
 
-$$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy \  d\mathcal{G}_ {sub} + \mathrm{H}(Y)  $$
-H(Y)는 Y의 엔트로피이므로 무시할 수 있다. 실제로, 우리는 경험적 분포 p(y; Gsub)로 p(y; Gsub)를 근사한다. 여기서 Gsub는 출력 하위 그래프이고 Y는 그래프 레이블이다. 실제 true posterior p(yjGsub)를 variational approximation q1(yjGsub)으로 대체함으로써, 우리는 Eq 6에서 첫 번째 항의 다루기 쉬운 하한을 얻는다.
+$$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy d \mathcal{G}_ {sub} + \mathrm{H}(Y)  $$  
+
+H(Y)는 Y의 엔트로피으로 고정된 값이므로 무시할 수 있습니다. 실제로, 우리는 empirical distribution $p(y,\mathcal{G}_ {sub}) \approx\frac{1}{N} \sum_{i=1}^{N}\delta_{y_i}(y)\delta_{\mathcal{G}_ {sub,i}}(\mathcal{G}_ {sub})$로 $\mathcal{G}_ {sub}$를 근사한다. 여기서 $\mathcal{G}_ {sub}$는 출력 하위 그래프이고 $Y$는 그래프 레이블입니다. 실제 사후 확률 $p(y|\mathcal{G}_ {sub})$를 variational approximation $q_{\phi_{1}}(y|\mathcal{G}_ {sub})$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 얻을 수 있습니다.
 
 
 
