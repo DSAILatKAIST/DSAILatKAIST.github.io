@@ -73,15 +73,24 @@ $$ \max_{\mathcal{G}_{sub}\in \mathcal{G}_{sub}} I(Y,\mathcal{G}_{sub})-\beta I(
 이와 같이 도출된 IB-subgraph는 그래프 분류 개선, 그래프 해석, 그래프 잡음 제거 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
 
 
+
+
+> **Graph Information Bottleneck의 목적함수 최적화 과정**  
+
+위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. I(Y; Gsub)를 다음과 같이 확장할 수 있습니다.
+
+$$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy \  d\mathcal{G}_ {sub} + \mathrm{H}(Y)  $$
+H(Y)는 Y의 엔트로피이므로 무시할 수 있다. 실제로, 우리는 경험적 분포 p(y; Gsub)로 p(y; Gsub)를 근사한다. 여기서 Gsub는 출력 하위 그래프이고 Y는 그래프 레이블이다. 실제 true posterior p(yjGsub)를 variational approximation q1(yjGsub)으로 대체함으로써, 우리는 Eq 6에서 첫 번째 항의 다루기 쉬운 하한을 얻는다.
+
+
+
+
+
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
 $$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$$
 이 때, $$\mathcal{N}(i)$$ 는 $$v_{i}$$의 neighbors를 의미하고,   
 $$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 transform matrix를 나타냅니다.
-
-
-
-> **Graph Information Bottleneck의 목적함수 최적화 과정**
 Continual Learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 $$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$
 where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
