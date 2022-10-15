@@ -61,8 +61,6 @@ Graph 의 isomorphism property 를 구분하는 task 에서 다음 그림과 같
 그림의 Graph 들은 Proposition 1. 에서 보인 예시에서 Port number 를 변경한 Graphs 이다.<br>
 CPNGNN 을 사용할 때, Graph G 의 D1과 D2 와 Graph _G_ 의 _D2_ 가 보라색, 빨간색 feature vector 와 연결된 port number 가 같음을 알 수 있다. 따라서, CPNGNN 은 해당 그래프에서 해당 node 들을 구분할 수 없다. 따라서, 두 그래프의 isomorphism 을 구분하는데 실패하게 된다.<br>
 <br>
-저자는 이러한 결과를 다음과 같이 풀어냈다.
-
 
 #### Limitations of DimeNets
 
