@@ -100,16 +100,22 @@ $$I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times
 
 ![image](https://user-images.githubusercontent.com/67723054/196002229-221dee3c-a226-4541-a28f-d65f5232380a.PNG)
 
-먼저 GNN을 사용하여 $\mathcal{G}$와 $\mathcal{G}_ sub$ 로부터 임베딩을 추출하고, \mathcal{G}와 \mathcal{G} 임베딩을 concat시켜서, MLP의 입력으로 설정합니다. 그 결과 output은 subgraph $\mathcal{G}$와 나머지 부분 $\overline{\mathcal{G}}_ {sub}$에 해당하는지의 여부를 결정하는 sampling matrix를 도출하게 됩니다. $p(\mathcal{G}_ {sub})$에 대한 샘플링 방법과 함께 $I(Y,\mathcal{G}_ {sub})$에 대한 다음과 같은 최적화 문제에 도달하게 됩니다.   
+먼저 GNN을 사용하여 $\mathcal{G}$와 $\mathcal{G}_ sub$ 로부터 임베딩을 추출하고, $\mathcal{G}$와 $\mathcal{G}$ 임베딩을 concat시켜서, MLP의 입력으로 설정합니다. 그 결과 output은 subgraph $\mathcal{G}$와 나머지 부분 $\overline{\mathcal{G}}_ {sub}$에 해당하는지의 여부를 결정하는 sampling matrix를 도출하게 됩니다. $p(\mathcal{G}_ {sub})$에 대한 샘플링 방법과 함께 $I(Y,\mathcal{G}_ {sub})$에 대한 다음과 같은 최적화 문제에 도달하게 됩니다.   
+  
+$$\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \frac{1}{N}\sum_ {i=1}^{N}f_{\phi_{2}}(\mathcal{G}_ {i},\mathcal{G}_ {sub,i})-\log{\frac{1}{N}\sum_{i=1,j\neq i}^{N}e^{f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,j})}}$$  
+  
+그래프 데이터의 Mutual Information 근사과정을 통해서 $I(Y,\mathcal{G}_ {sub})$의 최대화 과정과 $I(\mathcal{G},\mathcal{G}_ {sub})$의 최소화 과정을 결합하여 최종적으로 다음과 같은 최적화 과정을 설계할 수 있습니다.  inner loop에서는 IB-subgraph를 통해 나온 임베딩을 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$를 최소화하는 과정을 거칩니다. $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 좋은 추정이 이루어지면, outer loop에서 mutual information, classification loss, connectivity loss를 사용하여 GIB의 목적함수를 최적화합니다.
 
-$$\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \frac{1}{N}\sum_ {i=1}^{N}f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,i})-\log{\frac{1}{N}\sum_{i=1,j\neq i}^{N}e^{f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,j})}}$$
+$$
+\min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {\rm MI}(\phi_ {2}^{* },\mathcal{G}_ {sub})  $$     
 
-(서브그래프 생성기와 공유되는 매개 변수) 모두에서 임베딩을 추출한 다음 G와 Gsub 임베딩을 연결하여 MLP에 공급한다. 마침내 실제 숫자를 산출한다. 근사 p(G; Gsub), p(G) 및 p(Gsub)에 대한 샘플링 방법과 함께, 우리는 대략 1 I(G; Gsub)에 대한 다음 최적화 문제에 도달한다.
+$$
+\text{ s.t. }  \phi_{2}^{*} = \arg\max_{\phi_ {2}}\mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) 
+$$  
+
 
 먼저 내부 루프로 T 단계에 대해 Eq 12를 최적화하여 2로 표기된 차선책 2를 유도합니다. 내부 루프의 T-단계 최적화가 끝난 후, Eq 10은 외부 루프로서 GIB 목적에 대한 MI 최소화를 위한 프록시입니다. 그런 다음 매개변수 1과 하위 그래프 Gsub가 IB 하위 그래프를 생성하도록 최적화됩니다. 그러나 외부 루프에서 G 및 Gsub의 이산적인 특성은 기울기 기반 방법을 적용하여 bi-level 목표를 최적화하고 IB-subgraph를 찾는 데 방해가 됩니다.
 
-
-제안된 그래프 정보 병목 현상(GIB) 프레임워크의 그림. GIB 목표를 최적화하여 IB 하위 그래프를 생성하기 위해 이중 수준 최적화 체계를 사용합니다. 내부 최적화 단계에서는 DONSKERVARADHAN 표현의 통계 네트워크를 최적화하여 I(G; Gsub)를 추정합니다[7]. I(G; Gsub)의 좋은 추정이 주어지면 외부 최적화 단계에서 상호 정보, 분류 손실 Lcls 및 연결 손실 Lcon을 최적화하여 GIB 목표를 최대화합니다.
 
 
 
