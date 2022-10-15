@@ -47,7 +47,7 @@ $\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}
   
 Graph Convolutional network(GCN)은 그래프 분류 작업에 널리 사용됩니다. node feature $X$와 인접행렬 $A$를 가지는 그래프 $\mathcal{G} = (\mathbb{V},\mathbb{E})$ 를 가정할 때, GCN은 다음의 과정을 통해 노드 임베딩 $X^{'}$을 도출합니다.
 
-$$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hatAD^{-\frac{1}{2}}W) $$
+$$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hat{A}D^{-\frac{1}{2}}W) $$
 
 여기서 D는 노드의 차수를 담은 대각 행렬이고, W는 모델 파라미터를 의미합니다.
 
@@ -74,17 +74,26 @@ $$ \max_{\mathcal{G}_ {sub}\in \mathcal{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta 
 
 이와 같이 도출된 IB-subgraph는 그래프 분류 개선, 그래프 해석, 그래프 잡음 제거 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
 
-
+  
 > **Graph Information Bottleneck의 목적함수 최적화 과정**  
-
-위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. I(Y; Gsub)를 다음과 같이 확장할 수 있습니다.  
+* Maximization of $I(Y,\mathcal{G}_ {sub})$  
+위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. $I(Y; \mathcal{G}_ {sub})$는 다음과 같이 확장할 수 있습니다.  
 
 $$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy d \mathcal{G}_ {sub} + \mathrm{H}(Y)  $$  
 
-H(Y)는 Y의 엔트로피으로 고정된 값이므로 무시할 수 있습니다. 실제로, 우리는 empirical distribution $p(y,\mathcal{G}_ {sub}) \approx\frac{1}{N} \sum_{i=1}^{N}\delta_{y_i}(y)\delta_{\mathcal{G}_ {sub,i}}(\mathcal{G}_ {sub})$로 $\mathcal{G}_ {sub}$를 근사한다. 여기서 $\mathcal{G}_ {sub}$는 출력 하위 그래프이고 $Y$는 그래프 레이블입니다. 실제 사후 확률 $p(y|\mathcal{G}_ {sub})$를 variational approximation $q_{\phi_{1}}(y|\mathcal{G}_ {sub})$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 얻을 수 있습니다.
+$H(Y)$는 $Y$의 엔트로피으로 고정된 값이므로 무시합니다. 또한 empirical distribution 
+$$p(y,\mathcal{G}_ {sub}) \approx \frac{1}{N} \sum_{i=1}^{N} \delta_ {y_ i}(y) \delta_ {\mathcal{G}_ {sub, i}}(\mathcal{G}_ {sub})$$와 같이 
+$p(y,\mathcal{G}_ {sub})$를 근사할 수 있습니다. 여기서 $\mathcal{G}_ {sub}$는 출력 하위 그래프이고 $Y$는 그래프 레이블입니다. 실제 사후 확률 $p(y|\mathcal{G}_ {sub})$를 variational approximation $q_{\phi_{1}}(y|\mathcal{G}_ {sub})$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 다음과 같이 얻을 수 있습니다.  
 
+$$ I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{{q_{\phi_{1}}(y|\mathcal{G}_ {sub})}} dy \ d\mathcal{G}_ {sub} \\
+\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt}) $$
 
+여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 I(Y;\mathcal{G}_ {sub})를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
 
+*  Minimization of $I(\mathcal{G},\mathcal{G}_ {sub})$   
+이제 두 번째 항 $I(\gG,\gG_{sub})$에 대한 최소화 작업을 진행합니다. 
+
+그런 다음, 우리는 Eq 6의 두 번째 항인 I(G; Gsub)의 최소화를 고려한다. [1]은 Eq 3에 다루기 쉬운 사전 분포 r(Z)를 도입하여 변동 상한을 초래한다는 것을 상기시킨다. 그러나 이러한 설정은 잠재 표현 대신 그래프 하위 구조의 분포인 p(Gsub)에 대한 합리적인 사전 분포를 찾기 어려워 문제가 있다. 그래서 우리는 다른 길로 간다. KL-diversion의 DONSKER-VARADHAN 표현[7]을 직접 적용하면 다음과 같은 이점이 있습니다.
 
 
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
