@@ -123,13 +123,20 @@ $$
 실험은 총 3가지 실험을 진행하였고, graph classification과 graph interpretation(해석), graph denoising(노이즈 제거)의 관점에서 본 논문에서 제안된 GIB(Graph Information Bottleneck)을 평가합니다. 
 
 > **Graph Classification**  
+
 GIB 알고리즘은 subgraph $\mathcal{G}_ {sub}$의 representation을 활용하여 $\mathcal{L}_ {cls}$을 기반으로 graph classification task를 진행합니다. 이 과정에서 GCN, GAT, GIN, GraphSAGE를 포함한 여러가지 backbone에 GIB를 연결합니다. 이 모델들을 다양한 aggregation 방식들의 모델과 비교합니다.  
 * pooling 기반 aggregation : SortPool, ASAPool, DiffPool, EdgePool, AttPool
 * mean/sum 기반 aggregation : GCN, GraphSAGE, GIN, GAT
 
-MUTAg, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classification을 진행합니다. 그 결과는 아래와 같습니다.
+MUTAG, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classification을 진행합니다. 그 결과는 아래와 같습니다.
 
-Table 1에서 제안하는 방법과 그래프 분류 개선 기준을 종합적으로 평가하였다. 다양한 백본에서 GIB를 훈련하고 하위 그래프에서만 그래프 표현을 집계합니다. 프레임워크의 성능을 평균/합계 집계 및 풀링 집계와 비교합니다. 이는 GIB가 그래프 구조의 중복을 줄임으로써 그래프 분류를 개선함을 보여줍니다.
+![image](https://user-images.githubusercontent.com/67723054/196009252-9bdf3ea0-80a4-459a-8aff-1e567e1eacce.PNG)  
+
+위의 결과에서 논문에서 제안한 방법과 baseline을 종합적으로 평가하였습니다. 다양한 backbone에서 GIB를 학습시키고, subgraph에서 representation을 aggregation하여 성능을 측정한 결과, 1개의 데이터셋(MUTAG)을 제외하고 나머지 데이터셋에서 가장 좋은 성능을 낸다는 것을 확인할 수 있습니다. 이는 GIB가 그래프 분류의 핵심적인 구조를 추출할 수 있으며 이것이 그래프 분류 작업에 있어서 결정적인 역할을 할 수 있다는 것을 의미합니다.
+  
+> **Graph Interpretation**
+
+GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다. 본 실험에서는 GIB와 attention 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 50%(Att05), 70%(Att07)로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였으며, $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 제외하고 학습을 진행하였습니다.  
 
 
 그래프 분류 개선: 그래프 분류 개선을 위해 GIB는 하위 그래프 정보를 집계하여 그래프 표현을 생성합니다. 우리는 GCN [19], GAT [30], GIN [32] 및 GraphSAGE [14]를 포함한 다양한 백본에 GIB를 연결합니다. 제안된 방법을 다음과 비교합니다.
