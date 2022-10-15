@@ -28,13 +28,13 @@ b) 의 경우 간단한 binary prediction 으로 graph 모델의 performance lim
 ### 3. Preliminaries
 - Locally Unordered GNNs (LU-GNNs): spatial information 을 사용하지 않고 각 node 의 neighbors 에서 오는 message 로 node embedding 을 updata 하는 model (e.g., GraphSAGE, GCN, GIN and GAT).
 LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한다.
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195984808-36695add-1783-4c02-96bc-707ddc9e36e5.png"></p>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_1.png"></p>
 
 여기서, N(v) 는 node v 의 neighbor set 을 의미한다.
 
 - Consistent port numbering GNNs (CPNGNNs): node 의 neighbors 에 port number 를 부여함으로써 local structure information 을 더 잘 뽑아내게 하는 model.
 - DimeNet: molecular graphs 에서 directional message passing alogirhtm 을 사용한 model. Message passing 을 node 간의 angle 정보를 바탕으로 transform 하여 directional information 을 전달하는 model.
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195984920-0da44f2d-78d2-4622-8748-92bf5681e006.png"></p>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_2.png"></p>
 
 여기서 e^(uv) 는 노드 u 에서 노드 v 까지의 distance 를 의미하며, a^(wu,uv) 는 w 에서 u 까지의 거리에 wuv 의 각도를 합친 정보를 의미한다.
 - Graph Property (P): Q 라는 GNN model과 서로 다른 property (P) 를 보이는 graph G_1 과 G_2 가 있을 때, 만약 f(g_Q(G_1) != f(g_Q(G_2)) 라면 model Q 는 P 를 분별할 수 있다.
@@ -43,9 +43,9 @@ LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한�
 ### 4. Representation limits of GNNs
 #### Limitation of LU-GNNs
 저자는 LU-GNNs 을 CPNGNNs 과 비교하여, LU-GNNs 의 한계를 보여준다.<br>
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195984979-a611deae-d89b-4087-bf33-3aec1efce1bd.png"></p>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_1.png"></p>
 위의 Proposition 1. 을 조금 더 자세히 설명하면, LU-GNN 이 특정 property 에 대하여 구분할 수 없는 두 graph 가 존재한다고 할 때, CPNGNN 은 port numbering 덕분에 구분할 수 있다.<br> 구분하고자하는 property 를 "Isomorphic" 으로 가정하고, 이를 그림으로 표현하면 아래의 그림처럼 표현할 수 있다.
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195985137-ee3b1cf1-f9c5-4a3b-a94f-7cc92d78679a.png"></p>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_1.png"></p>
 여기서 같은 색깔로 표현된 node 는 같은 feature vector 를 가지고 있다. 또한, edge 에 있는 숫자는 각 node 의 port number 를 나타낸다.<br>
 Graph G 와 _G_ 는 isomorphic 관점에서 서로 다름을 알 수 있다. Graph G에서 structure 정보는 (B1 - C1 - D1 - B1 - C1 - D1 - B1 - ...), (B2 - C2 - D2 - B2 - C2 - D2 - B2 - ...) 으로 이루어져 있으며, Graph _G_ 의 경우 (_B1_ - _C1_ - _D1_ - _B2_ - _C2_ - _D2_ - _B1_ - ... ) 으로 이루어져있다.
 하지만 LU-GNN 은 단순히 feature vector 만 사용하기 때문에, (보라색 - 빨간색 - 파란색 - 보라색 - 빨간색 - ... ) 과 같은 순서로 node 가 연결되어있다는 정보만을 알 수 있다. 즉, Graph G를 (보라색 - 빨간색 - 파란색 - 보라색 - 빨간색 - ...) 으로 인식하게 되며, Graph _G_ 의 경우도 (보라색 - 빨간색 - 파란색 - 보라색 - 빨간색 - ... ) 으로 인식하게 된다. 따라서, LU-GNN 의 경우 위의 그림과 같은 Graph 들의 isomorphism 을 분별하지 못한다. <br>
@@ -53,15 +53,25 @@ CPNGNN 의 경우, port number 를 사용하기에, Graph G 에서 D2 는 port 2
 
 
 #### Limitations of CPNGNNs
-CPNGNN 이 LU-GNN 이 구분하지 못하는 Graph 들을 구별할 수 있음을 보여주었다. 하지만, CPNGNN 역시 구분할 수 없는 Graph 들이 존재하며, 저자는 LU-GNN 의 limitation 을 보여주었던 것과 같은 방식으로, CPNGNN 과 DimeNet 을 비교하여 CPNGNN 의 limitation 을 보여준다.
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195986145-b3b66cbd-b886-4e3f-8453-b809322d5f89.png"></p>
+CPNGNN 이 LU-GNN 이 구분하지 못하는 Graph 들을 구별할 수 있음을 보여주었다. 하지만, CPNGNN 역시 구분할 수 없는 Graph 들이 존재하며, 저자는 LU-GNN 의 limitation 을 보여주었던 것과 같은 방식으로, CPNGNN 의 limitation 을 보여준다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_2.png"></p>
 Proposition 1. 과 동일하게, 색깔은 node 의 feature vector 를 edge 의 숫자는 port number 를 나타낸다. <br>
 Graph 의 isomorphism property 를 구분하는 task 에서 다음 그림과 같은 Graph 들이 주어졌을 때, CPNGNN 은 isomorphism 을 구분할 수 없다.
-<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195986353-174551b2-06db-46f3-984a-b7ad3741fd3f.png"></p>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_2.png"></p>
 그림의 Graph 들은 Proposition 1. 에서 보인 예시에서 Port number 를 변경한 Graphs 이다.<br>
 CPNGNN 을 사용할 때, Graph G 의 D1과 D2 와 Graph _G_ 의 _D2_ 가 보라색, 빨간색 feature vector 와 연결된 port number 가 같음을 알 수 있다. 따라서, CPNGNN 은 해당 그래프에서 해당 node 들을 구분할 수 없다. 따라서, 두 그래프의 isomorphism 을 구분하는데 실패하게 된다.<br>
 <br>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_4.png"></p>
+저자는 Proposition 4. 에서 isomorphism task 이외에 다른 task 에 대하여 일반화하였다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_3.png"></p>
+Graph S4 와 S8 은 girth, circumference, diameter, radius 를 가지고 있음에도 CPNGNN 이나 LU-GNN 으로 구분할 수 없다. 하지만, DimeNets 의 경우 node 간의 angle 을 사용하므로, Graph S4 의 A1-B1-C1 이 이루는 angle 과 Graph S8 의 _A1_-_B1_-_C1_ 의 angle 이 다르기에 두 graph 를 여러 properties 에 대하여 구분 할 수 있다.<br>
+Graph G1, G2 의 경우 역시, CPNGNN 과 LU-GNN 으로 구분 할 수 없으나, DimeNets 의 경우 node 의 angle 정보를 사용함으로 graph 를 구분할 수 있다.
+<br>
 
 #### Limitations of DimeNets
+DimeNets 이 CPNGNN 과 LU-GNN 이 구분할 수 없는 Graphs 들을 분별할 수 있을지라도, DimeNets 역시 구분 할 수 없는 상황이 존재한다.
 
-### 5. Conclusion
+### 5. Generalization bounds for GNNs
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_4.png"></p>
+
+
