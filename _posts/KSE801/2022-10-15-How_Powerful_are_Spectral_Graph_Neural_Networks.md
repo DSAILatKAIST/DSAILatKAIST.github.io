@@ -235,12 +235,16 @@ Corollary 4.4.는 Universal Theorem과 Proposition 4.3.을 통해 유도되는 �
 
 Spectral GNN의 General form $Z=\phi(g(\hat{L}))\psi(X)$을 보면, Non-linearlity는 서로 다른 frequency component를 서로 transform하는 것이라고 정리할 수 있습니다.
 
-$\sigma$를 spatial signal $X$에 element-wise하게 적용되는 non-linearlity activation이라고 하고, spectral signal $\tilde{X}$에의 영향 $\sigma '$을 보면, 
-$$
-
-
 아래 Figure 4를 통해, 이러한 해석을 뒷받침할 수 있습니다.
 
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_4.png"></p>
+
+또, $\sigma$를 spatial signal $X$에 element-wise하게 적용되는 non-linearlity activation이라고 하고, spectral signal $\tilde{X}$에의 영향 $\sigma '$을 보면, 
+$$\sigma '(\tilde{X})=U^{T}\sigma(U\tilde{X})$$
+
+와 같습니다. 이를 자세히 보면, spectral signal이 $U$를 통해 섞이게 된다는 것을 알 수 있습니다.
+
+이러한 Mixing이 multiple eigenvalue, missing frequency components와 같은 문제를 어느정도 완화할 수 있을지는 몰라도, 1-WL이 spectral GNN의 표현력을 bound하는 이상 충분히 강한 표현력을 가질 수는 없습니다. Universality condition들이 real-world에서 쉽게 만족될 수 있고, 이에 따른 Linear GNN의 충분히 강한 표현력을 고려하여, 이 논문에서는 non-linearlity 없는 모델을 제안합니다.
 
 
 <br/> 
@@ -248,6 +252,32 @@ $$
 ## **4. Methodology-JacobiConv**  
 
 이 Section에서는 Polynomial Filter을 구성하는 Basis function 선택의 영향에 대해, Optimization 관점에서 분석합니다. 그리고 이를 바탕으로 논문에서 제안한 JacobiConv 모델에 대해 다룹니다.
+
+$k=0,1,2,\cdots$에 대해 Polynomial bases를 $g_k$라고 정의합니다. 이 section에서는 각 output dimension에 대해 개별적인 filter parameter를 갖는 linear GNN에 대해 다룹니다. 아래는 그 formulation입니다.
+$$Z_{:l}=\sum_{k=0}^{K}{\alpha_{kl}g_{k}(\hat{L})XW_{:l}}$$
+
+ChebyNet에서 활용하는 것과 같은 complete한 polynomial bases들은 PFME model을 만들 수 있습니다. 하지만, 각기 다른 bases 선택이 다른 실제 성능을 보여준다는 것을 이 section에서 Optimization 관점에서 다룹니다.
+
+### **4.1. Preliminary to JacobiConv: Hessian Matrix and Polynomial Bases choice**
+
+우선, 아래와 같은 square loss function을 통해 training한다고 가정합니다.
+$$R=\|Z-Y\|_ {F}^{2}$$
+
+추가적으로 Linear GNN이 global minimum으로 수렴할 수 있다고 가정합니다. 이 분석에서, 논문에서는 global minimum 근처에서의 수렴 속도를 살펴봅니다.
+ *(주) 위와 같은 가정의 타당성은 논문 본문 Appendix J에 있으나, 이 리뷰에서는 다루지 않습니다.*
+
+Linear GNN의 optimization의 경우, coefficient $\alpha$, weight $W$ 모두 learnable한 parameter입니다. 하지만, $W$의 optimization의 경우, 아래의 gradient를 보면 bases와 무관함을 알 수 있습니다.
+$$\frac{\partial R}{\partial W_{jl}}=(g_{:l}(\hat{L})(XW)_ {:l} - Y_{:l})^{T}(g_{:l}(\hat{L})X_{:j})$$
+
+$W$의 gradient는 filter function 전체에 dependent합니다. 충분히 표현력 있는 bases를 활용한다면 global optimum 근처에서는 filter function이 비슷하게 학습되므로 bases 선택과 weight $W$의 optimization은 무관합니다. 하지만, $\alpha$의 경우는 이와 달리 bases 선택에 크게 의존합니다. 그렇기에 bases 선택에 따른 영향을 보려면, $\alpha$의 optimization에 초점을 맞춰야 합니다.
+
+Loss $R$는 convex합니다. 이때, Gradient Descent 알고리즘의 Convergence rate은 loss $R$의 Hessian Matrix $H$의 condition number $\kappa(H)$에 dependent한 것[11]이 알려져 있습니다. Condition number가 작을수록 convergence rate은 빨라집니다.
+
+총 loss 값은 output dimension에 걸쳐 더해지고, 각 dimension에 따라 다른 coefficient $\alpha_{kl}$을 사용하므로 우리는 Hessian Matrix를 각 dimension마다 독립적으로 분석할 수 있습니다. Hessian matrix의 $(k_{1}, k_{2})$ entry는 아래와 같이 계산할 수 있습니다.
+$$\frac{\partial R}{\partial\alpha_{k_{1}}\partial\alpha_{k_{2}}}=X^{T}g_{k_{2}}(\hat{L})g_{k_{1}}(\hat{L})X=\sum_{i=1}^{n}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})\tilde{X}_ {\lambda_{i}} ^{2}}$$
+
+$\lambda$보다 작은 frequency를 갖는 signal의 accumulated amplitude를 $F(\lambda):=\sum_{\lambda_{i}\leq\lambda}{\tilde{X}_ {\lambda_{i}} ^{2}}$라고 하고, 위의 Hessian entry 값을 아래와 같이 Riemann sum으로 나타낼 수 있습니다.
+$$\sum_{i=1}^{n}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})\frac{F(\lambda_{i})-F(\lambda_{i-1})}{\lambda_{i}-\lambda_{i-1}}}(\lambda_{i}-\lambda_{i-1})$$
 
 <br/>
 
@@ -273,7 +303,9 @@ You can attach the tables or figures, but you don't have to cover all the result
 Please summarize the paper.  
 It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
 
-이 논문에서 가장 아쉬운 부분은 PFME/FME property에 대해 자세히 서술하지 않은 점입니다. 앞의 Section에서 전술했듯 Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 node를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다. 다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다. 
+이 논문에서 가장 아쉬운 부분은 PFME/FME property에 대해 자세히 서술하지 않은 점입니다. 앞의 Section에서 전술했듯 Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 node를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다.
+
+다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다. 
 
 <br/> 
 
