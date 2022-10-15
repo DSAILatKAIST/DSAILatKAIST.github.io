@@ -292,14 +292,27 @@ $$H_{k_{1}k_{2}}=\int_ {0} ^{2}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})f(\l
 
 Jacobi basis는 가장 general한 형태의 polynomial bases이며, ChebyNet에서 활용하는 Chebyshev basis의 경우 이 Jacobi basis의 특수한 형태( $P_{k}^{-1/2,-1/2} (1-\lambda)$ )라고 합니다. Jacobi basis $P_{k}^{a,b}$는 아래와 같이 정의됩니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi.png"></p>
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi.png"></p>
 
 이 Jacobi basis는 weight function $(1-\lambda)^{a}(1+\lambda)^{b}$에 대해, domain $[-1,1]$에서 orthogonal 합니다. Domain을 맞춰주기 위해, graph의 Jacobi basis는 아래와 같이 정의합니다.
 $$g_{k}(\hat{L})=P_{k}^{a,b}(I-\hat{L})=P_{k}^{a,b}(\hat{A})$$
 
 ### **4.3. JacobiConv Architecture**
 
-이 sub-section에서는 논문에서 제안한 JacobiConv 모델의 Architecture에 대해 서술합니다. 
+이 sub-section에서는 논문에서 제안한 JacobiConv 모델의 Architecture에 대해 서술합니다. 먼저, node feature $X$의 dimension이 transformed features $\hat(X)$에 비해 아주 큰 경우가 많기 때문에, 먼저 $\hat(X)=XW+b$와 같이 Transform해준 이후에 transformed signal $\hat(X)$를 필터링한다고 합니다.
+
+이 논문에서는 filter에 세 가지 Technique 1) multiple filter functions, 2) Jacobi basis, 3) Polynomial Coefficient Decomposition(PCD)을 이용한다고 합니다. 여기서 1번은 Section 3.1.을 바탕으로 multi-dimensional prediction을 위해 각각에 대해 filter를 이용하겠다는 것입니다. 이에 따라 JacobiConv는 아래와 같이 formulate 됩니다.
+$$Z_{:l}=\sum_{k=0}^{K}{\alpha_{kl}P_{k}^{a,b}(\hat{A})\hat{X}_ {:l}}$$
+
+2번의 경우, Section 4.2.에서 다룬 Jacobi basis의 recursion formula를 활용하여 필터링 연산을 수행한다는 것입니다. 아래와 같이 formulate되는데, 저자의 서술에 따르면 '$K$개의 message passing operation'을 수행한다고 합니다. 아래의 form을 보면, 확실히 저자가 서술한 것처럼 message passing framework과 비슷한 모습입니다.
+
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi_calculations.png"></p>
+
+3번의 PCD technique은 real-world dataset에서, $k$가 커질수록 filter polynomial coefficient $\alpha_{kl}$의 값이 작아진다는 observation에 기반하고 있습니다. 이렇게 coefficient들의 magnitude에 편차가 생기면 optimization이 어려워진다고 합니다. 그래서 coefficient를 다음과 같이 decomposition하며,
+$$\alpha_{kl}=\beta_{kl}\prod_{i=1}^{k}\gamma_{i}$$
+
+$\gamma_{i}$는 모든 output channel $l$에서 공유되는 값이고, 
+
 
 <br/>
 
