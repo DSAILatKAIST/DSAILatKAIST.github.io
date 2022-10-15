@@ -28,7 +28,7 @@ Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 
 
 <br/> 
    
-*(주) 본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하고 있는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
+ *(주) 본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하고 있는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
 
 <br/> 
 
@@ -45,7 +45,7 @@ $$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$$
 
 이때, 주어진 matrix $M$이 singular(=not invertible; inverse가 존재하지 않는 경우)라면 $\kappa(M)=+\infty$이고, 이는 matrix의 모든 eigenvalue가 non-zero 값을 갖는 것이 matrix의 invertiblility와 동치이기 때문입니다. [6]
 
-*(주) 다만 위 정의의 경우 오류가 있는 것 같습니다.* $|\lambda | _{max}$, $|\lambda | _{min}$ *가 맞는 표기이지 않을까 싶습니다.*
+ *(주) 다만 위 정의의 경우 오류가 있는 것 같습니다.* $|\lambda | _{max}$, $|\lambda | _{min}$ *가 맞는 표기이지 않을까 싶습니다.*
 
 아래는 Graph와 관련된 Notation입니다. 기본적으로 주어진 Graph는 undirected입니다. $\mathcal{G}=(\mathbb{V}, \mathbb{E}, X)$는 주어진 Graph이고, 여기서 
 $$\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X\in\mathbb{R}^{n\times d}$$
@@ -90,14 +90,14 @@ Graph Fourier Transform과 원래 Fourier Transform의 연관성은 주어진 Si
 
 이 이상의 Graph Fourier Transform에 대한 자세한 서술은 이 리뷰의 범위를 벗어나므로 생략하도록 하겠습니다.
 
-*(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다. 또 Graph Fourier Transform에 대해서 더 자세히 알고 싶으시다면 (Shuman et al., 2013)[8]을 참고하시면 좋을 것 같습니다.*
+ *(주) 이 리뷰에서 function space의 orthonormal basis에 대해서 자세히 다루는 것은 훨씬 심도깊은 논의가 필요하기 때문에 생략하도록 하겠습니다. 이와 관련하여 좀 더 알고 싶으신 분들은, Elias M. Stein and Rami Shakarchi의 Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)를 보시는 것이 좋을 것 같습니다. 또 Graph Fourier Transform에 대해서 더 자세히 알고 싶으시다면 (Shuman et al., 2013)[8]을 참고하시면 좋을 것 같습니다.*
 
 이젠 Graph Signal Filter에 대해서 서술하도록 하겠습니다. Graph Signal Filter는 signal의 frequency component를 필터링하는 역할을 수행합니다.
 
 Filter $g:[0,2]\rightarrow\mathbb{R}$는 $g(\lambda)$ 값을 각각의 frequency component에 곱해주는 방식으로 필터링을 수행합니다. Signal $X$에 spectral filter $g$를 적용하는 것은 다음과 같이 정의합니다.
 $$Ug(\Lambda)U^{T}X$$
 
-*(주) filter의 정의역이 [0,2]인 것은 Normalized Graph Laplacian의 성질에 기인합니다.[9, Lemma 1.7.]*
+ *(주) filter의 정의역이 [0,2]인 것은 Normalized Graph Laplacian의 성질에 기인합니다.[9, Lemma 1.7.]*
 
 여기서 filter $g$는 $\Lambda$에 element-wise하게 적용됩니다. Filter를 parametrize하기 위해, $g$는 아래와 같이 degree $K$의 polynomial로 설정합니다.
 $$g(\lambda):=\sum_{k=0}^{K}{\alpha_{k}\lambda^{k}}$$
@@ -144,7 +144,8 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 나머지 sub-section에서는 Graph Isomorphism과의 연관성(3.4.), spectral GNN에서 Non-linearlity의 역할(3.5.)에 대해 분석합니다.
 
 본문에 들어가기에 앞서, Linear GNN $Z=g(\hat{L})XW$의 두 핵심 Component에 대해 다시 한 번 짚어보겠습니다.
- 1. **Linear Transformation** $W$:  
+ 1. **Linear Transformation** $W$: $XW=U(\tilde{X}W)$라는 사실은 spatial domain에서의 선형 변환이 spectral domain에서의 선형 변환을 의미함을 보여줍니다.
+ 2. **Filter** $g(\hat{L})$: $g(\hat{L})X=U(g(\Lambda)\tilde{X})$이기에, 우리는 filter가 frequency component를 scaling해주는 역할이라는 것을 알 수 있습니다.
 
 이 논문의 핵심인, Linear GNN의 Universal Theorem은 아래와 같습니다.
 
@@ -173,19 +174,73 @@ Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출�
 
 이 Toy Example을 통해서 우리는 논문에서 서술하고 있는 위의 내용 이외에도, GNN의 표현력, Universality에 있어서 arbitary filter을 근사하는 능력인 FME property가 왜 중요한 지에 대해서 생각해볼 수 있습니다. 만약 Model에서 사용하는 filter가 특정 filter를 근사할 수 없다면, 이는 특정 prediction 값을 산출할 수 없다는 것이고 다시 말해 universal하지 못하게 된다는 것을 의미합니다.
 
+이 논문에서는 이런 Multi-dimensional prediction 문제를 각 output channel마다 다른 polynomial coefficient parameter을 사용하는 것으로 해결할 수 있다고 서술하고 있습니다.
+
 ### **3.2. About Multiple Eigenvalue**
 
 Graph Laplacian이 multiple eigenvalue을 갖는다는 것은 두 개의 frequency component가 같은 eigenvalue $\lambda$를 갖는 경우이며, 이는 다른 frequency component가 같은 scale $g(\lambda)$로 scaling 된다는 것을 의미합니다.
 
 다시 말해, 서로 다른 두 frequency component에 대해서 Model이 다르게 필터링할 수 없다는 것입니다. 우린 이와 같은 경우가 Linear GNN의 표현력을 저해할 수 있다고 생각할 수 있습니다.
 
+이러한 Multiple eigenvalue는 주어진 graph의 topology, 즉 구조와 연관되어 있습니다.
+
+하지만 우리는 아래에서 node feature을 갖는 real-world graph의 경우 이런 multiple eigenvalue가 유의미하게 적은 구조를 갖고 있다는 것을 확인할 수 있습니다.
+
 ### **3.3. About Missing Frequency Components**
 
-Filter 
+위에서 전술했듯이, Filter는 frequency component를 scaling해주는 역할만을 수행합니다. 만약 node feature의 어느 frequency component가 missing되었다면, prediction에 해당 frequency component가 반영되지 못하게 됩니다.
+
+아래 Figure 2에는 missing frequency component가 생기는 Toy graph를 다루고 있습니다.  
+ *(주) Figure 2에 있는 1-dim node feature와 graph structure을 이용해 계산해보면, 왼쪽의 node feature로는 frequency, 즉 eigenvalue=2에 해당하는 frequency component가 0이 됩니다.*
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_2.png"></p>
+
+이 Missing frequency component 문제는 Graph structure과 node feature 둘 다 영향을 끼치고, 그렇기에 다루기 어려운 문제입니다.
+
+하지만 Multiple eigenvalue 문제처럼 이 문제 역시 node feature을 갖는 real-world graph에서는 보기 어렵습니다. 아래 Table은 10개의 benchmark dataset에서의 multiple eigenvalue 비율과 missing frequency component의 수를 정리한 것입니다.
+
+<p align="center"><img width="700" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_7.png"></p>
+
+각 output channel마다 다른 polynomial filter를 이용하는 방법과, 위와 같은 real-world dataset의 특성을 통해 우리는 Linear GNN의 Universality를 위한 세 가지 조건이 실전에서 쉽게 만족될 수 있음을 알 수 있습니다.
 
 ### **3.4. About the Connection to Graph Isomorphism**
 
+Spatial GNN의 표현력에 대해 분석한 논문[5]에서는 GI test를 활용해 분석하였습니다. 이와 비슷하게 이 논문에서도 Universality 조건과 Graph Isomorphism의 연관성에 대해 분석합니다.
+
+Graph Isomorphism Test 기법으로 언급이 되는 것이 바로 1-dimensional Weisfeiler-Lehman(1-WL) test입니다. 1-WL test는 주어진 두 graph가 isomorphic한지 판별하는 알고리즘으로, 웬만한 non-isomorphic graph들을 구별할 수 있습니다. 보다 자세한 내용은 이 [링크](https://davidbieber.com/post/2019-05-10-weisfeiler-lehman-isomorphism-test/)를 참조하시면 좋을 것 같습니다.
+
+이 논문에서는 먼저, $K+1$ iteration 1-WL test가 구별할 수 없는 node pair는 degree $K$ polynomial filter를 갖는 Linear GNN도 구별할 수 없다는 것을 아래 Proposition을 통해 서술합니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_3.png"></p>
+
+Proposition 4.3.은 Linear GNN의 표현력 역시 Spatial GNN 처럼[5] 1-WL test에 의해 Bound된다는 것을 의미합니다.
+
+하지만, 우리는 Universal Theorem을 통해 Linear GNN이 각기 다른 node들에 대해, 그 node들이 isomorphic한 지와 상관 없이 서로 다른 prediction을 산출할 수 있는 표현력을 갖고 있다는 것을 알고 있습니다. 또한, 1) 1-WL test는 몇몇 non-isomorphic한 node들을 구별하지 못하며, 2) 1-WL test의 경우 isomorphic한 node들에 대해 같은 label을 산출한다는 것 역시 알려져 있는 바입니다. 이렇듯 모순되어 보이는 두 사실은 Universality Condition 2와 3이 만족되면 1-WL test 역시 충분히 Powerful하다는 것(모든 non-isomorphic node를 구별할 수 있음)과 graph가 isomorphic한 node를 가질 수 없다는 것을 보여주는 결과릍 통해 해소되며, 그 결과는 아래 Corollary 4.4.와 Theorem 4.5., Theorem 4.6.에 정리되어 있습니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Corr_4_4.png"></p>
+
+Corollary 4.4.는 Universal Theorem과 Proposition 4.3.을 통해 유도되는 결과입니다. 두 조건 아래에서 1-WL test 역시 충분히 Powerful하다는 것을 보여줍니다.
+
+아래 두 theorem들은 두 조건이 Graph와 node feature을 제약한다는 것을 보여줍니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_5.png"></p>
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_6.png"></p>
+
+따라서, 우리는 Universal Theorem의 조건들이 Graph Topology와 Node feature이 제약되어, 1-WL test가 결국 linear GNN의 표현력을 Bound하고 있다는 것을 뒷받침합니다. 위의 결과들을 통해서 우리는 Universality 측면에서의 spectral GNN의 표현력과 1-WL test 측면에서의 spatial GNN의 표현력 간 연결고리를 얻게 됩니다.
+
 ### **3.5. About the Role of Non-linearlity**
+
+우리는 앞선 결과들을 통해서 Linear GNN이 충분히 강력한 표현력을 갖고 있음을 알게 되었습니다. 그럼에도 non-linearlity는 SOTA 성능의 GNN에서 활용되고 있습니다. 이 sub-section에서는 non-linearlity가 spectral GNN에서 어떤 역할을 하는지 분석합니다.
+
+Spectral GNN의 General form $Z=\phi(g(\hat{L}))\psi(X)$을 보면, Non-linearlity는 서로 다른 frequency component를 서로 transform하는 것이라고 정리할 수 있습니다.
+
+$\sigma$를 spatial signal $X$에 element-wise하게 적용되는 non-linearlity activation이라고 하고, spectral signal $\tilde{X}$에의 영향 $\sigma '$을 보면, 
+$$
+
+
+아래 Figure 4를 통해, 이러한 해석을 뒷받침할 수 있습니다.
+
 
 
 <br/> 
