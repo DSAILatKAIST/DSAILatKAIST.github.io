@@ -33,27 +33,26 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
 > **Preliminaries**
 논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GNN`의 개념을 소개하겠습니다.
 
-N개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G} _1, Y_1),\dots,(\mathcal{G}_N, Y_N) \rbrace$에서 $\\mathcal{G}_n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
-$\mathcal{G}_n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{E}=\lbrace V_i|i=1,\dots, M_n \rbrace$,   
+N개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$에서 $\\mathcal{G}_ n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
+$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{E}=\lbrace V_i|i=1,\dots, M_n \rbrace$,   
 edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$,  
 인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$,   
 feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
+$\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}}_ {sub}$는 $\mathcal{G}_ {sub}$를 제외한 나머지 부분을 의미합니다. $f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $\mathbb{G}$는 input graph의 도메인입니다. 
 
-the $n$-th graph of size $\mM_n$ with node set $\sV=\{V_i|i=1,\dots,\mM_n\}$, edge set $\mathbb{E}=\{(V_i, V_j)|i>j; V_i,V_j \text{ is connected}\}$,
-% \in \sV\}$, 
-adjacent matrix $\mA\in \{0,1\}^{\mM_n\times \mM_n}$, and feature matrix $\mX\in \sR^{\mM_n\times d}$ of $\mV$ with $d$ dimensions, respectively. Denote the neighborhood of $V_i$ as $\mathcal{N}(V_i)=\{V_j|(V_i, V_j)\in \mathbb{E}\}$. 
 We use 
-$\gG_{sub}$ as a specific subgraph and $\overline{\gG}_{sub}$ as the complementary structure of $\gG_{sub}$ in $\gG$. Let $f:\sG \rightarrow \sR / [0,1,\cdots,n] $ be the mapping from graphs to the real value property or category, $\mY$, $\sG$ is the domain of the input graphs. $I(\mX,\mY)$ refers to the Shannon mutual information of two random variables.
+$\mathcal{G}_ {sub}$ as a specific subgraph and $\overline{\gG}_{sub}$ as the complementary structure of $\gG_{sub}$ in $\gG$. Let $f:\sG \rightarrow \sR / [0,1,\cdots,n] $ be the mapping from graphs to the real value property or category, $\mY$, $\sG$ is the domain of the input graphs. $I(\mX,\mY)$ refers to the Shannon mutual information of two random variables.
 
 
 
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
 $$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$$
-이 때, $$\mathcal{N}(i)$$ 는 $$v_{i}$$의 neighbors를 의미하고, $$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 transform matrix를 나타냅니다.
-$$h_{i}^{(0)}$$은 node $$v_{i}$$의 input feature를 나타내고, $$\mathcal{A}$$는 neighbors의 aggregation strategy이며, `GNN`의 핵심 중 하나입니다.
-본 논문에서는 다양한 `GNN`중 `GraphSAGE`라는 모델을 사용하는데, 이 `GraphSage`의 $$k$$번째 layer는 다음과 같이 정의됩니다:
-$$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^{k-1}, \forall u \in \mathcal{N}(v)\rbrace)$$
+이 때, $$\mathcal{N}(i)$$ 는 $$v_{i}$$의 neighbors를 의미하고,   
+$$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 transform matrix를 나타냅니다.
+
+
+
 > **Problem Definition**
 Continual Learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 $$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$
