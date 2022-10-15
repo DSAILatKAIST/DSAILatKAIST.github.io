@@ -8,7 +8,7 @@ tags: [reviews]
 
 이 리뷰에서 소개하는 논문 'How Powerful are Spectral Graph Neural Networks'는 [이번 ICML 2022에서 Spotlight로 선정된 논문](https://icml.cc/virtual/2022/spotlight/17796) 중 하나입니다. 이 논문에서는 Spectral GNN의 표현력에 대한 분석 및 이를 기반으로 한 새로운 Spectral GNN인 'JacobiConv'를 소개하고 있습니다.
 
-참고로, 이 리뷰 본문에서의 Section X.X.와 같이 어떤 section을 언급하는 부분은 리뷰 기준이고, Proposition X.X 와 같이 어떤 Theorem 등을 언급하는 것은 논문 본문 기준임을 알드립니다.
+참고로, 이 리뷰 본문에서의 Section X.X.와 같이 어떤 section을 언급하는 부분은 리뷰 기준이고, Proposition X.X. 와 같이 어떤 Theorem 등을 언급하는 것은 논문 본문 기준임을 알드립니다.
 
 <br/>
 
