@@ -47,7 +47,7 @@ LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한�
 위의 Proposition 1. 을 조금 더 자세히 설명하면, LU-GNN 이 특정 property 에 대하여 구분할 수 없는 두 graph 가 존재한다고 할 때, CPNGNN 은 port numbering 덕분에 구분할 수 있다.<br> 구분하고자하는 property 를 "Isomorphic" 으로 가정하고, 이를 그림으로 표현하면 아래의 그림처럼 표현할 수 있다.
 <p align="center"><img src="https://user-images.githubusercontent.com/76777494/195985137-ee3b1cf1-f9c5-4a3b-a94f-7cc92d78679a.png"></p>
 여기서 같은 색깔로 표현된 node 는 같은 feature vector 를 가지고 있다. 또한, edge 에 있는 숫자는 각 node 의 port number 를 나타낸다.<br>
-Graph G 와 __G__ 는 isomorphic 관점에서 서로 다름을 알 수 있다. Graph G에서 structure 정보는 (B1 - C1 - D1 - B1 - C1 - D1 - B1 - ...), (B2 - C2 - D2 - B2 - C2 - D2 - B2 - ...) 으로 이루어져 있으며, Graph <u>G</u> 의 경우 (
+Graph G 와 __G__ 는 isomorphic 관점에서 서로 다름을 알 수 있다. Graph G에서 structure 정보는 (B1 - C1 - D1 - B1 - C1 - D1 - B1 - ...), (B2 - C2 - D2 - B2 - C2 - D2 - B2 - ...) 으로 이루어져 있으며, Graph <u>G<\u> 의 경우 (
 하지만 LU-GNN 은 단순히 feature vector 만 사용하기 때문에, (보라색 - 빨간색 - 파란색 - 보라색 - 빨간색 - ... ) 과 같은 순서로 node 가 연결되어있다는 정보만을 알 수 있다. 즉, Graph G에서 (B1 - C1 - D1 - B1 - C1 - D1 - B1 - ...) 으로 되어있으며, Graph __G__ 의 경우
 
 2) Limitations of CPNGNNs
