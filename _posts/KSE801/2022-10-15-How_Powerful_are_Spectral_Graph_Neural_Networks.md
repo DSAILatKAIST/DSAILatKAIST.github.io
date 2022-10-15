@@ -339,12 +339,19 @@ You can attach the tables or figures, but you don't have to cover all the result
 
 ## **6. Conclusion**  
 
-Please summarize the paper.  
-It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
+이 논문은 Spectral GNN의 Expressive Power, 표현력에 대해 이론적인 분석을 제시한 첫 연구입니다. Spatial GNN에서의 표현력 분석과는 다르게 주로 Universality 측면에서 표현력을 분석했지만, 이를 Spatial GNN 표현력 분석 연구에서 쓰인 Graph Isomorphism Test 측면과의 연결성 역시 제시했습니다.
+
+이런 표현력에 대한 분석을 바탕으로 새로운 Spectral GNN 모델인 JacobiConv를 제시하였고, 실험적으로도 우수한 성능을 보임을 광범위한 실험을 통해 입증하였습니다.
+
+이 논문은 AI/ML 분야에서 최고 중 하나로 인정받는 학회인 ICML의 Spotlght paper로 선정된 논문입니다. 그만큼의 기대를 충족시킬만한 정말 좋은 논문이었다고 생각합니다. Problem Formulation, Theoretical Background & Analysis, Extensive Experiments 등 좋은 논문을 만드는 요소는 다 포함하고 있는 연구인 것 같습니다. 비록 제가 Spectral GNN에 대해서 배경지식이 부족하여 깊게 이해하지 못하고 그래서 이 리뷰에서 미흡한 부분이 있습니다만, 만약 Spectral GNN에 대해 어느정도의 배경지식을 갖고 계신 분이라면 많은 것을 얻어갈 수 있는 논문이라고 생각합니다.
+
+그렇지만 이 논문에서도 아쉬웠던 부분이 없지는 않았습니다.
 
 이 논문에서 가장 아쉬운 부분은 PFME/FME property에 대해 자세히 서술하지 않은 점입니다. 앞의 Section에서 전술했듯 Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 node를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다.
 
-다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다. 
+다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다.
+
+이런 아쉬운 점도 있었지만, 그래도 이 논문이 갖는 가치는 엄청나다고 생각하고, Spectral GNN이라는 분야가 발전함에 있어 중요한 분기점 중 하나가 될 연구라고 생각합니다.
 
 <br/> 
 
