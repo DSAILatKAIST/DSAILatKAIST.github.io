@@ -244,7 +244,7 @@ $$\sigma '(\tilde{X})=U^{T}\sigma(U\tilde{X})$$
 
 와 같습니다. 이를 자세히 보면, spectral signal이 $U$를 통해 섞이게 된다는 것을 알 수 있습니다.
 
-이러한 Mixing이 multiple eigenvalue, missing frequency components와 같은 문제를 어느정도 완화할 수 있을지는 몰라도, 1-WL이 spectral GNN의 표현력을 bound하는 이상 충분히 강한 표현력을 가질 수는 없습니다. Universality condition들이 real-world에서 쉽게 만족될 수 있고, 이에 따른 Linear GNN의 충분히 강한 표현력을 고려하여, 이 논문에서는 non-linearlity 없는 모델을 제안합니다.
+이러한 Mixing이 multiple eigenvalue, missing frequency components와 같은 문제를 어느정도 완화할 수 있을지는 몰라도, 1-WL이 spectral GNN의 표현력을 bound하는 이상 충분히 강한 표현력을 가질 수는 없다고 저자들은 논문에서 언급합니다. 그렇기에 이 논문에서는 Universality condition들이 real-world에서 쉽게 만족될 수 있다는 점과 이에 따른 Linear GNN의 충분히 강한 표현력을 고려하여, non-linearlity가 없는 linear GNN을 기반으로 한 모델을 제안합니다.
 
 
 <br/> 
