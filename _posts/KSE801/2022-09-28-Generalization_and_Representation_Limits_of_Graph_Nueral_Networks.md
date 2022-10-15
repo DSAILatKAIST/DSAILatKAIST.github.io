@@ -70,8 +70,12 @@ Graph G1, G2 의 경우 역시, CPNGNN 과 LU-GNN 으로 구분 할 수 없으�
 
 #### Limitations of DimeNets
 DimeNets 이 CPNGNN 과 LU-GNN 이 구분할 수 없는 Graphs 들을 분별할 수 있을지라도, DimeNets 역시 구분 할 수 없는 상황이 존재한다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_4.png"></p>
+Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와 G4 를 구분할 수 없음을 알 수 있다. 따라서, DimeNets 이
+
+#### More powerful GNNs
 
 ### 5. Generalization bounds for GNNs
-<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_4.png"></p>
+
 
 
