@@ -81,7 +81,7 @@ $$ \max_{\mathcal{G}_ {sub}\in \mathcal{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta 
 
 $$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy d \mathcal{G}_ {sub} + \mathrm{H}(Y)  $$  
 
-$H(Y)$는 $Y$의 엔트로피으로 고정된 값이므로 무시합니다. 또한 empirical distribution 
+$H(Y)$는 $Y$의 엔트로피으로 고정된 값이므로 무시합니다. 또한 
 $$p(y,\mathcal{G}_ {sub}) \approx \frac{1}{N} \sum_{i=1}^{N} \delta_ {y_ i}(y) \delta_ {\mathcal{G}_ {sub, i}}(\mathcal{G}_ {sub})$$와 같이 
 $p(y,\mathcal{G}_ {sub})$를 근사할 수 있습니다. 여기서 $\mathcal{G}_ {sub}$는 출력 하위 그래프이고 $Y$는 그래프 레이블입니다. 실제 사후 확률 $p(y|\mathcal{G}_ {sub})$를 variational approximation $q_{\phi_{1}}(y|\mathcal{G}_ {sub})$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 다음과 같이 얻을 수 있습니다.  
 
@@ -91,9 +91,16 @@ $$ I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{{q_{\phi_{1}}(
 여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 I(Y;\mathcal{G}_ {sub})를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
 
 *  Minimization of $I(\mathcal{G},\mathcal{G}_ {sub})$   
-이제 두 번째 항 $I(\gG,\gG_{sub})$에 대한 최소화 작업을 진행합니다. 
+이제 두 번째 항 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 최소화 작업을 진행합니다.  KL-divergence의 Donsker-Varadhan representation을 적용하여,  $I(\mathcal{G},\mathcal{G}_ {sub})$을 다음과 같이 나타낼 수 있습니다.  
 
-그런 다음, 우리는 Eq 6의 두 번째 항인 I(G; Gsub)의 최소화를 고려한다. [1]은 Eq 3에 다루기 쉬운 사전 분포 r(Z)를 도입하여 변동 상한을 초래한다는 것을 상기시킨다. 그러나 이러한 설정은 잠재 표현 대신 그래프 하위 구조의 분포인 p(Gsub)에 대한 합리적인 사전 분포를 찾기 어려워 문제가 있다. 그래서 우리는 다른 길로 간다. KL-diversion의 DONSKER-VARADHAN 표현[7]을 직접 적용하면 다음과 같은 이점이 있습니다.
+$$I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times \mathbb{G} \rightarrow \mathbb{R}} \mathbb{E}_ {\mathcal{G},\mathcal{G}_ {sub}\in p(\mathcal{G},\mathcal{G}_ {sub})}f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})-\log{\mathbb{E}_ {\mathcal{G} \in p(\mathcal{G}),\mathcal{G}_ {sub}\in p(\mathcal{G}_ {sub})}e^{f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})}}$$
+
+여기서 $f_{\phi_{2}}$는 앞에서 말씀드렸다시피 그래프 집합에서 실수 집합으로 매핑되는 네트워크입니다. 이 식의 유도 과정에 집중하기보다는 결과 해석과 모델 설계 방향에 대해 말씀드리고자 합니다.  
+앞서 나온 식을 바탕으로 설계된 모델의 아키텍처는 다음과 같습니다.
+
+Eq 9를 사용하여 I(G; Gsub)를 근사화하기 위해 그림 1과 같이 최신 GNN 아키텍처를 기반으로 통계 네트워크를 설계한다. 먼저 GNN을 사용하여 G와 Gsub(서브그래프 생성기와 공유되는 매개 변수) 모두에서 임베딩을 추출한 다음 G와 Gsub 임베딩을 연결하여 MLP에 공급한다. 마침내 실제 숫자를 산출한다. 근사 p(G; Gsub), p(G) 및 p(Gsub)에 대한 샘플링 방법과 함께, 우리는 대략 1 I(G; Gsub)에 대한 다음 최적화 문제에 도달한다.
+
+먼저 내부 루프로 T 단계에 대해 Eq 12를 최적화하여 2로 표기된 차선책 2를 유도합니다. 내부 루프의 T-단계 최적화가 끝난 후, Eq 10은 외부 루프로서 GIB 목적에 대한 MI 최소화를 위한 프록시입니다. 그런 다음 매개변수 1과 하위 그래프 Gsub가 IB 하위 그래프를 생성하도록 최적화됩니다. 그러나 외부 루프에서 G 및 Gsub의 이산적인 특성은 기울기 기반 방법을 적용하여 bi-level 목표를 최적화하고 IB-subgraph를 찾는 데 방해가 됩니다.
 
 
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
