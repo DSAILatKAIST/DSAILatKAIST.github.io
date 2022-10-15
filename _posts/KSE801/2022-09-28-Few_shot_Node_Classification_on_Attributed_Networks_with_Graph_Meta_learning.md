@@ -190,7 +190,7 @@ $$
 ### 3-4. Meta-optimization    
 마지막으로 model을 optimization하기 위해서 Meta-GPS는 meta-learning 방법을 활용한다. 그 중에서도 MAML의 방법을 따라가는데, 이는 Meta-training, Meta-testing phase로 나눌 수 있다.  
 
-##### Meta-training  
+#### Meta-training  
 특정 task $\mathcal{T}_ i$를 잘 맞추기 위해서 support set(labeled data)가 먼저 투입된다. support set의 label을 이용해서 cross-entropy로 task loss $\mathcal{L}_ {\mathcal{T}_ i}$을 계산한다.  
 
 $$
@@ -203,12 +203,12 @@ $$
 \Theta'_ i=\Theta-\alpha \nabla_\Theta\mathcal{L_{\mathcal{T}_ i}}(f(\mathcal{S}_ i ; \varphi'_ i, \Theta))
 $$  
 
-> $\alpha$ : meta-step size (Meta-training의 learning rate)  
+> $\alpha$ : meta-step size
 
 support set으로 $\Theta'_ i$를 optimization을 하고 나서, 이제는 label을 모르는 query set을 이용해 loss를 구하고 이 loss를 minimize 시키는 것이 meta-objective function이다.  
 
 $$
-\min_ {\Theta, \Psi} \mathcal{L}  ( f_ {\varphi'}, \Theta, g_{\psi}})= \min_ {\Theta, \Psi} \sum_ {\mathcal{T}_ i ~ p(\mathcal{T})} \mathcal{L}_ {\mathcal{T}_ i}(f(\mathcal{Q}_ i; \varphi'_ i, \Theta'_ i))+\gamma \textbardbl \Psi \textbardbl^2_ 2
+\min_ {\Theta, \Psi} \mathcal{L}  ( f_ {\varphi'}, \Theta, g_{\psi})= \min_ {\Theta, \Psi} \sum_ {\mathcal{T}_ i ~ p(\mathcal{T})} \mathcal{L}_ {\mathcal{T}_ i}(f(\mathcal{Q}_ i; \varphi'_ i, \Theta'_ i))+\gamma \textbardbl \Psi \textbardbl^2_ 2
 $$
 
 > $\Psi=\textbraceleft \psi_\lambda, \psi_\lambda \textbraceright$  
@@ -219,9 +219,15 @@ $$
 \Theta=\Theta-\beta \nabla_ {\Theta} \mathcal{L}(f_ {\varphi'}, \Theta, g_{\psi}), \Psi = \Psi-\beta \nabla_\Psi\mathcal{L}  ( f_ {\varphi'}, \Theta, g_{\psi})
 $$
 
+> $\beta$ : meta-learning rate  
+
+#### Meta-testing  
+meta-testing phase는 meta-training phase와 같은 과정을 거친다. 즉, meta-testing task $\mathcal{T_ {te}}의 support set $\mathcal{S}으로 prior parameter $\Theta, \Psi$를 수 번 optimization하고, query set $\mathcal{Q}로 모델의 성능을 측정한다.  
 
 
 ## **4. Experiment**  
+
+
 
 ## **5. Conclusion**  
 
