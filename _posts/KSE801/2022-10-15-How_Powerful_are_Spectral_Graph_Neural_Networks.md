@@ -304,14 +304,18 @@ $$g_{k}(\hat{L})=P_{k}^{a,b}(I-\hat{L})=P_{k}^{a,b}(\hat{A})$$
 이 논문에서는 filter에 세 가지 Technique 1) multiple filter functions, 2) Jacobi basis, 3) Polynomial Coefficient Decomposition(PCD)을 이용한다고 합니다. 여기서 1번은 Section 3.1.을 바탕으로 multi-dimensional prediction을 위해 각각에 대해 filter를 이용하겠다는 것입니다. 이에 따라 JacobiConv는 아래와 같이 formulate 됩니다.
 $$Z_{:l}=\sum_{k=0}^{K}{\alpha_{kl}P_{k}^{a,b}(\hat{A})\hat{X}_ {:l}}$$
 
-2번의 경우, Section 4.2.에서 다룬 Jacobi basis의 recursion formula를 활용하여 필터링 연산을 수행한다는 것입니다. 아래와 같이 formulate되는데, 저자의 서술에 따르면 '$K$개의 message passing operation'을 수행한다고 합니다. 아래의 form을 보면, 확실히 저자가 서술한 것처럼 message passing framework과 비슷한 모습입니다.
+2번의 경우, Section 4.2.에서 다룬 Jacobi basis의 recursion formula를 활용하여 필터링 연산을 수행한다는 것입니다. 아래와 같이 formulate되는데, 저자의 서술에 따르면 ' $K$개의 message passing operation'을 수행한다고 합니다. 아래의 form을 보면, 확실히 저자가 서술한 것처럼 message passing framework과 비슷한 모습입니다.
 
 <p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi_calculations.png"></p>
 
 3번의 PCD technique은 real-world dataset에서, $k$가 커질수록 filter polynomial coefficient $\alpha_{kl}$의 값이 작아진다는 observation에 기반하고 있습니다. 이렇게 coefficient들의 magnitude에 편차가 생기면 optimization이 어려워진다고 합니다. 그래서 coefficient를 다음과 같이 decomposition하며,
 $$\alpha_{kl}=\beta_{kl}\prod_{i=1}^{k}\gamma_{i}$$
 
-$\gamma_{i}$는 모든 output channel $l$에서 공유되는 값이고, 
+이때 $\gamma_{i}$는 모든 output channel $l$에서 공유되는 값입니다. $\gamma_{i}=\gamma '\mathrm{tanh}(\eta_{i})$로 놓으면, $\gamma_{i}$는 $[-\gamma ',\gamma ']$ 사이의 값을 갖게 됩니다.
+
+이러한 parameter decomposition technique을 PCD라고 부르고, 이를 기반으로 한 JacobiConv의 recursion formula는 아래와 같습니다.
+$$P_{k}^{a,b}(\hat{A})\hat{X}=\gamma_{k}\theta_{k}\hat{A}P_{k-1}^{a,b}(\hat{A})\hat{X} + \gamma_{k}\theta'_ {k}P_{k-1}^{a,b}(\hat{A})\hat{X} - \gamma_{k}\gamma_{k-1}\theta''_ {k}P_{k-2}^{a,b}(\hat{A})\hat{X}$$
+
 
 
 <br/>
