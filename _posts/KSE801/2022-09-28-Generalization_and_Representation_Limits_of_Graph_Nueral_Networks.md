@@ -41,9 +41,9 @@ LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한�
 또한, P 즉 graph property 의 종류로 저자는 1) grith (length of shortest cycle), 2) circumference (length of longest cycle), 3) diameter (maximum distance between any pair of nodes in graph), 4) radius (minimum node eccentricity; eccentricity: eccentricity of u is maximum distrance from u to other node in graph), 5) conjoint cycle (two cycles that share an edge), 6) total number of cycles, 7) k-clique (a subgraph of at least k >=3 vertices s.t. each vertex in the subgraph is connected by edge to any other vertex in the subgraph).
 
 ### 4. Representation limits of GNNs
-1) Limitation of LU-GNNs
-저자는 LU-GNNs 을 CPNGNNs 과 비교하여, LU-GNNs 의 한계를 보여준다.
-<p align="center"><img src="ttps://user-images.githubusercontent.com/76777494/195984979-a611deae-d89b-4087-bf33-3aec1efce1bd.png"></p>
+#### Limitation of LU-GNNs
+저자는 LU-GNNs 을 CPNGNNs 과 비교하여, LU-GNNs 의 한계를 보여준다.<br>
+<p align="center"><img src="https://user-images.githubusercontent.com/76777494/195984979-a611deae-d89b-4087-bf33-3aec1efce1bd.png"></p>
 위의 Proposition 1. 을 조금 더 자세히 설명하면, LU-GNN 이 특정 property 에 대하여 구분할 수 없는 두 graph 가 존재한다고 할 때, CPNGNN 은 port numbering 덕분에 구분할 수 있다.<br> 구분하고자하는 property 를 "Isomorphic" 으로 가정하고, 이를 그림으로 표현하면 아래의 그림처럼 표현할 수 있다.
 <p align="center"><img src="https://user-images.githubusercontent.com/76777494/195985137-ee3b1cf1-f9c5-4a3b-a94f-7cc92d78679a.png"></p>
 여기서 같은 색깔로 표현된 node 는 같은 feature vector 를 가지고 있다. 또한, edge 에 있는 숫자는 각 node 의 port number 를 나타낸다.<br>
@@ -52,11 +52,11 @@ Graph G 와 _G_ 는 isomorphic 관점에서 서로 다름을 알 수 있다. Gra
 CPNGNN 의 경우, port number 를 사용하기에, Graph G 에서 D2 는 port 2 를 사용하여 B2 와 연결되었다는 정보와, Graph _G_ 에서는 _D2_ 가 port 1 을 사용하여 _B1_ 과 연결되었음을 알 수 있다. 따라서, CPNGNN 은 Graph G 와 _G_ 를 isomorphism property 에서 구별할 수 있다. <br>
 
 
-2) Limitations of CPNGNNs
+#### Limitations of CPNGNNs
 CPNGNN 이 LU-GNN 이 구분하지 못하는 Graph 들을 구별할 수 있음을 보여주었다. 하지만, CPNGNN 역시 구분할 수 없는 Graph 들이 존재하며, 저자는 LU-GNN 의 limitation 을 보여주었던 것과 같은 방식으로, CPNGNN 과 DimeNet 을 비교하여 CPNGNN 의 limitation 을 보여준다.
 <p align="center"><img src="https://user-images.githubusercontent.com/76777494/195986145-b3b66cbd-b886-4e3f-8453-b809322d5f89.png"></p>.
 Proposition 1. 과 동일하게, 색깔은 node 의 feature vector 를 edge 의 숫자는 port number 를 나타낸다. <br>
 
-3) Limitations of DimeNets
+#### Limitations of DimeNets
 
 ### 5. Conclusion
