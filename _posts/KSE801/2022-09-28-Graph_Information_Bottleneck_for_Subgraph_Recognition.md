@@ -98,12 +98,19 @@ $$I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times
 여기서 $f_{\phi_{2}}$는 앞에서 말씀드렸다시피 그래프 집합에서 실수 집합으로 매핑되는 네트워크입니다. 이 식의 유도 과정에 집중하기보다는 결과 해석과 모델 설계 방향에 대해 말씀드리고자 합니다.  
 앞서 나온 식을 바탕으로 설계된 모델의 아키텍처는 다음과 같습니다.
 
-![image](https://user-images.githubusercontent.com/67723054/196002229-221dee3c-a226-4541-a28f-d65f5232380a.PNG){: width="50" height="50"0}{: .center}
+![image](https://user-images.githubusercontent.com/67723054/196002229-221dee3c-a226-4541-a28f-d65f5232380a.PNG)
 
-{: width="100" height="100"}
-Eq 9를 사용하여 I(G; Gsub)를 근사화하기 위해 그림 1과 같이 최신 GNN 아키텍처를 기반으로 통계 네트워크를 설계한다. 먼저 GNN을 사용하여 G와 Gsub(서브그래프 생성기와 공유되는 매개 변수) 모두에서 임베딩을 추출한 다음 G와 Gsub 임베딩을 연결하여 MLP에 공급한다. 마침내 실제 숫자를 산출한다. 근사 p(G; Gsub), p(G) 및 p(Gsub)에 대한 샘플링 방법과 함께, 우리는 대략 1 I(G; Gsub)에 대한 다음 최적화 문제에 도달한다.
+먼저 GNN을 사용하여 $\mathcal{G}$와 $\mathcal{G}_ sub$ 로부터 임베딩을 추출하고, \mathcal{G}와 \mathcal{G} 임베딩을 concat시켜서, MLP의 입력으로 설정합니다. 그 결과 output은 subgraph $\mathcal{G}$와 나머지 부분 $\overline{\mathcal{G}}_ {sub}$에 해당하는지의 여부를 결정하는 sampling matrix를 도출하게 됩니다. $p(\mathcal{G}_ {sub})$에 대한 샘플링 방법과 함께 $I(Y,\mathcal{G}_ {sub})$에 대한 다음과 같은 최적화 문제에 도달하게 됩니다.   
+
+$$\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \frac{1}{N}\sum_ {i=1}^{N}f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,i})-\log{\frac{1}{N}\sum_{i=1,j\neq i}^{N}e^{f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,j})}}$$
+
+(서브그래프 생성기와 공유되는 매개 변수) 모두에서 임베딩을 추출한 다음 G와 Gsub 임베딩을 연결하여 MLP에 공급한다. 마침내 실제 숫자를 산출한다. 근사 p(G; Gsub), p(G) 및 p(Gsub)에 대한 샘플링 방법과 함께, 우리는 대략 1 I(G; Gsub)에 대한 다음 최적화 문제에 도달한다.
 
 먼저 내부 루프로 T 단계에 대해 Eq 12를 최적화하여 2로 표기된 차선책 2를 유도합니다. 내부 루프의 T-단계 최적화가 끝난 후, Eq 10은 외부 루프로서 GIB 목적에 대한 MI 최소화를 위한 프록시입니다. 그런 다음 매개변수 1과 하위 그래프 Gsub가 IB 하위 그래프를 생성하도록 최적화됩니다. 그러나 외부 루프에서 G 및 Gsub의 이산적인 특성은 기울기 기반 방법을 적용하여 bi-level 목표를 최적화하고 IB-subgraph를 찾는 데 방해가 됩니다.
+
+
+제안된 그래프 정보 병목 현상(GIB) 프레임워크의 그림. GIB 목표를 최적화하여 IB 하위 그래프를 생성하기 위해 이중 수준 최적화 체계를 사용합니다. 내부 최적화 단계에서는 DONSKERVARADHAN 표현의 통계 네트워크를 최적화하여 I(G; Gsub)를 추정합니다[7]. I(G; Gsub)의 좋은 추정이 주어지면 외부 최적화 단계에서 상호 정보, 분류 손실 Lcls 및 연결 손실 Lcon을 최적화하여 GIB 목표를 최대화합니다.
+
 
 
 $N$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$가 주어지고, $$X = \lbrace x_{1}, x_{2}, ..., x_{N} \rbrace$$ 을 node feature의 집합이라고 하고, $$A$$를 node들의 관계를 표현하는 adjacency matrix라고 하겠습니다.
