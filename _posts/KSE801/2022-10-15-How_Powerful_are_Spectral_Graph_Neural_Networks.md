@@ -164,8 +164,6 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 <p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
 
-Proposition 4.2.의 조건에서 $X$ is not a full row-rank matrix, 즉 $\mathrm{rank}(X) < n $이라는 조건은 자명합니다. 보통의 경우 output dimension 값은 node 갯수 $n$보다 작은 값을 갖기 때문입니다.
-
 Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출하는 경우에는 충분히 강력하지만, 위의 Propsition 때문에 Multiple channel을 갖는 prediction을 산출하기 위해서는 각기 다른 polynomial filter를 필요로 하게 됩니다.
 
 이에 대해서는 Figure 1에 묘사되어 있는 Toy Example을 보도록 하겠습니다. (b), (c)를 보면, (a)에서 주어진 Node feature을 이용해 여러 dimension의 output을 만들기 위해서는 서로 다른(하나는 High-pass, 다른 하나는 Low-pass) filter가 필요하다는 것을 서술하고 있습니다.
@@ -278,6 +276,30 @@ $$\frac{\partial R}{\partial\alpha_{k_{1}}\partial\alpha_{k_{2}}}=X^{T}g_{k_{2}}
 
 $\lambda$보다 작은 frequency를 갖는 signal의 accumulated amplitude를 $F(\lambda):=\sum_{\lambda_{i}\leq\lambda}{\tilde{X}_ {\lambda_{i}} ^{2}}$라고 하고, 위의 Hessian entry 값을 아래와 같이 Riemann sum으로 나타낼 수 있습니다.
 $$\sum_{i=1}^{n}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})\frac{F(\lambda_{i})-F(\lambda_{i-1})}{\lambda_{i}-\lambda_{i-1}}}(\lambda_{i}-\lambda_{i-1})$$
+
+$n \rightarrow +\infty$ 일 때, Frequency $\lambda$에서의 Signal density $f(\lambda)=\Delta F(\lambda)/\Delta \lambda$를 이용하면 아래와 같이 Hessian entry 값을 얻을 수 있습니다.
+$$H_{k_{1}k_{2}}=\int_ {0} ^{2}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})f(\lambda)d\lambda}$$
+
+위에서 얻어낸 결과와 $\mathrm{argmin}_ {H}\kappa(H)=I$라는 사실을 함께 보면, polynomial bases $g_{k}$가 graph signal density $f(\lambda)$에 대해 orthonormal할 때 condition number가 최소화, 즉 가장 빠른 convergence rate을 갖게 된다는 것을 알 수 있습니다.
+
+ *(주) bases가 graph signal density* $f(\lambda)$ *에 대해 orthonormal하다는 것은, inner product가* $<h,g>=\int_{0}^{2}{h(\lambda)g(\lambda)f(\lambda)d\lambda}$ *로 정의될 때 이 inner product를 갖는 함수 공간에서 orthonormal하다는 것을 말합니다.*
+ 
+이러한 결과는, complete한 polynomial bases들이 비록 같은 표현력을 갖고 있더라도, graph density $f(\lambda)$에 대해 orthonormal한 bases를 사용하는 것이 linear GNN이 가장 빠르게 수렴할 수 있게 함을 의미합니다. 
+
+물론, 잘 알려진 Gram-Schmidt process를 통해서 graph density $f(\lambda)$에 맞는 orthonormal bases를 찾을 수 있겠지만, 이 과정이 효율적이지 못하기 때문에 저자들은 이러한 graph density를 충분히 근사할 수 있는 flexible한 weight function(bases가 이 weight function에 대해 orthonormal)을 갖는 general한 형태의 orthogonal(normalization은 어렵지 않기에 orthogonality만 고려) polynomial bases를 선택했다고 서술합니다.
+
+### **4.2. Jacobi Polynomial Bases**
+
+Jacobi basis는 가장 general한 형태의 polynomial bases이며, ChebyNet에서 활용하는 Chebyshev basis의 경우 이 Jacobi basis의 특수한 형태( $P_{k}^{-1/2,-1/2} (1-\lambda)$ )라고 합니다. Jacobi basis $P_{k}^{a,b}$는 아래와 같이 정의됩니다.
+
+<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi.png"></p>
+
+이 Jacobi basis는 weight function $(1-\lambda)^{a}(1+\lambda)^{b}$에 대해, domain $[-1,1]$에서 orthogonal 합니다. Domain을 맞춰주기 위해, graph의 Jacobi basis는 아래와 같이 정의합니다.
+$$g_{k}(\hat{L})=P_{k}^{a,b}(I-\hat{L})=P_{k}^{a,b}(\hat{A})$$
+
+### **4.3. JacobiConv Architecture**
+
+이 sub-section에서는 논문에서 제안한 JacobiConv 모델의 Architecture에 대해 서술합니다. 
 
 <br/>
 
