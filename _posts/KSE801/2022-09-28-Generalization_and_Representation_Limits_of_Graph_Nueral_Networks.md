@@ -91,4 +91,7 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 위의 그림에 따라, Graph 를 tree 로 표현할 수 있으며, 이를 통하여 몇개의 insight 를 알 수 있다.<br>
 - subtree 의 관점에서, tree node 에 대한 embedding 을 재귀적으로 표현할 수 있다.
 - Shared weights 에 조그마한 변화를 주어도, tree root 의 embedding 은 거의 변하지 않는다. (individual prediction 이 거의 변하지 않는다.)
--
+GNN 을 tree 로 표현한 구조로부터 약간의 notation abuse 를 사용하여, 다음과 같이 표현할 수 있다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_5.png"></p>
+
+여기서 f(G;\theta)
