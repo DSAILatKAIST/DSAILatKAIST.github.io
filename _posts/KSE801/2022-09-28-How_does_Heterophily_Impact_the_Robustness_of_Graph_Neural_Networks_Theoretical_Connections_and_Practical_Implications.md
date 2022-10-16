@@ -102,9 +102,9 @@ Heterophilly GNN 과 관련된 기존 연구들에서 사용했던 전략입니�
 
 실험에서 검증하고자하는 Research Question (RQ) 는 다음과 같습니다.
 
-** RQ 1) 그래프 어택은 대부분 Heterophillous 하다. 즉, 다른 Feature를 지닌 노드 사이에 Edge로 연결하는 경향이 있다.
-** RQ 2) Heterophillous Design 이 Robustness를 향상한다.
-** RQ 3) (RQ2와 다른 방법으로) Heterophilly 가 보정된 GNN 이 가장 Robust 하다.
+**RQ 1) 그래프 어택은 대부분 Heterophillous 하다. 즉, 다른 Feature를 지닌 노드 사이에 Edge로 연결하는 경향이 있다.**
+**RQ 2) Heterophillous Design 이 Robustness를 향상한다.**
+**RQ 3) (RQ2와 다른 방법으로) Heterophilly 가 보정된 GNN 이 가장 Robust 하다.**
 
 ### Experimental Setup
 GNN의 Robustness는 Poisoning 세팅 (training/testing 모두 같은 attacked 그래프를 사용)에서 실험 합니다. Attack의 종류에는 특정 노드만 공격하는 Targeted Attack과 그래프 전체적으로 공격하는 non-targeted attack이 있는데, Targeted Attack으로는 Nettack, Untargeted Attack으로는 Metattack을 채택하였습니다.
