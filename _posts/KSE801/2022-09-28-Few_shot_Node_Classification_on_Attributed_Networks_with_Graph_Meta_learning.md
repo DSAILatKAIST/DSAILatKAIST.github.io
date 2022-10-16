@@ -243,7 +243,7 @@ $\mathbf{H}$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하�
  
 <div align="center">
  
-<img width="1296" alt="image" src="https://user-images.githubusercontent.com/37684658/196022640-82257140-97d7-4603-ba72-da206326d920.png">
+<img width="1296" alt="image" src="https://user-images.githubusercontent.com/37684658/196022640-82257140-97d7-4603-ba72-da206326d920.png">  
 
 <\div>  
 
@@ -252,7 +252,7 @@ $\mathbf{H}$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하�
  
 <div align="center">
 
-<img width="1355" alt="image" src="https://user-images.githubusercontent.com/37684658/196023310-e7da3ee6-401e-4a17-bd37-8cd169a93d67.png">
+<img width="1355" alt="image" src="https://user-images.githubusercontent.com/37684658/196023310-e7da3ee6-401e-4a17-bd37-8cd169a93d67.png">  
  
 <\div>  
 
@@ -261,26 +261,15 @@ $\mathbf{H}$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하�
  
 <div align="center">
  
- <img width="761" alt="image" src="https://user-images.githubusercontent.com/37684658/196023600-4d93ab72-76e9-4670-aba6-351505c27e89.png">
+ <img width="761" alt="image" src="https://user-images.githubusercontent.com/37684658/196023600-4d93ab72-76e9-4670-aba6-351505c27e89.png">  
  
 <\div>  
 
-
+> (I) Meta-GPS-SGC : heterophilic convolution layer 대신 GCN으로 대체한 모델이다.  
+ (II) Meta-GPS-PI : prototype-based initialization paramter를 제거하고 random initialization parameter를 사용한 모델이다.  
+ (III) Meta-GPS-$S^2$ : $S^2$ transformation을 삭제하고 모든 task들을 동등하게 취급한 모델이다.  
+ 
+ 성능이 논문에서 제시하는 효과를 모두 증명하는 것은 아니지만, ablation study를 핵심 module 하나하나 잘 커버하면서 실행하였고, 그에 대한 결과도 바람직하게 보여주고 있다고 생각한다. 특히 Meta-GPS-SGC 같은 경우는 상대적으로 homophilic networks에서는 성능이 좋지만, heterophilic한 상황에서는 성능 하락이 더 크게 나타난다.  
 
 ## **5. Conclusion**  
-
-
-## KaTeX
-
-You can render LaTeX mathematical expressions using [KaTeX](https://khan.github.io/KaTeX/):
-
-The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
-
-$$
-\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
-$$
-
-> You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
-http://detexify.kirelabs.org/classify.html
-https://stackedit.io/app#
-https://rayc20.tistory.com/151
+Meta-GPS는 meta-learning 기반의 few-shot learning method이다. 기존 meta-learning 기반의 baseline들이 instance-based statistic을 기반으로 모델링 되었기 때문에, data outlier에 취약한 점을 포인트로 잘 잡아내었고, 이를 해해소하기 위해 prototype-based parameter initialization, $S^2$ transformation for suiting different tasks를 제시하였다. 또한 real-world의 attributed network의 heterophily한 데이터셋을 다루기위해 기존 convolution layer를 간단하면서도 효과적으로 수정하였다. 본 논문의 가장 큰 TAKEAWAY는 instance기반으로 다루는 방법에서 class-level, task-level에서 다루는 관점을 보여주었고, 그로 인한 효과로 few-shot learning의 핵심 문제인 outlier 문제를 효과적으로 다루었다는 점이라고 생각한다. 
