@@ -115,7 +115,7 @@ relational message passing에서는 인접한 모든 relation의 message를 결�
 ### Relational Context
 `Relational Context`는 entity에 연결되어 있는 모든 relation의 집합을 의미합니다. 
 예시는 다음과 같습니다.
-<p align="center"><img src="images/PATHCON/Relational_Context.png"></p>
+<p align="center"><img src="/images/PATHCON/Relational_Context.png"></p>
 Ron Weasley와 Hedwig가 Harry Potter의 애완동물인지 예측하는 문제를 생각해봅시다. 
 두 Entity는 Harry Potter로 가는 경로가 같으나, 인접한 relation이 'Brother of', 'Bought'로 다릅니다. 
 따라서 Ron Weasley와 Hedwig은 서로 다른 relational context를 가집니다. 
