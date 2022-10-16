@@ -18,7 +18,7 @@ GNN의 Robustness 는 Attack 이 포함된 Graph 로 그래프 태스크를 수�
 
 여기서 Attacked 이 포함된 그래프란 다음과 같이 정의되며,
 
-![1](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk1.png)
+![1](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk1.PNG)
 
 그래프 태스크란, Node Classification, Graph Classfication, Link Prediction 그리고 Node Clustering 과 같은 전형적인 태스크들을 이야기 합니다.
 
@@ -35,7 +35,7 @@ GNN의 Robustness 는 Attack 이 포함된 Graph 로 그래프 태스크를 수�
 기존 GNN의 연구 분야 중에서, Heterophily 그래프를 위해 특별히 디자인을 하는 연구분야가 존재합니다. Heterophilly 란, "나의 친구는 나와 유사할 것이다" = (Homophilly) 의 반대 개념인데요.
 즉, 나와 친구임에도 나와 매우 다른 특성을 지닌 친구들을 많이 포함하고 있는 그래프를 Hetrophilly Network 라고 부릅니다. 논문의 표현을 빌려 좀 더 엄밀히 정의하면,
 
-![2](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk2.png)
+![2](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk2.PNG)
 
 위와 같은 homophily ratio 를 계산할 수 있는데요. 나와 같은 레이블 y 로 연결된 edge가 많이 존재한다면 homophilly ratio가 높을 것 (homophilly network)이고, 반대로 지나치게 낮으면 homophilly ratio 가 낮을 것 (heterophilly) 입니다.
 
@@ -62,7 +62,7 @@ GNN의 성능을 망치게 되는 Graph Edge 는 서로 비슷하지 않은 유�
 
 Theorem 1은 Homophilly Graph에 적용 되는 이야기인데, Theorem1을 살펴보면 다음과 같습니다.
 
-![3](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk3.png)
+![3](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk3.PNG)
 
 
 이를 직관적으로 해석해보면, 잘 학습된 GNN 이 존재할 때, 이 GNN을 망치는 효과적인 Structure Attack 은 1) 다른 Feature를 가진 노드끼리 서로 연결을 해주는 것이고,
@@ -78,7 +78,7 @@ Theorem 1은 Homophilly Graph에 적용 되는 이야기인데, Theorem1을 살�
 Theorem 2은 Heterophilly Graph에 적용 되는 이야기이고 Theorem1 보다 다소 상황에 따라 복잡한 결과를 보입니다. 
 
 
-![4](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk4.png)
+![4](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk4.PNG)
 
 
 이를 정리해서 설명해보면, Heterophilly 의 경우 High-degree 노드와 Low-degree 노드를 다른 전략으로 공격해야 합니다. low-degree 의 노드의 경우, 기존과 동일하게 다른 유저를 연결해주면 서로에게 악영향을 크게 끼치게 됩니다. 이는 직관적입니다. 반면에, high-degree 노드의 경우, 1) 또 다른 유사한 특성을 지닌 high-degree 노드를 연결해줍니다. 개인적인 추측을 더해보면, Heterophilly Network 가 어차피 다른종류의 Feature 를 연결한 Neighbor를 많이 지니기 때문에, high-degree 노드 끼리의 연결이 간접적으로는 그래프 특성을 더 크게 망치는 방법이기 때문입니다.
@@ -89,7 +89,7 @@ Theorem 2은 Heterophilly Graph에 적용 되는 이야기이고 Theorem1 보다
 
 위와 같은 Attack 에 대한 분석을 바탕으로, 본 논문에서는 GNN의 디자인이 다음과 같아야 한다고 주장합니다.
 
-![5](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk5.png)
+![5](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk5.PNG)
 
 즉, 각각의 layer 별로 얻은 representation 을 concat 해서 skip-connection의 효과를 누릴 수 있게 하자는 것인데요. 그렇게 하자고 하는 이유는 "ego-embedding (target node의 embedding) 이 aggregator 의 영향을 줄일 수 있고, 그렇게 하면 attack 의 영향을 줄일 수 있기 때문" 입니다. 사실 위와 같은 사실은 너무나도 당연하며,
 
@@ -114,7 +114,7 @@ GNN의 Robustness는 Poisoning 세팅 (training/testing 모두 같은 attacked �
 
 아래 표는 Targeted Attack인 Nettack 알고리즘을 각각 그래프에 사용하여 그래프를 공격했을 때의 결과입니다. 기대하는 바와 같이, Heterophilly 한 Attack을 더해주는 방식으로 그래프를 공격해야 효과적으로 모델이 망가집니다.
 
-![5](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk5.png)
+![6](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk6.PNG)
 
 그림은 앞선 Theorem 에서 언급한 degree 를 분석한 것으로 보이는데, homophilly ratio 가 높은 cora, citeseer, pubmed 의 경우 low-degree 사이들을 연결합니다.
 반면에, heterophilly graph (FB100, Snap) 의 경우 앞서 말한대로 degree는 low-degree는 high-degree 와 연결하는 경향과 low-degree 사이들을 연결하는 2가지 경향 모두를 보여줍니다.
@@ -133,7 +133,7 @@ GNN의 Robustness는 Poisoning 세팅 (training/testing 모두 같은 attacked �
 
 
 
-![6](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk6.png)
+![7](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk7.PNG)
 
 
 ### RQ 3) Heterophilly 가 보정된 GNN 이 가장 Certifiably Robust 하다.
@@ -141,7 +141,7 @@ GNN의 Robustness는 Poisoning 세팅 (training/testing 모두 같은 attacked �
 기존 attacked 그래프에서 평가하는 것은 다른 그래프에서 까지 robust하고 할 수 없습니다. 따라서 accumulated certificablity (AC) 의 개념을 도입합니다.
 이는, random perturbation 의 강도 (radius) 늘려가면서 모델이 예측을 변하지않는 최대 radius 를 측정합니다. 즉, radius 가 길 수록 더욱 robust 하게 예측을 유지한다고 해석할 수 있습니다.
 
-![7](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk6.png)
+![8](/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk8.PNG)
 
 아래 표와 같이 heterophilly design 들은 certifiable robust 함을 확인할 수 있습니다.
 
