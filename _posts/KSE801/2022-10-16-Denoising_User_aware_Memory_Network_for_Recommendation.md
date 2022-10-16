@@ -139,7 +139,7 @@ PAIR Layer는 User의 Long, Short-term interest에 대한 cross representation�
 
 
 
-최종적으로 $U$들과 $ e_{user}$ $e_{item}$를 Concat시켜 Fully connected layer를 통과해 Sigmoid Function에 넣으면 최종 예측 값인 $\hat{y}$를 얻을 수 있게 된다.
+최종적으로 $U$들과 $e_{user}$, $e_{item}$를 Concat시켜 Fully connected layer를 통과해 Sigmoid Function에 넣으면 최종 예측 값인 $\hat{y}$를 얻을 수 있게 된다.
 
 <img src="/images/Denoising_User_aware_Memory_Network_for_Recommendation/final.png">
 
