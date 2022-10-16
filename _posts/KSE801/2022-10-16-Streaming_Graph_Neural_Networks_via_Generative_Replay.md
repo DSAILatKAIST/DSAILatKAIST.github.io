@@ -97,9 +97,9 @@ $P_{h \rightarrow t}$: entity h에서 t로 가는 path의 집합
 
 ### Alternate relational message passing
 학습 과정은 다음과 같습니다.
-$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_ {e \in N(v)})$$	
+$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_{e \in N(v)})$$	
 
-$$m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), \: v, u \in N(e)$$
+$$m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), v, u \in N(e)$$
 
 $$s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$$
 
