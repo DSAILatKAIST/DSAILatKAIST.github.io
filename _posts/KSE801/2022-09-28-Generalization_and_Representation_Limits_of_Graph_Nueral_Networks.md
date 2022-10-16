@@ -106,5 +106,9 @@ GNN 을 tree 로 표현한 구조로부터 약간의 notation abuse 를 사용�
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_6.png"></p>
 위의 식과 같이 표현할 수 있다. 즉 "GNN 의 complexity 는 computation tree 의 complexity 에 bound 될 수 있다".
 
+여기서 더 나아가 Proposition 6 을 통하여, empirical Rademacher complextiy 를 구할 수 있다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_6.png"></p>
+Proposition 6 에 Lemma 1 을 적용하여, 
+
 
 #### Generalization Bound for GNNs
