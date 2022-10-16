@@ -90,9 +90,10 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 이전의 연구에서 GNNs 의 bound 에 관하여 진행된 연구가 있다. 해당 연구는 empirical risk ($$\hat{R}$$)를 사용하여, bound 를 계산하였다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_7.png"></p>
 여기서 y 는 0과 1 의 binary value 를 가진다.<br>
-위의 식을 바탕으로, 기존 연구에 따르면 다음과 같은 GNN 의 bound 를 구할 수 있게 된다.
+위의 식을 바탕으로, 기존 연구에 따르면 다음과 같은 GNN 의 bound 를 구할 수 있게 된다. 여기서, p 가 음수가 되는 확률이므로, population risk 의 bound (error bound) 를 의미하게 된다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_1.png"></p>
-따라서, Rademacher complexity 라고 불리는 ![rademacher](/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png#style=max-width:50px;vertical-align:middle; "rademacher") 의 bound 를 계산하여, GNNs 의 bound 를 계산할 수 있다. 저자는 이를 GNN 을 tree 형태로 표현하며 Rademacher complexity 의 bound 를 계산하였다.
+따라서, Rademacher complexity 라고 불리는 ![rademacher](/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png#style=max-width:50px;vertical-align:middle; "rademacher") 의 bound 를 계산하여, GNNs 의 bound 를 계산할 수 있다. <br>
+하지만, Graph 의 Rademacher complexity 를 직접 구할 수 없기에, 저자는 GNN 을 tree 형태로 표현하며 tree의 Rademacher complexity 로 Graph 의 Rademacher complexity 를 bound 할 수 있음을 보였다.
 
 #### Analyzing GNN generalization via trees
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_5.png"></p>
@@ -106,9 +107,13 @@ GNN 을 tree 로 표현한 구조로부터 약간의 notation abuse 를 사용�
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_6.png"></p>
 위의 식과 같이 표현할 수 있다. 즉 "GNN 의 complexity 는 computation tree 의 complexity 에 bound 될 수 있다".
 
-여기서 더 나아가 Proposition 6 을 통하여, empirical Rademacher complextiy 를 구할 수 있다.
+따라서, Proposition 6 을 통하여, tree 의 Rademacher complextiy 로 graph 의 Rademacher complexity 를 bound 할 수 있다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_6.png"></p>
-Proposition 6 에 Lemma 1 을 적용하여, 
-
+Proposition 6 과 Lemma 1 을 사용하면 Graph 의 bound 를 알 수 있게된다. 다음 section 에서 저자는 tree 의 Rademacher complexity 를 계산하고, Graph 의 bounds 를 보여준다.
 
 #### Generalization Bound for GNNs
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_7.png"></p>
+Proposition 7 을 통하여 tree 의 Rademacher Complexity 를 계산할 수 있다. 여기서 C 는 percolation complexity 를 의미하며, B_1 과 B_2 의 경우 단순하게 W1, W2 의 spectral norm 을 사용한다. Lemma 1, Proposition 6, Proposition 7 을 사용하여, 드디어 GNN 의 generalization bound 를 계산할 수 있다.
+
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_6.png"></p>
+위의 표는 GNN 과 RNN 의 generalization error bound 를 C 의 값에 따라 계산한 결과이다. GNN 의 bound 를 계산할 때, tree 구조를 사용하여 계산하였기에, branching factor d 가 GNN에 추가된 모습을 확인할 수 있다. 또한, r: dependence on dimension, L: depth (in RNN length), m: sample size 를 나타낸다.
