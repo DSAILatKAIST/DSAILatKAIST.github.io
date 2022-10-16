@@ -71,9 +71,12 @@ Graph G1, G2 의 경우 역시, CPNGNN 과 LU-GNN 으로 구분 할 수 없으�
 #### Limitations of DimeNets
 DimeNets 이 CPNGNN 과 LU-GNN 이 구분할 수 없는 Graphs 들을 분별할 수 있을지라도, DimeNets 역시 구분 할 수 없는 상황이 존재한다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_4.png"></p>
-Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와 G4 를 구분할 수 없음을 알 수 있다. 따라서, DimeNets 이
+Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와 G4 를 구분할 수 없음을 알 수 있다. 따라서, DimeNets 역시 graph properties 를 구별할 수 없는 경우가 존재할 수 있다.
 
 #### More powerful GNNs
+지금까지, LU-GNN, CPNGNN 그리고 DimeNet 의 한계점에 대하여 간단한 예시를 통하여 알아보았다. 그렇다면, 이 graph models 들이 구분하지 못하는 properties 를 해결할 수 있는 model 을 구성할 필요가 있다. 저자는 이러한 model 을 아주 간단한 방식으로 구성하였다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_3.png"></p>
+여기서 $$\Phi_{uv} $$ node u와 v 사이의 angle 이외의 additional geometric information 을 뜻한다. 여기서 저자는, u와 v 이외의 다른 node w, z 를 사용하여, $$\Phi_{uv} $$ 는 node (w,u,v) 가 이루는 plane 과 node (u,v,z) 가 이루는 plane 간의 distance 를 의미한다. 따라서 저자는 이러한 DimeNet 에서 사용하는 node angle 이외의 geometric information 사용하여 해결할 수 있다고 주장하였다.
 
 ### 5. Generalization bounds for GNNs
 
