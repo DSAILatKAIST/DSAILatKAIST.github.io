@@ -4,12 +4,6 @@ permalink: Graph_Information_Bottleneck_for_Subgraph_Recognition.html
 tags: [reviews]
 ---
 
-$$
-\begin{aligned}
-\mathcal{L}_ {VIB} = \frac{1}{N} \sum_{i=1}^{N} \int\nolimits p(z|x_{i})\log{q_{\phi}(y_{i}|z)} dz  - \beta \mathrm{KL}(p(z|x_{i})|r(z)),
-\end{aligned}
-$$
-
 # Graph Information Bottleneck for Subgraph Recognition
 ## **1. Problem Definition**
 > **Graph classification 작업에 중요한 역할을 하는 압축된 데이터를 추출한다.**  
@@ -18,7 +12,8 @@ $$
 레이블을 기반으로 분류하는 작업은 다양한 분야에서 적용될 수 있고 딥러닝 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 데이터에서는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 데이터에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 실제로 분류작업을 하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 정보를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 functional group를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
   
 ![image](https://distill.pub/2021/gnn-intro/graph_xai.bce4532f.png)
-  
+
+ <br/> <br/>
 ## **2. Motivation**  
 
 > **Graph 데이터를 Information Bottleneck의 관점에서 접근한다.**   
@@ -27,7 +22,7 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
 그러나 현재의 IB 방법은 상호간에 관계적인 정보와 이산적인 데이터를 담고 있는 그래프 데이터를 처리하는데 어려움이 있습니다. IB가 정보 손실을 최소화하면서 원본 그래프의 하위 그래프와 같은 불규칙한 그래프 데이터를 압축하는 것은 여전히 어려운 일이라고 할 수 있습니다.   
 따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 GIB(Graph Information Bottleneck) 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
 
-
+ <br/> <br/>
 ## **3. Method**
 > **Preliminaries**
   
@@ -45,7 +40,7 @@ $$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hat{A}D^{-\frac{
 
 여기서 D는 노드의 차수를 담은 대각 행렬이고, W는 모델 파라미터를 의미합니다.
 
-
+<br/> <br/>
 > **Graph Information Bottleneck**
 
 먼저 Graph Information Bottleneck 현상과 IB subgraph를 정의합니다.  
@@ -68,7 +63,7 @@ $$ \max_{\mathcal{G}_ {sub}\in \mathcal{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta 
 
 이와 같이 도출된 IB-subgraph는 그래프 분류 개선, 그래프 해석, 그래프 잡음 제거 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
 
-  
+<br/> <br/>  
 > **Graph Information Bottleneck의 목적함수 최적화 과정**  
 * Maximization of $I(Y,\mathcal{G}_ {sub})$  
 위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. $I(Y; \mathcal{G}_ {sub})$는 다음과 같이 확장할 수 있습니다.  
@@ -84,6 +79,7 @@ $$ I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{{q_{\phi_{1}}(
 
 여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 $I(Y;\mathcal{G}_ {sub})$를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
 
+<br/> <br/>
 *  Minimization of $I(\mathcal{G},\mathcal{G}_ {sub})$   
 이제 두 번째 항 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 최소화 작업을 진행합니다.  KL-divergence의 Donsker-Varadhan representation을 적용하여,  $I(\mathcal{G},\mathcal{G}_ {sub})$을 다음과 같이 나타낼 수 있습니다.  
 
@@ -111,6 +107,7 @@ $$
 
 먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킵니다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
 
+<br/> <br/>
 > **Subgraph Generator**  
 
 입력 그래프 $\mathcal{G}$에 대해 노드가 $\mathcal{G}_ {sub}$나  $\overline{\mathcal{G}}_ {sub}$ 중 어디에 속할지 나타내는 노드 할당 행렬  $\textbf{S}$를 생성하여 subgraph를 발생시킵니다. 그런 다음 $\mathcal{G}_ {sub}$ 또는  $\overline{\mathcal{G}}_ {sub}$에 속할 확률을 
@@ -121,6 +118,7 @@ S = \mathrm{MLP}(X^{l};\theta_{2})$$
 
 $\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니다. $\textbf{S}$가 학습되면, 노드 할당 행렬의 구성요소가 0과 1로 구성되게 되고, 첫번째 열은 그래프 레이블을 예측하는데 사용되는 $\mathcal{G}_ {sub}$의 representation에 해당하는 초록색 노드 임베딩이고, 두번째 열은 그 나머지 부분 $\overline{\mathcal{G}}_ {sub}$의 representation에 해당하는 파란색 노드 임베딩입니다. 최종적으로 $\textbf{S}^{T}X^{l}$의 첫 번째 열을 가져옴으로써 $\mathcal{G}_ {sub}$의 임베딩을 얻을 수 있습니다.
 
+<br/> <br/>
 > **Connectivity Loss**  
 
 위에서 살펴본 목적함수의 최적화 과정으로는 모델이 모든 노드를 $\mathcal{G}_ {sub}$나 $\overline{\mathcal{G}}_ {sub}$에 할당하거나, $\mathcal{G}_ {sub}$의 representation에 중복된 노드로부터 불필요한 정보를 포함할 수 있습니다. 이를 예방하기 위해서 connectivity loss $\mathcal{L}_ {con}$를 도입합니다.  
@@ -152,11 +150,11 @@ $$
 $$  
 
 
-
+<br/> <br/>
 
 ## 4. Experiment  
 
-실험은 총 3가지 실험을 진행하였고, graph classification과 graph interpretation(해석), graph denoising(노이즈 제거)의 관점에서 본 논문에서 제안된 GIB(Graph Information Bottleneck)을 평가합니다. 
+실험은 총 3가지 실험을 진행하였고, graph classification(분류)과 graph interpretation(해석), graph denoising(노이즈 제거)의 관점에서 본 논문에서 제안된 GIB(Graph Information Bottleneck)을 평가합니다. 
 
 > **Graph Classification**  
 
@@ -169,7 +167,9 @@ MUTAG, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classif
 ![image](https://user-images.githubusercontent.com/67723054/196009252-9bdf3ea0-80a4-459a-8aff-1e567e1eacce.PNG)  
 
 위의 결과에서 논문에서 제안한 방법과 baseline을 종합적으로 평가하였습니다. 다양한 backbone에서 GIB를 학습시키고, subgraph에서 representation을 aggregation하여 성능을 측정한 결과, 1개의 데이터셋(MUTAG)을 제외하고 나머지 데이터셋에서 가장 좋은 성능을 낸다는 것을 확인할 수 있습니다. 이는 GIB가 그래프 분류의 핵심적인 구조를 추출할 수 있으며 이것이 그래프 분류 작업에 있어서 결정적인 역할을 할 수 있다는 것을 의미합니다.
-  
+
+<br/> <br/>
+
 > **Graph Interpretation**
 
 GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다.  
@@ -186,6 +186,8 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 위의 그림은 graph interpretation 작업에 대해서 한눈에 보기 쉽게 나타나는 정성적인 결과입니다. GIB가 HLM-CLint와 LML-CLint의 관점에서 왼쪽의 원래 그래프와 가장 유사한 특성을 보여준다는 것을 알 수 있습니다. 게다가 어떤 subgraph가 그러한 결과에 기인하였는지 붉은색의 부분으로 표시되어있습니다. 이를 통해서 어떤 subgraph가 모델의 전체 특성을 지배하는지 비교적 정확하게 알 수 있습니다.  
 
+<br/> <br/>
+
 > **Graph Denoising**  
 
 여기에서는 앞에서 사용한 MUTAG dataset에서 각 그래프에 대해 30%의 추가적인 edge(노이즈)를 추가하여 synthetic dataset을 생성합니다. 이 synthetic dataset을 활용하여 GIB의 classification accuracy를 GCN, DiffPool과 함께 비교합니다. 여기에서 training set, validation set, test set을 각각 70%, 5%, 25%로 설정하였습니다.
@@ -194,14 +196,18 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 위의 결과는 노이즈가 있는 그래프에서 classification 성능을 보여주고 있습니다. GIB는 IB-subgraph의 denoising 능력은 다른 baseling보다 훨씬 뛰어나다는 것을 알 수 있습니다. 
 
+<br/> <br/>
+
 ## **5. Conclusion**
 > **Summary**
 
 본 논문에서는 최대한의 정보를 제공하면서도 압축된 부분 그래프를 도출하기 위해 subgraph 인식 문제를 연구하였습니다. 이러한 subgraph를 IB-subgraph로 정의하고 IB-subgraph를 효과적으로 발견하기 위한 GIB(Graph Information Bottleneck) 프레임워크를 제안합니다. 정보이론 분야에서 연구되었던 Information Bottleneck 분야를 Graph Neural Network에 처음으로 접목시켜서 Graph 데이터에서 functional group과 같은 중요한 하부구조를 인식하는데 도움을 주고, 이는 분류 작업 뿐만 아니라 해석능력을 제공하는데 큰 장점을 가집니다. sampling 방법을 최적화시키기 위해서 목적함수를 prediction 항과 compression 항으로 구성시켜서 subgraph의 예측 정확도와 일정 정도 이상의 압축성을 보장하여 최적의 subgraph를 도출하도록 합니다. graph classification, graph interpretation, graph denoising 3가지 작업에 있어 GIB의 성능을 평가하였고, 그 결과 IB-subgraph의 우수한 성능을 확인할 수 있었습니다.
 
+<br/> <br/>
+
 > **생각 및 발전 방향**
 
-Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 가져와서 적용했다는 점에서 상당히 인상 깊었는데, 사실 그래프 데이터는 정보가 상호 연결되어 있다는 복합적인 특성으로 인해서 다루기가 까다로운데, 이러한 점에도 불구하고 최적화 과정을 적절히 활용하여 성능 향상을 이끌어내었습니다.   
+Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 가져와서 적용했다는 점에서 상당히 인상 깊었는데, 사실 그래프 데이터는 정보가 상호 연결되어 있다는 복합적인 특성으로 인해서 다루기가 까다로움에도 불구하고 최적화 과정을 적절히 활용하여 성능 향상을 이끌어내었습니다.   
 
 사실 기존의 Explainable AI의 경우에는 모델이 작동한 이후에 해석 작업을 거치기 때문에 시간이 더욱 오래 걸릴 뿐만 아니라, 학습된 모델에 대해서 후속적인 작업으로 해석이 들어가기 때문에 좀더 본질적인 해석이 어려울 수 있습니다. 하지만, GIB의 경우에는 분류 작업과 동시에 해석 작업을 진행하기 때문에 상당히 개선적인 모델이라고 할 수 있습니다. 이러한 발전방향은 학습 시간, 해석 능력의 측면에서 실용적인 모델로 발전할 수 있다는 점에서 큰 의미를 가진다고 생각합니다.    
 
@@ -210,7 +216,7 @@ Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 �
 본 모델에서 graph information bottleneck을 샘플링 방법에 좀 더 다양하게 접근한다면 더 높은 성능 향상을 기대할 수 있을 것이라 생각합니다. 벌써 noise 투입과 같은 추가적인 연구가 진행되었는데, 이 외에도 더 넓은 feature 탐색을 통해서 임베딩을 샘플링하는데 있어서 효과적인 탐색과정을 진행한다면 prediction 과정에 큰 도움이 될 수 있을 것입니다.
 
 
-
+<br/> <br/>
 ***
 ## **Author Information**
 * Sangwoo Swo
