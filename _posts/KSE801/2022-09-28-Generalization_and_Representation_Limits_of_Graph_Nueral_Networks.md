@@ -94,4 +94,4 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 GNN 을 tree 로 표현한 구조로부터 약간의 notation abuse 를 사용하여, 다음과 같이 표현할 수 있다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_5.png"></p>
 
-여기서 f(G;\theta)
+여기서 f(G;$$\theta$$) 를 tree 에 적용된 모든 function 의 expactation 으로 표기하고, T_1, T_2, ... T_n 이 depth L 인 computation tree 의 모든 possible set 이라고 할때,
