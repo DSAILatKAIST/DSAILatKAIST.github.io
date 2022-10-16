@@ -72,7 +72,7 @@ Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와
 #### More powerful GNNs
 지금까지, LU-GNN, CPNGNN 그리고 DimeNet 의 한계점에 대하여 간단한 예시를 통하여 알아보았다. 그렇다면, 이 graph models 들이 구분하지 못하는 properties 를 해결할 수 있는 model 을 구성할 필요가 있다. 저자는 이러한 model 을 아주 간단한 방식으로 구성하였다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_3.png"></p>
-여기서 $$\Phi_{uv}$$ node u와 v 사이의 angle 이외의 additional geometric information 을 뜻한다. 여기서 저자는, u와 v 이외의 다른 node w, z 를 사용하여, $$\Phi_{uv}$$ 는 node (w,u,v) 가 이루는 plane 과 node (u,v,z) 가 이루는 plane 간의 distance 를 의미한다. 따라서 저자는 이러한 DimeNet 에서 사용하는 node angle 이외의 geometric information 사용하여 해결할 수 있다고 주장하였다.
+여기서 $\Phi_{uv}$ node u와 v 사이의 angle 이외의 additional geometric information 을 뜻한다. 여기서 저자는, u와 v 이외의 다른 node w, z 를 사용하여, $\Phi_{uv}$ 는 node (w,u,v) 가 이루는 plane 과 node (u,v,z) 가 이루는 plane 간의 distance 를 의미한다. 따라서 저자는 이러한 DimeNet 에서 사용하는 node angle 이외의 geometric information 사용하여 해결할 수 있다고 주장하였다.
 
 ### Generalization bounds for GNNs
 지금까지 GNNs 의 Limitation 에 관하여 분석하였다. 본 단락부터는 저자가 GNN 의 generalization ability 에 관하여 분석한 내용을 설명하도록 하겠다.<br>
@@ -118,7 +118,7 @@ Proposition 7 을 통하여 tree 의 Rademacher Complexity 를 계산할 수 있
 이 외에 저자는 VC-bounds 와 저자가 계산한 GNN 을 비교하여, VC-bounds (O(r^6 N^2) , 저자 (O(r^3 N / (m^(1/2))) 로 저자의 bound 가 더 tight 함을 보였다.<br>
 또한, shared weight parameter 와 classifier parameter 가 변경될 때의 영향에 대한 분석을 기술하였다.<br>
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_2.png"></p>
-$$\delta_{L}$$ 는 Weight (W1, W2) 에서 도출된 embedding 과 (W'1, W'2) 에서 도출된 embedding 의 l2-norm difference 를 보여준다.
+$\nabla_{L}$ 는 Weight (W1, W2) 에서 도출된 embedding 과 (W'1, W'2) 에서 도출된 embedding 의 l2-norm difference 를 보여준다.
 <br>
 또한, shared weight parameter (W1,W2) 와 classifier parameter ($$\beta$$) 가 변경될 때의 probability 변화를 계산하면 다음과 같다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_4.png"></p>
