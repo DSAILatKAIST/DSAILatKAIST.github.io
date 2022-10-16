@@ -110,39 +110,124 @@ OCS 방법론의 목적은 previous task의 지식을 앞서 다룬 similarity�
 
 <img width="628" alt="스크린샷 2022-10-16 오후 6 13 53" src="https://user-images.githubusercontent.com/89853986/196027637-03f9f7eb-a93d-43ec-860e-9f611003029f.png">  
 
+위의 similarity 수식과 굉장히 유사하다. 분모의 우측에 있는 식이 의미하는 것은 coreset C로부터 randomly sampled 된 subset $B_c$에 대한 gradient의 평균이다. 따라서 이는 현재 task의 data distribution만 고려하는 것이 아니라 이전 task의 coreset과의 similarity도 고려한다는 의미이다.  
 
+그렇다면 새로운 data selection equation은 아래와 같이 구성된다.  
 
+<img width="1151" alt="스크린샷 2022-10-16 오후 6 14 15" src="https://user-images.githubusercontent.com/89853986/196027645-e90bb248-d44c-431a-9cc5-e066dc4f4bc3.png">  
 
-
-<img width="1151" alt="스크린샷 2022-10-16 오후 6 14 15" src="https://user-images.githubusercontent.com/89853986/196027645-e90bb248-d44c-431a-9cc5-e066dc4f4bc3.png">
+그리고, 마찬가지로 아래와 같은 수식을 통해 current task의 coreset과 이전 task들에서 replay된 data들의 loss를 최소화하는 parameter를 찾는 방향으로 model이 training된다.  
 
 <img width="726" alt="스크린샷 2022-10-16 오후 6 14 42" src="https://user-images.githubusercontent.com/89853986/196027655-da4f626d-89e3-4d1e-bd97-87f7b85f8e8f.png">
 
 
-### 3.4 Algorithm
+### 3.4 Algorithm  
+
+위의 방법론을 하나의 algorithm으로 정리하면 아래와 같다.  
 
 <img width="1232" alt="스크린샷 2022-10-16 오후 6 15 09" src="https://user-images.githubusercontent.com/89853986/196027674-50e06f92-2355-4010-9e01-ed2adb793666.png">
 
 
 
-Please write the methodology author have proposed.  
-We recommend you to provide example for understanding it more easily.  
-
 ## **4. Experiment**  
 
-In this section, please write the overall experiment results.  
-At first, write experiment setup that should be composed of contents.  
+### **4.1 Experiment setup**  
 
-### **Experiment setup**  
-* Dataset  
-* baseline  
-* Evaluation Metric  
 
-### **Result**  
-Then, show the experiment results which demonstrate the proposed method.  
-You can attach the tables or figures, but you don't have to cover all the results.  
+#### 4.1.1 Dataset  
+
+**Domain Incremental**  
+Rotated MNIST
+
+**Task Incremental**  
+Split CIFAR-100
+Multiple Datasets (a sequence of five datasets)
+
+**Class Incremental**  
+Balanced and ?Imbalanced Split CIFAR-100
+
+
+
+#### 4.1.2 baseline  
+
+OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교하였다.  
+
+~~~
+  - EWC
+  - Stable SGD
+  - A-GEM
+  - ER-Reservior
+  - Uniform Sampling & k-means features
+  - k-means Embeddings
+  - iCaRL
+  - Grad Matching
+  - GSS
+  - ER-MIR
+  - Bilevel Optim
+~~~
+
+
+#### 4.1.3 Evaluation Metric  
+
+본 논문의 주된 목적은 continual learning에서 고질적으로 발생하는 문제인 catastrophic forgetting을 줄이기 위함이므로 이에 알맞은 evaluation metric을 저자는 제안한다.  
+
+* Average Accuracy : 일반적인 accuracy value이다.
+
+* Average Forgetting : 이후 task를 학습하고 난 뒤, task의 accuracy가 떨어지는 정도를 측정한 값이다.
+
+### **4.2 Result**  
+
+
+#### 4.2.1 Quantitative Analysis for Continual Learning
+
+<div align="center">
+
+<img width="773" alt="스크린샷 2022-10-16 오후 7 19 44" src="https://user-images.githubusercontent.com/89853986/196030031-5b891dbe-a690-4443-9a50-b37a6996469e.png">
+
+</div>
+
+* Baseline model 모두 일정 수준의 catastrophic forgetting은 발생하는 것을 관찰할 수 있다.
+* Balanced continual learning setting에서 random replay based methods (A-GEM & ER-Reservoir)과 비교하면 OCS는 average accuracy 관점에서 약 19%의 gain이 있다.
+* 마찬가지로, balanced continual learning setting에서 forgetting average도 다른 baseline보다 현저히 낮은 수치가 관찰된다. 
+* Imbalance setting에서는 
+
+
+<div align="center">
+
+![PM2](https://user-images.githubusercontent.com/89853986/172018607-46974fef-a3b3-453b-af67-9673420fac75.png)
+ 
+</div>
+
+* Dataset 별 task가 진행됨에 따른 accuracy를 plot
+* Figure를 보면 세가지 dataset 모두에서 catastrophic forgetting이 발생한다.
+* ER-GNN model과 함께 influence function을 쓴 model이 catastrophic forgetting을 가장 잘 완화하는 결과이다.
+
+
+#### 4.2.2 Noisy Continual Learning
+
+<div align="center">
+
+![FM](https://user-images.githubusercontent.com/89853986/172018571-0ccbdbc1-6642-4b39-ab4b-ab5191a2b0e9.png)
+
+</div>
+
+* SGC와 GIN model에 대해서 ER-GNN model을 적용하였다. 
+* 위의 table과 비교해보면, ER-GNN을 적용하지 않은 natural SGC/GIN일 때보다 FM 값이 확연히 줄어든 것으로 보아 catastrophic forgetting을 줄이는데 도움을 준다는 것을 보여준다.
+* 3가지 experience selection stragtegies 중에서 저자가 제안한 IM 방법이 가장 좋은 performance를 보인다.
+
+
+
+#### 4.2.3 Influence of ![](https://latex.codecogs.com/svg.image?e)
+
+<div align="center">
   
+![e](https://user-images.githubusercontent.com/89853986/172018666-448666be-1d91-4456-b392-001558ae5348.png)
 
+</div>
+
+* Buffer에 들어가는 node의 개수를 지정하는 파라미터인 ![](https://latex.codecogs.com/svg.image?e)는 model의 성능과 직결된다.
+* 예측한 바와 동일하게 buffer에 저장하는 node의 개수를 늘리면 catastrophic forgetting을 예방하는데에 큰 도움이 된다. ![](https://latex.codecogs.com/svg.image?e) 값이 무분별하게 늘어날 경우 computational cost가 증가하여 결국 retraining과 다를 바가 없게 될 수 있다.
+* Hyperparameter tuning을 통해 catastrophic forgetting과 computational cost 간의 trade-off 관계에서 균형을 찾을 필요가 있을 것이다. 
 
 
 ## **5. Conclusion**  
