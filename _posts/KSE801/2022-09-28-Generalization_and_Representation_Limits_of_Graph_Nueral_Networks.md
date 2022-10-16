@@ -86,6 +86,11 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 - 각 node 는 각자의 embedding 을 사용하여 각자의 binary prediction 을 진행한다.
 - Graph classification 에서는 node 들 각자의 binary prediction 에서로부터 majority 를 취하여 graph label 로 사용하게 된다. (average readout 때문)
 
+#### Rademacher complexity
+이전의 연구에서 GNNs 의 bound 에 관하여 진행된 연구가 있다. 해당 연구는 empirical risk ($$\hat{R}$$)를 사용하여, bound 를 계산하였다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_7.png"></p>
+여기서 y 는 0과 1 의 binary value 를 가진다.
+
 #### Analyzing GNN generalization via trees
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_5.png"></p>
 위의 그림에 따라, Graph 를 tree 로 표현할 수 있으며, 이를 통하여 몇개의 insight 를 알 수 있다.<br>
@@ -95,3 +100,8 @@ GNN 을 tree 로 표현한 구조로부터 약간의 notation abuse 를 사용�
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_5.png"></p>
 
 여기서 f(G;$$\theta$$) 를 tree 에 적용된 모든 function 의 expactation 으로 표기하고, T_1, T_2, ... T_n 이 depth L 인 computation tree 의 모든 possible set 이라고 할때,
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_6.png"></p>
+위의 식과 같이 표현할 수 있다. 즉 "GNN 의 complexity 는 computation tree 의 complexity 에 bound 될 수 있다".
+
+
+#### Generalization Bound for GNNs
