@@ -7,10 +7,8 @@ tags: [reviews]
 Write your comments
 # Generalization and Representational Limits of Graph Neural Networks
 
-### 1. Introduction
-Graph Neural Network (GNN) 은 graph-structured data 를 학습하기 위한 모델로 등장하여, molecular structures, knowledge graph, social networks 등 다양한 domain 에서 사용되고 있다.
-
-본 논문에서는 GNN 의 한계와 generalization properites 에 대하여 깊게 탐구하였다. 저자는 간단한 구조의 graph 라도 GNN 이 구분하지 못할 것이라는 가정하에, ~~
+## Introduction
+Graph Neural Network (GNN) 은 graph-structured data 를 학습하기 위한 모델로 등장하여, molecular structures, knowledge graph, social networks 등 다양한 domain 에서 사용되고 있다. 본 논문에서는 GNN 의 한계와 generalization properites 에 대하여 깊게 탐구하였다. 저자는 간단한 구조의 graph 라도 GNN 이 구분하지 못할 것이라는 가정하에, 간단한 예시를 보여주며 이를 입증하였다. 또한, binary classification 에서 GNN 이 graph 의 label 을 얼마나 잘 구분할 수 있는지, 즉 graph 의 generalization bound 에 대하여 계산하고 이를 분석하였다.<br>
 저자가 GNN 을 분석한 내용은 크게 두 가지로 나눌 수 있다.
 a) GNN 모델들이 특정한 graph property 에 대하여 graph 를 구분할 수 있는가?
 b) GNN 모델들이 graph 의 label 을 얼마나 잘 구분해낼 수 있는가?
@@ -23,9 +21,7 @@ b) 의 경우 간단한 binary prediction 으로 graph 모델의 performance lim
 2. CPNGNN 을 graph theoretic 관점에서 분석하여, GNN 의 효과에 대한 insight 를 얻는다.
 3. GNN 의 message passing 에 관한 data dependent generalization bounds 를 제시한다. 또한, 기존 연구보다 더 tight 한 bound 임을 입증한다.
 
-### 2. Related Work
-
-### 3. Preliminaries
+## Preliminaries
 - Locally Unordered GNNs (LU-GNNs): spatial information 을 사용하지 않고 각 node 의 neighbors 에서 오는 message 로 node embedding 을 updata 하는 model (e.g., GraphSAGE, GCN, GIN and GAT).
 LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_1.png"></p>
@@ -40,7 +36,7 @@ LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한�
 - Graph Property (P): Q 라는 GNN model과 서로 다른 property (P) 를 보이는 graph G_1 과 G_2 가 있을 때, 만약 f(g_Q(G_1) != f(g_Q(G_2)) 라면 model Q 는 P 를 분별할 수 있다.
 또한, P 즉 graph property 의 종류로 저자는 1) grith (length of shortest cycle), 2) circumference (length of longest cycle), 3) diameter (maximum distance between any pair of nodes in graph), 4) radius (minimum node eccentricity; eccentricity: eccentricity of u is maximum distrance from u to other node in graph), 5) conjoint cycle (two cycles that share an edge), 6) total number of cycles, 7) k-clique (a subgraph of at least k >=3 vertices s.t. each vertex in the subgraph is connected by edge to any other vertex in the subgraph).
 
-### 4. Representation limits of GNNs
+## Representation limits of GNNs
 #### Limitation of LU-GNNs
 저자는 LU-GNNs 을 CPNGNNs 과 비교하여, LU-GNNs 의 한계를 보여준다.<br>
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Proposition_1.png"></p>
@@ -78,7 +74,7 @@ Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_3.png"></p>
 여기서 $$\Phi_{uv}$$ node u와 v 사이의 angle 이외의 additional geometric information 을 뜻한다. 여기서 저자는, u와 v 이외의 다른 node w, z 를 사용하여, $$\Phi_{uv}$$ 는 node (w,u,v) 가 이루는 plane 과 node (u,v,z) 가 이루는 plane 간의 distance 를 의미한다. 따라서 저자는 이러한 DimeNet 에서 사용하는 node angle 이외의 geometric information 사용하여 해결할 수 있다고 주장하였다.
 
-### 5. Generalization bounds for GNNs
+### Generalization bounds for GNNs
 지금까지 GNNs 의 Limitation 에 관하여 분석하였다. 본 단락부터는 저자가 GNN 의 generalization ability 에 관하여 분석한 내용을 설명하도록 하겠다.<br>
 Generalization ability 는 binary classification 에 집중하여 분석을 진행하였다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_4.png"></p>
@@ -117,3 +113,19 @@ Proposition 7 을 통하여 tree 의 Rademacher Complexity 를 계산할 수 있
 
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_6.png"></p>
 위의 표는 GNN 과 RNN 의 generalization error bound 를 C 의 값에 따라 계산한 결과이다. GNN 의 bound 를 계산할 때, tree 구조를 사용하여 계산하였기에, branching factor d 가 GNN에 추가된 모습을 확인할 수 있다. 또한, r: dependence on dimension, L: depth (in RNN length), m: sample size 를 나타낸다.
+
+#### Additional Analysis
+이 외에 저자는 VC-bounds 와 저자가 계산한 GNN 을 비교하여, VC-bounds (O(r^6 N^2) , 저자 (O(r^3 N / (m^(1/2))) 로 저자의 bound 가 더 tight 함을 보였다.<br>
+또한, shared weight parameter 와 classifier parameter 가 변경될 때의 영향에 대한 분석을 기술하였다.<br>
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_2.png"></p>
+$$\delta_{L}$$ 는 Weight (W1, W2) 에서 도출된 embedding 과 (W'1, W'2) 에서 도출된 embedding 의 l2-norm difference 를 보여준다.
+<br>
+또한, shared weight parameter (W1,W2) 와 classifier parameter ($$\beta$$) 가 변경될 때의 probability 변화를 계산하면 다음과 같다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_4.png"></p>
+Lemma 4 를 통하여 충분히 수렴이 되는 조건 하에서, "change in probability" 는 매우 작은 값을 가질 수 있음을 알 수 있다. <br>
+즉, Shared weights 에 조그마한 변화를 주어도, tree root 의 embedding 은 거의 변하지 않는다. (individual prediction 이 거의 변하지 않는다.)
+
+## Conclusion
+본 논문은 단순 GNN 모델 (LU-GNN), CPNGNN, DimeNet 의 한계에서 대하여 직관적인 예시를 보여주며 설명하였다.<br>
+또한, GNN 의 generalization bound 를 이전의 연구 (VC-bounds) 보다 더 tight 한 결과를 얻어, GNN 의 효용을 보여주었다. <br>
+마지막으로, Shared weight parameter 의 변화가 충분히 수렴되는 상황 속에서는 model performance 에 영향을 거의 주지 않음을 증명하였다. <br>
