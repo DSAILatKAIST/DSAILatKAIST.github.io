@@ -31,13 +31,10 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
 ## **3. Method**
 > **Preliminaries**
   
-논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GNN`의 개념을 소개하겠습니다.
+논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GCN`의 개념을 소개하겠습니다.
 
 N개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$에서 $\\mathcal{G}_ n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
-$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$,   
-edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$,  
-인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$,   
-feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
+$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$, edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$, 인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$, feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
 $\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}}_ {sub}$는 $\mathcal{G}_ {sub}$를 제외한 나머지 부분을 의미합니다. $f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $\mathbb{G}$는 input graph의 도메인입니다. 
 
 > **Graph Convolutional Network** 
@@ -122,14 +119,15 @@ $$
 $$ X^{l} = \mathrm{GNN}(A,X^{l-1};\theta_{1}), \quad 
 S = \mathrm{MLP}(X^{l};\theta_{2})$$
 
-$\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니다. $\textbf{S}$가 학습되면, 노드 할당 행렬의 구성요소가 0과 1로 구성되게 되고, 첫번째 열은 그래프 레이블을 예측하는데 사용되는 \mathcal{G}_ {sub}의 representation에 해당하는 초록색 노드 임베딩이고, 두번째 열은 그 나머지 부분 $\overline{\mathcal{G}}_ {sub}$의 representation에 해당하는 파란색 노드 임베딩입니다. 최종적으로 $\textbf{S}^{T}X^{l}$의 첫 번째 열을 가져옴으로써 $\mathcal{G}_ {sub}$의 임베딩을 얻을 수 있습니다.
+$\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니다. $\textbf{S}$가 학습되면, 노드 할당 행렬의 구성요소가 0과 1로 구성되게 되고, 첫번째 열은 그래프 레이블을 예측하는데 사용되는 $\mathcal{G}_ {sub}$의 representation에 해당하는 초록색 노드 임베딩이고, 두번째 열은 그 나머지 부분 $\overline{\mathcal{G}}_ {sub}$의 representation에 해당하는 파란색 노드 임베딩입니다. 최종적으로 $\textbf{S}^{T}X^{l}$의 첫 번째 열을 가져옴으로써 $\mathcal{G}_ {sub}$의 임베딩을 얻을 수 있습니다.
 
 > **Connectivity Loss**  
+
 위에서 살펴본 목적함수의 최적화 과정으로는 모델이 모든 노드를 $\mathcal{G}_ {sub}$나 $\overline{\mathcal{G}}_ {sub}$에 할당하거나, $\mathcal{G}_ {sub}$의 representation에 중복된 노드로부터 불필요한 정보를 포함할 수 있습니다. 이를 예방하기 위해서 connectivity loss $\mathcal{L}_ {con}$를 도입합니다.  
 
 $$ \mathcal{L}_ {con} = || \mathrm{Norm}(S^{T}AS)- I_2||_ F $$  
 
-여기서 $\mathrm{Norm}$은 행방향의 normalization을 나타내고  $|| \cdot ||_ F$은 Frobenous norm을 나타내며, $I_2$는 $2\times 2$의 단위행렬을 나타냅니다. 이 식이 가지는 의미를 해석하기 위해서 예를 들어 설명하겠습니다. $S^{T}AS$의 (1,1)의 원소를 $a_11$, (1,2)의 원소를 $a_12$라고 할 때,
+여기서 $\mathrm{Norm}$은 행방향의 normalization을 나타내고  $|| \cdot ||_ F$은 Frobenous norm을 나타내며, $I_2$는 $2\times 2$의 단위행렬을 나타냅니다. 이 식이 가지는 의미를 해석하기 위해서 예를 들어 설명하겠습니다. $S^{T}AS$의 (1,1)의 원소를 $a_11$, (1,2)의 원소를 $a_12$라고 할 때, 
 
 $$
 a_{11} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \\mathcal{G}_ {sub}|V_{j}),
@@ -139,13 +137,19 @@ $$
 a_{12} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \overline{\mathcal{G}}_ {sub}|V_{j})
 $$
 
-로 나타낼 수 있습니다. 즉, $\mathcal{G}$에 포함된 2개의 노드는 서로 연결되어야 한다는 것이고, $\mathcal{G}$에 포함된 노드와 $\overline{\mathcal{G}}$에 포함된 노드는 서로 연결되지 않아야 한다는 것입니다. 구체적으로 살펴보겠습니다. $\mathcal{L}_ {con}$를 최소화시키면, $\mathrm{Norm}(S^{T}AS)$의 (1,1) 원소는 항등행렬 $I_2$의 (1,1) 원소인 1에 가까워져야 하기 때문에 $\frac{a_{11}}{a_{11}+a_{12}}$가 1로 수렴하게 됩니다. 이는 노드 $V_i$가 $\mathcal{G}_ {sub}$에 속한다면,  $V_i$의 이웃 노드도 $\mathcal{G}_ {sub}$에 속할 확률을 높이는 작업입니다. 또한  
+로 나타낼 수 있습니다. 즉, $\mathcal{G}$에 포함된 2개의 노드는 서로 연결되어야 한다는 것이고, $\mathcal{G}$에 포함된 노드와 $\overline{\mathcal{G}}$에 포함된 노드는 서로 연결되지 않아야 한다는 것입니다.  
 
-이를 통해서 $\mathcal{L}_ {con}$는 노드 샘플링을 적절히 수행할 뿐만 아니라, 훨씬 더 압축된 subgraph를 도출할 수 있습니다.
+구체적으로 살펴보겠습니다. $\mathcal{L}_ {con}$를 최소화시키면, $\mathrm{Norm}(S^{T}AS)$의 (1,1) 원소는 항등행렬 $I_2$의 (1,1) 원소인 1에 가까워져야 하기 때문에 $\frac{a_{11}}{a_{11}+a_{12}}$가 1로 수렴하게 됩니다. 이는 노드 $V_i$가 $\mathcal{G}_ {sub}$에 속한다면, $V_i$의 이웃 노드 $\mathcal{N}(V_{i})$도 $\mathcal{G}_ {sub}$에 속할 확률을 높이는 작업입니다. 또한  $\mathcal{L}_ {con}$를 최소화시키면, $\mathrm{Norm}(S^{T}AS)$의 (1,2) 원소는 항등행렬 $I_2$의 (1,2) 원소인 0에 가까워져야 하기 때문에 $\frac{a_{12}}{a_{11}+a_{12}}$가 0으로 수렴하게 됩니다. 이는 $\mathcal{G}_ {sub}$에 속하는 노드와 $\overline{\mathcal{G}}$에 속하는 노드 사이에 연결을 제거하는 작업입니다. 이를 통해서 $\mathcal{L}_ {con}$는 노드 샘플링을 적절히 수행할 뿐만 아니라, 훨씬 더 압축된 subgraph를 도출할 수 있습니다.  
 
-연결 손실: 그러나 잘못된 초기화로 인해 p(Vi 2 GsubjVi) 및 p(Vi 2 GsubjVi)가 닫힙니다. 이렇게 하면 모델이 모든 노드를 Gsub/Gsub에 할당하거나 Gsub 표현에 중복 노드의 많은 정보가 포함됩니다. 이 두 가지 시나리오는 훈련 과정을 불안정하게 만듭니다. 반면에 S는 노드 수준에서 하위 그래프를 출력하는 동안 토폴로지 정보를 더 잘 활용하기 위해 우리 모델이 귀납적 편향을 가지고 있다고 가정합니다. 따라서 다음과 같은 연결 손실을 제안합니다.
+결국 $\mathcal{L}_ {con}$을 반영한 최종적인 loss 함수는 아래와 같습니다.  
 
+$$
+\min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {con}(g(\mathcal{G};\theta))  + \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {\rm MI}(\phi_ {2}^{* },\mathcal{G}_ {sub}) 
+$$  
 
+$$
+\text{ s.t. }  \phi_{2}^{*} = \arg\max_ {\phi_ {2}}\mathcal{L}_ {\mathrm{Cancel changesMI}}(\phi_{2},\mathcal{G}_ {sub}) 
+$$  
 
 
 
@@ -195,7 +199,7 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 본 논문에서는 최대한의 정보를 제공하면서도 압축된 부분 그래프를 도출하기 위해 subgraph 인식 문제를 연구하였습니다. 이러한 subgraph를 IB-subgraph로 정의하고 IB-subgraph를 효과적으로 발견하기 위한 GIB(Graph Information Bottleneck) 프레임워크를 제안합니다. 정보이론 분야에서 연구되었던 Information Bottleneck 분야를 Graph Neural Network에 처음으로 접목시켜서 Graph 데이터에서 functional group과 같은 중요한 하부구조를 인식하는데 도움을 주고, 이는 분류 작업 뿐만 아니라 해석능력을 제공하는데 큰 장점을 가집니다. sampling 방법을 최적화시키기 위해서 목적함수를 prediction 항과 compression 항으로 구성시켜서 subgraph의 예측 정확도와 일정 정도 이상의 압축성을 보장하여 최적의 subgraph를 도출하도록 합니다. graph classification, graph interpretation, graph denoising 3가지 작업에 있어 GIB의 성능을 평가하였고, 그 결과 IB-subgraph의 우수한 성능을 확인할 수 있었습니다.
 
-> **개인적인 생각**
+> **생각 및 발전 방향**
 
 Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 가져와서 적용했다는 점에서 상당히 인상 깊었는데, 사실 그래프 데이터는 정보가 상호 연결되어 있다는 복합적인 특성으로 인해서 다루기가 까다로운데, 이러한 점에도 불구하고 최적화 과정을 적절히 활용하여 성능 향상을 이끌어내었습니다.   
 
