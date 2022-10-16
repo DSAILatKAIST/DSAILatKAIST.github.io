@@ -34,7 +34,7 @@ Continual Learning은 많은 관심을 받고 있는 연구 분야이며, 눈에
 
 <div align="center">
 
-![CGL example](https://user-images.githubusercontent.com/89853986/171803616-6104ebdb-34e3-4cb8-903f-aa9148b5e0e8.PNG)
+<img width="910" alt="스크린샷 2022-10-16 오후 8 45 19" src="https://user-images.githubusercontent.com/89853986/196033585-efd48b3d-fc30-47e8-90ba-083fd2fa713b.png">
 
 </div>
 
@@ -105,7 +105,9 @@ Similarity와 diversity 값을 더하여 그 값이 가장 큰 top k개를 선�
 ### 3.3 Online Coreset Selection for Continual Learning  
 
 지금부터는 저자가 제시한 OCS (Online Coreset Selection) 방법론에 대해 구체적으로 다룰 것이다.  
-OCS 방법론의 목적은 previous task의 지식을 앞서 다룬 similarity와 diversity의 관점에서 고려하여 현재 task에서 활용도가 높은 coreset을 찾는 거시다.  
+
+OCS 방법론의 목적은 previous task의 지식을 앞서 다룬 similarity와 diversity의 관점에서 고려하여 현재 task에서 활용도가 높은 coreset을 찾는 것이다.  
+
 더 직관적으로 설명하자면, 현재 task에 대해서는 모든 dataset을 사용할 수 있는 것 아닌가라는 의문이 들 수 있다. 하지만 늘 그렇듯 real-world dataset에는 noise가 있기도 하고, 틀리지 않은 data 이지만 이전 task가 지향하는 방향과는 방향성이 다를 수 있다. 이에, 저자는 현재 task 이더라도, continual한 세팅에서 sequential한 학습에 도움이 되는 data subset을 선정하여 그 data들에 대해서만 training을 진행한다.  
 
 
@@ -139,15 +141,17 @@ OCS 방법론의 목적은 previous task의 지식을 앞서 다룬 similarity�
 
 #### 4.1.1 Dataset  
 
-**Domain Incremental**  
-Rotated MNIST
+- **Domain Incremental**  
+1. Task간에 겹치는 class가 있다. 즉, 모든 task에 class가 섞여서 존재한다.
+2. Rotated MNIST
 
-**Task Incremental**  
-Split CIFAR-100
-Multiple Datasets (a sequence of five datasets)
+- **Task Incremental**  
+1. Task간에 겹치는 class가 없는 setting이다. Test 상황에서 data point가 속한 task의 class에 대해 test한다. (task 정보 있음)
+2. Split CIFAR-100 / Multiple Datasets (a sequence of five datasets)
 
-**Class Incremental**  
-Balanced and ?Imbalanced Split CIFAR-100
+- **Class Incremental**  
+1. Task간에 겹치는 class가 없는 setting이다. Test 상황에서 전체 class에 대해 test한다. (task 정보 없음)
+2. Balanced and ?Imbalanced Split CIFAR-100
 
 
 
