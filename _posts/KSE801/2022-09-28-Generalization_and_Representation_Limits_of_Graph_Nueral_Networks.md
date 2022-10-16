@@ -92,7 +92,7 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 여기서 y 는 0과 1 의 binary value 를 가진다.<br>
 위의 식을 바탕으로, 기존 연구에 따르면 다음과 같은 GNN 의 bound 를 구할 수 있게 된다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_1.png"></p>
-하지만, Rademacher complexity 라고 불리는 ![rademacher]("/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png"#style=max-width:50px;vertical-align:middle; "rademacher") 입니다.
+따라서, Rademacher complexity 라고 불리는 ![rademacher](/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png#style=max-width:50px;vertical-align:middle; "rademacher") 의 bound 를 계산하여, GNNs 의 bound 를 계산할 수 있다. 저자는 이를 GNN 을 tree 형태로 표현하며 Rademacher complexity 의 bound 를 계산하였다.
 
 #### Analyzing GNN generalization via trees
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_5.png"></p>
