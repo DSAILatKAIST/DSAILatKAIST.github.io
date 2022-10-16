@@ -218,13 +218,27 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 <img width="589" alt="스크린샷 2022-10-16 오후 7 36 55" src="https://user-images.githubusercontent.com/89853986/196030706-9da699fc-630a-4c11-909d-de476780342a.png">
 
 
-* Coreset에 들어갈 top k개의 
+* Coreset에 들어갈 top k개의 data를 고르는 과정에서 "Minibatch similarity", "Sample diversity", "Coreset affinity"라는 세가지 식이 적용된다. 
+* 본 실험은 이러한 세가지 component의 효과를 관찰하기 위해 component를 제외해보며 abalation study를 진행하였다. 
+* Similarity와 diversity를 혼자만 사용하는 것은 성능 저하가 상당했다. Similarity만 사용할 경우, 중복되는 data를 선정할 가능성이 있고, diversity만 고려할 경우 representative한 data point를 선정하는데에 한계가 있을 것이다. 
 
 
 ## **5. Conclusion**  
 
-Please summarize the paper.  
-It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc.
+#### 5.1 Summary
+
+* Vision 분야의 continual learning problem에서 catastrophic forgetting을 방지할 수 있는 framework를 제안함.
+* Continual learning의 큰 줄기 중에서 replay 방식을 채택하였고, online coreset selection을 접목시켜 similarity (대표성), diversity (overfitting 방지)를 동시에 고려하여 가장 영향력이 높은 node를 buffer에 저장하도록 함.
+* 다양한 실험을 통해 targeting problem의 예시를 실제로 보임.
+
+
+#### 5.2 Discussion
+
+* 본 논문의 가장 주요한 novelty는 replay를 할 때, similarity (대표성), diversity (overfitting 방지)를 함께 접목시킨 것이다.
+* 또한, 저자는 current task 내에서도 이전 task의 replay buffer와의 관계를 고려하여 data를 select하기 때문에 sequential task의 순서가 바뀌더라도 robust하게 대응할 수 있는 order-robustness의 특성을 가진다고 주장한다.
+* Method에 담은 algorithm에서의 task의 개수를 미리 알고 있다는 가정은 real-world setting에 맞지 않은 strong assumption일 수 있겠다.
+* 이렇듯 replay 방식에서는 buffer에 넣을 node를 선택하는 방법론이 매우 주요할 것이고, experience selection strategy에 대하여 연구해보는 것도 좋은 future research topic이 될 것 같다.
+
 
 ---  
 ## **Author Information**  
