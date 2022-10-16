@@ -27,10 +27,12 @@ figure
 
 The model is trained in a supervised fashion and training instances are composed of a graph G, the target cost C and the grand truth answer to the problem. The input grahs are generated randomly. The optimal cost is computed for each training graph using the Concorde TSP solver and then present the model with two examples containing G, one with a target cost slightly smaller than the optimal (for which the correct prediction would be NO as there is no route cheaper than the optimal) and one with a target cost slightly greater than the optimal (for which the correct prediction would be YES as there is in fact routes more expensive or equal to the optimal). Stochastic Gradient Descent (SGD) is utilized to minimize the binary cross entropy loss between the model prediction and the ground-truth. A total of $2^{20}$ instances of grah size 40 are generated for training. The evaluation of the training loss can be seen below.
 
-<img width="140" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/loss.png">  
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/loss.PNG">  
 
 The model achieved 80.16% accuracy averaged over the training set and 80% accuracy on a testing set of 2048 instances it had never seen before. Instances from training
 and test datasets were produced with the same configuration (n ∼ U(20, 40) and 2% percentage deviation).
+
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/acc.PNG">
 
 ## **4. Experimental Results and Analyses**  
  
@@ -38,19 +40,19 @@ and test datasets were produced with the same configuration (n ∼ U(20, 40) and
 
 The model is originally trained on graphs of size 40 with target cost varying 2% from the optimal. The generalization abililty of the model is tested on varying graph sizes. The model sustains the 80% accuracy on the instances of size smaller then 40. However, its performance degrades progressively for larger problem sizes until 50% which would be the accuracy of a random prediction.
 
-Figure4
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/sizes.PNG">
 
 ### **4.2 Generalizing to Larger Deviations** 
 
 The generalization ability of the model to larger deviations is tested by observing the accuracy of the model on the same graphs in the test set but with target costs with varying deviations from the optimal cost. The model accuracy in increases as the deviation from the optimal inceases.
 
-Figure
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/deviations.PNG">
 
 ### **4.3 Baseline Comparison** 
 
 The proposed method is intended to be tested against baselines. However, this is not a straightforward task because of the lack of baseline methods on the decision TSP. Therefore, the classical baselines Nearest Neighbor (NN) and Simulated Annealing (SA) to solve TSP are adapted to create solutions for the decision TSP. This was done by measuring, for a given decision instance X = (G, C) the frequency with which either of these algorithms produced a solution with cost no greater than C. This frequency is compared with the True Positive Rate (TPR) of the proposed model. The TPR is chosen instead of the accuracy since the classical baseline methods cannot decide that there is no shorther path since they construct a solution for the TSP. The results below show that the proposed method outperforms both methods.
 
-Figure
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/tpr.PNG">
 
 ## **5. Conclusion**  
 
