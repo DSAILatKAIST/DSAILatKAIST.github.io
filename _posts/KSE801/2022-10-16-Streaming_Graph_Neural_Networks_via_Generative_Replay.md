@@ -53,7 +53,9 @@ $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에
 ### Message Passing
 * Node-based message passing
 초기 message passing은 node를 기반으로 했으며 다음의 과정을 반복해서 학습했습니다.
-$$m_{v}^{i}=A(\{s_{u}^{i}\}_{u \in N(v)})$$		$$s_{v}^{i+1}=U(s_{v}^{i},m_{v}^{i})$$
+$$m_{v}^{i}=A(\{s_{u}^{i}\}_{u \in N(v)})$$
+
+$$s_{v}^{i+1}=U(s_{v}^{i},m_{v}^{i})$$
 
 $s_{v}^{i}$: node v의 i번째 iteration에서의 hidden state
 $m_{v}^{i}$: node v가 i번째 iteration에서 받은 message
@@ -67,7 +69,9 @@ $N(v)$: node v에 인접한 모든 node
 위의 문제를 해결하기 위해 edge에 message passing을 적용한 방법이 제안되었습니다.
 이를 message passing이라고 하며, 학습 과정은 다음과 같습니다.
 $$m_{e}^{i}=A(\{s_{e'}^{i}\}_{e' \in N(e)})$$
+
 $$s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$$ 
+
 edge $e$와 인접한 edge의 정보를 aggregate하고 자신의 정보와 함께 input으로 넣어 update합니다.
 
 $N$ nodes, $M$ edges, node degree의 분산 $var[d]$에 대해 회당 기대 계산 비용은 다음과 같습니다.
@@ -93,8 +97,10 @@ $P_{h \rightarrow t}$: entity h에서 t로 가는 path의 집합
 
 ### Alternate relational message passing
 학습 과정은 다음과 같습니다.
-$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_{e \in N(v)})$$		
+$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_{e \in N(v)})$$	
+
 $$m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), \: v, u \in N(e)$$
+
 $$s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$$
 
 1. 각  **node**에  대해  연결된  edge의 message를  aggregate하여  message을  생성합니다.
@@ -116,7 +122,11 @@ Ron Weasley와 Hedwig가 Harry Potter의 애완동물인지 예측하는 문제�
 모델은 이를 파악해서 Ron Weasley와 Hedwig의 차이를 알아내어 적절한 예측 결과를 제공합니다.
 
 Alternate relational message passing에서 relational context 학습 과정은 다음과 같습니다.
-$$m_{v}^{i}=\sum_{e \in N(v)}s_{e}^{i}$$ $$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \in N(e)$$
+
+$$m_{v}^{i}=\sum_{e \in N(v)}s_{e}^{i}$$
+
+$$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \in N(e)$$
+
 1. 각 node에 대해 relational context의 feature를 학습합니다. 
 2. head, tail node와 relation의 정보를 concatenate합니다.
     그리고 Weight를 곱해준 후 bias를 더하고 비선형 활성화 함수를 적용합니다.
@@ -178,9 +188,13 @@ head와 tail의 순서가 바뀌어도 같은 결과를 제공합니다.
 * Cross aggregator
 추천 시스템의 combinatorial features에서 가져온 아이디어이며, 과정은 다음과 같습니다.
 1. Head와  tail의  message의  element-wise pairwise interaction을  계산합니다. 
+
     $$m_{v}^{i} (m_{u}^{i})^{\top}$$
+    
 2.  interaction matrix를 flatten하고, relational context와 동일하게 정보를 업데이트합니다.
+
     $$s_{e}^{i+1}=\sigma(flatten(m_{v}^{i} (m_{u}^{i})^{\top}) \cdot W_{1}^{i} + s_{e}^{i} \cdot W_{2}^{i} + b^i), \: v, u \in N(e)$$
+    
 입력한  node의  순서를  보존한다는  장점이  있습니다.
 #### Relational Path learning
 * Learning path representation with RNN
@@ -197,9 +211,9 @@ path에 embedding을  거치지 않고 바로 RNN을  적용해 표현을 학습
 
 * Dataset
 지식 그래프 Dataset인 FB15K, FB15K-237, WN18, WN18RR, NELL995, DDB14을 사용하였습니다. summary는 아래와 같습니다.
-<center><img src="/images/PATHCON/Table2.png"></center>
+<p align="center"><img src="/images/PATHCON/Table2.png"></p>
 각 Dataset의 Parameter의 수는 다음과 같습니다.
-<center><img src="/images/PATHCON/Table3.png"></center>
+<p align="center"><img src="/images/PATHCON/Table3.png"></p>
 * Baseline
 TransE, ComplEx, DistMult, RotatE, SimplE, QuitE, DRUM
 여기에 Relational Context, Relational Path 중에서 하나만 적용한 모델인 CON, PATH를 추가해 각각의 효과를 확인하고자 합니다.
@@ -210,13 +224,13 @@ TransE, ComplEx, DistMult, RotatE, SimplE, QuitE, DRUM
  ### **Result**
  
  * Overall Results
-<center><img src="/images/PATHCON/Table4.png"></center>
+<p align="center"><img src="/images/PATHCON/Table4.png"></p>
 PATHCON이 모든 경우에서 기존 baseline보다 성능이 뛰어난 것을 확인할 수 있습니다. 특히 **sparse** 데이터에서 강점을 보입니다.
 한편 PATH, CON 모델에서도 대체로 다른 baseline보다 성능이 뛰어난 것을 확인할 수 있습니다. 
 이로부터 `relational path`, `relational context`가 각각 성능 향상에 기여하는 것을 알 수 있습니다.
 
 * Inductive Knowledge Graph Completion
-<center><img src="/images/PATHCON/Figure3.png"></center>
+<p align="center"><img src="/images/PATHCON/Figure3.png"></p>
 PATHCON의 주요 contribution 중 하나인 inductive setting에서의 performance에 대한 결과입니다. 차트의 가로축은 test set의 entity subset 중에서 train set에 포함되지 않은 entity의 비율입니다. 값이 클수록 inductive setting에 가까워집니다.
 Embedding 기반의 baseline은 학습하지 않은 데이터에 대해 예측하는 비율이 높아질수록 성능이 떨어지는 반면, PATHCON의 성능은 setting에 robust합니다. 
 이 차트로부터 PATHCON이 inductive setting에 적합한 모델임을 알 수 있습니다.
@@ -224,7 +238,7 @@ Embedding 기반의 baseline은 학습하지 않은 데이터에 대해 예측�
 ### **Model Variants**
 * Context Hops / Path Length
 Relational Context와 Path Length의 sensitivity를 확인하고자 합니다.
-<center><img src="/images/PATHCON/Figure4.png"></center>
+<p align="center"><img src="/images/PATHCON/Figure4.png"></p>
 relational context와 path length의 값이 커짐에 따라서 성능이 향상됨을 알 수 있습니다. 
 이를 통해 context에 더 많은 정보를 포함하는 것과 path의 길이가 학습에 중요하다는 것을 알 수 있습니다. 두 structure 모두 값이 커질수록 성능 향상폭이 작아집니다.
 * Context Aggregator
