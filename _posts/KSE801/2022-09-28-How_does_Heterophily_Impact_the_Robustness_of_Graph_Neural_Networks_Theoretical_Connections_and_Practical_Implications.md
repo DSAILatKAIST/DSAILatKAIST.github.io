@@ -103,7 +103,9 @@ Heterophilly GNN 과 관련된 기존 연구들에서 사용했던 전략입니�
 실험에서 검증하고자하는 Research Question (RQ) 는 다음과 같습니다.
 
 **RQ 1) 그래프 어택은 대부분 Heterophillous 하다. 즉, 다른 Feature를 지닌 노드 사이에 Edge로 연결하는 경향이 있다.**
+
 **RQ 2) Heterophillous Design 이 Robustness를 향상한다.**
+
 **RQ 3) (RQ2와 다른 방법으로) Heterophilly 가 보정된 GNN 이 가장 Robust 하다.**
 
 ### Experimental Setup
