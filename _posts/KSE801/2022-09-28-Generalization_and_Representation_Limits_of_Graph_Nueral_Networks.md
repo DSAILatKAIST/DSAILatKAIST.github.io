@@ -79,6 +79,16 @@ Graph G3 의 A1 과 G4 의 _A1_ 을 비교하면 node 의 angle 정보로 G3 와
 여기서 $$\Phi_{uv}$$ node u와 v 사이의 angle 이외의 additional geometric information 을 뜻한다. 여기서 저자는, u와 v 이외의 다른 node w, z 를 사용하여, $$\Phi_{uv}$$ 는 node (w,u,v) 가 이루는 plane 과 node (u,v,z) 가 이루는 plane 간의 distance 를 의미한다. 따라서 저자는 이러한 DimeNet 에서 사용하는 node angle 이외의 geometric information 사용하여 해결할 수 있다고 주장하였다.
 
 ### 5. Generalization bounds for GNNs
+지금까지 GNNs 의 Limitation 에 관하여 분석하였다. 본 단락부터는 저자가 GNN 의 generalization ability 에 관하여 분석한 내용을 설명하도록 하겠다.<br>
+Generalization ability 는 binary classification 에 집중하여 분석을 진행하였다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_4.png"></p>
+저자는 기본적인 GNN 의 embedding updata 수식 (aggretation, combine) 에서 다음과 같은 결과를 해석할 수 있다고 하였다.<br>
+- 각 node 는 각자의 embedding 을 사용하여 각자의 binary prediction 을 진행한다.
+- Graph classification 에서는 node 들 각자의 binary prediction 에서로부터 majority 를 취하여 graph label 로 사용하게 된다. (average readout 때문)
 
-
-
+#### Analyzing GNN generalization via trees
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_5.png"></p>
+위의 그림에 따라, Graph 를 tree 로 표현할 수 있으며, 이를 통하여 몇개의 insight 를 알 수 있다.<br>
+- subtree 의 관점에서, tree node 에 대한 embedding 을 재귀적으로 표현할 수 있다.
+- Shared weights 에 조그마한 변화를 주어도, tree root 의 embedding 은 거의 변하지 않는다. (individual prediction 이 거의 변하지 않는다.)
+-
