@@ -52,7 +52,8 @@ Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마
 
 1. 새로운 task를 학습할 때 이전 task에 대한 catastrophic forgetting 방지.  
 2. 새로운 task 학습을 용이하게 하기 위해 이전 task의 knowledge를 사용.  
-3. Influence function을 이용, previous task에서 영향력이 높은 node들을 buffer에 저장하여 새로운 task 학습에 함께 사용하도록 하는 **"Experience Replay GNN (ER-GNN)"** method 고안.
+3. Online Corset Selection (OCS) 방법론을 고안하여 representative하고 diverse한 subset을 선정하여 buffer에 저장하고 새로운 task 학습에 함께 사용.
+4. Current task에 대해서도 모든 data를 사용하는 것이 아닌 이전 task의 buffer들과 high affinity를 갖는 data를 선정하여 함께 training 시킴.
 
 ### 2.4 Contributions
 
@@ -62,6 +63,67 @@ Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마
 
 
 ## **3. Method**  
+  
+### 3.1 Online Coreset Selection
+
+이 부분에서는 주어진 task에서 어떠한 기준으로 replay 시킬 data를 선정하는지에 대해 설명합니다.  
+
+크게 두가지의 기준을 적용하는데, "similarity"와 "diversity"입니다.
+
+#### 3.1.1 Minibatch similarity
+
+<img width="549" alt="스크린샷 2022-10-16 오후 5 54 49" src="https://user-images.githubusercontent.com/89853986/196027003-a953f49a-e062-4475-835e-ae90e3b4e4d1.png">  
+
+$b_{t,n} = {x_{t,n}, y_{t,n}} \in B_t$는 data point의 n-th pair를 의미하고, 분모의 좌측에 있는 식은 해당 datapoint의 gradient를 의미한다. 또한, 분모의 우측에 있는 식은 집합 $B_t$내에 있는 data들의 gradient의 평균을 의미한다.  
+
+즉, 이 식은 특정 data point의 gradient와 집합 $B_t$내의 data들의 gradient의 평균 간의 similarity를 나타낸 식이다.
+
+
+#### 3.1.2 Sample diversity
+  
+<img width="782" alt="스크린샷 2022-10-16 오후 6 11 45" src="https://user-images.githubusercontent.com/89853986/196027577-52824602-f595-4d0a-93e5-6145d6b639cf.png">
+
+본 식에서는 특별히 새롭게 설명할 notation은 없을 것이다. 본 식은 특정 data point $b_{t,n}$과 subset 내의 다른 datapoint $b_{t,p}$ 간의 dissimilarity의 평균이다. 따라서 값이 클수록 subset 내의 다른 data와 다른, 즉 다양성을 갖는 data point라는 것이다.  
+
+
+### 3.2 Online Coreset Selection for Current Task Adaptation 
+
+<img width="954" alt="스크린샷 2022-10-16 오후 6 12 43" src="https://user-images.githubusercontent.com/89853986/196027593-ced3a9f0-9dde-4996-8697-a2664bef41d6.png">
+
+이제 위의 section 3.1에서 다룬 두 가지 기준 "similarity"와 "diversity"를 고려하여 replay 시킬 data를 뽑아야 할 것이다.  
+Similarity와 diversity 값을 더하여 그 값이 가장 큰 top k개를 선정한 $u^{\*}$집합을 선정한다.  
+
+그 이후 아래와 같이 replay할 data를 갖고 loss가 최소가 되도록 model을 training 시키는 간단한 방법론을 제시하였다.
+
+
+<img width="680" alt="스크린샷 2022-10-16 오후 6 13 07" src="https://user-images.githubusercontent.com/89853986/196027612-158471e7-2a59-4981-91c3-74616208434d.png">
+
+
+### 3.3 Online Coreset Selection for Continual Learning  
+
+지금부터는 저자가 제시한 OCS (Online Coreset Selection) 방법론에 대해 구체적으로 다룰 것이다.  
+OCS 방법론의 목적은 previous task의 지식을 앞서 다룬 similarity와 diversity의 관점에서 고려하여 현재 task에서 활용도가 높은 coreset을 찾는 거시다.  
+더 직관적으로 설명하자면, 현재 task에 대해서는 모든 dataset을 사용할 수 있는 것 아닌가라는 의문이 들 수 있다. 하지만 늘 그렇듯 real-world dataset에는 noise가 있기도 하고, 틀리지 않은 data 이지만 이전 task가 지향하는 방향과는 방향성이 다를 수 있다. 이에, 저자는 현재 task 이더라도, continual한 세팅에서 sequential한 학습에 도움이 되는 data subset을 선정하여 그 data들에 대해서만 training을 진행한다.  
+
+
+#### 3.3.1 Coreset Affinity
+
+<img width="628" alt="스크린샷 2022-10-16 오후 6 13 53" src="https://user-images.githubusercontent.com/89853986/196027637-03f9f7eb-a93d-43ec-860e-9f611003029f.png">  
+
+
+
+
+
+<img width="1151" alt="스크린샷 2022-10-16 오후 6 14 15" src="https://user-images.githubusercontent.com/89853986/196027645-e90bb248-d44c-431a-9cc5-e066dc4f4bc3.png">
+
+<img width="726" alt="스크린샷 2022-10-16 오후 6 14 42" src="https://user-images.githubusercontent.com/89853986/196027655-da4f626d-89e3-4d1e-bd97-87f7b85f8e8f.png">
+
+
+### 3.4 Algorithm
+
+<img width="1232" alt="스크린샷 2022-10-16 오후 6 15 09" src="https://user-images.githubusercontent.com/89853986/196027674-50e06f92-2355-4010-9e01-ed2adb793666.png">
+
+
 
 Please write the methodology author have proposed.  
 We recommend you to provide example for understanding it more easily.  
