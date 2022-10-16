@@ -20,17 +20,19 @@ tags: [reviews]
 
 subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래프의 label을 예측하는데 있어서, 정보 손실을 최소화하면서 압축된 subgraph를 어떻게 추출할 수 있을지에 대해서 개발하는 작업이 지속되고 있습니다. 최근 `Information Bottleneck(IB)`이라는 정보 이론 분야에서 이러한 문제에 대해서 다루고 있습니다. 이는 그래프 label의 정보를 가장 잘 담고 있는 정보를 유지한 채로 원본 데이터에서 압축된 방식으로 추출하는 것을 목표로 하고 있습니다. deep learning으로 강화된 IB는 컴퓨터 비전, 강화학습, 자연어 처리 분야에 적용되어, 다양한 분야에서 적절한 feature를 학습할 수 있도록 하는데 성공하였습니다.   
 그러나 현재의 IB 방법은 상호간에 관계적인 정보와 이산적인 데이터를 담고 있는 그래프 데이터를 처리하는데 어려움이 있습니다. IB가 정보 손실을 최소화하면서 원본 그래프의 하위 그래프와 같은 불규칙한 그래프 데이터를 압축하는 것은 여전히 어려운 일이라고 할 수 있습니다.   
-따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 `GIB(Graph Information Bottleneck)` 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
+따라서 본 모델에서는 앞서 언급된 subgraph graph 인식 문제를 해결하기 위해서 그래프 데이터에 IB 원리를 발전시켜서, 새로운 원리인 `Graph Information Bottleneck(GIB)` 방법을 제안합니다. 기존의 IB는 숨겨진 임베딩 공간에서 최적인 representation을 학습하여 main task에 유용한 정보를 추출하는 한편, GIB에서는 graph level에서 중요한 subgraph를 추출하도록 합니다.  
 
  <br/> <br/>
 ## **3. Method**
 > **Preliminaries**
   
-논문에서 제안한 방법론을 이해하기 위해서 몇 가지 Notation과 `GCN`의 개념을 소개하겠습니다.
+논문에서 제안한 방법론을 이해하기 위해서 몇 가지 `Notation`과 `GCN`의 개념을 소개하겠습니다.
 
 $N$개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$에서 $\\mathcal{G}_ n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
 $\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$, edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$, 인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$, feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
 $\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}}_ {sub}$는 $\mathcal{G}_ {sub}$를 제외한 나머지 부분을 의미합니다. $f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $\mathbb{G}$는 input graph의 도메인입니다. 
+
+<br/> <br/>
 
 > **Graph Convolutional Network** 
   
@@ -40,10 +42,16 @@ $$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hat{A}D^{-\frac{
 
 여기서 $D$는 노드의 차수를 담은 대각 행렬이고, $W$는 모델 파라미터를 의미합니다.
 
+최근에는 그래프의 계층적 구조를 활용하여 다양한 graph pooling 방법을 시도하고 있습니다. 결과에 영향을 미치는 서로 다른 노드의 중요성을 활용하기 위해 self-attention 메커니즘을 통해 graph pooling 방식을 향상시킵니다. 마지막으로, 그래프 임베딩 $E$은 앞에서 얻은 노드 임베딩 $X^{'}$에 normalize된 attention score를 곱하여 얻을 수 있습니다.
+
+$$ E = \mathrm{Att}(X^{'}) =\mathrm{ softmax}(\Phi_{2}\mathrm{tanh}(\Phi_{1} X^{'T})) X^{'} $$
+
+여기서 $\Phi_{1}$와 $\Phi_{1}$은 self-attention의 모델 파라미터입니다.
+
 <br/> <br/>
 > **Graph Information Bottleneck**
 
-먼저 Graph Information Bottleneck 현상과 IB subgraph를 정의합니다.  
+이제 본격적으로 Graph Information Bottleneck(GIB)의 과정에 대해서 살펴보겠습니다. 먼저 Graph Information Bottleneck 현상과 IB subgraph를 정의합니다.  
 
 ![image](http://snap.stanford.edu/gib/venn.png)  
 
