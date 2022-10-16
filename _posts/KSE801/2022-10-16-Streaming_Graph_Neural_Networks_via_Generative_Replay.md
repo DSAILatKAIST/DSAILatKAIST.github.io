@@ -17,7 +17,7 @@ description : Wang, Hongwei et al. / Relational Message Passing for Knowledge Gr
 
 지식 그래프는 `Entity`와 `Relation`으로 지식 구조를 그래프로 표현한 것입니다. Entity가 그래프에서 node, Relation이 edge의 역할을 합니다. 일반적으로 지식 그래프는 불완전하므로, 지식 그래프가 주어졌을 때 **missing relation**을 예측해 완전하게 만드는 것이 목표입니다. 
 
-<img src="/images/PATHCON/Relational_Context">
+<center><img src="/images/PATHCON/Figure.png"></center>
 구체적으로 정의하면, entity pair $(h, t)$가 주어졌을 때 두 entity의 relation인 $r$의 분포를 모델링합니다.  베이즈 정리에 의해 다음과 같이 나타낼 수 있습니다.
 $$p(r|h,t) \propto p(h,t|r) * p(r)$$
 2번째 항은 prior distribution이므로, 실질적으로 첫번째 항을 모델링합니다.
@@ -189,9 +189,9 @@ path에 embedding을  거치지 않고 바로 RNN을  적용해 표현을 학습
 
 * Dataset
 지식 그래프 Dataset인 FB15K, FB15K-237, WN18, WN18RR, NELL995, DDB14을 사용하였습니다. summary는 아래와 같습니다.
-<img src="/images/PATHCON/Table2.png">
+<center><img src="/images/PATHCON/Table2.png"></center>
 각 Dataset의 Parameter의 수는 다음과 같습니다.
-<img src="/images/PATHCON/Table3.png">
+<center><img src="/images/PATHCON/Table3.png"></center>
 * Baseline
 TransE, ComplEx, DistMult, RotatE, SimplE, QuitE, DRUM
 여기에 Relational Context, Relational Path 중에서 하나만 적용한 모델인 CON, PATH를 추가해 각각의 효과를 확인하고자 합니다.
@@ -201,12 +201,12 @@ TransE, ComplEx, DistMult, RotatE, SimplE, QuitE, DRUM
  Hit@1,3 : cut-off value가 1, 3인 Hit Ratio
  ### **Result**
  * Overall Results
-<img src="/images/PATHCON/Table4.png">
+<center><img src="/images/PATHCON/Table4.png"></center>
 PATHCON이 모든 경우에서 기존 baseline보다 성능이 뛰어난 것을 확인할 수 있습니다. 특히 **sparse** 데이터에서 강점을 보입니다.
 한편 PATH, CON 모델에서도 대체로 다른 baseline보다 성능이 뛰어난 것을 확인할 수 있습니다. 
 이로부터 `relational path`, `relational context`가 각각 성능 향상에 기여하는 것을 알 수 있습니다. 
 * Inductive Knowledge Graph Completion
-<img src="/images/PATHCON/Figure3.png">
+<center><img src="/images/PATHCON/Figure3.png"></center>
 PATHCON의 주요 contribution 중 하나인 inductive setting에서의 performance에 대한 결과입니다. 차트의 가로축은 test set의 entity subset 중에서 train set에 포함되지 않은 entity의 비율입니다. 값이 클수록 inductive setting에 가까워집니다.
 Embedding 기반의 baseline은 학습하지 않은 데이터에 대해 예측하는 비율이 높아질수록 성능이 떨어지는 반면, PATHCON의 성능은 setting에 robust합니다. 
 이 차트로부터 PATHCON이 inductive setting에 적합한 모델임을 알 수 있습니다.
@@ -214,22 +214,22 @@ Embedding 기반의 baseline은 학습하지 않은 데이터에 대해 예측�
 ### **Model Variants**
 * Context Hops / Path Length
 Relational Context와 Path Length의 sensitivity를 확인하고자 합니다.
-<img src="/images/PATHCON/Figure4.png">
+<center><img src="/images/PATHCON/Figure4.png"></center>
 relational context와 path length의 값이 커짐에 따라서 성능이 향상됨을 알 수 있습니다. 
 이를 통해 context에 더 많은 정보를 포함하는 것과 path의 길이가 학습에 중요하다는 것을 알 수 있습니다. 두 structure 모두 값이 커질수록 성능 향상폭이 작아집니다.
 * Context Aggregator
 context aggregator를 바꿔가면서 성능을 비교하였습니다. 
-<img src="/images/PATHCON/Figure5.png">
+<center><img src="/images/PATHCON/Figure5.png"></center>
 mean aggregator의 성능이 가장 나쁘므로, 특징을 결합할 때 entity의 순서가 중요한 것을 확인할 수 있습니다. concat과 cross의 성능은 데이터에 따라 우열이 나뉘지만, cross aggregator의 parameter가 더 많으므로 학습 시간이 길어집니다. 데이터의 특성에 더 적합한 aggregator를 선택해야 합니다.
 
 * Path Representation
-<img src="/images/PATHCON/Figure6.png">
+<center><img src="/images/PATHCON/Figure6.png"></center>
 relation type과 relation aggregator에 따라 성능을 비교합니다.
 relation type을 embedding으로 나타낼 때 RNN보다 좋은 결과를 보였는데, 이는 전체 지식 그래프의 relation density가 낮아서 relation path가 대체로 짧기 때문인 것으로 생각됩니다.
 또한, attention이 mean보다 좋은 aggregator임을 확인할 수 있습니다. 이를 통해 relation path의 중요도가 모델 학습에 반영되어야 함을 알 수 있습니다.
 * Model Explainability
 모델이 예측 결과를 얼마나 잘 설명하는지에 대해 알아보고자 합니다.
-<img src="/images/PATHCON/Table5.png">
+<center><img src="/images/PATHCON/Table5.png"></center>
 실험 과정은 다음과 같습니다.
 1) context hop=1, 최대 path length=2로 설정합니다.
 2) 학습이 완료된 상태에서 3개의 relation을 선택합니다.
