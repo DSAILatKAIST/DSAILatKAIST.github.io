@@ -57,9 +57,7 @@ Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마
 
 ### 2.4 Contributions
 
-* Continual Graph Learning (CGL) paradigm을 제시하여 single task가 아닌 multiple consecutive task (continual) setting에서 node classification task를 수행할 수 있도록 함.
-* Continual node classification task에 기존 GNN을 적용할 때 발생하는 catastrophic forgetting 문제를 해결함.
-* 유명한 GNN model에 적용 가능한 ER-GNN model을 개발하고, 이는 buffer로 들어갈 replay node를 선정할 때 기존 방법과는 다르게 influence function을 사용함.
+* Class-imbalanced / noisy setting에서도
 
 
 ## **3. Method**  
