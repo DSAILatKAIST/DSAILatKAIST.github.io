@@ -235,6 +235,37 @@ $$
 $\mathbf{H}$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하다.   
 
 
+<div align="center">
+
+<img width="728" alt="image" src="https://user-images.githubusercontent.com/37684658/196022495-e0e1fa22-0a3e-4b57-a154-a8ca02197772.png">  
+ 
+<\div>  
+ 
+<div align="center">
+ 
+<img width="1296" alt="image" src="https://user-images.githubusercontent.com/37684658/196022640-82257140-97d7-4603-ba72-da206326d920.png">
+
+<\div>  
+
+6개의 5way-3shot, 5way-5shot, 10way-3shot, 10way-5shot 세팅에서 모두 SOTA의 성능을 보여주고 있다. 하지만 논문에서 주장하는대로, prototype-based parameer initialization, scalingand shifting vectors가 새로운 tasks를 맞추는데 더 효과적이고, tranferable knowledge를 축적할 수 있는 지 보여주지는 못하기 때문에, 이는 ablation study에서 보여준다. 위 실험에서 보여주는 것은, homophilic한 데이터셋은 물론 heterophilic attributed networks에서도 좋은 성능을 보여준다는 것이다. absolute improvement 정도를 보아도, homophilic한 가정으로 설계된 기존 baseline들과 heterophilic한 데이터셋에서 더 큰 성능 차이를 보여주고 있다.  
+ 
+ 
+<div align="center">
+
+<img width="1355" alt="image" src="https://user-images.githubusercontent.com/37684658/196023310-e7da3ee6-401e-4a17-bd37-8cd169a93d67.png">
+ 
+<\div>  
+
+또한 기존 메타러닝 기반의 baseline은 instance를 기준으로 모델을 학습하기 때문에 data noise에 취약하다. 위 실험으로 instance 기반의 학습에서 벗어나, class specific parameter, task prototypical parameter update를 통해 data noise에 robust한 모델임을 보여주고 있다.  
+ 
+ 
+<div align="center">
+ 
+ <img width="761" alt="image" src="https://user-images.githubusercontent.com/37684658/196023600-4d93ab72-76e9-4670-aba6-351505c27e89.png">
+ 
+<\div>  
+
+
 
 ## **5. Conclusion**  
 
