@@ -10,11 +10,6 @@ $$
 \end{aligned}
 $$
 
----
-description: >-
-  Wang, Junshan et al./ Graph Information Bottleneck for Subgraph Recognition/
-  KDD-2022
----
 # Graph Information Bottleneck for Subgraph Recognition
 ## **1. Problem Definition**
 > **Graph classification 작업에 중요한 역할을 하는 압축된 데이터를 추출한다.**  
@@ -90,7 +85,7 @@ $p(y,\mathcal{G}_ {sub})$를 근사할 수 있습니다. 여기서 $\mathcal{G}_
 $$ I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{{q_{\phi_{1}}(y|\mathcal{G}_ {sub})}} dy \ d\mathcal{G}_ {sub} \\
 \approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt}) $$
 
-여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 I(Y;\mathcal{G}_ {sub})를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
+여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 $I(Y;\mathcal{G}_ {sub})$를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
 
 *  Minimization of $I(\mathcal{G},\mathcal{G}_ {sub})$   
 이제 두 번째 항 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 최소화 작업을 진행합니다.  KL-divergence의 Donsker-Varadhan representation을 적용하여,  $I(\mathcal{G},\mathcal{G}_ {sub})$을 다음과 같이 나타낼 수 있습니다.  
@@ -117,7 +112,7 @@ $$
 $$  
 
 
-먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킨다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
+먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킵니다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
 
 
 ## 4. Experiment  
@@ -165,17 +160,14 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 본 논문에서는 최대한의 정보를 제공하면서도 압축된 부분 그래프를 도출하기 위해 subgraph 인식 문제를 연구하였습니다. 이러한 subgraph를 IB-subgraph로 정의하고 IB-subgraph를 효과적으로 발견하기 위한 GIB(Graph Information Bottleneck) 프레임워크를 제안합니다. 정보이론 분야에서 연구되었던 Information Bottleneck 분야를 Graph Neural Network에 처음으로 접목시켜서 Graph 데이터에서 functional group과 같은 중요한 하부구조를 인식하는데 도움을 주고, 이는 분류 작업 뿐만 아니라 해석능력을 제공하는데 큰 장점을 가집니다. sampling 방법을 최적화시키기 위해서 목적함수를 prediction 항과 compression 항으로 구성시켜서 subgraph의 예측 정확도와 일정 정도 이상의 압축성을 보장하여 최적의 subgraph를 도출하도록 합니다. graph classification, graph interpretation, graph denoising 3가지 작업에 있어 GIB의 성능을 평가하였고, 그 결과 IB-subgraph의 우수한 성능을 확인할 수 있었습니다.
 
-이 논문에서는 지속적으로 들어오는 Graph 데이터를 학습하는 데, Generative Model을 사용해 이전에 학습했던 그래프와 비슷한 그래프를 계속 생성해 새로운 데이터와 함께 학습시킵니다.
-기존 replay based Continual Learning은 task가 진행됨에 따라 `replay buffer`에 그래프의 일부를 저장하고, task가 많이 늘어나면 그에 따라 요구되는 메모리도 커지는데 비에, Generative Model로 그때그때 `replay buffer`를 생성해서 메모리 효율을 높였습니다.
-단순히 메모리 효율을 높인 것에 그치지 않고, 새롭게 등장하는 패턴은 적극적으로 학습하면서 불필요해 보이는 패턴은 줄이도록 학습해서 단순한 Continual Learning을 보완했습니다.
-그 사이사이에 `Random Walk`가 아니라 `Random Walk with Restart`를 쓴 것과 같은 디테일, 본인들이 주장하는 모델의 장점을 잘 보여주는 알찬 실험들까지, 좋은 연구인 습니다.
-이 논문 뿐만 아니라 Continual leanring에서 Generative Model은 중대한 역할을 할 것으로 보이며 관련 연구들이 꼭 필요할 것으로 보입니다.  
-
-
 > **개인적인 생각**
+
 Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 가져와서 적용했다는 점에서 상당히 인상 깊었는데, 사실 그래프 데이터는 정보가 상호 연결되어 있다는 복합적인 특성으로 인해서 다루기가 까다로운데, 이러한 점에도 불구하고 최적화 과정을 적절히 활용하여 성능 향상을 이끌어내었습니다.   
+
 사실 기존의 Explainable AI의 경우에는 모델이 작동한 이후에 해석 작업을 거치기 때문에 시간이 더욱 오래 걸릴 뿐만 아니라, 학습된 모델에 대해서 후속적인 작업으로 해석이 들어가기 때문에 좀더 본질적인 해석이 어려울 수 있습니다. 하지만, GIB의 경우에는 분류 작업과 동시에 해석 작업을 진행하기 때문에 상당히 개선적인 모델이라고 할 수 있습니다. 이러한 발전방향은 학습 시간, 해석 능력의 측면에서 실용적인 모델로 발전할 수 있다는 점에서 큰 의미를 가진다고 생각합니다.    
+
 논문의 두드러진 특징은 GIB를 도입함으로써 진행되는 과정과 여러가지 과정에서 발생할 수 있는 문제점들을 논리적으로 풀어나간다는 점에서 흥미로웠고, 이 영향력은 실험 결과에서 그대로 드러났습니다. 제안된 모델을 3가지의 측면으로 성능을 측정하였는데, 여기에서 각 실험 방향에 맞는 데이터셋과 실험방법을 선택하였습니다. classification 부분에서는 널리 사용되는 benchmark dataset을 사용하였고, interpretation은 여러가지 특성을 담고 있고 있어서 해석력을 측정하기 용이한 ZINC dataset을 사용하였으며, graph denoising에서는 실험 의도를 잘 반영할 수 있는 Synthetic dataset을 설계하여 실험을 수행하였습니다. 모델 아키텍처를 구성하고 있는 부분들과 실험 설계 방향에 주목하여 논문을 읽는다면 더욱 유익할 수 있을 것이라고 생각합니다.  
+
 본 모델에서 graph information bottleneck을 샘플링 방법에 좀 더 다양하게 접근한다면 더 높은 성능 향상을 기대할 수 있을 것이라 생각합니다. 벌써 noise 투입과 같은 추가적인 연구가 진행되었는데, 이 외에도 더 넓은 feature 탐색을 통해서 임베딩을 샘플링하는데 있어서 효과적인 탐색과정을 진행한다면 prediction 과정에 큰 도움이 될 수 있을 것입니다.
 
 
