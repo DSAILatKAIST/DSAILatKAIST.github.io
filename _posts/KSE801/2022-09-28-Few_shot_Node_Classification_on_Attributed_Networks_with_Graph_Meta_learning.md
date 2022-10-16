@@ -226,6 +226,13 @@ meta-testing phase는 meta-training phase와 같은 과정을 거친다. 즉, me
 
 
 ## **4. Experiment**  
+Meta-GPS에서는 6가지 데이터셋으로 실험을 진행하였다. Motivation에서 주장한 바와 같이, real-world의 heterophilic한 데이터셋에서도 모델이 잘 작동한다는 것을 증명하기 위해 데이터셋의 node homophily, $\mathbf{H}$를 정의하고 제시하였다.  
+
+$$
+\mathbf{H}= {1\over{\textbar\mathcal{V}\textbar}}\sum_ {v\in\mathcal{V}} {{\textbar \textbraceleft  (u,v):u \in \mathcal{N}_ v \wedge y_u = y_v \textbraceright \textbar}\over{\textbar \mathcal{N}_ v \textbar}}
+$$
+
+$\mathbf{H}$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하다.   
 
 
 
