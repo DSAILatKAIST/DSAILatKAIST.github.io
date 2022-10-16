@@ -138,7 +138,9 @@ MUTAG, PROTEINS, IMDB-BINARY, DD 총 4가지의 데이터셋으로 graph classif
   
 > **Graph Interpretation**
 
-GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다. 본 실험에서는 GIB와 attention 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 50%(Att05), 70%(Att07)로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였으며, $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 제외하고 학습을 진행하였습니다.  
+GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다.  
+
+본 실험에서는 GIB와 attention 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 50%(Att05), 70%(Att07)로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였으며, $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 제외하고 학습을 진행하였습니다.  
 
 250000여개의 분자를 포함하는 ZINC dataset을 사용하고, 4가지 분자의 특성에 대해서 그래프 해석 작업을 진행합니다. QED는 0에서 1까지의 범위로 약물의 유사성을 측정합니다. DRD2는 0에서 1까지의 범위로 분자가 도파민 수용체에 대해서 활성일 확률을 나타냅니다. HLM-CLint와 MLM-CLint는 시험관 내에서 인간과 쥐의 간 마이크로솜의 대사 안정성을 추정한 값입니다. 각 작업에 대해서 training set, validation set, test set의 비율을 85%, 5%, 10%로 분할합니다.  
 
@@ -150,7 +152,8 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 위의 그림은 graph interpretation 작업에 대해서 한눈에 보기 쉽게 나타나는 정성적인 결과입니다. GIB가 HLM-CLint와 LML-CLint의 관점에서 왼쪽의 원래 그래프와 가장 유사한 특성을 보여준다는 것을 알 수 있습니다. 게다가 어떤 subgraph가 그러한 결과에 기인하였는지 붉은색의 부분으로 표시되어있습니다. 이를 통해서 어떤 subgraph가 모델의 전체 특성을 지배하는지 비교적 정확하게 알 수 있습니다.  
 
-> **Graph Denoising**
+> **Graph Denoising**  
+
 여기에서는 앞에서 사용한 MUTAG dataset에서 각 그래프에 대해 30%의 추가적인 edge(노이즈)를 추가하여 synthetic dataset을 생성합니다. 이 synthetic dataset을 활용하여 GIB의 classification accuracy를 GCN, DiffPool과 함께 비교합니다. 여기에서 training set, validation set, test set을 각각 70%, 5%, 25%로 설정하였습니다.
 
 ![image](https://user-images.githubusercontent.com/67723054/196011179-304f2b12-e172-40ae-950e-47ce09ac5d04.PNG)
@@ -159,6 +162,9 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 ## **5. Conclusion**
 > **Summary**
+
+본 논문에서는 최대한의 정보를 제공하면서도 압축된 부분 그래프를 도출하기 위해 subgraph 인식 문제를 연구하였습니다. 이러한 subgraph를 IB-subgraph로 정의하고 IB-subgraph를 효과적으로 발견하기 위한 GIB(Graph Information Bottleneck) 프레임워크를 제안합니다. 정보이론 분야에서 연구되었던 Information Bottleneck 분야를 Graph Neural Network에 처음으로 접목시켜서 Graph 데이터에서 functional group과 같은 중요한 하부구조를 인식하는데 도움을 주고, 이는 분류 작업 뿐만 아니라 해석능력을 제공하는데 큰 장점을 가집니다. sampling 방법을 최적화시키기 위해서 목적함수를 prediction 항과 compression 항으로 구성시켜서 subgraph의 예측 정확도와 일정 정도 이상의 압축성을 보장하여 최적의 subgraph를 도출하도록 합니다. graph classification, graph interpretation, graph denoising 3가지 작업에 있어 GIB의 성능을 평가하였고, 그 결과 IB-subgraph의 우수한 성능을 확인할 수 있었습니다.
+
 이 논문에서는 지속적으로 들어오는 Graph 데이터를 학습하는 데, Generative Model을 사용해 이전에 학습했던 그래프와 비슷한 그래프를 계속 생성해 새로운 데이터와 함께 학습시킵니다.
 기존 replay based Continual Learning은 task가 진행됨에 따라 `replay buffer`에 그래프의 일부를 저장하고, task가 많이 늘어나면 그에 따라 요구되는 메모리도 커지는데 비에, Generative Model로 그때그때 `replay buffer`를 생성해서 메모리 효율을 높였습니다.
 단순히 메모리 효율을 높인 것에 그치지 않고, 새롭게 등장하는 패턴은 적극적으로 학습하면서 불필요해 보이는 패턴은 줄이도록 학습해서 단순한 Continual Learning을 보완했습니다.
@@ -167,12 +173,13 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
 
 
 > **개인적인 생각**
-**올게 왔구나**
-본 논문은 Graph Neural Network에서의 Continual Learning에 Generative Model을 접목시킨 방법입니다. 사실 이 논문이 나오는 것은 시간문제라고 생각하던 찰나에 역시나 등장했습니다.
-이미 Continual Learning에 Generative Model을 접목시킨 연구는 꽤 오래전에(AI 연구의 속도가 매우 빠른 것을 감안하면) 등장했지만, GNN에 접목된 것은 없었기 때문이죠.
-관련 연구를 하시는 분들은 아시겠지만, 이 논문이 novelty가 엄청 높다거나, 기존의 상식을 깨는 굉장한 발견을 한 논문이라기 보단.. (**분명히 좋은** 논문입니다, 오해금지)
-가장 큰 contribution은 특정 분야에서 처음 시도된 연구, 적절한 시기에 등장한 연구인 것 같습니다. Novelty만을 좇는게 아니라, trend에 맞는 연구를 하는 능력도 필요해 보입니다.
-우리도 최신 논문을 잘 follow up 하는 '트렌디한' 연구자가 되도록 합시다.
+Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 가져와서 적용했다는 점에서 상당히 인상 깊었는데, 사실 그래프 데이터는 정보가 상호 연결되어 있다는 복합적인 특성으로 인해서 다루기가 까다로운데, 이러한 점에도 불구하고 최적화 과정을 적절히 활용하여 성능 향상을 이끌어내었습니다.   
+사실 기존의 Explainable AI의 경우에는 모델이 작동한 이후에 해석 작업을 거치기 때문에 시간이 더욱 오래 걸릴 뿐만 아니라, 학습된 모델에 대해서 후속적인 작업으로 해석이 들어가기 때문에 좀더 본질적인 해석이 어려울 수 있습니다. 하지만, GIB의 경우에는 분류 작업과 동시에 해석 작업을 진행하기 때문에 상당히 개선적인 모델이라고 할 수 있습니다. 이러한 발전방향은 학습 시간, 해석 능력의 측면에서 실용적인 모델로 발전할 수 있다는 점에서 큰 의미를 가진다고 생각합니다.    
+논문의 두드러진 특징은 GIB를 도입함으로써 진행되는 과정과 여러가지 과정에서 발생할 수 있는 문제점들을 논리적으로 풀어나간다는 점에서 흥미로웠고, 이 영향력은 실험 결과에서 그대로 드러났습니다. 제안된 모델을 3가지의 측면으로 성능을 측정하였는데, 여기에서 각 실험 방향에 맞는 데이터셋과 실험방법을 선택하였습니다. classification 부분에서는 널리 사용되는 benchmark dataset을 사용하였고, interpretation은 여러가지 특성을 담고 있고 있어서 해석력을 측정하기 용이한 ZINC dataset을 사용하였으며, graph denoising에서는 실험 의도를 잘 반영할 수 있는 Synthetic dataset을 설계하여 실험을 수행하였습니다. 모델 아키텍처를 구성하고 있는 부분들과 실험 설계 방향에 주목하여 논문을 읽는다면 더욱 유익할 수 있을 것이라고 생각합니다.  
+본 모델에서 graph information bottleneck을 샘플링 방법에 좀 더 다양하게 접근한다면 더 높은 성능 향상을 기대할 수 있을 것이라 생각합니다. 벌써 noise 투입과 같은 추가적인 연구가 진행되었는데, 이 외에도 더 넓은 feature 탐색을 통해서 임베딩을 샘플링하는데 있어서 효과적인 탐색과정을 진행한다면 prediction 과정에 큰 도움이 될 수 있을 것입니다.
+
+
+
 ***
 ## **Author Information**
 * Sangwoo Swo
@@ -181,7 +188,7 @@ GIB의 가장 두드러진 특징은 interpretation 과정을 진행할 수 있�
   * Contact: tkddn8974@kaist.ac.kr
 ## **Reference & Additional materials**
 * Github Implementation
-  * [None](https://github.com/Samyu0304/graph-information-bottleneck-for-Subgraph-Recognition)
+  * [Code for the paper](https://github.com/Samyu0304/graph-information-bottleneck-for-Subgraph-Recognition)
 * Reference
   * [[ICLR-21] Graph Information Bottleneck for Subgraph Recognition](https://arxiv.org/abs/2010.05563)
   
