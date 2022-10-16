@@ -57,7 +57,8 @@ Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마
 
 ### 2.4 Contributions
 
-* Class-imbalanced / noisy setting에서도
+* Class-imbalanced / noisy setting이 존재하는 continual scenario를 다루었다.
+* OCS (Online Coreset Selection)이라는 simple하지만 
 
 
 ## **3. Method**  
