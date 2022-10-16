@@ -108,7 +108,7 @@ $$
 $$  
 
 $$
-\text{ s.t. }  \phi_{2}^{*} = \arg\max_{\phi_ {2}}\mathcal{L}_ {\mathrm{Cancel changesMI}}(\phi_{2},\mathcal{G}_ {sub}) 
+\text{ s.t. }  \phi_{2}^{*} = \arg\max_ {\phi_ {2}}\mathcal{L}_ {\mathrm{Cancel changesMI}}(\phi_{2},\mathcal{G}_ {sub}) 
 $$  
 
 
@@ -117,12 +117,32 @@ $$
 > **Subgraph Generator**  
 
 입력 그래프 $\mathcal{G}$에 대해 노드가 $\mathcal{G}_ {sub}$나  $\overline{\mathcal{G}}_ {sub}$ 중 어디에 속할지 나타내는 노드 할당 행렬  $\textbf{S}$를 생성하여 subgraph를 발생시킵니다. 그런 다음 $\mathcal{G}_ {sub}$ 또는  $\overline{\mathcal{G}}_ {sub}$에 속할 확률을 
-예를 들어, $S$의 i번째 행은 2차원 벡터 $\textbf{[} p(V_{i}\in \mathcal{G}_ {sub}|V_{i}), p(V_{i} \in \overline{\mathcal{G}}_ {sub}|V_{i})\textbf{]}$로 구성됩니다. $l$개의 layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 노드 할당 행렬 $\textbf{S}$를 도출하기 위해서 MLP를 사용합니다하게 됩니다. 
+예를 들어, $\textbf{S}$의 i번째 행은 2차원 벡터 $\textbf{[} p(V_{i}\in \mathcal{G}_ {sub}|V_{i}), p(V_{i} \in \overline{\mathcal{G}}_ {sub}|V_{i})\textbf{]}$로 구성됩니다. $l$- layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 노드 할당 행렬 $\textbf{S}$를 도출하기 위해서 MLP를 사용합니다. 따라서 subgraph generator의 작동 알고리즘은 아래와 같습니다.
 
+$$ X^{l} = \mathrm{GNN}(A,X^{l-1};\theta_{1}), \quad 
+S = \mathrm{MLP}(X^{l};\theta_{2})$$
 
-하위 그래프 생성기: 입력 그래프 G에 대해 노드가 Gsub 또는 Gsub에 있음을 나타내는 노드 할당 S를 사용하여 IB 하위 그래프를 생성합니다. 그런 다음 Gsub 또는 Gsub에 속하는 노드의 확률을 사용하여 노드 할당에 연속 완화를 도입합니다. 예를 들어, S의 i번째 행은 2차원 벡터 $\textbf{[} p(Vi 2 GsubjVi); p(Vi2GsubjVi)\textbf{]}$로 구성됩니다. $l$개의 layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 노드 할당 행렬 S를 도출하기 위해서 MLP를 사용합니다하게 됩니다. 
+$\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니다. $\textbf{S}$가 학습되면, 노드 할당 행렬의 구성요소가 0과 1로 구성되게 되고, 첫번째 열은 그래프 레이블을 예측하는데 사용되는 \mathcal{G}_ {sub}의 representation에 해당하는 초록색 노드 임베딩이고, 두번째 열은 그 나머지 부분 $\overline{\mathcal{G}}_ {sub}$의 representation에 해당하는 파란색 노드 임베딩입니다. 최종적으로 $\textbf{S}^{T}X^{l}$의 첫 번째 열을 가져옴으로써 $\mathcal{G}_ {sub}$의 임베딩을 얻을 수 있습니다.
 
-S는 n 2 행렬이며, 여기서 n은 노드 수입니다. 단순화를 위해 위의 모듈을 := ( 1; 2)와 함께 g(; )로 표시된 하위 그래프 생성기로 컴파일합니다. S가 잘 학습되면 노드 할당은 0/1로 포화되어야 합니다. 그래프 레이블을 예측하는 데 사용되는 Gsub의 표현은 STX1의 첫 번째 행을 취하여 얻을 수 있습니다.
+> **Connectivity Loss**  
+위에서 살펴본 목적함수의 최적화 과정으로는 모델이 모든 노드를 $\mathcal{G}_ {sub}$나 $\overline{\mathcal{G}}_ {sub}$에 할당하거나, $\mathcal{G}_ {sub}$의 representation에 중복된 노드로부터 불필요한 정보를 포함할 수 있습니다. 이를 예방하기 위해서 connectivity loss $\mathcal{L}_ {con}$를 도입합니다.  
+
+$$ \mathcal{L}_ {con} = || \mathrm{Norm}(S^{T}AS)- I_2||_ F $$  
+
+여기서 $\mathrm{Norm}$은 행방향의 normalization을 나타내고  $|| \cdot ||_ F$은 Frobenous norm을 나타내며, $I_2$는 $2\times 2$의 단위행렬을 나타냅니다. 이 식이 가지는 의미를 해석하기 위해서 예를 들어 설명하겠습니다. $S^{T}AS$의 (1,1)의 원소를 $a_11$, (1,2)의 원소를 $a_12$라고 할 때,
+
+$$
+a_{11} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \\mathcal{G}_ {sub}|V_{j}),
+$$
+
+$$
+a_{12} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \overline{\mathcal{G}}_ {sub}|V_{j})
+$$
+
+로 나타낼 수 있습니다. 즉, $\mathcal{G}$에 포함된 2개의 노드는 서로 연결되어야 한다는 것이고, $\mathcal{G}$에 포함된 노드와 $\overline{\mathcal{G}}$에 포함된 노드는 서로 연결되지 않아야 한다는 것입니다. 구체적으로 살펴보겠습니다. $\mathcal{L}_ {con}$를 최소화시키면, $\mathrm{Norm}(S^{T}AS)$의 (1,1) 원소는 항등행렬 $I_2$의 (1,1) 원소인 1에 가까워져야 하기 때문에 $\frac{a_{11}}{a_{11}+a_{12}}$가 1로 수렴하게 됩니다. 이는 노드 $V_i$가 $\mathcal{G}_ {sub}$에 속한다면,  $V_i$의 이웃 노드도 $\mathcal{G}_ {sub}$에 속할 확률을 높이는 작업입니다. 또한  
+
+이를 통해서 $\mathcal{L}_ {con}$는 노드 샘플링을 적절히 수행할 뿐만 아니라, 훨씬 더 압축된 subgraph를 도출할 수 있습니다.
+
 연결 손실: 그러나 잘못된 초기화로 인해 p(Vi 2 GsubjVi) 및 p(Vi 2 GsubjVi)가 닫힙니다. 이렇게 하면 모델이 모든 노드를 Gsub/Gsub에 할당하거나 Gsub 표현에 중복 노드의 많은 정보가 포함됩니다. 이 두 가지 시나리오는 훈련 과정을 불안정하게 만듭니다. 반면에 S는 노드 수준에서 하위 그래프를 출력하는 동안 토폴로지 정보를 더 잘 활용하기 위해 우리 모델이 귀납적 편향을 가지고 있다고 가정합니다. 따라서 다음과 같은 연결 손실을 제안합니다.
 
 
