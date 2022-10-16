@@ -189,45 +189,36 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 * Baseline model 모두 일정 수준의 catastrophic forgetting은 발생하는 것을 관찰할 수 있다.
 * Balanced continual learning setting에서 random replay based methods (A-GEM & ER-Reservoir)과 비교하면 OCS는 average accuracy 관점에서 약 19%의 gain이 있다.
 * 마찬가지로, balanced continual learning setting에서 forgetting average도 다른 baseline보다 현저히 낮은 수치가 관찰된다. 
-* Imbalance setting에서는 
-
-
-<div align="center">
-
-![PM2](https://user-images.githubusercontent.com/89853986/172018607-46974fef-a3b3-453b-af67-9673420fac75.png)
- 
-</div>
-
-* Dataset 별 task가 진행됨에 따른 accuracy를 plot
-* Figure를 보면 세가지 dataset 모두에서 catastrophic forgetting이 발생한다.
-* ER-GNN model과 함께 influence function을 쓴 model이 catastrophic forgetting을 가장 잘 완화하는 결과이다.
+* OCS는 imbalance setting에서 balanced setting에서보다 더욱 큰 강점을 보였다.  
+* Accuracy와 forgetting 측면에서 baseline model들보다 훨씬 좋은 성능을 보였고, 이는 baseline model에서는 imbalance 상황에서 current task에 대해 coreset을 select하는 과정이 없으므로 biased estimation이 진행되어 performance degenerate이 일어났다고 볼 수 있다.  
 
 
 #### 4.2.2 Noisy Continual Learning
 
 <div align="center">
 
-![FM](https://user-images.githubusercontent.com/89853986/172018571-0ccbdbc1-6642-4b39-ab4b-ab5191a2b0e9.png)
+<img width="847" alt="스크린샷 2022-10-16 오후 7 30 40" src="https://user-images.githubusercontent.com/89853986/196030490-c293e4c2-740d-40ee-8464-ae1f289c0852.png">
 
 </div>
 
-* SGC와 GIN model에 대해서 ER-GNN model을 적용하였다. 
-* 위의 table과 비교해보면, ER-GNN을 적용하지 않은 natural SGC/GIN일 때보다 FM 값이 확연히 줄어든 것으로 보아 catastrophic forgetting을 줄이는데 도움을 준다는 것을 보여준다.
-* 3가지 experience selection stragtegies 중에서 저자가 제안한 IM 방법이 가장 좋은 performance를 보인다.
+* Gaussian noise를 적용하여 Rotated MNIST dataset을 noise하게 setting하였다.  
+* 위의 table을 보면, noise는 모든 baseline의 성능을 상당히 저하시키는 것을 관찰할 수 있다.  
+* 하지만 저자가 제안한 OCS의 경우, noise rate이 증가함에 따라 accuracy와 forgetting이 심각하게 저하되지는 않는 것으로 보여진다. 이는 task 내에서 similarity와 diversity를 고려하여 coreset을 선정하는 과정이 noise data를 상당부분 제외시키는 것으로 해석 가능하다.  
 
 
+#### 4.2.3 Ablation Studies
 
-#### 4.2.3 Influence of ![](https://latex.codecogs.com/svg.image?e)
+<img width="591" alt="스크린샷 2022-10-16 오후 7 36 47" src="https://user-images.githubusercontent.com/89853986/196030702-cf33ae30-28ab-4559-89bc-7ba82aeacc6e.png">
 
-<div align="center">
-  
-![e](https://user-images.githubusercontent.com/89853986/172018666-448666be-1d91-4456-b392-001558ae5348.png)
 
-</div>
+* 본 실험은 gradient 활용의 효과를 검증한 실험이다.
+* Gradient를 활용하여 coreset selection을 한 경우와 raw input (Input-OCS), feature-representations (Feat-OCS)를 활용하여 coreset selection을 한 경우를 비교하였는데, balanced / imbalanced CL setting에서 모두 gradient가 다른 두 방법에 비해 좋은 성능을 보였다.
 
-* Buffer에 들어가는 node의 개수를 지정하는 파라미터인 ![](https://latex.codecogs.com/svg.image?e)는 model의 성능과 직결된다.
-* 예측한 바와 동일하게 buffer에 저장하는 node의 개수를 늘리면 catastrophic forgetting을 예방하는데에 큰 도움이 된다. ![](https://latex.codecogs.com/svg.image?e) 값이 무분별하게 늘어날 경우 computational cost가 증가하여 결국 retraining과 다를 바가 없게 될 수 있다.
-* Hyperparameter tuning을 통해 catastrophic forgetting과 computational cost 간의 trade-off 관계에서 균형을 찾을 필요가 있을 것이다. 
+
+<img width="589" alt="스크린샷 2022-10-16 오후 7 36 55" src="https://user-images.githubusercontent.com/89853986/196030706-9da699fc-630a-4c11-909d-de476780342a.png">
+
+
+* Coreset에 들어갈 top k개의 
 
 
 ## **5. Conclusion**  
