@@ -9,10 +9,10 @@ Write your comments
 
 ## Introduction
 Graph Neural Network (GNN) 은 graph-structured data 를 학습하기 위한 모델로 등장하여, molecular structures, knowledge graph, social networks 등 다양한 domain 에서 사용되고 있다. 본 논문에서는 GNN 의 한계와 generalization properites 에 대하여 깊게 탐구하였다. 저자는 간단한 구조의 graph 라도 GNN 이 구분하지 못할 것이라는 가정하에, 간단한 예시를 보여주며 이를 입증하였다. 또한, binary classification 에서 GNN 이 graph 의 label 을 얼마나 잘 구분할 수 있는지, 즉 graph 의 generalization bound 에 대하여 계산하고 이를 분석하였다.<br>
-저자가 GNN 을 분석한 내용은 크게 두 가지로 나눌 수 있다.
-a) GNN 모델들이 특정한 graph property 에 대하여 graph 를 구분할 수 있는가?
+저자가 GNN 을 분석한 내용은 크게 두 가지로 나눌 수 있다.<br>
+a) GNN 모델들이 특정한 graph property 에 대하여 graph 를 구분할 수 있는가?<br>
 b) GNN 모델들이 graph 의 label 을 얼마나 잘 구분해낼 수 있는가?
-
+<br>
 a) 의 경우 아주 간단한 graph 들이 주어진 상황에서 graph의 성질 (i.e., longest or shortest cycle, diameter, clique information) 을 구분하지 못하는 경우가 있음을 보여준다.
 b) 의 경우 간단한 binary prediction 으로 graph 모델의 performance limitation 을 설명하고자 한다.
 
@@ -34,7 +34,14 @@ LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한�
 
 여기서 e^(uv) 는 노드 u 에서 노드 v 까지의 distance 를 의미하며, a^(wu,uv) 는 w 에서 u 까지의 거리에 wuv 의 각도를 합친 정보를 의미한다.
 - Graph Property (P): Q 라는 GNN model과 서로 다른 property (P) 를 보이는 graph G_1 과 G_2 가 있을 때, 만약 f(g_Q(G_1) != f(g_Q(G_2)) 라면 model Q 는 P 를 분별할 수 있다.
-또한, P 즉 graph property 의 종류로 저자는 1) grith (length of shortest cycle), 2) circumference (length of longest cycle), 3) diameter (maximum distance between any pair of nodes in graph), 4) radius (minimum node eccentricity; eccentricity: eccentricity of u is maximum distrance from u to other node in graph), 5) conjoint cycle (two cycles that share an edge), 6) total number of cycles, 7) k-clique (a subgraph of at least k >=3 vertices s.t. each vertex in the subgraph is connected by edge to any other vertex in the subgraph).
+또한, P 즉 graph properties 의 종류로 저자는 다음과 같은 property 를 예시로 들었다.<br>
+1) grith (length of shortest cycle),<br>
+2) circumference (length of longest cycle),<br>
+3) diameter (maximum distance between any pair of nodes in graph),<br>
+4) radius (minimum node eccentricity; eccentricity: eccentricity of u is maximum distrance from u to other node in graph)<br>
+5) conjoint cycle (two cycles that share an edge)<br>
+6) total number of cycles<br>
+7) k-clique (a subgraph of at least k >=3 vertices s.t. each vertex in the subgraph is connected by edge to any other vertex in the subgraph).
 
 ## Representation limits of GNNs
 #### Limitation of LU-GNNs
