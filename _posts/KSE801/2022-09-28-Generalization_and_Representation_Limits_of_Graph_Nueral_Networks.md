@@ -86,10 +86,13 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 - 각 node 는 각자의 embedding 을 사용하여 각자의 binary prediction 을 진행한다.
 - Graph classification 에서는 node 들 각자의 binary prediction 에서로부터 majority 를 취하여 graph label 로 사용하게 된다. (average readout 때문)
 
-#### Rademacher complexity
+#### Empirical Risk & Rademacher Complexity
 이전의 연구에서 GNNs 의 bound 에 관하여 진행된 연구가 있다. 해당 연구는 empirical risk ($$\hat{R}$$)를 사용하여, bound 를 계산하였다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/formula_7.png"></p>
-여기서 y 는 0과 1 의 binary value 를 가진다.
+여기서 y 는 0과 1 의 binary value 를 가진다.<br>
+위의 식을 바탕으로, 기존 연구에 따르면 다음과 같은 GNN 의 bound 를 구할 수 있게 된다.
+<p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_1.png"></p>
+하지만, Rademacher complexity 라고 불리는 ![rademacher]("/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png"#style=max-width:50px;vertical-align:middle; "rademacher") 입니다.
 
 #### Analyzing GNN generalization via trees
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Figure_5.png"></p>
