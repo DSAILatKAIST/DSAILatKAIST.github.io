@@ -95,7 +95,7 @@ Generalization ability 는 binary classification 에 집중하여 분석을 진�
 여기서 y 는 0과 1 의 binary value 를 가진다.<br>
 위의 식을 바탕으로, 기존 연구에 따르면 다음과 같은 GNN 의 bound 를 구할 수 있게 된다. 여기서, p 가 음수가 되는 확률이므로, population risk 의 bound (error bound) 를 의미하게 된다.
 <p align="center"><img src="/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/Lemma_1.png"></p>
-따라서, Rademacher complexity 라고 불리는 ![rademacher](/images/Generalization_and_Representational_Limits_of_Graph_Neural_Networks/letter_1.png#style=max-width:50px;vertical-align:middle; "rademacher") 의 bound 를 계산하여, GNNs 의 bound 를 계산할 수 있다. <br>
+따라서, Rademacher complexity 라고 불리는 $\hat{R}_{\mathcal{T}}(\mathcal{J}_{\gamma})$ 의 bound 를 계산하여, GNNs 의 bound 를 계산할 수 있다. <br>
 하지만, Graph 의 Rademacher complexity 를 직접 구할 수 없기에, 저자는 GNN 을 tree 형태로 표현하며 tree의 Rademacher complexity 로 Graph 의 Rademacher complexity 를 bound 할 수 있음을 보였다.
 
 #### Analyzing GNN generalization via trees
