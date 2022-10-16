@@ -108,11 +108,26 @@ $$
 $$  
 
 $$
-\text{ s.t. }  \phi_{2}^{*} = \arg\max_{\phi_ {2}}\mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) 
+\text{ s.t. }  \phi_{2}^{*} = \arg\max_{\phi_ {2}}\mathcal{L}_ {\mathrm{Cancel changesMI}}(\phi_{2},\mathcal{G}_ {sub}) 
 $$  
 
 
 먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킵니다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
+
+> **Subgraph Generator**  
+
+입력 그래프 $\mathcal{G}$에 대해 노드가 $\mathcal{G}_ {sub}$나  $\overline{\mathcal{G}}_ {sub}$ 중 어디에 속할지 나타내는 노드 할당 행렬  $\textbf{S}$를 생성하여 subgraph를 발생시킵니다. 그런 다음 $\mathcal{G}_ {sub}$ 또는  $\overline{\mathcal{G}}_ {sub}$에 속할 확률을 
+예를 들어, $S$의 i번째 행은 2차원 벡터 $\textbf{[} p(V_{i}\in \mathcal{G}_ {sub}|V_{i}), p(V_{i} \in \overline{\mathcal{G}}_ {sub}|V_{i})\textbf{]}$로 구성됩니다. $l$개의 layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 노드 할당 행렬 $\textbf{S}$를 도출하기 위해서 MLP를 사용합니다하게 됩니다. 
+
+
+하위 그래프 생성기: 입력 그래프 G에 대해 노드가 Gsub 또는 Gsub에 있음을 나타내는 노드 할당 S를 사용하여 IB 하위 그래프를 생성합니다. 그런 다음 Gsub 또는 Gsub에 속하는 노드의 확률을 사용하여 노드 할당에 연속 완화를 도입합니다. 예를 들어, S의 i번째 행은 2차원 벡터 $\textbf{[} p(Vi 2 GsubjVi); p(Vi2GsubjVi)\textbf{]}$로 구성됩니다. $l$개의 layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 노드 할당 행렬 S를 도출하기 위해서 MLP를 사용합니다하게 됩니다. 
+
+S는 n 2 행렬이며, 여기서 n은 노드 수입니다. 단순화를 위해 위의 모듈을 := ( 1; 2)와 함께 g(; )로 표시된 하위 그래프 생성기로 컴파일합니다. S가 잘 학습되면 노드 할당은 0/1로 포화되어야 합니다. 그래프 레이블을 예측하는 데 사용되는 Gsub의 표현은 STX1의 첫 번째 행을 취하여 얻을 수 있습니다.
+연결 손실: 그러나 잘못된 초기화로 인해 p(Vi 2 GsubjVi) 및 p(Vi 2 GsubjVi)가 닫힙니다. 이렇게 하면 모델이 모든 노드를 Gsub/Gsub에 할당하거나 Gsub 표현에 중복 노드의 많은 정보가 포함됩니다. 이 두 가지 시나리오는 훈련 과정을 불안정하게 만듭니다. 반면에 S는 노드 수준에서 하위 그래프를 출력하는 동안 토폴로지 정보를 더 잘 활용하기 위해 우리 모델이 귀납적 편향을 가지고 있다고 가정합니다. 따라서 다음과 같은 연결 손실을 제안합니다.
+
+
+
+
 
 
 ## 4. Experiment  
