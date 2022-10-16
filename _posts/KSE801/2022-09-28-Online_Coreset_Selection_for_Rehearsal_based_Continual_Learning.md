@@ -249,9 +249,11 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 
 ## **6. Reference & Additional materials**  
 
-Please write the reference. If paper provides the public code or other materials, refer them.  
 
-* Github Implementation  
-* Reference  
+#### 6.1 Github Implementation  
+* https://github.com/jaehong31/OCS
 
+#### 6.2 Reference 
+* Yoon, Madaan, Yang, Hwang. "Online Coreset Selection for Rehearsal-based Continual Learning."
+* Yoon, Yang, Lee, Hwang. "Lifelong Learning with Dynamically Expandable Networks."
 
