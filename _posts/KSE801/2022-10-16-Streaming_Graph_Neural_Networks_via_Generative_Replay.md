@@ -53,7 +53,7 @@ $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에
 ### Message Passing
 * Node-based message passing
 초기 message passing은 node를 기반으로 했으며 다음의 과정을 반복해서 학습했습니다.
-$$m_{v}^{i}=A(\{s_{u}^{i}\}_{u \in N(v)})$$
+$$m_{v}^{i}=A(\{s_{u}^{i}\}_ {u \in N(v)})$$
 
 $$s_{v}^{i+1}=U(s_{v}^{i},m_{v}^{i})$$
 
@@ -68,7 +68,7 @@ $N(v)$: node v에 인접한 모든 node
 * Relational message passing
 위의 문제를 해결하기 위해 edge에 message passing을 적용한 방법이 제안되었습니다.
 이를 message passing이라고 하며, 학습 과정은 다음과 같습니다.
-$$m_{e}^{i}=A(\{s_{e'}^{i}\}_{e' \in N(e)})$$
+$$m_{e}^{i}=A(\{s_{e'}^{i}\}_ {e' \in N(e)})$$
 
 $$s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$$ 
 
@@ -97,7 +97,7 @@ $P_{h \rightarrow t}$: entity h에서 t로 가는 path의 집합
 
 ### Alternate relational message passing
 학습 과정은 다음과 같습니다.
-$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_{e \in N(v)})$$	
+$$m_{v}^{i}=A_{1}(\{s_{e}^{i}\}_ {e \in N(v)})$$	
 
 $$m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), \: v, u \in N(e)$$
 
@@ -115,7 +115,7 @@ relational message passing에서는 인접한 모든 relation의 message를 결�
 ### Relational Context
 `Relational Context`는 entity에 연결되어 있는 모든 relation의 집합을 의미합니다. 
 예시는 다음과 같습니다.
-<p align="center"><img src="images/PATHCON/Relational_Context"></p>
+<p align="center"><img src="images/PATHCON/Relational_Context.png"></p>
 Ron Weasley와 Hedwig가 Harry Potter의 애완동물인지 예측하는 문제를 생각해봅시다. 
 두 Entity는 Harry Potter로 가는 경로가 같으나, 인접한 relation이 'Brother of', 'Bought'로 다릅니다. 
 따라서 Ron Weasley와 Hedwig은 서로 다른 relational context를 가집니다. 
@@ -136,7 +136,7 @@ $$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \
 ### Relational Paths
 `Relational Path`는 entity에서 entity로 갈때 거치는 relation의 sequence입니다.
 예시는 다음과 같습니다.
-<p align="center"><img src="/images/PATHCON/Relational_Path"></p>
+<p align="center"><img src="/images/PATHCON/Relational_Path.png"></p>
 Hermione Granger와 Draco Malfoy가 Harry Potter와 같은 relation을 갖는지 알아봅시다. 
 두 Entity는 동일한 relational context를 가집니다. 그러나 Harry Potter를 tail entity로 하는 relational path는 서로 다릅니다. Hermione Granger와 Harry Potter의 House relation은 tail entity가 Gryffindor이나, Draco Malfoy Slytherin입니다.
 따라서 Hermione Granger와 Draco Malfoy는 Harry Potter와 서로 다른 relation을 갖는다고 생각할 수 있습니다.
