@@ -17,7 +17,7 @@ description : Wang, Hongwei et al. / Relational Message Passing for Knowledge Gr
 
 지식 그래프는 `Entity`와 `Relation`으로 지식 구조를 그래프로 표현한 것입니다. Entity가 그래프에서 node, Relation이 edge의 역할을 합니다. 일반적으로 지식 그래프는 불완전하므로, 지식 그래프가 주어졌을 때 **missing relation**을 예측해 완전하게 만드는 것이 목표입니다. 
 
-<p align="center"><img src="/images/PATHCON/Figure.png"></p>
+<p align="center"><img src="/images/PATHCON/Figure.png" width="600" height="400"></p>
 구체적으로 정의하면, entity pair $(h, t)$가 주어졌을 때 두 entity의 relation인 $r$의 분포를 모델링합니다.  베이즈 정리에 의해 다음과 같이 나타낼 수 있습니다.
 $$p(r|h,t) \propto p(h,t|r) \cdot p(r)$$
 2번째 항은 prior distribution이므로, 실질적으로 첫번째 항을 모델링합니다.
@@ -158,7 +158,7 @@ PATHCON에서는  각  경로에  embedding vector를  할당합니다. 이렇�
 PATHCON의 모델 학습 과정은 다음과 같습니다.
 1. head, tail entity의 최종 정보를 통해 entity 쌍$(h,t)$의 context representation을 구합니다.
 	이때 실제 relation $r$은 예측 대상이므로, unobserved를 가정합니다.
-$$s_{(h,t)} = \sigma([m_{h}^{K-1},m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$$
+$$s_{(h,t)} = \sigma([m_{h}^{K-1}, m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$$
 2. relational context representation이 포함된 Attention weight을 계산합니다.
 $$\alpha_{P}= \frac{exp((s_{P})^{\top} s_{(h,t)})}{\sum_{P \in P_{h \rightarrow t}} exp((s_{P})^{\top} s_{(h,t)})}$$
 3. path들의 중요도를 고려한 가중 평균을  구해  path의  representation을  얻습니다.
@@ -211,7 +211,7 @@ path에 embedding을  거치지 않고 바로 RNN을  적용해 표현을 학습
 
 * Dataset
 지식 그래프 Dataset인 FB15K, FB15K-237, WN18, WN18RR, NELL995, DDB14을 사용하였습니다. summary는 아래와 같습니다.
-<p align="center"><img src="/images/PATHCON/Table2.png"></p>
+<p align="center"><img src="/images/PATHCON/Table2.png" width="600" height="300"></p>
 각 Dataset의 Parameter의 수는 다음과 같습니다.
 <p align="center"><img src="/images/PATHCON/Table3.png"></p>
 * Baseline
