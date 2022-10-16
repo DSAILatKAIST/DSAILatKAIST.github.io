@@ -11,17 +11,18 @@ Online Coreset Selection for Rehearsal-based Continual Learning
 
 ## **1. Problem Definition**  
 
-Static한 graph setting에 맞춰져 있는 현재의 Graph Neural Networks (GNNs)는 현실의 상황과는 거리가 멀다.  
-* Sequence of tasks에 continuously 적용될 수 있는 GNN을 고안하는 것이 본 논문의 주된 목적이다. 
+Static한 setting에 맞춰져 있는 현재의 Learning process는 현실의 상황과는 거리가 멀다.  
+* Sequence of tasks에 continuously 적용될 수 있는 model 고안하는 것이 본 논문의 주된 목적이다. 
 * Continual Learning에서 발생하는 주된 문제인 catastrophic forgetting 문제도 보완한다.
+* 더욱 specific한 setting으로 imbalanced / noisy한 data 상황에서도 높은 accuracy와 적은 catastrophic forgetting을 목표한다.
 
 ## **2. Motivation**  
 
 
 ### 2.1 Continual Learning과 Catastrophic Forgetting
 
-Graph Neural Networks (GNNs)은 많은 관심을 받고 있는 연구 분야이며, 눈에 띌만한 성장세를 보이고 있다.
-현재까지의 GNN은 static한 graph setting에 초점이 맞춰져 개발되었다. 하지만 현실에서의 setting은 graph가 고정되어 있지 않고, 새로운 node와 edge 등이 끊임없이 추가된다. 이러한 상황에서 model은 정확성을 지속적으로 유지할 수 있어야 한다. 그렇다면 이러한 setting에서 새로운 task까지 잘 해내는 모델을 학습해야 한다면 어떻게 해야할까?
+Continual Learning은 많은 관심을 받고 있는 연구 분야이며, 눈에 띌만한 성장세를 보이고 있다.
+현재까지의 Learning Scenario는 static한 setting에 초점이 맞춰져 개발되었다. 하지만 현실에서의 setting은 dataset이 고정되어 있지 않고, 새로운 data / class 등이 끊임없이 추가된다. 이러한 상황에서 model은 정확성을 지속적으로 유지할 수 있어야 한다. 그렇다면 이러한 setting에서 새로운 task까지 잘 해내는 모델을 학습해야 한다면 어떻게 해야할까?
 
 당연히 모델을 retraining 시켜야한다. 
 모델을 retraining 시키기 위해 아래 두 가지 방법을 쉽게 떠올려 볼 수 있다.
@@ -42,11 +43,13 @@ Catastrophic forgetting은 neural network의 더욱 general한 problem인 "stabi
 
 ### 2.2 Limitation
 
-Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마 없다.  
-이는 몇가지 한계점이 존재하기 때문이다.  
-1. graph (non-Euclidean data) is not independent and identically distributed data.  
-2. graphs can be irregular, noisy and exhibit more complex relations among nodes.  
-3. apart from the node feature information, the topological structure in graph plays a crucial role in addressing graph-related tasks.
+1. Training instances are not equally useful!
+- Current task를 학습하는데 더 representative / informative한 data들이 있다.
+- 그렇지 않은 data를 쓸 경우 오히려 성능을 떨어뜨릴 가능성이 있다.
+
+2. Imbalanced / Noisy instances
+- Real-world에서는 data가 imbalanced / noisy한 경우가 있다.
+
 
 ### 2.3 Purpose
 
@@ -58,7 +61,8 @@ Graph domain에서는 continual learning에 대한 연구가 놀랍도록 얼마
 ### 2.4 Contributions
 
 * Class-imbalanced / noisy setting이 존재하는 continual scenario를 다루었다.
-* OCS (Online Coreset Selection)이라는 simple하지만 
+* OCS (Online Coreset Selection)이라는 simple하지만 effective한 방법론을 개발하였고, 이는 similarity (대표성) & diversity (overfitting 방지)를 함께 고려하여 replay시킬 data point를 select한다.
+* 다양한 세팅으로 이루어진 여러 실험을 통해 각 component와 제안한 model의 효과를 입증하였다.
 
 
 ## **3. Method**  
