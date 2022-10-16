@@ -53,9 +53,9 @@ $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에
 ### Message Passing
 * Node-based message passing
 초기 message passing은 node를 기반으로 했으며 다음의 과정을 반복해서 학습했습니다.
-$$m_{v}^{i}=A(\{s_{u}^{i}\}_ {u \in N(v)})$$
+$$m_{v}^{i}=A(\{s_{u}^{i}\}_ \{u \in N(v)\})$$
 
-$$s_{v}^{i+1}=U(s_{v}^{i},m_{v}^{i})$$
+$$s_{v}^{i+1}=U(s_{v}^{i}, m_{v}^{i})$$
 
 $s_{v}^{i}$: node v의 i번째 iteration에서의 hidden state
 $m_{v}^{i}$: node v가 i번째 iteration에서 받은 message
