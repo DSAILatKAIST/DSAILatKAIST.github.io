@@ -94,8 +94,11 @@ You should submit it to **gh-pages** branch.
 
 You can check the example review format on [Review Format](/pages/introduction/template.html) link but you don't have to follow this framework. 
 
-### **Mathematical Equation**  
-수학식을 작성 할 때는 ```$~$```가 아닌 ```$$~$$```을 통해서 작성할 수 있습니다.   
+### **Mathematical Equation (주의)**  
+수학식을 Inline으로 작성할 때는 ```$$~$$```을 사용하고
 
-When you write the mathematical equation, you can write it by ```$$~$$``` expression, not ```$~$```.
+display로 작성할 때는 ```$~$``` 를 사용해 주시기 바랍니다!
+
+When you write the mathematical equation in inline math mode, you can write it by ```$$~$$``` expression,  
+and if you write it in display math mode, you can write it by ```$~$``` expression.
 
