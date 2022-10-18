@@ -57,7 +57,12 @@ kramdown:
  auto_ids: true
  hard_wrap: false
  syntax_highlighter: rouge
-
+ 
+###############################
+# lsi: false
+# excerpt_separator: "\n\n"
+# incremental: false
+#  ################################
 # filter used to process markdown. note that kramdown differs from github-flavored markdown in some subtle ways
 
 collections:
