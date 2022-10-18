@@ -2,6 +2,8 @@
 title:  "[ICML 2020] Bayesian Graph Neural Networks with Adaptive Connection Sampling"
 permalink: Bayesian_Graph_Neural_Networks_with_Adaptive_Connection_Sampling.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 ### [Review] Bayesian Graph Neural Network with Adaptive Connection Sampling
@@ -15,8 +17,6 @@ tags: [reviews]
   1. 과적합 및 Over-smoothing 으로 인해 깊은 레이어층을 쌓았을 때 성능이 악화된다.
   
   2. 그래프 구조의 복잡성으로 인해 불확실성을 측정할 수 있는 Bayesian neural Network(이하 BNN) 적용에 어려움이 있다. 
-
-#### 
 
 #### 2. 연구 동기
 
@@ -32,9 +32,9 @@ tags: [reviews]
 
 - GNN의 정보를 포괄적으로 활용하며 일반화할 수 있는 BNN 적용 방법이 아직 없다.
   
-  - BNN는 불확실성을 1) 환경의 노이즈로 측정 향상을 통해 개선 가능한 aleatoric uncertainty (= P(D|H) : 우도)과 모델의 적합도로 데이터 확보를 통해 개선 가능한 Epistemic uncertainty( = P(H|D) : 사후 확률)을 학습할 수 있다. 이를 통해 예측 및 분류 결과의 불확실성을 측정할 수 있다.
+  - BNN는 불확실성을 1) 환경의 노이즈로 측정 향상을 통해 개선 가능한 aleatoric uncertainty (= P(D\|H) : 우도)과 모델의 적합도로 데이터 확보를 통해 개선 가능한 Epistemic uncertainty( = P(H\|D) : 사후 확률)을 학습할 수 있다. 이를 통해 예측 및 분류 결과의 불확실성을 측정할 수 있다.
   
-  - 하지만 BNN는 사후 확률 계산에 필요한 Evidence form($\int P(D|H) P(H) dH $) 을 계산하는 데 경사 하강 등의 방법을 사용할 수 없어 현실적으로 계산할 수 없다는 한계가 있다. 최근 Sampling 기반의 MCMC 방법을 통해 근사값을 계산할 수 있으면서 Convolution neural network(이하 CNN)에 BNN을 적용할 수 있었다(Gal & Ghahramani, 2015).
+  - 하지만 BNN는 사후 확률 계산에 필요한 Evidence form($$\int P(D\vert H) P(H) dH $$) 을 계산하는 데 경사 하강 등의 방법을 사용할 수 없어 현실적으로 계산할 수 없다는 한계가 있다. 최근 Sampling 기반의 MCMC 방법을 통해 근사값을 계산할 수 있으면서 Convolution neural network(이하 CNN)에 BNN을 적용할 수 있었다(Gal & Ghahramani, 2015).
   
   - GNN에서도 관측된 그래프를 임의의 랜덤 그래프 모델에서 파라미터를 바꾼 형태로 고려하여 불확실성을 학습한 연구가 있다(Zhang et al. 2019). 하지만 이 방식은 막대한 계산양 뿐만 아니라 어떤 랜덤 그래프 모델을 설정하는 가가 성능에 큰 영향을 미쳐, 다른 문제에 동일하게 적용할 수 없다는 문제가 있다. 또한 불확실성을 학습함에 있어서 그래프의 노드를 무시하고, 그래프의 위상만 고려했다는 한계가 있다.
   
@@ -114,7 +114,7 @@ tags: [reviews]
      
      - GDC를 통한 Sampling은 GNN 모델의 Message passing과 동일하기 때문에, GDC는 BNN의 evidence form 인 $q_\theta(w)$ 을 근사하는 것으로 볼 수 있다.  
        
-       >  $w = \{w_e\}_{e=1}^{|\varepsilon|}$ where $w_e = \{ W_e^{(l)}\}_{l=1}^L$ is the set of random wights for th $e_{th}$ egde, $|\varepsilon|$ is the number of edges of input
+       >  $$w = \{w_e\}_{e=1}^{\vert \varepsilon \vert}$$ where $$w_e = \{ W_e^{(l)}\}_{l=1}^L$$ is the set of random wights for $$e_{th}$$ egde, $$\vert \varepsilon \vert$$ is the number of edges of input
        > 
        > $\theta$ : set of variational parameter. $\theta_l = \{ M^{(l)}, \pi_l\}$
        > 
@@ -124,17 +124,17 @@ tags: [reviews]
    
    - 이때, Variational distribution인 $q_\theta(w)$가 본래 분포인 $p(w)$ 에서 많이 벗어나지 않도록 Kullback-Leibler(이하 KL) divergence를 추후 Variational inference 간 규제항으로 삼는다. 
      
-     > KL divergence : $KL(q_{\theta_l}(W_e^{(l)}) || p(W_e^{(l)}))$ 
+     > KL divergence : $$KL(q_{\theta_l}(W_e^{(l)}) \| p(W_e^{(l)}))$$
      > 
-     > let $q_{\theta_l}(W_e^{l}) = \pi_l \delta(W_e^{(l)} -0) + (1- \pi_l)\delta(W_e^{(l)} - M^{(l)})$
+     > let $$q_{\theta_l}(W_e^{l}) = \pi_l \delta(W_e^{(l)} -0) + (1- \pi_l)\delta(W_e^{(l)} - M^{(l)})$$
      > 
-     > > $\delta$ : dirac delta function 
+     > > $$\delta$$ : dirac delta function 
      
      > 이때, 사전 분포를 discrete quantisd Gaussian 분포라고 가정한다. 
      > 
      > - 각 층별 분포를 independent하다고 가정했기 때문에 Factorize를 통해 $q_\theta(W)$ 와 $p(W)$의 계산을 쉽게 할 수 있다. 
      >   
-     >   > $KL(q_{\theta})(w || p(w)$ =$\sum_{l=1}^L\sum_{e=1}^{|\varepsilon|} KL(q_{\theta_l}(W_e^{(l)}) || p(W_e^{(l)}))$
+     >   > $KL(q_{\theta})(w \vert \vert p(w)$ =$\sum_{l=1}^L\sum_{e=1}^{\vert \varepsilon \vert} KL(q_{\theta_l}(W_e^{(l)}) \vert \vert p(W_e^{(l)}))$
      >   > 
      >   > ![](../../images/Bayesian_Graph_Neural_Network_with_Adaptive_Connection_Sampling/8.png)
      >   > 
@@ -178,13 +178,13 @@ tags: [reviews]
    
    - Hierarchical beta-Bernoulli GDC 계산을 위한 방법으로 Gibbs sampling이 있지만, 큰 데이터 셋에 적용하기엔 계산양이 많다. 따라서 이 연구에서 GDC 가 학습가능하도록 효과적인 Variational inference algorithm을 제안하겠다. 
      
-     - Variational distribution을 $q(Z^{(l)}, \pi_l) = q(Z^{(l)}|\pi_l) q(\pi_l)$ 으로 정의한다.
+     - Variational distribution을 $$q(Z^{(l)}, \pi_l) = q(Z^{(l)} \vert \pi_l) q(\pi_l)$$ 으로 정의한다.
        
        > $q(\pi_l) : q(\pi_l; a_l, b_l) = a_lb_l\pi_l^{a_l-1}(1-\pi_l^{a_l})^{b_l-1} s.t. a_l, b_l > 0$
        > 
        > $l$ 층의 beta 분포를 대체하기 위해 Kumaraswamy distribution로 가정
      
-     - 앞서 dicrete quantised Gaussian 분포로 가정했기 때문에 각 egde가 독립이다. 따라서 $q(Z^{(l)}|\pi_l) = \prod_{e=1}^{|\varepsilon|}q(z_e^{(l)}|\pi_l)$로 표현할 수 있다. 
+     - 앞서 dicrete quantised Gaussian 분포로 가정했기 때문에 각 egde가 독립이다. 따라서 $$q(Z^{(l)} \vert \pi_l) = \prod_{e=1}^{\vert \varepsilon \vert}q(z_e^{(l)} \vert \pi_l)$$로 표현할 수 있다. 
      
      - 정의한 $\pi_l$에 대한 Bernoulli distribution을 KL-term 및 Loss함수에 적용한다. 
      

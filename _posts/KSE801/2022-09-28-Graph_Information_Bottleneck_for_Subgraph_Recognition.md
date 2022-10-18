@@ -2,6 +2,8 @@
 title:  "[ICLR 2020] Graph Information Bottleneck for Subgraph Recognition"
 permalink: Graph_Information_Bottleneck_for_Subgraph_Recognition.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # Graph Information Bottleneck for Subgraph Recognition
@@ -28,9 +30,9 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
   
 논문에서 제안한 방법론을 이해하기 위해서 몇 가지 `Notation`과 `GCN`의 개념을 소개하겠습니다.
 
-$N$개의 그래프로 구성된 집합 $\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$에서 $\\mathcal{G}_ n$은 n번째 그래프를 나타내고, $Y_n$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
-$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$에서 해당 그래프는 속하는 노드 집합 $\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$, edge 집합 $\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$, 인접행렬 $A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$, feature 행렬 $X\in \mathbb{R}^{ M_n\times d}$로 구성되어 있습니다.   
-$\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}}_ {sub}$는 $\mathcal{G}_ {sub}$를 제외한 나머지 부분을 의미합니다. $f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $\mathbb{G}$는 input graph의 도메인입니다. 
+$N$개의 그래프로 구성된 집합 $$\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$$에서 $$\\mathcal{G}_ n$$은 n번째 그래프를 나타내고, $$Y_n$$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
+$$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$$에서 해당 그래프는 속하는 노드 집합 $$\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$$, edge 집합 $$\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$$, 인접행렬 $$A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$$, feature 행렬 $$X\in \mathbb{R}^{ M_n\times d}$$로 구성되어 있습니다.   
+$$\mathcal{G}_ {sub}$$는 특정 subgraph를 나타내고,  $$\overline{\mathcal{G}}_ {sub}$$는 $$\mathcal{G}_ {sub}$$를 제외한 나머지 부분을 의미합니다. $$f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $$는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $$\mathbb{G}$$는 input graph의 도메인입니다. 
 
 <br/> <br/>
 
@@ -38,13 +40,13 @@ $\mathcal{G}_ {sub}$는 특정 subgraph를 나타내고,  $\overline{\mathcal{G}
   
 Graph Convolutional network(GCN)은 그래프 분류 작업에 널리 사용됩니다. node feature $X$와 인접행렬 $A$를 가지는 그래프 $\mathcal{G} = (\mathbb{V},\mathbb{E})$ 를 가정할 때, GCN은 다음의 과정을 통해 노드 임베딩 $X^{'}$을 도출합니다.
 
-$$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hat{A}D^{-\frac{1}{2}}W) $$
+$ X^{'} = \mathrm{GCN}(A,X;W) = \mathrm{ReLU}(D^{-\frac{1}{2}}\hat{A}D^{-\frac{1}{2}}W) $
 
 여기서 $D$는 노드의 차수를 담은 대각 행렬이고, $W$는 모델 파라미터를 의미합니다.
 
 최근에는 그래프의 계층적 구조를 활용하여 다양한 graph pooling 방법을 시도하고 있습니다. 결과에 영향을 미치는 서로 다른 노드의 중요성을 활용하기 위해 self-attention 메커니즘을 통해 graph pooling 방식을 향상시킵니다. 마지막으로, 그래프 임베딩 $E$은 앞에서 얻은 노드 임베딩 $X^{'}$에 normalize된 attention score를 곱하여 얻을 수 있습니다.
 
-$$ E = \mathrm{Att}(X^{'}) =\mathrm{ softmax}(\Phi_{2}\mathrm{tanh}(\Phi_{1} X^{'T})) X^{'} $$
+$ E = \mathrm{Att}(X^{'}) =\mathrm{ softmax}(\Phi_{2}\mathrm{tanh}(\Phi_{1} X^{'T})) X^{'} $
 
 여기서 $\Phi_{1}$와 $\Phi_{1}$은 self-attention의 모델 파라미터입니다.
 
@@ -58,11 +60,11 @@ $$ E = \mathrm{Att}(X^{'}) =\mathrm{ softmax}(\Phi_{2}\mathrm{tanh}(\Phi_{1} X^{
 Information Bottleneck 현상의 원리를 일반화하여 불규칙하고 복합적인 그래프의 정보 표현을 학습하며, 이를 통해 그래프 정보 병목 현상(GIB)을 도출합니다.  
 그래프 $\mathcal{G}$와 레이블 $Y$가 있을 때, GIB는 가장 유용하지만 압축된 representation $Z$를 탐색합니다. 탐색 과정은 아래와 같습니다. 
 
-$$ \max_{Z}{I(Y,Z)}  \text{ s.t. } I(\mathcal{G} ,Z) \leq I_{c} $$
+$ \max_{Z}{I(Y,Z)}  \text{ s.t. } I(\mathcal{G} ,Z) \leq I_{c} $
 
 여기서 $I_c$는 $\mathcal{G}$와 $Z$ 사이의 정보량의 제한을 나타내기 위해 사용됩니다. 즉, 압축된 형태로 나타내는 것을 목적으로 하기 때문에 $\mathcal{G}$와 $Z$ 사이의 Mutual Information을 최소화하는 방식으로 최적화가 진행됩니다. 여기에서 Lagrange multiplier $\beta$를 도입하여, 제약 조건을 제거합니다.
 
-$$ \max_{Z}{ I(Y,Z) - \beta I(\mathcal{G},Z) } $$
+$ \max_{Z}{ I(Y,Z) - \beta I(\mathcal{G},Z) } $
 
 위의 식은 Graph Information Bottleneck의 핵심 과정을 나타냅니다. 여기서, subgraph 인식에서는 그래프 속성 측면에서 중요한 정보 손실을 최소화하면서 정보를 최대한 압축하는데에 집중하고 있습니다. 왼쪽의 항은 `prediction`과 관련된 항이고, 오른쪽의 항은 `compression`과 관련된 항입니다.
 최종적으로 도출된 핵심 subgraph(IB-subgraph)는 유용하면서도 최소한의 그래프를 담아야 하고, 그 결과는 다음과 같이 표현될 수 있습니다.  
@@ -76,23 +78,28 @@ $$ \max_{\mathcal{G}_ {sub}\in \mathbb{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta I
 * Maximization of $I(Y,\mathcal{G}_ {sub})$  
 위의 GIB 목적함수는 2개의 부분으로 구성됩니다. 먼저 식의 첫 번째 항 $I(Y,\mathcal{G}_ {sub})$를 살펴봅니다. 이 항은 $\mathcal{G}_ {sub}$ 와 $Y$ 간의 연관성을 측정하는 부분입니다. 다시 말해, 타겟 레이블인 $Y$와 $\mathcal{G}_ {sub}$ 간의 mutual information을 최대화함으로써 $\mathcal{G}_ {sub}$가 $Y$에 관한 정보를 최대한 보존하도록 하고 있습니다. $I(Y; \mathcal{G}_ {sub})$는 다음과 같이 확장할 수 있습니다.  
 
-$$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{{p(y|\mathcal{G}_ {sub})}} dy d \mathcal{G}_ {sub} + \mathrm{H}(Y)  $$  
+$ I(Y,\mathcal{G}) = \int p(y,\mathcal{G}_ {sub}) \log{p(y \vert\mathcal{G}_ {sub})} dy d \mathcal{G}_ {sub} + \mathrm{H}(Y)  $  
 
 $H(Y)$는 $Y$의 엔트로피으로 고정된 값이므로 무시합니다. 또한 
 $$p(y,\mathcal{G}_ {sub}) \approx \frac{1}{N} \sum_{i=1}^{N} \delta_ {y_ i}(y) \delta_ {\mathcal{G}_ {sub, i}}(\mathcal{G}_ {sub})$$와 같이 
-$p(y,\mathcal{G}_ {sub})$를 근사할 수 있습니다. 여기서 $\mathcal{G}_ {sub}$는 출력 하위 그래프이고 $Y$는 그래프 레이블입니다. 실제 사후 확률 $p(y|\mathcal{G}_ {sub})$를 variational approximation $q_{\phi_{1}}(y|\mathcal{G}_ {sub})$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 다음과 같이 얻을 수 있습니다.  
+$p(y,\mathcal{G}_ {sub})$를 근사할 수 있습니다. 여기서 $$\mathcal{G}_ {sub}$$는 출력 하위 그래프이고 $$Y$$는 그래프 레이블입니다. 실제 사후 확률 $$p(y|\mathcal{G}_ {sub})$$를 variational approximation $$q_{\phi_{1}}(y|\mathcal{G}_ {sub})$$으로 대체함으로써, 우리는 위의 식에서 첫 번째 항의 tractable한 최소값을 다음과 같이 얻을 수 있습니다.  
 
-$$ I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{{q_{\phi_{1}}(y|\mathcal{G}_ {sub})}} dy \ d\mathcal{G}_ {sub} \\
-\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt}) $$
+$ 
+I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y|\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub} \\
+\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt}) 
+$
 
-여기서 $y_{gt}$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 $I(Y;\mathcal{G}_ {sub})$를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
+
+여기서 $$y_{gt}$$는 그래프의 groundtruth 레이블입니다. 위의 식은 Y와 Gsub 사이의 classification loss를 $\mathcal{L}_ {cls}$로 최소화함으로써 $I(Y;\mathcal{G}_ {sub})$를 최대화한다는 것을 나타냅니다. 직관적으로 살펴보아도 $\mathcal{L}_ {cls}$를 최소화하여 분류 정확도를 높인다면, subgraph가 그래프 레이블을 정확하게 예측할 수 있다는 것을 의미합니다. 실제로 classification $Y$에 대해서는 cross entropy loss를 사용하고, regression Y에 대해서는 mean square error(MSE)를 선택합니다.
 
 <br/> <br/>
 *  Minimization of $I(\mathcal{G},\mathcal{G}_ {sub})$   
 이제 두 번째 항 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대해서 알아보겠습니다. 이는 기존의 입력 그래프 $\mathcal{G}$와 subgraph $\mathcal{G}_ {sub}$ 간의 mutual information을 최소화함으로써, $\mathcal{G}_ {sub}$이 $\mathcal{G}$의 관한 정보를 너무 많이 포함하지 않도록 합니다. 이는 $\mathcal{G}_ {sub}$에 prediction의 정확도를 높이기 위해 너무 많은 정보 만을 담고 있으면, subgraph를 인식하는 작업에 대해 무의미해지기 때문에, 어느 정도 샘플링을 통해서 적절한 subgraph를 추출하는 작업이 필수적이라고 할 수 있습니다.     
 최적화 과정을 진행하기 위해 KL-divergence의 Donsker-Varadhan representation을 적용함으로써,  $I(\mathcal{G},\mathcal{G}_ {sub})$을 다음과 같이 나타낼 수 있습니다.  
 
-$$I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times \mathbb{G} \rightarrow \mathbb{R}} \mathbb{E}_ {\mathcal{G},\mathcal{G}_ {sub}\in p(\mathcal{G},\mathcal{G}_ {sub})}f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})-\log{\mathbb{E}_ {\mathcal{G} \in p(\mathcal{G}),\mathcal{G}_ {sub}\in p(\mathcal{G}_ {sub})}e^{f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})}}$$
+$
+I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times \mathbb{G} \rightarrow \mathbb{R}} \mathbb{E}_ {\mathcal{G},\mathcal{G}_ {sub}\in p(\mathcal{G},\mathcal{G}_ {sub})}f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})-\log{\mathbb{E}_ {\mathcal{G} \in p(\mathcal{G}),\mathcal{G}_ {sub}\in p(\mathcal{G}_ {sub})}e^{f_{\phi_{2}}(\mathcal{G},\mathcal{G}_ {sub})}}
+$
 
 여기서 $f_{\phi_{2}}$는 앞에서 말씀드렸다시피 그래프 집합에서 실수 집합으로 매핑되는 네트워크입니다. 이 식의 유도 과정에 집중하기보다는 결과 해석과 모델 설계 방향에 대해 말씀드리고자 합니다.  
 앞서 나온 식을 바탕으로 설계된 모델의 아키텍처는 다음과 같습니다.
@@ -101,20 +108,22 @@ $$I(\mathcal{G},\mathcal{G}_ {sub}) = \sup \limits_{f_{\phi_2}:\mathbb{G} \times
 
 먼저 GNN을 사용하여 $\mathcal{G}$와 $\mathcal{G}_ sub$ 로부터 임베딩을 추출하고, $\mathcal{G}$와 $\mathcal{G}$ 임베딩을 concat시켜서, MLP의 입력으로 설정합니다. 그 결과 output은 subgraph $\mathcal{G}$와 나머지 부분 $\overline{\mathcal{G}}_ {sub}$에 해당하는지의 여부를 결정하는 노드 할당 행렬을 도출하게 됩니다. $p(\mathcal{G}_ {sub})$에 대한 샘플링 방법과 함께 $I(Y,\mathcal{G}_ {sub})$에 대한 다음과 같은 최적화 문제에 도달하게 됩니다.   
   
-$$\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \frac{1}{N}\sum_ {i=1}^{N}f_{\phi_{2}}(\mathcal{G}_ {i},\mathcal{G}_ {sub,i})-\log{\frac{1}{N}\sum_{i=1,j\neq i}^{N}e^{f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,j})}}$$  
+$
+\max_{\phi_{2}} \mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) =  \frac{1}{N}\sum_ {i=1}^{N}f_{\phi_{2}}(\mathcal{G}_ {i},\mathcal{G}_ {sub,i})-\log{\frac{1}{N}\sum_{i=1,j\neq i}^{N}e^{f_{\phi_{2}}(\\mathcal{G}_ {i},\mathcal{G}_ {sub,j})}}
+$  
   
 그래프 데이터의 Mutual Information 근사과정을 통해서 $I(Y,\mathcal{G}_ {sub})$의 최대화 과정과 $I(\mathcal{G},\mathcal{G}_ {sub})$의 최소화 과정을 결합하여 최종적으로 다음과 같은 최적화 과정을 설계할 수 있습니다.  inner loop에서는 IB-subgraph를 통해 나온 임베딩을 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$를 최소화하는 과정을 거칩니다. $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 추정이 이루어지면, outer loop에서 mutual information, classification loss, connectivity loss를 사용하여 GIB의 목적함수를 최적화합니다.
 
-$$
+$
 \min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {MI}(\phi_ {2}^{* },\mathcal{G}_ {sub}) 
-$$  
+$ 
 
-$$
+$
 \text{ s.t. }  \phi_{2}^{*} = \arg\max_ {\phi_ {2}}\mathcal{L}_ {\mathrm{MI}}(\phi_{2},\mathcal{G}_ {sub}) 
-$$  
+$ 
 
 
-먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $I(\mathcal{G},\mathcal{G}_ {sub})$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킵니다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
+먼저 inner loop에서 $\phi_{2}$를 $\phi_{2}^{* }$로 최적화하고, 이후에 outer loop에서 $\phi_{2}^{* }$를 활용하여 $$I(\mathcal{G},\mathcal{G}_ {sub})$$에 대한 minimization 작업을 진행하고 classification loss $\mathcal{L}_ {cls}$를 기반으로 $Y$와 $\mathcal{G}$간의 mutual information을 최대화시킵니다. 이 과정에서 $\phi_{1}$과 $\mathcal{G}_ {sub}$가 IB-subgraph를 생성하도록 최적화하게 됩니다.
 
 <br/> <br/>
 > **Subgraph Generator**  
@@ -122,8 +131,10 @@ $$
 입력 그래프 $\mathcal{G}$에 대해 노드가 $\mathcal{G}_ {sub}$나  $\overline{\mathcal{G}}_ {sub}$ 중 어디에 속할지 나타내는 노드 할당 행렬  $\textbf{S}$를 생성하여 subgraph를 발생시킵니다. 그런 다음 $\mathcal{G}_ {sub}$ 또는  $\overline{\mathcal{G}}_ {sub}$에 속할 확률을 
 예를 들어, $\textbf{S}$의 i번째 행은 2차원 벡터 $\textbf{[} p(V_{i}\in \mathcal{G}_ {sub}|V_{i}), p(V_{i} \in \overline{\mathcal{G}}_ {sub}|V_{i})\textbf{]}$로 구성됩니다. $l$- layer GNN을 사용하여 각각의 노드 임베딩을 얻는데, 그림에서 각 노드의 임베딩이 파란색과 초록색으로 구성되어 있습니다. 이후에 '노드 할당 행렬 $\textbf{S}$'를 도출하기 위해서 MLP를 사용합니다. 따라서 `subgraph generator`의 작동 알고리즘은 아래와 같습니다.
 
-$$ X^{l} = \mathrm{GNN}(A,X^{l-1};\theta_{1}), \quad 
-S = \mathrm{MLP}(X^{l};\theta_{2})$$
+$
+X^{l} = \mathrm{GNN}(A,X^{l-1};\theta_{1}), \quad 
+S = \mathrm{MLP}(X^{l};\theta_{2})
+$
 
 $\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니다. $\textbf{S}$가 학습되면, 노드 할당 행렬의 구성요소가 0과 1로 구성되게 되고, 첫번째 열은 그래프 레이블을 예측하는데 사용되는 $\mathcal{G}_ {sub}$의 representation에 해당하는 초록색 노드 임베딩이고, 두번째 열은 그 나머지 부분 $\overline{\mathcal{G}}_ {sub}$의 representation에 해당하는 파란색 노드 임베딩입니다. 최종적으로 $\textbf{S}^{T}X^{l}$의 첫 번째 열을 가져옴으로써 $\mathcal{G}_ {sub}$의 임베딩을 얻을 수 있습니다.
 
@@ -132,17 +143,17 @@ $\textbf{S}$는 $n\times 2$ 행렬이고, 여기서 $n$은 노드의 수입니�
 
 위에서 살펴본 목적함수의 최적화 과정으로는 모델이 모든 노드를 $\mathcal{G}_ {sub}$나 $\overline{\mathcal{G}}_ {sub}$에 할당하거나, $\mathcal{G}_ {sub}$의 representation에 중복된 노드로부터 불필요한 정보를 포함할 수 있습니다. 이를 예방하기 위해서 `connectivity loss` $\mathcal{L}_ {con}$를 도입합니다.  
 
-$$ \mathcal{L}_ {con} = || \mathrm{Norm}(S^{T}AS)- I_2||_ F $$  
+$ \mathcal{L}_ {con} = \vert \vert \mathrm{Norm}(S^{T}AS)- I_2\vert \vert _ F $
 
-여기서 $\mathrm{Norm}$은 행방향의 normalization을 나타내고  $|| \cdot ||_ F$은 Frobenous norm을 나타내며, $I_2$는 $2\times 2$의 단위행렬을 나타냅니다. 이 식이 가지는 의미를 해석하기 위해서 예를 들어 설명하겠습니다. $S^{T}AS$의 (1,1)의 원소를 $a_11$, (1,2)의 원소를 $a_12$라고 할 때, 
+여기서 $$\mathrm{Norm}$$은 행방향의 normalization을 나타내고  $$\vert \vert \cdot \vert \vert_ F$$은 Frobenous norm을 나타내며, $I_2$는 $2\times 2$의 단위행렬을 나타냅니다. 이 식이 가지는 의미를 해석하기 위해서 예를 들어 설명하겠습니다. $S^{T}AS$의 (1,1)의 원소를 $a_11$, (1,2)의 원소를 $a_12$라고 할 때, 
 
-$$
+$
 a_{11} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \\mathcal{G}_ {sub}|V_{j}),
-$$
+$
 
-$$
+$
 a_{12} = \sum_{i,j} A_{ij}p(V_{i}\in \mathcal{G}_ {sub}|V_{i})p(V_{j}\in \overline{\mathcal{G}}_ {sub}|V_{j})
-$$
+$
 
 로 나타낼 수 있습니다. 즉, $\mathcal{G}$에 포함된 2개의 노드는 서로 연결되어야 한다는 것이고, $\mathcal{G}$에 포함된 노드와 $\overline{\mathcal{G}}$에 포함된 노드는 서로 연결되지 않아야 한다는 것입니다.  
 
@@ -150,13 +161,13 @@ $$
 
 결국 $\mathcal{L}_ {con}$을 반영한 최종적인 loss 함수는 아래와 같습니다.  
 
-$$
+$
 \min \limits_{\mathcal{G}_ {sub},\phi_ {1}} \mathcal{L}(\mathcal{G}_ {sub},\phi_{1},\phi_{2}^{* }) = \mathcal{L}_ {con}(g(\mathcal{G};\theta))  + \mathcal{L}_ {cls}(q_ {\phi_ {1}}(y|\mathcal{G}_ {sub}),y_ {gt}) + \beta \mathcal{L}_ {\rm MI}(\phi_ {2}^{* },\mathcal{G}_ {sub}) 
-$$  
+$
 
-$$
+$
 \text{ s.t. }  \phi_{2}^{*} = \arg\max_ {\phi_ {2}}\mathcal{L}_ {\mathrm{Cancel changesMI}}(\phi_{2},\mathcal{G}_ {sub}) 
-$$  
+$
 
 
 <br/> <br/>
@@ -226,7 +237,7 @@ Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 �
 
 
 <br/> <br/>
-***
+
 ## **Author Information**
 * Sangwoo Swo
   * Affiliation: [DSAIL@KAIST](http://dsail.kaist.ac.kr)

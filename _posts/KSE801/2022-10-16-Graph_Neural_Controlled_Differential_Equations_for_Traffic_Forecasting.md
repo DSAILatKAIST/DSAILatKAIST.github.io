@@ -43,11 +43,11 @@ They extend the concept and design two NCDEs: one for the temporal processing an
 
 ### 3.1 Main Process: graph+NCDE
 
-The pre-processing step in their method is to create a continuous path $X^{(v)}$ for each node $v \in \nu$(where $\nu$ is a fixed set of nodes). For this, they use the same technique as that in the original NCDE design. Given a discrete time-series $\{x_i\}_{i=0}^N$, the original NCDE runs an interpolation algorithm to build its continuous path. The authors apply the same method for each node separately, and a set of paths, denoted $\{X^{(v)}\}_{v=1}^{|\nu|}$(where $|\nu|$ is the number of locations to predict), will be created.
+The pre-processing step in their method is to create a continuous path $$X^{(v)}$$ for each node $v \in \nu$(where $$\nu$$ is a fixed set of nodes). For this, they use the same technique as that in the original NCDE design. Given a discrete time-series $$\lbrace x_i \rbrace_{i=0} ^N$$, the original NCDE runs an interpolation algorithm to build its continuous path. The authors apply the same method for each node separately, and a set of paths, denoted $$\{X^{(v)}\}_{v=1}^{\vert \nu \vert}$$(where $$\vert \nu \vert$$ is the number of locations to predict), will be created.
 
 ***Note: Each node in this graph generates a path, so a collection of paths is generated in the graph.***
 
-The main step is to jointly apply a spatial and a temporal processing method to $\{X^{(v)}\}_{v=1}^{|\nu|}$, considering its graph connectivity. The authors then derive the last hidden vector $z^{(v)}(T)$ for each node $v$ and there is the last output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$, which collectively constitutes $\hat{Y} \in \mathbb{R}^{|\nu| \times S \times M}$. 
+The main step is to jointly apply a spatial and a temporal processing method to $$\lbrace X^{(v)}\rbrace_{v=1}^{\vert \nu \vert}$$, considering its graph connectivity. The authors then derive the last hidden vector $z^{(v)}(T)$ for each node $v$ and there is the last output layer to predict $$\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$$, which collectively constitutes $$\hat{Y} \in \mathbb{R}^{\vert \nu \vert \times S \times M}$$. 
 
 ***Note: The path mentioned in the paper will control the final generated $z$***
 
@@ -59,9 +59,9 @@ In this paper, authors design a novel spatio-temporal model based on the NCDE an
 
 Their method includes one pre-processing and one main processing steps as follows: 
 
-1. Its pre-processing step is to create a continuous path $X^{(v)}$ for each node $v$, where $1 \leq v \leq |\nu|$, from $\{F_i^{(v)}\}_{i=0}^N$. $F_i^{(v)} \in \mathbb{R}^D$ means the $v$-th row of $F_i$, and $F_i^{(v)}$ stands for the time-series of the input features of $v$. 
+1. Its pre-processing step is to create a continuous path $X^{(v)}$ for each node $v$, where $1 \leq v \leq \vert \nu \vert$, from $\lbrace F_i^{(v)}\rbrace_{i=0}^N$. $F_i^{(v)} \in \mathbb{R}^D$ means the $v$-th row of $F_i$, and $F_i^{(v)}$ stands for the time-series of the input features of $v$. 
 2. The above pre-processing step happens before training their model. Then, their main step, which combines a GCN and an NCDE technologies, calculates the last hidden vector for each node $v$, denoted $z^{(v)}(T)$.
-3. After that, they have an output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$ for each node v. After collecting those predictions for all nodes in $\nu$, they have the prediction matrix $\hat{Y} \in \mathbb{R}^{|\nu| \times S \times M}$.
+3. After that, they have an output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$ for each node v. After collecting those predictions for all nodes in $\nu$, they have the prediction matrix $\hat{Y} \in \mathbb{R}^{\vert \nu \vert \times S \times M}$.
 
 #### 3.2.2 Graph neural controlled differential equations
 

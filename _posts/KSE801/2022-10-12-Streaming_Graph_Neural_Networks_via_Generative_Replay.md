@@ -1,7 +1,9 @@
 ---
-description: >-
-  Wang, Junshan et al./ Streaming Graph Neural Networks with Generative Replay /
-  KDD-2022
+title:  "[KDD 2022] Streaming Graph Neural Networks via Generative Replay"
+permalink: Streaming_Graph_Neural_Networks_via_Generative_Replay.html
+tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # Streaming Graph Neural Networks with Generative Replay
@@ -63,7 +65,7 @@ $$N$$개의 노드를 가진 그래프 $$\mathcal{G}= \lbrace \mathcal{V},\mathc
 
 $$l-th$$ hidden layer에서의 $$v_{i}$$의 hidden representation을 $$h_{i}^{(l)}$$ 이라고 할 때, 이 $$h_{i}^{(l)}$$는 다음과 같이 계산됩니다:
 
-$$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$$
+$h_{i}^{(l)} = \sigma(\sum_{j \subset \mathcal{N}(i)} \mathcal{A_{ij}}h_{j}^{(l-1)}W^{(l)})$
 
 이 때, $$\mathcal{N}(i)$$ 는 $$v_{i}$$의 neighbors를 의미하고, $$\sigma ( \bullet )$$는 activation function, $$W^{(l)}$$은 $$l-th$$ layer의 transform matrix를 나타냅니다.
 
@@ -71,13 +73,13 @@ $$h_{i}^{(0)}$$은 node $$v_{i}$$의 input feature를 나타내고, $$\mathcal{A
 
 본 논문에서는 다양한 `GNN`중 `GraphSAGE`라는 모델을 사용하는데, 이 `GraphSage`의 $$k$$번째 layer는 다음과 같이 정의됩니다:
 
-$$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^{k-1}, \forall u \in \mathcal{N}(v)\rbrace)$$
+$h_{v}^{k} = \sigma(W^k \cdot MEAN( \lbrace h_v^{k-1} \rbrace \cup \lbrace h_u^{k-1}, \forall u \in \mathcal{N}(v)\rbrace)$
 
 > **Problem Definition**
 
 Continual Learning setting에서, 데이터는 그래프의 형태를 띠고 연속적으로 들어옵니다. 이는 다음과 같이 표현이 가능합니다.
 
-$$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$ 
+$\mathcal{G} = (\mathcal{G}^1, \mathcal{G}^2, ..., \mathcal{G}^T)$$
 
 where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
@@ -103,7 +105,7 @@ where $$\mathcal{G^t} = \mathcal{G}^{t-1}+\Delta \mathcal{G}^t$$
 
 가장 먼저, Streaming GNN의 time $$t$$에서의 loss는 다음과 같습니다.
 
-$$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t) + \lambda \mathcal{R} (\theta^{t-1} ; \mathcal{G}_S^t)$$
+$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t) + \lambda \mathcal{R} (\theta^{t-1} ; \mathcal{G}_S^t)$
 
 우변의 첫 항은 incremental learning에 관한 것이고, 두 번째 항은 historical knowledge에 관한 것입니다. 
 
@@ -119,7 +121,7 @@ $$\mathcal{L}(\theta^t ; \mathcal{G}^t) = \mathcal{L}(\theta^t ; \mathcal{G}_A^t
 
 Main model의 loss function은 다음과 같습니다.
 
-$$\mathcal{L}_ {GNN} (\theta^t) = r \mathbf{E}_ {v \sim \mathcal{G}_ A^t } \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r) \mathbf{E}_ {v' \sim G_{\phi^{t-1}}} \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $$
+$\mathcal{L}_ {GNN} (\theta^t) = r \mathbf{E}_ {v \sim \mathcal{G}_ A^t } \[ l(F_{\theta^t}(\upsilon), y_{\upsilon} ) \] + (1-r) \mathbf{E}_ {v' \sim G_{\phi^{t-1}}} \[ l(F_{\theta^t}(\upsilon '), F_{\theta^{t-1}}(\upsilon ')\] $
 
 여기서 $$v$$는 changed node, $$v'$$는 replayed node입니다. 즉, 이 모델은 새로 들어온 node와 이전에 학습했던 node(replayed)를 동시에 학습합니다.
 
@@ -140,13 +142,13 @@ Current state $$m_ l$$은 neural network $$f$$로 계산됩니다.
 
 Generator의 update process는 다음과 같습니다.
 
-$$m_l = f(m_{l-1}, s_{l-1}),$$
+$m_l = f(m_{l-1}, s_{l-1}),$
 
-$$v_l = softmax(m_l \cdot W_{up,adj}),$$
+$v_l = softmax(m_l \cdot W_{up,adj}),$
 
-$$x_l = m_l \cdot W_{up,fea},$$
+$x_l = m_l \cdot W_{up,fea},$
 
-$$s_l = (v_l \oplus x_l) \cdot W_{down}$$
+$s_l = (v_l \oplus x_l) \cdot W_{down}$
 
 여기서 $$W_{up}, W_{down}$$은 차원을 맞춰주기 위한 projection matrix라고 생각하시면 됩니다. 
 
@@ -164,7 +166,7 @@ Changed node중에 **크게 변한 것들**이 있을 것이고, **유의미한 
 
 저자들은 아래와 같은 influenced degree를 정의하고 그 influence degree가 threshold $$\delta$$ 보다 크다면 affected node라고 취급합니다.
 
-$$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_{\theta^{t-1}} (v, \mathcal{G}^{t-1}) \rVert > \delta \rbrace$$
+$ \mathcal{V}_ C^t = \lbrace v \lVert F_ {\theta^{t-1}} (v, \mathcal{G}^t) - F_ {\theta^{t-1}} (v, \mathcal{G}^{t-1}) \rVert > \delta \rbrace$
 
 위 식을 해석해보면, 어떤 node $$v$$의 이전 그래프 $$\mathcal{G}^{t-1}$$에서의 representation와 현재 그래프 $$\mathcal{G}^t$$에서의 representation이 많이 차이난다면, 이 node는 이전 그래프에서 현재 그래프로 넘어오면서 영향을 받았다고 보는 겁니다. 꽤 직관적인 해석입니다.
 
@@ -172,11 +174,11 @@ $$ \mathcal{V}_ C^t = \lbrace v| \lVert F_{\theta^{t-1}} (v, \mathcal{G}^t) - F_
 
 추가로, 저자들은 간단한 filter를 추가해 generator가 생성한 node $$v_i$$가 affected node $$v_j$$와 **많이 비슷한 경우**, 패턴의 redundancy를 줄이기 위해 아래의 식처럼 필터링합니다.
 
-$$p_{reject} = max(p_{sim} (v_i, v_j) , j \subset \mathcal{V}_ C^t) \times p_r$$ 
+$p_{reject} = max(p_{sim} (v_i, v_j) , j \subset \mathcal{V}_ C^t) \times p_r$$
 
 여기서 $$p_r$$은 disappearacne rate로 사전에 정의하고, similarity는 다음과 같이 정의됩니다. 
 
-$$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}) - F_ {\theta^{t-1}}(v_j, \mathcal{G}^{t-1})  \rVert)$$ 
+$p_{sim} (v_i, v_j) = \sigma (- \lVert F_ {\theta^{t-1}}(v_i, \mathcal{G}^{t-1}) - F_ {\theta^{t-1}}(v_j, \mathcal{G}^{t-1})  \rVert)$
 
 이때 $$\sigma$$는 sigmoid function이고, 위 식도 직관적으로 두 node의 representation의 차이가 적으면 비슷하다고 보는 겁니다.
 

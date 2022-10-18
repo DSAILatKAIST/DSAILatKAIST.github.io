@@ -2,6 +2,8 @@
 title:  "[Recsys 2021] Quality Metrics in Recommender Systems: Do We Calculate Metrics Consistently?"
 permalink: Quality_Metrics_in_Recommender_Systems_Do_We_Calculate_Metrics_Consistently.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 
@@ -66,9 +68,9 @@ Test set으로는 최신의 20%를 가지도록 global timestamp split을 진행
     추천한 k개 item 중에 hit한 item의 비율
     ```
     
-    $$
+    $
     \text { Precision@k(u)=} \frac{\left|\operatorname{rel}(u) \cap \operatorname{rec}_{k}(u)\right|}{k}
-    $$
+    $
     
 - Recall
     
@@ -76,10 +78,9 @@ Test set으로는 최신의 20%를 가지도록 global timestamp split을 진행
     relevant item 중에 hit 한 item의 비율
     ```
     
-
-$$
-\text { Recall@k(u)=} \frac{\left|\operatorname{rel}(u) \cap \operatorname{rec}_{k}(u)\right|}{|\operatorname{rel}(u)|}
-$$
+    $
+    \text { Recall@k(u)=} \frac{\left|\operatorname{rel}(u) \cap \operatorname{rec}_{k}(u)\right|}{|\operatorname{rel}(u)|}
+    $
 
 ## 4.2 HitRate
 
@@ -88,9 +89,9 @@ $$
 → 전체 user 에 대해 hit 한 비율 : HitRate@k(u)
 ```
 
-$$
+$
 \text { HitRate@k(u)=I[|rel(u)}\left. \cap \operatorname{rec}_{k}(u) \mid>0\right]
-$$
+$
 
 상식적으로 Hit rate는 1이하여야 하나 DL RS Evaluation 에서는 1이 넘는 경우가 발생, 해당 문제는 올바르게 예측한 항목의 평균수(precision*k)를 Hitrate라 칭한것으로 나타남
 
@@ -101,9 +102,9 @@ $$
 → 전체 user에 대해 해당 inverse position 의 평균 : MRR@k(u)
 ```
 
-$$
+$
 M R R @ k(u)=\frac{1}{\min _{i \in \operatorname{rel}(u) \cap \operatorname{rec}(u)} \operatorname{rank}(u, i)}
-$$
+$
 
 DaisyRec 의 경우 첫번째 relevant item 의 inverse position 이 아닌, 전체 relevant item 들의 inverse position의 합을 계산했음. 이때 MRR은 1이 넘을 수도 있다.
 
@@ -115,14 +116,14 @@ AP@k(u) : user u에 대한 Precision 의 평균
 →모든 user 에 대한 AP의 평균 : MAP
 ```
 
-$$
+$
 A P @ k(u)=\frac{1}{x} \sum_{i \in \operatorname{rec}_{k}(u)} \mathbb{I}[i \in \operatorname{rel}(u)] \operatorname{Precision@rank}(u, i)(u)
-$$
+$
 
 MAP 에서 ‘M’ 에 해당하는 mean term 은 일반적으로 이견이 없다. 문제는 ’A’에 해당하는 averaging term $x$ 의 정의가 모호하다는 것, 일반적으로는 해당 세개 중 하나의 의미가 사용된다.
 
 - $x=k$ : 추천 목록 item의 수(length of recommendation list)
-- $x = r=|rel(u)|$ : user 의 relevant item의 수
+- $x = r=\vert rel(u)\vert $ : user 의 relevant item의 수
 - $x = min(k,r)$
 
 **MAP** 는 모든 metric 중 가장 일관성 없는 값을 보였음(5개)
@@ -150,29 +151,29 @@ MAP 에서 ‘M’ 에 해당하는 mean term 은 일반적으로 이견이 없�
 DCG(Discounted Cumulative Gain)의 이상치인 IDCG(Ideal DCG)와 DCG의 비로 NDCG값이 계산, 이때 Idial 한 값은 rating(u,i)으로 정렬되었을때의 DCG값을 의미 
 ```
 
-$$
+$
 N D C G @ k(u)=\frac{D C G @ k(u)}{I D C G @ k(u)}
-$$
+$
 
 ### DCG-weighted version
 
-$$
+$
 D C G @ k(u)=\sum_{i \in r e c_{k}(u)} \frac{2^{\text {rating }(u, i)}-1}{\log _{2}(\operatorname{rank}(u, i)+1)}
-$$
+$
 
 ### DCG-Binary version
 
-$$
+$
 D C G @ k(u)=\sum_{i \in r e c_{k}(u)} \frac{\mathbb{I}[i \in \operatorname{rel}(u)]}{\log _{2}(\operatorname{rank}(u, i)+1)}
-$$
+$
 
 ### DCG-??(논문에선 언급하지 않음)
 
 국내 블로그에서는 rating이 정해져 있고, 분자에서 이를 모두 더하는 방식을 많이 소개한다. 
 
-$$
-D C G @ k(u)=\sum_{i \in r e c_{k}(u)} \frac{{\text {rating }(u, i)}}{\log _{2}(\operatorname{rank}(u, i)+1)}
-$$
+$
+D C G @ k(u)=\sum_{i \in r e c_{k}(u)} \frac{\text {rating }(u, i)}{\log _{2}(\operatorname{rank}(u, i)+1)}
+$
 
 라이브러리들은 weighted version 과 binary version 중 하나를 선택하는데
 
@@ -228,7 +229,6 @@ SAUC 에서 서로다른 사용자의 추천이 다른것에 문제 제기, 각 
 
 전체 ranking 이 아닌 k 개의 ranking 만 고려한다,  Replay, DL RS Evaluation, DaisyRec
 
-### 
 
 # 5. Paper Analysis
 

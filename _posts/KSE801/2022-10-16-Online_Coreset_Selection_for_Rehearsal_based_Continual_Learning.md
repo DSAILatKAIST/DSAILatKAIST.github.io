@@ -2,12 +2,10 @@
 title:  "[ICLR 2022] Online Coreset Selection for Rehearsal-based Continual Learning"
 permalink: Online_Coreset_Selection_for_Rehearsal_based_Continual_Learning.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
-
-# **Title** 
-
-Online Coreset Selection for Rehearsal-based Continual Learning
 
 ## **1. Problem Definition**  
 

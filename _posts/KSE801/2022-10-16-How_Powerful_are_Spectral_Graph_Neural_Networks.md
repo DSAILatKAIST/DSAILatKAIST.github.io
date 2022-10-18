@@ -2,6 +2,8 @@
 title:  "[ICML 2022] How Powerful are Spectral Graph Neural Networks"
 permalink: How_Powerful_are_Spectral_Graph_Neural_Networks.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # **How Powerful are Spectral Graph Neural Networks** 
@@ -29,25 +31,26 @@ Message Passing Framework를 활용하여 이웃한 node의 정보를 aggregate 
 논문에서 내용을 서술하는 흐름이 자연스럽기 때문에, 이 리뷰는 논문의 내용 순서를 그대로 따라 서술되어 있습니다. 이 리뷰를 읽으시면서 좀 더 자세하고 엄밀한 부분이 필요하다면 논문을 참고하셔도 좋습니다.
 
 <br/> 
-   
- *(주) 본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하고 있는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
 
+ *(주) 본문에 들어가기에 앞서, 이 리뷰는 논문의 핵심적인 개념을 위주로 서술한 것임을 밝힙니다. 이 논문은 이론적인 분석이 주가 되는 논문이기에, 이 논문에 있는 모든 Theorem, Proposition 등을 충분히 이해하기 위해서는 Specral GNN에서 포괄하고 있는 많은 배경 지식을 필요로 합니다. 다만 이 리뷰를 작성하는 저도 그러한 배경 지식이 충분하지 않기에, 이 논문에서 말하고자 하는 essential한 부분에 대해서만 다루고자 합니다. 부족한 부분은 Revision 기간에 더욱 보완하도록 하겠으니, 그때까지 기다려 주시면 정말 감사드리겠습니다.*
 <br/> 
 
 ## **2. Preliminaries**  
 
 이 Section에서는 논문 본문에서 쓰인 Notation을 그대로 서술하도록 하겠습니다. 아래는 matrix의 행, 열에 대한 Notation입니다.
 
-$$\forall M \in \mathbb{R}^{a\times b}: M_{i}=\mathrm{row_{i}}(M), M_{:i}=\mathrm{col_{i}}(M)$$
+$\forall M \in \mathbb{R}^{a\times b}: M_{i}=\mathrm{row_{i}}(M), M_{:i}=\mathrm{col_{i}}(M)$
 
-그리고, 주어진 node $i\in\mathbb{V}$에 대해서 그 이웃을 $N(i)$로 표기합니다.
+그리고, 주어진 node $$i\in\mathbb{V}$$에 대해서 그 이웃을 $$N(i)$$로 표기합니다.
 
-아래는 matrix의 condition number의 정의입니다. 이 개념은 전술했던 Contribution 3번에서의 분석과 관련이 있습니다. 여기서 $\lambda_{max}$는 matrix의 Maximum Eigenvalue, $\lambda_{min}$은 matrix의 Minimum Eigenvalue를 의미합니다.
-$$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$$
+아래는 matrix의 condition number의 정의입니다. 이 개념은 전술했던 Contribution 3번에서의 분석과 관련이 있습니다. 여기서 $$\lambda_{max}$$는 matrix의 Maximum Eigenvalue, $$\lambda_{min}$$은 matrix의 Minimum Eigenvalue를 의미합니다.
+$\kappa(M)=\frac{|\lambda_{max}|}{|\lambda_{min}|}$
 
 이때, 주어진 matrix $M$이 singular(=not invertible; inverse가 존재하지 않는 경우)라면 $\kappa(M)=+\infty$이고, 이는 matrix의 모든 eigenvalue가 non-zero 값을 갖는 것이 matrix의 invertiblility와 동치이기 때문입니다. [6]
 
- *(주) 다만 위 정의의 경우 오류가 있는 것 같습니다.* $|\lambda | _{max}$, $|\lambda | _{min}$ *가 맞는 표기이지 않을까 싶습니다.*
+ *(주) 다만 위 정의의 경우 오류가 있는 것 같습니다.* $$\vert\lambda \vert _{max}$$, $$\vert\lambda \vert _{min}$$ *가 맞는 표기이지 않을까 싶습니다.*
+
+
 
 아래는 Graph와 관련된 Notation입니다. 기본적으로 주어진 Graph는 undirected입니다. $\mathcal{G}=(\mathbb{V}, \mathbb{E}, X)$는 주어진 Graph이고, 여기서 
 $$\mathbb{V}=\{1,2,\cdots,n\},\ \mathbb{E}\subset \mathbb{V}\times\mathbb{V},\ X\in\mathbb{R}^{n\times d}$$

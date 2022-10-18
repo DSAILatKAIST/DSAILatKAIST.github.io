@@ -2,10 +2,9 @@
 title:  "[NeurIPS 2021] Do Transformers Really Perform Bad for Graph Representation"
 permalink: Do_Transformers_Really_Perform_Bad_for_Graph_Representation.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
-
-# **Do Transformers Really Perform Bad for Graph Representation** 
-
 
 ## **1. Motivation**
 
@@ -25,11 +24,11 @@ Transformer 의 압도적인 성능은 당연히 Graph Representation 영역에�
 
 ### **2.1 Centrality Encoding**
 
-Transformer의 Attention 구조는 각 노드의 correlation 을 mapping 한다. Graph 에서는 좀 더 inductive bias를 부여해 줄 수 있는데, 그것은 node가 얼마나 많이 연결되어 있는지 (연결성)의 정도를 그 노드의 중요도로 평가할 수 있는 지점을 이용하는 방법이다. 즉 node $v_i$ 가 in-degree ($z_{\operatorname{deg}^{-}\left(v_i\right)}^{-}$) 와 out-degree (z_{\operatorname{deg}^{+}\left(v_i\right)}^{+})가 얼마나 되는지를 compute 하여 이를 bias로 이용해 줄 수 있다. 식으로 나타내면 다음과 같다. 
+Transformer의 Attention 구조는 각 노드의 correlation 을 mapping 한다. Graph 에서는 좀 더 inductive bias를 부여해 줄 수 있는데, 그것은 node가 얼마나 많이 연결되어 있는지 (연결성)의 정도를 그 노드의 중요도로 평가할 수 있는 지점을 이용하는 방법이다. 즉 node $v_i$ 가 in-degree ($z_{\operatorname{deg}^{-}\left(v_i\right)}^{-}$) 와 out-degree ($$z_{\operatorname{deg}^{+}\left(v_i\right)}^{+}$$)가 얼마나 되는지를 compute 하여 이를 bias로 이용해 줄 수 있다. 식으로 나타내면 다음과 같다. 
 
-$$
+$
 h_i^{(0)}=x_i+z_{\operatorname{deg}^{-}\left(v_i\right)}^{-}+z_{\operatorname{deg}^{+}\left(v_i\right)}^{+}
-$$
+$
 
 ### **2.2 Spatial Encoding**
 
@@ -41,9 +40,9 @@ $ 을 shortest path 로 사용하여 attention 구조에 bias $
 b_{\phi\left(v_i, v_j\right)}
 $ 를 부여한다:
 
-$$
+$
 A_{i j}=\frac{\left(h_i W_Q\right)\left(h_j W_K\right)^T}{\sqrt{d}}+b_{\phi\left(v_i, v_j\right)}
-$$
+$
 
 이 구조는 edge attribute 에 따라서 확장 될 수 있다. 예를들어 molecular graph 에서는 chemical bonding 도 edge로 표현 될 수 있다. 이에 대한 자세한 확장은 논문을 참조하는 것이 좋겠다. 
 
@@ -53,8 +52,8 @@ $$
 
 이 논문의 주요 contribution 중 하나는 Graphormer 가 기존 GCN, GIN, GraphSAGE의 general case라는 점을 증명한 것이다. 증명의 결과는 다음과 같다. 
 
-### **Fact 1. Graphormer layer는 GIN, GCN, GraphSAGE의 Aggregate, Combine step을 표현 가능하다. **
-### **Fact 2. Graphormer layer는 Mean Readout 함수를 표현 가능하다. **
+### Fact 1. Graphormer layer는 GIN, GCN, GraphSAGE의 Aggregate, Combine step을 표현 가능하다. 
+### Fact 2. Graphormer layer는 Mean Readout 함수를 표현 가능하다. 
 
 결국 Graphormer는 GNN의 general case다. 
 

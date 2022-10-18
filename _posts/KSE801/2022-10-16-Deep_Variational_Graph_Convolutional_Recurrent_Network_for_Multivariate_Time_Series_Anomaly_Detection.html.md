@@ -70,7 +70,7 @@ $$
 
 EPN은 probabilistic generative model로 다음과 같은 generation process를 가지고 있습니다.
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png')
+<img width ="140" src = '../images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png'>
 
 여기서 
 
@@ -92,7 +92,7 @@ $$
 
 GCRN은 chanel 간의 inter-dependence를 추론하기 위해 data adaptive graph convolutional generation module을 먼저 사용합니다. 해당 module은 다음과 같은 형태를 가지고 있는데,
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/GCRN.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/GCRN.png'>
 
 chanel embedding과 EPN에서 추론한 latent vector가 사용됨을 알 수 있습니다. 여기서 *A*를 symmetric한 adjacent matrix로 생각할 수 있고 (degree matrix *Q*를 이용해 normalized), *W*는 GCN filter를 의미합니다. 또한, temporal correlation을 발견하기 위해 GCN에 reccurent 구조,
 
@@ -108,23 +108,23 @@ DVGCRN은 모델의 robustness를 위해 VGCRN에 layer를 겹겹이 쌓은 것�
 
 먼저, DEPN은 다음과 같은 구조를 가지고 있으며
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/DEPN.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/DEPN.png'>
 
 SGCRN 역시 layer 단위의
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/SGCRN.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/SGCRN.png'>
 
 구조를 가지고 있습니다. 각 역할은 EPN과 GCRN과 동일하기 때문에 자세한 설명은 생략하도록 하겠습니다.
 
 최종적으로 DVGCRN을 도식화하면 다음과 같이 나타낼 수 있습니다.
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_2.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_2.png'>
 
 
 
 DVGCRN 모델은 이름에서 알 수 있듯, variational inference를 통해 학습을 진행합니다 (ELBO 사용). 또한, generative model인 DEPN과 recurrent model인 SGCRN을 module로 사용하고 있기 때문에 각각 reconstruction loss과 forecasting loss를 combine 하여 loss function을 구성합니다. 최종적으로 ELBO는 다음과 같은 형태를 띄게 되는데,
 
-<img width = "140" src = "/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/ELBO.png")
+<img width = "140" src = "/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/ELBO.png">
 
 첫번째 term은 reconstruction loss, 두번째 term은 forecasting loss 그리고 마지막 term은 KL-Divergence로 이해할 수 있습니다. 두번째 term을 보면 앞에 hyperparameter를 통해 reconstruction loss와 forecasting loss 사이의 balance를 조절할 수 있음을 알 수 있습니다.
 
@@ -149,7 +149,7 @@ $$
 
  마지막으로 threshold의 경우 Peaks-Over-Threhold (POT) (Siffer et al., 2017)를 통해 구합니다. DVGCRN을 이용한 MST의 anomaly detection을 도식화 하면 다음과 같이 그릴 수 있습니다.
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_3.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_3.png'>
 
  # 4. Empricial results
 
@@ -161,7 +161,7 @@ $$
 
 다음 표는 여러 baseline method들과 DVGCRN을 비교한 결과입니다.
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Table_1.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Table_1.png'>
 
 해당 표를 통해 모든 dataset에서 F1 score를 기준으로 proposed method들이 다른 baseline 모델들에 비해 훨씬 좋은 성능을 보이는 것을 확인할 수 있습니다. 이를 통해 MST의 stochastic 한 특성을 잡아냄과 동시에 chanel dependency를 고려하는 본 논문의 framework가 성공했음을 알 수 있습니다.
 
@@ -175,7 +175,7 @@ Proposed method 내에서는
 
 다음으로는 실제 anomaly socre의 시각화를 통해 qualitative comparison을 진행합니다.
 
-<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_7.png')
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_7.png'>
 
 Deterministic model인 LSTM-NTD 그리고 GNN의 경우 MTS의 stochastic property를 고려하지 않아 anomaly score가 굉장히 불안정한 모습을 확인할 수 있고, 다른 probabilistic model들인 Interfusion과 Omni Anomaly와 비교해봐도 MTS의 3가지 특성을 모두 고려한 VGCRN과 DVGCRN이 더욱 매끄럽고 안정적으로 anomaly를 찾아내는 것을 확인할 수 있습니다. 이는 quantitative comparison에서 보았던 결과와 일맥상통하는 모습으로 생각할 수 있습니다.
 
