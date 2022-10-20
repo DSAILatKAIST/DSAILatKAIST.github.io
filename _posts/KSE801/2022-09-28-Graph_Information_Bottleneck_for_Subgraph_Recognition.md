@@ -228,7 +228,7 @@ Information Bottleneck이라는 정보이론 방식을 그래프 데이터로 �
 <br/> <br/>
 ***
 ## **Author Information**
-* Sangwoo Swo
+* Sangwoo Seo
   * Affiliation: [DSAIL@KAIST](http://dsail.kaist.ac.kr)
   * Research Topic: Graph Nerual Network, Information Bottleneck
   * Contact: tkddn8974@kaist.ac.kr
