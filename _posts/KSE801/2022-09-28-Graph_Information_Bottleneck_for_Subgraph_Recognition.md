@@ -67,7 +67,7 @@ $$ \max_{Z}{ I(Y,Z) - \beta I(\mathcal{G},Z) } $$
 위의 식은 Graph Information Bottleneck의 핵심 과정을 나타냅니다. 여기서, subgraph 인식에서는 그래프 속성 측면에서 중요한 정보 손실을 최소화하면서 정보를 최대한 압축하는데에 집중하고 있습니다. 왼쪽의 항은 `prediction`과 관련된 항이고, 오른쪽의 항은 `compression`과 관련된 항입니다.
 최종적으로 도출된 핵심 subgraph(IB-subgraph)는 유용하면서도 최소한의 그래프를 담아야 하고, 그 결과는 다음과 같이 표현될 수 있습니다.  
 
-$$ \max_{\mathcal{G}_ {sub}\in \mathbb{G}_ {sub}} I(Y,\mathcal{G}_{sub})-\beta I(\mathcal{G},\mathcal{G}_{sub}) $$  
+$$ \max_{\mathcal{G}_ {sub}\in \mathbb{G}_ {sub}} I(Y,\mathcal{G}_ {sub})-\beta I(\mathcal{G},\mathcal{G}_ {sub}) $$  
 
 이와 같이 도출된 IB-subgraph는 `그래프 분류 개선`, `그래프 해석`, `그래프 잡음 제거` 등 여러 그래프 학습 과제에 적용할 수 있습니다. 그러나 위의 식의 GIB 목적함수는 mutual information과 그래프의 이산적인 특성으로 인해서 최적화하기가 어렵습니다. 그래서 이러한 목적함수를 최적화하기 위해 subgraph를 도출하는 방법에 대한 접근방식이 추가적으로 필요합니다.
 
