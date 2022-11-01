@@ -40,4 +40,14 @@
 
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.url }}">
 
+{% if page.use_math %}
+	{% include mathjax_support.html %}
+{% endif %}
+
+{% if page.usemathjax %}
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+{% endif %}
+
 {% comment %} Copyright 2021 Google LLC {% endcomment %}
