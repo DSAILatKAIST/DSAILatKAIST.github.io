@@ -365,3 +365,19 @@ GCN은 노드임베딩과 그래프구조를 함께 학습하고 추천에 널�
 다만 아쉬운 부분은, 여기에서 제안된 모델은 새로운 유저, 아이템이 계속해서 추가되는 환경에서는 일반화가 어렵다는 점입니다. 또한, 앞서 언급한 복잡한 소셜관계에 대해 강점을 보이는것을 케이스 스터디를 통해 확인하였다면 좋았을 것입니다. 
 소셜관계를 GNN 을 통해 task 에 반영하는 것은 앞으로도 다양한 어플리케이션으로 활용될 가능성이 있습니다. 추후 연구에서 유저, 아이템간의 관계에 대한 설명력을 지니는 모델을 개발하는데 활용해 볼 수 있을 것 같습니다.
 >
+
+
+## **Author Information**
+
+* Han, Donghee
+  * Graduate School of Data Science, KAIST, Daejeon, Korea
+  * Knowledge Innovation Research Center
+  * GNN, Recsys, Deep-learning, NLP
+
+## **6. Reference & Additional materials**
+
+* [https://en.wikipedia.org/wiki/Hypergraph](https://en.wikipedia.org/wiki/Hypergraph)
+* [Youtube: Introduction to Hypergraphs [Graph Theory]](https://youtu.be/UwvZn9lm_98)
+* [[Paper Review] Hyper Graph Neural Networks](http://dsba.korea.ac.kr/seminar/?mod=document&uid=1428)
+* [[Paper Review] Hyper Graph Neural Networks](http://dsba.korea.ac.kr/seminar/?mod=document&uid=1428)
+
