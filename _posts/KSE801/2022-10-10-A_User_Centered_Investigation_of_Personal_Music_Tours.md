@@ -9,8 +9,7 @@ tags: [reviews]
 
 ## **1. Problem Definition**  
 
-How to best present music to listeners and how can this be achieved automatically with algorithms? Playlists are the most commonly used way in many streaming platforms and can be generated automatically. Can the interestingness of the played music to the listener be improved by automatically generated tours, which contain side or background information of the songs?
-If so, what are the attributes of the tours? Which of these attributes of the tours are good/bad? Which algorithm recommends better tours, and why? How valuable is the concept of tours in general? What are possible improvements to tours?
+How to best present music to listeners and how can this be achieved automatically with algorithms? Playlists are the most commonly used way in many streaming platforms and can be generated automatically. Can the interestingness of the played music to the listener be improved by automatically generated tours, which contain side or background information of the songs? If so, what are the attributes of the tours? Which of these attributes of the tours are good/bad? Which algorithm recommends better tours, and why? How valuable is the concept of tours in general? What are possible improvements to tours?
 
 ## **2. Motivation**  
 
@@ -73,13 +72,10 @@ tour is better than their Greedy tour in narrativity, four say they are not sure
 Eleven interviewees mention that subsequent songs should have the same tempo, mood, tone, energy, melody and artistic voice. Therefore, similarity in these aspects seem to be an important attribute for these participants. 
 
 Eight participants say that song arrangement is important for them, while six say it is not.
-
 Respectively six and seven interviewees say that song arrangement is not good in Greedy and
 Optimal. In fact, neither algorithm optimizes for song arrangement, but for segue interestingness.
 
-Interviewees mostly agree that Greedy produces overall better tours than Optimal.
-
-The following table provides an overview of the results:
+Interviewees mostly agree that Greedy produces overall better tours than Optimal. The following table provides an overview of the results:
 
 <img width="1200" src="/images/A User-Centered Investigation of Personal Music Tours/Results table.png">
 
