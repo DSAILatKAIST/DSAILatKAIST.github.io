@@ -147,11 +147,11 @@ $\mathbf{R} \in \mathbb{R}^{n \times(l+1)\times d'}$ : the concatenated embeddin
 $\eta \in \mathbb{R}^{n \times(l+1)\times 1}$ : the attention coefficient for different-hop neighbors  
 $\mathrm{Squ},\mathrm{Res}$ : 'squeeze' and 'reshape' operations to match the matrix's dimensions  
 
-위 식들을 정리해보면 $H_0$는 자기 자신을 포함한 ego-embeddings이고, $i$-hop의 정보를 취합할 때는 self-loop를 제외한 Adjacency matrix를 활용하여 자기 자신과 이웃들의 정보를 분리시킨다. 또한 합, 평균, 가중평균이 아닌 concatenation으로 정보를 합치는 방법으로 heterophilic graphs에 적합한 convolution layer를 설계하였다. 해당 layer는 $$\theta_e \ \lbrace \mathbf{W}_ f, \mathbf{W}_ r \rbrace$$의 파라미터를 가지고 있다.
+위 식들을 정리해보면 $H_0$는 자기 자신을 포함한 ego-embeddings이고, $i$-hop의 정보를 취합할 때는 self-loop를 제외한 Adjacency matrix를 활용하여 자기 자신과 이웃들의 정보를 분리시킨다. 또한 합, 평균, 가중평균이 아닌 concatenation으로 정보를 합치는 방법으로 heterophilic graphs에 적합한 convolution layer를 설계하였다. 해당 layer는 $$\theta_e \ \lbrace \mathbf{W}_ f, \mathbf{W}_ r \rbrace$$의 파라미터를 가지고 있다. 다시 정리하면, 저자는 기존 GCN의 aggregation 방식을 concatenation으로 수정하여 heterophilic graphs를 다룰 수 있는 convolution layer를 사용하였다. 
 
 
 ### 3-2. Prototype-based Parameter Initialization  
-이 세션에서는 class마다 prototype으 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정으 따릊 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내어 task에서 다른 class를 샘플링하면서 발생하는 variance를 줄인다.
+이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.
 
 $
 \mathbf{P}_ j= {1 \over {\| \mathcal{V}_ j \|}} \Sigma_ {k\in{\mathcal{V}_ j}} \mathbf{Z}_ k
