@@ -73,7 +73,7 @@ Attributed networks가 homophilic하다는 것은 같은 class의 nodes들은 �
 #### (II) MAML기반의 meta-learning method(Meta-GNN, [G-Meta](https://dsail.gitbook.io/isyse-review/paper-review/2022-spring-paper-review/neurips-2020-g-meta))는 모든 data에 대해 하나의 initialization을 공유한다.  
 하지만, attributed networks들의 data들은 independent and identically diistributed(*i.i.d*)가 아니기 때문에 모든 데이터들에 single initialization point를 공유하는 것은 적합하지 않다. 이를 해결하기 위해 sample된 data에 따라 MAML을 adaptive하게 initialization할 수 있는 방법을 제시한다.  
 #### (III) Sample된 Task(episode)를 모두 equal하게 다루고 있는 문제가 있다.  
-Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고 model이 class를 prediction해야하는 query set로 이루어진다. 다시 말해, 모델은 몇 안되는 labeled data로 각 class에 대한 정보를 습득하고, 처음보는 data(query set)의 class를 맞추어야 한다. Task를 구성하는 방법은, 3way-3shot-5qry task인 경우, 3개의 class를 random으로 선택하고, class당 3개씩 data를 sample하여 support set을 구성하고, class당 5개씩 더 sample하여 query set을 구성한다. 즉, task에는 총 9개의 support set이 있고, 이 데이터를 통해 학습한 model은 총 15개의 query data의 class를 predict하여야 한다.  
+Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고 model이 class를 prediction해야하는 query set로 이루어진다. 다시 말해, 모델은 몇 안되는 labeled data로 각 class에 대한 정보를 습득하고, 처음보는 data(query set)의 class를 맞추어야 한다. Task를 구성하는 방법은, 3way-3shot-5query task인 경우, 3개의 class를 random으로 선택하고, class당 3개씩 data를 sample하여 support set을 구성하고, class당 5개씩 더 sample하여 query set을 구성한다. 즉, task에는 총 9개의 support set이 있고, 이 데이터를 통해 학습한 model은 총 15개의 query data의 class를 predict하여야 한다.  
 하지만 이런 방법으로 만들어진 task들은 서로 큰 차이가 있을 수 있다. 예를 들어, social networks에서 user node의 종류가 유명인들으로 구성된 task와 일반인들로 구성된 task는 구조적인 패턴이 다르게 나타날 것이기 때문에 이런 차이를 인지하고 adaptive하게 다루어야 할 것이다. 본 논문은 task마다 learnable parameter를 adaptive하게 scaling하는 방법으로 이 문제를 다루고자 한다.  
 
 
@@ -151,7 +151,7 @@ $\mathrm{Squ},\mathrm{Res}$ : 'squeeze' and 'reshape' operations to match the ma
 
 
 ### 3-2. Prototype-based Parameter Initialization  
-이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.
+이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전 데이터에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.
 
 $
 \mathbf{P}_ j= {1 \over {\| \mathcal{V}_ j \|}} \Sigma_ {k\in{\mathcal{V}_ j}} \mathbf{Z}_ k
@@ -177,7 +177,7 @@ $
 > $score$=softmax( $\mathbf{Z} \varphi^{T} + b), score \in \mathbb{R}^{N \times d'}$
 
 ### 3-3. $S^2$ Transformation for Different Tasks  
-Task마다 구성된 class와 node가 다름으로 인해서, task간의 variance 차이로 발생한다. 따라서 inter-task간의 difference를 파악하여, parameters를 task-specific하게 바꿔주는 방법을 제시하는데, $S^2$ transformation을 이용한다. 먼저 task를 대표할 수 있는 representation vector $t_i$를 만든다(task의 prototype이라고 생각하면 된다). Task의 prototype은 task 내 포함되어 있는 모든 node embeddings을 mean해주는 방법으로 만든다. 이렇게 만든 prototype으로 scaling vector $\lambda_ i$와 shifting vector $\mu_ i$를 생성하는 데, task $\mathcal{T}_ i$의 성질을 인코딩하는 것이다.   
+각 task들은 다른 classes, 그리고 다른 nodes들로 구성되는데, 이로 인해 task 내 구성되는 node들의 feature 분포가 달라진다. 따라서 inter-task간의 feature difference를 파악하여, parameters를 task-specific하게 바꿔주는 방법을 제시하는데, 그 방법으로 $S^2$ transformation을 이용한다. 즉, Task에 맞게 initial parameter의 1)scale을 변환시키고, 2)shift하는 방법으로 transformation을 한다는 것이다. 이를 위해, 우선적으로 task를 대표할 수 있는 representation vector $t_i$를 만든다(task의 prototype이라고 생각하면 된다). Task의 prototype은 task 내 포함되어 있는 모든 node embeddings의 평균을 구하는 방법으로 만든다. 이렇게 만든 prototype으로 scaling vector $\lambda_ i$와 shifting vector $\mu_ i$를 생성한다.    
 
 $
 t_i = \frac{1}{\| \mathcal{V}_ {t_i} \|} \Sigma_ {k\in{\mathcal{V}_ {t_i}}}, \lambda_i=g(t_i;\psi_ \lambda), \mu_ i = g(t_ i; \psi_\mu)
@@ -187,6 +187,7 @@ $
 >  $\mathcal{V}_ {t_i}$ : set of nodes involved in $\mathcal{T}_ i$  
 >  $\lambda_ i, \mu_ i \in \mathbb{R}^{\| \Theta \|}$  
 > $\psi_\lambda, \psi_\mu$ : paramters of two $MLPs$ with the neural network used in prototype-based parameter initialization.  
+> $g$ : the neural networks that can be arbitrarily parameterized functions.  
 
 위에서 생성한 scaling/shifting vector로 다음과 같이 task's prior meta-parameters $\Theta$를 transformation해준다.  
 
@@ -194,7 +195,7 @@ $
 \Theta_i = \lambda_i \odot \Theta + \mu_i
 $
 
-이를 통해 비슷한 task는 비슷하게 transformation하는 식으로 task-specific하게 parameter를 바꿔줄 수 있다.  
+이를 통해 모든 task들에게 적용될 수 있는 학습된 transferable knowledge는 task i에 특화되게 adaptation을 할 수 있게 된다. 
 
 ### 3-4. Meta-optimization    
 마지막으로 model을 optimization하기 위해서 Meta-GPS는 meta-learning 방법을 활용한다. 그 중에서도 MAML의 방법을 따라가는데, 이는 Meta-training, Meta-testing phase로 나눌 수 있다.  
