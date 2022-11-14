@@ -6,9 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# **Few-shot Node Classification on Attributed Networks with Graph Meta-learning**  
-
-
 ## **1. Introduction**  
 
 ### 1-1. Preliminaries  
