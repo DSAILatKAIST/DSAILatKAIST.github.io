@@ -63,7 +63,8 @@ MAML은 최적화 학습 방식의 Meta Learning 방법론으로서 가장 대�
 
 <!-- ![image](https://user-images.githubusercontent.com/37684658/164233736-dd00ab2f-adf4-42b9-a491-6def82a126d4.png) -->
 
-</div>
+</div>  
+
 
 ### 1-2. Problem Definition  
 Citation networks, social media networks, traffic networks와 같은 attribute networks는 실생활에서 발생할 수 있는 수많은 문제들을 풀기 위해 활용되고 있다. Attribute networks들의 node classification 문제는 fundamental하면서도 굉장히 중요한 task이다. 이 문제를 풀기위해 많은 graph neural network(GNN) 모델들이 연구되었지만, 이들은 모두 labeled data가 충분한 상황을 가정하고 있다. Section 1-1에서 설명한 바와 같이, labeled data가 충분하지 않은 상황에서 node classification의 할 수 있는 방안을 모색하고자 GNN 분야에서도 Few-shot learning에 대한 연구가 점차 활발해지고 있고, 이를 풀기 위해 (graph) meta-learning 기반의 많은 방법들이 나오고 있다. 하지만 본 논문은 기존 Graph Few-shot Learning 모델에서 가지고 있는 3가지 limitation을 제시하고 해결하고자 한다.  
@@ -151,7 +152,7 @@ $\mathrm{Squ},\mathrm{Res}$ : 'squeeze' and 'reshape' operations to match the ma
 
 
 ### 3-2. Prototype-based Parameter Initialization  
-이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialzation을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전 데이터에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.
+이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialization을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전 데이터에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.
 
 $
 \mathbf{P}_ j= {1 \over {\| \mathcal{V}_ j \|}} \Sigma_ {k\in{\mathcal{V}_ j}} \mathbf{Z}_ k
@@ -238,9 +239,7 @@ meta-testing phase는 meta-training phase와 같은 과정을 거친다. 즉, me
 ## **4. Experiment**  
 Meta-GPS에서는 6가지 데이터셋으로 실험을 진행하였다. Motivation에서 주장한 바와 같이, real-world의 heterophilic한 데이터셋에서도 모델이 잘 작동한다는 것을 증명하기 위해 데이터셋의 node homophily, $\mathbf{H}$를 정의하고 제시하였다.  
 
-$
-\mathbf{H}= {1\over{\vert\mathcal{V}\vert}}\sum_{v\in\mathcal{V}}\sum_{v\in\mathcal{V}} {\vert \lbrace  (u,v):u \in \mathcal{N}_v \wedge y_u = y_v \rbrace \vert \over{\textbar \mathcal{N}_ v \textbar}}
-$
+![image](https://user-images.githubusercontent.com/37684658/201580502-f381a751-bf3f-4235-80e8-5044434a6bfe.png)
 
 $$\mathbf{H}$$가 높을수록 homophlily가 높고, 낮을수록 heterophilic하다.
 
@@ -251,12 +250,12 @@ $$\mathbf{H}$$가 높을수록 homophlily가 높고, 낮을수록 heterophilic�
 <img width="1296" alt="image" src="https://user-images.githubusercontent.com/37684658/196022640-82257140-97d7-4603-ba72-da206326d920.png">  
 
 
-6개의 5way-3shot, 5way-5shot, 10way-3shot, 10way-5shot 세팅에서 모두 SOTA의 성능을 보여주고 있다. 하지만 논문에서 주장하는대로, prototype-based parameer initialization, scalingand shifting vectors가 새로운 tasks를 맞추는데 더 효과적이고, tranferable knowledge를 축적할 수 있는 지 보여주지는 못하기 때문에, 이는 ablation study에서 보여준다. 위 실험에서 보여주는 것은, homophilic한 데이터셋은 물론 heterophilic attributed networks에서도 좋은 성능을 보여준다는 것이다. absolute improvement 정도를 보아도, homophilic한 가정으로 설계된 기존 baseline들과 heterophilic한 데이터셋에서 더 큰 성능 차이를 보여주고 있다.  
+6개의 5way-3shot, 5way-5shot, 10way-3shot, 10way-5shot 세팅에서 모두 SOTA의 성능을 보여주고 있다. 하지만 논문에서 주장하는대로, prototype-based parameer initialization, scalingand shifting vectors가 새로운 tasks를 맞추는데 더 효과적이고, tranferable knowledge를 축적할 수 있는 지 보여주지는 못하기 때문에, 이는 ablation study에서 보여준다. 위 실험에서 보여주는 것은, homophilic한 데이터셋은 물론 heterophilic attributed networks에서도 좋은 성능을 보여준다는 것이다. absolute improvement 정도를 보아도, homophilic한 가정으로 설계된 기존 baseline들과 heterophilic한 데이터셋에서 더 큰 성능 차이를 보여주고 있다. 많은 baseline들은 homophily를 가정하여 graph를 convolution하는 GCN을 기반으로 하기 때문에, 세션 3.1에서 언급하였듯 heterophilic dataset에도 적합하게 수정된 convolution layer를 사용함으로써 Meta-GPS 모델이 기존 모델들에 비해 heterophilic dataset에서 더 월등한 성능을 보여주는 것으로 해석된다.  
  
  
 <img width="1355" alt="image" src="https://user-images.githubusercontent.com/37684658/196023310-e7da3ee6-401e-4a17-bd37-8cd169a93d67.png">  
 
-또한 기존 메타러닝 기반의 baseline은 instance를 기준으로 모델을 학습하기 때문에 data noise에 취약하다. 위 실험으로 instance 기반의 학습에서 벗어나, class specific parameter, task prototypical parameter update를 통해 data noise에 robust한 모델임을 보여주고 있다.  
+또한 기존 메타러닝 기반의 baseline은 instance 하나마다 loss(e.g. cross entropy)를 구해서 모델의 파라미터를 학습하기 때문에 data noise에 취약하다. 다르게 말하면, 데이터 하나하나가 model parameter에 직접적인 영향을 미친다는 것으로, noise가 있는 데이터도 모델의 성능에 직접적인 영향을 크게 미친다는 뜻이다. 하지만 Meta-GPS는 instance 단위 뿐만 아니라, class-level, task-level에서도 parameter를 update하기 때문에, outlier(또는 noise)에 대해서 좀 더 강건한 모델을 만들 수 있다. Table4의 실험은 모델이 얼마나 data noise에 대해 강건(robust)한 지 보여주는 실험이다. 3행에 표기된 %는 node-level에서 얼마나 많은 noise가 있는 지 비율을 표기한 것이다. 이에 Meta-GPS는 noise가 30%에 도달하여도 다른 모델들에 비해 성능 하락이 적고, 절대적인 성능도 높은 것을 보여주고 있다. 즉, Meta-GPS가 data noise에 robust하다는 것을 증명하는 실험이라고 볼 수 있다. 
  
  
  <img width="761" alt="image" src="https://user-images.githubusercontent.com/37684658/196023600-4d93ab72-76e9-4670-aba6-351505c27e89.png">  
@@ -265,11 +264,10 @@ $$\mathbf{H}$$가 높을수록 homophlily가 높고, 낮을수록 heterophilic�
 > (II) Meta-GPS-PI : prototype-based initialization paramter를 제거하고 random initialization parameter를 사용한 모델이다.  
 > (III) Meta-GPS-$S^2$ : $S^2$ transformation을 삭제하고 모든 task들을 동등하게 취급한 모델이다.  
  
- 성능이 논문에서 제시하는 효과를 모두 증명하는 것은 아니지만, ablation study를 핵심 module 하나하나 잘 커버하면서 실행하였고, 그에 대한 결과도 바람직하게 보여주고 있다고 생각한다. 특히 Meta-GPS-SGC 같은 경우는 상대적으로 homophilic networks에서는 성능이 좋지만, heterophilic한 상황에서는 성능 하락이 더 크게 나타난다.  
+ 성능이 논문에서 제시하는 효과를 모두 증명하는 것은 아니지만, ablation study를 핵심 module 하나하나 잘 커버하면서 실행하였고, 그에 대한 결과도 바람직하게 보여주고 있다고 생각한다. 특히 Meta-GPS-SGC 같은 경우는 상대적으로 homophilic networks에서는 성능이 좋지만, heterophilic한 상황에서는 성능 하락이 더 크게 나타나는 것을 보아, 저자가 제시한 network encoder가 얼마나 heterophilic dataset에 맞게 잘 설계하였는 지 볼 수 있다. 위 ablation study는 모듈 하나하나에 대해 ablation을 하였지만, 각 모듈을 조합했을 때의 ablation study를 보여주지 않는다는 점은 아쉬움으로 남는다. 
 
 ## **5. Conclusion**  
-Meta-GPS는 meta-learning 기반의 few-shot learning method이다. 기존 meta-learning 기반의 baseline들이 instance-based statistic을 기반으로 모델링 되었기 때문에, data outlier에 취약한 점을 포인트로 잘 잡아내었고, 이를 해해소하기 위해 prototype-based parameter initialization, $S^2$ transformation for suiting different tasks를 제시하였다. 또한 real-world의 attributed network의 heterophily한 데이터셋을 다루기위해 기존 convolution layer를 간단하면서도 효과적으로 수정하였다. 본 논문의 가장 큰 TAKEAWAY는 instance기반으로 다루는 방법에서 class-level, task-level에서 다루는 관점을 보여주었고, 그로 인한 효과로 few-shot learning의 핵심 문제인 outlier 문제를 효과적으로 다루었다는 점이라고 생각한다.  
-
+Meta-GPS는 meta-learning 기반의 few-shot learning method이다. 특히, attributed network에서 발생하는 문제점을 제시하여 이에 대한 해결점을 제시하였다. 1) 첫 번째로 real-world의 attributed network는 heterophilic한 데이터셋이 많다. 하지만 다른 baseline들이 embedder로서 사용하는 GCN은 homophily를 가정한 convolutional layer을 쓰기 때문에 heterophilic dataset에는 적합하지 않다. 이에 Meta-GPS는 aggregation을 concatencate하는 방법으로 간단하면서도 효과적으로 heterophilic dataset을 다루었다. 2) 또한 attributed network는 non-i.i.d 데이터이기 때문에, single initalization point를 찾는 것이 아니라, 각 class specific한 parameter로 initialization point를 만드는 방법을 제시하였다. 3)아울러 task마다 node-feature distribution이 다르므로, 이를 alignment하기 위해 $S^2$ transformation을 추가적으로 진행하여 inter-task간의 difference를 파악하여 학습된 meta-knowledge를 task-specific하게 접목시킬 수 있도록 하였다. 또한 위 과정들을 instance-level 아니라, class-level, task-level에서 다루어 다른 모델들에 비해서 data noise에 대해서도 더 강건한 모델을 만들 수 있었다.   
  
 ## **Posting author information**
 
