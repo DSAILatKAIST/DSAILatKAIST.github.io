@@ -171,12 +171,16 @@ $P_{h \rightarrow t}$ : entity h에서 t로 가는 relation path의 set
 PATHCON의 모델 학습 과정은 다음과 같습니다.
 1. head, tail entity의 최종 정보를 통해 entity 쌍$(h,t)$의 context representation을 구합니다.  
 	이때 실제 relation $r$은 예측 대상이므로, unobserved를 가정합니다.
+	
 $$s_{(h,t)} = \sigma([m_{h}^{K-1}, m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$$
-2. relational context representation이 포함된 Attention weight을 계산합니다.  
+2. relational context representation이 포함된 Attention weight을 계산합니다.
+
 $$\alpha_{P}= \frac{exp((s_{P})^{\top} s_{(h,t)})}{\sum_{P \in P_{h \rightarrow t}} exp((s_{P})^{\top} s_{(h,t)})}$$
 3. path들의 중요도를 고려한 가중 평균을  구해  path의  representation을  얻습니다.
+
 $$ s_{h \rightarrow t}= \sum_{P \in P_{h \rightarrow t}} \alpha_P s_P$$
-4. context representation과  더해서  softmax을  적용합니다. 실제  relation와 predicted relation의  차이에  대해  cross entropy loss를  최소화하는  relation을  구합니다.  
+4. context representation과  더해서  softmax을  적용합니다. 실제  relation와 predicted relation의  차이에  대해  cross entropy loss를  최소화하는  relation을  구합니다.
+  
 $$p(r|h,t)=\text{SOFTMAX}(s_{(h,t)}+s_{h \rightarrow t})$$
 $$\min L= \sum_{(h,r,t) \in D} J(p(r |h,t),r)$$
 
@@ -298,7 +302,7 @@ Application of statistics
 * Github Implementation  
 (https://github.com/hwwang55/PathCon)
 * Reference  
-[KDD '21] Relational Message Passing for Knowledge Graph Completion
-(https://arxiv.org/pdf/2002.06757.pdf)  
+[KDD '21] Relational Message Passing for Knowledge Graph Completion  
+(https://arxiv.org/pdf/2002.06757.pdf)    
 지식 그래프의 정의  
 (https://www.samsungsds.com/kr/insights/techtoolkit_2021_knowledge_graph.html)
