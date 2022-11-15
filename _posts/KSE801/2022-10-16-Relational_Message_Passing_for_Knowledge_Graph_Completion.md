@@ -143,8 +143,8 @@ Alternate relational message passing에서 relational context 학습 과정은 �
 $$m_{v}^{i}=\sum_{e \in N(v)}s_{e}^{i}$$
 $$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \in N(e)$$
 
-1. 각 node에 대해 relational context의 feature를 학습합니다. 
-2. head, tail node와 relation의 정보를 결합합니다. 그리고 Weight를 곱해준 후 bias를 더하고 비선형 활성화 함수를 적용합니다.
+- 각 node에 대해 relational context의 feature를 학습합니다. 
+- head, tail node와 relation의 정보를 결합합니다. 그리고 Weight를 곱해준 후 bias를 더하고 비선형 활성화 함수를 적용합니다.
 
 이 과정을 K번 반복해 얻은 최종 message $m_{h}^{K-1}$와 $m_{t}^{K-1}$가 head, tail entity의 표현이 됩니다.
 
@@ -178,14 +178,14 @@ PATHCON의 모델 학습 과정은 다음과 같습니다.
 $$s_{(h,t)} = \sigma([m_{h}^{K-1}, m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$$
 
 - relational context representation이 포함된 Attention weight을 계산합니다.  
-- 
+
 $$\alpha_{P}= \frac{exp((s_{P})^{\top} s_{(h,t)})}{\sum_{P \in P_{h \rightarrow t}} exp((s_{P})^{\top} s_{(h,t)})}$$
 
-- path들의 중요도를 고려한 가중 평균을  구해  path의  representation을  얻습니다.  
+- path들의 중요도를 고려한 가중 평균을  구해  path의  representation을 얻습니다.    
 
 $$s_{h \rightarrow t}=\sum_{P \in P_{h \rightarrow t}} \alpha_P s_P$$
 
-- context representation과  더해서  softmax을  적용합니다. 실제  relation와 predicted relation의  차이에  대해  cross entropy loss를  최소화하는  relation을  구합니다.  
+- context representation과  더해서  softmax을  적용한 후 실제  relation와 predicted relation의  차이에  대해  cross entropy loss를  최소화하는  relation을  구합니다.   
 
 $$p(r|h,t)=\text{SOFTMAX}(s_{(h,t)}+s_{h \rightarrow t})$$
 $$\min L= \sum_{(h,r,t) \in D} J(p(r |h,t),r)$$
