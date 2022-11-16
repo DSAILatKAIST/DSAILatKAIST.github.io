@@ -12,7 +12,7 @@ Online Coreset Selection for Rehearsal-based Continual Learning
 ## **1. Problem Definition**  
 
 Static한 setting에 맞춰져 있는 현재의 Learning process는 현실의 상황과는 거리가 멀다.  
-* Sequence of tasks에 continuously 적용될 수 있는 model 고안하는 것이 본 논문의 주된 목적이다. 
+* Sequence of tasks에 continuously 적용될 수 있는 model을 고안하는 것이 본 논문의 주된 목적이다. 
 * Continual Learning에서 발생하는 주된 문제인 catastrophic forgetting 문제도 보완한다.
 * 더욱 specific한 setting으로 imbalanced / noisy한 data 상황에서도 높은 accuracy와 적은 catastrophic forgetting을 목표한다.
 
@@ -55,8 +55,13 @@ Catastrophic forgetting은 neural network의 더욱 general한 problem인 "stabi
 
 1. 새로운 task를 학습할 때 이전 task에 대한 catastrophic forgetting 방지.  
 2. 새로운 task 학습을 용이하게 하기 위해 이전 task의 knowledge를 사용.  
-3. Online Corset Selection (OCS) 방법론을 고안하여 representative하고 diverse한 subset을 선정하여 buffer에 저장하고 새로운 task 학습에 함께 사용.
-4. Current task에 대해서도 모든 data를 사용하는 것이 아닌 이전 task의 buffer들과 high affinity를 갖는 data를 선정하여 함께 training 시킴.
+3. Online Corset Selection (OCS) 방법론을 고안하여 representative하고 diverse한 subset을 선정하여 **buffer**에 저장하고 새로운 task 학습에 함께 사용.
+4. Current task에 대해서도 모든 data를 사용하는 것이 아닌 이전 task의 buffer들과 high **affinity**를 갖는 data를 선정하여 함께 training 시킴.
+
+~~~
+- buffer : 이전 task의 dataset 중 현재의 task dataset과 함께 training 시키기 위해 저장시키는 data의 subset
+- affinity : 현재의 task dataset이 이전 task의 buffer들과 갖는 친밀도(유사도)를 의미한다. 
+~~~
 
 ### 2.4 Contributions
 
