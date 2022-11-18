@@ -11,7 +11,7 @@ tags: [reviews]
 
 Recent advances in data acquisition technology help collect a variety of spatio-temporal (ST) data in urban areas, such as urban traffic, air quality, and etc. Such data has complex spatial and temporal correlations, which can be depicted by spatio-temporal graphs(STG), as shown in Fig. 1. For example, spatio-temporal data describes various things and movements as $[x, y, h, t]$. Take the geodetic coordinate system (rectangular coordinate system) as an example to describe, that is $[longitude, latitude, altitude, time]$. This can describe almost all kinds of things. As small as the trajectory of a car, the process of building construction, and as large as the movement of plates, they can all be abstracted as $[x, y, h, t]$.
 
-<img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/picfig3.jpeg" alt="picfig3" style="zoom:25%;" />
+<img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/picfig3.jpeg" alt="picfig3" style="zoom:25%;" />
 
 *Figure 1: ST data and the related ST graph structure in urban areas*
 
@@ -94,7 +94,7 @@ Pre-processing and main processing steps as follows:
 
   The datasets are collected by the Caltrans Performance Measurement System (PeMS) in real time every 30 seconds. The traffic data are aggregated into every 5-minute interval from the raw data. The system has more than 39,000 detectors deployed on the highway in the major metropolitan areas in California. Geographic information about the sensor stations are recorded in the datasets. There are three kinds of traffic measurements considered in our experiments, including total flow, average speed, and average occupancy.
 
-  <img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110320351.png" alt="image-20221118110320351" style="zoom:25%;" />
+  <img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110320351.png" alt="image-20221118110320351" style="zoom:25%;" />
 
   *Table 1: Datasets list in this experinment*
 
@@ -124,19 +124,19 @@ Pre-processing and main processing steps as follows:
 
 - Results
 
-  <img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable2.png" alt="pictable2" style="zoom:25%;" />
+  <img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable2.png" alt="pictable2" style="zoom:25%;" />
 
   *Table 2: The average error of some selected highly performing models across all the six datasets. Inside the parentheses, it shows the others performance relative to STG-NCDE.*
 
   Overall, STG-NCDE, clearly marks the best average accuracy as summarized in Table 2. For instance, STGCN shows an MAE that is 17.0% worse than that of STG-NCDE. All existing methods show worse errors in all metrics than STG-NCDE (by large margins for many baselines).
 
-  <img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable3.png" alt="pictable3" style="zoom:25%;" />
+  <img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable3.png" alt="pictable3" style="zoom:25%;" />
 
   *Table 3: Forecasting error on PeMSD3, PeMSD4, PeMSD7 and PeMSD8*
 
   For each dataset. STG-NCDE shows the best accuracy in all cases, followed by Z-GCNETs, AGCRN, STGODE and so on in Table 3. For instance, STGODE shows reasonably low errors in many cases, e.g., an RMSE of 27.84 in PeMSD3 by STGODE, which is the second best result vs. 27.09 by STG-NCDE. However, it is outperformed by AGCRN and Z-GCNETs for PeMSD7. Only STG-NCDE, shows reliable predictions in all cases.
 
-  <img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110145566.png" alt="image-20221118110145566" style="zoom:25%;" />
+  <img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110145566.png" alt="image-20221118110145566" style="zoom:25%;" />
 
   *Figure 2: Trafﬁc forecasting visualization.*
 
