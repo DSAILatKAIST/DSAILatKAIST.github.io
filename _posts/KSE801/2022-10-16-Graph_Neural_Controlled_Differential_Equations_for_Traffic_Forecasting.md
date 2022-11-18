@@ -9,7 +9,7 @@ tags: [reviews]
 
 ## **1. Introduction**  
 
-Recent advances in data acquisition technology help collect a variety of spatio-temporal (ST) data in urban areas, such as urban traffic, air quality, and etc. Such data has complex spatial and temporal correlations, which can be depicted by spatio-temporal graphs(STG), as shown in Fig. 1. For example, spatio-temporal data describes various things and movements as [x, y, h, t]. Take the geodetic coordinate system (rectangular coordinate system) as an example to describe, that is [longitude, latitude, altitude, time]. This can describe almost all kinds of things. As small as the trajectory of a car, the process of building construction, and as large as the movement of plates, they can all be abstracted as xyht.
+Recent advances in data acquisition technology help collect a variety of spatio-temporal (ST) data in urban areas, such as urban traffic, air quality, and etc. Such data has complex spatial and temporal correlations, which can be depicted by spatio-temporal graphs(STG), as shown in Fig. 1. For example, spatio-temporal data describes various things and movements as $[x, y, h, t]$. Take the geodetic coordinate system (rectangular coordinate system) as an example to describe, that is $[longitude, latitude, altitude, time]$. This can describe almost all kinds of things. As small as the trajectory of a car, the process of building construction, and as large as the movement of plates, they can all be abstracted as $[x, y, h, t]$.
 
 <img src="2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/picfig3.jpeg" alt="picfig3" style="zoom:25%;" />
 
@@ -64,17 +64,13 @@ Pre-processing and main processing steps as follows:
 
   The first NCDE for the temporal processing can be written as follows:
 
-  $$
-  h^{(v)}(T) = h^{(v)}(0) + \int_0^Tf(h^{(v)}(t);\theta_f)\frac{dX^{(v)}(t)}{dt}dt ...(3)
-  $$
+  $$h^{(v)}(T) = h^{(v)}(0) + \int_0^Tf(h^{(v)}(t);\theta_f)\frac{dX^{(v)}(t)}{dt}dt ...(3)$$
   
   where $h^{(v)}(t)$ is a hidden trajectory (over time $t \in [0,T])$ of the temporal information of node $v$.
 
   Eq. (3) can be equivalently rewritten as follows using the matrix notation:
   
-  $$
-  H(T) = H(0) + \int_0^Tf(H(T);\theta_f)\frac{dX(t)}{dt}dt ...(4)
-  $$
+  $$H(T) = H(0) + \int_0^Tf(H(T);\theta_f)\frac{dX(t)}{dt}dt ...(4)  $$
   
   where $X(t)$ is a matrix whose $v$-th row is $X^{(v)}$. The CDE function $f$ separately processes each row in $H(t)$.
 
@@ -82,17 +78,13 @@ Pre-processing and main processing steps as follows:
 
   After that, the second NCDE starts for its spatial processing as follows:
 
-  $$
-  Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)\frac{dH(t)}{dt}dt ...(5)
-  $$
+  $$Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)\frac{dH(t)}{dt}dt ...(5) $$
   
   where the hidden trajectory $Z(t)$ is controlled by $H(t)$ which is created by the temporal processing.
 
   After combining Eqs. (4) and (5), they have the following single equation which incorporates both the temporal and the spatial processing:
 
-  $$
-  Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)f(H(t);\theta_f)\frac{dX(t)}{dt}dt ...(6)
-  $$
+  $$Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)f(H(t);\theta_f)\frac{dX(t)}{dt}dt ...(6)$$
   
   where $Z(t) \in \mathbb{R}^{|\nu| \times dim(z^{(v)})}$ is a matrix created after stacking the hidden trajectory $z^{(v)}$ for all $v$.
 
@@ -110,12 +102,13 @@ Pre-processing and main processing steps as follows:
 
   distance.csv file:
 
-  from	to	cost
-  73	5	352.6
-  5	154	347.2
-  154	263	392.9
-  263	56	440.8
-  56	96	374.6
+| from | to  | cost  |
+| ---- | --- | ----- |
+| 73   | 5   | 352.6 |
+| 5    | 154 | 347.2 |
+| 154  | 263 | 392.9 |
+| 263  | 56  | 440.8 |
+| 56   | 96  | 374.6 |
 
   pems04.npz file using 307 detectors(nodes), from Jan to Feb in 2018, also contains 3 features: flow, occupy, speed. The shape is (sequence_length, num_of_vertices, num_of_features).
 
