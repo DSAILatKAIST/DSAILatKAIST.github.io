@@ -151,8 +151,8 @@ Lemma 4 를 통하여 충분히 수렴이 되는 조건 하에서, "change in pr
 즉, Shared weights 에 조그마한 변화를 주어도, tree root 의 embedding 은 거의 변하지 않는다. (individual prediction 이 거의 변하지 않는다.)
 
 ## Conclusion
-본 논문은 단순 GNN 모델 (LU-GNN), CPNGNN, DimeNet 의 한계에서 대하여 직관적인 예시를 보여주며 설명하였다.<br><br>
+본 논문은 단순 GNN 모델 (LU-GNN), CPNGNN, DimeNet 의 한계에서 대하여 직관적인 예시를 보여주며 설명하였다.<br>
 또한, Graph Isomorphism 에 대하여, 기존 연구가 가지고 있는 한계점을 해결하기 위한 간단한 model 예시를 보여주었다.<br><br>
-또한, GNN 의 generalization bound 를 이전의 연구 (VC-bounds) 보다 더 tight 한 결과를 얻어, GNN 의 효용을 보여주었다. <br><br>
+Graph Generalization 측면에서는, GNN 의 generalization bound 를 이전의 연구 (VC-bounds) 보다 더 tight 한 결과를 얻어, GNN 의 효용을 보여주었다. <br><br>
 마지막으로, Shared weight parameter 의 변화가 충분히 수렴되는 상황 속에서는 model performance 에 영향을 거의 주지 않음을 증명하였다. <br><br>
 
