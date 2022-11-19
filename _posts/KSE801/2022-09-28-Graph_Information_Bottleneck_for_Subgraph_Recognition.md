@@ -183,7 +183,7 @@ GIB 알고리즘은 subgraph $\mathcal{G}_ {sub}$의 representation을 활용하
 
 GIB의 가장 두드러진 특징은 `interpretation` 과정을 진행할 수 있다는 것입니다. 이는 그래프의 핵심 특성을 반영할 수 있는 하위 구조를 찾는 작업입니다. 이 interpretation 작업과 classification 작업을 동시에 진행함으로써 많은량의 유용한 정보를 도출해낼 수 있다는 점에서 큰 의미가 있습니다.  
 
-본 실험에서는 `GIB`와 `attention` 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 `50%(Att05)`, `70%(Att07)`로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였고, GIB에서 사용된 여러 Loss 함수가 성능 향상에 기여하는지의 여부를 알아보기 위하여 $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 각각 제외하여 추가적인 학습을 진행하였습니다.  
+본 실험에서는 `GIB`와 `attention` 메커니즘을 비교합니다. 즉, graph prediction에 대한 node의 정보를 aggregation합니다. attention score를 `50%(Att05)`, `70%(Att07)`로 설정하여 해석가능한 subgraph를 추출합니다. 그래프와 그에 해당하는 subgraph 사이에 나타나는 예측 차이에 대한 평균과 분산을 측정합니다. 본 실험에서 측정한 분자의 property는 총 4개입니다(QED, DRD2, HLM-CLint, MLM-CLint). `QED`는 0에서 1 사이의 범위 내에서 분자의 약물 가능성을 측정합니다. `DRD2`는 0에서 1 사이의 범위 내에서 분자가 도파민 2형 수용체에 대해 활성일 확률을 측정합니다. `HLM-CLint` 와 `MLM-CLint`는 시험관 내에서 사람과 생쥐 사이의 간 마이크로솜 대사의 안정성에 대한 측정값입니다. 각 모델의 공정한 비교를 위해서 모든 방법에 대해 GCN backbone을 사용하였고, GIB에서 사용된 여러 Loss 함수가 성능 향상에 기여하는지의 여부를 알아보기 위하여 $\mathcal{L}_ {con}$와 $\mathcal{L}_ {MI}$를 각각 제외하여 추가적인 학습을 진행하였습니다.  
 
 250000여개의 분자를 포함하는 `ZINC dataset`을 사용하고, 4가지 분자의 특성에 대해서 그래프 해석 작업을 진행합니다. QED는 0에서 1까지의 범위로 약물의 유사성을 측정합니다. DRD2는 0에서 1까지의 범위로 분자가 도파민 수용체에 대해서 활성일 확률을 나타냅니다. HLM-CLint와 MLM-CLint는 시험관 내에서 인간과 쥐의 간 마이크로솜의 대사 안정성을 추정한 값입니다. 각 작업에 대해서 training set, validation set, test set의 비율을 85%, 5%, 10%로 분할합니다.  
 
