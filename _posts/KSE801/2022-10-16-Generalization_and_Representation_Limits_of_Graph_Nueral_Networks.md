@@ -21,6 +21,17 @@ b) 의 경우 간단한 binary prediction 으로 graph 모델의 performance lim
 2. CPNGNN 을 graph theoretic 관점에서 분석하여, GNN 의 효과에 대한 insight 를 얻는다.
 3. GNN 의 message passing 에 관한 data dependent generalization bounds 를 제시한다. 또한, 기존 연구보다 더 tight 한 bound 임을 입증한다.
 
+## Summary
+저자는 Graph 가 가지고 있는 여러 Properties 중에서, 직관적으로 이해할 수 있는 Graph Isomorphism 을 통하여,<br>
+기존 연구 (LU-GNN, CPNGNN, DimeNet) 이 isomorphism 을 구분할 수 없는 Graph 가 있음을 지적한다.<br>
+즉, 간단한 예시들로 기존 연구들이 Graph Properties 를 완전히 표현할 수 없다는 한계를 보여준다.<br>
+또한, 기존 연구의 한계점을 해결하기 위한 아주 간단한 model 을 제시한다.<br>
+본 model 은 DimeNet 에 geometric information 을 추가한 것으로, Novel method 를 제안한 것이 아닌,<br>
+기존연구의 (graph isomorphism에서의) 한계를 해결하기 위한 간단한 예시를 든 것으로 이해하면 된다.<br>
+<br>
+뿐만 아니라, Empirical Rademacher Complexity 로 GNN 의 bound  기존 연구보다 tight 하게 도출하는 방법을 증명하였다.
+
+
 ## Preliminaries
 - Locally Unordered GNNs (LU-GNNs): spatial information 을 사용하지 않고 각 node 의 neighbors 에서 오는 message 로 node embedding 을 updata 하는 model (e.g., GraphSAGE, GCN, GIN and GAT).
 LU-GNNs 에서 aggregation 과 conbine operation 은 다음과 같이 표기한다.
