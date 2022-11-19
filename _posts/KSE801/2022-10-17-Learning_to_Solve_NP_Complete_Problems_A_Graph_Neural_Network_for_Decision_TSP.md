@@ -23,14 +23,9 @@ The proposed GNN-based model to solve the decision TSP inputs a TSP instance X =
 
 ### **3.1 Model Training**
 
-The model is trained in a supervised fashion and training instances are composed of a graph G, the target cost C and the grand truth answer to the problem. The input grahs are generated randomly. The optimal cost is computed for each training graph using the Concorde TSP solver and then present the model with two examples containing G, one with a target cost slightly smaller than the optimal (for which the correct prediction would be NO as there is no route cheaper than the optimal) and one with a target cost slightly greater than the optimal (for which the correct prediction would be YES as there is in fact routes more expensive or equal to the optimal). Stochastic Gradient Descent (SGD) is utilized to minimize the binary cross entropy loss between the model prediction and the ground-truth. A total of $2^{20}$ instances of grah size 40 are generated for training. The evaluation of the training loss can be seen below.
+The model is trained in a supervised fashion and training instances are composed of a graph G, the target cost C and the grand truth answer whicj is the optimal cost of the given problem. The input grahs are generated randomly. The optimal cost is computed for each training graph using the Concorde TSP solver and then present the model with two examples containing G, one with a target cost slightly smaller than the optimal (for which the correct prediction would be NO as there is no route cheaper than the optimal) and one with a target cost slightly greater than the optimal (for which the correct prediction would be YES as there is in fact routes more expensive or equal to the optimal). Stochastic Gradient Descent (SGD) is utilized to minimize the binary cross entropy loss between the model prediction and the ground-truth. A total of $2^{20}$ instances of grah size 40 are generated for training. The evaluation of the training loss can be seen below.
 
 <img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/loss.PNG">  
-
-The model achieved 80.16% accuracy averaged over the training set and 80% accuracy on a testing set of 2048 instances it had never seen before. Instances from training
-and test datasets were produced with the same configuration (n ∼ U(20, 40) and 2% percentage deviation).
-
-<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/acc.PNG">
 
 ## **4. Experimental Results and Analyses**  
  
@@ -42,7 +37,12 @@ The model is originally trained on graphs of size 40 with target cost varying 2%
 
 ### **4.2 Generalizing to Larger Deviations** 
 
-The generalization ability of the model to larger deviations is tested by observing the accuracy of the model on the same graphs in the test set but with target costs with varying deviations from the optimal cost. The model accuracy in increases as the deviation from the optimal inceases.
+The model achieved 80.16% accuracy averaged over the training set and 80% accuracy on a testing set of 2048 instances it had never seen before. Instances from training
+and test datasets were produced with the same configuration (n ∼ U(20, 40) and 2% percentage deviation).
+
+<img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/acc.PNG">
+
+The generalization ability of the model to larger deviations is tested by observing the accuracy of the model on the same graphs in the test set but with target costs with varying deviations from the optimal cost. The model accuracy increases as the deviation from the optimal increases.
 
 <img width="400" src="/images/Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP/deviations.PNG">
 
