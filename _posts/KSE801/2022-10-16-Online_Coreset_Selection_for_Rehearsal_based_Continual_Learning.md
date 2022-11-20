@@ -235,6 +235,12 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 * 본 실험은 이러한 세가지 component의 효과를 관찰하기 위해 component를 제외해보며 abalation study를 진행하였다. 
 * Similarity와 diversity를 혼자만 사용하는 것은 성능 저하가 상당했다. Similarity만 사용할 경우, 중복되는 data를 선정할 가능성이 있고, diversity만 고려할 경우 representative한 data point를 선정하는데에 한계가 있을 것이다. 
 * 따라서 similarity와 diversity의 고려 비율을 적절히 interpolate해야 좋은 성능이 도출될 것이고, 아래의 그림은 "noisy rotated MNIST", "multiple dataset"에서 각각의 interpolate ratio에서의 average test accuracy를 나타낸다.
+<div align="center">
+  
+![image](https://user-images.githubusercontent.com/89853986/202894674-b7e36149-dbaa-4c12-aca7-c52f707eb0d4.png)
+
+</div>
+
 * Affinity는 이전 task의 coreset과 유사한 gradient direction을 가진 candidates를 선정하기 때문에 forgetting을 방지한다. 
 * 하지만, affinity는 앞선 task의 replay buffer의 quality에 dependent하기 때문에 홀로 고려될 경우 performance에 큰 도움을 주지 못한다. 
 * 따라서 위의 table을 보면, multiple dataset에서 affinity가 홀로 고려될 경우에는 performance가 낮지만, task마다 동일한 class set이 혼재되어있는 domain-incremental setting (Noisy Rot-MNIST)에서는 꽤나 좋은 성능이 관찰된다. 
