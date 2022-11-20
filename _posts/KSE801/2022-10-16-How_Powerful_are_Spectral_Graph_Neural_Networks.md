@@ -338,15 +338,17 @@ $Z_{:l}=\sum_{k=0}^{K}{\alpha_{kl}P_{k}^{a,b}(\hat{A})\hat{X}_ {:l}}$
 
 <p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi_calculations.png"></p>
 
-저자의 서술에 따르면, 이는 '$$K$$개의 message passing operation'을 수행한다고 합니다. Form을 보면 message passing framework과 유사한 모습입니다.
+저자의 서술에 따르면, 이는 $$K$$개의 message passing 연산을 수행한다고 합니다. Form을 보면 message passing framework과 유사한 모습입니다.
 
-세 번째 PCD 테크닉은 real-world dataset에서, $$k$$값이 커질수록 filter polynomial coefficient $$\alpha_{kl}$$의 값이 작아진다는 observation에 기반하고 있습니다. 이렇게 coefficient들의 magnitude에 편차가 생기면 optimization이 어려워진다고 합니다. 그래서 coefficient를 다음과 같이 decomposition하며,
-$$\alpha_{kl}=\beta_{kl}\prod_{i=1}^{k}\gamma_{i}$$
+세 번째 PCD 테크닉은 real-world dataset에서, $$k$$값이 커질수록 계수 $$\alpha_{kl}$$의 값이 작아진다는 observation에 기반하고 있습니다. 이렇게 계수들의 크기에 편차가 생기면 최적화가 어려워진다고 하며, 따라서 coefficient를 다음과 같이 decomposition합니다.
 
-이때 $\gamma_{i}$는 모든 output channel $l$에서 공유되는 값입니다. $\gamma_{i}=\gamma '\mathrm{tanh}(\eta_{i})$로 놓으면, $\gamma_{i}$는 $[-\gamma ',\gamma ']$ 사이의 값을 갖게 됩니다.
+$\alpha_{kl}=\beta_{kl}\prod_{i=1}^{k}\gamma_{i}$
 
-이러한 parameter decomposition technique을 PCD라고 부르고, 이를 기반으로 한 JacobiConv의 recursion formula는 아래와 같습니다.
-$$P_{k}^{a,b}(\hat{A})\hat{X}=\gamma_{k}\theta_{k}\hat{A}P_{k-1}^{a,b}(\hat{A})\hat{X} + \gamma_{k}\theta'_ {k}P_{k-1}^{a,b}(\hat{A})\hat{X} - \gamma_{k}\gamma_{k-1}\theta''_ {k}P_{k-2}^{a,b}(\hat{A})\hat{X}$$
+이때 $$\gamma_{i}$$는 모든 output channel $l$에서 공유되는 값입니다. $$\gamma_{i}=\gamma '\mathrm{tanh}(\eta_{i})$$로 놓으면, $$\gamma_{i}$$는 $$[-\gamma ',\gamma ']$$ 사이의 값을 갖게 됩니다.
+
+이러한 parameter decomposition 테크닉을 PCD라고 부르고, 이를 기반으로 한 JacobiConv의 점화식은 아래와 같습니다.
+
+$P_{k}^{a,b}(\hat{A})\hat{X}=\gamma_{k}\theta_{k}\hat{A}P_{k-1}^{a,b}(\hat{A})\hat{X} + \gamma_{k}\theta'_ {k}P_{k-1}^{a,b}(\hat{A})\hat{X} - \gamma_{k}\gamma_{k-1}\theta''_ {k}P_{k-2}^{a,b}(\hat{A})\hat{X}$
 
 
 
@@ -354,19 +356,19 @@ $$P_{k}^{a,b}(\hat{A})\hat{X}=\gamma_{k}\theta_{k}\hat{A}P_{k-1}^{a,b}(\hat{A})\
 
 ## **5. Experiment**  
 
-이 Section에서는 논문 본문에 공유된 실험 결과에 대해 소개합니다. 논문에서는 Real Image로 만든 Synthetic grid graph에서 Filter 표현력(filter를 잘 학습할 수 있는지)을 비교하는 실험과, Real-world dataset에서의 성능을 비교한 실험을 수행했습니다.
+이 Section에서는 논문 본문에 공유된 실험 결과에 대해 소개합니다. 논문에서는 이미지로 만든 Synthetic grid graph에서 Filter 표현력(filter를 잘 학습할 수 있는지)을 비교하는 실험과, Real-world dataset에서의 성능을 비교한 실험을 수행했습니다.
 
 ### **5.1. Experimental setup**  
 * Dataset  
-Filter 학습 evaluation 실험에서는 이전 연구인 BernNet[12]의 실험 세팅을 따라, 50개의 Real image를 grid graph로 변환한 Synthetic graph dataset을 사용합니다. Task는 original graph signal을 이용해 filtered signal에 fit하여, 5가지 filter function(Low, High, Band, Reject, Comb)을 잘 배울 수 있는 지를 평가하는 Regression Task입니다.  
-Real-world dataset의 경우, Homogeneous Graph로는 Cora, CiteSeer, Pubmed의 널리 쓰이는 Citation network와 2개의 Amazon co-purchase graph를 사용했다 합니다. 추가적으로 Heterogeneous graph인 2개의 Wikipedia graph Chameleon과 Squirrel, 그리고 Actor co-occurence graph, 2개의 webpage graph Texas, Cornell을 사용했다고 합니다. Task는 node classification이며, train/valid/test split은 60%/20%/20% 입니다.
+Filter 학습 능력을 평가하는 실험에서는 이전 연구인 BernNet[12]의 실험 세팅을 따라, 50개의 이미지를 grid graph로 변환한 Synthetic graph dataset을 사용합니다. Task는 original graph signal을 이용해 filtered signal에 fit하여, 5가지 filter function(Low, High, Band, Reject, Comb)을 잘 배울 수 있는 지를 평가하는 Regression Task입니다.  
+Real-world dataset의 경우, Homogeneous Graph로는 널리 쓰이는 Citation network Cora, CiteSeer, Pubmed와 2개의 Amazon co-purchase graph를 사용합니다. 추가적으로 Heterogeneous graph인 Wikipedia graph Chameleon과 Squirrel 2개, 그리고 Actor co-occurence graph, webpage graph Texas, Cornell 2개를 사용합니다. Task는 node classification이며, train/valid/test split은 60%/20%/20%입니다.
 
 * baseline  
-Synthetic dataset에서는 Task가 filter를 잘 배울 수 있느냐이니 만큼, PFME GNN들인 GPRGNN[14], ARMA[15], BernNet[12], ChebyNet[4]을 Baseline model로 사용해 JacobiConv와 비교합니다. 또한, Jacobi bases가 아닌 다른 Chebyshev, Monomial, Bernstein 등의 bases들을 이용한 linear GNN 모델과도 비교합니다. 이때, JacobiConv를 포함한 Linear GNN들은 PCD technique를 사용하지 않습니다.  
-Real-world dataset에서는 다른 spectral GNN들인 GCN[2], APPNP, ChebyNet, GPRGNN, BernNet을 사용합니다.
+Synthetic dataset을 활용한 실험에서는 filter 학습 능력을 평가하므로, PFME GNN들인 GPRGNN[14], ARMA[15], BernNet[12], ChebyNet[4]을 Baseline model로 사용해 JacobiConv와 비교합니다. 또한, Jacobi bases가 아닌 다른 Chebyshev, Monomial, Bernstein 등의 bases들을 이용한 linear GNN 모델과도 비교합니다. 이때, JacobiConv를 포함한 Linear GNN들은 PCD technique를 사용하지 않습니다.  
+Real-world dataset 실험에서는 baseline으로 다른 spectral GNN들인 GCN[2], APPNP, ChebyNet, GPRGNN, BernNet을 사용합니다.
 
 * Evaluation Metric  
-Synthetic Dataset에서는 실질적으로 Regression Task이기 때문에 총 50개 graph에서의 실험 결과를 평균낸, MSE를 metric으로 활용합니다.  
+Synthetic Dataset에서는 실질적으로 Regression Task이기 때문에 총 50개 graph에서의 실험 결과의 평균 MSE 값을 metric으로 활용합니다.  
 Real-world Dataset에서는 accuracy가 metric입니다.
 
 
@@ -376,13 +378,13 @@ Real-world Dataset에서는 accuracy가 metric입니다.
 
 #### **5.2.a. Synthetic Dataset Result: evaluating model on learning filters**
 
-JacobiConv가 다른 PFME GNN이나 다른 Bases를 사용한 linear GNN에 비해 Filter를 잘 학습할 수 있는지를 보여주는 실험입니다. 아래 Table 1은 다른 모델과 비교했을 때 JacobiConv의 우수성을 보여주고 있습니다. 이 실험 결과는 Section 4.1.에서의 Analysis를 뒷받침하고 있습니다.
+JacobiConv가 다른 PFME GNN이나 다른 Bases를 사용한 linear GNN에 비해 Filter를 잘 학습할 수 있는지를 보여주는 실험입니다. 아래 Table 1은 다른 모델과 비교했을 때 JacobiConv의 우수성을 보여주고 있습니다. 이 실험 결과는 Section 4.1.에서의 Analysis, basis 선택이 실제 성능에 영향을 미친다는 분석을 뒷받침합니다.
 
 <p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_1.png"></p>
 
 #### **5.2.b Real-world Dataset**
 
-아래 Table 2에서 보이듯, 총 10개의 Dataset 중 9개에서 보여지는 JacobiConv의 우수한 성능은 표현력이 강한 Linear한 Spectral GNN을 사용하는 것으로도 충분히 강력한 성능을 얻을 수 있음을 보여줍니다.
+아래 Table 2의 결과에서 JacobiConv의 우수한 성능은 표현력이 강한 Linear Spectral GNN을 사용하는 것으로도 충분히 강력한 성능을 얻을 수 있음을 보여줍니다.
 
 <p align="center"><img width="600" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_2.png"></p>
 
@@ -390,32 +392,37 @@ JacobiConv가 다른 PFME GNN이나 다른 Bases를 사용한 linear GNN에 비�
 
 ## **6. Conclusion**  
 
-이 논문은 Spectral GNN의 Expressive Power, 표현력에 대해 이론적인 분석을 제시한 첫 연구입니다. 이미 있었던 Spatial GNN의 표현을 분석한 연구와는 다르게 주로 Universality 측면에서 표현력을 분석했지만, 이를 Spatial GNN 표현력 분석 연구에서 쓰인 Graph Isomorphism Test 측면과의 연결성 역시 제시했습니다. 또한 Spectral GNN이 사용하는 Filter 구성 선택의 차이가 실험적인 성능에 영향을 어떻게 미칠 수 있는 지도 분석하였습니다.
+이 논문은 Spectral GNN의 Expressive Power, 표현력에 대해 이론적인 분석을 제시한 첫 연구입니다. 이미 있었던 Spatial GNN의 표현을 분석한 연구와는 다르게 주로 Universality 측면에서 표현력을 분석했지만, 이를 Spatial GNN 표현력 분석 연구에서 쓰인 Graph Isomorphism Test 측면과의 연결성 역시 제시했습니다. 또한 Spectral filter를 어떻게 구성하는 지가 실제 성능에 어떤 영향을 주는 지도 분석하였습니다.
 
 이런 표현력에 대한 분석을 바탕으로 이 논문에서 저자들은 새로운 Spectral GNN 모델 'JacobiConv'를 제시하였고, 실험적으로도 우수한 성능을 보임을 광범위한 실험을 통해 입증하였습니다.
 
-이 논문은 AI/ML 분야에서 최고 중 하나로 인정받는 학회인 ICML의 Spotlght paper로 선정된 논문입니다. 그만큼의 기대를 충족시킬만한 정말 좋은 논문이었다고 생각합니다. Problem Formulation, Theoretical Background & Analysis, Extensive Experiments 등 좋은 논문을 만드는 요소는 다 포함하고 있는 연구인 것 같습니다. 비록 제가 Spectral GNN에 대해서 배경지식이 부족하여 깊게 이해하지 못하고 그래서 이 리뷰에서 미흡한 부분이 있습니다만, 만약 Spectral GNN에 대해 어느정도의 배경지식을 갖고 계신 분이라면 많은 것을 얻어갈 수 있는 논문이라고 생각합니다.
+이 논문은 AI/ML 분야에서 최고 중 하나로 인정받는 학회인 ICML의 Spotlght paper로 선정된 논문입니다. 그만큼의 기대를 충족시킬만한 정말 좋은 논문이었다고 생각합니다. Problem Formulation, Theoretical Background & Analysis, Extensive Experiments 등 좋은 논문을 만드는 요소는 다 포함하고 있는 연구인 것 같습니다. 만약 Spectral GNN에 대해 관심이 있으시거나 어느정도의 배경지식을 갖고 계신 분이라면 많은 것을 얻어갈 수 있는 논문이라고 생각합니다.
 
-가장 마음에 들었던 부분은 핵심인 Universality보다도, Optimization 측면에서 표현력이 같은 기존 spectral GNN들의 실험적 성능에 차이가 생길 수밖에 없는 이유를 분석하고 JacobiConv를 motivate한 부분이었습니다. Gradient Descent의 알려진 성질을 이용해서 왜 Filter을 구성하는 Polynomial Bases가 중요한 지에 대해 분석하고 해답을 제시한 부분에서 깊은 인상이 남았습니다.
+가장 마음에 들었던 부분은 핵심인 Universality보다도, 최적화 측면에서 표현력이 같은 기존 spectral GNN들의 실험적 성능에 차이가 생길 수밖에 없는 이유를 분석하고 JacobiConv를 motivate한 부분이었습니다. Gradient Descent의 알려진 성질을 이용해서 왜 Filter을 구성하는 Polynomial Bases가 중요한 지에 대해 분석하고 해답을 제시한 부분에서 깊은 인상이 남았습니다.
 
 그렇지만 이 논문에서도 아쉬웠던 부분이 없지는 않았습니다.
 
 이 논문에서 가장 아쉬운 부분은 PFME/FME property에 대해 자세히 서술하지 않은 점입니다. 앞의 Section에서 전술했듯 Spectral GNN의 표현력은 spatial GNN에서 표현력 분석[5]에서 그랬던 것처럼 주어진 두 node를 구별할 수 있느냐 없느냐로 서술되는데(linear spectral GNN이 Universal하다는 것을 통해), 위에서 정의된 PFME, FME 성질들이 이러한 GNN의 표현력과 어떻게 연관되어 있는지에 대해서는 논문에서 직접적인 이론을 통해서 설명하지는 않았습니다.
 
-다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력에 영향을 미치지 않을까라고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다.
+다만, Polynomial Filter의 basis 선택이 Empirical한 성능에 중요하다는 부분을 지적하는 부분이나, [링크](https://icml.cc/virtual/2022/spotlight/17796)의 발표자료에 있는 'same expressive power'과 같은 맥락을 통해서 간접적으로는 PFME, FME property가 표현력과 연관이 있다고 추측해볼 수 있습니다. 그럼에도, 이 논문이 spectral GNN의 표현력을 분석하는 첫 논문이라는 점을 생각해보면 아쉬운 대목입니다. Non-PFME/non-FME spectral GNN의 표현력이 약하다와 같은 분석이 있었다면 논문의 컨텐츠가 더더욱 풍성했을 것 같아 더더욱 아쉬움이 남습니다.
 
 이런 아쉬운 점도 있었지만, 그래도 이 논문이 갖는 가치는 엄청나다고 생각하고, Spectral GNN이라는 분야가 발전함에 있어 중요한 분기점 중 하나가 될 연구라고 생각합니다.
 
 <br/> 
 
 ---  
-## **Author Information**  
+## ** Paper Author Information**  
 
 * Xiyuan Wang  
     * Institute for Artificial Intelligence, Peking University
 * Muhan Zhang
     * Institute for Artificial Intelligence, Peking University
     * Beijing Institute for General Artificial Intelligence
+
+## ** Review Writer Information **
+
+* 정지형 (Jihyeong Jung)
+    * Master student, Department of Industrial & Systems Engineering, KAIST
 
 <br/> 
 
