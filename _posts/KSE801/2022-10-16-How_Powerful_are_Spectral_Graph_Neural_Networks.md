@@ -125,11 +125,11 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 이 논문에서는 $\phi, \psi$가 linear한 경우에 초점을 두고 있기 때문에, 'Linear GNN', linear한 spectral GNN을 아래와 같이 정의합니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Definition_2_1.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Definition_2_1.png"></p>
 
 아래의 Proposition 2.2는 Linear GNN이 PFME, 즉 충분히 강한 표현력을 갖고 있고, General한 spectral GNN의 표현력의 Lower bound가 됨을 서술하고 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_2_2.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_2_2.png"></p>
 
 비록 길었지만, 이 논문의 중요 개념을 이해하는데에 필요한 부분은 모두 짚어보았습니다. 나머지는 분석에 앞서, 이 논문에서 가정하고 있는 부분에 대한 서술입니다.
 
@@ -151,7 +151,7 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 이 논문의 핵심인, Linear GNN의 Universal Theorem은 아래와 같습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_1.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_1.png"></p>
 
 따라서, Universality를 얻기 위해서는 아래의 세 가지 조건이 필요합니다.
  1) 1-dimensional prediction
@@ -164,13 +164,13 @@ $$Z=\phi(g(\hat{L}))\psi(X)$$
 
 아래 Proposition을 통해, 논문에서는 Linear GNN이 multi-dimensional prediction을 해내는 데에 있어서는 Universal하지 않다는 것을 서술하고 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_2.png"></p>
 
 Universal Theorem을 보면 Linear GNN은 1-dimensional prediction만을 산출하는 경우에는 충분히 강력하지만, 위의 Propsition 때문에 Multiple channel을 갖는 prediction을 산출하기 위해서는 각기 다른 polynomial filter를 필요로 하게 됩니다.
 
 이에 대해서는 Figure 1에 묘사되어 있는 Toy Example을 보도록 하겠습니다. (b), (c)를 보면, (a)에서 주어진 Node feature을 이용해 여러 dimension의 output을 만들기 위해서는 서로 다른(하나는 High-pass, 다른 하나는 Low-pass) filter가 필요하다는 것을 서술하고 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_1.png"></p>
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_1.png"></p>
 
 이 Toy Example을 통해서 우리는 논문에서 서술하고 있는 위의 내용 이외에도, GNN의 표현력, Universality에 있어서 arbitary filter을 근사하는 능력인 FME property가 왜 중요한 지에 대해서 생각해볼 수 있습니다. 만약 Model에서 사용하는 filter가 특정 filter를 근사할 수 없다면, 이는 특정 prediction 값을 산출할 수 없다는 것이고 다시 말해 universal하지 못하게 된다는 것을 의미합니다.
 
@@ -193,7 +193,7 @@ Graph Laplacian이 multiple eigenvalue을 갖는다는 것은 두 개의 frequen
 아래 Figure 2에는 missing frequency component가 생기는 Toy graph를 다루고 있습니다.  
  *(주) Figure 2에 있는 1-dim node feature와 graph structure을 이용해 계산해보면, 왼쪽의 node feature로는 frequency, 즉 eigenvalue=2에 해당하는 frequency component가 0이 됩니다.*
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_2.png"></p>
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_2.png"></p>
 
 이 Missing frequency component 문제는 Graph structure과 node feature 둘 다 영향을 끼치고, 그렇기에 다루기 어려운 문제입니다.
 
@@ -211,21 +211,21 @@ Graph Isomorphism Test 기법으로 언급이 되는 것이 바로 1-dimensional
 
 이 논문에서는 먼저, $K+1$ iteration 1-WL test가 구별할 수 없는 node pair는 degree $K$ polynomial filter를 갖는 Linear GNN도 구별할 수 없다는 것을 아래 Proposition을 통해 서술합니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_3.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Prop_4_3.png"></p>
 
 Proposition 4.3.은 Linear GNN의 표현력 역시 Spatial GNN 처럼[5] 1-WL test에 의해 Bound된다는 것을 의미합니다.
 
 하지만, 우리는 Universal Theorem을 통해 Linear GNN이 각기 다른 node들에 대해, 그 node들이 isomorphic한 지와 상관 없이 서로 다른 prediction을 산출할 수 있는 표현력을 갖고 있다는 것을 알고 있습니다. 또한, 1) 1-WL test는 몇몇 non-isomorphic한 node들을 구별하지 못하며, 2) 1-WL test의 경우 isomorphic한 node들에 대해 같은 label을 산출한다는 것 역시 알려져 있는 바입니다. 이렇듯 모순되어 보이는 두 사실은 Universality Condition 2와 3이 만족되면 1-WL test 역시 충분히 Powerful하다는 것(모든 non-isomorphic node를 구별할 수 있음)과 graph가 isomorphic한 node를 가질 수 없다는 것을 보여주는 결과릍 통해 해소되며, 그 결과는 아래 Corollary 4.4.와 Theorem 4.5., Theorem 4.6.에 정리되어 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Corr_4_4.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Corr_4_4.png"></p>
 
 Corollary 4.4.는 Universal Theorem과 Proposition 4.3.을 통해 유도되는 결과입니다. 두 조건 아래에서 1-WL test 역시 충분히 Powerful하다는 것을 보여줍니다.
 
 아래 두 theorem들은 두 조건이 Graph와 node feature을 제약한다는 것을 보여줍니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_5.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_5.png"></p>
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_6.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Thm_4_6.png"></p>
 
 따라서, 우리는 Universal Theorem의 조건들이 Graph Topology와 Node feature이 제약되어, 1-WL test가 결국 linear GNN의 표현력을 Bound하고 있다는 것을 뒷받침합니다. 위의 결과들을 통해서 우리는 Universality 측면에서의 spectral GNN의 표현력과 1-WL test 측면에서의 spatial GNN의 표현력 간 연결고리를 얻게 됩니다.
 
@@ -237,7 +237,7 @@ Spectral GNN의 General form $Z=\phi(g(\hat{L}))\psi(X)$을 보면, Non-linearli
 
 아래 Figure 4를 통해, 이러한 해석을 뒷받침할 수 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_4.png"></p>
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Figure_4.png"></p>
 
 또, $\sigma$를 spatial signal $X$에 element-wise하게 적용되는 non-linearlity activation이라고 하고, spectral signal $\tilde{X}$에의 영향 $\sigma '$을 보면, 
 $$\sigma '(\tilde{X})=U^{T}\sigma(U\tilde{X})$$
@@ -294,7 +294,7 @@ $$H_{k_{1}k_{2}}=\int_ {0} ^{2}{g_{k_{2}}(\lambda_{i})g_{k_{1}}(\lambda_{i})f(\l
 
 Jacobi basis는 가장 general한 형태의 polynomial bases이며, ChebyNet에서 활용하는 Chebyshev basis의 경우 이 Jacobi basis의 특수한 형태( $P_{k}^{-1/2,-1/2} (1-\lambda)$ )라고 합니다. Jacobi basis $P_{k}^{a,b}$는 아래와 같이 정의됩니다.
 
-<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi.png"></p>
 
 이 Jacobi basis는 weight function $(1-\lambda)^{a}(1+\lambda)^{b}$에 대해, domain $[-1,1]$에서 orthogonal 합니다. Domain을 맞춰주기 위해, graph의 Jacobi basis는 아래와 같이 정의합니다.
 $$g_{k}(\hat{L})=P_{k}^{a,b}(I-\hat{L})=P_{k}^{a,b}(\hat{A})$$
@@ -308,7 +308,7 @@ $$Z_{:l}=\sum_{k=0}^{K}{\alpha_{kl}P_{k}^{a,b}(\hat{A})\hat{X}_ {:l}}$$
 
 2번의 경우, Section 4.2.에서 다룬 Jacobi basis의 recursion formula를 활용하여 필터링 연산을 수행한다는 것입니다. 아래와 같이 formulate되는데, 저자의 서술에 따르면 ' $K$개의 message passing operation'을 수행한다고 합니다. 아래의 form을 보면, 확실히 저자가 서술한 것처럼 message passing framework과 비슷한 모습입니다.
 
-<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi_calculations.png"></p>
+<p align="center"><img width="200" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Jacobi_calculations.png"></p>
 
 3번의 PCD technique은 real-world dataset에서, $k$가 커질수록 filter polynomial coefficient $\alpha_{kl}$의 값이 작아진다는 observation에 기반하고 있습니다. 이렇게 coefficient들의 magnitude에 편차가 생기면 optimization이 어려워진다고 합니다. 그래서 coefficient를 다음과 같이 decomposition하며,
 $$\alpha_{kl}=\beta_{kl}\prod_{i=1}^{k}\gamma_{i}$$
@@ -348,7 +348,7 @@ Real-world Dataset에서는 accuracy가 metric입니다.
 
 JacobiConv가 다른 PFME GNN이나 다른 Bases를 사용한 linear GNN에 비해 Filter를 잘 학습할 수 있는지를 보여주는 실험입니다. 아래 Table 1은 다른 모델과 비교했을 때 JacobiConv의 우수성을 보여주고 있습니다. 이 실험 결과는 Section 4.1.에서의 Analysis를 뒷받침하고 있습니다.
 
-<p align="center"><img width="500" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_1.png"></p>
+<p align="center"><img width="400" src="/images/How_Powerful_are_Spectral_Graph_Neural_Networks/Table_1.png"></p>
 
 #### **5.2.b Real-world Dataset**
 
