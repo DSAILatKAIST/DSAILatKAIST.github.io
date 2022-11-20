@@ -119,7 +119,7 @@ SGCRN 역시 layer 단위의
 다만, hierarchical structure로 인해 고차원 layer에서 stochastic한 잠재변수가 prior distribution으로 collapse 하는 경우가 발생할 수 있습니다. 이를 막기 위해 deterministic-upward path 뿐만 아니라 input에서 direct하게 multi-layer latent representation으로 이어지는 다음과 같은 mapping을 이용합니다:
 
 $$
-\hat{\mathbf{\mu}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x\mu} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h \mu}\mathbf{h}_{t-1,n}) \ \text{and} \ \hat{\mathbf{\sigma}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x \sigma} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h\sigma}\mathbf{h}_{t-1,n}).
+\hat{\mathbf{\mu}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x \mu} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h \mu}\mathbf{h}_{t-1,n}) \ \text{and} \ \hat{\mathbf{\sigma}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x \sigma} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h\sigma}\mathbf{h}_{t-1,n}).
 $$
 
 여기서 C로 표시된 matrix들은 모두 학습가능한 parameter입니다. 이제, latent feature와 stochastic-downward path를 통해 구한 prior를 함께 이용하여 latent space의 variational posterior를 구합니다:
