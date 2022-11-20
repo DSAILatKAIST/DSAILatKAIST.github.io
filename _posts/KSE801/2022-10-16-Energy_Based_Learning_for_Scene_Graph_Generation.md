@@ -102,7 +102,7 @@ Main Table에서 볼 수 있듯이 Energy-Based Loss를 활용했을 때 성능�
 
 
 
-## **5. Conclusion**  
+## **5. Conclusion**    
 
 기존의 Model들이 CE Loss를 주로 활용했는데 CE Loss는 두 Entity를 보고 예측을 하게 된다. 하지만, 이렇게 되면 Motivation에서 밝혔듯이 주변 관계를 고려했을 때 말이 안되는 관계를 예측하게 된다. 따라서 전체적인 관계를 고려하면서 학습해야함을 주장하고 이를 실험적으로 잘 보여줬다고 생각한다.  
 
