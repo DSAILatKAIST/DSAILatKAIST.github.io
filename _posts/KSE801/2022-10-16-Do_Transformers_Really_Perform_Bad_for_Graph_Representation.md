@@ -24,25 +24,33 @@ Transformer 의 압도적인 성능은 당연히 Graph Representation 영역에�
 
 ### **2.1 Centrality Encoding**
 
-Transformer의 Attention 구조는 각 노드의 correlation 을 mapping 한다. Graph 에서는 좀 더 inductive bias를 부여해 줄 수 있는데, 그것은 node가 얼마나 많이 연결되어 있는지 (연결성)의 정도를 그 노드의 중요도로 평가할 수 있는 지점을 이용하는 방법이다. 즉 node $v_i$ 가 in-degree ($z_{\operatorname{deg}^{-}\left(v_i\right)}^{-}$) 와 out-degree ($$z_{\operatorname{deg}^{+}\left(v_i\right)}^{+}$$)가 얼마나 되는지를 compute 하여 이를 bias로 이용해 줄 수 있다. 식으로 나타내면 다음과 같다. 
+Transformer의 Attention 구조는 각 노드의 correlation 을 mapping 한다. Graph 에서는 좀 더 inductive bias를 부여해 줄 수 있는데, 그것은 node가 얼마나 많이 연결되어 있는지 (연결성)의 정도를 그 노드의 중요도로 평가할 수 있는 지점을 이용하는 방법이다. 즉 node  가 in-degree 와 out-degree가 얼마나 되는지를 compute 하여 이를 bias로 이용해 줄 수 있다. 식으로 나타내면 다음과 같다. 
 
-$
+$$
 h_i^{(0)}=x_i+z_{\operatorname{deg}^{-}\left(v_i\right)}^{-}+z_{\operatorname{deg}^{+}\left(v_i\right)}^{+}
-$
+$$
 
 ### **2.2 Spatial Encoding**
 
 Image의 Spatial information 은 Euclidean space에서 쉽게 정의된다 (픽셀들간의 기하학적 거리). Language 에서도 문장의 순서가 굉장히 중요한 information 이다. Transformer에서는 이를 위해 positional encoding 을 통해 spatial encoding 을 처리한다. 
 
-Graph 에서는 당연히 edge (즉, node의 pairwise 정보)를 주목할 필요가 있다. 가장 general 한 edge bias는 node간의 shortest path 라고 볼 수 있다. 따라서 해당 논문에서는 spatial encoding $
-\phi\left(v_i, v_j\right): V \times V \rightarrow \mathbb{R}
-$ 을 shortest path 로 사용하여 attention 구조에 bias $
-b_{\phi\left(v_i, v_j\right)}
-$ 를 부여한다:
+Graph 에서는 당연히 edge (즉, node의 pairwise 정보)를 주목할 필요가 있다. 가장 general 한 edge bias는 node간의 shortest path 라고 볼 수 있다. 따라서 해당 논문에서는 spatial encoding 
 
-$
+$$
+\phi\left(v_i, v_j\right): V \times V \rightarrow \mathbb{R}
+$$ 
+
+을 shortest path 로 사용하여 attention 구조에 bias 
+
+$$
+b_{\phi\left(v_i, v_j\right)}
+$$ 
+
+를 부여한다:
+
+$$
 A_{i j}=\frac{\left(h_i W_Q\right)\left(h_j W_K\right)^T}{\sqrt{d}}+b_{\phi\left(v_i, v_j\right)}
-$
+$$
 
 이 구조는 edge attribute 에 따라서 확장 될 수 있다. 예를들어 molecular graph 에서는 chemical bonding 도 edge로 표현 될 수 있다. 이에 대한 자세한 확장은 논문을 참조하는 것이 좋겠다. 
 
@@ -75,12 +83,10 @@ Transformer는 딥러닝 모델로써 사실상 가장 좋은 성능을 거둔�
 ---  
 ## **Author Information**  
 
-* Chengxuan Ying 
-    * Dalian University of Technology, Interns in Microsoft Research Asia
-    * First Author
-* Di He
-    * Microsoft Research Asia
-    * Corresponding Author
+* Minsu Kim 
+    * KAIST
+    * SILAB in Industrial and System Engineering
+
 
 
 
