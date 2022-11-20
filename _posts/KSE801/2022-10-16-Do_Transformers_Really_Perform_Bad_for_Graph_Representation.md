@@ -18,6 +18,10 @@ Transformer 의 압도적인 성능은 당연히 Graph Representation 영역에�
 
 ## **2. Method**
 
+
+![1](/images/Do_Transformers_Really_Perform_Bad_for_Graph_Representation/figure1.PNG)
+
+
 사실 해당 논문은 매우 복잡한 테크닉과 증명이 들어있다. 이를 일일히 리뷰 하는 것은 오히려 큰 그림을 보는 시야를 해칠 수 있으므로, 이 리뷰에서는 Method의 의도와 Sketch 정도를 다루도록 하겠다. 구체적인 Technique과 증명은 논문과 코드를 참고하는 것이 좋겠다. 
 
 해당 방법의 핵심은 Graph 의 특징을 Transformer 구조에 얼마나 잘 녹여내느냐 이다. 크게 두가지 Novel 한 방법이 제시된다: (1) Centrality Encoding, (2) Spatial Encoding. Summary 하자면, 얼마나 Graph의 Inductive Bias를 영리하게 부여하는 지에 대한 여부이다. 
@@ -74,7 +78,16 @@ $$
 Task dataset은 PCQM4M-LSC,  ogbgmolhiv, ogbg-molpcba and ZINC 에서 진행되었고, 이는 OGB chemistry regression task 의 일환이다. 
 놀랍게도 Graphormer는 모든 benchmark에서 기존 GNN 구조들을 압도하였다. 
 
-실험결과의 자세한 데이터는 논문을 참조하는 것이 좋겠다 (사실상 데이터 값 등은 리뷰에서 다루기에 Scope를 벗어난다. 확실한 것은 Graphormer의 압도적 성능이다. )
+![2](/images/Do_Transformers_Really_Perform_Bad_for_Graph_Representation/figure2.PNG)
+![3](/images/Do_Transformers_Really_Perform_Bad_for_Graph_Representation/figure3.PNG)
+
+### **4.1 Ablation Study** ###
+
+해당 방법이 제시한 여러 테크닉 (special bias, positional encoding) 에 대한 ablation 도 모두, performance increament에 적절히 관여 되었다는 것을 보여준다. 
+
+![4](/images/Do_Transformers_Really_Perform_Bad_for_Graph_Representation/figure4.PNG)
+
+
 
 ## **5. Conclusion**  
 
