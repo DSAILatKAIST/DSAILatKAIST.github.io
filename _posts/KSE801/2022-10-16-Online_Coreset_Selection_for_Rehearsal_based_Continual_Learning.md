@@ -215,7 +215,8 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 
 * Gaussian noise를 적용하여 Rotated MNIST dataset을 noise하게 setting하였다.  
 * 위의 table을 보면, noise는 모든 baseline의 성능을 상당히 저하시키는 것을 관찰할 수 있다.  
-* 하지만 저자가 제안한 OCS의 경우, noise rate이 증가함에 따라 accuracy와 forgetting이 심각하게 저하되지는 않는 것으로 보여진다. 이는 task 내에서 similarity와 diversity를 고려하여 coreset을 선정하는 과정이 noise data를 상당부분 제외시키는 것으로 해석 가능하다.  
+* 하지만 저자가 제안한 OCS의 경우, noise rate이 증가함에 따라 accuracy와 forgetting이 심각하게 저하되지는 않는 것으로 보여진다.  
+* 이는 과거 task에 대해 similarity와 diversity를 고려하여 coreset을 선정하고, 현재 task에 대해서도 affinity를 고려하여 coreset을 선정하기 때문에 noise data를 상당부분 제외시킨 채로 학습을 진행하기 때문인 것으로 해석이 가능하다.  
 
 
 #### 4.2.3 Ablation Studies
@@ -233,6 +234,10 @@ OCS과의 비교를 위해 continual setting에서 아래의 모델들과 비교
 * Coreset에 들어갈 top k개의 data를 고르는 과정에서 "Minibatch similarity", "Sample diversity", "Coreset affinity"라는 세가지 식이 적용된다. 
 * 본 실험은 이러한 세가지 component의 효과를 관찰하기 위해 component를 제외해보며 abalation study를 진행하였다. 
 * Similarity와 diversity를 혼자만 사용하는 것은 성능 저하가 상당했다. Similarity만 사용할 경우, 중복되는 data를 선정할 가능성이 있고, diversity만 고려할 경우 representative한 data point를 선정하는데에 한계가 있을 것이다. 
+* 따라서 similarity와 diversity의 고려 비율을 적절히 interpolate해야 좋은 성능이 도출될 것이고, 아래의 그림은 "noisy rotated MNIST", "multiple dataset"에서 각각의 interpolate ratio에서의 average test accuracy를 나타낸다.
+* Affinity는 이전 task의 coreset과 유사한 gradient direction을 가진 candidates를 선정하기 때문에 forgetting을 방지한다. 
+* 하지만, affinity는 앞선 task의 replay buffer의 quality에 dependent하기 때문에 홀로 고려될 경우 performance에 큰 도움을 주지 못한다. 
+* 따라서 위의 table을 보면, multiple dataset에서 affinity가 홀로 고려될 경우에는 performance가 낮지만, task마다 동일한 class set이 혼재되어있는 domain-incremental setting (Noisy Rot-MNIST)에서는 꽤나 좋은 성능이 관찰된다. 
 
 
 ## **5. Conclusion**  
