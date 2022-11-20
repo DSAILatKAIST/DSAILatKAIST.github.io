@@ -23,6 +23,17 @@ GNN의 Robustness 는 Attack 이 포함된 Graph 로 그래프 태스크를 수�
 그래프 태스크란, Node Classification, Graph Classfication, Link Prediction 그리고 Node Clustering 과 같은 전형적인 태스크들을 이야기 합니다.
 
 
+**Adversarial Robustness** 를 확인하는 Task라 함은, 위와 같은 node/graph Classification Task 를 수행하는 과정에서, graph 가 poisoned (adversarially attacked)
+
+되어 있을 때, 얼마나 Classification Accuracy 가 유지 되는가를 평가하는 것 입니다.
+
+조금 더, 구체적으로, graph 의 edge 를 아주 조금 지우거나 더해주는 attack 행위를 통해 GNN 모델의 성능을 크게 망가 뜨릴 수 있는데,
+
+그러한 데이터를 받았을 때에도 태스크 성능을 높게 산출하고자 하는 것이 Adversarial robustness 를 목적으로 하는 태스크 입니다.
+
+이 분야에 대한 연구를 Robust GNN 를 연구한다고 칭하기도 합니다.
+
+
 
 
 
