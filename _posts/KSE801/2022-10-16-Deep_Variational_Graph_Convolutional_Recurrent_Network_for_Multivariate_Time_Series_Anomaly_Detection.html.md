@@ -70,7 +70,7 @@ $$
 
 EPN은 probabilistic generative model로 다음과 같은 generation process를 가지고 있습니다.
 
-<img width ="140" src = '../images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png'>
+<img width ="140" src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png'>
 
 여기서 
 
