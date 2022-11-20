@@ -24,7 +24,6 @@ GNN의 Robustness 는 Attack 이 포함된 Graph 로 그래프 태스크를 수�
 
 
 **Adversarial Robustness** 를 확인하는 Task라 함은, 위와 같은 node/graph Classification Task 를 수행하는 과정에서, graph 가 poisoned (adversarially attacked)
-
 되어 있을 때, 얼마나 Classification Accuracy 가 유지 되는가를 평가하는 것 입니다.
 
 조금 더, 구체적으로, graph 의 edge 를 아주 조금 지우거나 더해주는 attack 행위를 통해 GNN 모델의 성능을 크게 망가 뜨릴 수 있는데,
