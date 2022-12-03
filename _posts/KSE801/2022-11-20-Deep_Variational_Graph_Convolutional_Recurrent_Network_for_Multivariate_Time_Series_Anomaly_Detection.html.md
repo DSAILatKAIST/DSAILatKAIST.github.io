@@ -70,7 +70,7 @@ $$
 
 EPN은 probabilistic generative model로 다음과 같은 generation process를 가지고 있습니다.
 
-<img width ="140" src = '../images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png'>
+<img width ="140" src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/EPN.png'>
 
 여기서 
 
@@ -116,6 +116,24 @@ SGCRN 역시 layer 단위의
 
 구조를 가지고 있습니다. 각 역할은 EPN과 GCRN과 동일하기 때문에 자세한 설명은 생략하도록 하겠습니다.
 
+다만, hierarchical structure로 인해 고차원 layer에서 stochastic한 잠재변수가 prior distribution으로 collapse 하는 경우가 발생할 수 있습니다. 이를 막기 위해 deterministic-upward path 뿐만 아니라 input에서 direct하게 multi-layer latent representation으로 이어지는 다음과 같은 mapping을 이용합니다:
+
+$$
+\hat{\mathbf{\mu}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x \mu} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h \mu}\mathbf{h}_{t-1,n}) \ \text{and} \ \hat{\mathbf{\sigma}}_{t,n}^{(l)} = f(\mathbf{C}^{(l)}_{x \sigma} \mathbf{x}_{t,n} + \mathbf{C}^{(l)}_{h\sigma}\mathbf{h}_{t-1,n}).
+$$
+
+여기서 C로 표시된 matrix들은 모두 학습가능한 parameter입니다. 이제, latent feature와 stochastic-downward path를 통해 구한 prior를 함께 이용하여 latent space의 variational posterior를 구합니다:
+
+$$
+q(\mathbf{z}_{t,n}^{(l)}) = \mathcal{N}(\mathbf{\mu}^{(l)}_{t,n}, \text{diag}(\mathbf{\sigma}^{(l)}_{t,n})),
+$$
+
+where
+
+$$
+\mathbf{\mu}^{(l)}_{t,n} = \text{linear}(\hat{\mathbf{\mu}}_{t,n}^{(l)} + \mathbf{W}^{(l)}_{z \mu} \mathbf{z}^{(l+1)}_{t,n}) \ \text{and} \ \mathbf{\sigma}^{(l)}_{t,n} = \text{Softplus}(\text{linear}(\hat{\mathbf{\sigma}}_{t,n}^{(l)} + 1)).
+$$
+
 최종적으로 DVGCRN을 도식화하면 다음과 같이 나타낼 수 있습니다.
 
 <img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_2.png'>
@@ -153,11 +171,19 @@ $$
 
  # 4. Empricial results
 
-마지막으로 본 논문은 다양한 데이터 셋을 이용하여 다른 anomality detection 모델들과의 차이를 제시합니다. 원문에서는 더 다양한 결과를 제시하지만 여기서는 직관적이고 이해하기 쉬운 quantitative comparison과 qualitative comparison 결과 하나씩만 제시하도록 하겠습니다.
+마지막으로 본 논문은 실제 multivariate KPI 데이터인 DND와 public data 3개 (MD,MSL,SMAP)를 이용한 experiment 결과를 제시합니다. (각 data에는 ground-truth anomaly가 알려져 있음) 데이터에 대한 자세한 설명은 원문에 자세하게 나와있으니 리뷰에서는 따로 다루지 않겠습니다.
 
 ## 4.1 Quantitative comparison
 
-먼저 quantitative comparison 입니다. quantitative comparison에 쓰인 metric은 Precision, Recall 그리고 F1 score 이며, 사용된 데이터는 실제 multivariate KPI 데이터인 DND와 public data 3개 (MD,MSL,SMAP) 입니다. (각 data에는 ground-truth anomaly가 알려져 있음)
+먼저 quantitative comparison 입니다. quantitative comparison에 쓰인 metric은 Precision, Recall 그리고 F1 score 입니다.
+
+다음 그림은 DVGCRN의 hyperparameter 설정에 따른 score의 변화와 ablation study입니다.
+
+<img width = '140' src = '/images/Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection/Figure_4,5.png'>
+
+3-layer 모델에서 window size(T)가 클수록 성능이 개선 되는 것(왼쪽 그림)과 network의 사이즈와 무관하게 layer의 수가 클 수록 좋은 성능을 보이는 것(중간 그림)을 통해 deep network가 좋은 성능을 보이고 있음을 알 수 있습니다. 다만, embedding dimension의 경우 layer의 개수와 무관하게 너무 큰 값의 경우 성능이 하락하는 모습을 보이고 있습니다.
+
+Ablation study를 통해서는 graph와 recurrent 구조 모두 DVGCRN의 성능에 중요한 영향을 끼치고 있다는 것을 알 수 있습니다.
 
 다음 표는 여러 baseline method들과 DVGCRN을 비교한 결과입니다.
 
