@@ -18,7 +18,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ICDE 2022] Inhomogeneous Social Recommendation with Hypergraph Convolutional Networks](/_posts/KSE801/2022-09-28-Inhomogeneous_Social_Recommendation_with_Hypergraph_Convolutional_Networks.md)
 - [[KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps](/_posts/KSE801/2022-09-28-ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps.md)
 - [[KDD 2021] Relational Message Passing for Knowledge Graph Completion](/_posts/KSE801/2022-10-16-Relational_Message_Passing_for_Knowledge_Graph_Completion.md)
-- [[KDD 2022] Streaming Graph Neural Networks via Generative Replay](/_posts/KSE801/2022-10-12-Streaming_Graph_Neural_Networks_via_Generative_Replay.md)
+- [[KDD 2022] Streaming Graph Neural Networks via Generative Replay](/_posts/KSE801/2022-11-12-Streaming_Graph_Neural_Networks_via_Generative_Replay.md)
 - [[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications](/_posts/KSE801/2022-09-28-How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications.md)
 - [[AAAI 2019] Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP](/_posts/KSE801/2022-10-17-Learning_to_Solve_NP_Complete_Problems_A_Graph_Neural_Network_for_Decision_TSP.md)
 - [[AAAI 2022] Graph Neural Controlled Differential Equations for Traffic Forecasting](/_posts/KSE801/2022-10-16-Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.md)

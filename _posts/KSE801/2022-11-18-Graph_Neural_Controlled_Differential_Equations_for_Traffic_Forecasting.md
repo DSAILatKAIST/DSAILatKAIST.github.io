@@ -33,9 +33,9 @@ $$
 \{\mathcal{G}_{t_i} \overset{\text{def}}{=} (\mathcal{V},\mathcal{\varepsilon},\boldsymbol{F}_i,t_i)\}_{i=0}^N ...(1)
 $$
 
-where $\mathcal{V}$ is a ﬁxed set of nodes, $\mathcal{\varepsilon}$ is a fixed set of edges, $t_i$ is a time-point when $\mathcal{G}_{t_i}$ is observed, and $\boldsymbol{F}_i \in \mathbb{R}^{|\mathcal{V}| \times D}$ is a feature matrix at time $t_i$ which contains $D$-dimensional input features of the nodes, the spatio-temporal forecasting is to predict $\hat{\boldsymbol{F}} \in \mathbb{R}^{|\mathcal{V}| \times S \times M}$
+where $\mathcal{V}$ is a ﬁxed set of nodes, $\mathcal{\varepsilon}$ is a fixed set of edges, $t_i$ is a time-point when $\mathcal{G}_{t_i}$ is observed, and $\boldsymbol{F}_i \in \mathbb{R}^{\vert \mathcal{V} \vert \times D}$ is a feature matrix at time $t_i$ which contains $D$-dimensional input features of the nodes, the spatio-temporal forecasting is to predict $\hat{\boldsymbol{F}} \in \mathbb{R}^{\vert \mathcal{V} \vert \times S \times M}$
 
-For example, when we predict the trafﬁc volume for each location of a road network for the next $S$ timepoints (or horizons) given past $N + 1$ historical traffic patterns, where $|\mathcal{V}|$ is the number of locations to predict and $M = 1$ because the volume is a scalar(i.e., \# of vehicles)
+For example, when we predict the trafﬁc volume for each location of a road network for the next $S$ timepoints (or horizons) given past $N + 1$ historical traffic patterns, where $\vert\mathcal{V}\vert$ is the number of locations to predict and $M = 1$ because the volume is a scalar(i.e., \# of vehicles)
 
 Here is the NCDEs, which are considered as a continuous analogue to recurrent neural networks (RNNs), can be written as follows:
 
@@ -54,9 +54,9 @@ where $X$ is a continuous path taking values in a Banach space. The entire traje
 
 Pre-processing and main processing steps as follows: 
 
-1. Its pre-processing step is to create a continuous path $X^{(v)}$ for each node $v$, where $1 \leq v \leq |\nu|$, from $\{F_i^{(v)}\}_{i=0}^N$. $F_i^{(v)} \in \mathbb{R}^D$ means the $v$-th row of $F_i$, and $F_i^{(v)}$ stands for the time-series of the input features of $v$. 
+1. Its pre-processing step is to create a continuous path $X^{(v)}$ for each node $v$, where $1 \leq v \leq \vert\nu\vert$, from $\{F_i^{(v)}\}_{i=0}^N$. $F_i^{(v)} \in \mathbb{R}^D$ means the $v$-th row of $F_i$, and $F_i^{(v)}$ stands for the time-series of the input features of $v$. 
 2. The above pre-processing step happens before training their model. Then, their main step, which combines a GCN and an NCDE technologies, calculates the last hidden vector for each node $v$, denoted $z^{(v)}(T)$.
-3. After that, they have an output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$ for each node v. After collecting those predictions for all nodes in $\nu$, they have the prediction matrix $\hat{Y} \in \mathbb{R}^{|\nu| \times S \times M}$.
+3. After that, they have an output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$ for each node v. After collecting those predictions for all nodes in $\nu$, they have the prediction matrix $\hat{Y} \in \mathbb{R}^{\vert\nu\vert \times S \times M}$.
 
 #### 3.2 Graph neural controlled differential equations (STG-NCDE)
 
@@ -86,7 +86,7 @@ Pre-processing and main processing steps as follows:
 
   $$Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)f(H(t);\theta_f)\frac{dX(t)}{dt}dt ...(6)$$
   
-  where $Z(t) \in \mathbb{R}^{|\nu| \times dim(z^{(v)})}$ is a matrix created after stacking the hidden trajectory $z^{(v)}$ for all $v$.
+  where $Z(t) \in \mathbb{R}^{\vert\nu\vert \times dim(z^{(v)})}$ is a matrix created after stacking the hidden trajectory $z^{(v)}$ for all $v$.
 
 ## **4. Experimental Evidence**  
 

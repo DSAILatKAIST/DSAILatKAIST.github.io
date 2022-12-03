@@ -47,13 +47,15 @@ Overall Framework의 맨 왼쪽의 그림을 보면 이미지가 주어져 있�
 
 Faster R-CNN을 통해서 객체에서 Visual Feature를 탐지하고 나면 Overall Framework에서 Feature Extraction을 통과한다. 그리고 Context 반영을 하고 Feature를 Refinement하기 위해서 Bi-LSTM, Bi-Tree LSTM을 활용한다. Scene Graph에서는 주변의 Context 반영을 하고 Refinement된 Feature를 활용하는 것이 중요하기 때문에 이 논문에서도 Visual Feature를 그대로 사용하는 것이 아니라 Refinement를 한다.  
 
+Context 반영은 Scene Graph Generation task에서 핵심적으로 다루어지고 있는데, 이 논문은 Context 고도화의 목적이 아니기 때문에 다른 Context 반영 방법을 그대로 사용한다.
+
 ### **3. Energy-Based Loss 사용**  
 
 Energy-Based Loss를 사용해서 Motivation에서 언급했듯이 다른 주변의 관계까지 고려하면서 Output Space에서 학습하도록 한다. 다시 말하자면 CE Loss는 독립적으로 두 객체만을 보고 관계를 예측한다면 Energy-Based Loss는 이미지 내에서 다른 객체들의 관계를 고려하면서 학습하는 것이다.  
 
 Notation을 먼저 설명하면, 2번에서 얘기한 Context Encoding을 하고나면 Entity와 Relation을 예측한 Scene Graph형태로 나오게 된다. Overall Framework에서 맨 위에 있는 Scene Graph를 보면 이해가 더 쉽다. 해당 Scene Graph를 ![](https://latex.codecogs.com/svg.image?G_{SG})라고 하자. 
 
-Overall Framework에서 맨 아래를 보면 Image Graph가 존재하는데 이는 처음에 Faster R-CNN으로 나온 Feature로 Entity의 Feature가 존재하게 된다. 이 때는 Entity 둘 관계를 예측하지 않고 Entity만 존재하는 Graph로 보면 된다. 이를 ![](https://latex.codecogs.com/svg.image?G_{I})라고 하자.  
+Overall Framework에서 맨 아래를 보면 Image Graph가 존재하는데 이는 처음에 Faster R-CNN으로 나온 Feature로 initialize되어 있는 Entity가 존재하게 된다. 이 때는 Entity 둘 관계를 예측하지 않고 Entity만 존재하는 Graph로 보면 된다. 이를 ![](https://latex.codecogs.com/svg.image?G_{I})라고 하자. Scene Graph와 Image Graph의 큰 차이는 객체 사이에 관계까지 고려한 그래프면 전자, 객체로만 표현되어 있는 그래프는 후자이다.  
 
 그리고 Ground-Truth Bounding Box를 통해서 만든 Image Graph를 ![](https://latex.codecogs.com/svg.image?G_{I}^+)라고 하고, Ground-Truth Scene Graph를 ![](https://latex.codecogs.com/svg.image?G_{SG}^+)라고 하자.  
 
@@ -75,7 +77,7 @@ $$L_{total}=\lambda_e L_e+\lambda_r L_r + \lambda_t L_t$$
 
 ### Energy Based 구현  
 
-Scene Graph의 Energy를 계산하기 위해서는 해당 논문에서는 Graph Pooling을 한 후, MLP를 이용하여 하나의 Scalar를 추출하게 된다. 다시 정리하면 Ground-Truth Scene Graph를 활용하여 Pooling한 후, MLP를 이용하여 하나의 Scalar가 나올 것이고, Predicted Scene Graph에서도 하나의 Scalar가 나올 것이다. Predicted Scene Graph와 GT Scene Graph의 Energy를 가깝게 하는 것이다.  
+Scene Graph와 Image Graph의 Energy를 계산하기 위해서는 해당 논문에서는 Scene Graph와 Image Graph를 각각 Graph Pooling을 한 후, Pooling한 Representation을 Concat한 후, MLP를 이용하여 하나의 Scalar를 추출하게 된다. 다시 정리하면 Ground-Truth Scene Graph와 Image Graph를 활용하여 Pooling한 후, MLP를 이용하면 **Ground-Truth의 Energy value**인 Scalar가 나올 것이고, Predicted Scene Graph와 Image Graph에서도 하나의 **Predicted Energy Scalar**가 나올 것이다. Predicted Energy와 GT Energy를 가깝게하여 Image Graph와 Scene Graph 차원에서 Ground-Truth의 Energy를 따라가도록 모델을 학습 하는 것이다.  
 
 
 ## **4. Experiment**  
@@ -98,11 +100,11 @@ Main Table에서 볼 수 있듯이 Energy-Based Loss를 활용했을 때 성능�
 
 <img width = '900' src = '../../images/energy_based_model/5.png'>  
 
-이 실험은 실제로 CE Loss를 썼을 때와 Energy-Based Loss를 활용했을 때 어떻게 예측했는지를 보여준다. 이 논문에서는 CE Loss보다 Energy-Based Loss를 사용했을 때 더 말이 되는 관계를 예측했음을 실제로 보여주고 더 Fine-Grained한 관계를 예측했다는 것을 보여준다.  
+이 실험은 실제로 CE Loss를 썼을 때와 Energy-Based Loss를 활용했을 때 어떻게 예측했는지를 보여준다. 이 논문에서는 CE Loss보다 Energy-Based Loss를 사용했을 때 더 말이 되는 관계를 예측했음을 실제로 보여주고 더 Fine-Grained한 관계를 예측했다는 것을 보여준다. 예를 들면, 첫 번째 고양이 사진의 경우에 해당 논문은 <cat, in front of, door>로 예측하고, CE Loss를 사용했을 경우에는 <cat, near, door>, <cat, looking at, dog>로 예측했다. 해당 모델이 공간적 정보를 더 세분화되게 예측하는 것을 볼 수 있다. (near vs in front of)
 
 
 
-## **5. Conclusion**  
+## **5. Conclusion**    
 
 기존의 Model들이 CE Loss를 주로 활용했는데 CE Loss는 두 Entity를 보고 예측을 하게 된다. 하지만, 이렇게 되면 Motivation에서 밝혔듯이 주변 관계를 고려했을 때 말이 안되는 관계를 예측하게 된다. 따라서 전체적인 관계를 고려하면서 학습해야함을 주장하고 이를 실험적으로 잘 보여줬다고 생각한다.  
 
