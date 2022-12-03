@@ -18,11 +18,11 @@ User의 선호를 파악하여 Click preference를 예측하는 연구를 CTR(Cl
 
 ## **2. Motivation**  
 
-Sequence-based recommendation system에서 implicit feedback에 noise가 있다는 사실은 고려하지 않기 때문에 representation이 bias를 야기할 수 있고 suboptimal recommendation performance를 보인다. 기존의 방법들은 user interest의 evolution를 포착하기 위해 utilize item sequence를 사용한다. 하지만 이 방법은  sequence의 길이에 대한 한계가 있기고 long-term interest에 대해 효과적으로 model를 구성할 수 없다.
+Sequence-based recommendation system에서 implicit feedback에 noise가 있다는 사실은 대부분 고려되지 않는다. Noise가 존재한다는 것은 representation이 bias를 야기할 수도 있고, suboptimal recommendation performance를 보인다. 기존의 방법들은 user interest의 evolution를 포착하기 위해 utilize item sequence를 사용한다. 하지만 이 방법은  sequence의 길이에 대한 한계가 있기고 long-term interest에 대해 효과적인 model을 구성할 수 없다.
 
-implicit feed back은 비교적 데이터가 많지만 nosie가 있을 확률이 높다. 대표적으로 click or unclick이 implicit feedback인데 실수로 click 했을 수도 있고 스크롤을 빨리 내리면서 상품을 인지하지 못해 click을 못했을 수도 있다. 이처럼 implicit feedback에는 다양한 요인으로 noise가 존재할 수 있지만 explicit feedback을 비교적 정확하게 보고되기 때문에 explicit feedback을 통해 implicit feedback의 noise를 개선하여 Recommendation performance를 향상한 모델을 제안한다.
+implicit feed back은 비교적 데이터가 많지만 nosie가 있을 확률이 높다. 대표적으로 click or unclick이 implicit feedback인데 실수로 click 했을 수도 있고 스크롤을 빨리 내리면서 상품을 인지하지 못해 click을 못했을 수도 있다. 이처럼 implicit feedback에는 다양한 요인으로 noise가 존재할 수 있지만 explicit feedback을 비교적 정확하다. explicit feedback을 통해 implicit feedback의 noise를 개선하는 모델을 제안한다.
 
-따라서 새로운 CTR(Click-Through Rate) Model로 DUMN(Denosing User-aware Memory Network) 제안한다.
+새로운 CTR(Click-Through Rate) Model로 DUMN(Denosing User-aware Memory Network) 제안
 
 DUMN의 Contribution
 
@@ -36,7 +36,7 @@ DUMN network는 4가지의 module로 구성되어 있다.
 
 <img src="/images/Denoising_User_aware_Memory_Network_for_Recommendation/Model_structure.png">
 
-### Embedding Layer
+### **Embedding Layer**
 
 Embedding Layer는 user profile, ad, user behavior sequence를 Input으로 받는다.
 user profile, ad는 embedding layer를 사용하여 high dimensional sparse에서 low dimensional dense로 변환된다.
@@ -67,7 +67,7 @@ user profile, ad는 embedding layer를 사용하여 high dimensional sparse에�
 
 
 
-### Feature Purification Layer(FP)
+### **Feature Purification Layer(FP)**
 
 FP Layer는 Short-term interest를 학습하기 위한 Multi-head Interaction-attention과 Implicit feedback를 orthogonal mapping method를 이용하여 정제하는 Denoise 구간으로 구성되어 있다.
 
@@ -93,7 +93,7 @@ Muti-head Self Attention을 통해 구한 $f_c, f_u$는 implicit feedback에 대
 
 
 
-### User Memory Network Layer(UMN)
+### ** User Memory Network Layer(UMN) **
 
 <img src="/images/Denoising_User_aware_Memory_Network_for_Recommendation/umn1.png">
 
