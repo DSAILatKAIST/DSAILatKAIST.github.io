@@ -8,7 +8,7 @@ folder: reviews
 summary: Archive to save the reviews from KSE801 (2022F)
 ---
 
-- [[Recsys 2021] Quality Metrics in Recommender Systems: Do We Calculate Metrics Consistently?](/_posts/KSE801/2022-10-16-Quality_Metrics_in_Recommender_Systems_Do_We_Calculate_Metrics_Consistently.md)
+- [[Recsys 2021] Quality Metrics in Recommender Systems: Do We Calculate Metrics Consistently?](../../_posts/KSE801/2022-10-16-Quality_Metrics_in_Recommender_Systems_Do_We_Calculate_Metrics_Consistently.md)
 - [[Recsys 2021] Denoising User-aware Memory Network for Recommendation](/_posts/KSE801/2022-10-16-Denoising_User_aware_Memory_Network_for_Recommendation.md)
 - [[Recsys 2022] A User-Centered Investigation of Personal Music Tours](/_posts/KSE801/2022-10-10-A_User_Centered_Investigation_of_Personal_Music_Tours.md)
 - [[CVPR 2021] Energy-Based Learning for Scene Graph Generation](/_posts/KSE801/2022-10-16-Energy_Based_Learning_for_Scene_Graph_Generation.md)
