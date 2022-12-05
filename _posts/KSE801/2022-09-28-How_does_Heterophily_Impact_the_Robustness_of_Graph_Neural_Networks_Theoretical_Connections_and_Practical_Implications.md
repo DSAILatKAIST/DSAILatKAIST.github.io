@@ -2,6 +2,8 @@
 title:  "[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications"
 permalink: How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 GNN의 Robustness 는 최근에 많은 관심을 받아오고 있습니다. GNN 의 입력으로 넣는 그래프의 구조를 아주 조금만 변형시켜도 전혀 다른 예측값을 하게 함으로써 모델을 크게 망칠 수 있게 되는데요.

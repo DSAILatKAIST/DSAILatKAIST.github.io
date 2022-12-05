@@ -1,19 +1,17 @@
 ---
-
 title: "[KDD 2021] Relational Message Passing for Knowledge Graph Completion"
-
 permalink: Relational_Message_Passing_for_Knowledge_Graph_Completion.html
-
 tags: [reviews]
-
+use_math: true
+usemathjax: true
 ---
 
 description : Wang, Hongwei et al. / Relational Message Passing for Knowledge Graph Completion / KDD-2021
 
 ---
- # **Relational Message Passing for Knowledge Graph Completion**
+# **Relational Message Passing for Knowledge Graph Completion**
 
- ## **1. Problem Definition**
+## **1. Problem Definition**
 
 지식 그래프는 `Entity`와 `Relation`으로 지식 구조를 그래프로 표현한 것입니다.  
 Entity는 그래프의 node와 같은 역할이며, 지식 그래프의 개체를 나타냅니다.  
@@ -21,14 +19,15 @@ Relation은 그래프의 edge와 유사하며, 지식 그래프에서 **연결�
 예를 들어, Entity pair 'Mona Lisa"와 'Da Vinci' 사이에는 'painted by'의 relation이 존재합니다.  
 일반적으로 지식 그래프는 규모가 크며 불완전하므로 **missing relation**을 예측해 완전하게 만드는 것이 목표입니다. 
 
-<p align="center"><img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Figure.png" width="600">
+<!-- <p align="center"> -->
+<img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Figure.png" width="600">
 
 entity pair $(h,t)$가 주어졌을 때 entity간의 relation인 $r$의 분포를 모델링합니다.
 베이즈 정리에 의해 다음과 같이 나타낼 수 있습니다.
 $$p(r|h,t) \propto p(h,t|r) \cdot p(r)$$
 
 $p(r)$은 prior distribution이므로, $p(h,t|r)$을 모델링합니다. 
-$$p(h,t|r)=\frac{1}{2}(p(h|r) \cdot p(t|h,r)+p(t|r) \cdot p(h|t,r))$$
+$$p(h,t \vert r)=\frac{1}{2}(p(h \vert r) \cdot p(t \vert h,r)+p(t \vert r) \cdot p(h \vert t,r))$$
 
 여기서 $p(h|r), p(t|r)$은 주어진 relation에 대한 entity의 likelihood입니다.   
 본 논문의 모델에서는 entity의 자체 특징을 이용하지 않으므로, entity의 local relational subgraph로 대체합니다.  
@@ -37,9 +36,9 @@ $$p(h,t|r)=\frac{1}{2}(p(h|r) \cdot p(t|h,r)+p(t|r) \cdot p(h|t,r))$$
 $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에 어떻게 도착할지에 대한 likelihood입니다.  
 이는 **entity와 entity 사이의 경로**를 모델링하는 문제가 됩니다.
 
- ## **2. Motivation**
+## 2.**Motivation**
 
- > **기존 방법은 `relation type` 정보를 효과적으로 파악하지 못했고, 이를 해결한 방법은 복잡도가 높다는 단점이 있다.**
+**기존 방법은 `relation type` 정보를 효과적으로 파악하지 못했고, 이를 해결한 방법은 복잡도가 높다는 단점이 있다.**
 대부분의 기존 연구에서는 entity와 relation을 embedding space에 나타내고 이를 학습하는 방법을 제안했습니다.  
 그러나 학습하지 않은 데이터에 대해 예측하는 inductive setting에서 한계를 보이므로, 이를 해결하기 위해 GNN의 아이디어를 가져오게 됩니다.  
 일반적으로 지식 그래프에서 relation type은 균일하게 나타나지 않고, 공간적으로 연관되어 있다는 특징이 있습니다. 
@@ -60,16 +59,14 @@ $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에
 
 본 논문은 인접한 relation의 정보를 결합하는 과정을 2단계로 나눠 계산 복잡도를 낮추고, relation의 2가지 structure를 활용해 missing relation을 예측하는 모델을 제안합니다.
 
- ## **3. Method**
+## **3. Method**
 
-> ### Methodologies
+### Methodologies
 ### Message Passing
 * Node-based message passing
   초기 message passing은 node를 기반으로 했으며 다음의 과정을 반복해서 학습합니다.
   $$m_{v}^{i}=A(\lbrace s_{u}^{i}\rbrace_{u \in N(v)}),$$
-
   $$s_{v}^{i+1}=U(s_{v}^{i}, m_{v}^{i})$$
-
   $s_{v}^{i}$: node v의 i번째 iteration에서의 hidden state    
   $m_{v}^{i}$: node v가 i번째 iteration에서 받은 message  
   $N(v)$: node v에 인접한 모든 node
@@ -93,7 +90,7 @@ $p(t|h,r)$, $p(h|t,r)$는 entity와 relation이 주어졌을때 다른 entity에
   relational message passing은 이전의 문제들을 해결할 수 있었으나, edge의 개수가 많아지면 복잡도가 크게 증가한다는 문제점이 있습니다.   
   이에 본 논문의 저자들은 새로운 방법을 제안합니다.
 
-> ### PATHCON
+### PATHCON
 ### Notations
 여기부터는 논문에서 제안하는 모델에 대한 설명입니다. Notation이 다음과 같이 정리됩니다.  
 $h, t$: head entity, tail entity  
@@ -137,9 +134,12 @@ Ron Weasley와 Hedwig가 Harry Potter의 애완동물인지 예측하는 문제�
 
 Alternate relational message passing에서 relational context 학습 과정은 다음과 같습니다.
 
-$$m_{v}^{i}=\sum_{e \in N(v)}s_{e}^{i}$$
-$$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \in N(e)$$
-
+$$
+m_{v}^{i}=\sum_{e \in N(v)}s_{e}^{i}
+$$
+$$
+s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \in N(e)
+$$
 - 각 node에 대해 relational context의 feature를 학습합니다. 
 - head, tail node와 relation의 정보를 결합합니다. 그리고 Weight를 곱해준 후 bias를 더하고 비선형 활성화 함수를 적용합니다.
 
@@ -148,7 +148,9 @@ $$s_{e}^{i+1}=\sigma([m_{v}^{i},m_{u}^{i},s_{e}^{i}] \cdot W^i + b^i), \: v, u \
 ### Relational Paths
 `Relational Path`는 entity에서 entity로 갈때 거치는 relation의 sequence입니다.  
 예시는 다음과 같습니다.
-<p align="center"><img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Relational_Path.png"></p>
+<!-- <p align="center"> -->
+<img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Relational_Path.png">
+<!-- </p> -->
 
 Hermione Granger와 Draco Malfoy가 Harry Potter와의 relation이 같은지 알아봅시다.   
 두 Entity는 같은 relational context {'Occupation','House'}를 가집니다.    
@@ -167,25 +169,26 @@ $P_{h \rightarrow t}$ : entity h에서 t로 가는 relation path의 set
 그러므로 relational path의 길이가 짧고 개수도 적다고 전제할 수 있습니다.
 
 ### Model Framework
+
 #### Combining Relational Context and Paths
 PATHCON의 모델 학습 과정은 다음과 같습니다.
 - head, tail entity의 최종 정보를 통해 entity pair $(h,t)$ 의 context representation을 구합니다.  
 	이때 실제 relation $r$은 예측 대상이므로, unobserved를 가정합니다.
-
-$$s_{(h,t)} = \sigma([m_{h}^{K-1}, m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$$
+  
+  $s_{(h,t)} = \sigma([m_{h}^{K-1}, m_{t}^{K-1}] \cdot W^{K-1} + b^{K-1})$
 
 - relational context representation이 포함된 Attention weight을 계산합니다.  
 
-$$\alpha_{P}= \frac{exp((s_{P})^{\top} s_{(h,t)})}{\sum_{P \in P_{h \rightarrow t}} exp((s_{P})^{\top} s_{(h,t)})}$$
+  $\alpha_{P}= \frac{exp((s_{P})^{\top} s_{(h,t)})}{\sum_{P \in P_{h \rightarrow t}} exp((s_{P})^{\top} s_{(h,t)})}$
 
 - path들의 중요도를 고려한 가중 평균을  구해  path의  representation을 얻습니다.    
 
-$$s_{h \rightarrow t}=\sum_{P \in P_{h \rightarrow t}} \alpha_P s_P$$
+  $s_{h \rightarrow t}=\sum_{P \in P_{h \rightarrow t}} \alpha_P s_P$
 
 - context representation과  더해서  softmax을  적용한 후 실제  relation와 predicted relation의  차이에  대해  cross entropy loss를  최소화하는  relation을  구합니다.   
 
-$$p(r|h,t)=\text{SOFTMAX}(s_{(h,t)}+s_{h \rightarrow t})$$
-$$\min L= \sum_{(h,r,t) \in D} J(p(r |h,t),r)$$
+$$p(r \vert h,t)=\text{SOFTMAX}(s_{(h,t)}+s_{h \rightarrow t})$$
+$$\min L= \sum_{(h,r,t) \in D} J(p(r \vert h,t),r)$$
 
 Context representation $s(h,t)$는  predicted relation의  분포와 relation path의  중요도에 모두 큰 영향을 미치는 것을 확인할 수 있습니다.
 
@@ -212,11 +215,13 @@ head와 tail의 순서가 바뀌어도 같은 결과를 제공합니다.
 2.  interaction matrix를 flatten하고, relational context와 동일하게 정보를 update합니다.
     $$s_{e}^{i+1}=\sigma(\text{flatten}(m_{v}^{i} (m_{u}^{i})^{\top}) \cdot W_{1}^{i} + s_{e}^{i} \cdot W_{2}^{i} + b^i),  v, u \in N(e)$$  
     이 방법은 입력한 node의 순서를 보존한다는 장점이 있습니다.
+
 #### Relational Path learning
 * Learning path representation with RNN  
 path에 embedding을  거치지 않고 바로 RNN을  적용해 표현을 학습합니다.  
 모델의 Parameter의  수가  고정되고  relational path의 개수에 영향을 받지 않는 장점이 있습니다.  
 또한, 경로 간의 유사성을 파악할 수 있을 것으로 기대됩니다.
+
 #### Path Aggregator
 * Mean path aggregator: relational path에서 attention weight 대신 mean을 적용해 통합합니다.  
   Relational context의 표현을 사용할 수 없을 때 대체하기 위해 사용합니다.
@@ -273,7 +278,9 @@ concat과 cross은 데이터에 따라 상대적인 성능이 달라지지만, c
 
 * Model Explainability  
   모델이 예측 결과를 얼마나 잘 설명하는지에 대해 알아보고자 합니다.  
-  <<p align="center">><img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Table5.png"></p>
+  <!-- <<p align="center">> -->
+  <img src="/images/Relational_Message_Passing_for_Knowledge_Graph_Completion/Table5.png">
+  <!-- </p> -->
 
   실험 과정은 다음과 같습니다.  
   1) context hop $=1$, path length $\leq 2$로 설정합니다.
@@ -283,7 +290,7 @@ concat과 cross은 데이터에 따라 상대적인 성능이 달라지지만, c
   제시된 결과를 보면, relational context와 path의 내용이 relation과 문맥상 의미가 통하는 것을 알 수 있습니다.  
   이를 통해 모델이 예측한 relation에 대해 explainability를 제시한다고 할 수 있습니다.
 
- ## **5. Conclusion**
+## **5. Conclusion**
 - 본 논문은 지식 그래프 완성 문제를 해결하기 위해 기존의 연구들과 달리 relation path를 기반으로 했습니다. 
 - relation에 대한 message passing을 적용하였고, 정보 통합 과정을 수정해서 복잡도를 낮추는 alternate relational message passing을 제안하였습니다.
 - Alternate relational message passing의 강점인 inductive setting, storage efficiency, model explainability를 확인하였습니다.
