@@ -225,14 +225,14 @@ SAUC 에서 서로다른 사용자의 추천이 다른것에 문제 제기, 각 
 ![Paper analysus](/images/metrics/Untitled_5.png)
 자신들이 사용한 metric 에대해 정확히 기술한 논문은 5/15, 정확히 기술한 레퍼런스를 단 논문은 3/15, 잘못된 레퍼런스를 달았더나 정확히 어떤 metric 을 사용했는지 알 수 없게 기술한 경우는 7/15 거의 절반에 가까운 상황이었다.
 
-- Recsys의 큰 획을 그은것으로 여겨지고 그만큼 많이 인용되는 NCF(\***\*Neural Collaborative Filtering)\*\*** 의 경우
+- Recsys의 큰 획을 그은것으로 여겨지고 그만큼 많이 인용되는 NCF(**Neural Collaborative Filtering**) 의 경우
   > “the HR intuitively measures whether the test item is present on the top-10 list, and the NDCG accounts for the position of the hit by assigning higher scores to hits at top ranks."
-  > 와 같이 명확하지 않은 설명을 적어놓았다. 물론 HR 과 NDCG에 대해 정확히 적어놓은 \***\*TriRank: Review-aware Explainable Recommendation by Modeling Aspects\*\*** 를 참조했지만 두 논문의 Hit rate는 같은 의미였던 반면 NDCG에서는 모순된 결과를 보였다.
+  > 와 같이 명확하지 않은 설명을 적어놓았다. 물론 HR 과 NDCG에 대해 정확히 적어놓은 **TriRank: Review-aware Explainable Recommendation by Modeling Aspects** 를 참조했지만 두 논문의 Hit rate는 같은 의미였던 반면 NDCG에서는 모순된 결과를 보였다.
 - MultiVAE(Variational Autoencoders for Collaborative Filtering) 에서는 recall에서 위에서 설명한 것들과는 달리 또다른 정의를 사용한다.
 
   AP 에서처럼 rel(u) 대신 min(r,k)를 사용)
 
-- CDL(\***\*Collaborative Deep Learning for Recommender Systems)\*\*** 에서는
+- CDL(**Collaborative Deep Learning for Recommender Systems)** 에서는
   > "Another evaluation metric is the mean average precision (mAP)"
   > 로 설명을 끝내고 만다. 이는 MAP 가 가장 variation 이 컸던만큼, 결과해석을 어렵게 만드는 부분이다.
 

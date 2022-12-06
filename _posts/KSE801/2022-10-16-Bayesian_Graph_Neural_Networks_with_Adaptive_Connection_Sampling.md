@@ -2,6 +2,8 @@
 title:  "[ICML 2020] Bayesian Graph Neural Networks with Adaptive Connection Sampling"
 permalink: Bayesian_Graph_Neural_Networks_with_Adaptive_Connection_Sampling.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 ### [Review] Bayesian Graph Neural Network with Adaptive Connection Sampling
@@ -52,7 +54,7 @@ tags: [reviews]
 
   - 첫째, Stochastic한 변수들에 대해 미분을 어떻게 적용할 것인가. Neural Network은 Gradient descent을 통해 모델을 학습한다. 따라서 미분이 불가능하다면 Neural Network에 적용할 수 없다. 하지만 1) score-function gradient estimator, 2) continuous relaxation of the drop masks 방법 등을 통해 Stocastic한 변수들도 미분할 수 있게 되었다. 
 
-  - 두번째로, Bayesian에서 사후 확률(Posterior) 계산에 필요한 Evidence form($\int P(D\vertH) P(H) dH))$을 어떻게 구할 것인가. 적분식을 풀기 위해선 어마어마한 계산량을 필요로 한다. 따라서  실제로 사용하기엔 제약이 있었다. 하지만 Sampling 기반의 MCMC 방법을 통해 Evidence form에 대한 근사값을 계산해내어, 최근 Convolution neural network(이하 CNN)에 성공적으로 적용한 연구가 발표되었다(Gal & Ghahramani, 2015).   
+  - 두번째로, Bayesian에서 사후 확률(Posterior) 계산에 필요한 Evidence form($\int P(D\vert H) P(H) dH))$을 어떻게 구할 것인가. 적분식을 풀기 위해선 어마어마한 계산량을 필요로 한다. 따라서  실제로 사용하기엔 제약이 있었다. 하지만 Sampling 기반의 MCMC 방법을 통해 Evidence form에 대한 근사값을 계산해내어, 최근 Convolution neural network(이하 CNN)에 성공적으로 적용한 연구가 발표되었다(Gal & Ghahramani, 2015).   
 
   - 이후 GNN에서도 관측된 그래프를 임의의 랜덤 그래프 모델에서 파라미터를 바꾼 형태로 고려하여 BNN을 적용한 연구가 있다(Zhang et al. 2019). 하지만 이 방식은 막대한 계산양 뿐만 아니라 어떤 랜덤 그래프 모델을 설정하는 가가 성능에 큰 영향을 미쳐, 다른 문제에 동일하게 적용할 수 없다. 또한 불확실성을 학습함에 있어서 그래프의 노드를 무시하고, 그래프의 위상만 고려했다는 한계가 있다.
 
@@ -141,9 +143,7 @@ tags: [reviews]
      
      - Message passing에 대한 식은 아래와 같다. 
      
-     $$
-     h_v^{l+1} = \sigma(W_l AGG(\{h_u^{(l)} | u \in N(v)\}))
-     $$
+        $h_v^{l+1} = \sigma(W_l AGG(\{h_u^{(l)} \vert u \in N(v)\}))$
      
      - 즉, 위의 식은<u> 노드 v에 대해서 Neighborhood에 있는 노드들을 통해 Message passing 하는 것으로 해석</u>할 수 있다. 
        - Message passsing은 각 노드들의 정보를 반영한다. 
@@ -180,8 +180,8 @@ tags: [reviews]
      
      - 각 층별 분포를 independent하다고 가정했기 때문에 Factorize를 통해 $$q_\theta(W)$$ 와 $$p(W)$$의 계산을 쉽게 할 수 있다. 
        
-       > $$KL(q_{\theta})(w || p(w) =\sum_{l=1}^L\sum_{e=1}^{|\varepsilon|} KL(q_{\theta_l}(W_e^{(l)}) || p(W_e^{(l)}))$$
-       > 
+       <!-- > $$KL(q_{\theta})(w \vert \vert p(w) =\sum_{l=1}^L\sum_{e=1}^{|\varepsilon|} KL(q_{\theta_l}(W_e^{(l)}) || p(W_e^{(l)}))$$ -->
+       > $$KL(q_{\theta})(w \vert \vert p(w) =\sum_{l=1}^L\sum_{e=1}^{\vert \varepsilon \vert} KL(q_{\theta_l}(W_e^{(l)}) \vert\vert p(W_e^{(l)}))$$
        > ![](../../images/Bayesian_Graph_Neural_Network_with_Adaptive_Connection_Sampling/8.png)
        > 
        > $M^{(l)}$ : network weight parameters
@@ -229,7 +229,7 @@ tags: [reviews]
    
    - Hierarchical beta-Bernoulli GDC 계산을 위한 방법으로 Gibbs sampling이 있지만, 큰 데이터 셋에 적용하기엔 계산양이 많다. 따라서 계산양이 적은 Variational inference 방식을 제안한다. 
      
-     - Variational distribution을 $$q(Z^{(l)}, \pi_l) = q(Z^{(l)}|\pi_l) q(\pi_l)$$ 으로 정의한다.
+     - Variational distribution을 $q(Z^{(l)}, \pi_l) = q(Z^{(l)} \vert \pi_l) q(\pi_l)$ 으로 정의한다.
        
        > $q(\pi_l) : q(\pi_l; a_l, b_l) = a_lb_l\pi_l^{a_l-1}(1-\pi_l^{a_l})^{b_l-1} s.t. a_l, b_l > 0$
        > 

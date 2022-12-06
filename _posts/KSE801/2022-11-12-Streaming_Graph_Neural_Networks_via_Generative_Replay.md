@@ -142,7 +142,7 @@ $\mathcal{L}_ {GNN} (\theta^t) = r \mathbf{E}_ {v \sim \mathcal{G}_ A^t } \[ l(F
 
 Graph $$\mathcal{G}= \lbrace \mathcal{V},\mathcal{E} \rbrace$$ 가 있다고 합시다. Starting node는 $$v_0$$이고 그 node의 degree는 $$m$$이고 neighborhood는 $$N(v_0)$$이라고 합니다. $$T_{RW}$$를 기존 `Random Walk`가 $$v_0$$의 ego network를 explore하는데 필요한 step이라고 하면, $$E[T_{RW}] = \frac{(m-1)}{c} \cdot \frac{\sum_{v \in \mathcal{V} \setminus \mathcal{E} (v_0) } deg(v)}{d_{max}}$$, where $$\mathcal{E} (v_0) = \lbrace v_0 \rbrace \cup N(v_0) $$, $$d_{max}$$ : maximum degree of nodes in $$v$$'s neighborhood, $$c$$: the size of cut set of cut $$(\mathcal{E} (v_0), \mathcal{V} \setminus \mathcal{E}(v_0) )$$ 이라고 합니다. 자세한 증명은 논문의 appendix를 참고하시기 바랍니다. 
 
-실제 그래프에는 node가 많으므로, $$ \left| \sum_{v \in \mathcal{V} \setminus \mathcal{E} (v_0)} deg(v) \right| \gg \left| cd_{max} \right| $$ 이고, $$E[T_{RW}]$$는 굉장히 큰 수가 되게 됩니다.
+실제 그래프에는 node가 많으므로, $ \left \vert \sum_{v \in \mathcal{V} \setminus \mathcal{E} (v_0)} deg(v) \right \vert \gg \left \vert cd_{max} \right \vert $ 이고, $$E[T_{RW}]$$는 굉장히 큰 수가 되게 됩니다.
 
 하지만 $$\alpha$$의 확률로 restart하는 `RWR`의 expected length to explore는 $$E[T_{RWR}] < \frac{m(\ln m+1)}{\alpha (1-\alpha)}$$가 된다고 합니다. 역시 자세한 증명은 논문의 appendix를 참고하시기 바랍니다.
 

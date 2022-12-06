@@ -2,7 +2,6 @@
 title:  "Graph Neural Controlled Differential Equations for Traffic Forecasting"
 permalink: Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.html
 tags: [reviews]
-
 ---
 
 # **Paper-Review of "Graph Neural Controlled Differential Equations for Traffic Forecasting"** 

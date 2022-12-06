@@ -106,11 +106,12 @@ $P_{h \rightarrow t}$: entity h에서 t로 가는 path의 집합
 
 ### Alternate relational message passing
   학습 과정은 다음과 같습니다.
-  $$m_{v}^{i}=A_{1}(\lbrace s_{e}^{i}\rbrace_{e \in N(v)}),$$
 
-  $$m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), &nbsp; v, u \in N(e),$$
+  $m_{v}^{i}=A_{1}(\lbrace s_{e}^{i}\rbrace_{e \in N(v)}),$
 
-  $$s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$$
+  $m_{e}^{i}=A_{2}(m_{v}^{i},m_{u}^{i}), &nbsp; v, u \in N(e),$
+
+  $s_{e}^{i+1}=U(s_{e}^{i},m_{e}^{i})$
 
   1. 각 **node**에  대해  연결된  edge의 message를  aggregate하여  message을  생성합니다.
   2. **edge**의 message는 양쪽  node의  message을  aggregate한 것으로 정의됩니다.

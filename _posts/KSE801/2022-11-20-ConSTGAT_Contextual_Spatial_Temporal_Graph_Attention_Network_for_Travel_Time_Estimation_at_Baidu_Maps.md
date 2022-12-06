@@ -27,7 +27,7 @@ TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한
     두 번째 방법인 **End-to-end Approaches**입니다. 앞선 방법과 달리 루트의 모든 링크와 연결점들을 감안하여 전체를 한번에 계산합니다. 따라서 순차적으로 학습하기 위해 Sequence Encoding을 하다보니 연산속도가 현저히 느려진다는 단점이 있습니다.
     
 
-따라서 이 논문에서는 위에 언급된 (1)Traffic Prediction과 (2)Contextual Info의 문제를 동시에 해결하고자 ConSTAGAT라는 모델을 제안합니다. **(1) Traffic Prediction** 차원에서 이 모델은 시간적, 공간적 데이터 결합해 둘 사이의 상관성을 충분히 학습하도록 Spatio-temporal GNN에 Graph Attention Mechanism을 사용하고, **(2) Contextual Info** 면에서는 주변정보를 효율적으로 수집하기 위해 Convolution을 활용하도록 했습니다. 마지막으로 이 두 솔루션을 합치는 과정에서 Multi-task Learning으로 퍼포먼스를 증대시키도록 했습니다.
+따라서 이 논문에서는 위에 언급된 **(1)Traffic Prediction** 과 **(2)Contextual Info** 의 문제를 동시에 해결하고자 ConSTAGAT라는 모델을 제안합니다. **(1) Traffic Prediction** 차원에서 이 모델은 시간적, 공간적 데이터 결합해 둘 사이의 상관성을 충분히 학습하도록 Spatio-temporal GNN에 Graph Attention Mechanism을 사용하고, **(2) Contextual Info** 면에서는 주변정보를 효율적으로 수집하기 위해 Convolution을 활용하도록 했습니다. 마지막으로 이 두 솔루션을 합치는 과정에서 Multi-task Learning으로 퍼포먼스를 증대시키도록 했습니다.
 
 이 논문은 크게 세 가지 점에서 Contribution을 하고 있는데요:
 
@@ -37,14 +37,16 @@ TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한
 
 # 2.0  Preliminary
 
-본격적으로 설명하기 앞서, 두 가지 사항을 짚고 넘어가도록 하겠습니다. Notation을 확인하고, 추출하려는 대상이 무엇인지 파악하도록 합니다.
+본격적으로 설명하기 앞서, 두 가지 사항을 짚고 넘어가도록 하겠습니다. Notation 및 필요한 데이터를 확인하고, 추출하려는 대상이 무엇인지 파악하도록 합니다.
 
 ## 2.1 Notation
+이 모델에 사용되는 데이터는 크게 네트워크에 해당되는 그래프 **$G$** / 데이터셋 **$D$** 이 있습니다. 후술할 실험과정에 사용되는 Taiyuan, Hefei, Huizhou 세 도시의 로그데이터 샘플값도 **$G$** 와 **$D$** 를 포함하고 있습니다.
+
 ![Notation_01](https://user-images.githubusercontent.com/52244004/195804203-91877da2-3bdb-4376-81f1-bbefe876f9fe.PNG)
 
 ## 2.2 Feature Extraction
 
-학습을 위해 사용하는 특성들은; Road Network / Historical Traffic Conditions / Background Info 세 가지가 있습니다.
+학습을 위해 사용하는 특성들은; Road Network / Historical Traffic Conditions / Background Info 세 가지가 있습니다. 
 
 1. **Road Network**
     
@@ -78,8 +80,8 @@ TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한
 
 ![Figure 3.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_3.png)
 
-Traffic Prediction 모듈은 교통 히스토리, 그래프 \mathcal{G}, 출발시간 s 를 인풋으로 받아 앞으로의 교통상황을 예측합니다. 여기서 시간-공간 관계를 포착하기 위해 Graph attention n
-etwork의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과적으로 1번 식과 같이 출발시간 이수 T_{f}개의 타임슬롯에 대한 교통상황을 예측하도록 하는 것입니다.
+Traffic Prediction 모듈은 교통 히스토리, 그래프**$G$** , 출발시간 s 를 인풋으로 받아 앞으로의 교통상황을 예측합니다. 여기서 시간-공간 관계를 포착하기 위해 Graph attention n
+etwork의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과적으로 1번 식과 같이 출발시간 이수 $T_{f}$개의 타임슬롯에 대한 교통상황을 예측하도록 하는 것입니다.
 
 ![Notation_02](https://user-images.githubusercontent.com/52244004/195804388-b1867422-7761-4e39-8aa5-7ebda292ca9f.PNG)
 
@@ -138,7 +140,7 @@ etwork의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과
 
 **2단계 ) Integration Module : Travel Time 예측**
 
-이제 최종 예측을 위한 모듈인 Integration Module만 남았습니다. 이 단계에서는 Traffic Prediction Module $x^{(TC)}_{i}$, Context Information Module $x^{(CI)}_{i,w}$, Background Information $x^{(B)}_{i}$ 이 세개로부터 인풋을 받습니다. 이렇게 받은 인풋은 그림과 같이 Concatenation을 거쳐 Multiple Fully-connected Layer을 지나 루트안에 있는 모든 링크의 travel timed을 예측합니다.
+이제 최종 예측을 위한 모듈인 Integration Module만 남았습니다. 이 단계에서는 Traffic Prediction Module $x_{i}^{(TC)}$, Context Information Module $x_{i,w}^{(CI)}$, Background Information $x_{i}^{(B)}$ 이 세개로부터 인풋을 받습니다. 이렇게 받은 인풋은 그림과 같이 Concatenation을 거쳐 Multiple Fully-connected Layer을 지나 루트안에 있는 모든 링크의 travel timed을 예측합니다.
 
 ![Notation_07](https://user-images.githubusercontent.com/52244004/195804664-6a31f149-7ab7-4fbb-9362-c2c243b52d12.PNG)
 
@@ -158,7 +160,12 @@ Segment-based method 차원에서 사용한 손실함수는 Huber Loss로, 루�
 
 Baidu Maps의 네비게이션은 하루에 몇백만건을 처리해야 하는데, 이런 상황에서는 반응 시간이 매우 중요합니다. 하지만 대부분 높은 정확도를 가진 모델들은 연산시간이 오래 걸리는 End-to-end 방식을 사용하기 때문에 어플리케이션을 스케일업 하기가 어려운 상황입니다.
 
-연산시간을 줄이기 위해 이 논문에서는 segment-based method의 방법 일부를 차용하는데요. 우선 그래프 안에 있는 모든 링크에 대해 서로 다른 sub-path와 출발 시간 타임슬롯을 병렬로 계산해 저장해 둡니다. 그런 다음 어떤 요청이 들어오면, 저장해둔 테이블에서 요청된 링크에 해당하는 상황을 찾아 합산해 예측시간을 리턴하는 것입니다. 이렇게 병렬적으로, 미리 계산해둠으로써 현실에 맞게 스케일 업 할 수 있게 됩니다.
+정확도를 높게 가져가면서도, 연산의 효율성을 보장하기 위해, 이 논문에서는 segment-based method의 방법을 채택합니다. segment-based method처럼 링크 하나하나의 travel time을 단순 합산하되, 그 값들을 미리 계산해둠으로써 시간을 아끼는 방식입니다. 크게 두 스텝이 필요합니다.
+1. **$G$** 에 포함된 모든 링크 **$L$** 각각의 travel time과 관련 데이터를 병렬로 계산해 look-up 테이블에 저장합니다.
+- 이때, 링크와 연결된 이웃링크 **$P(l)$** 를 감안해 걸리는 시간까지 함께 계산합니다. 1단계에서 진행한 w를 고려한 만큼 계산하게 됩니다.
+- 또한 history에 존재하는 서로 다른 출발시간에 대하여도 위의 모든 정보를 계산합니다: $s, s+1, \cdot\cdot\cdot , s+T_f-1$
+2. 위의 계산을 사전에 저장해 둔 뒤, 유저로부터 request가 도착하면, 요청에 해당되는 링크들의 travel time이 저장되어있는 look-up 테이블에서 정보를 불러와 후보 경로(루트)들이 되도록 합산합니다.
+이러한 방식으로 정확하면서도 효율적인 TTE가 가능하도록 하는 것입니다.
 
 # 4.0  Experiments
 
@@ -200,13 +207,13 @@ Baidu Maps의 네비게이션은 하루에 몇백만건을 처리해야 하는�
 
 ### 4.3 Experimental Results
 
-4**.3.1 Overall Evaluation**
+#### 4.3.1 Overall Evaluation
 
 ![Table 2.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Table_2.png)
 
 ConSTGAT 는 모든 데이터셋에 대해, 다른 모든 모델의 성능을 압도합니다.
 
-4**.3.2 Spatial-Temporal Graph Neural Networks**
+#### 4.3.2 Spatial-Temporal Graph Neural Networks
 
 ![Table 3.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Table_3.png)
 
@@ -224,7 +231,7 @@ Spatial 정보와 Temporal 정보간의 상관관계를 보기 위해 Attention 
 
 분석결과는 첫 번째로 Downstream 링크들이 링크 $l$에 더 적합한 것으로 확인되었고, 두 번째로는 교통 기록이 더 많거나, 더 긴 travel time을 가진 링크가 예측에 더 중요한 역할을 한다는 것을 확인했습니다.
 
-4**.3.3 Contextual Information**
+#### 4.3.3 Contextual Information
 
 ![Figure 6.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_6.png)
 
@@ -235,7 +242,7 @@ Spatial 정보와 Temporal 정보간의 상관관계를 보기 위해 Attention 
 
 결과적으로 주변 정보를 활용할수록 RMSE가 감소하는 것으로 보아 모델의 퍼포먼스가 개선되는 것으로 확인되었습니다. (단 Hefei의 경우 딱히 그런것 같진 않네요.)
 
-4**.3.4 Robustness**
+#### 4.3.4 Robustness
 
 ![Figure 7.png](/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_7.png)
 

@@ -400,5 +400,5 @@ GCN은 노드임베딩과 그래프구조를 함께 학습하고 추천에 널�
 * [Youtube: Introduction to Hypergraphs [Graph Theory]](https://youtu.be/UwvZn9lm_98)
 * [[Paper Review] Hyper Graph Neural Networks](http://dsba.korea.ac.kr/seminar/?mod=document&uid=1428)
 * [[blog] 하이퍼그래프 – Hypergraph](https://lsy5518.wordpress.com/2014/09/28/%ED%95%98%EC%9D%B4%ED%8D%BC%EA%B7%B8%EB%9E%98%ED%94%84-hypergraph/)
-* [Hypergraph & its representation | Discrete Mathematics](https://www.geeksforgeeks.org/hypergraph-its-representation-discrete-mathematics/)
+* [Hypergraph & its representation / Discrete Mathematics](https://www.geeksforgeeks.org/hypergraph-its-representation-discrete-mathematics/)
 * [Improving Recommendation Systems Using Social Data](https://medium.com/@hyonschu/improving-recommendation-systems-using-social-data-b86c6fe83eb7)
