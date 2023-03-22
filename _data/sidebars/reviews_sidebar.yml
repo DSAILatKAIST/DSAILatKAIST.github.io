@@ -14,6 +14,9 @@ entries:
     - title: KSE801 (2022F)
       url: /reviews_kse801_2022.html
       output: web
+    - title: DS503 (2023S)
+      url: /reviews_DS503_2023.html
+      output: web
 
     # - title: Theme instructions
     #   url: /mydoc_introduction.html

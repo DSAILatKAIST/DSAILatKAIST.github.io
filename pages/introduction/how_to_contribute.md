@@ -90,9 +90,9 @@ You should submit it to **gh-pages** branch.
 
 ### **Review Format**  
 
-예제 리뷰 포맷은 [Review Format](/pages/introduction/template.html)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
+예제 리뷰 포맷은 [Review Format](/template.md)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
 
-You can check the example review format on [Review Format](/pages/introduction/template.html) link but you don't have to follow this framework. 
+You can check the example review format on [Review Format](/template.html) link but you don't have to follow this framework. 
 
 ### **Mathematical Equation (주의)**  
 수학식을 Inline으로 작성할 때는 ```$$~$$```을 사용하고
