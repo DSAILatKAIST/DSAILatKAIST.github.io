@@ -36,7 +36,7 @@ exclude:
 # these are the files and directories that jekyll will exclude from the build
 
 feedback_subject_line: Question about reviews
-feedback_email: junseoklee@kaist.ac.kr
+feedback_email: swkim@kaist.ac.kr
 # used as a contact email for the Feedback link in the top navigation bar
 
 # feedback_disable: true

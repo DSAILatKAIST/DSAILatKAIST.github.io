@@ -14,10 +14,11 @@ topnav_dropdowns:
   folders:
     - title: Reviews
       folderitems:
-        - title: KSE527 (2022)
-          url: /reviews_kse527_2022.html #/KSE527_2022.html      
+        - title: DS503 (2022)
+          url: /reviews_DS503_2022.html #/DS503_2022.html      
         - title: KSE801 (2022)
           url: /reviews_kse801_2022.html #/KSE801_2022.html
-
+        - title: DS503 (2023)
+          url: /reviews_DS503_2023.html #/KSE801_2022.html
 
 
