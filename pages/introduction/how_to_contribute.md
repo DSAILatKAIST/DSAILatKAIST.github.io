@@ -12,93 +12,94 @@ folder: introduction
 
 이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.
 
-This script is the guideline of how to write review.
 
-## Preparing for your manuscript  
-
-### **Fork repository**  
-
-먼저, [github repository](https://github.com/DSAILatKAIST/DSAILatKAIST.github.io)를 자신의 github repository에 fork하여 추가합니다.  
-
-At first, you should fork the [github repository](https://github.com/DSAILatKAIST/DSAILatKAIST.github.io) to make a repository on your account.  
-
-<p align="center"><img width="1500" src="/images/fork.png"></p>
-
-### **Find your review paper**
-**'_posts'** directory에서 각자 맡은 논문을 확인하여 파일을 실행 시킵니다.
-
-Check your assigned review papers on **'_posts'** directory and open this file.
 
 ### **Write reviews on .md format**  
 
-리뷰를 작성할 때는 마크다운으로 작성해야 합니다. 마크다운이 처음이신 분들은 [Tutorial](https://www.markdowntutorial.com/)에서 연습하여 작성해주시길 바랍니다.   
-또는 [StackEdit](https://stackedit.io/app#)에서 자유롭게 연습이 가능합니다.  
+리뷰를 작성할 때는 마크다운으로 작성해야 합니다. 마크다운이 처음이신 분들은 [Tutorial](https://www.markdowntutorial.com/)에서 튜토리얼을 진행하시거나 [Blog](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)에서 참고하실 수 있습니다. 리뷰는 [StackEdit](https://stackedit.io/app#)에서 실시간으로 미리보기를 하면서 작성하실 수 있습니다. 자신이 사용하던 편집기를 이용하여 작성하셔도 무방합니다.
 
-You should write reviews on markdown format.  
-For the beginner of markdown, [Tutorial](https://www.markdowntutorial.com/) site is available for practice.
+작성하신 markdown(.md)파일은 KLMS를 통하여 제출하시면 됩니다. 
 
+You should write reviews on markdown format. If you are new to Markdown, you can follow the tutorial in [Tutorial](https://www.markdowntutorial.com/) or refer to it in [Blog](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). You can write the review while previewing it in real-time in [StackEdit](https://stackedit.io/app#). It is also okay to utilize your own edition.  
 
-마크다운용 편집기 [Typora](https://typora.io/)을 활용하시면 편리하게 작성이 가능합니다.  
-자신이 사용하던 편집기를 이용하여 작성하셔도 무방합니다.   
-
-It is possible to write conveniently when you utilize the [Typora](https://typora.io/) edition.  
-It is also okay to utilize your own edition.  
+Please submit markdown(.md) file through KLMS.
 
 ### **Attach image file**
 
-리뷰 작성 시 사진을 첨부한다면, "/images/{논문이름}/{이미지파일 이름}.png"위치에 사진 파일을 넣어주세요.
+리뷰 작성 시 사진을 첨부한다면, 사진을 url형식으로 변환 후 마크다운에 첨부하시면 됩니다. 
+사진을 url로 변환하는 방법은 github을 이용하면 편리합니다.  
 
-If you want to attach an image file to elaborate your review paper, please put your image file on "/images/{Paper}/{Image}.png"
+You can insert your image file using the converted image url as follows :
 
-그 이후에 아래와 같은 명령어로 Image를 첨부 하실 수 있습니다.
+1. 자신의 github에 빈 레포지토리를 생성하고, 새 파일을 생성합니다.  
+Create an empty repository on your Github and create a new file.  
+![image](https://user-images.githubusercontent.com/37684658/227445202-ef73cb4d-72bd-4229-ad57-88c4e96bf8c3.png)
 
-Then you can load your image file as follows:
+2. 파일 이름을 수정하여 .md 확장자로 바꿉니다. (.md 확장자로 바꾸지 않으면 다음 step이 작동하지 않습니다.)  
+Rename the file with .md extension. (If you don't rename it to .md extension, the next step won't work.)  
+![image](https://user-images.githubusercontent.com/37684658/227445492-e8b49e2c-fac8-4ebf-9bea-27f50afa3f2d.png)  
+
+3. 업로드하고자 하는 파일을 드래그앤드롭하면 사진 파일이 markdown용 URL로 변환됩니다.  
+Drag and drop the file you want to upload, and the photo file will be converted to a URL for Markdown.  
+
+![image](https://user-images.githubusercontent.com/37684658/227446034-b9dc9757-bb60-4fc2-9a16-e9d15578651b.png)
+
+4. 변환된 URL을 review 본문에 복사하여 활용하시면 됩니다.  
+Copy the converted URL and use it in yout review.  
+![image](https://user-images.githubusercontent.com/37684658/227445726-3fe004f3-e32c-493e-90c2-8ea0080fe5b0.png)
 
 
-**E.g.**  
-Paper title : GCN / Image file name : GCN_Encoder.png
-``` bash  
-<img width="140" src="/images/GCN/GCN_Encoder.png">  
-```  
+**E.g.**
+```markdown
+### How to add images in Markdown?  
+You can insert your image file using the converted image url as follows :
+![image_sample](https://user-images.githubusercontent.com/37684658/227445939-ec25f692-3cd9-4adc-9eac-7d8daab3823e.png)
+```
+
+### **[Important] Precautions when writing equations**
+
+Markdown 편집기([StackEdit](https://stackedit.io/app#))에서 잘 보이더라도, 블로그에서 수식이 깨지는 경우가 발생합니다. 
+블로그에서 수식이 깨지는 경우를 방지하기 위해서 다음 주의사항을 유의해서 작성해주시기 바랍니다:  
+Even if it looks good in the Markdown editor ([StackEdit](https://stackedit.io/app#)), equations may break in the blog. To prevent equations from breaking in the blog, please note the following precautions when writing:
+
+- 수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 \$$는 작동하지 않습니다.  
+When writing equations, please use only one $ sign. $$ does not work on this blog.  
+
+```
+$$y=ax+b$$ (X)
+$y=ax+b$ (O)
+```
+
+- 수식에서 아래첨자(subscript)를 표기할 때 다음과 같이 띄어쓰기에 유념해주시길 바랍니다.  
+When indicating a subscript in an equation, please be careful of spacing as follows.  
+
+```markdown
+$N_{subscript}$ (X)
+$N_ {subscript}$ (O)
+```
+
+- 수식 안에 바(bar)를 표기할 때 키보드에 있는 \|가 아니라 \vert로 작성해주시길 바랍니다.  
+When indicating a bar in an equation, please write it as \vert instead of the | on the keyboard.  
+
+```
+$|x|$ (X)
+$\vert x \vert$ (O)
+```
+
+
+
 
 ### **Rename your file**  
 
-제출 날짜에 맞게 파일 이름을 변경해주세요. (YYYY-MM-DD-{Do not change})
+형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)
 
-Please Rename your file according to your submission data. (YYYY-MM-DD-{Do not change})
+Please Rename your file according to your submission data. (`[CONFERENCE-YEAR]TITLE.md`)
 
 **E.g.**  
 
-2022-10-13-A_User_Centered_Investigation_of_Personal_Music_Tours.md
+[NIPS-22]Graph_Information_Bottleneck_for_Subgraph_Recognition.md
 
-
-### **Pull Request**  
-
-제출을 원하는 경우에, fork한 레포지토리로 가서 pull request를 합니다.  
-아래 그림과 같이 "Pull Requests"로 들어가서 "New pull request"를 클릭합니다.  
-
-If you want to submit it, you should enter your repository which has been forked and pull request.  
-As shown in above picture, go to "Pull Requests" and click "New pull request".  
-
-<p align="center"><img width="1500" src="/images/pull_request.png"></p>
-
-제출할 때 반드시! **gh-pages** branch로 제출해주시길 바랍니다.   
-  
-You should submit it to **gh-pages** branch.  
-
-<p align="center"><img width="1500" src="images/branch.png"></p>
-
-### **Review Format**  
-
+### **Review Format (Sample)**  
 예제 리뷰 포맷은 [Review Format](/template.md)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
 
 You can check the example review format on [Review Format](/template.html) link but you don't have to follow this framework. 
-
-### **Mathematical Equation (주의)**  
-수학식을 Inline으로 작성할 때는 ```$$~$$```을 사용하고
-
-display로 작성할 때는 ```$~$``` 를 사용해 주시기 바랍니다!
-
-When you write the mathematical equation in inline math mode, you can write it by ```$$~$$``` expression,  
-and if you write it in display math mode, you can write it by ```$~$``` expression.
-

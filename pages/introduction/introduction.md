@@ -30,9 +30,9 @@ Please refer to the following link [How to contribute](/how_to_contribute.html) 
 
 ### Assistant
 
-**김성원(Sungwon Kim)** : Master student, GSDS, KAIST  
-
 **서상우(Sangwoo Seo)** : Ph.D. Student, ISysE, KAIST
+
+**김성원(Sungwon Kim)** : Master student, GSDS, KAIST  
 
 ### Contributors
 

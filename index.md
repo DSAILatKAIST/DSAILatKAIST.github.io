@@ -9,6 +9,11 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 
 {% include note.html content="The paper reviews on this sites were written by students participated in DS503 or KSE801 course taught by [Prof.Chanyoung Park](http://dsail.kaist.ac.kr/professor/)" %}
 
+## DS503 (2022S)
+- [[NeurIPS 2020] Graph Meta Learning via Local Subgraphs](/_posts/DS503_22S/NeurIPS-2020-G-Meta.md)
+- [[ICLR 2022] Online Coreset Selection for Rehearsal-based Continual Learning](/_posts/KSE801/2022-10-16-Online_Coreset_Selection_for_Rehearsal_based_Continual_Learning.md)
+
+
 ## KSE801 (2022F)
 
 - [[Recsys 2021] Quality Metrics in Recommender Systems: Do We Calculate Metrics Consistently?](/_posts/KSE801/2022-10-16-Quality_Metrics_in_Recommender_Systems_Do_We_Calculate_Metrics_Consistently.md)
@@ -30,3 +35,5 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ICLR 2020] Graph Information Bottleneck for Subgraph Recognition](/_posts/KSE801/2022-09-28-Graph_Information_Bottleneck_for_Subgraph_Recognition.md)
 - [[ICLR 2022] Online Coreset Selection for Rehearsal-based Continual Learning](/_posts/KSE801/2022-10-16-Online_Coreset_Selection_for_Rehearsal_based_Continual_Learning.md)
 - [[NeurIPS 2021] Do Transformers Really Perform Bad for Graph Representation](/_posts/KSE801/2022-10-16-Do_Transformers_Really_Perform_Bad_for_Graph_Representation.md)
+
+http://127.0.0.1:4000/_posts/DS503_22S/index.html

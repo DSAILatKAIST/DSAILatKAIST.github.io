@@ -6,13 +6,50 @@ use_math: true
 usemathjax: true
 ---
 
+
 # Graph Information Bottleneck for Subgraph Recognition
 ## **1. Problem Definition**
 > **Classification 작업에 중요한 역할을 하는 압축된 데이터를 추출한다.**  
 
+$\mathcal{G}$  
+$$\mathcal{G}$$  
+레이블 분야 $\mathcal{G}$ 기반  
+레이블 분야 $$\mathcal{G}$$ 기반  
+$$N$$개의 그래프로 구성된 집합 $$\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$$에서 $\\mathcal{G}_n$은 n번째 그래프를 나타내고, $$Y_n$$는 n번째 그래프에 해당하는 레이블을 나타냅니다.    
+dsds$|$dsds  
+dsds$\vert$dsds  
+하지만 BNN는 사후 확률 계산에 필요한 Evidence form($\int P(D|H) P(H) dH $) 을 계산하는 데 경사 하강 등의 방법을 사용할 수 없어 현실적으로 계산할 수 없다는 한계가 있다. 최근 Sampling 기반의 MCMC 방법을 통해 근사값을 계산할 수 있으면서 Convolution neural network(이하 CNN)에 BNN을 적용할 수 있었다(Gal & Ghahramani, 2015).  
+하지만 BNN는 사후 확률 계산에 필요한 Evidence form($$\int P(D\vert H) P(H) dH $$) 을 계산하는 데 경사 하강 등의 방법을 사용할 수 없어 현실적으로 계산할 수 없다는 한계가 있다. 최근 Sampling 기반의 MCMC 방법을 통해 근사값을 계산할 수 있으면서 Convolution neural network(이하 CNN)에 BNN을 적용할 수 있었다(Gal & Ghahramani, 2015).
 
 레이블을 기반으로 분류하는 작업은 다양한 분야에서 적용될 수 있고 `deep learning` 학습에서 근본적인 문제라고 할 수 있습니다. 그러나 실제 데이터에서는 분류작업에 관계없는 노이즈 정보가 포함되어 있을 가능성이 높으며, 이것은 원 데이터에서는 추가적인 정보를 제공하여 고유한 특성을 보유하도록 하지만, 실제로 분류작업을 하는데 있어 부정적인 영향을 미칩니다. 이러한 문제에 기인하여 분류 작업에 결정적인 역할을 하는 압축된 정보를 인식하도록 하는 문제가 제안되었습니다. 예를 들어 원자를 node로 정의하고 원자간 결합을 edge로 정의한 분자 그래프에서 분자의 `functional group`를 나타내는 subgraph를 추출하는 것을 목표로 할 수 있습니다. 
+
+$I(Y,\mathcal{G}_ {sub}) \geq  \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y|\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub} \\ \approx  \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt})$
   
+$I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y|\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub} \\ 
+\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt})$
+
+$I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y\vert\mathcal{G}_ {sub})}$
+
+$ 
+I(Y,\mathcal{G}_ {sub}) \geq \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y|\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub} \\
+\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}|\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y|\mathcal{G}_ {sub}),y_{gt}) 
+$
+
+$I(Y,\mathcal{G}_ {sub}) \geq  \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y\vert\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub}$  
+
+$\approx \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}\vert\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y\vert\mathcal{G}_ {sub}),y_{gt})$
+
+$\mathcal{sksksksk}_{skk}$
+
+
+$y\vert\mathcal{G}_ {sub}$  
+$y|\mathcal{G}_ {sub}$  
+$y\vert\mathcal{G}_ {sub}$  
+$y|\mathcal{G}_{sub}$  
+
+$I(Y,\mathcal{G}_ {sub}) \geq  \int p(y,\mathcal{G}_ {sub}) \log{q_{\phi_{1}}(y|\mathcal{G}_ {sub})} dy \ d\mathcal{G}_ {sub}\\
+\approx  \frac{1}{N} \sum_{i=1}^{N} q_{\phi_{1}}(y_{i}\vert\mathcal{G}_ {sub_{i}}) =: -\mathcal{L}_ {cls}(q_{\phi_{1}}(y\vert\mathcal{G}_ {sub}),y_{gt})$
+
 ![image](https://distill.pub/2021/gnn-intro/graph_xai.bce4532f.png)
 
  <br/> <br/>
@@ -30,7 +67,7 @@ subgraph 인식이라는 문제가 중요한 과제로 대두되면서, 그래�
   
 논문에서 제안한 방법론을 이해하기 위해서 몇 가지 `Notation`과 `GCN`의 개념을 소개하겠습니다.
 
-$N$개의 그래프로 구성된 집합 $$\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$$에서 $$\\mathcal{G}_ n$$은 n번째 그래프를 나타내고, $$Y_n$$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
+$N$개의 그래프로 구성된 집합 $$\lbrace ( \mathcal{G}_ 1, Y_ 1),\dots,(\mathcal{G}_ N, Y_N) \rbrace$$에서 $\\mathcal{G}_ n$은 n번째 그래프를 나타내고, $$Y_n$$는 n번째 그래프에 해당하는 레이블을 나타냅니다.   
 $$\mathcal{G}_ n=(\mathbb{V},\mathbb{E}, A, X)$$에서 해당 그래프는 속하는 노드 집합 $$\mathbb{v}=\lbrace V_i|i=1,\dots, M_n \rbrace$$, edge 집합 $$\mathbb{E}=\lbrace (V_i, V_j)|i>j; V_i,V_j \text{ is connected} \rbrace$$, 인접행렬 $$A\in \lbrace 0,1 \rbrace^\lbrace M_n\times M_n \rbrace$$, feature 행렬 $$X\in \mathbb{R}^{ M_n\times d}$$로 구성되어 있습니다.   
 $$\mathcal{G}_ {sub}$$는 특정 subgraph를 나타내고,  $$\overline{\mathcal{G}}_ {sub}$$는 $$\mathcal{G}_ {sub}$$를 제외한 나머지 부분을 의미합니다. $$f:\mathbb{G} \rightarrow \mathbb{R} / [0,1,\cdots,n] $$는 그래프에서 실수값으로 mapping하는 함수를 의미하고, 여기서 $$\mathbb{G}$$는 input graph의 도메인입니다. 
 
