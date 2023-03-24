@@ -10,9 +10,8 @@ folder: introduction
 
 ---
 
-이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.
-
-
+이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.  
+This writing is the guideline of how to write review.  
 
 ### **Write reviews on .md format**  
 
@@ -23,6 +22,41 @@ folder: introduction
 You should write reviews on markdown format. If you are new to Markdown, you can follow the tutorial in [Tutorial](https://www.markdowntutorial.com/) or refer to it in [Blog](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). You can write the review while previewing it in real-time in [StackEdit](https://stackedit.io/app#). It is also okay to utilize your own edition.  
 
 Please submit markdown(.md) file through KLMS.
+
+### **Review Format (Sample)**  
+예제 리뷰 포맷은 [Review Format](/template.md)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
+
+You can check the example review format on [Review Format](/template.html) link but you don't have to follow this framework. 
+
+### **[Important] Precautions when writing equations**
+
+Markdown 편집기([StackEdit](https://stackedit.io/app#))에서 잘 보이더라도, 블로그에서 수식이 깨지는 경우가 발생합니다. 
+블로그에서 수식이 깨지는 경우를 방지하기 위해서 다음 주의사항을 유의해서 작성해주시기 바랍니다:  
+Even if it looks good in the Markdown editor ([StackEdit](https://stackedit.io/app#)), equations may break in the blog. To prevent equations from breaking in the blog, please note the following precautions when writing:
+
+- 수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 \$$는 작동하지 않습니다.  
+When writing equations, please use only one $ sign. $$ does not work on this blog.  
+
+```
+$$y=ax+b$$ (X)
+$y=ax+b$ (O)
+```
+
+- 수식에서 아래첨자(subscript)를 표기할 때 다음과 같이 띄어쓰기에 유념해주시길 바랍니다.  
+When indicating a subscript in an equation, please be careful of spacing as follows.  
+
+```markdown
+$N_{subscript}$ (X)
+$N_ {subscript}$ (O)
+```
+
+- 수식 안에 바(bar)를 표기할 때 키보드에 있는 \|가 아니라 \vert로 작성해주시길 바랍니다.  
+When indicating a bar in an equation, please write it as \vert instead of the | on the keyboard.  
+
+```
+$|x|$ (X)
+$\vert x \vert$ (O)
+```
 
 ### **Attach image file**
 
@@ -56,39 +90,6 @@ You can insert your image file using the converted image url as follows :
 ![image_sample](https://user-images.githubusercontent.com/37684658/227445939-ec25f692-3cd9-4adc-9eac-7d8daab3823e.png)
 ```
 
-### **[Important] Precautions when writing equations**
-
-Markdown 편집기([StackEdit](https://stackedit.io/app#))에서 잘 보이더라도, 블로그에서 수식이 깨지는 경우가 발생합니다. 
-블로그에서 수식이 깨지는 경우를 방지하기 위해서 다음 주의사항을 유의해서 작성해주시기 바랍니다:  
-Even if it looks good in the Markdown editor ([StackEdit](https://stackedit.io/app#)), equations may break in the blog. To prevent equations from breaking in the blog, please note the following precautions when writing:
-
-- 수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 \$$는 작동하지 않습니다.  
-When writing equations, please use only one $ sign. $$ does not work on this blog.  
-
-```
-$$y=ax+b$$ (X)
-$y=ax+b$ (O)
-```
-
-- 수식에서 아래첨자(subscript)를 표기할 때 다음과 같이 띄어쓰기에 유념해주시길 바랍니다.  
-When indicating a subscript in an equation, please be careful of spacing as follows.  
-
-```markdown
-$N_{subscript}$ (X)
-$N_ {subscript}$ (O)
-```
-
-- 수식 안에 바(bar)를 표기할 때 키보드에 있는 \|가 아니라 \vert로 작성해주시길 바랍니다.  
-When indicating a bar in an equation, please write it as \vert instead of the | on the keyboard.  
-
-```
-$|x|$ (X)
-$\vert x \vert$ (O)
-```
-
-
-
-
 ### **Rename your file**  
 
 형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)
@@ -98,8 +99,3 @@ Please Rename your file according to your submission data. (`[CONFERENCE-YEAR]TI
 **E.g.**  
 
 [NIPS-22]Graph_Information_Bottleneck_for_Subgraph_Recognition.md
-
-### **Review Format (Sample)**  
-예제 리뷰 포맷은 [Review Format](/template.md)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
-
-You can check the example review format on [Review Format](/template.html) link but you don't have to follow this framework. 
