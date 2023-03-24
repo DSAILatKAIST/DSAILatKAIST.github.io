@@ -20,7 +20,7 @@ You should write reviews on markdown format. If you are new to Markdown, you can
 
 Please submit markdown(.md) file through KLMS.
 
-제출 전 형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)
+제출 전 형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)  
 Please rename your file as follows: `[CONFERENCE-YEAR]TITLE.md`
 
 **E.g.**  
