@@ -20,6 +20,14 @@ You should write reviews on markdown format. If you are new to Markdown, you can
 
 Please submit markdown(.md) file through KLMS.
 
+제출 전 형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)
+
+Please rename your file as follows: `[CONFERENCE-YEAR]TITLE.md`
+
+**E.g.**  
+
+[NIPS-22]Graph_Information_Bottleneck_for_Subgraph_Recognition.md
+
 ### **Review Format (Sample)**  
 예제 리뷰 포맷은 [Review Format](/template.md)을 통해서 확인할 수 있지만 꼭 따를 필요는 없습니다.  
 
@@ -89,10 +97,3 @@ You can insert your image file using the converted image url as follows :
 
 ### **Rename your file**  
 
-형식에 맞게 파일 이름을 변경해주세요. (`[CONFERENCE-YEAR]TITLE.md`)
-
-Please Rename your file according to your submission data. (`[CONFERENCE-YEAR]TITLE.md`)
-
-**E.g.**  
-
-[NIPS-22]Graph_Information_Bottleneck_for_Subgraph_Recognition.md
