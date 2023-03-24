@@ -95,5 +95,3 @@ You can insert your image file using the converted image url as follows :
 ![image_sample](https://user-images.githubusercontent.com/37684658/227445939-ec25f692-3cd9-4adc-9eac-7d8daab3823e.png)
 ```
 
-### **Rename your file**  
-
