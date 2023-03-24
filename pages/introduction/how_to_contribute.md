@@ -7,9 +7,6 @@ toc: false
 folder: introduction
 ---
 
-
----
-
 이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.  
 This writing is the guideline of how to write review.  
 
