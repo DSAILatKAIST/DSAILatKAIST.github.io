@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps</h1>
+        <p class="post-meta"><time datetime="2022-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2022</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="constgat">ConSTGAT</h1>
+
+<h1 id="10--introduction">1.0  Introduction</h1>
+
+<p>우리가 일상에서 사용하는 네비게이션의 역할은 도착 시간을 예측하는 것 입니다. 흔히들 도착시간 예측을 TTE(Travel Time Estimation)이라고 하는데요. 이는 네비게이션 / 라이드헤일링 / 경로예측 등등 도로 상황을 이해하고 대응하려는 다방면의 분야에서 중요하게 다뤄지는 주제입니다. 한편으로 정확하면서도 효율적으로 TTE문제를 푸는 것은 쉽지 않은데요. 이 페이지에서 다룰 논문은 이 문제를 해결하여 실제로 바이두맵에서 적용되고 있는 알고리즘입니다.</p>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_1.png" alt="Figure 1.PNG" /></p>
+
+<p>TTE 태스크가 풀어야 하는 문제는 크게 두가지입니다. 정확한 예측이 어렵다는 점, 그리고 주변 정보를 고려하기 어렵다는 점입니다.</p>
+
+<ol>
+  <li>
+    <p><strong>Accuracy of Traffic Prediction :</strong> 루트(경로)는 여러개의 링크(도로)로 구성되어 있는데요.전체 소요 시간은 루트 안의 각 도로 세그먼트의 교통량에의해 좌우되겠습니다. 특히 시작점으로부터 떨어져 있을수록 예측이 더 어렵다는 문제가 있습니다.</p>
+
+    <p>TTE문제를 다뤄왔던 기존 알고리즘인 <strong>ST-GNN</strong> 의 경우 Spatial / Temporal 정보가 네트워크 안에서 각각 독립적으로 이용되기 때문에 두 정보의 상관성을 최대한 활용하지 못하고 있는 상황입니다.</p>
+  </li>
+  <li>
+    <p><strong>Considering Contextual Info :</strong> 예측 시간은 인접한 두 링크의 관계도 큰 상관이 있는데요, 가령 좌회전과 우회전에 걸리는 속도가 다르다던지, 교차로의 상태가 어떠한가도 큰 영향을 미치게 됩니다. 이 문제를 푸는데 두가지 접근법이 있습니다.</p>
+
+    <p>첫 번째 가장 기본적인 <strong>Segment-based Approache</strong>가 있습니다. 단순히 각각의 도로 세그먼트들을 독립적으로 계산해 합산하는 방식이라, 효율적이긴 하지만 contextual information를 무시한다는 맹점이 있습니다.</p>
+
+    <p>두 번째 방법인 <strong>End-to-end Approaches</strong>입니다. 앞선 방법과 달리 루트의 모든 링크와 연결점들을 감안하여 전체를 한번에 계산합니다. 따라서 순차적으로 학습하기 위해 Sequence Encoding을 하다보니 연산속도가 현저히 느려진다는 단점이 있습니다.</p>
+  </li>
+</ol>
+
+<p>따라서 이 논문에서는 위에 언급된 <strong>(1)Traffic Prediction</strong> 과 <strong>(2)Contextual Info</strong> 의 문제를 동시에 해결하고자 ConSTAGAT라는 모델을 제안합니다. <strong>(1) Traffic Prediction</strong> 차원에서 이 모델은 시간적, 공간적 데이터 결합해 둘 사이의 상관성을 충분히 학습하도록 Spatio-temporal GNN에 Graph Attention Mechanism을 사용하고, <strong>(2) Contextual Info</strong> 면에서는 주변정보를 효율적으로 수집하기 위해 Convolution을 활용하도록 했습니다. 마지막으로 이 두 솔루션을 합치는 과정에서 Multi-task Learning으로 퍼포먼스를 증대시키도록 했습니다.</p>
+
+<p>이 논문은 크게 세 가지 점에서 Contribution을 하고 있는데요:</p>
+
+<ul>
+  <li><strong>Potential Impact :</strong> 산업적 솔루션으로서 end-to-end neural framework 제시한 것으로 수천만건의 요청을 처리할 수 있다는 것 입니다. 실제로 바이두맵에 ConSTGAT가 적용되어 운영되고 있다는 점이 이 사실을 증명합니다.</li>
+  <li><strong>Novelty :</strong> 시간과 공간의 정보를 밀접하게 활용하기 위해 Spatial-temporal graph attention network를 개발하고 적용했다는 점, 그리고 contextual info를 효율적으로 처리하게 위해 convolution과 Multi-task Learning을 적용했다는 점에서 학계에 기여한다는 점.</li>
+  <li><strong>Technical Quality :</strong> 거대한 현실 트래픽 데이터로 성능을 검증했다는 점 그리고 바이두맵에 성공적으로 적용해 실사용되고 있다는 점에서 실용적이고 robust한 TTE 솔루션이라는 점입니다.</li>
+</ul>
+
+<h1 id="20--preliminary">2.0  Preliminary</h1>
+
+<p>본격적으로 설명하기 앞서, 두 가지 사항을 짚고 넘어가도록 하겠습니다. Notation 및 필요한 데이터를 확인하고, 추출하려는 대상이 무엇인지 파악하도록 합니다.</p>
+
+<h2 id="21-notation">2.1 Notation</h2>
+<p>이 모델에 사용되는 데이터는 크게 네트워크에 해당되는 그래프 <strong>$G$</strong> / 데이터셋 <strong>$D$</strong> 이 있습니다. 후술할 실험과정에 사용되는 Taiyuan, Hefei, Huizhou 세 도시의 로그데이터 샘플값도 <strong>$G$</strong> 와 <strong>$D$</strong> 를 포함하고 있습니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804203-91877da2-3bdb-4376-81f1-bbefe876f9fe.PNG" alt="Notation_01" /></p>
+
+<h2 id="22-feature-extraction">2.2 Feature Extraction</h2>
+
+<p>학습을 위해 사용하는 특성들은; Road Network / Historical Traffic Conditions / Background Info 세 가지가 있습니다.</p>
+
+<ol>
+  <li>
+    <p><strong>Road Network</strong></p>
+
+    <p>Road Network는 링크 사이의 관계를 표현합니다. 특히 다음 여덟가지가 feature로 구성됩니다 : ID, Length, Width, # of lanes, Type, Speed Limit, Type of Crossing, Kind of Traffic Light. 여기에 추가적으로 링크 간의 지리적 관계를 표현하기 위해 graph structure을 활용합니다.</p>
+  </li>
+  <li>
+    <p><strong>Historical Traffic Conditions</strong></p>
+
+    <p>과거 데이터로부터 주어진 링크 $l$에 대한 타임 슬롯 $t$ 의 평균/중앙값을 feature로 추출합니다. 이 연구에서 사용되는 타임 슬롯은 5분 간격입니다.</p>
+  </li>
+  <li>
+    <p><strong>Background Information</strong></p>
+
+    <p>TTE는 수 많은 다른 배경 정보에도 영향을 받을 수 있는데요. 가령 출발시간이 러시아워이거나, 주중이거나, 혹은 다른 시간 관련 특징에 따라 다른 결과를 낼 수 있기 때문입니다. 따라서 이러한 시간 관련 특징도 사용하게 됩니다.</p>
+
+    <ul>
+      <li>$x_i^{(B)}$ : $i$번째 링크의 배경정보</li>
+    </ul>
+  </li>
+</ol>
+
+<h1 id="30--constgat">3.0  ConSTGAT</h1>
+
+<h2 id="31-framework">3.1 Framework</h2>
+
+<p>본격적으로 ConSTGAT 모델의 구조로 들어가도록 하겠습니다. ConSTGAT는 크게 <em>Contextual Information</em>, <em>Traffic Prediction</em> 모듈로 정보를 취합하고, <em>Integration</em> 모듈을 통해 두 모듈을 합치고 예측하는 식 입니다.</p>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_2.png" alt="Figure 2.PNG" /></p>
+
+<ul>
+  <li><strong><em>Traffic Prediction 모듈 :</em></strong> 시간과 공간 데이터, 그리고 그 둘의 상관성을 포착하기 위한 모듈로, 이 논문에서 제시하는 새로운 방법인 spatial-temporal graph attention network을 통해 진행됩니다.</li>
+  <li><strong><em>Contextual Information 모듈 :</em></strong>  Contextual Info를 잡아내는 데 활용되는 모듈로, 인접한 링크의 관계를 포착하기 위해 Convolution을 활용합니다.</li>
+  <li><strong><em>Integration 모듈 :</em></strong> Traffic Prediction 모듈, Contextual Information 모듈, 그리고 Background 정보까지 모든 잇풋을 취합해 예측을 하는 모듈로, Multi-task Learning으로 효율적으로 계산하는 모듈입니다.</li>
+</ul>
+
+<h2 id="32-traffic-prediction-module">3.2 Traffic Prediction Module</h2>
+
+<p>우선 첫 번째로 Traffic Prediction Module을 살펴보겠습니다. 한 링크의 교통 상황은 해당 링크의 과거 이력과 주변 이웃 링크와 큰 상관관계가 있습니다. 가령 한 링크의 교통량이 많아지면 주변 노드들의 교통량도 잇따라 많아지는 상황 같은 것이지요. 이러한 상황을 예측을 하기 위한 방법으로 STGNN이 활용되어 왔지만, 공간정보와 시간정보가 개별적으로 활용된다는 단점이 있었습니다. ConSTGAT는 이 정보의 상관성까지도 활용하기 위해, 공간정보와 시간정보를 동시에 다루는 방법인 Spatial-temporal graph attention network를 제안합니다.</p>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_3.png" alt="Figure 3.png" /></p>
+
+<p>Traffic Prediction 모듈은 교통 히스토리, 그래프<strong>$G$</strong> , 출발시간 s 를 인풋으로 받아 앞으로의 교통상황을 예측합니다. 여기서 시간-공간 관계를 포착하기 위해 Graph attention n
+etwork의 일종인 3D-attention mechanism 을 사용합니다. 그리고 결과적으로 1번 식과 같이 출발시간 이수 $T_{f}$개의 타임슬롯에 대한 교통상황을 예측하도록 하는 것입니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804388-b1867422-7761-4e39-8aa5-7ebda292ca9f.PNG" alt="Notation_02" /></p>
+
+<p>이를 구현하기 위한 단계는 크게 3개 단계가 있겠습니다.</p>
+
+<p><strong>1단계 ) ST-tensor 추출하기 : 시간-공간 관계 표현</strong></p>
+
+<p>이를 진행하기 위해 우선 Spatial-temporal tensor $X_i^{^{(MST)}}$을 추출합니다.  $X_i^{^{(MST)}}$는 교통 히스토리  $X^{(ST)}_i$, 이웃 링크 특성 $X^{(S)}_i$, 타임슬롯 특성$X^{(T)}$ 행렬을 결합함으로써 얻을 수 있습니다. 세부 내용은 아래를 참조하세요.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804461-a99865c6-1724-4403-9bff-d0d903371aed.PNG" alt="Notation_03" /></p>
+
+<p>조금 더 구체적으로 들어가자면, $k$번째 타임슬롯에서 링크 $i$의 이웃인 링크 $j$의 시공간 행렬은 Concat을 통해 구현될 수 있고, 이를 통해 기존의 행렬이 3D-tensor로 변환됩니다. 이 3D-tensor는 $l_i$에서의 교통상황을 예측할 spatio-temporal tensor (ST-tensor)를 만들기 위해서 반드시 가져야 할 형태이기도 합니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804513-869f2f04-d4e7-4d96-a53d-e7557daf9d88.PNG" alt="Notation_04" /></p>
+
+<p><strong>2단계 ) Attention Mechanism으로 시간과 공간의 연관 정보 추출하기 : 교통상황 파악</strong></p>
+
+<p>이 단계에선 시간과 공간 관계를 포착하기 위해 새로운 3D-attention 메커니즘을 제안하고 있습니다. 어텐션 메커니즘을 수행하려면 key, value, query가 필요한데요. 각각 다음과 같습니다.</p>
+
+<ul>
+  <li>Query : Contextual Information $x^{(CI)}_{i,w}$ , Background Information $x^{(B)}_i$</li>
+  <li>Key : ST-tensor $X^{(MST)}_{i,j,k}$</li>
+  <li>Value : ST-tensor $X^{(MST)}_{i,j,k}$</li>
+</ul>
+
+<p>이를 바탕으로 3D-attention은 다음과 같이 전개됩니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804543-f44a6c2f-79d6-4d6d-9949-764b1614bd8b.PNG" alt="Notation_05" /></p>
+
+<p>이에 따라 링크 $l_i$에서 지난 교통 히스토리와 query간의 관계는 8번 식에 따라  $x_i^{(TC)}=Attention(Q_i, K_i, V_i)$ 로 정리될 수 있습니다. 따라서 이렇게 3D-attention으로 구현한 GNN을 “3DGAT”라 부릅니다.</p>
+
+<p><strong>3단계 ) Masking Mechanism으로 Robustness 개선하기</strong></p>
+
+<p>이러한 모델을 학습하는 경우, 종종 약한 시그널 때문에 교통 상태 정보가 사라지게 되는 경우도 있는데요, 이러한 문제를 해결하고 모델의 robustness를 개선하기 위해 이 논문은 Masking Mechanism도 제안합니다. Masking은 NLP 분야에서 성능이 입증된 바 있습니다.</p>
+
+<p>학습단계에서 랜덤하게 과거 교통 컨디션의 10%에 mask를 씌우는 것인데, 보다 구체적으로는 $req=(r,s)$에서 $c_i^t \;(i\in[1,m], t\in[s-T_h,s-1])$의 10%를 제로 벡터로 만드는 것입니다. 이렇게 뉴럴네트워크에 노이즈를 넣어 과적합을 방지하고, 모델의 generalization을 개선하려는 목적입니다.</p>
+
+<h2 id="33-contextual-information-module">3.3 Contextual Information Module</h2>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_4.png" alt="Figure 4.png" /></p>
+
+<p>이 섹션에서는 : Convolution을 통해 주변 정보를 효율적으로 학습하는 Contextual Information Module과, Multi-task Learning을 하는 Integration Module을 다룹니다. 총 4개 단계로 이루어질 수 있는데요.</p>
+
+<p><strong>1단계 )</strong> <strong>Contextual Information Module : 주변정보 인코딩</strong></p>
+
+<p>여기에서 주변정보, Contextual Information이라 함은, 두 링크 사이의 각도, 중심도로와 보조도로와의 관계 등을 말합니다. 이 주변정보는 travel time을 예측하는데 중요한 역할을 합니다. 여기에서는 루트에 포함된 모든 링크의 travel time을 예측하는데요, 그럴 때 루트 안의 주변 노드의 정보를 활용함으로써 예측 성능을 높이는 식입니다. 주변 노드는 sub-path라고 정의되며, 다음과 같이 표현합니다.</p>
+
+<ul>
+  <li>$p_{i,w}=[l_{i-w},\cdot\cdot\cdot, l_{i-1}, l_{i}, l_{i+1},\cdot\cdot\cdot,l_{i+w}]$</li>
+</ul>
+
+<p>여기에서 $i$는 계산할 대상 링크이고, $w$는 주변정보를 고려하는 window 크기를 말합니다. 가령, $w=0$ 이라면, 링크 $i$의 정보만을 고려하는 것 입니다. 이런 경우에는 segment-base method와 같은 설정이 되겠습니다. 만약 $w\rightarrow \infin$ 이라면, 루트 $r$의 모든 링크들이 고려 대상이 되고, 이는 vanilla end-to-end method와 같은 설정이 되겠습니다.</p>
+
+<p>이처럼 이 모델은 특정 링크의 travel time은 주변 노드의 상황으로부터 영향을 받는다는 가정을 깔고 있는데, 이런 상황에서 CNN은 주변 정보, 즉 지역적 의존성을 수집하기 효율적인 방법입니다. 다음과 같이 $l_i$의 주변 정보를 인코딩 합니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804610-c4ff1423-8eaa-4efe-aecc-ff270434c786.PNG" alt="Notation_06" /></p>
+
+<p>이렇게 도출된 주변 정보 인코딩은 앞서 살펴보았던 Traffic Prediction Module의 쿼리와 Integration Module에 사용됩니다.</p>
+
+<p><strong>2단계 ) Integration Module : Travel Time 예측</strong></p>
+
+<p>이제 최종 예측을 위한 모듈인 Integration Module만 남았습니다. 이 단계에서는 Traffic Prediction Module $x_{i}^{(TC)}$, Context Information Module $x_{i,w}^{(CI)}$, Background Information $x_{i}^{(B)}$ 이 세개로부터 인풋을 받습니다. 이렇게 받은 인풋은 그림과 같이 Concatenation을 거쳐 Multiple Fully-connected Layer을 지나 루트안에 있는 모든 링크의 travel timed을 예측합니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804664-6a31f149-7ab7-4fbb-9362-c2c243b52d12.PNG" alt="Notation_07" /></p>
+
+<p>각각 계산된 링크들의 travel time을 모두 더해 전체 루트의 travel time을 구하므로써 끝이 납니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804804-a7e26d78-f6c8-47a6-83f7-c239d4a27b13.PNG" alt="Notation_08" /></p>
+
+<p><strong>3단계 ) Loss 계산</strong></p>
+
+<p>이렇게 도출된 예측 Travel time을 기반으로 Loss function을 구축하게 되는데요. 서로 다른 방식인 Segment-based method와 End-to-end method의 장점을 한번에 녹이기 위해, 지금까지 계산한 값에 대해 각각의 방식에 따른 Loss Function을 적용합니다.</p>
+
+<p>Segment-based method 차원에서 사용한 손실함수는 Huber Loss로, 루트 안에 포함된 모든 각각의 링크의 travel time에 대해 계산합니다. 한편, End-to-end method 차원에서 사용한 손실함수는 APE로, 합산된 루트의 travel time에 대해 계산합니다. 이 두 방식을 한번에 담은 손실함수는 다음과 같고, 이 손실함수를 최소화 하는 방향으로 학습이 진행됩니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/52244004/195804769-700a8888-55a5-4389-883f-a244787cae9e.PNG" alt="Notation_09" /></p>
+
+<p><strong>4단계 ) 현실 적용</strong></p>
+
+<p>Baidu Maps의 네비게이션은 하루에 몇백만건을 처리해야 하는데, 이런 상황에서는 반응 시간이 매우 중요합니다. 하지만 대부분 높은 정확도를 가진 모델들은 연산시간이 오래 걸리는 End-to-end 방식을 사용하기 때문에 어플리케이션을 스케일업 하기가 어려운 상황입니다.</p>
+
+<p>정확도를 높게 가져가면서도, 연산의 효율성을 보장하기 위해, 이 논문에서는 segment-based method의 방법을 채택합니다. segment-based method처럼 링크 하나하나의 travel time을 단순 합산하되, 그 값들을 미리 계산해둠으로써 시간을 아끼는 방식입니다. 크게 두 스텝이 필요합니다.</p>
+<ol>
+  <li><strong>$G$</strong> 에 포함된 모든 링크 <strong>$L$</strong> 각각의 travel time과 관련 데이터를 병렬로 계산해 look-up 테이블에 저장합니다.
+    <ul>
+      <li>이때, 링크와 연결된 이웃링크 <strong>$P(l)$</strong> 를 감안해 걸리는 시간까지 함께 계산합니다. 1단계에서 진행한 w를 고려한 만큼 계산하게 됩니다.</li>
+      <li>또한 history에 존재하는 서로 다른 출발시간에 대하여도 위의 모든 정보를 계산합니다: $s, s+1, \cdot\cdot\cdot , s+T_f-1$</li>
+    </ul>
+  </li>
+  <li>위의 계산을 사전에 저장해 둔 뒤, 유저로부터 request가 도착하면, 요청에 해당되는 링크들의 travel time이 저장되어있는 look-up 테이블에서 정보를 불러와 후보 경로(루트)들이 되도록 합산합니다.
+이러한 방식으로 정확하면서도 효율적인 TTE가 가능하도록 하는 것입니다.</li>
+</ol>
+
+<h1 id="40--experiments">4.0  Experiments</h1>
+
+<p>이렇게 디벨롭된 모델의 실제 성능은 어떨까요? 실제 데이터셋을 통해 검증한 결과를 살펴봅시다.</p>
+
+<h3 id="41-experimental-settings">4.1 Experimental Settings</h3>
+
+<ul>
+  <li><strong>사용한 데이터셋</strong>
+    <ul>
+      <li>2019년 7월 한달 실제 바이두맵의 Taiyuan, Hefei, Huizhou 세 도시의 로그 데이터 샘플링 값</li>
+      <li>첫 4주 간의 데이터는 Training 용으로, 마지막 1주 간의 데이터는 Testing 용으로 분리</li>
+    </ul>
+  </li>
+  <li><strong>평가지표</strong>
+    <ul>
+      <li>회귀 문제에 널리 활용되는 평가 지표인 MAPE / MAE / RMSE 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Table_1.png" alt="Table 1.png" /></p>
+
+<h3 id="42-methods-for-comparison">4.2 Methods for Comparison</h3>
+
+<p>비교를 위해 사용한 모델 목록입니다. *표시 되어있는 모델이 ConSTGAT모델입니다.</p>
+
+<p>| Baselines | Description |
+| — | — |
+| AVG | 2016 각 도시별 평균속도
+ |
+| DeepTravel | (1) 시간 / 공간 특성 추출
+(2) bi-directional LSTM 적용 |
+| STANN | (1) Graph Attention으로 공간 특성 추출
+(2) LSTM &amp; Attention으로 시간 특성 추출</p>
+
+<ul>
+  <li>하지만 계산 과정에서 이웃 링크만 고려하는게 아니라 모든 링크를 계산한다는 단점 존재 |
+| DCRNN | (1) GCN으로 공간 특성 추출
+(2) LSTM으로 시간 특성 &amp; Dependency 추출 |
+| GAT+Attention* | (1) Graph Attention Network으로 공간 특성 추출
+(2) Attention으로 공간특성 추출
+→ 각각 공간 / 시간 특성 별도로 취급
+ |
+| 3DGAT* | (1) Graph Attention Network으로 공간 특성 추출
+(2) Attention으로 공간특성 추출
+→ 각각 공간 / 시간 특성 동시에 취급 |</li>
+</ul>
+
+<h3 id="43-experimental-results">4.3 Experimental Results</h3>
+
+<h4 id="431-overall-evaluation">4.3.1 Overall Evaluation</h4>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Table_2.png" alt="Table 2.png" /></p>
+
+<p>ConSTGAT 는 모든 데이터셋에 대해, 다른 모든 모델의 성능을 압도합니다.</p>
+
+<h4 id="432-spatial-temporal-graph-neural-networks">4.3.2 Spatial-Temporal Graph Neural Networks</h4>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Table_3.png" alt="Table 3.png" /></p>
+
+<p>일반적인 STGNN은 전체 루트를 예측하기보다, 특정 링크를 예측하는데 최적화 되어 있습니다. 따라서 STGNN모델들간에 링크를 예측하는 지엽적인 실험도 진행되었는데요. 마찬가지로 ConSTGAT가 다른 모델을 압도하고 있는 것을 확인할 수 있습니다.</p>
+
+<p>*3DGAT는 이 실험을 위해 최적화된 $w=0$인 ConSTGAT의 또 다른 버전.</p>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_5.png" alt="Figure 5.png" /></p>
+
+<p>Spatial 정보와 Temporal 정보간의 상관관계를 보기 위해 Attention Weight의 행렬을 그린 것입니다. 특정 링크 $l$과 자신을 포함한 9개의 이웃들을 5분의 타임슬롯 위에서 비교했는데요. 행렬과 결과에 대한 설명입니다 :</p>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>ROW : itself-자기 자신</td>
+          <td>downstream 앞으로 갈 링크</td>
+          <td>upstream 지나온 링크</td>
+          <td>other 나머지</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>COLUMN : 첫번째 열 - 최신 타임슬롯</td>
+          <td>마지막 열 - 가장 나중 타임슬롯</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>COLOR : 어두운 색 - 링크 $l$에 적합함</td>
+          <td>옅은 색 - 링크 $l$에 적합하지 않음</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<p>분석결과는 첫 번째로 Downstream 링크들이 링크 $l$에 더 적합한 것으로 확인되었고, 두 번째로는 교통 기록이 더 많거나, 더 긴 travel time을 가진 링크가 예측에 더 중요한 역할을 한다는 것을 확인했습니다.</p>
+
+<h4 id="433-contextual-information">4.3.3 Contextual Information</h4>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_6.png" alt="Figure 6.png" /></p>
+
+<p>한 루트에서 contextual information의 영향이 얼마나 중요할지 알아본 분석인데요. 이 분석을 하기 위해 ConSTGAT의 contextual window size를 바꿔가며 travel time을 예측해 보았습니다. window size의 의미는 다음과 같습니다.</p>
+
+<ul>
+  <li>$w=0$ : Segment-based method와 똑같다. 계산 시 어떠한 주변 정보도 고려하지 않음</li>
+  <li>$w&gt;0$ : 클 수록 주변 링크의 정보를 활용해 계산</li>
+</ul>
+
+<p>결과적으로 주변 정보를 활용할수록 RMSE가 감소하는 것으로 보아 모델의 퍼포먼스가 개선되는 것으로 확인되었습니다. (단 Hefei의 경우 딱히 그런것 같진 않네요.)</p>
+
+<h4 id="434-robustness">4.3.4 Robustness</h4>
+
+<p><img src="/images/ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps/Figure_7.png" alt="Figure 7.png" /></p>
+
+<p>마지막으로 Masking이 모델의 robustness를 개선시키는지 확인하는 테스트입니다. 마스크 비율의 의미는 다음과 같습니다.</p>
+
+<ul>
+  <li>Train mask rate = 0% : 모든 정보를 알되, 일부 노이즈가 있는 정도</li>
+  <li>Train mask rate = 100% : 모든 기존 교통 컨디션은 알지 못하고, contextual info와 background info만 있는 상태</li>
+</ul>
+
+<p>결과적으로 Train mask rate 10%인 상황이 아닌상황보다 RMSE가 전반적으로 낮게 나오는 것을 확인할 수 있습니다. 따라서 Masking은 모델의 robustness를 개선하는데 도움이 된다고 볼 수 있겠네요.</p>
+
+<h1 id="50--conclusion">5.0  Conclusion</h1>
+
+<p>이 논문에은 효율적인 end-to-end STGNN모델인 ConSTGAT를 제안합니다. 기존 모델들이 (1)Traffic prediction 과 (2)Contextual information를 수집하고 가공하는데 가졌던 문제를 해결하기 위해, Spatial / Temporal 의 연관성을 깊게 가져간 3D-attention 메커니즘을 개발했습니다. 또한 주변 정보를 효율적으로 습즉하기 위해 루트의 정보를 convolution을 통해 습득했고, 나아가 퍼포먼스를 개선하기 위해 Multi-task Learning을 도입했습니다.</p>
+
+<p>이 모델을 기반으로 Segment-based 방법에서 힌트를 얻어, 각각의 링크에 대한 travel time을 계산을 동시에 그리고 미리 계산하는 식으로 최종 travel time을 예측하는 프로세스까지. 유저 차원에서의 사용성까지 고려된 모델입니다.</p>
+
+<p>거대 스케일의 현실 데이터를 활용한 실험을 통해 ConSTGAT의 우수성을 증명했고, 또 ConSTGAT는 바이두맵에 실제로 사용되는 알고리즘이기 때문에 실용적이며 안정적인 방법론이라고 할 수 있겠습니다.</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Mar 27, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

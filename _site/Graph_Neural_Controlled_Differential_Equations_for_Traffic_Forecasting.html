@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>Graph Neural Controlled Differential Equations for Traffic Forecasting | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the Graph Neural Controlled Differential Equations for Traffic Forecasting page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Graph Neural Controlled Differential Equations for Traffic Forecasting">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Graph Neural Controlled Differential Equations for Traffic Forecasting</h1>
+        <p class="post-meta"><time datetime="2022-11-18T00:00:00+09:00" itemprop="datePublished">Nov 18, 2022</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="paper-review-of-graph-neural-controlled-differential-equations-for-traffic-forecasting"><strong>Paper-Review of “Graph Neural Controlled Differential Equations for Traffic Forecasting”</strong></h1>
+
+<h2 id="1-introduction"><strong>1. Introduction</strong></h2>
+
+<p>Recent advances in data acquisition technology help collect a variety of spatio-temporal (ST) data in urban areas, such as urban traffic, air quality, and etc. Such data has complex spatial and temporal correlations, which can be depicted by spatio-temporal graphs(STG), as shown in Fig. 1. For example, spatio-temporal data describes various things and movements as $[x, y, h, t]$. Take the geodetic coordinate system (rectangular coordinate system) as an example to describe, that is $[longitude, latitude, altitude, time]$. This can describe almost all kinds of things. As small as the trajectory of a car, the process of building construction, and as large as the movement of plates, they can all be abstracted as $[x, y, h, t]$.</p>
+
+<p><img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/picfig3.jpeg" alt="picfig3" style="zoom:25%;" /></p>
+
+<p><em>Figure 1: ST data and the related ST graph structure in urban areas</em></p>
+
+<p>For instance, the traffic forecasting task( Forecasting highway traffic volume(i.e., # of vehicles) ) launched by California Performance of Transportation (PeMS) is one of the most popular problems in the area of spatio-temporal processing.</p>
+
+<p>For this task, a diverse set of techniques have been proposed. The most important is Neural controlled differential equations (NCDEs), which are a breakthrough concept for processing sequential data.</p>
+
+<p>In this paper, the author presents the method of spatio-temporal graph neural controlled differential equation (STG-NCDE). They extend the concept and design two NCDEs: one for the temporal processing and the other for the spatial processing. After that, they combine them into a single framework.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+
+<p>It has not been studied yet how to combine the NCDE technology (i.e., temporal processing(because NCDE technology is good at time-series tasks)) and the graph convolutional processing technology (i.e., spatial processing(because graph is good at constructing position and distance)) to solve the spatio-temporal forecasting problem.</p>
+
+<h2 id="3-proposed-method">3. Proposed Method</h2>
+
+<p>Time-series of graphs:</p>
+
+\[\{\mathcal{G}_{t_i} \overset{\text{def}}{=} (\mathcal{V},\mathcal{\varepsilon},\boldsymbol{F}_i,t_i)\}_{i=0}^N ...(1)\]
+
+<p>where $\mathcal{V}$ is a ﬁxed set of nodes, $\mathcal{\varepsilon}$ is a fixed set of edges, $t_i$ is a time-point when $\mathcal{G}_{t_i}$ is observed, and $\boldsymbol{F}_i \in \mathbb{R}^{\vert \mathcal{V} \vert \times D}$ is a feature matrix at time $t_i$ which contains $D$-dimensional input features of the nodes, the spatio-temporal forecasting is to predict $\hat{\boldsymbol{F}} \in \mathbb{R}^{\vert \mathcal{V} \vert \times S \times M}$</p>
+
+<p>For example, when we predict the trafﬁc volume for each location of a road network for the next $S$ timepoints (or horizons) given past $N + 1$ historical traffic patterns, where $\vert\mathcal{V}\vert$ is the number of locations to predict and $M = 1$ because the volume is a scalar(i.e., # of vehicles)</p>
+
+<p>Here is the NCDEs, which are considered as a continuous analogue to recurrent neural networks (RNNs), can be written as follows:</p>
+
+\[\begin{split}     		
+		z(T)     		
+		&amp;=z(0)+\int_0^Tf(z(t);\theta_f)dX(t)
+		\\    		
+		&amp;=z(0)+\int_0^Tf(z(t);\theta_f)\frac{dX(t)}{dt}dt ...(2)
+	\end{split}\]
+
+<p>where $X$ is a continuous path taking values in a Banach space. The entire trajectory of $z(t)$ is controlled over time by the path $X$. The path $X$ is created from ${(t_i,x_i)}_{i=0}^N$ by an interpolation algorithm.</p>
+
+<h4 id="31-overall-design">3.1 Overall design</h4>
+
+<p>Pre-processing and main processing steps as follows:</p>
+
+<ol>
+  <li>Its pre-processing step is to create a continuous path $X^{(v)}$ for each node $v$, where $1 \leq v \leq \vert\nu\vert$, from ${F_i^{(v)}}_{i=0}^N$. $F_i^{(v)} \in \mathbb{R}^D$ means the $v$-th row of $F_i$, and $F_i^{(v)}$ stands for the time-series of the input features of $v$.</li>
+  <li>The above pre-processing step happens before training their model. Then, their main step, which combines a GCN and an NCDE technologies, calculates the last hidden vector for each node $v$, denoted $z^{(v)}(T)$.</li>
+  <li>After that, they have an output layer to predict $\hat{y}^{(v)} \in \mathbb{R}^{S \times M}$ for each node v. After collecting those predictions for all nodes in $\nu$, they have the prediction matrix $\hat{Y} \in \mathbb{R}^{\vert\nu\vert \times S \times M}$.</li>
+</ol>
+
+<h4 id="32-graph-neural-controlled-differential-equations-stg-ncde">3.2 Graph neural controlled differential equations (STG-NCDE)</h4>
+
+<ul>
+  <li>
+    <p>Temporal processing</p>
+
+    <p>The first NCDE for the temporal processing can be written as follows:</p>
+
+\[h^{(v)}(T) = h^{(v)}(0) + \int_0^Tf(h^{(v)}(t);\theta_f)\frac{dX^{(v)}(t)}{dt}dt ...(3)\]
+
+    <p>where $h^{(v)}(t)$ is a hidden trajectory (over time $t \in [0,T])$ of the temporal information of node $v$.</p>
+
+    <p>Eq. (3) can be equivalently rewritten as follows using the matrix notation:</p>
+
+\[H(T) = H(0) + \int_0^Tf(H(T);\theta_f)\frac{dX(t)}{dt}dt ...(4)\]
+
+    <p>where $X(t)$ is a matrix whose $v$-th row is $X^{(v)}$. The CDE function $f$ separately processes each row in $H(t)$.</p>
+  </li>
+  <li>
+    <p>Spatial processing</p>
+
+    <p>After that, the second NCDE starts for its spatial processing as follows:</p>
+
+\[Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)\frac{dH(t)}{dt}dt ...(5)\]
+
+    <p>where the hidden trajectory $Z(t)$ is controlled by $H(t)$ which is created by the temporal processing.</p>
+
+    <p>After combining Eqs. (4) and (5), they have the following single equation which incorporates both the temporal and the spatial processing:</p>
+
+\[Z(T) = Z(0) + \int_0^Tg(Z(t);\theta_g)f(H(t);\theta_f)\frac{dX(t)}{dt}dt ...(6)\]
+
+    <p>where $Z(t) \in \mathbb{R}^{\vert\nu\vert \times dim(z^{(v)})}$ is a matrix created after stacking the hidden trajectory $z^{(v)}$ for all $v$.</p>
+  </li>
+</ul>
+
+<h2 id="4-experimental-evidence"><strong>4. Experimental Evidence</strong></h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <p>The datasets are collected by the Caltrans Performance Measurement System (PeMS) in real time every 30 seconds. The traffic data are aggregated into every 5-minute interval from the raw data. The system has more than 39,000 detectors deployed on the highway in the major metropolitan areas in California. Geographic information about the sensor stations are recorded in the datasets. There are three kinds of traffic measurements considered in our experiments, including total flow, average speed, and average occupancy.</p>
+
+    <p><img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110320351.png" alt="image-20221118110320351" style="zoom:25%;" /></p>
+
+    <p><em>Table 1: Datasets list in this experinment</em></p>
+
+    <p>PeMSD4 Dataset Example:</p>
+
+    <p>distance.csv file:</p>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>from</th>
+      <th>to</th>
+      <th>cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>73</td>
+      <td>5</td>
+      <td>352.6</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>154</td>
+      <td>347.2</td>
+    </tr>
+    <tr>
+      <td>154</td>
+      <td>263</td>
+      <td>392.9</td>
+    </tr>
+    <tr>
+      <td>263</td>
+      <td>56</td>
+      <td>440.8</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>96</td>
+      <td>374.6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>pems04.npz file using 307 detectors(nodes), from Jan to Feb in 2018, also contains 3 features: flow, occupy, speed. The shape is (sequence_length, num_of_vertices, num_of_features).</p>
+
+<ul>
+  <li>
+    <p>Baselines(parts)</p>
+
+    <ul>
+      <li>HA (Hamilton 2020) uses the average value of the last 12 times slices to predict the next value.</li>
+      <li>ARIMA is a statistical model of time series analysis.</li>
+      <li>VAR (Hamilton 2020) is a time series model that captures spatial correlations among all trafﬁc series.</li>
+      <li>TCN (Bai, Kolter, and Koltun 2018) consists of a stack of causal convolutional layers with exponentially enlarged dilation factors.</li>
+      <li>FC-LSTM (Sutskever, Vinyals, and Le 2014) is LSTM with fully connected hidden unit.</li>
+      <li>GRU-ED (Cho et al. 2014) is an GRU-based baseline and utilize the encoder-decoder framework for multi-step time series prediction.</li>
+      <li>DSANet (Huang et al. 2019) is a correlated time series prediction model using CNN networks and self-attention mechanism for spatial correlations.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <p><img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable2.png" alt="pictable2" style="zoom:25%;" /></p>
+
+    <p><em>Table 2: The average error of some selected highly performing models across all the six datasets. Inside the parentheses, it shows the others performance relative to STG-NCDE.</em></p>
+
+    <p>Overall, STG-NCDE, clearly marks the best average accuracy as summarized in Table 2. For instance, STGCN shows an MAE that is 17.0% worse than that of STG-NCDE. All existing methods show worse errors in all metrics than STG-NCDE (by large margins for many baselines).</p>
+
+    <p><img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/pictable3.png" alt="pictable3" style="zoom:25%;" /></p>
+
+    <p><em>Table 3: Forecasting error on PeMSD3, PeMSD4, PeMSD7 and PeMSD8</em></p>
+
+    <p>For each dataset. STG-NCDE shows the best accuracy in all cases, followed by Z-GCNETs, AGCRN, STGODE and so on in Table 3. For instance, STGODE shows reasonably low errors in many cases, e.g., an RMSE of 27.84 in PeMSD3 by STGODE, which is the second best result vs. 27.09 by STG-NCDE. However, it is outperformed by AGCRN and Z-GCNETs for PeMSD7. Only STG-NCDE, shows reliable predictions in all cases.</p>
+
+    <p><img src="/images/Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets/image-20221118110145566.png" alt="image-20221118110145566" style="zoom:25%;" /></p>
+
+    <p><em>Figure 2: Trafﬁc forecasting visualization.</em></p>
+
+    <p>We can see from Fig. 2 that node 111 and 261 (resp. Node 9 and 112) are two of the highest trafﬁc areas in PeMSD4 (resp. PeMSD8). STG-NCDE shows much more accurate predictions. For example, as highlighted with boxes, STG-NCDE signiﬁcantly outperforms Z-GCNETs for the highlighted timepoints for Node 111 in PeMSD4 and Node 9 in PeMSD8 where the prediction curves of Z-GCNETs are straight which shows nonsensical predictions.</p>
+  </li>
+</ul>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>They presented a spatio-temporal NCDEs model to perform traffic forecasting: one for temporal processing and the other for spatial processing.</p>
+
+<p>In their experiments with 6 datasets and 20 baselines, their method clearly shows the best overall accuracy.</p>
+
+<p>In addition, their model can perform irregular traffic forecasting where some input observations can be missing, which is a practical problem setting but not actively considered by existing methods.</p>
+
+<h2 id="6-paper-evaluation">6. Paper Evaluation</h2>
+
+<p>The innovation in this paper is to propose the combination of graph convolutional network and NCDEs.</p>
+
+<p>But, you need to be familiar with the two basic topics of controlled differential equations and graphs to understand more deeply. Because there is no more detailed introduction to them here. Actually, there are some parts I can’t  fully understand.</p>
+
+<p>In the process of converting dynamic graphs into time series, each point is converted into a sequence, and then processing is performed on each sequence. We can see that this approach results in invalid data storage. Because the graph structure will have many intersection nodes, this will cause the storage of time series to have redundancy.</p>
+
+<p>Moreover, the paper involves a large number of descriptions of partial differential equations, and there is not much content that is obviously useful.</p>
+
+<hr />
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<p>Authors: Jeongwhan Choi, Hwangyong Choi, Jeehyun Hwang, Noseong Park</p>
+
+<p>Affiliation: Yonsei University, Seoul, South Korea</p>
+
+<p>Comments: Accepted by AAAI Conference on ArtiAcial Intelligence pp.6367-6374 (2022)</p>
+
+<p>Cite As: https://doi.org/10.48550/arXiv.2112.03558</p>
+
+<h2 id="7-reference--additional-materials"><strong>7. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>
+    <p>Github Implementation: https://github.com/jeongwhanchoi/STG-NCDE</p>
+  </li>
+  <li>
+    <p>Datasets Used: https://paperswithcode.com/dataset/pemsd8</p>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Mar 27, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

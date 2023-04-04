@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications</h1>
+        <p class="post-meta"><time datetime="2022-09-28T00:00:00+09:00" itemprop="datePublished">Sep 28, 2022</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <p>GNN의 Robustness 는 최근에 많은 관심을 받아오고 있습니다. GNN 의 입력으로 넣는 그래프의 구조를 아주 조금만 변형시켜도 전혀 다른 예측값을 하게 함으로써 모델을 크게 망칠 수 있게 되는데요.
+본 논문에서는 GNN의 Robustness 와 Graph 의 Heterophilly 와의 연결점을 처음으로 언급하고, 이 연관성을 이론적, 또 경험적으로 보여주는 논문 입니다.</p>
+
+<h2 id="1-task-definition">1. Task Definition</h2>
+
+<p>우선 Robustness 를 확인하는 Task 를 간단히 소개하겠습니다.</p>
+
+<p>GNN의 Robustness 는 Attack 이 포함된 Graph 로 그래프 태스크를 수행했을 때, 얼마나 정확히 예측하는가를 평가척도로 측정합니다.</p>
+
+<p>여기서 Attacked 이 포함된 그래프란 다음과 같이 정의되며,</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk1.PNG" alt="1" /></p>
+
+<p>그래프 태스크란, Node Classification, Graph Classfication, Link Prediction 그리고 Node Clustering 과 같은 전형적인 태스크들을 이야기 합니다.</p>
+
+<p><strong>Adversarial Robustness</strong> 를 확인하는 Task라 함은, 위와 같은 node/graph Classification Task 를 수행하는 과정에서, graph 가 poisoned (adversarially attacked)
+되어 있을 때, 얼마나 Classification Accuracy 가 유지 되는가를 평가하는 것 입니다.</p>
+
+<p>조금 더, 구체적으로, graph 의 edge 를 아주 조금 지우거나 더해주는 attack 행위를 통해 GNN 모델의 성능을 크게 망가 뜨릴 수 있는데,</p>
+
+<p>그러한 데이터를 받았을 때에도 태스크 성능을 높게 산출하고자 하는 것이 Adversarial robustness 를 목적으로 하는 태스크 입니다.</p>
+
+<p>이 분야에 대한 연구를 Robust GNN 를 연구한다고 칭하기도 합니다.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+
+<p>그렇다면 현재 연구들을 살펴보았을 때, 본 연구의 Contribution이 무엇인지 알아보겠습니다.</p>
+
+<h3 id="gnn-for-heterophilous-network">GNN for Heterophilous Network.</h3>
+
+<p>기존 GNN의 연구 분야 중에서, Heterophily 그래프를 위해 특별히 디자인을 하는 연구분야가 존재합니다. Heterophilly 란, “나의 친구는 나와 유사할 것이다” = (Homophilly) 의 반대 개념인데요.
+즉, 나와 친구임에도 나와 매우 다른 특성을 지닌 친구들을 많이 포함하고 있는 그래프를 Hetrophilly Network 라고 부릅니다. 논문의 표현을 빌려 좀 더 엄밀히 정의하면,</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk2.PNG" alt="2" /></p>
+
+<p>위와 같은 homophily ratio 를 계산할 수 있는데요. 나와 같은 레이블 y 로 연결된 edge가 많이 존재한다면 homophilly ratio가 높을 것 (homophilly network)이고, 반대로 지나치게 낮으면 homophilly ratio 가 낮을 것 (heterophilly) 입니다.</p>
+
+<p>GNN은 smooth 한 정보를 많이 잡는 특성을 지녔기 때문에, 주변 정보가 되게 다를 경우에는 잘 작동하지 않았습니다. 그동안은 이러한 Heterophilly Network 를 위해 GNN 에 특별한 디자인을 추가하여, 이를 해결하고자 했습니다.</p>
+
+<h3 id="robustness-of-gnn">Robustness of GNN</h3>
+
+<p>GNN의 성능을 망치게 되는 Graph Edge 는 서로 비슷하지 않은 유저를 Edge 로 연결해주는 그래프를 넣어주는 것 입니다. 그렇게 되면 학습된 GNN 은 기존에 배웠던 패턴과 다른 연결에 의해 예측력이 급격히 떨어지게 됩니다.</p>
+
+<h3 id="paper-contribution">Paper Contribution</h3>
+
+<p>언뜻, Heterophilly 와 Robustness 는 비슷한 속성을 공유한 듯 보이지만, 한번도 이 둘에 대해 정확히 연결점을 찾는 연구는 이루어지지 않았습니다. 본 논문에서는 둘의 관계를 이론적, 실험적으로 명확히 보여주고, GNN 의 robustness 를 올리는데 한 걸음 나아갈 수 있는 Intuition 을 제공합니다.</p>
+
+<h2 id="3-theoretical-analysis">3. Theoretical Analysis</h2>
+
+<p>본 논문에서는 우선 Homophilly Network 와 Heterophilly Network 일 때 Attack 의 경향이 달라지기 때문에, 각각 나누어서 Theorem 을 제시합니다.</p>
+
+<h3 id="attack-for-homphilly-network">Attack for Homphilly Network</h3>
+
+<p>Theorem 1은 Homophilly Graph에 적용 되는 이야기인데, Theorem1을 살펴보면 다음과 같습니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk3.PNG" alt="3" /></p>
+
+<p>이를 직관적으로 해석해보면, 잘 학습된 GNN 이 존재할 때, 이 GNN을 망치는 효과적인 Structure Attack 은 1) 다른 Feature를 가진 노드끼리 서로 연결을 해주는 것이고,</p>
+
+<p>2) 간접적으로 (2-hop neighbor 이상으로) 연결해주는 것보단 직접적으로 (1-hop neighbor 로서) 연결해주는 것이 GNN 의 성능을 크게 망친다고 할 수 있습니다.</p>
+
+<p>사실, 이 Theorem 은 지금까지 존재했던 연구들에서도 널리 알려져 있던 사실이라 특별하지는 않지만, 이론적으로 다시 한번 밝힌 것으로 보입니다 [1].</p>
+
+<h3 id="attack-for-heterophilly-network">Attack for Heterophilly Network</h3>
+
+<p>Theorem 2은 Heterophilly Graph에 적용 되는 이야기이고 Theorem1 보다 다소 상황에 따라 복잡한 결과를 보입니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk4.PNG" alt="4" /></p>
+
+<p>이를 정리해서 설명해보면, Heterophilly 의 경우 High-degree 노드와 Low-degree 노드를 다른 전략으로 공격해야 합니다. low-degree 의 노드의 경우, 기존과 동일하게 다른 유저를 연결해주면 서로에게 악영향을 크게 끼치게 됩니다. 이는 직관적입니다. 반면에, high-degree 노드의 경우, 1) 또 다른 유사한 특성을 지닌 high-degree 노드를 연결해줍니다. 개인적인 추측을 더해보면, Heterophilly Network 가 어차피 다른종류의 Feature 를 연결한 Neighbor를 많이 지니기 때문에, high-degree 노드 끼리의 연결이 간접적으로는 그래프 특성을 더 크게 망치는 방법이기 때문입니다.
+2) 또 다른 유사하지 않은 특성을 지닌 low-degree 노드를 연결해주는 것도 heterophilly network 로 학습한 GNN을 망치는 전략이라고 합니다. 요약해보면, high-degree 노드끼리의 연결을 제외하고는 모두 다른 특성을 지닌 유저를 연결해주는 것이 모델에게 좋지 않음을 알 수 있습니다.</p>
+
+<h3 id="robust-gnn-designs">Robust GNN Designs.</h3>
+
+<p>위와 같은 Attack 에 대한 분석을 바탕으로, 본 논문에서는 GNN의 디자인이 다음과 같아야 한다고 주장합니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk5.PNG" alt="5" /></p>
+
+<p>즉, 각각의 layer 별로 얻은 representation 을 concat 해서 skip-connection의 효과를 누릴 수 있게 하자는 것인데요. 그렇게 하자고 하는 이유는 “ego-embedding (target node의 embedding) 이 aggregator 의 영향을 줄일 수 있고, 그렇게 하면 attack 의 영향을 줄일 수 있기 때문” 입니다. 사실 위와 같은 사실은 너무나도 당연하며,</p>
+
+<p>Heterophilly GNN 과 관련된 기존 연구들에서 사용했던 전략입니다 [2, 3]. 따라서, 이 논문에서 하고자 하는 말은, “Heterophilly GNN 모델들이 Attack을 잘 방어할 것이다” 라는 것 입니다. 지금까지의 분석들은 조금 당연하지만, 이 사실 만큼은 조금 특별한 것 같고, 이것이 논문을 Accept 되게한 이유이지 않을까 싶습니다.</p>
+
+<h2 id="4-experiment--result">4. Experiment &amp; Result</h2>
+
+<p>실험에서 검증하고자하는 Research Question (RQ) 는 다음과 같습니다.</p>
+
+<p><strong>RQ 1) 그래프 어택은 대부분 Heterophillous 하다. 즉, 다른 Feature를 지닌 노드 사이에 Edge로 연결하는 경향이 있다.</strong></p>
+
+<p><strong>RQ 2) Heterophillous Design 이 Robustness를 향상한다.</strong></p>
+
+<p><strong>RQ 3) (RQ2와 다른 방법으로) Heterophilly 가 보정된 GNN 이 가장 Robust 하다.</strong></p>
+
+<h3 id="experimental-setup">Experimental Setup</h3>
+<p>GNN의 Robustness는 Poisoning 세팅 (training/testing 모두 같은 attacked 그래프를 사용)에서 실험 합니다. Attack의 종류에는 특정 노드만 공격하는 Targeted Attack과 그래프 전체적으로 공격하는 non-targeted attack이 있는데, Targeted Attack으로는 Nettack, Untargeted Attack으로는 Metattack을 채택하였습니다.
+데이터는 citation network cora/cite/pubmed 와 snap 이라는 데이터를 사용하는데, 각각 homophilly ratio 가 매우 달라, 그에 따른 경향을 보여주기 위해 다양한 데이터에서의 실험을 진행합니다. Baseline은 GCN/GAT 와 같은 기본 모델과, H2GCN/GraphSAGE/FAGCN/APPNP 등 Heterophillous Design을 채택한 GNN 들을 사용하며 Heterophilly 보정을 위한 방법으로는 SVD와 Soft Medoid Aggregation (SMGDC) 를 사용합니다.</p>
+
+<h3 id="rq-1-그래프-어택은-대부분-heterophillous-하다">RQ 1) 그래프 어택은 대부분 Heterophillous 하다.</h3>
+
+<p>아래 표는 Targeted Attack인 Nettack 알고리즘을 각각 그래프에 사용하여 그래프를 공격했을 때의 결과입니다. 기대하는 바와 같이, Heterophilly 한 Attack을 더해주는 방식으로 그래프를 공격해야 효과적으로 모델이 망가집니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk6.PNG" alt="6" /></p>
+
+<p>그림은 앞선 Theorem 에서 언급한 degree 를 분석한 것으로 보이는데, homophilly ratio 가 높은 cora, citeseer, pubmed 의 경우 low-degree 사이들을 연결합니다.
+반면에, heterophilly graph (FB100, Snap) 의 경우 앞서 말한대로 degree는 low-degree는 high-degree 와 연결하는 경향과 low-degree 사이들을 연결하는 2가지 경향 모두를 보여줍니다.</p>
+
+<h3 id="rq-2-heterophillous-design-이-robustness를-향상한다">RQ 2) Heterophillous Design 이 Robustness를 향상한다.</h3>
+
+<p>아래 표는 Targeted/Untargeted 상황에서 각 모델별 Accuracy를 나타낸 표입니다. 표를 아래부터 살펴보면, MLP의 경우 그래프 정보를 사용하지 않기 때문에 Poison/Clean 상황에서 성능이 동일합니다.
+하지만, 실제로 우리는 얼마나 Poisoned 되어 있는지 상황을 모르기 때문에 MLP를 사용하는 것은 좋지 않습니다. (일반적으로는 그래프 정보를 사용하는게 더 도움이 되기 때문이죠)</p>
+
+<p>그 위의 그룹은 RobustGNN 그룹입니다. GNNGuard / ProGNN 과 같이 Poisoned 세팅에서 잘되는 State-of-art 모델들과 비교를 진행하였습니다 [1].</p>
+
+<p>그 위의 그룹이 바로 Heterophilly GNN 그룹입니다 [2, 3]. 놀라운 사실은 Heterophilly GNN 은 Attack을 Defense 하기 위한 방법이 전혀 아닌데도 untargeted attack 상황에서 상당히 좋은 performance 를 보이고 있습니다.
+이는 heterophilly design 이 attack 의 dissimilar feature를 연결한 패턴을 어느정도 잡아낼수 있기 때문에, 정보를 aggregation 하는 과정에서 이를 반영할 수 있기 때문으로 보입니다. 이는 저자가 언급한 heterophilly design 이 robust 하다는 것을 뒷받침 해줍니다.
+그럼에도 불구하고, nettack 과 같이 특정 노드를 타겟으로 하고 평가하는 방식에서는 그렇게 좋은 성능을 보이지는 않습니다. 대신에, SVD와 SMGDC 와 같은 방식을 Heterophilly GNN에 결합한 경우에는 Nettack 까지도 잘 막는 결과를 보여줍니다 [5]. 즉, 기존의 Heterophillous design 을 잘 조합하면, SOTA Defense 방법들을 다 이겨낼 수 있는 것 입니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk7.PNG" alt="7" /></p>
+
+<h3 id="rq-3-heterophilly-가-보정된-gnn-이-가장-certifiably-robust-하다">RQ 3) Heterophilly 가 보정된 GNN 이 가장 Certifiably Robust 하다.</h3>
+
+<p>기존 attacked 그래프에서 평가하는 것은 다른 그래프에서 까지 robust하고 할 수 없습니다. 따라서 accumulated certificablity (AC) 의 개념을 도입합니다.
+이는, random perturbation 의 강도 (radius) 늘려가면서 모델이 예측을 변하지않는 최대 radius 를 측정합니다. 즉, radius 가 길 수록 더욱 robust 하게 예측을 유지한다고 해석할 수 있습니다.</p>
+
+<p><img src="/images/How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications/figk8.PNG" alt="8" /></p>
+
+<p>아래 표와 같이 heterophilly design 들은 certifiable robust 함을 확인할 수 있습니다.</p>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+
+<p>본 논문에서는 GNN의 Robustness 와 Heterophilly-level 과의 상관성을 파악하고, 그를 해결할 수 있는 Key Intuition을 제공하였습니다.
+두 연구사이에는 기존의 접점이 있지 않았으며, Heterophilly designed GNN 을 사용하는 것 만으로도 Robust GNN 모델들을 이길수 있다는 것이 놀라웠습니다.</p>
+
+<h3 id="take-home-message">Take home message</h3>
+<p>Adversarially Attacked Graph 가 지닌 특성을 이용해서 우리는 이제 Attacked Edge들을 Heterophillous Neighbor로 간주할 수 있다.
+따라서, Heterophilly GNN과 같이 보다 일반적인 모델들을 잘 이용하면 adversarial Attack을 방어할 수 있다.</p>
+
+<h3 id="author">Author</h3>
+
+<p><strong>윤강훈 (Kanghoon Yoon)</strong></p>
+
+<ul>
+  <li>Affiliation (KAIST Industrial Engineering Department)</li>
+  <li>(optional) ph.D students in DSAIL</li>
+</ul>
+
+<h2 id="reference--additional-materials">Reference &amp; Additional materials</h2>
+
+<ol>
+  <li>Wei Jin et al. Graph Structure Learning for Robust Graph Neural Networks. KDD’20</li>
+  <li>Zhiong Ju et al. Beyond Homophily in Graph Neural Networks: Current Limitations and Effective Designs. NeurIPS’20</li>
+  <li>Deyu Bo et al. Beyond Low-frequency Information in Graph Convolutional Networks. AAAI’21</li>
+  <li>Simon Geisler et al. Reliable Graph Neural Networks via Robust Aggregation. NeurIPS’20</li>
+</ol>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Mar 27, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

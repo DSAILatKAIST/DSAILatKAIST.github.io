@@ -1,0 +1,269 @@
+
+[
+
+{
+"title": "How to contribute?",
+"tags": "",
+"keywords": "introduction",
+"url": "how_to_contribute.html",
+"summary": ""
+}
+,
+
+{
+"title": "Welcome to Awesome Reviews!",
+"tags": "",
+"keywords": "",
+"url": "index.html",
+"summary": "We publish the extensive paper reviews about data mining (DM) and artificial intelligence (AI) to provide high quality reviews for deep-learning beginners."
+}
+,
+
+{
+"title": "Introduction",
+"tags": "",
+"keywords": "introduction",
+"url": "introduction.html",
+"summary": ""
+}
+,
+
+{
+"title": "Paper reviews on DS503 (2022)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_DS503_2022.html",
+"summary": "Archive to save the reviews from DS503 (2022S)"
+}
+,
+
+{
+"title": "Paper reviews on DS503 (2023)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_DS503_2023.html",
+"summary": "Archive to save the reviews from DS503 (2023S)"
+}
+,
+
+{
+"title": "Paper reviews on KSE801 (2022F)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_kse801_2022.html",
+"summary": "Archive to save the reviews from KSE801 (2022F)"
+}
+,
+
+{
+"title": "Review template (Example)",
+"tags": "",
+"keywords": "introduction",
+"url": "template.html",
+"summary": ""
+}
+,
+
+{
+"title": "",
+"tags": "",
+"keywords": "",
+"url": "imagesGraph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.assets",
+"summary": ""
+}
+,
+
+
+
+
+{
+"title": "[ICML 2022] Deep Variational Graph Convolutional Recurrent Network for Multivariate Time Series Anomaly Detection",
+"tags": "reviews",
+"keywords": "",
+"url": "Deep_Variational_Graph_Convolutional_Recurrent_Network_for_Multivariate_Time_Series_Anomaly_Detection.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2020] ConSTGAT: Contextual Spatial-Temporal Graph Attention Network for Travel Time Estimation at Baidu Maps",
+"tags": "reviews",
+"keywords": "",
+"url": "ConSTGAT_Contextual_Spatial_Temporal_Graph_Attention_Network_for_Travel_Time_Estimation_at_Baidu_Maps.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "Graph Neural Controlled Differential Equations for Traffic Forecasting",
+"tags": "reviews",
+"keywords": "",
+"url": "Graph_Neural_Controlled_Differential_Equations_for_Traffic_Forecasting.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2022] Streaming Graph Neural Networks via Generative Replay",
+"tags": "reviews",
+"keywords": "",
+"url": "Streaming_Graph_Neural_Networks_via_Generative_Replay.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2019] Learning to Solve NP-Complete Problems - A Graph Neural Network for Decision TSP",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_to_Solve_NP_Complete_Problems_A_Graph_Neural_Network_for_Decision_TSP.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2021] Relational Message Passing for Knowledge Graph Completion",
+"tags": "reviews",
+"keywords": "",
+"url": "Relational_Message_Passing_for_Knowledge_Graph_Completion.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[Recsys 2021] Quality Metrics in Recommender Systems: Do We Calculate Metrics Consistently?",
+"tags": "reviews",
+"keywords": "",
+"url": "Quality_Metrics_in_Recommender_Systems_Do_We_Calculate_Metrics_Consistently.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2022] Online Coreset Selection for Rehearsal-based Continual Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Online_Coreset_Selection_for_Rehearsal_based_Continual_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2022] How Powerful are Spectral Graph Neural Networks",
+"tags": "reviews",
+"keywords": "",
+"url": "How_Powerful_are_Spectral_Graph_Neural_Networks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2020] Generalization and Representation Limits of Graph Nueral Networks",
+"tags": "reviews",
+"keywords": "",
+"url": "Generalization_and_Representation_Limits_of_Graph_Nueral_Networks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[SIGIR 2022] Few-shot Node Classification on Attributed Networks with Graph Meta-learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Few_shot_Node_Classification_on_Attributed_Networks_with_Graph_Meta_learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2021] Energy-Based Learning for Scene Graph Generation",
+"tags": "reviews",
+"keywords": "",
+"url": "Energy_Based_Learning_for_Scene_Graph_Generation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NeurIPS 2021] Do Transformers Really Perform Bad for Graph Representation",
+"tags": "reviews",
+"keywords": "",
+"url": "Do_Transformers_Really_Perform_Bad_for_Graph_Representation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[Recsys 2021] Denoising User-aware Memory Network for Recommendation",
+"tags": "reviews",
+"keywords": "",
+"url": "Denoising_User_aware_Memory_Network_for_Recommendation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2020] Bayesian Graph Neural Networks with Adaptive Connection Sampling",
+"tags": "reviews",
+"keywords": "",
+"url": "Bayesian_Graph_Neural_Networks_with_Adaptive_Connection_Sampling.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[Recsys 2022] A User-Centered Investigation of Personal Music Tours",
+"tags": "reviews",
+"keywords": "",
+"url": "A_User_Centered_Investigation_of_Personal_Music_Tours.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICDE 2022] Inhomogeneous Social Recommendation with Hypergraph Convolutional Networks",
+"tags": "reviews",
+"keywords": "",
+"url": "Inhomogeneous_Social_Recommendation_with_Hypergraph_Convolutional_Networks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2022] How does Heterophily Impact the Robustness of Graph Neural Networks? Theoretical Connections and Practical Implications",
+"tags": "reviews",
+"keywords": "",
+"url": "How_does_Heterophily_Impact_the_Robustness_of_Graph_Neural_Networks_Theoretical_Connections_and_Practical_Implications.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2020] Graph Information Bottleneck for Subgraph Recognition",
+"tags": "reviews",
+"keywords": "",
+"url": "Graph_Information_Bottleneck_for_Subgraph_Recognition.html",
+"summary": ""
+}
+
+
+
+]

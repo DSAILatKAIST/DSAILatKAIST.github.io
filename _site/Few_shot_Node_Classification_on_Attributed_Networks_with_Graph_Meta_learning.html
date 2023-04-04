@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[SIGIR 2022] Few-shot Node Classification on Attributed Networks with Graph Meta-learning | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [SIGIR 2022] Few-shot Node Classification on Attributed Networks with Graph Meta-learning page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[SIGIR 2022] Few-shot Node Classification on Attributed Networks with Graph Meta-learning">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[SIGIR 2022] Few-shot Node Classification on Attributed Networks with Graph Meta-learning</h1>
+        <p class="post-meta"><time datetime="2022-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2022</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-introduction"><strong>1. Introduction</strong></h2>
+
+<h3 id="1-1-preliminaries">1-1. Preliminaries</h3>
+<p>오늘 소개하고자 하는 논문의 제목에서 키워드를 뽑아보자면, <code class="language-plaintext highlighter-rouge">Few-shot</code>, <code class="language-plaintext highlighter-rouge">Attributed Networks</code>, <code class="language-plaintext highlighter-rouge">Meta-learning</code>정도로 추릴 수 있다. 결국 Graph 같은 <strong><em>Attributed Networks</em></strong>(e.g. molecular graph, social network)<strong><em>에 대해서 Few-shot learning task를 Meta-learning의 방식으로 해결</em></strong>하고자 한다. 본격적으로 논문을 파헤치기 전에, 논문을 이해하는데 필수적으로 필요한 Few-shot learning과 Meta-learning의 개념에 대해 간략하게 설명하도록 하겠다. 두 개념에 대한 설명은 <a href="https://dsail.gitbook.io/isyse-review/paper-review/2022-spring-paper-review/neurips-2020-g-meta">Graph Meta Learning via Local Subgraphs (NIPS20)에 대한 리뷰포스트</a>를 참조하였다.</p>
+
+<h4 id="1-1-1-few-shot-learning">1-1-1. Few-shot Learning</h4>
+
+<p>Few-shot Learning은 적은 데이터를 가지고 효율적으로 학습하는 문제를 해결하기 위한 학습 방법이다.</p>
+
+<div align="center">
+
+<img width="564" src="https://user-images.githubusercontent.com/37684658/164231019-868292bd-9cbf-4d15-87cb-24d621ed78d6.png" />
+  
+</div>
+
+<p>예를 들어, 위와 같이 사람에게 아르마딜로(Armadillo)와 천갑산(Pangolin)의 사진을 각각 2장씩 보여줬다고 생각해보자. 아마 대부분의 사람들은 아르마딜로와 천갑산이 생소할 것이다. 자, 이제 그 사람에게 다음의 사진을 한 장 더 보여주었다.</p>
+
+<div align="center">
+
+<img width="564" src="https://user-images.githubusercontent.com/37684658/164224487-822f266a-98db-4d2d-9c41-7303fdccf1ff.png" />
+
+</div>
+
+<p>위 사진의 동물이 아르마딜로인지, 천갑산인지 맞춰보라고 하면, 너무나 쉽게 천갑산임을 자신있게 외칠 수 있을 것이다. 사람들은 어떻게 이렇게 적은 양의 사진을 보고도, 두 동물을 구분할 수 있는 능력을 가지게 되었을까? 사람과는 달리 기존 머신러닝(Machine Learning)은 저 두 동물을 구분하기 위해 많은 양의 사진을 보고 학습하여야 할 것이다. 만약 모델이 아르마딜로와 천갑산을 잘 구분할 수 있게 되었다고 하자. 이제 갑자기 아래 두 동물을 구분하라고 하면 어떻게 될까?</p>
+
+<p><br /></p>
+
+<div align="center">
+
+<img width="564" src="https://user-images.githubusercontent.com/37684658/164231266-515ab539-110b-4835-971c-287fb759c44a.png" />
+<!-- ![image](https://user-images.githubusercontent.com/37684658/164231266-515ab539-110b-4835-971c-287fb759c44a.png) -->
+
+</div>
+
+<p>두더지(Mole)는 모델이 처음 보는 동물이기 때문에 두 동물을 구분하려면 다시 두더지에 대한 사진을 학습을 해야할 것이다. 하지만 사람은 여전히 두 동물을 쉽게 구분할 수 있다. 사람과 같이 적은 양의 사진만 보고도 Class를 구분할 수 있는 능력을 학습하는 것이 Few-shot Learning이고, 이를 학습하기 위해 Meta-Learning의 학습 방법을 활용한다.</p>
+
+<p>Few-shot Learning에서 쓰이는 용어를 정리하고 넘어가면, 처음 모델에게 제시해주는 Class별 대표사진들을 <code class="language-plaintext highlighter-rouge">Support Set</code>이라고 한다. 2개의 Class로 구성되어 있다면 2-way라고 하며, Class별로 2장의 대표사진을 보여준다면 2-shot이라고 한다. 그리고 1장의 새로운 사진을 보여주는 데 이렇게 맞춰보라고 보여주는 사진들을 <code class="language-plaintext highlighter-rouge">Query Set</code>이라고 하며, 1번 맞춰보라고 주었으니 Query는 1개이다. Support Set과 Query Set을 합쳐서 하나의 <code class="language-plaintext highlighter-rouge">Task</code> 또는 <code class="language-plaintext highlighter-rouge">Episode</code>라고 지칭한다.</p>
+
+<h4 id="1-1-2-meta-learning">1-1-2. Meta Learning</h4>
+
+<p>메타러닝(Meta Learning)은 새로운 task에 대한 데이터가 부족할 때, Prior Experiences 또는 Inductive Biases를 바탕으로 빠르게 새로운 task에 대하여 적응하도록 학습하는 방법을 말한다. ‘Learning to Learn’이라는 용어로 많이 설명되곤 하는 데, 대표적인 접근 방법으로는 거리 기반 학습(Metric Based Learning), 모델 기반 학습 (Model-Based Approach), 그리고 최적화 학습 방식(Optimizer Learning)이 있다. 이 중, 오늘 소개하고자하는 Meta-GPS 논문을 제대로 이해하기 위해서는 최적화 학습 방식의 MAML[3]에 대한 이해가 선행되어야 한다.</p>
+
+<h5 id="maml-model-agnostic-meta-learning-for-fast-adaptation-of-deep-networks">MAML (Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks)</h5>
+<p>MAML은 최적화 학습 방식의 Meta Learning 방법론으로서 가장 대표적인 논문이라고 할 수 있다. 전체적인 개념은 어떤 Task에도 빠르게 적응(Fast Adaptation)할 수 있는 파라미터를 찾는 것이 이 모델의 목적이다. 일반적으로 딥러닝 모델은 기울기의 역전파를 통해 학습을 진행하나, 이런 학습 방법은 데이터가 충분히 많을 때 잘 작동하는 방식이다. 이 모델은 Task 하나하나에 대한 그래디언트를 업데이트 하는 inner loop와, 각 태스크에서 계산했던 그래디언트를 합산하여 모델을 업데이트하는 outer loop 단계로 이루어져있다(아래 그림에서의 실선). 공통 파라미터 <img width="564" src="https://user-images.githubusercontent.com/37684658/164229776-12b52e66-cf43-4b8e-ba97-ee0ccb723724.png" />는 Task agnostic하게 빠르게 적응할 수 있는 파라미터이고, 다시 모델이 이 파라미터로부터 어떤 Task를 학습하게 되면 그 Task에 최적화된 파라미터를 빠르게 찾을 수 있게 된다.</p>
+
+<!-- ![image](https://user-images.githubusercontent.com/37684658/164229776-12b52e66-cf43-4b8e-ba97-ee0ccb723724.png) -->
+
+<div align="center">
+
+<img width="564" src="https://user-images.githubusercontent.com/37684658/164233736-dd00ab2f-adf4-42b9-a491-6def82a126d4.png" />
+
+<!-- ![image](https://user-images.githubusercontent.com/37684658/164233736-dd00ab2f-adf4-42b9-a491-6def82a126d4.png) -->
+
+</div>
+
+<h3 id="1-2-problem-definition">1-2. Problem Definition</h3>
+<p>Citation networks, social media networks, traffic networks와 같은 attribute networks는 실생활에서 발생할 수 있는 수많은 문제들을 풀기 위해 활용되고 있다. Attribute networks들의 node classification 문제는 fundamental하면서도 굉장히 중요한 task이다. 이 문제를 풀기위해 많은 graph neural network(GNN) 모델들이 연구되었지만, 이들은 모두 labeled data가 충분한 상황을 가정하고 있다. Section 1-1에서 설명한 바와 같이, labeled data가 충분하지 않은 상황에서 node classification의 할 수 있는 방안을 모색하고자 GNN 분야에서도 Few-shot learning에 대한 연구가 점차 활발해지고 있고, 이를 풀기 위해 (graph) meta-learning 기반의 많은 방법들이 나오고 있다. 하지만 본 논문은 기존 Graph Few-shot Learning 모델에서 가지고 있는 3가지 limitation을 제시하고 해결하고자 한다.</p>
+
+<h4 id="i-attributed-networks가-homophilic이라는-가정은-real-world-attributed-networks에서-unreasonable하다">(I) Attributed networks가 homophilic이라는 가정은 real-world attributed networks에서 unreasonable하다.</h4>
+<p>Attributed networks가 homophilic하다는 것은 같은 class의 nodes들은 연결되어 있는 경향이 높다는 것이다. 하지만 real-world attributed networks들은 단순히 두 node가 연결되어 있다고 해서 같은 라벨을 가지지 않을 수 있다. 예를 들어, dating graphs에서 gender class가 다른 서로 다른 이성들이 연결될 확률이 높은 것은 자명하다. 따라서 본 논문은 Attributed Networks를 homophilic이 아닌, heterophilic 가정하에 encoding하는 network encoder를 제안한다.</p>
+<h4 id="ii-maml기반의-meta-learning-methodmeta-gnn-g-meta는-모든-data에-대해-하나의-initialization을-공유한다">(II) MAML기반의 meta-learning method(Meta-GNN, <a href="https://dsail.gitbook.io/isyse-review/paper-review/2022-spring-paper-review/neurips-2020-g-meta">G-Meta</a>)는 모든 data에 대해 하나의 initialization을 공유한다.</h4>
+<p>하지만, attributed networks들의 data들은 independent and identically diistributed(<em>i.i.d</em>)가 아니기 때문에 모든 데이터들에 single initialization point를 공유하는 것은 적합하지 않다. 이를 해결하기 위해 sample된 data에 따라 MAML을 adaptive하게 initialization할 수 있는 방법을 제시한다.</p>
+<h4 id="iii-sample된-taskepisode를-모두-equal하게-다루고-있는-문제가-있다">(III) Sample된 Task(episode)를 모두 equal하게 다루고 있는 문제가 있다.</h4>
+<p>Few-shot learning의 task는 labeled data들로 구성된 support set, 그리고 model이 class를 prediction해야하는 query set로 이루어진다. 다시 말해, 모델은 몇 안되는 labeled data로 각 class에 대한 정보를 습득하고, 처음보는 data(query set)의 class를 맞추어야 한다. Task를 구성하는 방법은, 3way-3shot-5query task인 경우, 3개의 class를 random으로 선택하고, class당 3개씩 data를 sample하여 support set을 구성하고, class당 5개씩 더 sample하여 query set을 구성한다. 즉, task에는 총 9개의 support set이 있고, 이 데이터를 통해 학습한 model은 총 15개의 query data의 class를 predict하여야 한다.<br />
+하지만 이런 방법으로 만들어진 task들은 서로 큰 차이가 있을 수 있다. 예를 들어, social networks에서 user node의 종류가 유명인들으로 구성된 task와 일반인들로 구성된 task는 구조적인 패턴이 다르게 나타날 것이기 때문에 이런 차이를 인지하고 adaptive하게 다루어야 할 것이다. 본 논문은 task마다 learnable parameter를 adaptive하게 scaling하는 방법으로 이 문제를 다루고자 한다.</p>
+
+<h3 id="1-3-annotation">1-3. Annotation</h3>
+<div align="center">
+ 
+<img width="564" src="https://user-images.githubusercontent.com/37684658/195105466-015e14b8-3a97-4fea-af2b-ea93c69fe6cc.png" />
+
+<!-- ![image](https://user-images.githubusercontent.com/37684658/195105466-015e14b8-3a97-4fea-af2b-ea93c69fe6cc.png)   -->
+ 
+</div>
+<p>Few-shot learning에서는 train task와 test task 모두 support set과 query set으로 이루어져있다. 다시 말해, Train/Test 상관 없이 support set으로 query set의 label을 맞추는 task를 하는 것인데 주목해야할 점은 train task에 들어가는 데이터의 class와 test task에 들어가는 데이터 class가 겹치지 않는다는 점이다. 즉, test 때는 unseen class, unseen nodes들로 구성된 task를 풀어낸다. 결론적으로 하고자하는 것은 test 때의 상황을 train 때도 모방해서 학습하자는 것이다(episodic training).<br />
+$\prod$개로 구성된 N-way K-shot meta-training tasks들은 다음과 같이 표현할 수 있다.</p>
+
+<p>$
+\mathcal{T}_ {tr}=\lbrace \mathcal{T} \rbrace_ {i=1}^{\prod}, \mathcal{T}_ {i}={\mathcal{S}_ i, \mathcal{Q}_ i} ,
+$</p>
+
+<p>$
+\mathcal{S}_ i=\lbrace(v_{i,1},y_{i,1}),(v_{i,2},y_{i,2}),…,(v_{i,k},y_{i,k})\rbrace_ {k=1}^{N\times K},
+$</p>
+
+<p>$
+\mathcal{Q}_ i=\lbrace(\bar{v}_ {i,1},\bar{y}_ {i,1}),(\bar{v}_ {i,2},\bar{y}_ {i,2}),…(\bar{v}_ {i,k},\bar{y}_ {i,k})\rbrace_ {k=1}^{N\times K},
+$</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<p>모델의 전체적인 구조는 다음과 같다.</p>
+
+<div align="center">
+ 
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/37684658/195232172-ae904c09-613b-4aec-a211-31054e064943.png" />
+
+ </div>
+
+<p>3-1에서 Network Encoder에서는 attributed network를 heterophilic한 가정으로 인코딩하는 과정을 설명하고, 3-2에서는 샘플링 된 task에 속한 class에 따라 parameter를 initialization하는 과정을 설명한다. 그리고 3-3에서는 task-level에서 parameter를 scaling하고 shifting하는 방법을 설명한다. 마지막으로 3-4에서는 MAML 기반으로 parameter를 optimization하는 방법을 서술한다.</p>
+
+<h3 id="3-1-network-encoder">3-1. Network Encoder</h3>
+<p>대부분의 GNNs은 주변 노드들의 정보를 취합(aggregation)하여 본인의 정보를 업데이트하는 message passing mechanism을 따른다.</p>
+
+<p>$
+s_v^l=AGGREGATE(\lbrace h_u^{l-1}:u\in\mathcal{N}_ v\rbrace)
+$</p>
+
+<p>$
+h_v^l=COMBINE(h_v^{l-1}, s_v^l)
+$</p>
+
+<p>$\mathcal{N}$ is the set of neighbors of node $v$ (<strong>including node $v$</strong>)</p>
+
+<p>여기서 주목할 점은 본인 노드와 이웃 노드들의 메시지를 모두 더해서(AGGREGATE) 평균을 내는 방식(COMBINE)으로 정보를 취합한다는 점이다. 즉, 본인 노드와 이웃 노드들은 같은 class임을 가정하에 메시지를 취합하기 때문에 이는 homophilc을 가정하고 취합한다고 볼 수 있다. Meta-GPS에서는 real-world attributed networks에서 발생할 수 있는 heterophilic을 다루기 위해서 자기 자신과 이웃 노드를 섞지 않고(더하지 않고) 따로 병합하는 방법을 사용한다. 즉, 본인의 임베딩이 이웃의 임베딩과 너무 비슷해지지 않도록 한 것이라고 보면된다. 더 자세히 설명하자면, $AGGREGATE$ 함수에서 이웃 노드 $\mathcal{N}$의 정의를 자기 자신을 제외한 $\mathcal{\tilde{N}}$로 바꾸고, $COMBINE$ 함수를 평균 또는 가중평균이 아니라 concatenation 함수로 재정의한다. 식으로 정리하면,</p>
+
+<!-- $$
+s_v^l=AGGREGATE(\textbraceleft h_u^{l-1}:u\in\mathcal{\tilde{N}}_ i(v)_ v\textbraceright)
+$$ -->
+
+<p>$
+\mathbf{F}=\sigma(\mathbf{XW}_ f), 　 \mathbf{H}_ 0 \equiv \mathbf{F}, 　 \mathbf{H}_ i = \tilde{\mathbf{A}_ i}\mathbf{F},
+$</p>
+
+<p>$
+\mathbf{R}=\parallel_{i=0}^l \mathbf{H}_ i, 　 \eta=\sigma(\mathbf{RW}_ r), 　 \mathbf{Z} = \mathrm{Squ}(\mathrm{Res}(\eta)\mathbf{R})<br />
+$</p>
+
+<blockquote>
+  <p>$\mathbf{X} \in \mathbb{R}^{n \times d}$ : node features<br />
+$\sigma(\cdot)$ : non-linear transformation<br />
+$\tilde{\mathbf{A}}_ i=\bar{\mathbf{D}}_ i^ {-1/2} \bar{\mathbf{A}}_ i \bar{\mathbf{D}}_ i^ {-1/2}$ : $i$-hop neighbors’ normalized symmetric adjacency matrix <strong>without self-loops</strong><br />
+$\parallel$ : concatenation operator<br />
+$\mathbf{F}, \mathbf{H}_ i, \mathbf{Z} \in \mathbb{R}^{n \times d’}$<br />
+$\mathbf{R} \in \mathbb{R}^{n \times(l+1)\times d’}$ : the concatenated embeddings<br />
+$\eta \in \mathbb{R}^{n \times(l+1)\times 1}$ : the attention coefficient for different-hop neighbors<br />
+$\mathrm{Squ},\mathrm{Res}$ : ‘squeeze’ and ‘reshape’ operations to match the matrix’s dimensions</p>
+</blockquote>
+
+<p>위 식들을 정리해보면 $H_0$는 자기 자신을 포함한 ego-embeddings이고, $i$-hop의 정보를 취합할 때는 self-loop를 제외한 Adjacency matrix를 활용하여 자기 자신과 이웃들의 정보를 분리시킨다. 또한 합, 평균, 가중평균이 아닌 concatenation으로 정보를 합치는 방법으로 heterophilic graphs에 적합한 convolution layer를 설계하였다. 해당 layer는 \(\theta_e \ \lbrace \mathbf{W}_ f, \mathbf{W}_ r \rbrace\)의 파라미터를 가지고 있다. 다시 정리하면, 저자는 기존 GCN의 aggregation 방식을 concatenation으로 수정하여 heterophilic graphs를 다룰 수 있는 convolution layer를 사용하였다.</p>
+
+<h3 id="3-2-prototype-based-parameter-initialization">3-2. Prototype-based Parameter Initialization</h3>
+<p>이 세션에서는 class마다 prototype을 만들고 이를 기반으로 parameter를 intialization하는 방법을 소개한다. 이렇게하는 이유는 MAML은 general한 single initialization을 사용하지만, attributed networks는 $i.i.d$ 가정을 따르지 않기 때문에 single intialization을 찾기 어렵다는 점에서 시작됐다. 더 자세하게 언급하면, $i.i.d$를 따르고 있는 비전 분야에서는 하나의 initialization point를 시작으로 finetuning을 통해 Task에 specific한 parameter를 찾을 수 있지만, $non-i.i.d$인 attribute network에서는 데이터들이 서로 dependent하기 때문에, 비전 데이터에 비해 너무나 많은 연결관계가 얽혀있고, 이에 따라 모든 데이터들에 공통적으로 적용할 수 있는 single initialzation point를 찾는 것은 상대적으로 어렵다는 것이다. 따라서 prototype vector를 활용하여 class-specific initialized parameters를 찾아내고자 한다.</p>
+
+<p>$
+\mathbf{P}_ j= {1 \over {| \mathcal{V}_ j |}} \Sigma_ {k\in{\mathcal{V}_ j}} \mathbf{Z}_ k
+$</p>
+
+<p>\(\mathbf{Z}_ k\)는 node \(v_k\)의 feature이며, \(\| \mathcal{V}_ j \|\)는 class \(j\)에 속하는 node set이다. 각 class마다 node feature의 평균을 구해서 prototype을 만들고 이 prototyped을 MLP layer에 전달하여 class-specific initialized parameters를 만든다.</p>
+
+<p>$
+\varphi_ j = \mathbf{MLP}(\mathbf{P}_ j;\theta_ p), j = 1, …, N
+$</p>
+
+<blockquote>
+  <p>$\varphi_ j \in \mathbb{R}^{d’}$ for class $j$<br />
+$N$ is the number of categories of a task (i.e., $N$-way)</p>
+</blockquote>
+
+<p>class마다 initial parameter가 설정되면 task $\mathcal{T}_ i$의 support set $\mathcal{S}_ i$로 추가적인 adaptation을 진행한다.</p>
+
+<p>$
+\varphi’_ i=\varphi-\alpha \nabla_\varphi\mathcal{L_{\mathcal{T}_ i}}(f(\mathcal{S}_ i ; \varphi, \Theta))
+$</p>
+
+<blockquote>
+  <p>$\Theta = \lbrace \theta_ e, \theta_ p \rbrace$ : prior parameters<br />
+$\mathcal{L_{\mathcal{T}_ i}}(\cdot)$ : cross-entropy loss function<br />
+$score$=softmax( $\mathbf{Z} \varphi^{T} + b), score \in \mathbb{R}^{N \times d’}$</p>
+</blockquote>
+
+<h3 id="3-3-s2-transformation-for-different-tasks">3-3. $S^2$ Transformation for Different Tasks</h3>
+<p>각 task들은 다른 classes, 그리고 다른 nodes들로 구성되는데, 이로 인해 task 내 구성되는 node들의 feature 분포가 달라진다. 따라서 inter-task간의 feature difference를 파악하여, parameters를 task-specific하게 바꿔주는 방법을 제시하는데, 그 방법으로 $S^2$ transformation을 이용한다. 즉, Task에 맞게 initial parameter의 1)scale을 변환시키고, 2)shift하는 방법으로 transformation을 한다는 것이다. 이를 위해, 우선적으로 task를 대표할 수 있는 representation vector $t_i$를 만든다(task의 prototype이라고 생각하면 된다). Task의 prototype은 task 내 포함되어 있는 모든 node embeddings의 평균을 구하는 방법으로 만든다. 이렇게 만든 prototype으로 scaling vector $\lambda_ i$와 shifting vector $\mu_ i$를 생성한다.</p>
+
+<p>$
+t_i = \frac{1}{| \mathcal{V}_ {t_i} |} \Sigma_ {k\in{\mathcal{V}_ {t_i}}}, \lambda_i=g(t_i;\psi_ \lambda), \mu_ i = g(t_ i; \psi_\mu)
+$</p>
+
+<blockquote>
+  <p>$\mathcal{V}_ {t_i}$ : set of nodes involved in $\mathcal{T}_ i$<br />
+ $\lambda_ i, \mu_ i \in \mathbb{R}^{| \Theta |}$<br />
+$\psi_\lambda, \psi_\mu$ : paramters of two $MLPs$ with the neural network used in prototype-based parameter initialization.<br />
+$g$ : the neural networks that can be arbitrarily parameterized functions.</p>
+</blockquote>
+
+<p>위에서 생성한 scaling/shifting vector로 다음과 같이 task’s prior meta-parameters $\Theta$를 transformation해준다.</p>
+
+<p>$
+\Theta_i = \lambda_i \odot \Theta + \mu_i
+$</p>
+
+<p>이를 통해 모든 task들에게 적용될 수 있는 학습된 transferable knowledge는 task i에 특화되게 adaptation을 할 수 있게 된다.</p>
+
+<h3 id="3-4-meta-optimization">3-4. Meta-optimization</h3>
+<p>마지막으로 model을 optimization하기 위해서 Meta-GPS는 meta-learning 방법을 활용한다. 그 중에서도 MAML의 방법을 따라가는데, 이는 Meta-training, Meta-testing phase로 나눌 수 있다.</p>
+
+<h4 id="meta-training">Meta-training</h4>
+<p>특정 task $\mathcal{T}_ i$를 잘 맞추기 위해서 support set(labeled data)가 먼저 투입된다. support set의 label을 이용해서 cross-entropy로 task loss $\mathcal{L}_ {\mathcal{T}_ i}$을 계산한다.</p>
+
+<p>$
+\mathcal{L}_ {\mathcal{T}_ i} (\mathcal{S}_ i, \psi’_ i, \Theta_ i)= -\sum_ {(v_ i, y_ i) \in \mathcal{S}_ i} (y_ i \log f(v_ i; \psi’_ i, \Theta_ i)+(1-y_ i)\log(1-f(v_ i;\psi’_ i, \Theta_ i))) 
+$</p>
+
+<p>이 loss를 task $\mathcal{T}_ i$에 adaptation하기 위해 $\Theta_ i$를 수 번의 gradient descent step을 통해 업데이트하게 된다.</p>
+
+<p>$
+\Theta’_ i=\Theta-\alpha \nabla_\Theta\mathcal{L_{\mathcal{T}_ i}}(f(\mathcal{S}_ i ; \varphi’_ i, \Theta))
+$</p>
+
+<blockquote>
+  <p>$\alpha$ : meta-step size</p>
+</blockquote>
+
+<p>support set으로 $\Theta’_ i$를 optimization을 하고 나서, 이제는 label을 모르는 query set을 이용해 loss를 구하고 이 loss를 minimize 시키는 것이 meta-objective function이다.</p>
+
+<p>$
+\min_ {\Theta, \Psi} \mathcal{L}  ( f_ {\varphi’}, \Theta, g_{\psi})= \min_ {\Theta, \Psi} \sum_ {\mathcal{T}_ i ~ p(\mathcal{T})} \mathcal{L}_ {\mathcal{T}_ i}(f(\mathcal{Q}_ i; \varphi’_ i, \Theta’_ i))+\gamma | \Psi |^2_ 2
+$</p>
+
+<blockquote>
+  <p>$\Psi=\lbrace \psi_\lambda, \psi_\lambda \rbrace$</p>
+</blockquote>
+
+<p>이제 tasks 전반에 걸쳐 meta-optimization을 하게된다.</p>
+
+<p>$
+\Theta=\Theta-\beta \nabla_ {\Theta} \mathcal{L}(f_ {\varphi’}, \Theta, g_{\psi}), \Psi = \Psi-\beta \nabla_\Psi\mathcal{L}  ( f_ {\varphi’}, \Theta, g_{\psi})
+$</p>
+
+<blockquote>
+  <p>$\beta$ : meta-learning rate</p>
+</blockquote>
+
+<h4 id="meta-testing">Meta-testing</h4>
+<p>meta-testing phase는 meta-training phase와 같은 과정을 거친다. 즉, meta-testing task \(\mathcal{T_ {te}}\)의 support set \(\mathcal{S}\)으로 prior parameter \(\Theta, \Psi\)를 수 번 optimization하고, query set \(\mathcal{Q}\)로 모델의 성능을 측정한다.</p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+<p>Meta-GPS에서는 6가지 데이터셋으로 실험을 진행하였다. Motivation에서 주장한 바와 같이, real-world의 heterophilic한 데이터셋에서도 모델이 잘 작동한다는 것을 증명하기 위해 데이터셋의 node homophily, $\mathbf{H}$를 정의하고 제시하였다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37684658/201580502-f381a751-bf3f-4235-80e8-5044434a6bfe.png" alt="image" /></p>
+
+<p>\(\mathbf{H}\)가 높을수록 homophlily가 높고, 낮을수록 heterophilic하다.</p>
+
+<p><img width="564" alt="스크린샷 2022-10-16 오후 4 53 48" src="https://user-images.githubusercontent.com/37684658/196024621-49ca06e5-7c33-4336-a3db-f3f9b62479fe.png" /></p>
+
+<p><img width="1296" alt="image" src="https://user-images.githubusercontent.com/37684658/196022640-82257140-97d7-4603-ba72-da206326d920.png" /></p>
+
+<p>6개의 5way-3shot, 5way-5shot, 10way-3shot, 10way-5shot 세팅에서 모두 SOTA의 성능을 보여주고 있다. 하지만 논문에서 주장하는대로, prototype-based parameer initialization, scalingand shifting vectors가 새로운 tasks를 맞추는데 더 효과적이고, tranferable knowledge를 축적할 수 있는 지 보여주지는 못하기 때문에, 이는 ablation study에서 보여준다. 위 실험에서 보여주는 것은, homophilic한 데이터셋은 물론 heterophilic attributed networks에서도 좋은 성능을 보여준다는 것이다. absolute improvement 정도를 보아도, homophilic한 가정으로 설계된 기존 baseline들과 heterophilic한 데이터셋에서 더 큰 성능 차이를 보여주고 있다. 많은 baseline들은 homophily를 가정하여 graph를 convolution하는 GCN을 기반으로 하기 때문에, 세션 3.1에서 언급하였듯 heterophilic dataset에도 적합하게 수정된 convolution layer를 사용함으로써 Meta-GPS 모델이 기존 모델들에 비해 heterophilic dataset에서 더 월등한 성능을 보여주는 것으로 해석된다.</p>
+
+<p><img width="1355" alt="image" src="https://user-images.githubusercontent.com/37684658/196023310-e7da3ee6-401e-4a17-bd37-8cd169a93d67.png" /></p>
+
+<p>또한 기존 메타러닝 기반의 baseline은 instance 하나마다 loss(e.g. cross entropy)를 구해서 모델의 파라미터를 학습하기 때문에 data noise에 취약하다. 다르게 말하면, 데이터 하나하나가 model parameter에 직접적인 영향을 미친다는 것으로, noise가 있는 데이터도 모델의 성능에 직접적인 영향을 크게 미친다는 뜻이다. 하지만 Meta-GPS는 instance 단위 뿐만 아니라, class-level, task-level에서도 parameter를 update하기 때문에, outlier(또는 noise)에 대해서 좀 더 강건한 모델을 만들 수 있다. Table4의 실험은 모델이 얼마나 data noise에 대해 강건(robust)한 지 보여주는 실험이다. 3행에 표기된 %는 node-level에서 얼마나 많은 noise가 있는 지 비율을 표기한 것이다. 이에 Meta-GPS는 noise가 30%에 도달하여도 다른 모델들에 비해 성능 하락이 적고, 절대적인 성능도 높은 것을 보여주고 있다. 즉, Meta-GPS가 data noise에 robust하다는 것을 증명하는 실험이라고 볼 수 있다.</p>
+
+<p><img width="761" alt="image" src="https://user-images.githubusercontent.com/37684658/196023600-4d93ab72-76e9-4670-aba6-351505c27e89.png" /></p>
+
+<blockquote>
+  <p>(I) Meta-GPS-SGC : heterophilic convolution layer 대신 GCN으로 대체한 모델이다.<br />
+(II) Meta-GPS-PI : prototype-based initialization paramter를 제거하고 random initialization parameter를 사용한 모델이다.<br />
+(III) Meta-GPS-$S^2$ : $S^2$ transformation을 삭제하고 모든 task들을 동등하게 취급한 모델이다.</p>
+</blockquote>
+
+<p>성능이 논문에서 제시하는 효과를 모두 증명하는 것은 아니지만, ablation study를 핵심 module 하나하나 잘 커버하면서 실행하였고, 그에 대한 결과도 바람직하게 보여주고 있다고 생각한다. 특히 Meta-GPS-SGC 같은 경우는 상대적으로 homophilic networks에서는 성능이 좋지만, heterophilic한 상황에서는 성능 하락이 더 크게 나타나는 것을 보아, 저자가 제시한 network encoder가 얼마나 heterophilic dataset에 맞게 잘 설계하였는 지 볼 수 있다. 위 ablation study는 모듈 하나하나에 대해 ablation을 하였지만, 각 모듈을 조합했을 때의 ablation study를 보여주지 않는다는 점은 아쉬움으로 남는다.</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+<p>Meta-GPS는 meta-learning 기반의 few-shot learning method이다. 특히, attributed network에서 발생하는 문제점을 제시하여 이에 대한 해결점을 제시하였다. 1) 첫 번째로 real-world의 attributed network는 heterophilic한 데이터셋이 많다. 하지만 다른 baseline들이 embedder로서 사용하는 GCN은 homophily를 가정한 convolutional layer을 쓰기 때문에 heterophilic dataset에는 적합하지 않다. 이에 Meta-GPS는 aggregation을 concatencate하는 방법으로 간단하면서도 효과적으로 heterophilic dataset을 다루었다. 2) 또한 attributed network는 non-i.i.d 데이터이기 때문에, single initalization point를 찾는 것이 아니라, 각 class specific한 parameter로 initialization point를 만드는 방법을 제시하였다. 3)아울러 task마다 node-feature distribution이 다르므로, 이를 alignment하기 위해 $S^2$ transformation을 추가적으로 진행하여 inter-task간의 difference를 파악하여 학습된 meta-knowledge를 task-specific하게 접목시킬 수 있도록 하였다. 또한 위 과정들을 instance-level 아니라, class-level, task-level에서 다루어 다른 모델들에 비해서 data noise에 대해서도 더 강건한 모델을 만들 수 있었다.</p>
+
+<h2 id="posting-author-information"><strong>Posting author information</strong></h2>
+
+<ul>
+  <li><strong>김성원 (Sungwon Kim)</strong>
+    <ul>
+      <li><a href="http://dsail.kaist.ac.kr">Data Science &amp; Artificial Intelligence Laboratory (DSAIL)</a> at KAIST</li>
+      <li>Graph Neural Network, Meta-Learning, Few-shot Learning</li>
+      <li><a href="https://github.com/sung-won-kim">github</a></li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Mar 27, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

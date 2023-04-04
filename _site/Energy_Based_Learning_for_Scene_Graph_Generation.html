@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CVPR 2021] Energy-Based Learning for Scene Graph Generation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CVPR 2021] Energy-Based Learning for Scene Graph Generation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CVPR 2021] Energy-Based Learning for Scene Graph Generation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CVPR 2021] Energy-Based Learning for Scene Graph Generation</h1>
+        <p class="post-meta"><time datetime="2022-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2022</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="energy-based-learning-for-scene-graph-generation"><strong>Energy-Based Learning for Scene Graph Generation</strong></h1>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p><em>Scene Graph Generation(SGG) in Computer Vision</em></p>
+
+<p>Scene Graph Generation은 이미지가 주어졌을 때 Scene Graph로 변환하는 Task를 의미한다. 예를 들어, 왼쪽의 이미지가 주어졌을 때 오른쪽 그림과 같은 Graph로 만드는 것이다. Graph의 Node은 Entity(e.g.사람, 돌)을 의미하고 Edge의 경우에는 두 Node 사이의 Edge는 Entity 사이의 Predicate(술어)를 의미한다. “<strong>사람이 돌 위에 있다</strong>“라고 한다면 Node는 “<strong>사람</strong>”, “<strong>돌</strong>“이 될 것이고 Edge(Predicate)은 “<strong>standing on(위에 서 있다)</strong>“가 될 것이다.</p>
+
+<!-- <img width = "150" src = 'https://user-images.githubusercontent.com/55014424/136494900-8c3438f4-594a-41f3-837a-0b4e8a735e86.png'>   -->
+
+<p><img width="150" src="../../images/energy_based_model/scene_graph_image1.png" /></p>
+
+<p><img width="150" src="../../images/energy_based_model/scene_graph_image2.png" /></p>
+
+<p>그림 출처: [CVPR 21]Energy-Based Learning For Scene Graph Generation</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>이전 Scene Graph Generation의 모델들은 Relation을 분류하기 위해서 Cross-Entropy Loss를 사용했다. 하지만 Cross-Entropy Loss (CE)를 사용하게 된다면 독립적으로 그 관계만 맞추려고 학습할 것이다. 예를 들면, CE loss를 이용했을 때 위의 그림을 참고하면 &lt;man, on, rock&gt;, &lt;man, holding, surfboard&gt;의 관계가 주어져 있을 때 &lt;man, riding, wave&gt;으로 예측하는 것은 말이 안되지만 독립적으로 man과 wave만을 보기 때문에 riding으로 예측한다.</p>
+
+<p>이 논문에서는 두 객체를 보고 독립적으로 예측하는 것보다는 주변의 다른 관계까지 고려하면서 loss를 학습해야 한다고 주장한다. 예를 들면, loss를 학습할 때 위의 그림에서 &lt;man, carrying, surfboard&gt;를 고려한다면 &lt;man, riding, wave&gt;이 오는 것은 common sense로 봐도 말이 안되기 때문에 큰 Penalty를 부여하여 &lt;man, riding, wave&gt;가 못 나오도록 학습하게 하는 것이다.</p>
+
+<h3 id="discriminative-idea">Discriminative Idea</h3>
+
+<p>이 논문에서는 CE Loss를 활용해서 두 객체만을 고려했을 때 예측하는 것보다는 Output space에서 고려하는 Energy-Based loss를 제안한다. 여기서 Input space를 고려하는 것을 CE Loss라고 봤을 때, Output space는 이미지에서 Global하게 주변의 다른 관계까지 고려하는 것을 의미하고 이를 Energy-Based Model를 활용하여 학습한다.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<p>Overall Framework 사진은 아래와 같다.</p>
+
+<p><img width="500" src="../../images/energy_based_model/3.png" /></p>
+
+<h3 id="1-object-detection"><strong>1. Object Detection</strong></h3>
+
+<p>Overall Framework의 맨 왼쪽의 그림을 보면 이미지가 주어져 있을 때, 객체를 탐지한다. Scene Graph Generation에서는 Fair Comparison을 위해서 <a href="https://proceedings.neurips.cc/paper/2015/file/14bfa6bb14875e45bba028a21ed38046-Paper.pdf">Faster-RCNN</a>을 주로 활용한다. Faster R-CNN을 통해서 사람과 서핑보드 등의 객체를 먼저 탐지하게 된다. Faster R-CNN을 통과하면 객체마다 Visual Feature, Object Class, Bounding Box 정보를 추출하게 된다.</p>
+
+<h3 id="2-context-반영"><strong>2. Context 반영</strong></h3>
+
+<p>Faster R-CNN을 통해서 객체에서 Visual Feature를 탐지하고 나면 Overall Framework에서 Feature Extraction을 통과한다. 그리고 Context 반영을 하고 Feature를 Refinement하기 위해서 Bi-LSTM, Bi-Tree LSTM을 활용한다. Scene Graph에서는 주변의 Context 반영을 하고 Refinement된 Feature를 활용하는 것이 중요하기 때문에 이 논문에서도 Visual Feature를 그대로 사용하는 것이 아니라 Refinement를 한다.</p>
+
+<p>Context 반영은 Scene Graph Generation task에서 핵심적으로 다루어지고 있는데, 이 논문은 Context 고도화의 목적이 아니기 때문에 다른 Context 반영 방법을 그대로 사용한다.</p>
+
+<h3 id="3-energy-based-loss-사용"><strong>3. Energy-Based Loss 사용</strong></h3>
+
+<p>Energy-Based Loss를 사용해서 Motivation에서 언급했듯이 다른 주변의 관계까지 고려하면서 Output Space에서 학습하도록 한다. 다시 말하자면 CE Loss는 독립적으로 두 객체만을 보고 관계를 예측한다면 Energy-Based Loss는 이미지 내에서 다른 객체들의 관계를 고려하면서 학습하는 것이다.</p>
+
+<p>Notation을 먼저 설명하면, 2번에서 얘기한 Context Encoding을 하고나면 Entity와 Relation을 예측한 Scene Graph형태로 나오게 된다. Overall Framework에서 맨 위에 있는 Scene Graph를 보면 이해가 더 쉽다. 해당 Scene Graph를 <img src="https://latex.codecogs.com/svg.image?G_{SG}" alt="" />라고 하자.</p>
+
+<p>Overall Framework에서 맨 아래를 보면 Image Graph가 존재하는데 이는 처음에 Faster R-CNN으로 나온 Feature로 initialize되어 있는 Entity가 존재하게 된다. 이 때는 Entity 둘 관계를 예측하지 않고 Entity만 존재하는 Graph로 보면 된다. 이를 <img src="https://latex.codecogs.com/svg.image?G_{I}" alt="" />라고 하자. Scene Graph와 Image Graph의 큰 차이는 객체 사이에 관계까지 고려한 그래프면 전자, 객체로만 표현되어 있는 그래프는 후자이다.</p>
+
+<p>그리고 Ground-Truth Bounding Box를 통해서 만든 Image Graph를 <img src="https://latex.codecogs.com/svg.image?G_{I}^+" alt="" />라고 하고, Ground-Truth Scene Graph를 <img src="https://latex.codecogs.com/svg.image?G_{SG}^+" alt="" />라고 하자.</p>
+
+\[L_e = E_{\theta}(G_I^+,G_{SG}^+)-min_{G_{SG}\in SG}E_{\theta}(G_I, G_{SG})\]
+
+<p>위가 Energy-Based Loss인데 설명하면 다음과 같다. Ground-Truth를 이용했을 때 Graph의 Energy (앞의 Term)와 예측했을 Graph의 Energy (뒤의 Term)을 가깝게 하는 것이다. <img src="https://latex.codecogs.com/svg.image?E_{\theta}(G_{I}^+,G_{SG}^+)" alt="" />는 Ground Truth의 Image Graph와 Ground Truth의 Scene Graph를 이용했을 때의 Energy이다. 이를 예측한 Graph의 Energy <img src="https://latex.codecogs.com/svg.image?E_{\theta}(G_{I},G_{SG})" alt="" />를 가깝게 하면, Scene Graph를 예측할 때 Ground-Truth의 Energy하고 가깝게 학습될 것이다.<br />
+이렇게 학습을 하면 CE Loss처럼 독립적으로 두 Entity를 보고 학습하는 것이 아니라 Image에 있는 다른 관계까지 고려하면서 학습을 하게 되는 것이다. 즉 Output Space에서 학습하는 것이다.</p>
+
+<p>이 논문에서는 위를 바로 학습을 하게 된다면 Gradient Overflow가 생기게 될 수 있는데 이를 방지하기 위해서<br />
+\(L_r=E_{\theta}(G_{I}^+,G_{SG}^+)^2+E_{\theta}(G_{I},G_{SG})^2\)</p>
+
+<p>Loss를 이용해서 Gradient Overflow를 방지한다.</p>
+
+<p>최종 Loss는</p>
+
+\[L_{total}=\lambda_e L_e+\lambda_r L_r + \lambda_t L_t\]
+
+<p>로 구성된다. <img src="https://latex.codecogs.com/svg.image?L_t" alt="" />는 CE Loss로 사용되지만 이는 Regularizor로써만 활용된다.</p>
+
+<h3 id="energy-based-구현">Energy Based 구현</h3>
+
+<p>Scene Graph와 Image Graph의 Energy를 계산하기 위해서는 해당 논문에서는 Scene Graph와 Image Graph를 각각 Graph Pooling을 한 후, Pooling한 Representation을 Concat한 후, MLP를 이용하여 하나의 Scalar를 추출하게 된다. 다시 정리하면 Ground-Truth Scene Graph와 Image Graph를 활용하여 Pooling한 후, MLP를 이용하면 <strong>Ground-Truth의 Energy value</strong>인 Scalar가 나올 것이고, Predicted Scene Graph와 Image Graph에서도 하나의 <strong>Predicted Energy Scalar</strong>가 나올 것이다. Predicted Energy와 GT Energy를 가깝게하여 Image Graph와 Scene Graph 차원에서 Ground-Truth의 Energy를 따라가도록 모델을 학습 하는 것이다.</p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="task"><strong>Task</strong></h3>
+
+<ul>
+  <li>Predicate Classification (PredCls): Bounding Box와 Entity의 Class정보까지 Ground-Truth로 주어졌을 때 Relation만 예측하는 Task</li>
+  <li>Scene Graph Classification (SGCls): Bounding Box만 주어져 있고 Entity Class와 Relation을 예측하는 Task</li>
+  <li>Scene Graph Detection (SGDet): Image만 주어져 있을 때, Proposal만을 활용해서 Entity Class와 Relation을 예측해야 하는 Task</li>
+</ul>
+
+<h3 id="main-table">Main Table</h3>
+
+<p><img width="900" src="../../images/energy_based_model/4.png" /></p>
+
+<p>Main Table에서 볼 수 있듯이 Energy-Based Loss를 활용했을 때 성능이 올라간 것을 볼 수 있다. 이 논문에서는 기존의 Model들이 CE Loss를 활용하는데 여기에서는 그 Loss를 Energy-Based Loss를 이용했을 때 성능 변화를 보여준다.</p>
+
+<h3 id="qualitative-results">Qualitative Results</h3>
+
+<p><img width="900" src="../../images/energy_based_model/5.png" /></p>
+
+<p>이 실험은 실제로 CE Loss를 썼을 때와 Energy-Based Loss를 활용했을 때 어떻게 예측했는지를 보여준다. 이 논문에서는 CE Loss보다 Energy-Based Loss를 사용했을 때 더 말이 되는 관계를 예측했음을 실제로 보여주고 더 Fine-Grained한 관계를 예측했다는 것을 보여준다. 예를 들면, 첫 번째 고양이 사진의 경우에 해당 논문은 &lt;cat, in front of, door&gt;로 예측하고, CE Loss를 사용했을 경우에는 &lt;cat, near, door&gt;, &lt;cat, looking at, dog&gt;로 예측했다. 해당 모델이 공간적 정보를 더 세분화되게 예측하는 것을 볼 수 있다. (near vs in front of)</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>기존의 Model들이 CE Loss를 주로 활용했는데 CE Loss는 두 Entity를 보고 예측을 하게 된다. 하지만, 이렇게 되면 Motivation에서 밝혔듯이 주변 관계를 고려했을 때 말이 안되는 관계를 예측하게 된다. 따라서 전체적인 관계를 고려하면서 학습해야함을 주장하고 이를 실험적으로 잘 보여줬다고 생각한다.</p>
+
+<p>Energy-Based Model은 기존에 존재하던 방법론인데 이를 Scene Graph에 적절한 Limitation을 찾고 적용했다고 생각한다. 연구를 할 때 위와 같이 한계점을 찾아내고 기존에 존재하던 방법론을 작 적용하여 해결하는 것이 좋은 연구 방향 중 하나라고 생각한다.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>김기범
+    <ul>
+      <li>Affiliation : KAIST</li>
+      <li>Research Topic: Graph Neural Network, Recommendation System, Scene Graph</li>
+    </ul>
+  </li>
+  <li>Github Implementation<br />
+<a href="https://github.com/mods333/energy-based-scene-graph">Implementation</a></li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Mar 27, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
