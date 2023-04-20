@@ -7,15 +7,12 @@ tags: [reviews]
 # **Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion  | Paper Review** 
 
 
-## <Strong>1. Problem Definition</strong>  
+## 1. Problem Definition
 
 
 Teacher network의 기존 학습 데이터셋 없이 Knowledge distilation을 이뤄내는 것을 목표로 한다. 
 
-<Blockquote>
-<em><strong>Knowledge Distilation</strong></em>: 미리 잘 학습한 큰 네트워크(teacher network)의 지식을 실제로 사용하고자 하는 작은 네트워크(student network)에 전달하는 것
-</blockquote>
-
+> **Knowledge Distilation**: 미리 잘 학습한 큰 네트워크(teacher network)의 지식을 실제로 사용하고자 하는 작은 네트워크(student network)에 전달하는 것
 
 ## **2. Motivation**  
 
@@ -25,9 +22,7 @@ Knowledge distilation의 경우 Trained network의 데이터셋을 보존하여 
 
 다양한 제약으로 인한 Prior data나 Metadata의 부재 속에서 knowledge transfer를 하기 위하여 본 논문에서는 학습된 모델이 그 자체적으로 Rich information을 가지고 있다고 가정하고, Neural Network Inversion 방식을 활용하여 Input training data를 복원한다.
 
-<blockquote>
-<em><strong>Neural network inversion</em></strong> : pre-trained 모델의 weight을 고정하여 noise한 input을 forwarding 시키고, backpropagation을 통해서 weight가 아닌 node의 output을 update하여 실제 training data와 유사한 input을 예측하는 방식
-</blockquote> 
+> **Neural network inversion** : pre-trained 모델의 weight을 고정하여 noise한 input을 forwarding 시키고, backpropagation을 통해서 weight가 아닌 node의 output을 update하여 실제 training data와 유사한 input을 예측하는 방식
 
 
 본 논문의 contribution과 application은 다음과 같다. 
@@ -142,7 +137,8 @@ DeepInversion $R_{feature}$를 더해주면 모든 시나리오에서 40% 이상
 * Parameters
 	* temperature $\tau$=3
 	* initial lr = 1.024
-	* batch size = 1024
+	* batch size = 1024  
+	
 ![image](https://user-images.githubusercontent.com/47962184/232249321-2b1efb64-ff7a-4899-a7e9-859302610a9b.png)
 
 DI를 통한 Knowledge Transfer는 base teacher model에 대비하여 3% 정도만의 accuracy 차이를 보이며 좋은 성과를 보였다. 

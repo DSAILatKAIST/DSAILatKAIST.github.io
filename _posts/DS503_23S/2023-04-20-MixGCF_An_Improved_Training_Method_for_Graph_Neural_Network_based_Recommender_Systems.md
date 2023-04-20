@@ -78,9 +78,7 @@ $$e_{v^-} = f_{pool} \left(e_{v_x}^{\prime(0)}, \cdots ,e_{v_y}^{\prime(L)}\righ
 
 $l$번째 layer에서의 hard selection strategy는 다음과 같이 구현된다:
 
-$$
-\mathbf{e}_{v_x}^{\prime(l)}=\underset{\mathbf{e}_{v_m}^{\prime(l)} \in \mathcal{E}^{(l)}}{\arg \max } f_{{\mathrm{Q}}}(u, l) \cdot \mathbf{e}_{v_m}^{\prime(l)}
-$$
+$\mathbf{e}_ {v_x}^{\prime(l)}=\underset{\mathbf{e}_ {v_m}^{\prime(l)} \in \mathcal{E}^{(l)}}{\arg \max } f_ {\mathrm{Q}}(u, l) \cdot \mathbf{e}_ {v_m}^{\prime(l)}$
 
 여기서 $\cdot$은 내적 연산이고, $f_Q(u, l)$은 $l$번째 hop에 대한 target user $u$의 embedding을 반환하는 query mapping이다.
 위 식의 query는 추천에 사용되는 GNN의 pooling module에 따라 다르다.
@@ -88,19 +86,17 @@ GNN 기반 추천 모델에서 target user embedding $e_u$와 합성된 negative
 - Sum based pooling: $\mathbf e_u\cdot\mathbf e_{v^{-}} = \displaystyle\sum_{l=0}^{L} \lambda_l \mathbf e_u \cdot \mathbf e_{v^{-}}^{(l)}$
 - Concat based pooling: $\mathbf e_u \cdot \mathbf e_{v^{-}} = \displaystyle\sum_{l=0}^{L} \mathbf e_u^{(l)} \cdot \mathbf e_{v^{-}}^{(l)}$
 
-GNN 기반 추천 모델에서 사용되는 pooling 과 일치하는 selection process를 만들기 위해 위의 식의 $f_{{\mathrm{Q}}}(u, l)$을  sum based pooling은 $e_u$, concat based pooling은 $e_u^{(l)}$로 정의한다.
+GNN 기반 추천 모델에서 사용되는 pooling 과 일치하는 selection process를 만들기 위해 위의 식의 $f_{\mathrm{Q}}(u, l)$을  sum based pooling은 $e_u$, concat based pooling은 $e_u^{(l)}$로 정의한다.
 
 ### 3.3 Optimization with MixGCF
 **MixGCF**에서도 다른 gnn 기반 추천 모델의 parameter를 최적화하기 위한 [BPRloss](https://dl.acm.org/doi/10.5555/1795114.1795167)를 사용할 수 있다.
 **MixGCF**에서의 BPRloss는 다음과 같이 업데이트 될 수 있다:
 
-$$
-\mathcal{L}_{\mathrm{BPR}}=\sum_{\substack{\left(u, v^{+}\right) \in O^{+} \\ \mathbf{e}_{v^{-}} \sim f_{\mathrm{MixGCF}}\left(u, v^{+}\right)}} \ln \sigma\left(\mathbf{e}_u \cdot \mathbf{e}_{v^{-}}-\mathbf{e}_u \cdot \mathbf{e}_{v^{+}}\right)
-$$
+$\mathcal{L}_ {\mathrm{BPR}}=\sum_ {\substack{\left(u, v^{+}\right) \in O^{+} \mathbf{e}_ {v^{-}} \sim f_ {\mathrm{MixGCF}}\left(u, v^{+}\right)}} \ln \sigma\left(\mathbf{e}_ u \cdot \mathbf{e}_ {v^{-}}-\mathbf{e}_ u \cdot \mathbf{e}_ {v^{+}}\right)$
 
 
 $\sigma(\cdot)$은 sigmoid function이고, $O^+$는 positive feedback set를 의미한다. 
-그리고 $e_{v^{-} \sim f_{MixGCF\left(u, v^{+}\right)}}$ 는 instance embedding $e_{v^-}$는 제안된 MixGCF 방법으로 합성된다는 것을 의미한다.
+그리고 $e_ {v^{-} \sim f_ {MixGCF\left(u, v^{+}\right)}}$ 는 instance embedding $e_{v^-}$는 제안된 MixGCF 방법으로 합성된다는 것을 의미한다.
 
 위 전체 학습 과정을 알고리즘으로 나타내면 아래와 같다.
 

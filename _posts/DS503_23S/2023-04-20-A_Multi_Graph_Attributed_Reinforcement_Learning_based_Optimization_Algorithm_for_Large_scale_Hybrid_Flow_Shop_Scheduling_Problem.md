@@ -72,7 +72,7 @@ $$
 </p>
 Local optima point(local optima가 나타나는 step)의 집합을 $S$, 그중 monotonically decreasing한 point들을 $\hat{S}$이라고 한다면, 각각의 스텝 $i$마다 shaped reward는 다음과 같이 계산된다.
 
-$$r_i=\frac{O_T-O_1}{T-1}+\frac{O_{I_{p-1}}-O_{I_p}}{I_p-I_{p-1}}\textit{ for } i \in [I_{p-1},I_p)$$
+$r_ i=\frac{O_ T-O_ 1}{T-1}+\frac{O_ {I_ {p-1}}-O_ {I_p}}{I_ p-I_ {p-1}}\textit{ for } i \in [I_ {p-1},I_ p)$
 
 첫째항은 전체 trajectory의 global reward를, 둘째항은 sub-segment의 local reward를 나타낸다.
 

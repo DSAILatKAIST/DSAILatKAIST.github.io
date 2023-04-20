@@ -66,9 +66,10 @@ $\bullet$ GKT(Graph-based Knowledge Tracing): 각 문제에 대한 학생의 지
 
 $Figure 3$
 
-</center>
+</center>  
 
-HEG는 $(A, F, S_e)$로 표현되며, $A$ $\in$ ${0,1}^{|E|*|E|}$는 direct support relations graph의 adjacency matrix이며, $F$ $\in$ $R^{|E|*t}$는 각 노드의 feature matrix로 노드별로 t개의 feature를 표현하고, $S_e^{|E|*|S|}$는 direct support relations graph와 indirect support relations graph의 연결관계를 나타낸다.
+
+HEG는 $(A, F, S_ e)$로 표현되며, $A$ $\in$ ${0,1}^{\vert E\vert *\vert E\vert }$는 direct support relations graph의 adjacency matrix이며, $F$ $\in$ $R^{\vert E\vert *t}$는 각 노드의 feature matrix로 노드별로 t개의 feature를 표현하고, $S_e^{\vert E\vert *\vert S\vert }$는 direct support relations graph와 indirect support relations graph의 연결관계를 나타낸다.
 
 <br>
 
@@ -124,12 +125,17 @@ $Sup(e_1 \rightarrow e_2)$ = $max$ (0, ln $P(R_{e1}|R_{e2})  \over P(R_{e1}|R_{e
 
 Indirect support는 공통된 problem schema를 가지고 있는 exercise 간의 관계를 그래프로 representation하는 것으로, 이 또한 hierarchical graph로 표현된다. 방법은 다음과 같다.  
 먼저, problem schema를 추출하기 위해 BERT[1]를 활용하여 exercise 질문의 keyword를 임베딩하고 이것을 hierarchical clustering[2]을 통해 representation한다. Hierarchical clustering은 각 데이터를 계층에 따라 순차적으로 클러스터링 하는 계층적 군집 분석(agglomerative hierarchical clustering)을 활용한 unsupervised cluster analysis method이다. 이것을 활용한 이유는 임계치(threshold) $\gamma$를 활용하여 그래프의 level 수를 정하고, 이것을 통해 서로 다른 수준의 problem schema를 계층화하여 각 schema에 해당하는 exercise를 군집화하기 위해서이다. 다음으로, 모든 exercise 간의 관계를 나타내는 direct support graph를 indirect support graph의 problem schema와 fusing하기 위해 DiffPool[3]에서 소개된 assignment matrix($S_e$)로 두 그래프의 연결관계를 표현하였다. $S_e$는 row에 direct support graph의 exercise node를 두고, column에 indirect support graph의 problem schema node를 두어 두 그래프의 연결관계에 대한 정보를 제공하는 matrix이다. 끝으로, exercise와 problem schema의 정보를 담고 있는 HEG = ($A, F, S_\gamma$)를 HGNN을 활용하여 convolution layers와 pooling layers를 통해 direct support graph의 exercise 노드 정보를 공통된 problem schema로 합성곱하여 전파한다. 이때, HGNN은 두 개의 GNN을 통해 두 그래프를 모델링하는데, 이와 관련된 구체적인 annotation과 수식은 다음과 같다.  
-<br>
-$A_e$ $\in$ {0, 1}$^{E*E}$= direct graph의 adjacency matrix  
-$H_e$ $\in$ $R^{E*t}$= direct graph의 exercise embedding matrix로 node별 feature 표현, $H_o$ = $F \in$ $R^{E*t}$  
-$A_s$ $\in$ {0, 1}$^{S*S}$= indirect graph의 adjacency matrix  
-$H_s$ $\in$ $R^{S*t}$ = indirect graph의 exercise embedding matrix로 node별 feature 표현  
-<br>
+
+<!-- $A_ e$ $\in$ ${0, 1}^{E*E}$= direct graph의 adjacency matrix  
+
+$H_ e$ $\in$ $R^{E*t}$= direct graph의 exercise embedding matrix로 node별 feature 표현, $H_o$ = $F \in$ $R^{E*t}$  
+
+$A_ s$ $\in$ {0, 1}$^{S*S}$= indirect graph의 adjacency matrix  
+
+$H_ s$ $\in$ $R^{S*t}$ = indirect graph의 exercise embedding matrix로 node별 feature 표현   -->
+
+<img width="775" alt="image" src="https://user-images.githubusercontent.com/37684658/233393548-f30e7ffb-c119-47e4-b9f3-84a3bf3ac0ec.png">
+
 
 <center>
 
@@ -164,17 +170,17 @@ HGKT는 두 가지 종류의 attention mechanism(sequence attention, schema atte
 
 <center>
 
-$m_{t+1}^{att} = \Sigma_{i=max(t-\gamma_\beta, 0)}^t\beta_im_i^{cur},$  
-$\beta_i = cos(s_{t+1}, s_i)$.
+$m_ {t+1}^{att} = \Sigma_{i=max(t-\gamma_\beta, 0)}^t\beta_im_i^{cur},$  
+$\beta_i = cos(s_ {t+1}, s_ i)$.
 
 </center>
 
-다음으로, schema attention은 현재 예측하고자 하는 exercise와 이전까지의 problem schema의 연관성에 대한 정보로 앞서 설명한 indirect support graph process의 최종 출력값인 $M_{sc} \in R^{k*|S|}$와 problem 간의 유사도를 나타내는 $\alpha_t \in R^{|S|}$를 활용하여 다음과 같이 나타난다. 즉, 한 exercise에 대한 정답 여부의 정보는 유사한 problem schema를 공유하는 다른 exercise 풀이 과정에도 영향을 주도록 한다.
+다음으로, schema attention은 현재 예측하고자 하는 exercise와 이전까지의 problem schema의 연관성에 대한 정보로 앞서 설명한 indirect support graph process의 최종 출력값인 $M_ {sc} \in R^{k*\vert S\vert }$와 problem 간의 유사도를 나타내는 $\alpha_ t \in R^{\vert S\vert }$를 활용하여 다음과 같이 나타난다. 즉, 한 exercise에 대한 정답 여부의 정보는 유사한 problem schema를 공유하는 다른 exercise 풀이 과정에도 영향을 주도록 한다.
 
 <center>
 
-$m_{t+1}^f = \alpha_{t+1}^Tm_{t+1}^{cur},$  
-$\alpha_{t+1} = Softmax(s_{t+1}^TM_{sc})$
+$m_ {t+1}^f = \alpha_ {t+1}^Tm_ {t+1}^{cur},$  
+$\alpha_ {t+1} = Softmax(s_ {t+1}^TM_ {sc})$
 
 </center>
 정리하자면, 예측하고자 하는 exercise와 관련한 학생의 knowledge mastery 정보($m_{t+1}^{cur}$), 학생의 모든 knowledge mastery 정보($m_{t+1}^{att}$), 그리고 예측하고자 하는 exercise와 관련한 학생의 problem schema mastery 정보($m_{t+1}^f$)를 활용하여 학생의 exsercise 풀이 여부를 예측하는데, 이 3가지 정보는 concat되어 최종 예측값을 출력한다. 이를 식으로 표현하면 다음과 같고, $W_2과 b_2$는 학습되는 parameter이다.

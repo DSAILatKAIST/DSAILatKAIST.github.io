@@ -31,7 +31,7 @@ $\hat{y_i} = arg max_y s_i[y]$
 
 모델이 완벽하게 calibrate 된 경우는 다음과 같이 표현할 수 있다.
 
-$P(y={y}'|s[y]=s)=s $
+$P(y={y}'\vert s[y]=s)=s $
 
 완벽하게 calibrate 되기 위해서는 ReLU 함수를 적용하여 예측된 클래스 외에 다른 클래스에 대해서도 위의 식이 성립해야 하지만, 대부분의 calibration 기법들은 예측 클래스에만 집중한다.
 
@@ -62,9 +62,9 @@ $C_{i_j}$: i번째 bin의 j번째 클래스 샘플들의 평균 confidence
 ## Proposed method: MDCA
 SCE로부터 파생된 손실 함수이지만, 기존에 샘플들을 bin으로 분할함으로 인하여 미분이 불가능하였던 문제를 해결하였다.
 
-$L_{MDCA} = \frac{1}{K}\sum_{K}^{j=1}|\frac{1}{N_b}\sum_{M}^{i=1}s_i[j] - \frac{1}{N_b}\sum_{M}^{i=1}q_i[j]|$
+$L_ {MDCA} = \frac{1}{K}\sum_ {K}^{j=1}\vert \frac{1}{N_ b}\sum_ {M}^{i=1}s_ i[j] - \frac{1}{N_ b}\sum_ {M}^{i=1}q_ i[j]\vert$
 
-$q_i[j]=1$(샘플 i에 대한 예측 라벨 j가 ground truth인 경우), $q_i[j]=0$(그 외)
+$q_ i[j]=1$(샘플 i에 대한 예측 라벨 j가 ground truth인 경우), $q_ i[j]=0$(그 외)
 
 $N_b$: mini batch에 속한 샘플의 수
 

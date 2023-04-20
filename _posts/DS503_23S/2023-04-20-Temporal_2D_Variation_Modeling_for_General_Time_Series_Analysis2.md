@@ -76,7 +76,7 @@ input  은  ![](Aspose.Words.fe9a8a29-d51a-42e5-b229-da4476aaa176.010.png) 이�
 
 ![](Aspose.Words.fe9a8a29-d51a-42e5-b229-da4476aaa176.012.png)
 
-이는 이전 과정을 통해 만들어진 1D time series data 를 Aggregation 하는 과정이다. Amplitude A 는 선택된 Top K 개의 Frequency 와 Period 간 상대적 중요도를 반영할 수 있으므로, Transform 된 Tensor 의 중요도 역시 반영할 수 있다. 이로부터 처음 FFT 과정 을 통해 구해진 Amplitude 값을 바탕으로 Aggregation 하게 된다. 이로부터 나온 결과 는  서로  다른  Period  간  Interperiod,  Intraperiod  variation  을  고려한  Temporal  2D Variation 을 동시에 캡쳐한 결과를 얻을 수 있다.
+이는 이전 과정을 통해 만들어진 1D time series data 를 Aggregation 하는 과정이다. Amplitude A 는 선택된 Top K 개의 Frequency 와 Period 간 상대적 중요도를 반영할 수 있으므로, Transform 된 Tensor 의 중요도 역시 반영할 수 있다. 이로부터 처음 FFT 과정 을 통해 구해진 Amplitude 값을 바탕으로 Aggregation 하게 된다. 이로부터 나온 결과 는  서로  다른  Period  간  Interperiod,  Intraperiod  variation을  고려한  Temporal  2D Variation 을 동시에 캡쳐한 결과를 얻을 수 있다.
 
 **4 EXPERIMENTS**
 

@@ -55,7 +55,9 @@ $p_ {\theta}(z\vert x)$ 는 parametric posterior distribution을 의미하고 $\
 그래서 soft masking을 적용합니다. Gumbel Softmax reparametrization trick을 사용하여 (Paranjape et al. 2020 유사하게) $Bernoulli$로 부터의 sampling과정을 $argmax_ {i\in 0, 1}(logp(z_ {j}\vert x)+g_ {i})$ 로 대체하여 사용합니다. 
 $g_ {i}$ 는 $Gumbel(0,1)$ 로부터의 random sample을 의미하여 최종 식은 weight soft max형태이고 
 
->**$z_ {j}^{*} = \frac{exp((logp(z_ {j} = 1\vert x)+g_ {1})/\tau )}{\sum_ {i\in 0, 1}exp((logp(z_ {j} = i\vert x)+g_ {i})/\tau)}$ 입니다. (Note $z_ {j}^{*}\in (0,1)$ when $\tau$ goes to $0$, in practice $\tau = 0$)**
+> $z_ {j}^{*} = \frac{\exp((\log p(z_ {j} = 1  \vert x)+g_ {1})/ \tau )}{\sum_ {i\in  0, 1}\exp((\log p(z_ {j} = i \vert x)+g_ {i})/\tau)}$ 
+
+(Note $z_ {j}^{*}\in (0,1)$ when $\tau$ goes to $0$, in practice $\tau = 0$) 입니다.
 
 fig2와 같이 `EASE`는 extractor와 abstractor로 나뉩니다. extractor는 pretrained 된 BERT에 $p_ {\theta}(z_ {j}\vert x)$ 계산을 위해 linear를 추가한것과 비슷하고, abstractor는 BART와 비슷합니다.학습과정에서 extractor는 원래문서($x$)에서 어떤 token이 masking될지에 대한 확률을 계산합니다.
 이 확률 ($p_ {j}$) 에 대해 $m_ {j}$ (0,1사이)를 가집니다. $z = m\odot x$ 를 abstractor에 보내고 최종 요약문을 생성합니다. 

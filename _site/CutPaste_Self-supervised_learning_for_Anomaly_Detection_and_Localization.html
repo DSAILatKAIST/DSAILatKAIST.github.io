@@ -323,7 +323,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h2 id="cutpaste--self-supervised-learning-for-anomaly-detection-and-localization">CutPaste : Self-Supervised learning for Anomaly Detection and Localization</h2>
+        <h2 id="cutpaste--self-supervised-learning-for-anomaly-detection-and-localization">CutPaste : self-Supervised learning for Anomaly Detection and Localization</h2>
 
 <h3 id="introduction">Introduction</h3>
 
@@ -424,7 +424,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>
     <p><strong>Local irrugularity을 생성하는 Data augmentation 방안을 참고하여, 이미지가 변형된 discriminative 부분을 포착하도록 Task를 부여한다.</strong></p>
 
-    <p><img src="picture\2.png" alt="picture\2" /></p>
+    <p><img width="645" alt="2" src="https://user-images.githubusercontent.com/16533475/233392403-60c9a594-a91d-462d-84c7-492b1e34c3d7.png" /></p>
 
     <ul>
       <li>
@@ -456,7 +456,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>
     <p>본 연구에서는 CutPaste라는 새로운 Data augmentation 방법을 제안한다.</p>
 
-    <p><img src="picture\1.png" alt="picture\1" /></p>
+    <p><img width="643" alt="1" src="https://user-images.githubusercontent.com/16533475/233392525-a394cbf6-bce2-4760-abeb-9f22595ea2e8.png" /></p>
     <ul>
       <li>
         <p>1) 정상 데이터로부터 다양한 크기와 비율의 직사각형 이미지(Patch)를 잘라낸다.</p>
@@ -477,7 +477,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>
     <p>self-supervised representation learning 의 목표을 달성하고자 학습 목표는 다음과 같이 정의한다.</p>
 
-    <p><img src="picture\3.png" alt="picture\3" /></p>
+    <p><img width="269" alt="3" src="https://user-images.githubusercontent.com/16533475/233392572-f71e8236-7d92-4bb0-943c-52d8b2e62d8b.png" /></p>
     <ul>
       <li>
         <p>$X :$ set of normal data</p>
@@ -544,7 +544,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <p>또한 CutPaste 방법은 그 자체로 이상치와 유사성을 가지고 있다. 이는 t-SNE을 통해 가시화할 수 있다.</p>
 
             <ul>
-              <li><img src="picture\4.png" alt="picture\4" /></li>
+              <li><img width="648" alt="4" src="https://user-images.githubusercontent.com/16533475/233392615-58ec48c1-55c1-4100-9f06-679bb08e95c1.png" /></li>
             </ul>
           </li>
         </ul>
@@ -642,7 +642,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li><strong>1) Main result</strong>
     <ul>
       <li>
-        <p><img src="picture\5.png" alt="picture\5" /></p>
+        <p><img width="648" alt="5" src="https://user-images.githubusercontent.com/16533475/233392691-6520deef-5d92-47e6-8ef6-826f77057b30.png" /></p>
       </li>
       <li>
         <p>Rotation 방법은 Segmentic abnormal detection(ex- 클래스가 다른 경우)에서는 유용했으나, fine-grained 한 이상치에는 효과가 크게 없음을 확인할 수 있다.</p>
@@ -668,10 +668,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>
     <p><strong>2) Defect Localization</strong></p>
 
-    <p><img src="picture\6.png" alt="picture\6" /></p>
+    <p><img width="640" alt="6" src="https://user-images.githubusercontent.com/16533475/233392751-c579d595-d9d9-4344-a29d-3fc075594b5c.png" /></p>
 
     <blockquote>
       <p>GT Mask : Ground truth anomal annotation</p>
+
       <blockquote>
         <ul>
           <li>픽셀별로 Abnormal detection score을 계산한 다음, GradCAM 방법을 적용하여 defective 영역을 시각화하였다.</li>
@@ -691,7 +692,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
         <p>Pixel-wise localizatoin에 대해 기존의 방법들(FCDD, P-SVDD)과 비교했을 때, CutPaste 방식이 대부분의 경우 성능이 좋았다.</p>
 
         <ul>
-          <li><img src="picture\7.png" alt="picture\7" /></li>
+          <li><img width="313" alt="7" src="https://user-images.githubusercontent.com/16533475/233392811-e1c46459-2da5-4d88-bcf0-4e9944dd9195.png" /></li>
         </ul>
       </li>
     </ul>
@@ -705,7 +706,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     <ul>
       <li>기존의 One-classification 방법(DOCC, Uninformed student) 연구에서 제시했던 데로, pretrained 모델을 사용하는 것이 보다 성능이 뛰어났다.
         <ul>
-          <li><img src="picture\8.png" alt="picture\8" /></li>
+          <li><img width="322" alt="8" src="https://user-images.githubusercontent.com/16533475/233392832-e811194b-727a-4bcf-935b-def0b28c2c38.png" /></li>
         </ul>
       </li>
     </ul>
@@ -722,7 +723,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       <li>Cut Paste 방법은 Cutout 방식과 다르게 다양한 영역에 적용할 수 있다.
         <ul>
           <li>
-            <p><img src="picture\9.png" alt="picture\9" /></p>
+            <p><img width="319" alt="9" src="https://user-images.githubusercontent.com/16533475/233392836-77e4cccc-3797-4045-836f-5e4b2777532d.png" /></p>
           </li>
           <li>
             <p>CutPaste 방식은 기존 이미지의 Local structure 와 정보를 가지고 있어, 데이터셋과 별개로 적용할 수 있는 여지가 크다.</p>
@@ -769,7 +770,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         <ul>
           <li>
-            <p><img src="picture\10.png" alt="picture\10" /></p>
+            <p><img width="310" alt="10" src="https://user-images.githubusercontent.com/16533475/233392828-f5c367e5-5982-4cfe-aed4-062c71d0397b.png" /></p>
           </li>
           <li>
             <p>이외에 CIFAR-10에도 적용했을 때에도 CutPaste(60.2 &lt; 69.2 AUC)가 더욱 뛰어난 성능을 가졌다.</p>
@@ -816,6 +817,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </ul>
   </li>
 </ul>
+
 
     </div>
 

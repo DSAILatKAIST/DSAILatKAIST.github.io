@@ -4,7 +4,7 @@ permalink: CutPaste_Self-supervised_learning_for_Anomaly_Detection_and_Localizat
 tags: [reviews]
 ---
 
-## CutPaste : Self-Supervised learning for Anomaly Detection and Localization
+## CutPaste : self-Supervised learning for Anomaly Detection and Localization
 
 ### Introduction
 
@@ -57,7 +57,7 @@ tags: [reviews]
 
 - **Local irrugularity을 생성하는 Data augmentation 방안을 참고하여, 이미지가 변형된 discriminative 부분을 포착하도록 Task를 부여한다.** 
 
-  ![picture\2](picture\2.png)
+  <img width="645" alt="2" src="https://user-images.githubusercontent.com/16533475/233392403-60c9a594-a91d-462d-84c7-492b1e34c3d7.png">
 
   - 기존 방안들에서 주로 사용되는 Cutout은 랜덤한 크기의 이미지 영역을 지웠을 때에도 동일하게 Prediction 하도록 만든다.  
 
@@ -73,7 +73,7 @@ tags: [reviews]
 
 - 본 연구에서는 CutPaste라는 새로운 Data augmentation 방법을 제안한다. 
 
-  ![picture\1](picture\1.png)
+  <img width="643" alt="1" src="https://user-images.githubusercontent.com/16533475/233392525-a394cbf6-bce2-4760-abeb-9f22595ea2e8.png">
   - 1) 정상 데이터로부터 다양한 크기와 비율의 직사각형 이미지(Patch)를 잘라낸다. 
 
   - 2) (선택)자른 이미지를 회전하거나, 색을 바꾼다. 
@@ -84,7 +84,7 @@ tags: [reviews]
 
 - self-supervised representation learning 의 목표을 달성하고자 학습 목표는 다음과 같이 정의한다. 
 
-  ![picture\3](picture\3.png)
+  <img width="269" alt="3" src="https://user-images.githubusercontent.com/16533475/233392572-f71e8236-7d92-4bb0-943c-52d8b2e62d8b.png">
   - $X :$ set of normal data
 
   - $CP(.)$ : CutPaste augmentation 
@@ -120,7 +120,7 @@ tags: [reviews]
 
     - 또한 CutPaste 방법은 그 자체로 이상치와 유사성을 가지고 있다. 이는 t-SNE을 통해 가시화할 수 있다.
 
-      - ![picture\4](picture\4.png)
+      - <img width="648" alt="4" src="https://user-images.githubusercontent.com/16533475/233392615-58ec48c1-55c1-4100-9f06-679bb08e95c1.png">
 
 ##### 3. Computing Anomaly Score
 
@@ -171,7 +171,7 @@ tags: [reviews]
 ##### Result
 
 - **1) Main result**
-  - ![picture\5](picture\5.png)
+  - <img width="648" alt="5" src="https://user-images.githubusercontent.com/16533475/233392691-6520deef-5d92-47e6-8ef6-826f77057b30.png">
 
   - Rotation 방법은 Segmentic abnormal detection(ex- 클래스가 다른 경우)에서는 유용했으나, fine-grained 한 이상치에는 효과가 크게 없음을 확인할 수 있다. 
 
@@ -185,10 +185,11 @@ tags: [reviews]
 
 - **2) Defect Localization**
 
-  ![picture\6](picture\6.png)
+  <img width="640" alt="6" src="https://user-images.githubusercontent.com/16533475/233392751-c579d595-d9d9-4344-a29d-3fc075594b5c.png">
 
   > GT Mask : Ground truth anomal annotation 
-  >   > - 픽셀별로 Abnormal detection score을 계산한 다음, GradCAM 방법을 적용하여 defective 영역을 시각화하였다.  
+  > 
+  > > - 픽셀별로 Abnormal detection score을 계산한 다음, GradCAM 방법을 적용하여 defective 영역을 시각화하였다.  
 
   - 이때 Grad Cam은 256 x 256 크기의 이미지를 input으로 하였을 때 결과이며, Patch heatmap은 256 x 256 이미지로부터 64 x 64 크기의 Patch을 추출한 다음 모델을 학습한 결과이다. 
 
@@ -196,13 +197,13 @@ tags: [reviews]
 
   - Pixel-wise localizatoin에 대해 기존의 방법들(FCDD, P-SVDD)과 비교했을 때, CutPaste 방식이 대부분의 경우 성능이 좋았다. 
 
-    - ![picture\7](picture\7.png)
+    - <img width="313" alt="7" src="https://user-images.githubusercontent.com/16533475/233392811-e1c46459-2da5-4d88-bcf0-4e9944dd9195.png">
 
 <br>
 
 - **3) Transfer learning with Pretrained models** 
   - 기존의 One-classification 방법(DOCC, Uninformed student) 연구에서 제시했던 데로, pretrained 모델을 사용하는 것이 보다 성능이 뛰어났다. 
-    - ![picture\8](picture\8.png)
+    - <img width="322" alt="8" src="https://user-images.githubusercontent.com/16533475/233392832-e811194b-727a-4bcf-935b-def0b28c2c38.png">
 
 <br>
 
@@ -210,7 +211,7 @@ tags: [reviews]
 
 - 1) From Cutout to CutPaste
   - Cut Paste 방법은 Cutout 방식과 다르게 다양한 영역에 적용할 수 있다.
-    - ![picture\9](picture\9.png)
+    - <img width="319" alt="9" src="https://user-images.githubusercontent.com/16533475/233392836-77e4cccc-3797-4045-836f-5e4b2777532d.png">
 
     - CutPaste 방식은 기존 이미지의 Local structure 와 정보를 가지고 있어, 데이터셋과 별개로 적용할 수 있는 여지가 크다.
 
@@ -223,8 +224,6 @@ tags: [reviews]
     - 2) 3 way classification : 정상 vs Cutpatse vs CutPaste-scar
   - 실험 결과 3 way classfiication으로 Labeling 했을 때 성능이 더 좋았음을 확인할 수 있었다. 
 
-
-
 <br>
 
 - 3) CutPaste on Synthetic anomaly detection 
@@ -234,7 +233,7 @@ tags: [reviews]
 
   - 이후 CutOut / CutPaste 간의 성능을 비교하였을 때, CutPaste 방식의 성능이 항상 뛰어났따. 
 
-    - ![picture\10](picture\10.png)
+    - <img width="310" alt="10" src="https://user-images.githubusercontent.com/16533475/233392828-f5c367e5-5982-4cfe-aed4-062c71d0397b.png">
 
     - 이외에 CIFAR-10에도 적용했을 때에도 CutPaste(60.2 < 69.2 AUC)가 더욱 뛰어난 성능을 가졌다. 
 
@@ -258,3 +257,4 @@ tags: [reviews]
 
 - Author name : Chun-Liang Li, Kihyuk Sohn, Jinsung Yoon, Tomas Pfister
   - Affiliation : Google Cloud AI Research 
+

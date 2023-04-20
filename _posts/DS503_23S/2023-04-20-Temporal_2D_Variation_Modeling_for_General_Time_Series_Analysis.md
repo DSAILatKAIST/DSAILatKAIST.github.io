@@ -4,7 +4,6 @@ permalink: Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html
 tags: [reviews]
 ---
 
-
 # Temporal 2D-Variation Modeling for General Time Series Analysis
 
 
@@ -59,8 +58,8 @@ tags: [reviews]
 
 $$ \mathbf{A} = \text{Avg}\Bigl( \text{Amp}(\text{FFT}(\mathbf{X}_ {\text{1D}})) \Bigr), \quad \mathbf{A} \in \mathbb{R}^T $$
 
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_FFT.png?raw=true' alt="FFT" width=30% title="FFT"></p>
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_FFT.png?raw=true)
+
 
 이때 $\mathbf{A}_ j$는 주파수가 $j$(주기가 $\lceil T/j \rceil$이다.)의 intensity가 된다. 주파수 영역에서 의미없는 고주파는 noise이므로 이를 제거하기 위해 top-$k$의 진폭만 사용하기로 합니다. 
 $$\{ f_1, \cdots, f_k\} = \underset{f_* \in \{1, \cdots , [\frac{T}{2}]\}}{\text{argTopK}(\mathbf{A})}, \quad p_i = \Biggl\lceil\cfrac{T}{f_i} \Biggr\rceil, \quad i \in \{ 1, \cdots, k \}$$
@@ -68,12 +67,14 @@ $$\{ f_1, \cdots, f_k\} = \underset{f_* \in \{1, \cdots , [\frac{T}{2}]\}}{\text
 위 과정을 요약하면, $\mathbf{X}_ {\text{1D}}$로부터 FFT를 이용하여 $k$개의 유의미한 진폭($\mathbf{A}$), 주파수($f_i$), 주기($p_i$)를 얻습니다.
 $$\mathbf{A}, \{f_1, \cdots, f_k\}, \{p_1, \cdots, p_k\} = \text{Period}(\mathbf{X}_ {\text{1D}})$$
 
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_convert2D.png?raw=true' alt="TimesBlock" width=70% title="Transform 1D time series to 2D tensors"></p>
+
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_convert2D.png?raw=true)
+
 
 ## 3.2 Reshape 1D time series to 2D tensors
-FFT로 얻은 $f$와 $p$를 이용하여 $\mathbf{X}_ {\text{1D}}$로부터 $k$개의 2D-tensor $\mathbf{X}_ {\text{2D}}$ 를 얻을 수 있습니다. 이때 $\text{Reshape}$ 결과가 $p_i \times f_i$ 모양이 되도록 zero-padding $\text{Padding}(\cdot)$이 필요합니다.
-$$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \set{1, \cdots, k}$$
+FFT로 얻은 $f$와 $p$를 이용하여 $\mathbf{X}_ {\text{1D}}$로부터 $k$개의 2D-tensor $\mathbf{X}_ {\text{2D}}$ 를 얻을 수 있습니다. 이때 $\text{Reshape}$ 결과가 $p_i \times f_i$ 모양이 되도록 zero-padding $\text{Padding}(\cdot)$이 필요합니다.  
+
+$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{ 1, \cdots, k \} $
 
 
 
@@ -88,21 +89,22 @@ TimesBlock은 크게 2가지 역할을 수행합니다.
    
 **Capturing temporal 2D-variations**
 
-TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다. 이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다. $\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{{X}}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.
+
+TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다. 이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다. $\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.
 
 $$
 \begin{align*}
 \mathbf{A}^{l-1}, \{ f_1, \cdots, f_k \}, \{ p_1, \cdots, p_k \} &= \text{Period}(\mathbf{X}_ {\text{1D}}^{l-1}) \\
-\mathbf{X}_ {\text{2D}}^i &= \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \set{1, \cdots, k} \\
-\widehat{\mathbf{{X}}}_ {\text{2D}}^{l, i} &= \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in \set{1, \cdots, k} \\
-\widehat{\mathbf{{X}}}_ {\text{1D}}^{l, i}& = \text{Trunc}(\underset{1, \  (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{{X}}}_ {\text{2D}}^{l, i})), \quad i \in \{1, \cdots, k \} \\
+\mathbf{X}_ {\text{2D}}^i &= \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{1, \cdots, k\} \\
+\widehat{\mathbf{X}}_ {\text{2D}}^{l, i} &= \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in \{1, \cdots, k\} \\
+\widehat{\mathbf{X}}_ {\text{1D}}^{l, i}& = \text{Trunc}(\underset{1, \  (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{X}}_ {\text{2D}}^{l, i})), \quad i \in \{1, \cdots, k \} \\
 \end{align*}
 $$
 
-각 $l$번째 layer를 통과한 후 $k$개의 1D-representation $\set{\widehat{\mathbf{X}}_ {\text{1D}}^{l, 1}, \cdots, \widehat{\mathbf{X}}_ {\text{1D}}^{l, k}}$을 얻습니다.
+각 $l$번째 layer를 통과한 후 $k$개의 1D-representation $\{\widehat{\mathbf{X}}_ {\text{1D}}^{l, 1}, \cdots, \widehat{\mathbf{X}}_ {\text{1D}}^{l, k}\}$을 얻습니다.
 
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_1.png?raw=true' alt="TimesBlock" width=40% title="FFT"></p>
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_1.png?raw=true)
+
 
 **Adaptive aggregateion**
 
@@ -110,55 +112,51 @@ Autoformer 모델이 제안된 논문에서, Auto-Correlation은 진폭 $\mathbf
 $$\widehat{\mathbf{A}}_ {f_1}^{l-1}, \cdots, \widehat{\mathbf{A}}_ {f_k}^{l-1} = \text{Softmax}\left(\mathbf{A}_ {f_1}^{l-1}, \cdots, \mathbf{A}_ {f_k}^{l-1} \right)$$
 $$\mathbf{X}_ {\text{1D}}^l = \sum_{i=1}^{k} \widehat{\mathbf{A}}_ {f_i}^{l-1} \times \widehat{\mathbf{X}}_ {\text{1D}}^{l, i}$$
 
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_2.png?raw=true' alt="Aggregation" width=40% title="FFT"></p>
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_2.png?raw=true)
 
 **Generality in 2D vision backbones**
 
 저자들은 다양한 computer vision backbone인 ResNet, ResNeXt, ConvNeXt 등을 적용했습니다. 일반적으로 더 좋은 2D backbone일 수록 더 좋은 결과를 얻었습니다. 저자들은 성능과 효율성을 모두 고려하여 inception block을 선택했습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_cmp_backbones.png?raw=true' alt="Backbones" width=60% title="FFT"></p>
+
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_cmp_backbones.png?raw=true)
 
 # 4. Experiment
 저자들은 시계열 분석에서 자주 사용되는 5가지 주제에 대하여 실험을 진행했습니다. 아래 표는 5개 task에 대하여 사용된 데이터셋, 평가지표 그리고 시계열 데이터 길이를 나타낸 것입니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_exp_benchmarks.png?raw=true' alt="Benchmarks" width=100% title="FFT"></p>
+
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_exp_benchmarks.png?raw=true)
 
 ## 4.1 Main Results
 TimesNet은 장기 예측, 단기 예측, 결측치 보강, 분류, 이상치 탐지 5개의 영역에서 모두 SOTA를 달성했습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_5tasks_SOTA.png?raw=true' alt="SOTA" width=70% title="FFT"></p>
+
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_5tasks_SOTA.png?raw=true)
 
 ## 4.2 Short/Long-term Forecasting
 TimesNet 장기 예측과 단기 예측 모두 좋은 성능을 보였습니다. 특히 장기 예측의 경우 80%의 데이터셋에서 SOTA를 달성했습니다. 특히 단기 예측에 사용된 M4 데이터셋의 경우 다양한 출처에서 데이터가 수집되어 시간적 변동이 큼에도 불구하고 다른 모델들 보다 성능이 좋습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_longterm.png?raw=true' alt="Long-term forecasting" width=70% title="FFT"></p>
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_shortterm.png?raw=true' alt="Short-term forecasting" width=70% title="FFT"></p>
+
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_longterm.png?raw=true)
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_shortterm.png?raw=true)
 
 ## 4.3 Imputation
 결측치 때문에, 모델은 불규칙하고 불완전한 데이터 속에서 시간적 패턴을 찾아야 하기 때문에 어려운 문제입니다. 그럼에도 불구하고 TimesNet은 SOTA를 달성하여 극단적으로 복잡한 시계열 데이터에서 시간적 변동을 잘 포착한다는 것을 의미합니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_imputation.png?raw=true' alt="Imputation" width=70% title="FFT"></p>
 
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_imputation.png?raw=true)
 ## 4.4 Classification
 시계열 데이터의 분류는 인지 및 의료 진단에 사용됩니다. 저자들은 UEA Time Series Classification Archive에서 행동, 동작 및 음성 인식, 심장 박동 모니터링을 통한 의료 진단 등의 실제 작업이 포함된 다변량 데이터셋 10개를 선택했습니다. 그리고 이런 데이터셋의 표준 데이터 전처리를 한 후 실험하였습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_clf.png?raw=true' alt="Classification" width=40% title="FFT"></p>
+
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_clf.png?raw=true)
 결과 역시 TimesNet은 SOTA를 달성하였습니다. 주목할 점은 장단기 예측에서 성능이 좋았던 MLP-based 모델들은 분류에서는 성능이 좋지 않다는 것입니다. 이는 TimesNet이 보다 더 높은 수준의 정보를 표현하기 때문에 계층 표현이 요구되는 분류 문제에서 성능이 좋다는 것을 의미합니다.
 
 ## 4.5 Anomaly Detection
 이상치 탐지에서도 TimesNet은 SOTA를 달성했습니다. 이상치 탐지는 이상한 시간적 변동을 찾는 것이 요구되지만, Transformer는 attention-mechanism 특성상 정상 데이터가 영향을 많이 받기 때문에 성능이 그다지 높지 않았습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_anomalydet.png?raw=true' alt="Anaomaly Detection" width=70% title="FFT"></p>
+
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_anomalydet.png?raw=true)
 
 ## 4.6 Model Analysis
 **Representation analysis**
 
 TimesNet은 예측과 이상치 탐지에서 CKA 유사도가 높고, 결측치 보강과 분류에서 CKA 유사도가 낮습니다. CKA 유사도가 낮다는 것은 각 layer끼리 구별된다는 뜻이고 곧 계층적 표현(hierarchical representation)을 의미합니다. 이는 TimesNet이 imputation과 classification에서 성능이 높은 이유를 설명할 수 있습니다.
 반면에, FEDformer는 계층적 표현 학습에 실패하여 결측치 보강과 분류 작업에서 성능이 좋지 않음이 설명됩니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_CKA_sim.png?raw=true' alt="CKA similarity" width=100% title="FFT"></p>
+![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_CKA_sim.png?raw=true)
 
 **Temporal 2D-variations**
 
@@ -169,8 +167,7 @@ TimesNet은 예측과 이상치 탐지에서 CKA 유사도가 높고, 결측치 
 - 이러한 지역성은 표현 학습에 2D-kernel을 이용하는 동기가 됩니다.
 
 2D-tensor를 시각화면 아래 그림과 같습니다.
-<p align="center">
-<img src='https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_temporal_2D_vars.png?raw=true' alt="Temporal 2D-variations" width=70% title="FFT"></p>
+![image]( https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_temporal_2D_vars.png?raw=true)
 
 # 5. Conclusion
 - TimesNet은 시계열 분석 영역에서 task-general foundation model입니다.

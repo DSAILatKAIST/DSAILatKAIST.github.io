@@ -143,17 +143,18 @@ Fig3. G2Gs의 Variational Graph Translation 기반의 Reactant Generation.
 
 G2Gs는 Decoder 는 Encoder 로 얻어진 Synthon S 와 Reactant G 가 합쳐진 representation z가 주어졌을 때, 다음 수식에 따라 학습이 됩니다.
 
-$P(t|z, S)=P(a_ {1:T}|z, S)=\prod_ {i=1} ^{T} {P(a_ {i}|z, S ^{i-1})}$ 
+$P(t\vert z, S)=P(a_ {1:T}\vert z, S)=\prod_ {i=1} ^{T} {P(a_ {i}\vert z, S ^{i-1})}$
 
-Generator는 Autoregressive 하게 action 을 Generation 하면서 학습됩니다. 이때 action으로 3가지 종류가 있는데, 1) Termination Prediction, 2) Nodes Selection, 3) Edge Labeling 이 그것들 입니다.
 
-$P(G|z, S)=\sum_ {t \in \mathcal{T}} {P(t|z, S)}$
+Generator는 Autoregressive 하게 action 을 Generation 하면서 학습됩니다. 이때 action으로 3가지 종류가 있는데, 1. Termination Prediction, 2. Nodes Selection, 3. Edge Labeling 이 그것들 입니다.
+
+$P(G\vert z, S)=\sum_ {t \in \mathcal{T}} {P(t\vert z, S)}$
 
 Reactant $G$ 에 대한 확률은 최종적으로 Reactant G까지 갈 수 있는 모든 action 경로들의 합으로 표현되는데, 최종적으로 모델은 VAE와 동일하게 ELBO term으로 학습됩니다.
 
-$\mathcal{L}_ {ELBO} = \mathbb{E}_ {z\sim q}[log P(G|z, S)] - KL[q(z|G,S)||p(z|S)]$
+$\mathcal{L}_ {ELBO} = \mathbb{E}_ {z\sim q}[log P(G\vert z, S)] - KL[q(z\vert G,S)\vert\vert p(z\vert S)]$
 
-이때 $q(z|G,S)$ 는 $\mu$와 $\sigma^ {2}$로 parametrized 된 확률 분포이고, $\mu$와 $\sigma^ {2}$ 는 reactant $G$ 와 synthon $S$로부터 학습되어 얻어집니다.
+이때 $q(z\vert G,S)$ 는 $\mu$와 $\sigma^ {2}$로 parametrized 된 확률 분포이고, $\mu$와 $\sigma^ {2}$ 는 reactant $G$ 와 synthon $S$로부터 학습되어 얻어집니다.
 
 한 문장으로 요약을 하자면, 이 논문은 VAE 방식으로 graph transformation action을 생성하여 주어진 Synthon을 변환시켜서 Reactant를 만들어내는 것입니다.
 
@@ -202,7 +203,7 @@ $s_ {u}=\mathbf{u_ {a}}^ {T} \tau(\mathbf{W}_ {\mathbf{a}}\mathbf{c}_ {u} + b)$
 
 $s_ {uvk}=\mathbf{u_ {k}}^ {T} \tau(\mathbf{W}_ {\mathbf{k}}\mathbf{c}_ {uv} + b_ {k})$
 
-이때 $\tau$는 ReLU 활성 함수를 의미하고, 결합 $(u, v)$의 임베딩 $\mathbf{c}_ {uv}  = (\text{ABS}(\mathbf{c}_ {u}, \mathbf{c}_ {v})||\mathbf{c}_ {u}+ \mathbf{c}_ {v})$ 로 임베딩이 permutation에 invariant하도록 설계됩니다.
+이때 $\tau$는 ReLU 활성 함수를 의미하고, 결합 $(u, v)$의 임베딩 $\mathbf{c}_ {uv}  = (\text{ABS}(\mathbf{c}_ {u}, \mathbf{c}_ {v}) \vert \vert \mathbf{c}_ {u}+ \mathbf{c}_ {v})$ 로 임베딩이 permutation에 invariant하도록 설계됩니다.
 
 하지만 일반적으로 레이블들이 독립적인 classification 문제와는 달리 edit prediction 문제의 레이블들은 서로 독립적이지 않다는 특징을 가지고 있습니다.
 예를 들어, 분자 구조에서 aromatic ring 구조는 안정되어 물질의 합성 과정에서도 크게 변하지 않을 가능성이 큽니다.

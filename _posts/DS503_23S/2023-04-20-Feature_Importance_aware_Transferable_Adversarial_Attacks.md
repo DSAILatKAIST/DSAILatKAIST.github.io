@@ -39,15 +39,13 @@ $$.
 그러한 상황에서 이미 알려져 있는 대리 모델 (surrogate model)을 속이는 적대적 이미지를 생성하여, 타겟 모델도 속이는 공격을 전이 기반 공격이라 한다.
 이를 수식으로 나타내면 다음과 같다:
 
-$$
-\arg \max_{x^{adv}} \mathcal{L}_\phi(x^{adv}, t), \\
+$\arg \max_ {x^{adv}} \mathcal{L}_ \phi(x^{adv}, t), \\
 \text{s.t.} \parallel x - x^{adv} \parallel_p \le \epsilon, \\
-\text{and} f_\theta(x^{adv}) \neq t.\tag{1}
-$$
+\text{and} f_ \theta(x^{adv}) \neq t.\tag{1}$
 
-즉, 대리 모델 $h_\phi$와 정답 레이블 $t$ 대해서 임의의 손실함수 (*e.g.*, classification loss) $\mathcal{L}_\phi$를 최대화하는 적대적 이미지 $x^{adv}$를 생성한다. 
-이 때 $x^{adv}$는 기존 이미지 $x$와 육안으로는 다르지 않아야 한다라는 제한을 만족시키기 위해 적대적 섭동 (adversarial perturbation)의 크기를 $\ell_p$-norm에서 $\epsilon$으로 제한한다.
-이렇게 생성된 $x^{adv}$가 타겟 모델 $f_\theta$의 예측을 망가뜨리는 것이 전이 기반 공격의 목적이다.
+즉, 대리 모델 $h_ \phi$와 정답 레이블 $t$ 대해서 임의의 손실함수 (*e.g.*, classification loss) $\mathcal{L}_ {\phi}$를 최대화하는 적대적 이미지 $x^{adv}$를 생성한다. 
+이 때 $x^{adv}$는 기존 이미지 $x$와 육안으로는 다르지 않아야 한다라는 제한을 만족시키기 위해 적대적 섭동 (adversarial perturbation)의 크기를 $\ell_ p$-norm에서 $\epsilon$으로 제한한다.
+이렇게 생성된 $x^{adv}$가 타겟 모델 $f_ \theta$의 예측을 망가뜨리는 것이 전이 기반 공격의 목적이다.
 
 ## **2. Motivation**  
 
