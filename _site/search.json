@@ -77,6 +77,336 @@
 
 
 {
+"title": "[CIKM 2020] Temporal and Heterogeneous Graph Neural Network for Financial Time Series Prediction",
+"tags": "reviews",
+"keywords": "",
+"url": "Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Temporal 2D-Variation Modeling for General Time Series Analysis2",
+"tags": "reviews",
+"keywords": "",
+"url": "Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Temporal 2D-Variation Modeling for General Time Series Analysis",
+"tags": "reviews",
+"keywords": "",
+"url": "Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2021] TabNet: Attentive Interpretable Tabular Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "TabNet_Attentive_Interpretable_Tabular_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NIPS 2021] Subgraph Federated Learning with Missing Neighbor Generation",
+"tags": "reviews",
+"keywords": "",
+"url": "Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2022] Structure-Aware Transformer for Graph Representation Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Structure_Aware_Transformer_for_Graph_Representation_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[T-ITS 2021]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks",
+"tags": "reviews",
+"keywords": "",
+"url": "Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[WWW 2021] SimGRACE: A Simple Framework for Graph Contrastive Learning without Data Augmentation",
+"tags": "reviews",
+"keywords": "",
+"url": "SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] PLOT: PROMPT LEARNING WITH OPTIMAL TRANSPORT FOR VISION-LANGUAGE MODELS",
+"tags": "reviews",
+"keywords": "",
+"url": "Prompt_learning_with_optimal_transport.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2022] Neural Link Prediction with Walk Pooling",
+"tags": "reviews",
+"keywords": "",
+"url": "Neural_Link_Prediction_with_Walk_Pooling.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2023] NEURAL DAG SCHEDULING VIA ONE-SHOT PRIORITY SAMPLING",
+"tags": "reviews",
+"keywords": "",
+"url": "NEURAL_DAG_SCHEDULING_VIA_ONE_SHOT_PRIORITY_SAMPLING.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2021] MixGCF: An Improved Training Method for Graph Neural Network-based Recommender Systems",
+"tags": "reviews",
+"keywords": "",
+"url": "MixGCF_An_Improved_Training_Method_for_Graph_Neural_Network_based_Recommender_Systems.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[Entropy 2023] Mining Mobile Network Fraudsters with Augmented Graph",
+"tags": "reviews",
+"keywords": "",
+"url": "Mining_Mobile_Network_Fraudsters_with_Augmented_Graph.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization",
+"tags": "reviews",
+"keywords": "",
+"url": "Matrix_Encoding_Networks_for_Neural_Combinatorial_Optimization.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2022] Learning from Counterfactual Links for Link Prediction",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_from_Counterfactual_Links_for_Link_Prediction.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2021] Learning Process-consistent Knowledge Tracing",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_Process-consistent_Knowledge_Tracing.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] LEARNING MLPS ON GRAPHS: A UNIFIED VIEW OF EFFECTIVENESS, ROBUSTNESS, AND EFFICIENCY",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_MLPs_On_Graphs_A_Unified_View_Of_Effectieness_Robustness_And_Efficiency.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NIPS 2021] Learning Graph Models for Retrosynthesis Prediction",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_Graph_Models_for_Retrosynthesis_Prediction.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2022] How to Train Your MAML to Excel in Few-Shot Classification",
+"tags": "reviews",
+"keywords": "",
+"url": "How_to_Train_Your_MAML_to_Excel_in_Few_Shot_Classification.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[SIGIR 2021] HGKT: Introducing Hierarchical Exercise Graph for Knowledge Tracing",
+"tags": "reviews",
+"keywords": "",
+"url": "HGKT_Introducing_Hierarchical_Exercise_Graph_for_Knowledge_tracing.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2021] Generative Scene Graph Networks",
+"tags": "reviews",
+"keywords": "",
+"url": "Generative_Scene_Graph_Networks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICCV 2021] Feature Importance-aware Transferable Adversarial Attacks",
+"tags": "reviews",
+"keywords": "",
+"url": "Feature_Importance_aware_Transferable_Adversarial_Attacks.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle",
+"tags": "reviews",
+"keywords": "",
+"url": "EASE_Extractive_Abstractive_Summarization_End_to_End_using_the_Information_Bottleneck_Principle.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion",
+"tags": "reviews",
+"keywords": "",
+"url": "Dreaming_to_Distill_Data_free_Knowledge_Transfer_via_DeepInversion.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2020] Diffusion Models for Adversarial Purification",
+"tags": "reviews",
+"keywords": "",
+"url": "Diffusion_Models_for_Adversarial_Purification.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[Nat. Mach. Intell. 2023] Deep learning based on parameterized physical forward model for adaptive holographic imaging with unpaired data",
+"tags": "reviews",
+"keywords": "",
+"url": "Deep_learning_based_on_parameterized_physical_forward_model_for_adaptive_holographic_imaging_with_unpaired_data.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ASME 2022] Deep Generative Tread Pattern Design Framework for Efficient Conceptual Design",
+"tags": "reviews",
+"keywords": "",
+"url": "Deep_Generative_Tread_Pattern_Design_Framework_for_Efficient_Conceptual_Design.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICDM 2022] DAGAD: Data Augmentation for Graph Anomaly Detection",
+"tags": "reviews",
+"keywords": "",
+"url": "DAGAD_Data_Augmentation_for_Graph_Anomaly_Detection.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2021] CutPaste : Self-Supervised learning for Anomaly Detection and Localization",
+"tags": "reviews",
+"keywords": "",
+"url": "CutPaste_Self-supervised_learning_for_Anomaly_Detection_and_Localization.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2022] A Stitch in Time Saves Nine",
+"tags": "reviews",
+"keywords": "",
+"url": "A_Stitch_in_Time_Saves_Nine.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[KDD 2021] A Multi-Graph Attributed Reinforcement Learning based Optimization Algorithm for Large-scale Hybrid Flow Shop Scheduling Problem",
+"tags": "reviews",
+"keywords": "",
+"url": "A_Multi_Graph_Attributed_Reinforcement_Learning_based_Optimization_Algorithm_for_Large_scale_Hybrid_Flow_Shop_Scheduling_Problem.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NIPS 2021] ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "ABC_Auxiliary_Balanced_Classifier_for_Class_Imbalanced_Semi_Supervised_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NIPS 2021] ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "ABC_Auxiliary_Balanced_Classifier_for_Class-Imbalanced_Semi-Supervised_Learning.html",
+"summary": ""
+}
+,
+
+
+{
 "title": "[ICML 2022] Deep Variational Graph Convolutional Recurrent Network for Multivariate Time Series Anomaly Detection",
 "tags": "reviews",
 "keywords": "",

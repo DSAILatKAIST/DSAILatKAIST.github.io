@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2022] Neural Link Prediction with Walk Pooling | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2022] Neural Link Prediction with Walk Pooling page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2022] Neural Link Prediction with Walk Pooling">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2022] Neural Link Prediction with Walk Pooling</h1>
+        <p class="post-meta"><time datetime="2023-04-20T00:00:00+09:00" itemprop="datePublished">Apr 20, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="iclr-2022neural-link-prediction-with-walk-pooling">[ICLR 2022]Neural Link Prediction with Walk Pooling</h1>
+
+<h2 id="1-motivation">1. <strong>**Motivation</strong>**</h2>
+
+<p>그래프는 coauthorship 네트워크 또는 human protein interactome와 같은 관계 데이터에 대한 자연스러운 모델입니다. 성공적인 Link prediction은 그래프 형성의 원리를 이해해야 합니다.그래프 신경망은 그래프 topology와 노드 feature들을 활용하여 Link prediction문제에서 높은 정확도를 달성합니다. 그러나 topology 정보는 간접적으로 표현되어 왔습니다. 서브 그래프 분류를 기반으로 하는 기존 state-of-the-art 방법들은 타겟 링크와 노드 거리에 따라 라벨을 붙여 topology 정보를 표현했습니다. 이 방법은 topology정보가 존재하지만, pooling에 의해 정보가 약해집니다.</p>
+
+<p>본 논문에서는 이전 방법과는 두 가지 차이점을 둔 link prediction알고리즘을 제안합니다:</p>
+
+<p>(1) 복잡한 네트워크를 통해 topology의 중요성을 보여줍니다.</p>
+
+<p>(2) 기존의 GNN 기반 링크 예측 알고리즘은 topology 기능을 간접적으로만 인코딩하였습니다.Link prediction은 강력한 topology 테스크이기 때문에 topolgy정보를 직접적으로 표현 해야합니다. 이를위해 그래프 신경망(GNN)의 새로운 도메인을 활용하고, 최적의 feature를 학습합니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212276-b9e0e247-fca0-4d56-a2df-9c0836a8d4e3.png" alt="https://user-images.githubusercontent.com/130838113/232212276-b9e0e247-fca0-4d56-a2df-9c0836a8d4e3.png" /></p>
+
+<p>기존의 heuristics은 삼각형 또는 사각형 모양을 선호하는 것과 같은 특정 topological한 규칙을 가정합니다. 하지만 이러한 규칙을 구성하는 것은 그래프 전체에서 보편적이지 않으므로 학습해야 합니다. 본 논문에서는 topological한 heuristics의 학습 가능한 버전인 <strong>WALKPOOL</strong>이라는 새로운 랜덤 워크 기반 pooling메커니즘을 소개합니다.</p>
+
+<h2 id="2-problem-definition">2<strong>. Problem Definition</strong></h2>
+
+<p>$N$개의 노드를 가진 그래프  $\mathcal{G^o =(V,E^o)}$에 대해 생각해보겠습니다. $\mathcal{V}$는 노드 집합이고,</p>
+
+<p>$\mathcal{E^o}$는 관측된 에지의 집합입니다. $\mathcal{E^o}$는 전체 링크 집합 $\mathcal{ E^*}$의 부분 집합입니다. link prediction의 target은 $\mathcal{E^c}$(관측 되지 않은 에지)로 부터  link를 추론하는 것 입니다.</p>
+
+<p>문제를 다음과 같이 정의할 수 있습니다.</p>
+
+<p><strong>Problem (Link predction)</strong></p>
+
+<p>관찰된 그래프 $\mathcal{G^o} \subset\mathcal{G}$를 가지고 정확하게 $\mathcal{E^c}$의 link들을 예측하는 알고리즘 $LearnLP(\mathcal{G^o}) = \Pi :\mathcal{V\times V}\rightarrow {True,False}$ 를 설계하는 것.</p>
+
+<h2 id="3-method"><strong>**3. Method</strong>**</h2>
+
+<p><strong>WALKPOOL</strong>을 소개하기 전에 단순화를 위해 몇 가지 notation에 대해 설명하겠습니다.</p>
+
+<ul>
+  <li>각 노드 =   $1,2,…,N$</li>
+  <li>인접 행렬 $A = (a_{ij})^N_{i,j=1}\in{0,1}^{N\times N}\text{ with }a_{ij} = 1 \text{ if } {i,j} \in \mathcal{E^o}$ and $a_{ij} = 0$  otherwise.</li>
+  <li>노드의 feature 벡터 =  $x_i \in \mathbb{R}^F, i \in {1,….N}$</li>
+  <li>feature 벡터 행렬 $X = [x_1,…,x_n]^T \in \mathbb{R}^{N \times F}$</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$D = diag(d_1,…d_n)$ ,  $d_i = \sum_ja_{ij} =</td>
+          <td>N(i)</td>
+          <td>$</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>$P = D^{-1}A$</li>
+</ul>
+
+<p><strong>WALKPOOl</strong>은 먼저 대상 링크를 포함하는 k-hop 서브 그래프(타겟 링크를 구성하는 노드들로 부터 거리가 k이내인 노드들이 이루는 그래프)를 샘플링 합니다, 타겟 링크를 포함한 서브 그래프, 포함하지 않은 서브 그래프에 대한 랜덤 워크 profiles을 각각 계산합니다.그 후 랜덤 워크 profiles이 링크 분류기에 입력됩니다. walk profiles의 계산은 다음과 같이 이루어집니다.</p>
+
+<ol>
+  <li>
+    <p>Feature를  GNN을 통해 구합니다 $Z = f_\theta(A,X), where\text{ } f_\theta\text{ is a GNN}$</p>
+  </li>
+  <li>
+    <p>Transition matrix P를 계산합니다.  $P = AttentionCoefficients_\theta(Z;\mathcal{G})$</p>
+  </li>
+  <li>
+    <p>$P^\tau$ 의 entries로 부터 Walk profiles를 구합니다.( $2\leq \tau \le\tau_c$   )</p>
+  </li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212271-edfbc72d-e7d0-4ee3-ba7f-c1a00ee4f593.png" alt="https://user-images.githubusercontent.com/130838113/232212271-edfbc72d-e7d0-4ee3-ba7f-c1a00ee4f593.png" /></p>
+
+<p>여기서  $Attentioncoefficients$를  랜덤 워크의 transition 확률로 해석합니다. 다음은 <strong>WALKPOOL</strong>의 각 단계에 대해서 설명하겠습니다.</p>
+
+<h3 id="31-sampling-the-enclosing-subgraphs">3.1 Sampling the enclosing subgraphs</h3>
+
+<p>이전 연구에 따르면 링크의 존재는 작은 반경 k 내(k-hop 이내의)의 이웃에만 의존한다고 가정합니다. k(이 논문에서는 2정도로)를 작게 유지하는 것이 메모리를 절약하고 계산을 줄일 수 있어서 실용적입니다. 타겟 링크 ${i,j}$을 포함한 서브 그래프를 샘플링 한다고 가정하겠습니다.</p>
+
+<ul>
+  <li>$d(x,y)$ : 노드 $x,y$의 거리중 가장 짧은 거리</li>
+  <li>$\mathcal{V^k_{{i,j}}} = {x\in\mathcal{V}:d(x,i) \le k\text{ or }d(x,j)\le k}$</li>
+  <li>$\mathcal{G_{{i,j}}^k}$ = $(\mathcal{V^k_{{i,j}}},\mathcal{E^k_{{i,j}}})$ : k- hop의 서브 그래프</li>
+  <li>${x,y} \in \mathcal{E^o}$ 이고 $x,y \in \mathcal{V^k_{{i,j}}}$일 때 ${x,y} \in \mathcal{E^k_{{i,j}}}$</li>
+  <li>$A_{{i,j}}$ : $\mathcal{V_{{i,j}}}$에 있는 노드에 해당하는 인접 행렬</li>
+  <li>$Z_{{i,j}}$( $Z_{{i,j}}$ $\subset$ $Z$)  : 서브 그래프 노드들의 feature matrix</li>
+</ul>
+
+<p>간단히  $\mathcal{G_{{i,j}}^k}$ = $(\mathcal{V^k_{{i,j}}},\mathcal{E^k_{{i,j}}})$를  ${G_{{i,j}}}$ = $(\mathcal{V_{{i,j}}},\mathcal{E_{{i,j}}})$로 표시하겠습니다.</p>
+
+<p>$\mathcal{V_{{i,j}}}$에 있는 노드 $i$와 노드$j$가 1과 2로 각각 레이블되어 타겟 링크 ${i,j}$가 서브 그래프에서 ${1,2}$에 mapping 될 수 있도록 합니다. $\mathcal{E^c}$에 대해 $\mathcal{S^c} = {G_{{i,j}}: {i,j}\in \mathcal{E^c}}$ 인 서브 그래프를 만들어서 link prediction문제를 k-hop 서브 그래프 분류 문제로 변환합니다. 학습을 위해 링크 존재 유무가 알려진 에지 $\mathcal{E^t}$를 샘플링하여 이에 해당하는 서브 그래프 set  $\mathcal{S^t}={G_{i,j}:(i,j)\in \mathcal{E^t}}$ 를 구성합니다.</p>
+
+<h3 id="32-random-walk-profile">3.2 Random-walk profile</h3>
+
+<p>다음 단계는 인접 행렬 $A_{{i,j}}$ 및 노드 representations $Z_{{i,j}}$에서 샘플링된 서브 그래프를 분류하는 것입니다. 랜덤 워크를 사용하여 higher-order topological 정보를 추론합니다. 서브 그래프의 경우 노드 representations  $Z$를 에지 weights로 인코딩하여 해당 서브 그래프에서 랜덤 워크의 transition 확률을 계산하고 이를 사용해 타겟 링크에 profile을 계산합니다.</p>
+
+<p>먼저 두 개의 노드의 상관 관계를 에지 가중치로 인코딩합니다.</p>
+
+\[\omega_{x,y} = Q_\theta(z_x)^TK_\theta(z_y)/\sqrt{F^{\prime\prime}} \quad\quad\quad\quad\quad\quad\quad(1)\]
+
+<p>여기서 ${x,y} \in \mathcal{E}$ 이고, $Q_\theta : \mathbb{R}^{F\prime}\rightarrow\mathbb{R}^{F\prime\prime}$ , $K_\theta : \mathbb{R}^{F\prime}\rightarrow\mathbb{R}^{F\prime\prime}$ 인  2층 구조인 퍼셉트론 입니다. $F^{\prime\prime}$은 퍼셉트론의 출력 차원과 같습니다.  ${x,y} \in \mathcal{E}$ 인 에지에 대해서</p>
+
+\[p_{x,y} = [softmas((\omega_{x,z})_{z\in \mathcal{N}(x)})] := \frac {exp(\omega_{x,y})}{\sum_{z\in \mathcal{N}(x)}exp(\omega_{x,z})} \quad\quad(2)\]
+
+<p>랜덤워크 transition 확률 행렬 $P$ = $p(x,y)$ 를 계산 합니다.  $\mathcal{E}$에 포함되지 않는 에지에 대해선 $p_{x,y} = 0$ 입니다.  $\mathcal{N}(x)$는 서브 그래프에서  $x$의 이웃 노드 입니다.</p>
+
+<p>행렬 $[P^\tau]<em>{ij}$의 성분들은 랜덤 워커가 $i$에서 $j$로 $\tau$ hops에 갈 확률로 해석할 수 있습니다. P는 타겟 링크와 관련된 노드 속성과 topogical한 정보들을  랜덤 워크의 형태로 나타냅니다. Topolgy 정보들은 GNN에서 노드 features $Z$를 추출 할때 간접적으로, P에 의해 직접적으로 포함됩니다. 입력 feature는  GNN이 노드의 features를 추출할 때 직접 포함되며, 키, 값 함수 $Q</em>\theta\text{ },K_\theta$에 의해 Topology정보와 결합됩니다.</p>
+
+<p>행렬 $P$와 그 거듭 제곱으로부터 그래프 분류 문제에서 사용되는 features들을 계산 할 수 있습니다.노드 레벨, 링크 레벨, 그래프 레벨의 feature들을  아래와 같이 계산할 수 있습니다.</p>
+
+\[node^\tau = [P^\tau]_{1,1}+[P^\tau]_{2,2},\text{ }link^\tau = [P^\tau]_{1,2}+[P^\tau]_{2,1},\text{ }graph^\tau = tr[P^\tau].\quad(3)\]
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212273-29035fca-878a-4508-a75a-62e32dd9cced.png" alt="https://user-images.githubusercontent.com/130838113/232212273-29035fca-878a-4508-a75a-62e32dd9cced.png" /></p>
+
+<p>모든 feature들은 $\tau$가 2인 경우로 계산되었습니다.</p>
+
+<p>특징들을 살펴보면, 노드 레벨의 feature는 주변 후보 링크들의 loop 구조로 나타나고,링크 레벨의 feature들은 대칭적입니다. 그래프 레벨의 feature는 모든 노드가  $\tau$의 크기만큼 loop를 돌 확률의 합과 같습니다. GNN에서 $A$의 거듭 제곱은 filter에 의해 가중치로 곱해지고 노드 feature에 가중치를  주는 데 사용되고 ,<strong>WALKPOOL</strong> 에서는 그래프 신호를 유효한 에지 가중치로 인코딩하고 $P^\tau$의 성분에서topological한 정보를 추출하는데 사용됩니다.</p>
+
+<h3 id="33-perturbation-extraction">3.3 Perturbation extraction</h3>
+
+<p>정의에 따라 true 링크는 항상 서브 그래프에 존재하고, negative 링크는 존재하지 않습니다. 링크의 존재 유무가 walk prfiles에 많은 영향을 미치기 때문에 서브 그래프의 feature(3)을 직접 계산하면 overfitting으로 이어집니다. 이를 방지하기 위해 perturbation 접근 방식을 사용합니다. 샘플링된 서브 그래프 $\mathcal{G} =\mathcal{(V,E)}$ 에 대해 각각 타겟 링크를 존재하도록, 존재하지 않도록 변형한 그래프 $\mathcal{G^+} =\mathcal{(V,E\cup{1,2})}$  , $\mathcal{G^-} =\mathcal{(V,E\setminus{1,2} )}$ 를 정의합니다.</p>
+
+<p>그러면 각각의 그래프에 대해 노드 레벨 feature를 $node^{\tau,+}$ 와 $node^{\tau,-}$로 나타낼 수 있습니다. 유사하게 링크 레벨의 feature와 그래프 레벨의 feature도 나타낼 수 있습니다. 노드 레벨의 feature와 링크 레벨의 feature와는 다르게 그래프 레벨의 feature는 예측하고자 하는 링크와 관련된 정보가 그래프 전체 정보로 합쳐지게 되면서 흐려지게 만들기 때문에 링크 예측에 유용하지 않습니다. 필요 없는 전체 정보를 삭제하기 위해  perturbation = $\Delta graph^\tau = graph^{\tau,+} - graph^{\tau,-}$ 을 계산합니다.</p>
+
+<p>모든 $\mathcal{G \in\text{ }}{\mathcal{G_{{i,j}}:{i,j}\in E^c} }$에 대해 WALKPOOL을 사용하여 아래와 같은 features의 리스트를 읽을 수 있습니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212249-b56e1361-b613-41bb-a211-d69990d7ef21.png" alt="https://user-images.githubusercontent.com/130838113/232212249-b56e1361-b613-41bb-a211-d69990d7ef21.png" /></p>
+
+<p>$\tau^c$는 walk 길이의 cutoff이고 하이퍼파라미터로 다룰 수 있습니다. 이러한 features는 최종적으로 시그모이드 함수를 포함한 MLP  $\Pi_\theta$를 통과합니다.</p>
+
+<h3 id="34-training-the-mode">3.4 Training the mode</h3>
+
+<p>논문에 설명된 모델은 관측된 positive 및 negative 링크가 포함된 집합 $\mathcal{E^c}$와 그 주변 서브 그래프에 적합한 trainable한 매개 변수 $\theta$가 포함되어 있습니다. 본 논문에서는 MSE loss 이용하여 <strong>WALKPOOL</strong>을 train하였습니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212255-4b2bbce8-1dcd-427a-8b65-c9eea6d0eb83.png" alt="https://user-images.githubusercontent.com/130838113/232212255-4b2bbce8-1dcd-427a-8b65-c9eea6d0eb83.png" /></p>
+
+<p>$y_{{i,j}} = 1$   ${i,j} \in \mathcal{E^o}$ , $y_{{i,j}} = 0$  otherwise .</p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+
+<h3 id="41-datasets">4.1 Datasets</h3>
+
+<p>노드 속성이 없는 8개의 데이터 세트와 속성이 있는 7개의 데이터 세트로 실험합니다. 속성이 없는 그래프로는  USAir, NS, PB, Yeast , C.ele, Power, Router, E.coli 을 사용하였습니다.</p>
+
+<p>속성이 있는 그래프는 Cora , Citeseer, Pubmed , Chameleon, Cornell , Texas ,  Wisconsin을 사용하였습니다. 에지의 90%는 training 에지로 사용하고 나머지 10%는 test 에지로 사용합니다. 동일한 수의 negative sampling된 에지를 사용하였습니다.</p>
+
+<h3 id="42-baselines">4.2 Baselines</h3>
+
+<p>본 논문에서는 노드 속성이 없는 벤치마크에서 WalkPool을  walkbased heuristics인 AA, Katz ,PR과 subgraph-based heuristic인 Weisfeiler–Lehman graph kernel (WLK) 과 WLNM 및 feature method인 node2vec(N2V), spectral clustering (SPC), matrix factorization (MF), LINE과 GNN 기반의 SEAL 총 8가지 방법론과 비교하였습니다. 노드 속성이 있는 데이터 세트의 경우에는  VGAE, ARGVA 및 GIC(Graph InfoClust)의 세 가지 비지도 GNN 기반 모델과 WalkPool과 결합하여 사용하였습니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212258-5739676b-1b3e-4ab7-ac3a-e5b4e2078862.png" alt="https://user-images.githubusercontent.com/130838113/232212258-5739676b-1b3e-4ab7-ac3a-e5b4e2078862.png" /></p>
+
+<h3 id="44-results">4.4 Results</h3>
+
+<p><strong>Synthetic datasets의 경우</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212261-874e375e-baaf-4e6f-9d6d-9e14f23c0a63.png" alt="https://user-images.githubusercontent.com/130838113/232212261-874e375e-baaf-4e6f-9d6d-9e14f23c0a63.png" /></p>
+
+<p>WalkPool은 모든 실험에서 동일한 하이퍼 파라미터를 사용하여 그래프 형성 규칙에 대한 사전 지식 없이 패턴을 잘 학습합니다. 실험에서 볼 수 있듯 topological한 organizing 규칙이 명시적으로 나타난 Synthetic datasets의 경우에 WALKPOOL은 매우 좋은 성능을 보입니다.</p>
+
+<p><strong>Datasets without attributes인 경우</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212264-0931b6d9-2e3a-40d5-96e2-fd5d8871a3df.png" alt="https://user-images.githubusercontent.com/130838113/232212264-0931b6d9-2e3a-40d5-96e2-fd5d8871a3df.png" /></p>
+
+<p>WalkPool은 homophilic(높은 ACC) 데이터 세트와 heterophilic(낮은 ACC) 데이터 세트 모두 state-of-the-art를 달성합니다. AA 및 Katz와 같은 topology-based heuristics이 잘 작동하지 않았던 Power 및 Router 그래프에서도 WalkPool은 매우 좋은 성능을 내는 것을 볼 수 있습니다.  이를 통해 walk profiles이 로컬 네트워크의 패턴을 잘 학습하며, WalkPool이 사전에 topological한 가정하지 않고도 데이터에서 잘 학습할 수 있음을 볼 수 있습니다.</p>
+
+<p><strong>Datasets with node attributes인 경우</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/130838113/232212268-9cc5ec91-bc9f-43f4-b2d4-152dc7538593.png" alt="https://user-images.githubusercontent.com/130838113/232212268-9cc5ec91-bc9f-43f4-b2d4-152dc7538593.png" /></p>
+
+<p><strong>WALKPOOL</strong>을 사용했을 때와 사용하지 않았을 때의 모델의 결과를 볼 수 있습니다. <strong>WALKPOOL</strong>은 모든 비지도 학습 모델에 대해서 성능을 향상시킵니다. 특히 Pubmed 같은 topolgy정보에 대한 중요성이 큰 데이터에 대해서 많은 성능향상을 보입니다.</p>
+
+<h2 id="discussion">Discussion</h2>
+
+<p>그래프의 topology는  링크 예측에서 중요한 역할을 합니다. topology는 링크에 의해 정의되기 때문에 링크 예측과 topology가 많은 관계가 있습니다.대부분의 GNN 기반 링크 예측 방법은 노드 representation과 함께 작동하며 topological한 정보를 적절하게 활용하지 않습니다. <strong>WALKPOOL</strong>은 노드representation 과 그래프 topology를 학습된 topological한 feature로 인코딩합니다. Supervised하거나unsupervised한 GNN을 <strong>WALKPOOL</strong>과 결합하면 다양한 구조적 특성을 가진 광범위한 벤치 마크에서 state-of-the art 를 달성할 수 있습니다.</p>
+
+<h3 id="author">Author</h3>
+
+<ul>
+  <li>Seonghyeon Jo
+    <ul>
+      <li>Graduate School of Data Science, KAIST, Daejeon, Korea</li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

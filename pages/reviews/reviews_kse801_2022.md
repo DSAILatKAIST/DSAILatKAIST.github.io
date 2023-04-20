@@ -27,7 +27,7 @@ summary: Archive to save the reviews from KSE801 (2022F)
 - [[ICLR 2020] Graph Information Bottleneck for Subgraph Recognition](../../_posts/KSE801/2022-09-28-Graph_Information_Bottleneck_for_Subgraph_Recognition.md)
 - [[ICLR 2022] Online Coreset Selection for Rehearsal-based Continual Learning](../../_posts/KSE801/2022-10-16-Online_Coreset_Selection_for_Rehearsal_based_Continual_Learning.md)
 - [[NeurIPS 2021] Do Transformers Really Perform Bad for Graph Representation](../../_posts/KSE801/2022-10-16-Do_Transformers_Really_Perform_Bad_for_Graph_Representation.md)
-
+- [TEST](../../_posts/KSE801/2023-04-19-test.md)
 
 
 

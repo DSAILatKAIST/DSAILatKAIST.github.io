@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization</h1>
+        <p class="post-meta"><time datetime="2023-04-20T00:00:00+09:00" itemprop="datePublished">Apr 20, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="title">Title</h1>
+<p>Matrix Encoding Networks for Neural Combinatorial Optimization</p>
+
+<h1 id="1-problem-definition">1. Problem Definition</h1>
+<p>최근 몇 년간 <strong>combinatorial optimization (CO) problem</strong>을 해결하기 위한 approch로 <strong>machine learning (ML)</strong> 이 많이 활용되고 있다. 가장 대표적인 접근 방법은, CO problem의 input data의 global information을 problem의 각 entity에 대한 representation으로 encoding하는 <strong>“front-end” neural net</strong>을 활용하는 것이다.<br />
+“front-end” model을 통해 각 entity의 representation을 도출하고, 이를 순차적으로 선택하는 selection strategy를 통하여 CO problem에 대한 solution을 얻을 수 있고, optimal selection strategy를 학습하기 위해 <strong>end-to-end reinforcement learning (RL)</strong> 을 활용하는 연구가 많이 진행되고 있다.<br />
+본 연구는 CO problem의 <strong>matrix-type data</strong>를 효과적으로 처리하는 “front-end” model인 <strong>Matrix Encoding Network (MatNet)</strong> 을 개발한다. 그리고 <em>NP</em>-hard class에 속하는 <strong>asymmetric traveling salesman problem (ATSP)</strong> 과 <strong>flexible flow shop problem (FFSP)</strong> 에 대하여 효과를 검증하였다.</p>
+
+<h1 id="2-motivation">2. Motivation</h1>
+<p><strong>Matrix-type data</strong>는 CO problem에서 흔히 다루어진다. 예를 들어, 각 도시를 반드시 한번씩 방문하는 최단 tour를 찾는 문제인 traveling salesman problem (TSP)의 경우, Euclidean distance의 가정을 풀게되면, 두 도시간 임의의 거리가 설정되는 <strong>distance matrix</strong>가 정의되게 된다. (이러한 문제를 ATSP라 부른다.) 또한 job-shop/flow-shop scheduling problem이나 linear/quadratic assignment problem의 경우에도 matrix-type data가 정의된다. 따라서 일반적인 CO problem을 해결하는 neural solver 개발을 위해 matrix-type data의 효과적인 처리는 필수적이다.<br />
+CO problem의 matrix-type data를 encoding하는 model은 본 연구 이전에 개발되지 않았으며, CO problem의 matrix-type data는 stacked vector-lists나 2D image를 표현하는 matrix와는 <strong>permutaion invariance</strong>라는 차이가 존재한다.<br />
+따라서 본 연구는 matrix-type data를 가지는 CO problem 해결을 위해 새로운 구조의 model을 제안한다.</p>
+
+<h1 id="3-matnet">3. MatNet</h1>
+<h2 id="31-complete-bipartite-graph-with-weighted-edges">3.1 Complete bipartite graph with weighted edges</h2>
+<p>MatNet은 <strong>weighted edge</strong>를 가지는 <strong>complete bipartite graph</strong>에 대한 graph neural network (GNN)으로 볼 수 있다 (<strong>Figure 1</strong>).<br />
+해당 graph는 아래와 같이 정의된다.</p>
+<ul>
+  <li>$A={a_ 1,…,a_ M}$</li>
+  <li>$B={b_ 1,…,b_ N}$</li>
+  <li>$e(a_ i,b_ j)=D_ {ij}$</li>
+</ul>
+
+<p>$A,B$는 서로 다른 node set, $D_ {ij}$는 $a_ i$와 $b_ j$ 간 edge의 weight이다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232305747-4ba77b6f-dcb2-4ea4-b340-44053028e30f.png" width="250px" /></p>
+
+<h2 id="32-dual-graph-attention-layer">3.2 Dual graph attention layer</h2>
+<h3 id="321-graph-attention-layer-in-kool-et-al-2019">3.2.1 Graph attention layer in Kool <em>et al.</em>, 2019</h3>
+<p>MatNet은 <a href="https://arxiv.org/abs/1803.08475">Kool <em>et al.</em>, 2019</a>의 <strong>Attention Model (AM)</strong> 의 encoder architecture를 확장한 model이다.<br />
+AM은 <strong>Transformer</strong>를 활용한 “front-end” model로, TSP와 vehicle routing problem (VRP)를 효과적으로 풀었다.<br />
+AM의 encoder는 여러 층의 <strong>graph attention networks (GATs)</strong> 를 가지는 node-embedding framework를 따른다.<br />
+Node $v$의 representation $\hat{h}_ v$를 $\hat{h}’_ v$로 업데이트하는 하나의 GATs layer는 아래와 같다.</p>
+<ul>
+  <li>$\hat{h}’_ v=\mathcal{F}(\hat{h}_ v,{\hat{h}_ w\vert w\in \mathcal{N}_ v})$</li>
+</ul>
+
+<p>$\mathcal{N}_ v$는 node $v$의 neighboring node의 set이며, $\mathcal{F}$는 multiple attention head와 aggregation process로 구성된다.</p>
+<h3 id="322-dual-graph-attention-layer-in-matnet">3.2.2 Dual graph attention layer in MatNet</h3>
+<p>MatNet도 AM과 마찬가지로 GATs framework를 따른다.<br />
+하지만, AM은 하나의 node set에 대한 <strong>self-attention</strong> 구조인 반면, MatNet은 각 node set에 대하여 구별되는 function을 구성하여 <strong>cross-attention</strong>을 수행하였고, 또한 edge weight에 대한 처리도 추가하였다.<br />
+MatNet의 한 layer에 대한 update function은 아래와 같다.</p>
+<ul>
+  <li>$\hat{h}’_ {a_ i}=\mathcal{F}_ A(\hat{h}_ {a_ i},{(\hat{h}_ {b_ j},e(a_ i,b_ j))\vert b_ j\in B})$ for all $a_ i\in A$</li>
+  <li>$\hat{h}’_ {b_ j}=\mathcal{F}_ B(\hat{h}_ {b_ j},{(\hat{h}_ {a_ i},e(a_ i,b_ j))\vert a_ i\in A})$ for all $b_ j\in B$</li>
+</ul>
+
+<p>$\mathcal{F}_ A$와 $\mathcal{F}_ B$는 parameter를 공유하지 않으며, node 쌍 $(a_ i,b_ j)$의 attention score 계산 시 $\hat{h}_ {a_ i}$와 $\hat{h}_ {b_ j}$ 뿐 아니라 $e(a_ i,b_ j)$도 함께 사용된다.<br />
+MatNet은 <strong>Figure 2(a)</strong> 와 같이 $\mathcal{F}_ A$와 $\mathcal{F}_ B$로 구성된 $L$개의 <strong>dual graph attention layer</strong>로 구성된다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232307968-80ed726b-47b8-4dfd-a2e2-af4aa53d9b89.png" width="800px" /></p>
+
+<h2 id="33-mixed-score-attention">3.3 Mixed-score attention</h2>
+<p><strong>Figure (a)</strong> 의 “Multi-Head Mixed-Score Attention”은 <strong>Transformer</strong>의 “Multi-Head Attention”에서 scaled dot-product attention이 mixed-score attention (<strong>Figure (b)</strong>)로 대체된 것이다.<br />
+Scaled dot-product attention은 query-key 쌍에 대한 attention score를 바탕으로 value의 weighted sum을 구하는 것으로, mixed-score attention에서는 attention score와 edge weight를 처리하는 <strong>“Trainable Element-wise Function”</strong> 이 추가되었다.<br />
+이는 두 개의 input node와 하나의 output node를 가지는 <strong>multilayer perceptron (MLP)</strong> 으로, attention score와 edge weight를 input으로 받아 하나의 값을 도출한다.<br />
+도출된 값을 바탕으로 value에 대한 weighted sum은 기존과 동일하게 진행된다.</p>
+
+<h2 id="34-the-initial-node-representation">3.4 The initial node representation</h2>
+<p>Set $A$의 node에 대하여는 <strong>zero-vector</strong>를, set $B$의 node에 대하여는 <strong>one-hot vector</strong>를 initial representation으로 설정한다.<br />
+Zero-vector를 사용한 $A$에 대하여는, node 수가 변하더라도 MatNet이 이를 처리할 수 있으나, $B$에 대하여는 그렇지 않다.<br />
+논문에서는 $B$의 node 수에 대한 상한을 설정할 수 있다면, 상한에 해당하는 $N_ {max}$개의 one-hot vector를 구성하고, 각 instance가 $N_ o(\le N_ {max})$개의 $B$의 node를 가진다면 $N_ {max}$개의 one-hot vector 중 $N_ o$개를 sampling하여 사용할 수 있다고 한다.<br />
+만약 적절한 $N_ {max}$를 설정할 수 없다면 $B$의 node의 initial representation을 random number로 구성된 vector로 대체할 수 있으며, 이는 size-agnostic이다. (하지만 <strong>Appendix A.3</strong>의 실험을 보면 약간의 성능 저하가 발생함을 확인할 수 있다.)  <br />
+B의 node의 initial representation을 distinct하게 구성함으로써, 두 가지 장점을 얻을 수 있다.<br />
+첫 번째는 training에 사용할 instance를 augmentation할 수 있다는 것으로, B의 node에 대하여 서로 다른 조합의 one-hot vector를 할당함으로써 가능하다.<br />
+두 번째는 test 시 B의 node에 대하여 서로 다른 조합의 one-hot vector를 할당하여 여러 개의 다른 solution을 얻을 수 있고, 그 중 좋은 solution을 취함으로써 더 좋은 성능을 보일 수 있다.</p>
+
+<h1 id="4-experiment">4. Experiment</h1>
+<h2 id="41-asymmetric-traveling-salesman-problem">4.1 Asymmetric traveling salesman problem</h2>
+<h3 id="instance-generation">Instance generation</h3>
+<p>“tmat”-class ATSP instance를 사용하였고, 자세한 생성 방식은 <a href="https://link.springer.com/chapter/10.1007/3-540-44808-X_3">Cirasella <em>et al.</em>, 2001</a>에서 확인할 수 있다.<br />
+도시 수 $N$은 20, 50, 100의 3가지 problem size에 대하여 실험을 진행하였다.<br />
+“from” city $a_ i$와 “to” city $b_ j$에 대한 <strong>distance $d(a_ i,b_ j)$</strong> 를 <strong>edge weight</strong>로 설정하였고, 해당 matrix는 $N$-by-$N$이다.</p>
+<h3 id="matnet-configuration">MatNet configuration</h3>
+<p>5개의 encoding layer를 사용하였고 ($L=5$), embedding dimension $d_ {model}$은 256으로 설정하였다. $\mathcal{F_ A}$와 $\mathcal{F_ B}$는 동일하게 16개의 attention head를 가지며 score-mixing MLP는 16개 node의 하나의 hidden layer를 설정하였다.<br />
+<strong>Figure 2(a)</strong> 에서 “Feed-forward” block은 dimmension 516의 하나의 hidden layer로 구성하였고, “Add &amp; Norm”은 instance normalization이다.</p>
+<h3 id="decoder">Decoder</h3>
+<p>Decoder는 <a href="https://arxiv.org/abs/1803.08475">Kool <em>et al.</em>, 2019</a>와 동일하게 한번에 하나의 방문할 city를 <strong>autoregressive</strong>하게 생성하며, model 구조는 <strong>Figure 3</strong>에서 확인할 수 있다.<br />
+이때, <a href="https://arxiv.org/abs/1803.08475">Kool <em>et al.</em>, 2019</a>와 다르게 “QUERY” token은 현재 city와 처음 방문한 city의 representation을 concatenate하여 구성하였다.<br />
+“to” city에 대한 representation이 decoder에 들어가면, 다음으로 방문할 <strong>probability</strong>가 각 city에 대하여 산출된다.<br />
+이미 방문한 city는 mask 처리 된다.<br />
+Probability를 기반으로 다음 방문 city를 선택하고, “QUERY” token을 수정하여 해당 과정을 반복함으로써 tour를 산출할 수 
+있다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232313360-aaabd003-646c-4f0d-a8c9-012db21fdcad.png" width="250px" /></p>
+
+<h3 id="training">Training</h3>
+<p><a href="https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html">Kwon <em>et al.</em>, 2020</a>의 <strong>POMO training algorithm</strong>을 활용한 RL로 MatNet model과 decoder를 학습하였다.<br />
+POMO는 REINFORCE algorithm을 기반으로 하며 TSP 등 CO problem에 좋은 성능을 가짐이 검증되었다.<br />
+$4\times 10^{-4}$의 learning rate와 200의 batch size를 설정하였다.</p>
+
+<h3 id="result">Result</h3>
+<p><strong>Table 4.1</strong>은 mixed-integer program (MIP)를 CPLEX를 통해 풀어 구한 optimal solution 대비 각 알고리즘들의 성능 저하 비율(Gap)을 보여준다.<br />
+Nearest Neighbor, Nearest Insertion, Furthest Insertion은 ATSP의 대표적인 greedy rule이며, LKH3은 매우 효과적인 heuristic이다.<br />
+MatNet은 single POMO rollout을 통해 하나의 solution을 도출한 결과를 보여주며, MatNet($\times$ 128)은 instance augmentaion을 통해 128개의 서로 다른 solution을 도출한 후 가장 좋은 것을 채택한 결과이다.<br />
+MatNet을 활용한 알고리즘이 optimal solution과 거의 차이가 없는 성능을 보여줌을 확인할 수 있다. <strong>(1% 미만의 optimality gap.)</strong></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232314604-dec97568-e0d6-441c-89e2-11b902cdd68f.png" width="800px" /></p>
+
+<h2 id="flexible-flow-shop-problem">Flexible flow shop problem</h2>
+<h3 id="problem-definition">Problem definition</h3>
+<p>FFSP는 순차적인 stage가 존재하고, 각 job이 각 stage에서 작업되어야 하는 문제이다. 각 stage는 여러 machine을 가지며, 각 job은 각 stage에서 반드시 하나의 machine에서 작업되어야 한다. 이때 machine은 한번에 하나의 job만 작업할 수 있으며, job과 machine pair에 대해 하나의 작업시간이 주어진다.<br />
+본 실험에서는 3개의 stage와 stage 별 4개의 machine으로 구성된 문제를 다루었고, 20, 50, 100개의 서로 다른 job size에 대하여 실험하였다.<br />
+Matrix-type data는 <strong>machine-job pair에 대한 작업시간</strong>이며, stage 별 하나의 matrix가 주어진다. 20개의 job에 대한 data 예시는 <strong>Figure 4</strong>에서 확인할 수 있다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232315222-a0bd2576-ea29-42e0-a622-adee3b208602.png" width="800px" /></p>
+
+<h3 id="encoding--decoding">Encoding &amp; decoding</h3>
+<p>MatNet model과 decoder는 각 stage에 대하여 별도로 구성되었고, solution을 생성하는 과정은 본문에 자세히 설명되어있다.</p>
+
+<h3 id="training-1">Training</h3>
+<p>ATSP와 동일하게 POMO training algorithm을 활용하여 RL로 MatNet model과 decoder를 학습하였다.</p>
+
+<h3 id="result-1">Result</h3>
+<p><strong>Table 5.2</strong>는 MatNet($\times$ 128) 대비 알고리즘들의 Gap(%)을 보여준다.<br />
+CPLEX의 경우 합리적인 시간 내 solution을 도출하지 못하였다.<br />
+Random과 Shortest Job First는 greedy rule, Genetic Algorithm과 Particle Swarm Optimization은 meta-heuristic으로 모두 FFSP에 많이 활용되는 알고리즘이다.<br />
+MatNet을 활용한 알고리즘이 다른 <strong>모든 알고리즘들 보다 좋은 solution</strong>을 도출하였고, <strong>매우 짧은 computation time</strong>을 보임을 확인할 수 있다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232315487-eb2eed0f-e5bd-4aff-b926-7e0bf669b5cd.png" width="800px" /></p>
+
+<h1 id="5-conclusion">5. Conclusion</h1>
+<p>CO problem에서 많이 다뤄지는 matrix-type data를 처리할 수 있는 neural solver 개발을 위해 “front-end” model인 MatNet을 제안하였다. MatNet은 ATSP에 대해 optimal에 근접한 solution을 도출하였고, FFSP에 대해 전통적인 알고리즘들 보다 매우 우수한 성능을 보임이 확인되었다.<br />
+Matrix-type data를 처리하기 적합한 dual attention layer를 구성한 것이 novelty를 가지긴 하지만, <strong>Appendix A.4</strong>의 <strong>Table A.1</strong>을 보면 attention layer를 dual로 구성하는 것이 single attention layer 대비 <strong>실제로는 큰 이점이 되지 않음</strong>을 확인할 수 있다.<br />
+CO problem은 서로 다른 node set을 가지는 경우가 많으며, 각 node set에 대해 별도의 처리가 필요함은 분명하다. 따라서 matrix-type data를 더 효과적으로 처리할 수 있는 model 개발이 필요할 것으로 보인다.<br />
+추가적으로 CO problem의 input data는 2D matrix를 포함하여, <strong>3D, 4D matrix 형태의 data</strong>를 가지는 경우도 많이 존재한다. 더 높은 차원의 data에 대하여도 MatNet과 같은 연구가 진행되어야 할 것으로 기대된다.</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/79552432/232316188-2d76e00c-90d0-4b0c-a85a-b7fc9c674eec.png" width="700px" /></p>
+
+<h1 id="author-information">Author Information</h1>
+<ul>
+  <li>Yeong-Dae Kwon, Jinho Choo, Iljoo Yoon, Minah Park, Duwon Park, and Youngjune Gwon
+    <ul>
+      <li>Samsung SDS</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="6-reference--additional-materials">6. Reference &amp; Additional materials</h1>
+<p>Kool <em>et al.</em>, 2019: https://arxiv.org/abs/1803.08475<br />
+Cirasella <em>et al.</em>, 2001: https://link.springer.com/chapter/10.1007/3-540-44808-X_3<br />
+Kwon <em>et al.</em>, 2020: https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html</p>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

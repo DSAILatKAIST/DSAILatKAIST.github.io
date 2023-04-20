@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_DS503_2022.html">DS503 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="DS503 (2022S)" href="reviews_DS503_2022.html">DS503 (2022S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion</h1>
+        <p class="post-meta"><time datetime="2023-04-20T00:00:00+09:00" itemprop="datePublished">Apr 20, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="dreaming-to-distill-data-free-knowledge-transfer-via-deepinversion---paper-review"><strong>Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion  | Paper Review</strong></h1>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>Teacher network의 기존 학습 데이터셋 없이 Knowledge distilation을 이뤄내는 것을 목표로 한다.</p>
+
+<blockquote>
+<em><strong>Knowledge Distilation</strong></em>: 미리 잘 학습한 큰 네트워크(teacher network)의 지식을 실제로 사용하고자 하는 작은 네트워크(student network)에 전달하는 것
+</blockquote>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>Trained neural network를 통해 knowledge를 transfer 시키기 위한 다양한 시도들이 있었고,최근에는 knowledge distilation 개념을 기반으로 문제를 해결하기 위한 시도들이 많이 있었다.</p>
+
+<p>Knowledge distilation의 경우 Trained network의 데이터셋을 보존하여 활용하거나,  데이터셋의 분포를 나타내는 대표적인 Real image가 일부 활용되어야 한다는 단점들이 있다. 실제로 Teacher network에 활용된 데이터셋은 프라이버시나 보안 등의 문제로 접근하기 어려운 경우도 많고, 용량이 커서 저장하거나 관리하기 어려운 경우가 많아 이전에 연구된 다양한 knowledge distilation 방식들은 현실적으로 활용하는데 한계가 있다.</p>
+
+<p>다양한 제약으로 인한 Prior data나 Metadata의 부재 속에서 knowledge transfer를 하기 위하여 본 논문에서는 학습된 모델이 그 자체적으로 Rich information을 가지고 있다고 가정하고, Neural Network Inversion 방식을 활용하여 Input training data를 복원한다.</p>
+
+<blockquote>
+<em><strong>Neural network inversion&lt;/em&gt;</strong> : pre-trained 모델의 weight을 고정하여 noise한 input을 forwarding 시키고, backpropagation을 통해서 weight가 아닌 node의 output을 update하여 실제 training data와 유사한 input을 예측하는 방식
+&lt;/blockquote&gt; 
+
+
+본 논문의 contribution과 application은 다음과 같다. 
+1. Data-free network pruning
+2. Data-free knowledge transfer
+3. Data-free continual learning
+
+
+## **3. Method**  
+
+본 논문의 Overall Framework는 다음과 같다. 
+
+![image](https://user-images.githubusercontent.com/47962184/232245723-c92844f8-379a-4878-92d3-355f012161de.png)
+
+#
+<strong>3.0. Knowledge Distilation</strong>
+
+앞서도 간단히 언급했듯이 Knowledge distilation은 large model인 teacher network에서 knowldge를 smaller model인 student로 transfer 하는 방법론이다. 주어진 trained model인 $p_T$와 데이터셋 $X$, student model의 파라미터 $\bf W_{\it S}$ 에 대해서 KL divergence loss를 minimize하는 방식으로 student의 파라미터 weight을 업데이트하며 학습한다. 
+
+
+&gt;$\min_{\bf W_{S}} \displaystyle\sum_{x \in X}{}{\bf KL\it (p_{T}(x),p_{S}(x))}$
+
+&gt;$p_{S}(x) = p(x, {\bf W_{\it S}})$  
+
+
+#
+<strong>3.1. DeepDream</strong>
+
+DeepDream은  Input으로 training data 대신 noise를 받아 synthesized image로 optimize하는 방식이다. 
+
+&gt;$\min_{\hat{x}}L(\hat{x}, y)+R(\hat{x})$
+
+&gt;$R_{prior}(\hat{x})=\alpha_{tv}R_{TV}(\hat{x})+\alpha_{l_2}R_{l_2}(\hat{x})$
+
+Loss function의 첫번째 term $L(\hat{x}, y)$은 실제 실제 이미지의 target label y 와 inversion과정에서 생성된 synthesized image인 $\hat{x}$과의  **Classification loss** 이다. 
+
+Loss function의 두번째 term $R(\hat{x})$은 synthesized image의 total variance($R_{TV}$)와 l2 norm($R_{l_{2}}$)로 구성된 **Regularization Term**이다. 
+
+Regularization Term은 Synthesized image를 smoothing하여 실제 이미지에 수렴시키는 역할을 한다. 
+
+#
+<strong>3.2. DeepInversion(DI)</strong>
+
+본 논문에서 소개하는 DeepInveersion에서는 DeepDream의 **Regularization Term**을 확장하여 synthesized image가 실제 이미지와 더 유사해지도록 한다. 
+
+&gt;$R_{feature}(\hat{x})=\displaystyle\sum_{l}{}{}\vert\vert\mu_l(\hat{x}-\mathbb{E}(x)\vert X) \vert\vert_2+\displaystyle\sum_{l}{}{}\vert\vert\sigma_l^2(\hat{x})-\mathbb{E}(\sigma_l^2(x)\vert X) \vert\vert_2$
+
+
+Training dataset 이미지와 Synthesized Image를 Forwarding 시켰을 때 모든 feature level (layer)에서의 값을 유사하게 만들기 위해 feature map의 차이를 minimize시키는 **feature Regularization Term**이 추가되었다. 이때 Feature statistics로서 Mean과 Variance를 활용하였다. 
+
+DeepInversion의 Regularization Term은 $R_{prior}$과 $R_{feature}$가 합쳐져서 아래와 같이 정의할 수 있다. 
+
+&gt;$R_{DI}(\hat{x})=R_{prior}(\hat{x})+\alpha_{f}R_{feature}(\hat{x})$
+
+#
+<strong>3.3. Adaptive DeepInversion(ADI)</strong>
+
+DeepInversion 방법론을 통해 이미지의 feature level을 유사하게 만들면서 실제 이미지와 유사한 synthesized Image를 생성할 수는 있지만, 그로 인해 repeated image가 만들어질 수도 있다. 이를 개선하기 위해 DeepInversion의 **Regularization Term**을 확장한다. Teacher network와 Student network output 분포가 불일치하도록 하여 동일 클래스에 속하는 이미지더라도 다양한 이미지를 생성하도록 유도한다. 
+
+&gt;$R_{complete}(\hat{x})=1-\bf JS\it (p_{T}(x),p_{S}(x)),$
+
+&gt;$JS(p_{T}(x),p_{S}(x))=\frac{1}{2}(\bf KL\it (p_{T}(x),M)+\bf KL\it (p_{S}(x),M))$
+
+&gt;$M =\frac{1}{2}(p_{T}(\hat{x}),p_{S}(\hat{x}))$
+
+Jensen-Shannon divergence는 KL divergence의 평균으로서 Regularization term에서는 JS를 1에서 빼주면서 Teacher과 Student 분포의 거리가 최대가 되도록 유도함을 확인할 수 있다. 
+
+
+Adaptive DeepInversion의 Reqularization Term은 $R_{DI}$과 $R_{complete}$가 합쳐져서 아래와 같이 정의할 수 있다. 
+
+&gt;$R_{ADI}(\hat{x})=R_{DI}(\hat{x})+\alpha_{c}R_{complete}(\hat{x})$
+
+
+
+## **4. Experiment**  
+
+
+### **4.1. Results on CIFAR-10**
+* Implementation details 
+	* Used Networks(for pretraining teachers)
+		* VGG-11-BN, ResNet-34 
+	* Image Synthesis
+		* optimizer: Adam (lr = 0.05)
+		* 2k gradient updates for image batch
+	* Parameters with simple grid search optimizing
+		* $\alpha_{tv}=2.5*10^{-5}$
+		* $\alpha_{l_{2}}=3*10^{-8}$
+		* $\alpha_f =$ {1.0, 5.0, 10.0, 100.0} (for DI)
+		* $\alpha_c = 10.0$ (for ADI)
+	* Baselines
+		* Noise &amp; DeepDream
+
+![image](https://user-images.githubusercontent.com/47962184/232246546-50664aec-8246-4bf6-a9da-c3eae708f857.png)
+
+**4.1.A. Baseline**
+
+Noise 자체는 knowledge distilation에 어떤 도움도 되지 않았음을 확인할 수 있다. Noise만이 Input으로 주어질 경우 input 분포가 급격하게 변화하여 teacher를 방해하고, transferred knowledge까지 영향을 주었다. DeepDream $R_{prior}$을 더해주면 student accuracy가 소폭 상승함을 확인할 수 있다. 
+
+**4.1.B. Effective of DeepInversion &amp; Adaptive DeepInversion**
+
+DeepInversion $R_{feature}$를 더해주면 모든 시나리오에서 40% 이상의 accuracy 향상을 확인하였다. 또한 DeepDream에서의 synthesized image와 달리 DeepInversion는 형체를 이해할 수 있는 현실적인 image를 생성하였다. 
+여기에 Adaptive DeepInversion의 $R_{complete}$를 더해주면 student accuracy가 증가하여 teacher accuracy와 거의 비슷해졌다. 
+
+### **4.2. Application**
+
+**4.2.A. Data-free Knowledge Transfer**
+
+* Dataset
+	* ImageNet
+* Network 
+	* ResNet50v1.5
+* Parameters
+	* temperature $\tau$=3
+	* initial lr = 1.024
+	* batch size = 1024
+![image](https://user-images.githubusercontent.com/47962184/232249321-2b1efb64-ff7a-4899-a7e9-859302610a9b.png)
+
+DI를 통한 Knowledge Transfer는 base teacher model에 대비하여 3% 정도만의 accuracy 차이를 보이며 좋은 성과를 보였다. 
+
+**4.2.B. Data-free Pruning**
+
+Pruning은 network의 성능이 크게 저하되지 않는 선에서 개별 weight이나 특정 필터(neurons)를 삭제하는 모델 경량화 방식이다. 본 논문에서는 DI, ADI 방식으로 생성된 inverted image를 통하여 filter importance를 계산하여 pruning을 진행하여 타 모델과 결과를 비교하였다. 
+
+![image](https://user-images.githubusercontent.com/47962184/232248656-29de76d4-7b81-448f-9367-43a827685e09.png)
+
+Top-1 accuracy에 있어서 GAN과 거의 동등한 결과를 보였다. 하지만 더 많은 필터들을 pruning 할 수록 Synthesized image를 사용하는 ADI, BigGAN과 Natural image를 사용하는 MS COCO와 ImageNet 간의 accuracy 차이가 커졌다. Synthesized image가 생성되는 과정 자체의 한계인 것으로 보인다. 
+
+
+## **5. Conclusion**  
+
+* 본 논문은 Prior Dataset이나 Data distribution이 주어지지 않는 상황에서의 Knowledge Transfer를 해결하기 위해 모델의 내재적인 information을 활용하였다.
+* Synthesize image를 생성하기 위한 regularization term을 활용하였고, output variety를 유지하기 위하여 Teacher 과 Student 모델 간의 distance에 constraint를 적용하였다.
+* 실험 결과를 통해 Regularization term을 구성하는 각각의 요소들이 유의미하게 성능향상에 도움을 주고 있음을 확인하였고, Synthesized image도 기타 모델에 비하여 높은 현실성을 가지고 있음을 볼 수 있었다.
+
+* Knowledge transfer과 Pruning 등 다양한 application에 있어서도 타 모델과 유사한 performance를 보였다. 
+
+* Image synthesis에 상당한 시간이 소요되며 image 수와 비례하고, image의 색과 배경들이 유사하다는 단점들이 있었지만, Model internal information을 간단한 constraint를 통해 활용하였다는 점에서 매우 신선했다. 
+
+
+
+
+---  
+## **Author Information**  
+
+* Minseok Kim
+	* KAIST Financial Engineering Lab
+	* contact: hankkim77@kaist.ac.kr
+	
+* Paper Source &amp; Github
+	* [1912.08795.pdf (arxiv.org)](https://arxiv.org/pdf/1912.08795.pdf)
+	* https://github.com/NVlabs/DeepInversion
+
+</em></blockquote>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
