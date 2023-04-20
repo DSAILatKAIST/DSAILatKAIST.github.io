@@ -16,6 +16,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization](/_posts/DS503_23S/2023-04-20-Matrix_Encoding_Networks_for_Neural_Combinatorial_Optimization.md)
 - [[NIPS 2021] ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning](/_posts/DS503_23S/2023-04-20-ABC_Auxiliary_Balanced_Classifier_for_Class_Imbalanced_Semi_Supervised_Learning.md)
 - [[NIPS 2022] SHINE: SubHypergraph Inductive Neural nEtwork](/_posts/DS503_23S/2023-04-20-SHINE_SubHypergraph_Inductive_Neural_nEtwork.md)
+- [[NIPS 2022] Pure Transformers are Powerful Graph Learner](/_posts/DS503_23S/2023-04-20-Pure_Transformers_are_Powerful_Graph_Learner.md)
 - [[ICLR 2022] How to Train Your MAML to Excel in Few-Shot Classification](/_posts/DS503_23S/2023-04-20-How_to_Train_Your_MAML_to_Excel_in_Few_Shot_Classification.md)
 - [[ICLR 2022] Neural Link Prediction with Walk Pooling](/_posts/DS503_23S/2023-04-20-Neural_Link_Prediction_with_Walk_Pooling.md)
 - [[ICLR 2023] Temporal 2D-Variation Modeling for General Time Series Analysis](/_posts/DS503_23S/2023-04-20-Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.md)
@@ -44,12 +45,6 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle](/_posts/DS503_23S/2023-04-20-EASE_Extractive_Abstractive_Summarization_End_to_End_using_the_Information_Bottleneck_Principle.md)
 - [[Entropy 2023] Mining Mobile Network Fraudsters with Augmented Graph](/_posts/DS503_23S/2023-04-20-Mining_Mobile_Network_Fraudsters_with_Augmented_Graph.md)
 - [[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks](/_posts/DS503_23S/2023-04-20-Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.md)
-
-## TOFIX
-- [[NIPS 2022] Pure Transformers are Powerful Graph Learners](/_posts/DS503_23S/2023-04-20-Pure_Transformers_are_Powerful_Graph_Learners.md)
-
-
-
 
 ## KSE801 (2022F)
 
