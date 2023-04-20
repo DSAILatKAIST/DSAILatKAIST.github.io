@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 20 Apr 2023 21:11:44 +0900</pubDate>
-        <lastBuildDate>Thu, 20 Apr 2023 21:11:44 +0900</lastBuildDate>
+        <pubDate>Thu, 20 Apr 2023 21:27:43 +0900</pubDate>
+        <lastBuildDate>Thu, 20 Apr 2023 21:27:43 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1066,7 +1066,7 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
         </item>
         
         <item>
-            <title>[T-ITS 2021]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks</title>
+            <title>[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks</title>
             <description>&lt;h1 id=&quot;tits-21spatio-temporal_knowledge_transfer_for_urban_crowd_flow_prediction_via_deep_attentive_adaptation_networks&quot;&gt;[TITS-21]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks&lt;/h1&gt;
 
 &lt;h1 id=&quot;0-overview&quot;&gt;0. Overview&lt;/h1&gt;
