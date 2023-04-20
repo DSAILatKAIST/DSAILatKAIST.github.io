@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 20 Apr 2023 22:07:23 +0900</pubDate>
-        <lastBuildDate>Thu, 20 Apr 2023 22:07:23 +0900</lastBuildDate>
+        <pubDate>Thu, 20 Apr 2023 22:22:07 +0900</pubDate>
+        <lastBuildDate>Thu, 20 Apr 2023 22:22:07 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -573,6 +573,132 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/TabNet_Attentive_Interpretable_Tabular_Learning.html</link>
             <guid isPermaLink="true">http://localhost:4000/TabNet_Attentive_Interpretable_Tabular_Learning.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>[Nature Machine Intelligence 2022] Super-resolution generative adversarial networks of randomly-seeded fields</title>
+            <description>&lt;h1 id=&quot;paper-title--super-resolution-generative-adversarial-networks-of-randomly-seeded-fields&quot;&gt;Paper title : Super-resolution generative adversarial networks of randomly-seeded fields&lt;/h1&gt;
+
+&lt;h2 id=&quot;1introdcution&quot;&gt;1.introdcution&lt;/h2&gt;
+&lt;h3 id=&quot;11-problem-definition&quot;&gt;1.1 Problem definition&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;기계&quot;는 종종 삶을 좀 더 편리하고 효율적으로 살아갈 수 있도록 도와주는 방법 혹은 도구로 정의된다. 많은 공학 (engineering) 분야에서 이러한 도구를 최적화하기 위해 많은 연구들이 수행되고 있으며, 특히, 딥러닝 방법론이 공학 분야에 어떤 식으로 더욱 효율적인 도구를 개발하기 위해 적용되는지 본 리뷰 논문을 통해 소개하려고 한다.
+
+본 수업을 수강하는 대부분의 data scienctists의 peer reviewer들 위해, 공학 분야에 사용되는 물리적인 방정식에 대한 세부적인 내용은 최대한 줄이고, &quot;딥러닝 알고리즘의 공학 분야에 적용 가능성&quot;을 중점으로 본 리뷰를 이어가려고 한다. 우선, 현실적으로 가장 와닿는 예시로써, 아래 그림 1과 같이, 대부분의 사람들은 하루를 시작하기 전에 기상, 날씨 혹은 미세먼지가 얼마나 높은지 검색을 해보곤 한다. 이는 특정 지역에서 기계 장비 (sensor)의 측정 (measurement)을 통해 얻어진 풍량, 온도, 기압과 같은 데이터 정보들을 종합한 예보를 통해 인간의 삶을 자연 재해로 부터 대비할 수 있게 만들어 준다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure_1.gif&quot; alt=&quot;example image&quot; width=&quot;500&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;그림 1. 센서 장비에 의해 측정된 데이터 정보 예시 &lt;/center&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;하지만, 이러한 기계 장비는 정확도가 높고 정밀한 데이터를 얻기 위해 다양하고 복잡한 전자 장비를 동반하기 때문에 큰 설치 비용이 발생한다. 이에 따라, 관심 있는 지역에 공간적으로 거리가 먼 (Sparse) 센서 장비 설치를 하고, 특정 위치에서 측정된 값을 넓은 영역을 대표하는 방식을 채택하여 해상도가 적은 (low-resolution) 결과를 제공한다. 즉, 사람이 활동하고 있는 해상도가 높은 (high-resolution) 다양한 공간 내 정보를 조밀하게 배치된 센서 장비를 통해 얻는 것은 현실적으로 큰 비용 문제가 발생한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;12-neural-network-methodology&quot;&gt;1.2 Neural network methodology&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;이러한 비용-공간 해상도 사이 절충 (trade-off) 문제를 해결하기 위해, 인공신경망 (neural-network) 기반 방법론이 저해상도 데이터와 고해상도 데이터 사이 비선형 (nonlinear) 관계성을 연결하는데 효율적이고 성공적인 결과를 보이는 도구로 증명되고 있다. 딥러닝 방법론이 저해상도와 고해상도 사이 모델링에 어떻게 적용되는지 설명하기 위해 아래 그림 2을 통해 나타내고자 한다. 대표적으로, 딥러닝 모델의 입력은 관심 있는 지역에 공간적으로 거리가 먼 (Sparse) 센서 장비 정보이고 딥러닝 모델의 출력은 해상도가 높은 (high-resolution) 다양한 공간 내 정보로 설정하여 두 사이 간 비선형적 관계를 노드와 레이어를 갖는 복잡한 neural network 조합을 통해 학습하고 새로운 저해상도 정보로 부터 고해상도 센서 정보를 예측한다 [1].
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure_2.jpeg&quot; alt=&quot;example image&quot; width=&quot;700&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;그림 2. 인공신경망 기법을 기반한 저해상도&lt;/center&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;더욱 구체적으로, 저해상도-고해상도 관계를 모델링하기 위해, 그림과 같이 크게 (1) residual block와 (2) super-resolution block 를 갖는Deep learning architecture [2]를 제안한다. 저해상도 이미지를 deep learning model에 입력으로 사용하고, Residual block을 반복적으로 연결하여 입력 및 출력 사이 공간적 정보 손실을 최소화한다. 이 후, 학습 변수를 갖는 up-sampling convolutional operation을 residual block 을 구조 끝단 활용하여 고해상도 output 차원까지 복구하는 기법이 이용되고 있다. 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure_3.png&quot; alt=&quot;example image&quot; width=&quot;800&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;그림 3. 저해상도-고해상도 맵핑을 위한 뉴럴네트워크 구조&lt;/center&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;이는 기존 저해상도에서 고해상도로 복구하는 일반적인 선형 interpolation 기법에 비교하여 convolution 연산을 통해 비선형성을 맵핑할 수 있기 때문에, 놀라운 고해상도 복구 결과를 아래 그림 3과 같이 보인다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure_4.png&quot; alt=&quot;example image&quot; width=&quot;800&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;그림 4. 일반적인 저해상도-고해상도 맵핑 딥러닝 알고리즘 및 기존 보간 알고리즘 예측 결과 비교&lt;/center&gt;
+
+&lt;h3 id=&quot;13-challenges-of-the-exsiting-deep-learning-approachs-for-engineering-application&quot;&gt;1.3 Challenges of the exsiting deep learning approachs for engineering application&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;센서 저해상도-고해상도 문제에 대해 딥러닝 방법론이 성공적으로 적용되고 있지만, 앞서 설명한 기상 예보와 같은 센서 어플리케이션을 위한 딥러닝 방법론을 적용하기엔 다음과 같은 두 가지 한계점이 여전히 존재한다.
+
+ (1) 딥러닝 학습을 위한 고해상도 데이터 획득 문제: 다량의 데이터가 존재한다면, 앞서 설명한 딥러닝 방법론이 성공적으로 다양한 저해상도-고해상도 문제 (미세 현미경 정확도 보정, 해수면 온도 측정 및 유체 난류 해상도 문제 등)에 적용할 수 있지만, 공학 분야에 이용되고 있는 센서들을 통해 조밀한 고해상도 딥러닝 학습 데이터를 확보 하는 것은 매우 큰 비용이 발생한다.
+   
+ (2) 딥러닝 학습을 위한 고해상도 데이터 관리 문제: (1)의 문제를 해결할 수 있더라도, 고해상도로 구축된 센서들은 예기치 못한 다양한 환경 조건으로 인해 기기가 무작위로 On-off되거나 움직임이 필요한 센서로 인해 일관성 있고 정확한 고해상도 데이터를 확보하는 것이 매우 어려운 문제를 제공한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;2-deep-learning-framework-to-solve-these-limitations&quot;&gt;2. Deep learning framework to solve these limitations&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;본 논문에서는 딥러닝 학습 과정에서 고해상도의 측정 데이터 필요없이 저해상도-고해상도 측정 데이터 관계를 모델링 가능한 획기적인 딥러닝 프레임 워크를 제안한다. 제안된 방법론의 주된 장점은 딥러닝 모델이 학습 과정에서 오직 공간에 무작위로 spase하게 분포한 센서만을 이용하여 저해상도-고해상도 간 관계를 모델링 할 수 있다는 것이다. 해당 프레임 워크는 무작위로 분포한 데이터만을 활용하여 앞서 설명한 데이터 관련 문제를 해결하기 때문에 randomly seeded super-resolution GAN (RaSeedGAN)이라고 명칭되고, 제안하는 프레임 워크의 우수성을 검증하기 위해 3가지 예측 task (유체 유속 시뮬레이션, 지구 해수면 온도 및 유체 유속 측정 문제)를 채택한다. 자세한 딥러닝 구조에 대한 설명, 메커니즘 및 예측 결과들은 아래와 같이 설명하고자 한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;21-deep-learning-architecture-for-raseedgan&quot;&gt;2.1 Deep learning architecture for RaSeedGAN&lt;/h3&gt;
+
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure_5.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;그림 5. 본 리뷰 논문에서 제안된 딥러닝 구조 세부사항&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Main acrchitecture and idea&lt;/strong&gt; : GANs은 “generator” 그리고 “discriminator”라는 두 개의 서로 다른 neural network를 구성하고 있다.”generator”는 참값 (target data)을 모방하여 인공적인 예측 값을 (generated data) 생성하는 network이고, “discriminator”는 인공적으로 생성된 예측 값과 참값 사이 다른 점을 구별하는 network이다. 본 연구에서는 이전 연구들의 한계인 학습 데이터에 high-resolution full fields 획득에 대한 제한점을 해결하는 generator를 제안하여 GAN을 이용하여 보다 우수한 생성 능력을 갖도록 학습시킨다 (그림5)
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Generator network&lt;/strong&gt; : 본 연구에서 이용되는 generator의 입력과 출력은 기존 저해상도-고해상도 관계를 해결하는 딥러닝 연구들과 다르게 할당하여 해당 문제를 해결한다. 더욱 구체적으로, 고해상도의 모든 공간 데이터를 이용하는 것이 아닌 고해상도의 센서 데이터에서 무작위로 추출한 sparse한 데이터를 &lt;strong&gt;generator 출력&lt;/strong&gt;으로 설정하고 (그림 5a), 무작위로 추출된 sparse한 고해상도 데이터 (그림 5b 왼쪽)로 부터 특정 직사각형 크기 픽셀마다 평형하게 이동하여 10개의 센서를 평균화 작업을 통해 &lt;strong&gt;저해상도의 generator 입력 feature&lt;/strong&gt;를 생성한다 (그림 a 왼쪽). 즉, 고가 센서 장비를 sparse하게 분포시켜 데이터를 얻고, 이를 convolutions stride처럼 이동하여 평균 값을 산정하여 low-resolution5 입력을 얻는다. 이러한 접근은 잡음 뿐만 아니라 공간적 해상도에 대한 균일성을 증가하는 장점을 갖는다. generator는 기존 baseline neural network architecture [2]에 비해 변형된 구조를 갖는데 이는 아래와 같다.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(1) Initial layer : 먼저 low-resolution fields가 generator로 입력되는데, filter size 9 × 9 그리고 64 feature maps을 갖는 convolutional layer가 이용되고, parametric rectified linear unit (ReLU) 활성화 함수가 convolutional operation에 의해 추출된 정보를 포착한다. &amp;lt;br&amp;gt;
+   
+(2) Medium layer : 초기 레이어에 의해 추출된 정보는 16개의 residual blocks [2] 을 통해 보다 높은 비선형적 관계에 대해 모델링한다. 이떄 residual block은 3x3 kernel을 동반한 64개의 feature map 을 이용한다. 여기서, 저해상도를 증가시키기 전에, skip-connection sum 레이어가 residual blocks의 출력 부분 그리고 initialization layers의 출력 부분 사이에 적용된다. 이 후애, [2]에 제안된 subpixel convolution layer 가 generator 출력 만큼 증가 시키기 위해 사용된다. 최종적으로 생성되는 spase-high resolution ouput은 비선형 보간 기법을 이용하여 sparse sample과 sample 사이 데이터를 공간적으로 보간하여 관심 있는 최종적 고해상도 데이터를 복구할 수 있다.
+&amp;lt;br&amp;gt; &amp;lt;br&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Discriminator network&lt;/strong&gt; : spase-high resolution target 그리고 generated fields 사이 예측 정확도를 향상시키 위해, 아래와 같은 discriminator network를 이용하여 generated fields를 입력으로 연결한다 (그림 5b). Discriminator network는 초기에 filter size 3 × 3 그리고 64 feature maps를 이용하여 중요 공간적 정보를 추출하고, 7개의 discriminator blocks이 연속적으로 적용된다. 이때, 홀수 block 마다 stride 사이즈를 높여 차원을 줄이고, 줄여진 feature-map tensor가 하나의 vector로 변환된다. 이때 1,024개의 fully connected layer를 이용하여 변환된 vector를 discriminator 출력 값으로 예측하고, 그 출력값이 sigmoid function을 통해 확률적으로 참 (0s)인지 거짓 (1s)인지 적대적으로 학습시켜 generator의 생성 능력을 향상시킨다. discriminator의 손실 함수 (loss function)는 다음과 같이 정의된다.
+&lt;br /&gt;&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_1.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;여기서 𝔼[]는 mini-batch 내 평균에 대한 연산자이고, H_R 및 L_R은 각각 고해상도 및 저해상도 이미지를 나타내며, D()는 저해상도 입력으로 부터 생성된 고해상도 이미지에 대한 loss를 계산하는 discriminator network를 나타낸다. F_v 는 하나의 연산자 계수로써 고해상도 이미지 내 센서가 존재할때 1 그렇지 않은 경우 0으로 변환하는 역할을 한다. 여기서, generator network의 loss function은 다음과 같이 정의된다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_2_.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;여기서 G()는 generator network가 실제 참값과 생성하는 sparse high-resolutional 값 사이 격자별 오차를 나타낸다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_3.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GANs을 학습시키기 위해, 위의 adversarial loss가 생성된 spase-high resolution field를 binary cross-entropy로 레이블링한다. 여기서, discriminator는 생성된 spase-high resolution field가 ‘fake’ 인지 진위 여부를 해당 1값으로 할당한 binary cross-entropy를 통해 결정한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;22-prediction-results&quot;&gt;2.2 Prediction results&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;본 논문에서 제안하는 값비싼 고해상도 데이터를 학습과정에서 요구하지 않는 RaSeedGAN의 우수성을 검증하기 위해, 비선형성과 변동성을 포함하고 있는 3가지 실험 및 시뮬레이션 데이터를 이용한다. 우수성 검증을 위해, 아래 그림과 같이 (1) Pinball flow numerical simulation, (2) NOAA sea surface temperature database (3) particle-image velocimetry (PIV) experiment 와 같은 세 가지 예시에 대해 검증하고, 보다 자세한 numerical simulation 조건은 해당 리뷰에서 딥러닝 알고리즘에 대한 high-quality 정보를 집중하기 위해 생략한다. 세 가지 예시는 서로 다른 image 차원을 갖는다. (1),(2),(3)은 각각, 512 x 512, 720 × 1,440, 128 × 128 크기로 서로 다른 이미지 사이즈를 갖고 해당 예측 task에 마다 딥러닝 모델을 독립적으로 학습하여 예측 성능에 대해 검증한다. 또한, 서로 다른 task이지만 본 알고리즘의 일반화 능력을 검증하기 위해 무작위로 추출된 sparse한 고해상도 데이터로 부터 특정 직사각형 크기 픽셀마다 평형하게 이동하여 직사각형 공간 내 10개의 센서를 평균화하는 작업을 통해 32 x 32 bin size를 갖도록 input feature를 가공한다. 
+
+그림 6은 세 가지 예측 task에 대해 딥러닝 모델이 고해상도 데이터를 학습에 이용하지 않고, 저해상도-고해상도 사이 관계를 예측할 수 있는지에 대해 비교한 결과이다. 그림 6의 첫번째 열에는 평균화 작업을 거친 입력 저해상도 필드, 두번째 열은 &quot;Sparse HR reference&quot;라고 하는 특징화된 고해상도 필드, 세번째 그리고 네번째 열은 RaSeed GAN이 이를 예측하고 변환환 결과와 타겟 필드들을 나타낸다. 여기서 주목할 점은, 전체 고해상도 데이터는 딥러닝 모델 능력 테스트를 위해 그림 6의 마지막 열에 포함되어 있지만 훈련 중 직접적으로 사용되지는 않았다는 점이다. 그림 6의 각 task에서 알 수 있듯이, RaSeedGAN은 원기둥 주변과 원기둥 부근의 난류 발달 지역을 정확하게 복구할 수 있을 뿐만 아니라, 높은 수준의 디테일로 온도 실험 데이터를 복구할 수 있다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;task-1-pinball-flow-numerical-simulation&quot;&gt;Task 1: Pinball flow numerical simulation&lt;/h4&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure6_1.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;h4 id=&quot;task-2-noaa-sea-surface-temperature-database&quot;&gt;Task 2: NOAA sea surface temperature database&lt;/h4&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure6_2.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;h4 id=&quot;task-3-particle-image-velocimetry-piv-experiment&quot;&gt;Task 3: particle-image velocimetry (PIV) experiment&lt;/h4&gt;
+&lt;center&gt;&lt;img src=&quot;/images_DS503/figure6_3.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;그림 6. RaSeedGAN 예측 결과 비교&lt;/center&gt;
+
+&lt;h3 id=&quot;3-conclusion&quot;&gt;3 Conclusion&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;본 연구에서는 무작위로 공간에 배치된 센서 데이터로부터 관심 있는 영역의 고해상도 센서 측정 결과들을 추정하기 위한 RaSeedGAN 프레임워크를 제안한다. 해당 프레임 워크의 가장 큰 장점이자 방법론적 접근 요약은 (1) 무작위로 공간에 배치된 센서 데이터들을 특정 구간 센서 개수마다 평균화하여 저해상도 입력 feature를 만드는 것. (2) 저해상도 입력 feature로 부터 듬성듬성 배치된 해당 센서 데이터를 복구하는 것. (3) 예측된 결과를 보간하여 다시 공간적으로 매우 세부적으로 기술된 온도/유속 고해상도 데이터를 얻는 것에 있다. 여기서 GAN은 듬성듬성 배치된 해당 센서 데이터들을 예측하는 generator에 대해 실제 결과와 매우 유사한 생성 field를 예측할 수 있게 했다. 특히, 본 연구는 유체 흐름 시뮬레이션, 해양 표면 온도 분포 측정 및 입자-이미지 속도측정 데이터에서 검증되었다. 이러한 프레임 워크는 고해상도의 데이터를 훈련 자체에 필요하지 않기 때문에 비용-효율적으로 많은 다양한 분야에 적용될 수 있을 것으로 생각한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;4-reference&quot;&gt;4 Reference&lt;/h3&gt;
+
+&lt;p&gt;[1]Adversarial super-resolution of climatological wind and solar data, &lt;strong&gt;&lt;em&gt;Proceedings of the National Academy of Sciences of the United States of America&lt;/em&gt;&lt;/strong&gt;,July 6, 2020,117 (29) 16805-16815
+https://doi.org/10.1073/pnas.1918964117
+&lt;br /&gt;
+[2]Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network, &lt;strong&gt;&lt;em&gt;arXiv&lt;/em&gt;&lt;/strong&gt;:1609.0480&lt;/p&gt;
+</description>
+            <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</guid>
             
             <category>reviews</category>
             
@@ -1775,176 +1901,6 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</link>
             <guid isPermaLink="true">http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[NIPS 2022] Pure Transformers are Powerful Graph Learner</title>
-            <description>&lt;h1 id=&quot;pure-transformers-are-powerful-graph-learners&quot;&gt;&lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-introduction-and-motivation&quot;&gt;&lt;strong&gt;1. Introduction and Motivation&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#1-problem-definition&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;강력한 Natural Language Module로써의 역할을 수행하던 Attention Architecture가 Image 도메인으로 이식되어 Vision Transformer 가 탄생한 것과 같이, Graph Domain에서도 Transformer를 사용하려는 시도가 지속적으로 있어 왔습니다. Graph Attention Network 처럼 Message Passing GNN 의 Aggregate 과정에서 Attention을 활용하는 시도도 있었으며 Transformer 구조를 도입하여 Attention을 사용하려는 시도도 있었습니다.&lt;/p&gt;
-
-&lt;p&gt;Transformer 구조를 채용할 때에 그저 단순히 노드들을 Transformer의 Token으로 사용한다면 그래프 구조가 제대로 학습될 수 없는 문제가 발생합니다. Edge 정보와 그래프 연결에 대한 정보가 Token으로 전환되지 않았기 때문입니다. 그래서 Attention is All You Need 논문에서 각 Token에 Positional Encoding을 더해주듯이,  Edge 의 정보와 Vertex간의 관계 (i.e. shortest path)를 Encoding하여 그래프 구조를 Transformer Encoder에 학습시키는 기법들이 연구되어 왔으며 벤치마크 데이터셋에서 매우 우수한 성과를 거두었습니다. 아래는 Graph Transformer 관련하여 추가로 읽어 볼 만한 논문들입니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Self-Supervised Graph Transformer on Large-Scale Molecular Data. NeurIPS 2020&lt;/li&gt;
-  &lt;li&gt;Rethinking Graph Transformer with Spectral Attention? NIPS 2021&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://dsailatkaist.github.io/Do_Transformers_Really_Perform_Bad_for_Graph_Representation.html&quot;&gt;&lt;strong&gt;Do Transformers Really Perform Bad for Graph Representation?&lt;/strong&gt;&lt;/a&gt;  NeurIPS 2021&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;볼드체로 표시된 Do Transformer Really Perform Bad for Graph Representation[1]에서는 각 노드간의 상관관계를 인코딩한 1)Centrality Encoding과, 두 노드 사이의 Shortest Path를 Parametrize한 2)Spatial Encoding 개념을 제시함과 동시에, 그래프의 Edge Feature 또한 Transformer에게 전달하기 위해 두 노드 사이의 shortest path들의 feature들을 Encoding 한 3)Edge Encoding을 Transformer에게 전달해 줍니다. Graphormer는 결국 Transformer에게 그래프 구조를 제대로 학습시키기 위해서 3가지의 Learnable Encoder를 Pure Transformer에 추가로 도입합니다. 아래 삽화를 통해 Graphormer에 도입된 세개의 추가적인 Encoding을 직관적으로 이해할 수 있습니다. Graphormer와 같은 경우에는 추가적인 Encoding들을 더함으로써 Pure Transformer 구조에 Graph Specific Modification이 가해진다는 사실을 알 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/Jaewoopudding/DeepLearningPractice/blob/master/homer.PNG?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Message Passing 구조의 GNN경우에는  Attention을 Local Node에만 적용시켜 Attention의 장점을 모두 활용하지 못 하는 문제와, 학습이 진행됨에 따라 모든 Node의 Feature가 비슷비슷해지는 graph oversmoothing 문제가 있으며 잘 학습이 되더라도 1-WL test의 표현력을 넘지 못한다고 알려져 있습니다[2][3].&lt;/p&gt;
-
-&lt;p&gt;그래서   &lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;의 저자들은, 표현력에 제한이 있는 Message Pssing GNN을 사용하지 않으면서도, Transformer를 그래프에 맞게 변형하는 연구 흐름과는 반대로 기존 Transformer Encoder의 구조를 변형하지 않은 Pure Transformer를 사용하기로 결정하였습니다.  그 결과 논문 저자들은 Edge와 Vertex를 각각 Tokenize하여 추가적인 Learnable Encoder 도입 없이도 Vertex Feature와 Edge Feature, 그리고 그래프 구조까지도 Transformer에 효과적으로 전달 수 있는 새로운 기법인 &lt;strong&gt;TokenGT&lt;/strong&gt; 를 개발했습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/Jaewoopudding/DeepLearningPractice/blob/master/tokenGT.PNG?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;2-contributions&quot;&gt;&lt;strong&gt;2. Contributions&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#2-motivation&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Node Identifier와 Type Identifier의 도입을 통해 그래프 구조를 Vertex/Edge Feature에 통합하여 Pure Transformer를 사용할 수 있는 방법을 제시하였습니다.&lt;/li&gt;
-  &lt;li&gt;Token-wise Embedding과 그 사이의 Self Attention이 그래프 상의 Permutation Equivalent한 선형 연산자(IGN)를 근사할 수 있다는 사실을 밝힘으로써 Transformer 구조가 Message Passing GNN보다 더 우월한 표현력을 가짐을 보였습니다.&lt;/li&gt;
-  &lt;li&gt;Transformer Encoder 가 최소한 WL test 만큼의 강력한 표현력을 가짐을 증명하였습니다.&lt;/li&gt;
-  &lt;li&gt;여러 그래프 벤치마크 데이터셋에 대해서 TokenGT 가 Transformer 구조에 많은 변형을 가한 모델들 만큼  경쟁력 있음을 보였습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#3-method&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Node Identifier
-    &lt;ul&gt;
-      &lt;li&gt;n개의 node가 있는 그래프에 대해서, 서로 orthonormal한 $\vec{p_v} \in \mathcal{R}^{(d_p)}$ 가 Node Identifier 입니다.&lt;/li&gt;
-      &lt;li&gt;$v$의 Node Feature $X_v$는 다음과 같이 augmented 됩니다. $X_v = [X_v, \vec{p_v}, \vec{p_v}]$&lt;/li&gt;
-      &lt;li&gt;$u$와 $v$사이의 Edge Feature $X_{(u,v)}$는 다음과 같이 augmented 됩니다. $X_{(u,v)} = [X_{(u,v)}, \vec{p_v}, \vec{p_u}]$&lt;/li&gt;
-      &lt;li&gt;orthonormal한 $\vec{p_v} \in \mathcal{R}^{(d_p)}$을 얻는 방법
-        &lt;ul&gt;
-          &lt;li&gt;Graph Laplacian $I-D^{1/2}AD^{1/2}$ 를 Eigen Decomposition 해서 얻는 Eigenvector들을 사용합니다.&lt;/li&gt;
-          &lt;li&gt;무작위로 생성된 행렬을 QR Decomposition해서 얻은 Orthogonal Random Features을 사용합니다.&lt;/li&gt;
-          &lt;li&gt;Graph Laplacian Eigenvector들은 그래프 연결성에 대한 정보를 갖고 있기 때문에 Orthogonal Random Features 기법보다 더 강력한 node identifier를 제공합니다.&lt;/li&gt;
-          &lt;li&gt;Orthonormal한 벡터를 Node Identifier로 사용함으로써, 서로 연결되어 있는 Node와 Edge의 내적 $[\vec{p_k}, \vec{p_k}] \cdot [\vec{p_v}, \vec{p_u}]$ 은,  $k\in {(v,u)}$가 아닌 이상 모두 0이 되어 Transformer는 연결 관계를 학습할 수 있게 됩니다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Type Identifier
-    &lt;ul&gt;
-      &lt;li&gt;학습 가능한 두개의 vector $\vec{E^\mathcal{V}}$와 $\vec{E^\mathcal{E}}$를 통해 최종 형태의 Token을 정의합니다.&lt;/li&gt;
-      &lt;li&gt;Node Token:  $X_v = [X_v, \vec{p_v}, \vec{p_v}, \vec{E^\mathcal{V}}]$&lt;/li&gt;
-      &lt;li&gt;Edge Token: $X_{(u,v)} = [X_{(u,v)}, \vec{p_v}, \vec{p_u}, \vec{E^\mathcal{E}}]$&lt;/li&gt;
-      &lt;li&gt;최종 Token을 통해 우리는 Transformer 구조의 변형 없이도 해당 토큰이 Node인지, Edge인지, 서로 연결되어 있는지의 여부를 학습 할 수 있습니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Transformer
-    &lt;ul&gt;
-      &lt;li&gt;ViT와 Bert에 사용된 Transformer와 똑같은 Multi Head Attention 을 활용합니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;4-theoretical-analysis&quot;&gt;&lt;strong&gt;4. Theoretical Analysis&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#4-theoretical_analysis&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;IGN에 관련된 구체적인 Theorem들과 증명과정들은 생략하였습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;k-IGN은 k-WL test와 연계되어 있으며 k-IGN은 k-WL만큼 강력하다는 것이 증명되어 있습니다. [4]&lt;/li&gt;
-  &lt;li&gt;2-IGN은 모든 Message Passing GNN보다 표현력이 높은 것이 증명 되어 있습니다.&lt;/li&gt;
-  &lt;li&gt;논문에서 IGN의 Equivariant Linear Layer를 Transformer로 근사할 수 있음을 증명했습니다.&lt;/li&gt;
-  &lt;li&gt;2-IGN은 모든 Message Passing GNN 보다 강력하므로, Transformer로 구현된 TokenGT는 이론적으로 모든 Message Passing GNN보다 표현력이 높습니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;5-experiment&quot;&gt;&lt;strong&gt;5. Experiment&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#5-experiment&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;experiment-setup&quot;&gt;&lt;strong&gt;Experiment setup&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#experiment-setup&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dataset
--Barabasi-Albert Random Graph: IGN Approximation 실험을 위한 그래프 실험 환경
--PCQM4Mv2: 대규모 양자 화학 데이터셋&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;result&quot;&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#result&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;Theoretical Analysis에서 언급했다시피, Transformer는 IGN을 근사할 수 있고, IGN을 근사할 수 있다는 건 IGN의 Equivariant Basis를 근사할 수 있다는 의미입니다. 아래의 실험 결과는 unseen graph에 대해서 TokenGT가 Equivariant Basis를 얼마나 잘 근사할 수 있었는지 보여주고 있습니다. 또한 Node Identifier와 Type Identifier에 대한 Ablation Study를 통해서, 각각의 요소가 성능 향상에 기여했음을 보여줍니다.&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Jaewoopudding/DeepLearningPractice/blob/master/GT2.PNG?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아래의 Table 2를 통해 TokenGT가 Strong modification이 가해진 Transformer만큼의 성능을 가지고 있음을 보여줍니다. 또한 Graph Laplacian Eigenvector로 node identifier를 설정한 경우가 랜덤한 node identifier보다 성능이 높음을 알 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/Jaewoopudding/DeepLearningPractice/blob/master/GT1.PNG?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;6-conclusion&quot;&gt;&lt;strong&gt;6. Conclusion&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#6-conclusion&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;h4 id=&quot;good-points&quot;&gt;Good Points&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Node Identifier와 Type Identifier의 도입으로 Pure Transformer가 Thoery와 Practice 모두에서 효과적임을 밝혔습니다.
-    &lt;ul&gt;
-      &lt;li&gt;Transformer가 최소한 k-IGN, k-WL 만큼 표현력이 강하다는 사실을 증명했습니다.&lt;/li&gt;
-      &lt;li&gt;TokenGT가 GNN보다는 우수한 성능을, Strongly Modified Transformer와는 비슷한 성능을 내는 것을 확인하였습니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;그래프를 (n+m)개의 토큰으로 해석함으로써 Graph Learning 의 새로운 Paradigm을 열었습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;challenges&quot;&gt;Challenges&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;토큰이 (n+m)개가 되어서 큰 그래프에 적용하기에는 Computational Cost가 지수적으로 증가합니다.&lt;/li&gt;
-  &lt;li&gt;SOTA보다 낮은 성능을 기록했습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;h4 id=&quot;transformer-구조의-가장-큰-특징중-하나는-weak-inductive-bias입니다&quot;&gt;Transformer 구조의 가장 큰 특징중 하나는 weak inductive bias입니다.&lt;/h4&gt;
-  &lt;ul&gt;
-    &lt;li&gt;CNN : Transformer와 GNN(MPNN) : Graph Transformer 간의 관계에 상사성이 존재합니다.&lt;/li&gt;
-    &lt;li&gt;CNN은 강력한 inductive bias를 도입하여 weight sharing을 통해 적은 parameter로 이미지 특징을 효과적으로 학습할 수 있었습니다.&lt;/li&gt;
-    &lt;li&gt;ViT는 induvtive bias를 도입하지 않기에, 많은 데이터가 주어져야 제대로 된 성능을 낼 수 있지만, image에 대한 global view를 가질 수 있어 CNN보다 강력한 성능을 발휘합니다.&lt;/li&gt;
-    &lt;li&gt;Message Passing GNN 또한 k-hop node들의 정보를 aggregation함으로써 간단한 구조임에도 불구하고 강력한 성능을 내는 strong inductive bias를 가지고 있습니다. 그러나, 멀리 있지만 유의미한 정보를 가진 Node의 신호가 제대로 전달이 안 될 수도 있습니다.&lt;/li&gt;
-    &lt;li&gt;Graph Transformer 계열은 weak inductive bias 를 가지고 있지만, Message Passing 과정이 없기에 Graph 전체의 신호를 한번에 파악할 수 있어 강력한 성능을 낼 수 있습니다.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#author-information&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author name : Jaewoo Lee
-    &lt;ul&gt;
-      &lt;li&gt;Affiliation : KAIST SILAB&lt;/li&gt;
-      &lt;li&gt;Research Topic : Offline Reinforcement Learning, Graph Representational Learning, Meta Learning.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;7-reference--additional-materials&quot;&gt;&lt;strong&gt;7. Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#7-reference--additional-materials&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Please write the reference. If paper provides the public code or other materials, refer them.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/jw9730/tokengt&quot;&gt;Github Implementation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Reference
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2207.02505&quot;&gt;Paper Link&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;[1] Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y., &amp;amp; Liu, T.-Y. (2021). &lt;em&gt;Do Transformers Really Perform Bad for Graph Representation?&lt;/em&gt; http://arxiv.org/abs/2106.05234&lt;/li&gt;
-      &lt;li&gt;[2] Xu, K., Hu, W., Leskovec, J., &amp;amp; Jegelka, S. (2018). &lt;em&gt;How Powerful are Graph Neural Networks?&lt;/em&gt; http://arxiv.org/abs/1810.00826&lt;/li&gt;
-      &lt;li&gt;[3] Morris, C., Ritzert, M., Fey, M., Hamilton, W. L., Lenssen, J. E., Rattan, G., &amp;amp; Grohe, M. (2019). &lt;em&gt;Weisfeiler and Leman Go Neural: Higher-order Graph Neural Networks&lt;/em&gt;. www.aaai.org&lt;/li&gt;
-      &lt;li&gt;[4] Maron, H., Ben-Hamu, H., Shamir, N., &amp;amp; Lipman, Y. (2018). &lt;em&gt;Invariant and Equivariant Graph Networks&lt;/em&gt;. http://arxiv.org/abs/1812.09902&lt;/li&gt;
-      &lt;li&gt;[5] Gilmer, J., Schoenholz, S. S., Riley, P. F., Vinyals, O., &amp;amp; Dahl, G. E. (2017). &lt;em&gt;Neural Message Passing for Quantum Chemistry&lt;/em&gt;. http://arxiv.org/abs/1704.01212&lt;/li&gt;
-      &lt;li&gt;k-IGN : https://harryjo97.github.io/paper%20review/Invariant-and-Equivariant-Graph-Networks/&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-            <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/Pure_Transformers_are_Powerful_Graph_Learner.html</link>
-            <guid isPermaLink="true">http://localhost:4000/Pure_Transformers_are_Powerful_Graph_Learner.html</guid>
             
             <category>reviews</category>
             
