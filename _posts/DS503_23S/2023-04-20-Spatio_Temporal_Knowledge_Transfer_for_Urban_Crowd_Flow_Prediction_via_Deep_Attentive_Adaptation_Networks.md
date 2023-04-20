@@ -1,5 +1,5 @@
 ---
-title:  "[T-ITS 2021]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks"
+title:  "[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks"
 permalink: Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html
 tags: [reviews]
 use_math: true

@@ -43,7 +43,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ASME 2022] Deep Generative Tread Pattern Design Framework for Efficient Conceptual Design](/_posts/DS503_23S/2023-04-20-Deep_Generative_Tread_Pattern_Design_Framework_for_Efficient_Conceptual_Design.md)
 - [[ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle](/_posts/DS503_23S/2023-04-20-EASE_Extractive_Abstractive_Summarization_End_to_End_using_the_Information_Bottleneck_Principle.md)
 - [[Entropy 2023] Mining Mobile Network Fraudsters with Augmented Graph](/_posts/DS503_23S/2023-04-20-Mining_Mobile_Network_Fraudsters_with_Augmented_Graph.md)
-- [[T-ITS 2021]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks](/_posts/DS503_23S/2023-04-20-Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.md)
+- [[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks](/_posts/DS503_23S/2023-04-20-Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.md)
 
 # TODO
 - [[NIPS 2022] SHINE: SubHypergraph Inductive Neural nEtwork](/_posts/DS503_23S/2023-04-20-SHINE_SubHypergraph_Inductive_Neural_nEtwork.md)
