@@ -24,10 +24,10 @@ THGNN모델은 historical price sequence를 input으로 받고 probability of st
 모델의 첫 파트는 주식간의 상관관계 그래프를 생성 하는 과정으로 각 거래일의 주식간의 동적관계를 구축한다. 주식간의 상관관계는 각 주식의 과거 주식데이터를 활용해 상관행렬을 계산하고, 행렬의 각 요소 값에 따라 기업간의 관계를 결정한다. 
 
 기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation > threshold 일 때 positive, correlation < threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_ {r_ 1}, E_ {r_ 2}, \dots) \  \; r \in (pos, neg)$.
-회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $ \tilde{G} = (\tilde{V}, (\tilde{E} _{pos}, \tilde{E} _{neg} ))$ 로 표기한다.
+회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $\tilde{G} = (\tilde{V},(\tilde{E} _{pos}, \tilde{E} _{neg}))$ 로 표기한다.
 
 ### __(b) Historical Price Encoding__
-Input인 t번째 거래일의 price sequence는 $X^t \in \R^{n \times T \times d_ {feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_ {feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다. 
+Input인 t번째 거래일의 price sequence는 $X^t \in R^{n \times T \times d_ {feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_ {feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다. 
 
 $ \hat{H}^t = W_ {in}X^t + b_ {in} \\
 H^t = \hat{H}^t + PE \\$
@@ -35,7 +35,7 @@ H^t = \hat{H}^t + PE \\$
 $\; PE(p,2i) = \sin(p/10000^{2i/d_ {in}}) \\
 PE(p,2i + 1) = \cos(p/10000^{2i/d_ {in}})$
 
-위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_ {in}$은 input feature의 dimension을 의미하고 $W_ {in} \in \R^{d_ {feat} \times d_ {in}}$과 $b_ {in} \in \R^{d_ {in}}$은 학습 가능한 파라미터다. 
+위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_ {in}$은 input feature의 dimension을 의미하고 $W_ {in} \in R^{d_ {feat} \times d_ {in}}$과 $b_ {in} \in R^{d_ {in}}$은 학습 가능한 파라미터다. 
 
 $Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V\\
 Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{in}}})V\\
