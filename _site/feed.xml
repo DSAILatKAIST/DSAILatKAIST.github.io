@@ -5,19 +5,23 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 23 Apr 2023 23:34:38 +0900</pubDate>
-        <lastBuildDate>Sun, 23 Apr 2023 23:34:38 +0900</lastBuildDate>
+        <pubDate>Sun, 23 Apr 2023 23:42:20 +0900</pubDate>
+        <lastBuildDate>Sun, 23 Apr 2023 23:42:20 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
-            <title>[CIKM 2020] Temporal And Heterogeneous Graph Neural Network For Financial Time Series Prediction</title>
+            <title>[CIKM 2022] Temporal and Heterogeneous Graph Neural Network for Financial Time Series Prediction</title>
             <description>&lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1.	Problem Definition&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;주식의 가격 움직임은 다양한 측면에 의해 영향을 받는다고 알려져 있다. 선행 연구에서는 가격 움직임을 예측하기 위해 기술적 지표, factor, 재무상태, 뉴스, sns 등을 input으로 구성하였다. 주식시장의 시그널을 stock fundamental과 기술적 지표를 사용해 의사결정을 내리거나 뉴스 기사와 관련된 기업 간의 연결고리를 구축하여 주가 움직임을 예측하는 등 선행 연구에서는 LSTM과 GRU 등을 활용하여 과거 정보를 학습하고 이를 다운스트림 예측 작업에 활용하였다. 하지만 기존 학습 방법은 각 주식의 시계열 정보를 독립적이고 동일하게 분포된 것으로 간주하고 각 분석을 독립적으로 수행한다. 이러한 과정은 각 주식 간의 내부관계를 무시할 밖에 없는 결과를 내고 이는 필연적으로 최적의 성능을 내지 못하는 결과를 초래한다.&lt;/p&gt;
+&lt;p&gt;주식의 가격 움직임은 다양한 측면에 의해 영향을 받는다고 알려져 있다. 선행 연구에서는 가격 움직임을 예측하기 위해 기술적 지표, factor, 재무상태, 뉴스, sns 등을 input으로 구성하였다. 주식시장의 시그널을 stock fundamental과 기술적 지표를 사용해 의사결정을 내리거나 뉴스 기사와 관련된 기업 간의 연결고리를 구축하여 주가 움직임을 예측하는 등 선행 연구에서는 LSTM과 GRU 등을 활용하여 과거 정보를 학습하고 이를 다운스트림 예측 작업에 활용하였다. 하지만 기존 학습 방법은 각 주식의 시계열 정보를 독립적이고 동일하게 분포된 것으로 간주하고 각 분석을 독립적으로 수행한다. 이러한 과정은 각 주식 간의 내부관계를 무시할 밖에 없는 결과를 내고 이는 필연적으로 최적의 성능을 내지 못하는 결과를 초래한다.
+&lt;br /&gt;
+&amp;lt;/br&amp;gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2.	Motivation&lt;/strong&gt;&lt;/h1&gt;
 &lt;p&gt;주식의 가격 변동은 그 자체의 과거 가격과 관련이 있을 뿐만 아니라 공급업체, 고객, 주주, 투자자, 연결된 기업 등과도 관련이 있다. 이러한 관계를 저장하고 표현하기 위해 knowledge graph를 활용하였고 최근에는 그래프 구조의 데이터를 효과적으로 학습할 수 있는 GNN이 방법론으로 제시되었다. 하지만 기존의 방식대로 구축된 그래프는 수작업으로 만든 라벨링과 NLP를 활용하였고 이는 기업간의 관계를 나타내기에 제한되며 많은 리소스 라벨링과 낮은 정확도가 낮은 어려움이 있다.&lt;/p&gt;
 
-&lt;p&gt;실제 기업 관계는 시간에 따라 유동적으로 변화한다. 또한 기업간의 관계는 heterogenous하여 기업 간의 관계 유형은 다양하게 나타난다. 따라서 기존 방법으로는 실제로 기업 관계 그래프의 모든 정보를 표현할 수 없다. 이 논문에서는 이러한 문제를 해결하기 위해 실제 주식가격 시퀀스를 기반으로 relation graph를 구성하고 sequential features와 relational features를 함께 학습하여 주가를 예측을 하는 temporal and heterogenous graph neural network(THGNN) 방법론을 제시한다.&lt;/p&gt;
+&lt;p&gt;실제 기업 관계는 시간에 따라 유동적으로 변화한다. 또한 기업간의 관계는 heterogenous하여 기업 간의 관계 유형은 다양하게 나타난다. 따라서 기존 방법으로는 실제로 기업 관계 그래프의 모든 정보를 표현할 수 없다. 이 논문에서는 이러한 문제를 해결하기 위해 실제 주식가격 시퀀스를 기반으로 relation graph를 구성하고 sequential features와 relational features를 함께 학습하여 주가를 예측을 하는 temporal and heterogenous graph neural network(THGNN) 방법론을 제시한다. 
+&lt;br /&gt;
+&amp;lt;/br&amp;gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/3MethodAlgorithm.png?raw=true&quot; /&gt;&lt;/p&gt;
@@ -28,24 +32,25 @@
 
 &lt;p&gt;모델의 첫 파트는 주식간의 상관관계 그래프를 생성 하는 과정으로 각 거래일의 주식간의 동적관계를 구축한다. 주식간의 상관관계는 각 주식의 과거 주식데이터를 활용해 상관행렬을 계산하고, 행렬의 각 요소 값에 따라 기업간의 관계를 결정한다.&lt;/p&gt;
 
-&lt;p&gt;기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation &amp;gt; threshold 일 때 positive, correlation &amp;lt; threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_ {r_ 1}, E_ {r_ 2}, \dots) \  \; r \in (pos, neg)$.
-회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $\tilde{G} = (\tilde{V},(\tilde{E} _{pos}, \tilde{E} _{neg}))$ 로 표기한다.&lt;/p&gt;
+&lt;p&gt;기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation &amp;gt; threshold 일 때 positive, correlation &amp;lt; threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_{r_1}, E_{r_2}, \dots) \  \; r \in (pos, neg)$.
+회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $ \tilde{G} = (\tilde{V}, (\tilde{E}&lt;em&gt;{pos},\tilde{E}&lt;/em&gt;{neg} ))$로 표기한다.
+&lt;br /&gt;&amp;lt;/BR&amp;gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;b-historical-price-encoding&quot;&gt;&lt;strong&gt;(b) Historical Price Encoding&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Input인 t번째 거래일의 price sequence는 $X^t \in R^{n \times T \times d_ {feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_ {feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다.&lt;/p&gt;
+&lt;p&gt;Input인 t번째 거래일의 price sequence는 $X^t \in \R^{n \times T \times d_{feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_{feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다.&lt;/p&gt;
 
-&lt;p&gt;$ \hat{H}^t = W_ {in}X^t + b_ {in} &lt;br /&gt;
-H^t = \hat{H}^t + PE \$&lt;/p&gt;
+\[\hat{H}^t = W_{in}X^t + b_{in} \\
+H^t = \hat{H}^t + PE \\\]
 
-&lt;p&gt;$\; PE(p,2i) = \sin(p/10000^{2i/d_ {in}}) &lt;br /&gt;
-PE(p,2i + 1) = \cos(p/10000^{2i/d_ {in}})$&lt;/p&gt;
+\[\; PE(p,2i) = \sin(p/10000^{2i/d_{in}}) \\
+PE(p,2i + 1) = \cos(p/10000^{2i/d_{in}})\]
 
-&lt;p&gt;위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_ {in}$은 input feature의 dimension을 의미하고 $W_ {in} \in R^{d_ {feat} \times d_ {in}}$과 $b_ {in} \in R^{d_ {in}}$은 학습 가능한 파라미터다.&lt;/p&gt;
+&lt;p&gt;위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_{in}$은 input feature의 dimension을 의미하고 $W_{in} \in \R^{d_{feat} \times d_{in}}$과 $b_{in} \in \R^{d_{in}}$은 학습 가능한 파라미터다.&lt;/p&gt;
 
-&lt;p&gt;$Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V&lt;br /&gt;
-Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{in}}})V&lt;br /&gt;
-EncHead_i^t = Attention(Q_i^t, K_i^t, V_i^t)&lt;br /&gt;
-H^t_{enc} = Concat(EncHead_1^t, \dots, EncHead^t_{h_{enc}})W_o$&lt;/p&gt;
+\[Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V\\
+Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{in}}})V\\
+EncHead_i^t = Attention(Q_i^t, K_i^t, V_i^t)\\
+H^t_{enc} = Concat(EncHead_1^t, \dots, EncHead^t_{h_{enc}})W_o\]
 
 &lt;p&gt;앞서 Linear transformation과 PE 과정을 거친 후, Multi-head attentional transformer를 활용하여 주식의 각 input feature를 인코딩한다. $H^t$를 각각 $W_i^Q \in \R^{d_{in} \times d_{hidden}}, W_i^K \in \R^{d_{in} \times d_{hidden}}, W_i^V \in \R^{d_{in} \times d_{hidden}}$와 곱하여 Q(Query), K(Key), V(Value)를 계산한 후 softmax함수를 적용하여  $EncHead_i^T$를 구한다. concat은 Encoder head들을 concatenation하는 것을 의미한다. $W_o \in \R^{h_{enc}d_v \times d_{enc}} $는 output projection matrix로 concatenated matrix에 곱하여 input으로 들어올 때의 사이즈와 동일하게 유지되게 한다.&lt;/p&gt;
 
@@ -94,15 +99,19 @@ Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
 &lt;h3 id=&quot;evaluating-metrics&quot;&gt;&lt;strong&gt;Evaluating Metrics&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;ACC(prediction accuracy, 예측정확도), ARR(annual return rate, 연간 수익률), AV(annual volatility, 연간 변동성),  MDD(Maximum DrawDown), ASR(Annual Sharpe Ratio, $ARR/AV$), CR(Calmar Ratio, $ARR/\vert MDD \vert$), IR(Information Ratio) 총 7가지의 지표를 사용하여 기준선과 모델의 성능을 기록한다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;financial-prediction&quot;&gt;&lt;strong&gt;Financial Prediction&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ResultTable.png?raw=true&quot; /&gt;
-논문에서 활용된 모델인 THGNN의 경우 모든 평가지표에서 대부분의 Baseline보다 우수한 지표를 보임을 알 수 있다. 이를 통해 금융 시계열 예측에서 THGNN의 우수성을 입증하였다.&lt;/p&gt;
+논문에서 활용된 모델인 THGNN의 경우 모든 평가지표에서 대부분의 Baseline보다 우수한 지표를 보임을 알 수 있다. 이를 통해 금융 시계열 예측에서 THGNN의 우수성을 입증하였다. 
+&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ablation-study&quot;&gt;&lt;strong&gt;Ablation Study&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4AblationTable.png?raw=true&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Ablation Study는 3에서 진행된 각 섹션들을 하나씩 제거해보며 성능을 평가하였다. 위에서부터 각각 Historical Price Encoding, Temporal Graph Attention, Heterogeneous Graph attention을 제거하였다. 모든 평가지표에서 어떠한 과정도 제거하지 않았을 때 가장 좋은 성능이 나옴을 알 수 있다.&lt;/p&gt;
+&lt;p&gt;Ablation Study는 3에서 진행된 각 섹션들을 하나씩 제거해보며 성능을 평가하였다. 위에서부터 각각 Historical Price Encoding, Temporal Graph Attention, Heterogeneous Graph attention을 제거하였다. 모든 평가지표에서 어떠한 과정도 제거하지 않았을 때 가장 좋은 성능이 나옴을 알 수 있다. 
+&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;interpretability-of-graph-neural-network&quot;&gt;&lt;strong&gt;Interpretability of Graph Neural Network&lt;/strong&gt;&lt;/h2&gt;
 
@@ -120,8 +129,8 @@ Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
 
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/Temporal_And_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.html</link>
-            <guid isPermaLink="true">http://localhost:4000/Temporal_And_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.html</guid>
+            <link>http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</guid>
             
             <category>reviews</category>
             
