@@ -39,13 +39,13 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ICDM 2022] DAGAD: Data Augmentation for Graph Anomaly Detection](/_posts/DS503_23S/2023-04-20-DAGAD_Data_Augmentation_for_Graph_Anomaly_Detection.md)
 - [[WWW 2021] SimGRACE: A Simple Framework for Graph Contrastive Learning without Data Augmentation](/_posts/DS503_23S/2023-04-20-SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.md)
 - [[AAAI 2021] TabNet: Attentive Interpretable Tabular Learning](/_posts/DS503_23S/2023-04-20-TabNet_Attentive_Interpretable_Tabular_Learning.md)
-- [[CIKM 2020] Temporal and Heterogeneous Graph Neural Network For Financial Time Series Prediction](/_posts/DS503_23S/2023-04-20-Temporal_and_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.md)
 - [[Nat. Mach. Intell. 2023] Deep learning based on parameterized physical forward model for adaptive holographic imaging with unpaired data](/_posts/DS503_23S/2023-04-20-Deep_learning_based_on_parameterized_physical_forward_model_for_adaptive_holographic_imaging_with_unpaired_data.md)
 - [[ASME 2022] Deep Generative Tread Pattern Design Framework for Efficient Conceptual Design](/_posts/DS503_23S/2023-04-20-Deep_Generative_Tread_Pattern_Design_Framework_for_Efficient_Conceptual_Design.md)
 - [[ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle](/_posts/DS503_23S/2023-04-20-EASE_Extractive_Abstractive_Summarization_End_to_End_using_the_Information_Bottleneck_Principle.md)
 - [[Entropy 2023] Mining Mobile Network Fraudsters with Augmented Graph](/_posts/DS503_23S/2023-04-20-Mining_Mobile_Network_Fraudsters_with_Augmented_Graph.md)
 - [[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks](/_posts/DS503_23S/2023-04-20-Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.md)
 - [[Nature Machine Intelligence 2022] Super-resolution generative adversarial networks of randomly-seeded fields](/_posts/DS503_23S/2023-04-20-Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.md)
+- [[CIKM 2020] Temporal And Heterogeneous Graph Neural Network For Financial Time Series Prediction](/_posts/DS503_23S/2023-04-20-Temporal_And_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.md)
 
 ## KSE801 (2022F)
 
