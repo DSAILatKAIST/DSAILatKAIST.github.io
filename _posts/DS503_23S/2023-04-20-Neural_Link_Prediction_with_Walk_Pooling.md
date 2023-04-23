@@ -9,7 +9,7 @@ usemathjax: true
 
 # [ICLR 2022]Neural Link Prediction with Walk Pooling
 
-## 1. ****Motivation****
+## 1. **Motivation**
 
 그래프는 coauthorship 네트워크 또는 human protein interactome와 같은 관계 데이터에 대한 자연스러운 모델입니다. 성공적인 Link prediction은 그래프 형성의 원리를 이해해야 합니다.그래프 신경망은 그래프 topology와 노드 feature들을 활용하여 Link prediction문제에서 높은 정확도를 달성합니다. 그러나 topology 정보는 간접적으로 표현되어 왔습니다. 서브 그래프 분류를 기반으로 하는 기존 state-of-the-art 방법들은 타겟 링크와 노드 거리에 따라 라벨을 붙여 topology 정보를 표현했습니다. 이 방법은 topology정보가 존재하지만, pooling에 의해 정보가 약해집니다.
 
@@ -43,7 +43,7 @@ $\mathcal{E^o}$는 관측된 에지의 집합입니다. $\mathcal{E^o}$는 전�
 - 인접 행렬 $A = (a_{ij})^N_{i,j=1}\in\{0,1\}^{N\times N}\text{ with }a_{ij} = 1 \text{ if } \{i,j\} \in \mathcal{E^o}$ and $a_{ij} = 0$  otherwise.
 - 노드의 feature 벡터 =  $x_i \in \mathbb{R}^F, i \in \{1,....N\}$
 - feature 벡터 행렬 $X = [x_1,...,x_n]^T \in \mathbb{R}^{N \times F}$
-- $D = diag(d_1,...d_n)$ ,  $d_i = \sum_ja_{ij} = |N(i)|$
+- $D = diag(d_1,...d_n)$ ,  $d_ i = \sum_ja_ {ij} = \vert N(i) \vert$
 - $P = D^{-1}A$
 
 **WALKPOOl**은 먼저 대상 링크를 포함하는 k-hop 서브 그래프(타겟 링크를 구성하는 노드들로 부터 거리가 k이내인 노드들이 이루는 그래프)를 샘플링 합니다, 타겟 링크를 포함한 서브 그래프, 포함하지 않은 서브 그래프에 대한 랜덤 워크 profiles을 각각 계산합니다.그 후 랜덤 워크 profiles이 링크 분류기에 입력됩니다. walk profiles의 계산은 다음과 같이 이루어집니다.
@@ -79,25 +79,19 @@ $\mathcal{V_{\{i,j\}}}$에 있는 노드 $i$와 노드$j$가 1과 2로 각각 �
 
 먼저 두 개의 노드의 상관 관계를 에지 가중치로 인코딩합니다.
 
-$$
-\omega_{x,y} = Q_\theta(z_x)^TK_\theta(z_y)/\sqrt{F^{\prime\prime}} \quad\quad\quad\quad\quad\quad\quad(1)
-$$
+$\omega_ {x,y} = Q_ \theta(z_ x)^TK_ \theta(z_ y)/\sqrt{F^{\prime\prime}} \quad\quad\quad\quad\quad\quad\quad(1)$
 
 여기서 $\{x,y\} \in \mathcal{E}$ 이고, $Q_\theta : \mathbb{R}^{F\prime}\rightarrow\mathbb{R}^{F\prime\prime}$ , $K_\theta : \mathbb{R}^{F\prime}\rightarrow\mathbb{R}^{F\prime\prime}$ 인  2층 구조인 퍼셉트론 입니다. $F^{\prime\prime}$은 퍼셉트론의 출력 차원과 같습니다.  $\{x,y\} \in \mathcal{E}$ 인 에지에 대해서 
 
-$$
-p_{x,y} = [softmas((\omega_{x,z})_{z\in \mathcal{N}(x)})] := \frac {exp(\omega_{x,y})}{\sum_{z\in \mathcal{N}(x)}exp(\omega_{x,z})} \quad\quad(2)
-$$
+$p_ {x,y} = [softmas((\omega_ {x,z})_ {z\in \mathcal{N}(x)})] := \frac {exp(\omega_{x,y})}{\sum_ {z\in \mathcal{N}(x)}exp(\omega_ {x,z})} \quad\quad(2)$
 
 랜덤워크 transition 확률 행렬 $P$ = $p(x,y)$ 를 계산 합니다.  $\mathcal{E}$에 포함되지 않는 에지에 대해선 $p_{x,y} = 0$ 입니다.  $\mathcal{N}(x)$는 서브 그래프에서  $x$의 이웃 노드 입니다.
 
-행렬 $[P^\tau]_{ij}$의 성분들은 랜덤 워커가 $i$에서 $j$로 $\tau$ hops에 갈 확률로 해석할 수 있습니다. P는 타겟 링크와 관련된 노드 속성과 topogical한 정보들을  랜덤 워크의 형태로 나타냅니다. Topolgy 정보들은 GNN에서 노드 features $Z$를 추출 할때 간접적으로, P에 의해 직접적으로 포함됩니다. 입력 feature는  GNN이 노드의 features를 추출할 때 직접 포함되며, 키, 값 함수 $Q_\theta\text{ },K_\theta$에 의해 Topology정보와 결합됩니다.
+행렬 ${P^\tau}_ {ij}$ 의 성분들은 랜덤 워커가 $i$에서 $j$로 $\tau$ hops에 갈 확률로 해석할 수 있습니다. P는 타겟 링크와 관련된 노드 속성과 topogical한 정보들을 랜덤 워크의 형태로 나타냅니다. Topolgy 정보들은 GNN에서 노드 features $Z$를 추출 할때 간접적으로, P에 의해 직접적으로 포함됩니다. 입력 feature는  GNN이 노드의 features를 추출할 때 직접 포함되며, 키, 값 함수 $Q_\theta\text{ },K_\theta$에 의해 Topology정보와 결합됩니다.
 
 행렬 $P$와 그 거듭 제곱으로부터 그래프 분류 문제에서 사용되는 features들을 계산 할 수 있습니다.노드 레벨, 링크 레벨, 그래프 레벨의 feature들을  아래와 같이 계산할 수 있습니다. 
 
-$$
-node^\tau = [P^\tau]_{1,1}+[P^\tau]_{2,2},\text{ }link^\tau = [P^\tau]_{1,2}+[P^\tau]_{2,1},\text{ }graph^\tau = tr[P^\tau].\quad(3)
-$$
+$node^\tau = [P^\tau]_ {1,1}+[P^\tau]_ {2,2},\text{ }link^\tau = [P^\tau]_ {1,2}+[P^\tau]_ {2,1},\text{ }graph^\tau = tr[P^\tau].\quad(3)$
 
 ![https://user-images.githubusercontent.com/130838113/232212273-29035fca-878a-4508-a75a-62e32dd9cced.png](https://user-images.githubusercontent.com/130838113/232212273-29035fca-878a-4508-a75a-62e32dd9cced.png)
 

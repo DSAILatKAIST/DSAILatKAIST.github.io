@@ -336,13 +336,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>본 연구는 위의 두 가지 한계점을 Hierarchical Graph Structure를 활용하여 보완함으로써 모델의 성능(performance prediction)과 설명력(interpretability)을 높이고자 하였다. HGKT의 기본 framework은 Figure 1과 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821065-5eb62c9d-469e-4e40-a923-3426cfcd46ef.png" alt="Figure1" /></p>
 
-![Figure 1](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure1.png?raw=true) 
-
-$Figure 1$
-
-</center>
+<p>$Figure 1$</p>
 
 <p>Figure 1의 Training Process에서 학생은 $e_1$과 $e_3$은 맞혔고, $e_2$는 틀렸다. 이때, ‘Coordinate Calculation’의 이해도를 동일하게 확인하는 $e_7$과 $e_8$의 문제 풀이 여부를 예측하는 경우, ‘Pythagorean Theorem’의 이해도를 확인하는 $e_2$는 틀렸고, $e_7$과 개념적으로 관련있어 $e_2$와 관련된 학생의 지식상태가 $e_7$를 예측하는데 직접적으로 참고가 되고(direct support), $e_3$은 $e_8$과 개념적으로는 연결되지 않고 문제의 스키마(problem schema)만 관련있기 때문에 $e_8$의 문제 풀이 여부를 예측하는데 간접적으로 참고가 된다(indirect support). 여기서 문제의 스키마는 그 문제의 풀이 방식 혹은 설명 방식을 나타내는 것으로 문제에서 묻고자 하는 수학적 개념과 다르다.</p>
 
@@ -353,13 +349,9 @@ $\bullet$ 각 문제에서 묻는 개념인 knowledge concept뿐만 아니라, p
 $\bullet$ 모델의 architecture에서 두 개의 attention mechanism을 사용함으로써 hierarchical graph의 내용을 충분히 반영하고, 각 학생의 지식상태 또한 정확하게 반영하고자 시도하였다.<br />
 $\bullet$ knowledge&amp;schema (K&amp;S) diagnosis matrix를 활용하여 knowledge concept과 problem schema의 습득 여부(mastery)를 동시에 고려함으로써, 기존 연구의 한계점인 insufficient diagnosis problem을 해결하고자 하였다. knowledge와 schema의 관계와 K&amp;S diagnosis matrix는 Figure 2와 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821080-3e4580f7-bfcb-4826-90ae-ed704e63e8fa.png" alt="Figure 2" /></p>
 
-![Figure 2](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure2.png?raw=true)  
-
-$Figure 2$
-
-</center>
+<p>$Figure 2$</p>
 
 <p><br /></p>
 
@@ -381,13 +373,9 @@ $Figure 2$
 
 <p>논문에서 소개하는 HEG(hierarchical exercise graph)는 exercise 간의 ‘direct support relations’와 ‘indirect support relations’를 보여주는 두 가지의 그래프로 나타난다. 먼저, direct support relations는 하단 그래프로 나타나며 각 node는 exercise를 나타낸다. 그리고, indirect support relations는 상단 그래프로 나타나며 각 node는 problem schema를 나타낸다. 이것을 시각적으로 보면 Figure 3와 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821098-3fc3e0bb-90a5-4ce7-882e-d2340d57984e.png" alt="Figure 3" /></p>
 
-![Figure 3](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure3.png?raw=true)  
-
-$Figure 3$
-
-</center>
+<p>$Figure 3$</p>
 
 <p>HEG는 $(A, F, S_ e)$로 표현되며, $A$ $\in$ ${0,1}^{\vert E\vert *\vert E\vert }$는 direct support relations graph의 adjacency matrix이며, $F$ $\in$ $R^{\vert E\vert *t}$는 각 노드의 feature matrix로 노드별로 t개의 feature를 표현하고, $S_e^{\vert E\vert *\vert S\vert }$는 direct support relations graph와 indirect support relations graph의 연결관계를 나타낸다.</p>
 
@@ -401,13 +389,9 @@ $Figure 3$
 
 <p>HGKT의 framework은 figure 4와 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821105-3b2f30eb-8d14-4b12-b068-b197a53c409c.png" alt="Figure 4" /></p>
 
-![Figure 4](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure4.png?raw=true)  
-
-$Figure 4$
-
-</center>
+<p>$Figure 4$</p>
 
 <p>System 1은 HGNN(hierarchical graph neural network)를 통해서 문제 간 hierarchical graph 구조를 학습하여 problem schema embedding을 생성하여 System 2에 전달한다. System 2는 전달받은 embedding value와 hierarchical graph 정보를 활용하여 exercise에 대한 학습자의 지식상태를 예측한다.</p>
 
@@ -426,12 +410,10 @@ $P(R_{e1}|R_{e2}) = P(R_{e1}|R_{e2}, W_{e2}), P(W_{e2}|W_{e1}) = P(W_{e2}|R_{e1}
 
 <p>위의 방식에 의해 exercise 간 support value를 구성하면 다음과 같다. $Count$(($e_i$, $e_j$) = ($r_i$, $r_j$))는 학생이 $e_j$에 $r_i$를 답하기 전에 $e_i$에 $r_j$라고 답한 경우의 수를 의미한다. 분모가 지나치게 작아지는 것을 방지하기 위해 laplacian smoothing parameter로서 $\lambda_p$ = 0.01을 분모에 더했다.</p>
 
-<center>
+<p>$P(R_ {e1} \vert R_ {e2})$ = $Count((e_ 2, e_ 1) = (1, 1)) + \lambda_p \over \Sigma_ {r_1=0}^1 Count((e_ 2, e_ 1) = (1, r_ 1)) + \lambda_p$,<br />
+$P(R_ {e1} \vert R_ {e2}, W_ {e2})$ = $\Sigma_ {r_2=0}^1Count((e_ 2, e_ 1) = (r_ 2, 1)) + \lambda_p \over \Sigma_ {r_ 2=0}^1\Sigma_ {r_ 1=0}^1 Count((e_ 2, e_ 1) = (r_ 2, r_ 1)) + \lambda_p$</p>
 
-$P(R_{e1}|R_{e2})$ = $Count((e_2, e_1) = (1, 1)) + \lambda_p \over \Sigma_{r_1=0}^1 Count((e_2, e_1) = (1, r_1)) + \lambda_p$,  
-$P(R_{e1}|R_{e2}, W_{e2})$ = $\Sigma_{r_2=0}^1Count((e_2, e_1) = (r_2, 1)) + \lambda_p \over \Sigma_{r_2=0}^1\Sigma_{r_1=0}^1 Count((e_2, e_1) = (r_2, r_1)) + \lambda_p$
-
-</center>
+<p>&lt;/center&gt;</p>
 
 <p>위 식에 의해 exercise 간 support value는 다음과 같다.</p>
 
@@ -538,12 +520,9 @@ $R_{t, j}^s$ = $R_{t, j}^{ks}d_j^s$, $d_{i, j}^s$ = $q_{i, j} \over \Sigma_iq_{i
 
 <p>HGKT 모델은 TextRank[6]로 각 문제의 텍스트에서 keyword를 추출함으로써 각 문제에 내재된 problem schema를 나타내는 Scema Summarization Algorithm을 통해 모델의 설명력을 높였다. 구체적인 내용은 Table 1과 같다.</p>
 
-<center>
+<p>$Table 1$<br />
+<img src="https://user-images.githubusercontent.com/96431635/233821126-61c22a74-bdc1-43c1-8979-70e402f004c9.png" alt="Figure 5" /></p>
 
-$Table 1$  
-![Figure 5](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure5.png?raw=true)  
-
-</center>
 <p><br /></p>
 
 <h2 id="5-experiments">5. EXPERIMENTS</h2>
@@ -555,14 +534,10 @@ $Table 1$
 <ol>
   <li>Dataset: 본 연구를 진행한 기관(AIXUEXI Education Group)이 자체 구축한 온라인 수학 학습 시스템인 Aixuexi online system을 활용하여 수집한 Aixuexi dataset (2018)</li>
 </ol>
-<center>
 
-$Table 2$  
+<p>$Table 2$</p>
 
-![Figure 6](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure6.png?raw=true)
-
-
-</center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821133-5431ed98-f2d8-4c3f-a332-485c0c08b5d5.png" alt="Figure 6" /></p>
 
 <ol>
   <li>
@@ -599,13 +574,9 @@ $\bullet$ Variants of HGKT</p>
 
 <h3 id="52-comparison-results">5.2 Comparison Results</h3>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821148-59b59278-51ee-4e1d-801d-dbbce45f3621.png" alt="Figure 7" /></p>
 
-![Figure 7](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure7.png?raw=true)  
-
-$Figure 5$
-
-</center>
+<p>$Figure 5$</p>
 
 <p>$\bullet$ HGKT가 다른 model에 비해 우수한 성능을 보인다.<br />
 $\bullet$ BERT로 text representation을 한 HGKT-B가 Bi-LSTM으로 text representation을 한 EKT(논문상에서는 EKTA로 오타)보다 높은 성능을 보이는 것으로 보아 문제의 text representation에서 BERT가 Bi-LSTM보다 우수함을 확인할 수 있다.<br />
@@ -622,7 +593,7 @@ $\bullet$ HGKT가 HGKT-S와 HGKT-B보다 우수한 성능을 보이는 것으로
 <center>
 
 $Table 3$  
-![Table 3](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure8.png?raw=true)
+![Table 3](https://user-images.githubusercontent.com/96431635/233821159-205e61dd-ea5f-4850-8cd4-48627d5101c7.png)
 
 </center>
 
@@ -637,20 +608,16 @@ $\bullet$ Bert-Sim Method: BERT embedding의 cosine similarity를 활용하여 �
 $\bullet$ Exercise Transition Method: exercise 풀이 과정에서의 변화를 반영하는 adjacency matrix로 표현되는 그래프를 활용한 방법으로, exercise i를 응답한 후 exercise j를 응답하는 경우의 수를 $n_{i, j}$로 두었을 때, $n_{i, j} \over \Sigma_{k=1}^{|E|}$ &gt; $\omega$(hyperparameter)인 경우 1값을 갖고 그렇지 않은 경우 0값을 갖는 방법으로 adjacency matrix가 표현됨.<br />
 $\bullet$ Exercise Support Method: bayesian statistical inference를 활용하여 그래프를 생성하는 방법으로, 두 exercise의 연관도를 나타내는 $Sup(e_1, e_2)$가 $\omega$보다 크면 ‘1’, 그렇지 않으면 ‘0’값을 갖는 adjacency matrix를 활용함.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821177-6364f2db-6242-42cd-a6d6-b33b1404a9f3.png" alt="Figure 8" /></p>
 
-![Figure 8](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure9.png?raw=true)   
+<p>$Figure 6$</p>
 
-$Figure 6$
+<p><img src="https://user-images.githubusercontent.com/96431635/233821189-07a995cc-6ea7-42aa-9f10-c45dc15d1caa.png" alt="Figure 9" /></p>
 
-![Figure 9](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure10.png?raw=true)  
+<p>$Figure 7$</p>
 
-$Figure 7$
-
-$Table 4$
-![Figure 10](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure%2013.png?raw=true)  
-
-</center>
+<p>$Table 4$
+<img src="https://user-images.githubusercontent.com/96431635/233821196-397925f6-7a28-4357-8d13-f377c54c80b7.png" alt="Figure 10" /></p>
 
 <p>그래프 구성 방법에 따른 AUC를 비교해보면, bayesian statistical inference를 활용한 Exercise Support Method가 가장 높은 성능을 보였다. 이것은 해당 방법이 단순히 exercise의 feature를 사용하는 다른 방법과 달리 exercise간의 상호작용 정보가 exercise 풀이가 진행될 때마다 누적됨에 따른 효과로 확인되었다. 또한, edge-to-node의 비율이 3-4일 때 graph convolution이 가장 높은 성능을 보였다. Problem schema의 clustering level은 연산력과 exercise representation에 영향을 미친다. 즉, 너무 높으면 연산의 효율성이 떨어지고, exercise를 지나치게 세밀하게 clustering 함으로써 오히려 성능을 저하시킬 수 있다. 이에 따라, 본 연구에서는 Figure 7에서와 같이 clustering level을 5~20 내에서 성능치를 비교하였고, 그림 (b)에 나타나는 것처럼 level이 9일 때 가장 높은 성능을 보였다. 마지막으로, $GNN_{exer}$과 $GNN_{sche}$의 layer의 수에 따른 모델의 성능을 비교한 결과는 Table 4와 같고, $GNN_{exer}$과 $GNN_{sche}$의 layer가 각각 3개, 1개일 때 가장 좋은 성능을 보였다.</p>
 
@@ -658,13 +625,9 @@ $Table 4$
 
 <p>HGKT는 hierarchical graph 사용에 있어서 두 가지의 attention을 활용한 것이 또 하나의 contribution이다. 이에 따라, 두 가지 attention(sequence attention, schema attention)의 성능을 분석하였고, 그 결과는 Figure 8과 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821208-0fcef1ee-4722-4837-b89e-fc3140ec4bf9.png" alt="Figure 11" /></p>
 
-![Figure 11](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure11.png?raw=true)  
-
-$Figure 8$
-
-</center>
+<p>$Figure 8$</p>
 
 <p>두 가지 attention을 모두 사용한 경우가 모두 사용하지 않은 경우보다 높은 성능치를 보였고, 각 attention이 단일적으로 사용된 경우도 두 가지 모두 사용되지 않은 경우보다 높은 성능치를 보인 것으로 보아, 해당 모델의 memory를 강화하는데 두 attention이 모두 유의한 역할을 하는 것을 확인할 수 있었다. 또한, 일정 부분의 문제 풀이 정보를 차단함으로써 연산 성능과 학생의 망각효과를 고려하는 window size($\gamma_\beta$)에 따른 성능을 비교한 결과, 20일 때 가장 높은 성능을 보였다. 이것은 학생의 능력을 측정하는 평가 문항의 적절한 개수를 정하는데 참고할 수 있다.<br />
 <br /></p>
@@ -673,13 +636,9 @@ $Figure 8$
 
 <p>지금까지 설명한 바와 같이 HGKT는 단순히 Knowledge Tracing의 성능을 높이는 것뿐만 아니라, 학생의 학습 과정에 대한 높은 설명력을 보여줌으로써 Learner Diagnosis Report와 Adaptive Question Recommendation과 같이 실제 교육 분야에서 학생의 학습을 지원하기 위해 다양하게 활용될 수 있다. 한 가지 예시를 보면 Figure 9와 같다.</p>
 
-<center>
+<p><img src="https://user-images.githubusercontent.com/96431635/233821218-665af127-5dc6-496d-a714-89c9a4e0e4be.png" alt="Figure 12" /></p>
 
-![Figure 12](https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/blob/main/figure12.png?raw=true)   
-
-$Figure 9$
-
-</center>
+<p>$Figure 9$</p>
 
 <p>학생이 $e_{12}$문제를 틀렸을 때 해당 문제를 틀린 이유와 그러한 문제를 틀리지 않기 위해 어떠한 문제를 풀어야 하는지 정보를 제공함으로써 학생의 학습을 지원하는 것뿐만 아니라 학생에게 가장 적합한 문제들을 추천하는 데에도 활용될 수 있다.<br />
 <br /></p>

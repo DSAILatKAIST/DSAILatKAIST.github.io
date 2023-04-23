@@ -137,7 +137,7 @@ $\vert \vert \hat x(0) - x \vert \vert \le \vert \vert \epsilon_ a \vert \vert +
 
 $\epsilon_ a$는 $x_ a= x + \epsilon_a$, $\gamma(t^ *) := \int^ {t^ *}_ 0 {1 \over 2}\beta(s)ds$ 그리고 상수 $C_ \delta := \sqrt{ 2d + 4\sqrt{d \log{1 \over \delta}}+4\log{1 \over \delta}}$를 만족하는 적대적 변동을 뜻한다.
 
-$\gamma(t^ *)$는 $t^ *$에 따라 단조적으로 증가하고 $\forall t^ *,\gamma(r^ *) \ge 0$이기 때문에 위 정리의 상한의 마지막 두 항은 $t^ *$에 따라 증가한다. 그러므로, $||\hat x(0) - x||$를 최대한 낮게 하기 위해서 $t^ *$는 충분히 작아야 한다. 극단적으로, $t^ *= 0$인 상황에서 우리는 $||\hat x (0) - x || = || \epsilon_a||$를 갖는다. 이는 우리가 확산 정화를 수행하지 않으면 $\hat x(0)$이 $x_a$로 감소한다는 사실을 의미한다.
+$\gamma(t^ *)$는 $t^ *$ 에 따라 단조적으로 증가하고 $\forall t^ *,\gamma(r^ *) \ge 0$ 이기 때문에 위 정리의 상한의 마지막 두 항은 $t^ *$ 에 따라 증가한다. 그러므로, $\vert \vert \hat x(0) - x \vert \vert $를 최대한 낮게 하기 위해서 $t^ *$는 충분히 작아야 한다. 극단적으로, $t^ *= 0$인 상황에서 우리는 $\vert \vert \hat x (0) - x \vert \vert = \vert \vert \epsilon_a\vert \vert$를 갖는다. 이는 우리가 확산 정화를 수행하지 않으면 $\hat x(0)$이 $x_a$로 감소한다는 사실을 의미한다.
 
 적대적 예시의 지역 변동을 정화하는 것(큰 $t^ *)$과 전역 구조를 보존하는 것(작은 $t^ *$)의 상충 관계 때문에 **높고 강건한 분류 정확도(high robust classification accuracy)를 얻을 수 있는 좋은 확산 시간 단계(diffsuion timestep) $t^ *$가 존재**한다. 적대적 교란은 보통 작기 때문에 작은 $t^ *$로 제거될 수 있고, 대부분 최적의 $t^ *$는 상대적으로 작다. 
 
