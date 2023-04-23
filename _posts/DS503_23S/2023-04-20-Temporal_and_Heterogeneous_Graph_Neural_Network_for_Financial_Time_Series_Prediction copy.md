@@ -1,6 +1,6 @@
 ---
-title:  "[CIKM 2020] Temporal and Heterogeneous Graph Neural Network For Financial Time Series Prediction"
-permalink: Temporal_and_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.html
+title:  "[CIKM 2020] Temporal and Heterogeneous Graph Neural Network for Financial Time Series Prediction"
+permalink: Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html
 tags: [reviews]
 use_math: true
 usemathjax: true

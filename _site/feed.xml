@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 23 Apr 2023 14:35:18 +0900</pubDate>
-        <lastBuildDate>Sun, 23 Apr 2023 14:35:18 +0900</lastBuildDate>
+        <pubDate>Sun, 23 Apr 2023 14:40:04 +0900</pubDate>
+        <lastBuildDate>Sun, 23 Apr 2023 14:40:04 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -131,6 +131,134 @@ Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</link>
             <guid isPermaLink="true">http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>[CIKM 2020] Temporal and Heterogeneous Graph Neural Network For Financial Time Series Prediction</title>
+            <description>&lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1.	Problem Definition&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;주식의 가격 움직임은 다양한 측면에 의해 영향을 받는다고 알려져 있다. 선행 연구에서는 가격 움직임을 예측하기 위해 기술적 지표, factor, 재무상태, 뉴스, sns 등을 input으로 구성하였다. 주식시장의 시그널을 stock fundamental과 기술적 지표를 사용해 의사결정을 내리거나 뉴스 기사와 관련된 기업 간의 연결고리를 구축하여 주가 움직임을 예측하는 등 선행 연구에서는 LSTM과 GRU 등을 활용하여 과거 정보를 학습하고 이를 다운스트림 예측 작업에 활용하였다. 하지만 기존 학습 방법은 각 주식의 시계열 정보를 독립적이고 동일하게 분포된 것으로 간주하고 각 분석을 독립적으로 수행한다. 이러한 과정은 각 주식 간의 내부관계를 무시할 밖에 없는 결과를 내고 이는 필연적으로 최적의 성능을 내지 못하는 결과를 초래한다.
+&lt;br /&gt;
+&amp;lt;/br&amp;gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2.	Motivation&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;주식의 가격 변동은 그 자체의 과거 가격과 관련이 있을 뿐만 아니라 공급업체, 고객, 주주, 투자자, 연결된 기업 등과도 관련이 있다. 이러한 관계를 저장하고 표현하기 위해 knowledge graph를 활용하였고 최근에는 그래프 구조의 데이터를 효과적으로 학습할 수 있는 GNN이 방법론으로 제시되었다. 하지만 기존의 방식대로 구축된 그래프는 수작업으로 만든 라벨링과 NLP를 활용하였고 이는 기업간의 관계를 나타내기에 제한되며 많은 리소스 라벨링과 낮은 정확도가 낮은 어려움이 있다.&lt;/p&gt;
+
+&lt;p&gt;실제 기업 관계는 시간에 따라 유동적으로 변화한다. 또한 기업간의 관계는 heterogenous하여 기업 간의 관계 유형은 다양하게 나타난다. 따라서 기존 방법으로는 실제로 기업 관계 그래프의 모든 정보를 표현할 수 없다. 이 논문에서는 이러한 문제를 해결하기 위해 실제 주식가격 시퀀스를 기반으로 relation graph를 구성하고 sequential features와 relational features를 함께 학습하여 주가를 예측을 하는 temporal and heterogenous graph neural network(THGNN) 방법론을 제시한다. 
+&lt;br /&gt;
+&amp;lt;/br&amp;gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/3MethodAlgorithm.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;THGNN모델은 historical price sequence를 input으로 받고 probability of stock movement를 output으로 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-stock-correlatiobn-graph-generation&quot;&gt;&lt;strong&gt;(a) Stock Correlatiobn Graph Generation&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;모델의 첫 파트는 주식간의 상관관계 그래프를 생성 하는 과정으로 각 거래일의 주식간의 동적관계를 구축한다. 주식간의 상관관계는 각 주식의 과거 주식데이터를 활용해 상관행렬을 계산하고, 행렬의 각 요소 값에 따라 기업간의 관계를 결정한다.&lt;/p&gt;
+
+&lt;p&gt;기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation &amp;gt; threshold 일 때 positive, correlation &amp;lt; threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_{r_1}, E_{r_2}, \dots) \  \; r \in (pos, neg)$.
+회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $ \tilde{G} = (\tilde{V}, (\tilde{E}&lt;em&gt;{pos},\tilde{E}&lt;/em&gt;{neg} ))$로 표기한다.
+&lt;br /&gt;&amp;lt;/BR&amp;gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;b-historical-price-encoding&quot;&gt;&lt;strong&gt;(b) Historical Price Encoding&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Input인 t번째 거래일의 price sequence는 $X^t \in \R^{n \times T \times d_{feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_{feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다.&lt;/p&gt;
+
+\[\hat{H}^t = W_{in}X^t + b_{in} \\
+H^t = \hat{H}^t + PE \\\]
+
+\[\; PE(p,2i) = \sin(p/10000^{2i/d_{in}}) \\
+PE(p,2i + 1) = \cos(p/10000^{2i/d_{in}})\]
+
+&lt;p&gt;위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_{in}$은 input feature의 dimension을 의미하고 $W_{in} \in \R^{d_{feat} \times d_{in}}$과 $b_{in} \in \R^{d_{in}}$은 학습 가능한 파라미터다.&lt;/p&gt;
+
+\[Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V\\
+Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{in}}})V\\
+EncHead_i^t = Attention(Q_i^t, K_i^t, V_i^t)\\
+H^t_{enc} = Concat(EncHead_1^t, \dots, EncHead^t_{h_{enc}})W_o\]
+
+&lt;p&gt;앞서 Linear transformation과 PE 과정을 거친 후, Multi-head attentional transformer를 활용하여 주식의 각 input feature를 인코딩한다. $H^t$를 각각 $W_i^Q \in \R^{d_{in} \times d_{hidden}}, W_i^K \in \R^{d_{in} \times d_{hidden}}, W_i^V \in \R^{d_{in} \times d_{hidden}}$와 곱하여 Q(Query), K(Key), V(Value)를 계산한 후 softmax함수를 적용하여  $EncHead_i^T$를 구한다. concat은 Encoder head들을 concatenation하는 것을 의미한다. $W_o \in \R^{h_{enc}d_v \times d_{enc}} $는 output projection matrix로 concatenated matrix에 곱하여 input으로 들어올 때의 사이즈와 동일하게 유지되게 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;c-temporal-graph-attention-mechanism&quot;&gt;&lt;strong&gt;(c) Temporal Graph Attention Mechanism&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;Historical Price Encoding의 output인 $H^t_{enc}$와 Temporal relation Graph인 $\tilde{G}$를 활용하여 다음 단계인 temporal attention mechanism을 진행한다. $H^t_{enc}$의 모든 노드를 1차원으로 flatten하고 2단계의 temporal attention mechanism을 활용한다. 각각의 relationship인 $r \in (pos, neg)$에 대해 다음과 같은 연산을 진행한다.&lt;/p&gt;
+
+\[\alpha^i_{u^t, v^t} = \frac{exp(LeakyReLU(a^T_{r,i}[h_{u_t} \vert h_{v_t}]))}{\sum_{k^t \in \Nu_r(v^t)}exp(LeakyReLU(a^T_{r,i}[h_{k^t} \vert h_{v_t}]))}\]
+
+&lt;p&gt;$h_{u_t}$는 $H_{enc}^t$의 $u_t$번째 열을 의미하고, $a_{r,i} \in \R^{2Td_{enc}}$는 i번째 head의 r번째 relation에 대한 가중치 벡터를 의미한다. $\alpha^i_{u_t, v_t}$는 노드$u_t$에 대한 노드$v_t$의 중요도를 의미한다. LeakyReLU activation을 활용하여 계산된 Normalized Attention Score는 아래와 같이 i번째 노드의 neighbor importance를 결정하여 input 데이터를 재정의 한다.&lt;/p&gt;
+
+\[TgaHead_i = \sum_{v^t \in \tilde{V}} \sigma(\sum_{u^t \in \Nu_r(v^t)}\alpha^i_{u^t, v^t}h_{u^t})\\
+H^t_r = Concat(TgaHead_1, \dots, TgaHead_{h_{tga}})W_{o,r}\]
+
+&lt;p&gt;$\sigma$ 는 activate function으로 sigmoid함수를 활용한다. $W_{o,r} \in \R^{h_{tga}Td_{enc} \times d_{att}}$ 는 output projection matrix를 의미한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;d-heterogeneous-graph-attention-mechanism&quot;&gt;&lt;strong&gt;(d) Heterogeneous Graph Attention Mechanism&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;앞선 과정을 통해 3개의 종류의 임베딩($H^t_{self}, H^t_{pos}, H^t_{neg}$)을 정의 하였다. $H^t_{self} = W_{self}H^t_{enc} + b_{self}$로 $H^t_{self}$로 부터 도출되었고, $H^t_{pos}, H^t_{neg}$는 앞선 Temporal Graph Attention Mechanism을 통해 도출되었다. $(\beta_{self}, \beta_{pos}, \beta_{neg})$ 는 3개의 임베딩을 input으로 하여 아래와 같은 과정을 통해 계산된다.&lt;/p&gt;
+
+\[w_r  = \frac{1}{\vert \tilde{V} \vert} \sum_{v^t \in \tilde{V}}q^T \tanh(Wh_{v^t,r}+b) \\
+\beta_r = \frac{exp(w_r)}{\sum_{r \in (self, pos, neg)}exp(w_r)} \\
+Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
+
+&lt;p&gt;3개의 임베딩을 MLP를 통해 각각 transform하고 heterogeneous attention vector인 &lt;strong&gt;q&lt;/strong&gt; 를 곱한 후 평균을 구해 $w_r$ 를 계산하였다. $w_r$ 을 활용하여 3가지 관계의 가중치인 ($\beta_r$)를 구할 수 있다. 마지막으로 가중치인 $\beta_r$ 을 활용하여 최종 임베딩인 $Z_t$ 를 구한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;e-optimzation-objectives&quot;&gt;&lt;strong&gt;(e) Optimzation Objectives&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;목적함수는 다음과 같은 과정을 통해 계산된다. 상위 100개와 하위 100개에 속하는 200개의 주식을 선택하고 해당 노드에 각각 1과 0으로 레이블을 지정한다. 그 후로 한 계층의 MLP를 분류기로 사용하여 라벨링된 노드의 분류결과를 얻는다. Binary cross-entropy를 사용하여 다음과 같이 목적함수 L을 구할 수 있다.&lt;/p&gt;
+
+\[\hat{Y}_l = \sigma(WZ^t_l + b) \\
+\mathcal L = \sum_{l \in \mathcal Y_t}[Y^t_l \log(\hat{Y}_l) + (1- Y_l^t)log(1- \hat{Y}_l)]\]
+
+&lt;p&gt;$Y_l^t, Z_l^t$는 라벨링된 노드 $l$의 임베딩과 시그모이드 함수값을 의미한다. 계산을 위해 Adam Optimizer를 활용한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4.	Experiment&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;h2 id=&quot;experimental-settings&quot;&gt;&lt;strong&gt;Experimental Settings&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;dataset&quot;&gt;&lt;strong&gt;Dataset&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;SP500과 CSI300의 2016년부터 2021년까지의 주식데이터를 활용하였다. 기업간의 관계 그래프 를 구성하기 위해 활용된 correlation matrix의 경우, 기준일로 부터 20 거래일 전까지의 주가를 활용하여 계산하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;parameter-settings&quot;&gt;&lt;strong&gt;Parameter Settings&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;$\tilde{G}$의 경우 20 거래일동안의 기업간의 관계를 담고 있다. $d_{feat}$은 6개의 encoding layer로 구성되어 있고,  $d_{in}$과 $d_{enc}$는 모두 128개의 encoding layer로 구성되어 있다. Attention function에서 활용된 $d_{hidden}$의 경우 512개의 layer, $d_{v}$는 128개 $h_{enc}$는 8개로 구성되어 있다. Temporal graph attention layer에서는 $d_{att}$은 256개, $h_{tga}$는 4개, 그리고 heterogeneous graph attention layer의 $d_q$는 256개의 encoding layer로 구성되어 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;compared-baselines&quot;&gt;&lt;strong&gt;Compared Baselines&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Non-graph-based approach인 LSTM, GRU, Transformer, eLSTM과 Graph-based approach인 LSTM-GCN, LSTM-RGCN, TGC, MAN-SF, HATS, REST, AD-GAT가 비교군으로 구성되어 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;evaluating-metrics&quot;&gt;&lt;strong&gt;Evaluating Metrics&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;ACC(prediction accuracy, 예측정확도), ARR(annual return rate, 연간 수익률), AV(annual volatility, 연간 변동성),  MDD(Maximum DrawDown), ASR(Annual Sharpe Ratio, $ARR/AV$), CR(Calmar Ratio, $ARR/\vert MDD \vert$), IR(Information Ratio) 총 7가지의 지표를 사용하여 기준선과 모델의 성능을 기록한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;financial-prediction&quot;&gt;&lt;strong&gt;Financial Prediction&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ResultTable.png?raw=true&quot; /&gt;
+논문에서 활용된 모델인 THGNN의 경우 모든 평가지표에서 대부분의 Baseline보다 우수한 지표를 보임을 알 수 있다. 이를 통해 금융 시계열 예측에서 THGNN의 우수성을 입증하였다. 
+&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ablation-study&quot;&gt;&lt;strong&gt;Ablation Study&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4AblationTable.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ablation Study는 3에서 진행된 각 섹션들을 하나씩 제거해보며 성능을 평가하였다. 위에서부터 각각 Historical Price Encoding, Temporal Graph Attention, Heterogeneous Graph attention을 제거하였다. 모든 평가지표에서 어떠한 과정도 제거하지 않았을 때 가장 좋은 성능이 나옴을 알 수 있다. 
+&lt;br /&gt;&amp;lt;/br&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;interpretability-of-graph-neural-network&quot;&gt;&lt;strong&gt;Interpretability of Graph Neural Network&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4GraphAttention.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;모델의 해석가능성을 살펴보기 위해 모델 예측과정에서 그래프의 관심가중치를 추출하였다. Relational graph의 메시지 전달과정에서 모든 노드에 대한 attention weight를 계산하여 각각의 일일 수익률과 node degrees에 따라 attention weight의 평균을 구하고 시각화 하였다. Pos relationship의 경우, 노드의 degree가 높을 경우 attention weight가 높음을 보여준다. 즉 이웃이 많은 노드가 주변에 더 많은 메시지를 기여한다는 것을 보여준다. 또한 일일 수익률 변동이 큰 기업의 attention weight가 높음을 보였다. 이는 가격 변동성이 클수록 주변에 더 많은 정보를 제공한다는 것을 의미하며, 가격변동이 momentum spillover effect를 일으킨다는 것을 의미한다. 반면 Neg relationship는, 반대로 degree가 낮은 노드에서 높은 attention weight를 보인다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ACC.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이는 앞선 결과에 더 나아가 각 relation의 attention weights를 시각화하여 하나의 relation만 사용했을 때 성능을 보여준다. 기존과 같이 2개의 데이터셋을 사용해 학습시키고 하나의 relationship의 메시지를 input으로 활용하여 위와 같은 결과를 보였다. self와 pos가 neg보다 예측 성능이 우수함을 보였다. 또한 pos 메시지의 리소스가 예측 모델에 대한 기여도가 높음을 볼 수 있다. 그 이유는 비슷한 가격 움직임을 보이는 기업간의 영향력이 향후 가격 움직임을 예측하는데 상대적으로 유용하기 때문이다. Temporal graph attention layer가 각 노드와 가중치 간의 차이를 적절히 보여주고, Heterogeneous graph attention은 각 메시지의 기여도를 적절히 조정할 수 있음을 알 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5.	Conclusion&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;금융 시계열 예측을 위해 Temporal and Heterogeneous graph neural network model을 제시한다. 가장 효과적인 그래프 기반과 비그래프 기반 baseline과 비교하여 제시한 방법의 효과를 종합적으로 평가하였다. 또한 실제 투자 전략에서 THGNN이 우수한 성과를 보였다. 기업간의 관계를 Heteoreneous dynamic graph로 모델링 하고 GNN을 통해 금융 시계열 예측 모델을 개선하였다. 추후 연구에서는 예측 모델이 보다 정확한 training input graph 데이터를 얻을 수 있도로 corporate relation modeling을 개선할 예정이다.&lt;/p&gt;
+
+</description>
+            <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_For_Financial_Time_Series_Prediction.html</guid>
             
             <category>reviews</category>
             
@@ -1616,284 +1744,6 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</link>
             <guid isPermaLink="true">http://localhost:4000/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[NIPS 2022] SHINE: SubHypergraph Inductive Neural nEtwork</title>
-            <description>&lt;h1 id=&quot;-shine-subhypergraph-inductive-neural-network&quot;&gt;# SHINE: SubHypergraph Inductive Neural nEtwork&lt;/h1&gt;
-&lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생명체는 다양한 단백질들을 활용하여 생명유지에 필요한 여러가지 반응과 작용들을 합니다. 단백질은 여러가지 gene의 정보를 바탕으로 만들어지기에, gene에 문제가 생기면 암을 포함한 여러가지 질병이 생길 수 있습니다. 단백질과 여러가지 물질들의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능적 단위&lt;/code&gt;의 집합인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;를 활용하여 단백질에 대한 효과적인 representation을 구하고, 환자의 유전 정보의 변이를 바탕으로 subgraph를 형성하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;환자들의 질병을 예측&lt;/code&gt;하는 모델 SHINE을 제안합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Graph Neural Network(GNN)&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 여러가지 Entity 사이의 relation이나 Interaction을 나타내는 방법중 하나로, 보통 $\mathcal{G}=(\mathbb{V},\mathbb{E})$로 나타냅니다. 여기서 $\mathbb{V}$는 node set으로 vertex들을 모은 집합이며, $\mathbb{E}$는 edge set으로 각 edge는 node들을 연결해주는 선들로 표시됩니다. 두 node 또는 Entity가 edge로 연결된 경우에는 이 둘 사이에 유사한 부분이 있거나, interaction을 한다고 봅니다. 보통 각 node와 연결된 이웃 node들의 정보를 aggregation하여 각 node의 hidden representation을 구하는 방식으로 GNN이 작동합니다. 단순히 (node 관점에서) 자기 자신과 이웃을 mean aggregation(smoothing)하는 방식의 대표적인 예시로는 GCN이 있으며, 이웃 node들에 attention을 기반으로 하는 importance 차이를 두어 aggregation하는 GAT도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Protein-Protein Interaction graph(PPI)&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;단백질에 대한 representation을 잘 뽑기 위하여 흔하게 사용되는 방식중 하나로 PPI network를 사용하는 방법이 있습니다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;protein-protein interaction network(PPI)&lt;/code&gt;는 단백질들을 node로 두고 서로 interaction을 하는 단백질들을 edge로 연결하여 만들어집니다. 만들어진 network에서 GCN, GAT 그리고 heterogeneous GNN등 상황에 따라 적합한 GNN 모델을 사용하게 됩니다. 결과적으로 단백질을 나타내는 각 node는 edge로 연결되어있는 이웃 node들의 정보를 취합하여 단백질에 대한 더 좋은 representation을 얻습니다. 즉, node의 최종 representation에는 해당 단백질의 고유한 정보와 해당 단백질과 관련된 단백질의 정보가 적절히 반영되어있어서, 다양한 downstream task에 효과적으로 사용될 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Pathway&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생명체 내부에서 나타나는 다양한 상호작용과 반응은 여러가지 단백질들이 복합적으로 작용하여 이루어집니다. 예를들면, 세포 소기관중 하나인 미토콘드리아에는 에너지를 만들어내기 위한 process가 있으며, 그 과정에서 다양한 단백질들이 사용됩니다. 이렇게 어떤 과정속에서 특정 기능을 하기 위해 사용되는 물질들과 그들의 반응을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능 단위&lt;/code&gt;로 묶어둔 것을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;라고 합니다. 예를 들면, 위의 그림에는 apoptosis(세포사멸)에 관여하는 pathway와 각 pathway별 단백질들이 나타나있습니다. 생명체는 손상이 생기거나 오래된 세포를 스스로 죽도록 하여 관리를 하는데 이를 apoptosis라고 합니다. 이는 세포 외부에서 오는 여러가지 신호에 의해 조절됩니다. 세포 외부에서 신호가 오면, 이를 유전자가 저장되어있는 세포핵과 기타 조직들에 signaling pathway를 경유하여 전달합니다. 위의 그림에 있는 구체적인 예시로는 이미지 왼쪽의 MAPK signaling pathway가 있습니다. 세포 외부에서 survival factor와 관련된 신호가 오면, Ras, Raf MEK1/2 그리고 EPK1/2라는 단백질들을 순차적으로 거쳐서 세포핵까지 신호를 전달하게 되며, 세포핵에서는 해당 신호에 따른 gene regulation을 하게 됩니다. 이전에 설명한 PPI의 경우에는 단백질 사이의 pairwise interaction을 기준으로 만들었기에, 해당 단백질들이 interaction하는 맥락이 나타나지 않지만, pathway를 사용하게 된다면 각 단백질이 다른 단백질들과 상호작용하는 맥락을 활용할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Hypergraph&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 Entity 사이의 pairwise relation을 나타내는 구조였습니다. 즉, edge가 2개의 node를 연결하는 구조였습니다. 이와 다르게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hypegraph&lt;/code&gt;는 hyperedge가 2개 이상의 node(hypernode)를 연결합니다. 그래서 hyperedge를 3개 이상의 element(node)를 가질수 있는 set으로 해석하기도 합니다. 즉, hypergraph는 graph의 일반화된 형태로, 3개 이상의 entity가 모여서 상호작용하는 경우도 표현 가능한 구조입니다. (Hypernode의 경우 일반적으로 node라고 부르기도 합니다. 이번 리뷰에서는 편의상 node로 부르겠습니다.)&lt;/p&gt;
-
-&lt;p&gt;이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high order correlation&lt;/code&gt;이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다. 
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;실제로, 위에서 이야기한 high order correlation이 존재하는 경우가 많이 있습니다. 예를 들어서, 두 단백질이 상호작용하기 위해 보조인자가 필요한 경우가 있습니다. 보조인자가 없으면 두 단백질이 상호작용이 불가능하지만, 보조인자가 있는 경우 단백질의 3차원 구조가 변형되어 두 단백질이 상호작용 할 수 있게 됩니다. 이런 경우에는 3가지 물질이 모두 있는 경우에만 반응이 일어나기 때문에 hyperedge로 나타내는 것이 좋습니다. 해당 hyperedge를 분해하여 pairwise interaction(edge)로 나타내는 경우에는 high order correlation 특성을 나타내기 힘들며, 2개만 존재하는 경우에는 어떠한 interaction도 발생하지 않기 때문에 edge가 존재할 수 없습니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서 활용하는 pathway의 경우 여러가지 물질과 단백질들이 순차적으로 상호작용하지만, 수많은 pathway의 작용 순서가 아직 알려지지 않은 상태입니다. 따라서 일반적으로 각 pathway를 단백질들의 집합으로 나타내며, 순서는 나타내지 않습니다. 따라서 이 논문에서는 pathway를 활용하기 위해 hypergraph를 사용합니다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Hypergraph Neural Network&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232259158-11cec002-cbcd-4502-98fb-e426e2530dfc.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 entity 사이의 pairwise relation을 나타내기에 adjacency matrix를 통하여 node 사이의 연결성을 나타내었습니다. 하지만 hypergraph의 경우에는 여러가지 node들이 hyperedge에 동시에 참여하기에 다른 방식으로 연결성을 표현합니다. 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Incidence matrix&lt;/code&gt;라고 하며, node와 hyperedge의 연결성을 나타냅니다. node가 특정hyperedge에 속할 경우에는 1의 값을 갖게되며, 속하지 않는 경우에는 0의 값을 갖게 됩니다. 이를 나타내면 아래와 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37684658/233369386-0b8eab9a-8ae8-4aaa-b1d3-72f9cebaa780.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;만약 $HH^ {\top}$를 하게 되면 결국 node-node matrix가 나오게 되며, 일반적인 그래프의 adjacency matrix와 같이 node 사이의 연결성을 나타내는 matrix가 나오게 됩니다. HGNN 모델은 이를 활용하여 hypergraph에서의 학습을 합니다.
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232259205-ac05f9e6-85f3-4841-a352-ce305873cbfb.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;HGNN 논문에서 제시하는 hypergraph laplacian은 아래의 식과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;$\Theta = D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}$&lt;/p&gt;
-
-&lt;p&gt;$W_ {e}$는 hyperedge의 가중치를 의미합니다. 위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&amp;gt; hyperedge, hyperedge–&amp;gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Motivation&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기존의 drug discovery나 drug-drug synergy prediction 등 protein을 기반으로하는 다양한 모델들은 PPI network에서 GNN을 학습하는 방식으로 진행이 되었습니다. 하지만 이는 단백질들의 interaction의 유무만 사용하기에 해당 interaction이 어떠한 맥락에서 사용되는지에 대한 정보를 반영할 수 없었습니다. 이를 해결하기 위해 pathway라는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능&lt;/code&gt;위주의 정보를 hypergraph를 통하여 나타내고, dual attention 기반 hypergraph neural network를 학습하여 단백질에 대한 효과적인 representation을 학습합니다. 또한 환자의 gene 변이 정보를 subgraph로 나타내어 질병과 암의 종류를 예측하는데 성공합니다.
- &lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Contribution&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Hypergraph에서의 subgraph representation learning을 학습하는 방식을 최초로 제안합니다.&lt;/li&gt;
-    &lt;li&gt;Node와 hyperedge의 representation을 같이 학습하여 pathway 사이의 correlation에 대한 분석이 가능합니다.&lt;/li&gt;
-    &lt;li&gt;Genetic Medicine 분야에 적용한 최초의 논문입니다. (pathway 기반 방식으로 접근하는 모델이 bioinformatics 분야에 있기는 했으나 알고리즘 위주의 방식이며 hypergraph neural network를 이 분야에 사용한 것은 이 논문이 처음입니다.)
- &lt;br /&gt; &lt;br /&gt;
-      &lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
-      &lt;p&gt;&lt;strong&gt;Notation&lt;/strong&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232235555-f9e10fcf-af42-436c-bde9-183c6f90c840.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 논문에서 사용하는 표기는 위의 표와 같습니다. 또한 Hyperedge incidence matrix에 대한 정의는 2번 section의 preliminary에 있었듯이 다음과 같이 정의합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37684658/233369386-0b8eab9a-8ae8-4aaa-b1d3-72f9cebaa780.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Node set($\mathcal{N}$)은 gene($g_ {i}$)들로 구성되어있습니다. ($\mathcal{N} = {g_ {1}, …, g_ {\vert \mathcal{N} \vert}}$)
-Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다. ($\mathcal{E} = {p_ {1}, …, p_ {\vert \mathcal{E} \vert}}$) 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Hypergraph - Strongly Dual Attention Message Passing&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232225281-0aeb8d7c-edf2-4929-8905-cceeb5930ca6.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;앞서 preliminary에서 설명 드렸지만 hypergraph의 경우에는 2가지 단계를 거쳐 정보를 전달합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;node to hyperedge aggregation&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;새로운 hyperedge representation은 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$h_ {E}^ {k}(p_ {j}) = \sigma(\sum_ {g_ {i} \in p_ {j}} a_ {E}( p_ {j}, g_ {i})h_ {N}^ {k-1}(g_ {i}))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $a_ {E}$는 hyperedge에 속해있는 node들에 대한 attention score로 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$a_ {E}( p_ {j}, g_ {i}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {g_ {i^ {‘}} \in p_ {j}} c^ {\top} s(p_ {j}, g_ {i^ {‘}})))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $s(p_ {j}, g_ {i})$는 아래의 식으로 구하며 $*$는 element wise product입니다.&lt;/p&gt;
-
-&lt;p&gt;$s(p_ {j}, g_ {i}) = LeakyReLU((W_ {N}h_ {N}^ {k-1}(g_ {i}) + b_ {N})*(W_ {E}h_ {E}^ {k-1}(p_ {j}) + b_ {E}))$&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;hyperedge to node aggregation&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;새로운 node representation 학습은 전반적으로 위의 경우와 거의 동일합니다만 hyperedge와 node의 위치만 바뀝니다.&lt;/p&gt;
-
-&lt;p&gt;$h_ {N}^ {k}(g_ {i}) = \sigma(\sum_ {p_ {j} \owns g_ {i}} a_ {N}( g_ {i}, p_ {j})h_ {E}^ {k-1}(p_ {j}))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $a_ {N}$는 node가 속해있는 hyperedge들에 대한 attention score로 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$a_ {N}(  g_ {i}, p_ {j}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {p_ {j^ {‘}} \owns g_ {i}} c^ {\top} s(p_ {j^ {‘}}, g_ {i})))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $s(p_ {j}, g_ {i})$는 위에서(node to hyperedge aggregation) 구한것과 완벽히 동일합니다. 다른 hypergraph attention 방법들과는 다르게 두 과정에서 완전히 같은 attention matrix를 사용하며 이를 strongly dual attention이라고 저자들은 이야기합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Regularization&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;GNN과 hypergraph Neural Network에는 공통점이 있습니다. 바로 edge/hyperedge로 연결된 node의 representation이 비슷해진다는 점입니다. 이는 graph/hypergraph 자체가 ‘비슷한 entity끼리 연결된다’는 전제를 가지기 때문입니다. 따라서 aggregation을 통해 점점 비슷해지도록 학습을 하는 것입니다. 따라서 이웃한(연결된) node의 representation이 다를 경우 같아지도록 하기위해 penalize를 할 필요가 있습니다. preliminary에서 설명드린 hypergraph laplacian을 활용하여 저자는 연결된 node끼리 비슷해지도록 regularization term을 추가로 만들었으며 바로 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;$\mathcal{L_ {reg}} = \sum_ {i,j} ((X_ {i}- X_ {j})(X_ {i}- X_ {j})^ {\top}  * \Theta_ {i,j} ) =  \sum_ {i,j} ((X_ {i}X_ {i}^ {\top} -2X_ {i}X_ {j}^ {\top} + X_ {j}X_ {j}^ {\top}) * \Theta_ {i,j} )$
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Subgraph - Weighted Subgraph Attention&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Hypergraph Neural Network를 대략 만들었으니, 환자의 변이 gene정보로부터 subgraph를 만들어야합니다. 데이터셋으로부터 통계를 내어 $M$ matrix를 만듭니다. 해당 matrix의 row는 환자를 나타내며, column은 gene을 의미합니다. Matrix에 담겨있는 값들은 해당 환자의 특정 gene의 mutation rate을 의미합니다.&lt;/p&gt;
-
-&lt;p&gt;데이터셋으로부터 얻은 환자의 mutation 관련 gene들을 묶어서 subhypergraph(또는 subgraph)를 만듭니다. $j$번째 환자의 subgraph를 $\mathcal{G}_ {j}$로 표기하고 $i$번째 gene을 $\mathcal{g}_ {i}$로 표기하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;각 환자(subgraph)의 representation은 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$h(\mathcal{G}_ {j}) = \sigma(\sum_ {\mathcal{g}_ {i} \in \mathcal{G}_ {j}} a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) h_ {N}^ {K}(\mathcal{g}_ {i}))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) = exp(M_ {ji}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i}) / (\sum_ {\mathcal{g}_ {i^ {‘}} \in \mathcal{G}_ {j}} exp(M_ {ji^ {‘}}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i^ {‘}})))$&lt;/p&gt;
-
-&lt;p&gt;이는 환자의 representation을 attention 기반으로 구하지만 여기에 환자의 gene mutation rate정보가 반영되도록 만든것입니다. 이렇게 여러 환자의 subgraph representation을 concatentation으로 합쳐서 $S$를 만듭니다.&lt;/p&gt;
-
-&lt;p&gt;$S = [h(\mathcal{G}_ {1})^ {\top} \vert h(\mathcal{G}_ {2})^ {\top} \vert … \vert  h(\mathcal{G}_ {n})^ {\top}]^ {\top}$&lt;/p&gt;
-
-&lt;p&gt;각 subgraph를 분류하기 위해 다음과같이 classifier를 만듭니다.&lt;/p&gt;
-
-&lt;p&gt;$Z = softmax(W^ {(1)}(ReLU \circ FC)^ {(2)} (S)+W^ {(0)})$&lt;/p&gt;
-
-&lt;p&gt;Loss function으로는 cross-entropy loss를 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;$\mathcal{L} = - \sum_ {j \in \mathcal{Y}_ {D}} {\sum_ {f =1}^ {F} Y_ {jf} \ln Z_ {jf}} + \mathcal{L}_ {reg}$&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;4-experiment&quot;&gt;4. Experiment&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Task and Dataset&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 연구에서는 3개의 데이터셋을 사용합니다 :  MSigDB, DisGeNet, TCGA-MC3.&lt;/p&gt;
-
-&lt;p&gt;먼저 Molecular Signature Database(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MSigDB&lt;/code&gt;)를 사용합니다. MsigDB에는 다양한 종류의 pathway와 각 pathway에 참여하는 gene들에 대한 정보가 있습니다. 해당 데이터셋의 경우에는 전문가들에 의해 curated되어있습니다. MSigDB의 경우 단백질의 학습보다는 각 task에 사용되는 데이터셋(DisGeNet, TCGA-MC3)를 전처리하기 위하여 사용합니다. 이 데이터셋을 활용하여 기능이 알려지지 않은 gene과 겹치는 hyperedge를 제거하는 전처리를 합니다.&lt;/p&gt;
-
-&lt;p&gt;그 다음으로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DisGeNet&lt;/code&gt; dataset을 사용합니다. 해당 데이터는 환자의 유전자 변이와 그로 인한 질병에 대한 정보를 담고 있습니다. 해당 데이터셋을 바탕으로 hypergraph와 subgraph를 구성하게 되며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Disease Type Prediction&lt;/code&gt; task를 위하여 사용됩니다. 해당 task는 변이된 gene 정보를 바탕으로 환자의 질병을 분류하는 것이며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multi class classification&lt;/code&gt; 형태입니다. 질병의 종류는 MeSH code로 정해져있으며, 데이터에 대한 split과 통계는 아래 표에 정리되어있습니다. (위에서 설명하였듯이 DisGeNet 전처리를 위해 MSigDB를 사용합니다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258276-11cf92fb-da27-491d-8bb7-523c886f4c70.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;마지막으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TCGA-MC3&lt;/code&gt; dataset입니다. 해당 데이터는 변이된 gene에 대한 정보와 그에 해당하는 암에 대한 정보를 담고있는 방대한 규모의 데이터입니다. Gene 정보를 바탕으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cancer Type Prediction&lt;/code&gt;을 하는 task를 진행하며 이는 마찬가지로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multi class classification&lt;/code&gt; 형태입니다. TCGA-MC3 dataset은 전문가들에 의하여 7가지의 mutation-calling algorithm을 적용하여 pass 표시를 하였으며, 이 논문에서도 pass 표시가 되어있는 데이터만 활용했습니다. 전처리후 데이터에 대한 통계는 아래의 표와 같습니다. (위에서 설명하였듯이 TCGA-MC3 전처리를 위해 MSigDB를 사용합니다.)
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258277-a495971e-5c29-4643-88ff-0b2ec7365031.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아래는 두 task의 데이터셋마다 존재하는 hyperedge의 수와 class, subgraph 수에 대한 통계입니다. hyperedge는 pathway들이며 subgraph는 gene 변이 정보(환자 정보)를 바탕으로 하여 subgraph를 만든 것입니다. 
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258273-adebb37f-7283-417f-a886-d1ae42381c91.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Baseline Models&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HGNN&lt;/code&gt; : Hypergraph Neural Network 초기 논문중 하나로 preliminary에 설명한것과 같이 hypergraph laplacian을 제시하며 이를 활용하여 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HyperGCN&lt;/code&gt; : HyperGCN의 경우 hypergraph를 graph로 변형시킨 다음에 GNN모델을 학습합니다. 매 iteration마다  hyperedge마다 가장 학습이 급한(feature difference가 큰) 두 node를 선별하여 edge로 연결하고 기존의 hyperedge를 삭제합니다. 이렇게 만들어진 graph위에서 GCN을 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HyperGAT&lt;/code&gt; : text classification을 위해 만들어진 모델입니다. hyperedge를 하나의 가상의 node처럼 취급하여 GAT를 학습하였다고 생각하면 가장 간단합니다. HGNN과는 다르게 $HH^ {\top}$ 대신 hyperedge로 node들의 정보를 attention 기반으로 aggregation하고, node에서 hyperedge정보를 aggregation할때 attention을 사용합니다. SHINE 논문에서는 dual attention으로 같은 attention matrix를 사용한것과 다르게 HyperGAT에서는 두 단계에서 다른 attention matrix를 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllSetTransformer&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllDeepSets&lt;/code&gt; :  Hypergraph Neural Network를 가장 generalize하여 나타낸 모델로 DeepSet 논문으로부터 이야기를 시작합니다. AllDeepSet의 경우 hyperedge/ node의 representation을 얻기 위해 이웃한 node/hyperedge의 representation을 MLP를 거쳐서 aggregation하며, AllSetTransformer는 여기서 attention을 추가하기 위해 Transformer를 기반으로 하여 mean aggregation을 합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SubGNN&lt;/code&gt; : hyperedge를 node처럼 생각하여 hypergraph를 2가지 type이 존재하는 graph로 봅니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PRS&lt;/code&gt; : polygenic risk score의 약자로 genetic medicine 분야에서 사용하는 방법입니다.(전문 지식)&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NMF&lt;/code&gt; : Non-negative matrix factorization의 약자로 Matrix를 latent vector들로 분해하는 방식입니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XGBoost&lt;/code&gt; : end-to-end tree boosting system&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Disease Type Prediction &amp;amp; Cancer Type Prediction&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258270-faa1b12e-668a-43a5-92ea-3fd2c851ed6c.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;저자는 제안한 모델인 SHINE과 다른 baseline들을 비교하며 SHINE이 다른 모델들에 비하여 확실하게 우월한 성능을 갖고 있음을 보여줍니다. 특히 attention을 사용한 hyperGAT와 AllSetTransformer와의 비교를 통해 node to hyperedge 정보전달 과정(aggregation)과 hyperedge to node 정보전달 과정에서 같은 attention matrix를 사용하는 dual attention 기법이 효과적임을 보여주었습니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Enrichment Analysis&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232273370-e309f525-7444-461c-82e9-3de1f286c22f.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;저자는 SHINE이 node와 hyperedge의 representation을 같이 학습하기에 결과를 해석하거나 correlation을 분석하는데 있어서 장점이 있다고 주장했습니다. 이를 입증하기 위하여 암의 종류별로, attention 값을 기반으로 관련이 높은 pathway들을 추출했습니다. 위의 표에서 각 column이 암마다 관련있는 pathway들입니다. 첫 column은 breast cancer관련 pathway들이며 두번째 column은 lung cancer 관련 pathway들을 추출한 결과입니다. 글자의 색은 MSigDB를 구축하는 과정에서 사용한 데이터 출처이므로 실험 해석과 관련이 없습니다. 저자는 생명과학쪽 지식을 바탕으로 shine으로 추출한 암 종류별 pathway들이 실제로 해당 암과 관련이 높은것을 설명합니다. 예를 들어 breast cancer의 경우  HER2/4-1BB bispecific molecule(표의 제일 왼쪽 column, 위에서 3번째 row)의 경우 HER2-positive breast cancer의  치료 방법중 하나로 밝혀졌다고 합니다. 이외에도 appendix에서 각 pathway가 어떻게 해당 암과 관련이 있는지 생명과학/의학 지식을 활용하여 설명합니다. 이를 통해 SHINE 모델이 해석을 쉽게 할 수 있도록 도와준다는걸 보여주었습니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;
-해다 논문은 기존의 PPI 기반 학습보다 효과적으로 기능적인 정보를 반영하기 위해 pathway라는 정보로 구축된 hypergraph를 사용하였습니다. strong dual attention을 기반으로 효과적으로 학습하였으며, subhypergraph를 classification하는 첫 논문으로, 새로운 application으로 질병과 암을 예측하는 논문입니다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Discussion &amp;amp; Further Development&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;간략한 평가 :  새로운 application에 잘 적용하였고 효과적이지만 논문의 설명 방식이 명확하지 않으며 설명이 깔끔하지는 않았습니다.&lt;/li&gt;
-    &lt;li&gt;발전 방향 : pathway들이 여러 단백질의 기능적인 집합이듯이, 여러 pathway들이 모여 어떤 더 큰 기능과 작용을 구성하는것은 분명합니다. 이러한 정보를 활용하여 hypergraph in hypergraph 모델을 만들거나, pathway사이의 관계에 대한 데이터를 활용하면 더 좋은 representation을 뽑는것이 가능해보입니다.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Yoonho Lee
-    &lt;ul&gt;
-      &lt;li&gt;Affiliation: &lt;a href=&quot;http://dsail.kaist.ac.kr&quot;&gt;DSAIL@KAIST&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Research Topic: Graph Nerual Network, Topological Deep Learning, Category Theory.&lt;/li&gt;
-      &lt;li&gt;Contact: sml0399benbm@kaist.ac.kr
-        &lt;h2 id=&quot;reference--additional-materials&quot;&gt;&lt;strong&gt;Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h2&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Github Implementation
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/luoyuanlab/shine&quot;&gt;Code for the paper&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Reference
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1609.02907.pdf&quot;&gt;[ICLR-17] Semi-Supervised Classification with Graph Convolutional Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1710.10903.pdf&quot;&gt;[ICLR-18] Graph Attention Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1809.09401.pdf&quot;&gt;[AAAI-19] Hypergraph Neural Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2011.00387.pdf&quot;&gt;[EMNLP-20] Be More with Less: Hypergraph Attention Networks for Inductive Text Classification&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2106.13264.pdf&quot;&gt;[ICLR-22] You are AllSet: A Multiset Function Framework for Hypergraph Neural Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2210.07309.pdf&quot;&gt;[NeurIPS-22] SHINE: SubHypergraph Inductive Neural nEtwork&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-            <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</link>
-            <guid isPermaLink="true">http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</guid>
             
             <category>reviews</category>
             
