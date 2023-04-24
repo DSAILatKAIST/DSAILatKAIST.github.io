@@ -120,7 +120,7 @@ description: "Intended as a documentation theme based on Jekyll for technical wr
 # the description is used in the feed.xml file
 
 # needed for sitemap.xml file only
-url: http://DSAILatKAIST.github.io
+url: http://dsailatkaist.github.io
 # baseurl: /documentation-theme-jekyll
 
 
@@ -131,3 +131,5 @@ github: [metadata]
 
 plugins:
   - jekyll-sitemap
+
+google_site_verification: 1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw
