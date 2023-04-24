@@ -48,9 +48,7 @@ negative $v_i^-$를 그것의 embedding인 $e_{v^-}$과 함께 fake로 만들기
 각 candidate negative embedding ${e_{v_m}^{(l)}} \in \varepsilon$에 대하여 *positive mixing* 작업은 다음 식과 같이 이루어진다.
 
 
-$$
-\mathbf{e}_{v_m}^{(l)}=\alpha^{(l)} \mathbf{e}_{v^{+}}^{(l)}+\left(1-\alpha^{(l)}\right) \mathbf{e}_{v_m}^{(l)}, \alpha^{(l)} \in(0,1)
-$$
+$\mathbf{e}_ {v_ m}^{(l)}=\alpha^{(l)} \mathbf{e}_ {v^{+}}^{(l)}+\left(1-\alpha^{(l)}\right) \mathbf{e}_ {v_ m}^{(l)}, \alpha^{(l)} \in(0,1)$
 
 여기서 $\alpha^{(l)}$은 각 홉 $l$에 대해 균일하게 샘플링되는 mixing coefficient 이다. 이 때 *mixup*의 mixing coefficient는 model의 generalization 능력에 큰 영향을 미치는 beta distribution Beta $(\beta, \beta)$에서 sampling된다. 그 영향을 decoupling하기 위해 해당 모델에서의 postive mixing에서의 mixing coefficient $\alpha^{(l)}$는 (0,1) 범위에서 균일하게 sampling된다.
 
