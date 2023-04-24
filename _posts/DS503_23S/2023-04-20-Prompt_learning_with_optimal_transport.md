@@ -19,7 +19,7 @@ CLIP[1], ALIGN[2] 과 같은 Large-scaled vision-language pretrained model (VLP)
 
 
 
-<img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416153017754.png" alt="image-20230416153017754" style="zoom:50%;" />
+<img width="852" alt="image-20230416153017754" src="https://user-images.githubusercontent.com/58834857/233537039-2fa985fa-f915-4fca-b5f0-f532a2af724f.png">
 
 
 
@@ -29,11 +29,11 @@ CLIP[1], ALIGN[2] 과 같은 Large-scaled vision-language pretrained model (VLP)
 
 ## **2. Motivation**
 
-<img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416154336824.png" alt="image-20230416154336824" style="zoom:50%;" />
+<img width="503" alt="image-20230416154336824" src="https://user-images.githubusercontent.com/58834857/233537246-db51718d-6611-42b7-b5b0-fd64701f3126.png">
 
 Figure 1의 예시처럼 이미지 하나에는 사실 여러 context가 존재할 수 있습니다. 그렇다면 이를 위해서 prompt 수를 늘리는 것이 하나의 방법이 될 것입니다. 단순히, 각각의 prompt에 대해서 cross entropy 즉 alignment score를 늘리는 방향으로 학습하게 된다면 어떻게 될까요. Loss가 convex하다고 가정한다면 모든 prompts는 initialized에 관계 없이 하나의 점으로 Collapse되며 이는 결국 하나의 prompt를 사용하는 것과 같은 의미를 지니게 될 것입니다.
 
-![image-20230416154636082](/Users/aailab/Library/Application Support/typora-user-images/image-20230416154636082.png)
+<img width="487" alt="image-20230416154636082" src="https://user-images.githubusercontent.com/58834857/233537318-bb58c058-3229-4e36-9e18-52418ad89491.png">
 
 각각의 prompt가 다른 의미를 지니게 하기 위해선 직접적으로 서로가 멀어지도록 regularization을 걸어주는 방법도 있지만 이 논문에서는 좀 더 sematic 관점에서 새로운 방법을 제시합니다.
 
@@ -47,7 +47,7 @@ Figure 1의 예시처럼 이미지 하나에는 사실 여러 context가 존재�
 
 이를 위해선 1. 어떻게 pair를 정할지? 2. distance를 어떻게 정의할지를 위 논문에서 Optimal transport 의 관점에서 제시합니다.
 
-![image-20230416162611136](/Users/aailab/Library/Application Support/typora-user-images/image-20230416162611136.png)
+<img width="900" alt="image-20230416162611136" src="https://user-images.githubusercontent.com/58834857/233537335-706b6c1e-1278-4ed5-967b-1e3c277739c7.png">
 
 ____
 
@@ -57,26 +57,35 @@ Optimal transport는 흔히 distribution간의 거리를 정의할 때 사용됩
 
 
 
-![image-20230416170151382](/Users/aailab/Library/Application Support/typora-user-images/image-20230416170151382.png)
+<img width="581" alt="image-20230416170151382" src="https://user-images.githubusercontent.com/58834857/233537379-06d621e0-cd11-48f5-8d8d-7be30c806f31.png">
 
-Distribution을 정의했으니 우리는 Optimal transport에서의 distance 역시 정의할 수 있게 됩니다. 이 때 distance는 다음과 같이 정의할 수 있습니다.  (3)에서 ![image-20230416171456125](/Users/aailab/Library/Application Support/typora-user-images/image-20230416171456125.png)는 local image feature m 와 promp n 간의 disimilarity로 정의하였고 ![image-20230416171636471](/Users/aailab/Library/Application Support/typora-user-images/image-20230416171636471.png)는 각 pair간의 transport plan을 의미합니다. 두 distribution의 Distance를 정의 하기 위해 (3),(4)의 equation을 정의합니다.
+Distribution을 정의했으니 우리는 Optimal transport에서의 distance 역시 정의할 수 있게 됩니다. 이 때 distance는 다음과 같이 정의할 수 있습니다.  (3)에서 
 
-![image-20230416171153075](/Users/aailab/Library/Application Support/typora-user-images/image-20230416171153075.png)
+<img width="183" alt="image-20230416171456125" src="https://user-images.githubusercontent.com/58834857/233537414-617d4974-2356-4a7b-8785-febc43fcdb33.png">
+
+
+
+는 local image feature m 와 promp n 간의 disimilarity로 정의하였고 T는 각 pair간의 transport plan을 의미합니다. 두 distribution의 Distance를 정의 하기 위해 (3),(4)의 equation을 정의합니다.
+
+<img width="488" alt="image-20230416171153075" src="https://user-images.githubusercontent.com/58834857/233537388-da2e8cb9-805f-46fa-84aa-f95b66f499dc.png">
 
 ![image-20230416171227179](/Users/aailab/Library/Application Support/typora-user-images/image-20230416171227179.png)
 
 (4)를 optimize하게 되면 두 distribution에 대한 거리를 정의할 수 있지만 적어도 MN개의 변수를 처리해야하기에 이를 해결하는 것은 생각보다 complex합니다. 그래서 이를 해결하기 위해 Sinkhorn algorithm을 이용해 새로운 optimization 식을 정의합니다. 
 
-![image-20230416192111610](/Users/aailab/Library/Application Support/typora-user-images/image-20230416192111610.png)
+<img width="526" alt="image-20230416192111610" src="https://user-images.githubusercontent.com/58834857/233537440-ae186d05-da0f-4f5e-bcfb-e09a8fc30ce1.png">
+
+
 
 이 때 h term은 Transport plan에 대한 Entropy로 정의하며 entropy 를 고려한 problem에서 다음과 같은 해를 찾을 수 있게 됩니다. 
 
-![image-20230416192242602](/Users/aailab/Library/Application Support/typora-user-images/image-20230416192242602.png)
+<img width="291" alt="image-20230416192242602" src="https://user-images.githubusercontent.com/58834857/233537449-6b554082-f61c-4edb-ba1e-976652e9d86b.png">
 
 
 
-이 때 t는 optimization에서의 iteration step을 의미하며 <img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416192351406.png" alt="image-20230416192351406" style="zoom:33%;" /> 와 <img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416192416617.png" alt="image-20230416192416617" style="zoom:33%;" />
-<img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416192443134.png" alt="image-20230416192443134" style="zoom:33%;" />로 iteration이 돌아갑니다. 
+이 때 t는 optimization에서의 iteration step을 의미하며 <img width="233" alt="image-20230416192339009" src="https://user-images.githubusercontent.com/58834857/233537460-a8d481f5-ec5f-4c23-b552-19ae9ef67152.png">
+
+ 와 <img width="55" alt="image-20230416192416617" src="https://user-images.githubusercontent.com/58834857/233537473-94f02c47-6be1-4da3-b37a-4e9f0193fda6.png"><img width="172" alt="image-20230416192437578" src="https://user-images.githubusercontent.com/58834857/233537480-fc52d9fc-7cff-46df-bfbf-e42922bd3997.png">로 iteration이 돌아갑니다. 
 
 
 
@@ -84,9 +93,13 @@ Distribution을 정의했으니 우리는 Optimal transport에서의 distance �
 
 
 
-<img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416192811535.png" alt="image-20230416192811535" />![image-20230416192825141](/Users/aailab/Library/Application Support/typora-user-images/image-20230416192825141.png)
+<img width="470" alt="image-20230416192811535" src="https://user-images.githubusercontent.com/58834857/233537497-48d0166e-85e2-4611-80cd-2634f75199c8.png"><img width="535" alt="image-20230416192825141" src="https://user-images.githubusercontent.com/58834857/233537506-36f6f17c-61fc-438e-abb4-6e319134917f.png">
 
-![image-20230416192927177](/Users/aailab/Library/Application Support/typora-user-images/image-20230416192927177.png)
+<img width="490" alt="image-20230416192927177" src="https://user-images.githubusercontent.com/58834857/233537523-96ab3b7b-5449-4620-a5fe-ce79b5fe7c26.png">
+
+
+
+
 
 Inner loop에서 (7)의 Distance를 정의하고 이후 distance를 이용한 output function을 정의하여 이를 eq (9)라는 objective function의 꼴로 정의 하여 이를 minimize하는 방향으로 Prompt learning이 진행됩니다. 
 
@@ -125,7 +138,7 @@ Inner loop에서 (7)의 Distance를 정의하고 이후 distance를 이용한 ou
 
     COOP는 하나의 Prompt parameter를 상정합니다. prompt로 만들어진 language feature와 image feature간의 Distance를 minimize 하는 방향으로 prompt parameter를 학습합니다. 
 
-    <img src="/Users/aailab/Library/Application Support/typora-user-images/image-20230416153017754.png" alt="image-20230416153017754" style="zoom:50%;" />
+    <img width="852" alt="image-20230416153017754" src="https://user-images.githubusercontent.com/58834857/233537039-2fa985fa-f915-4fca-b5f0-f532a2af724f.png">
 
     
 
@@ -135,7 +148,9 @@ Inner loop에서 (7)의 Distance를 정의하고 이후 distance를 이용한 ou
 
     
 
-    ![image-20230416194126561](/Users/aailab/Library/Application Support/typora-user-images/image-20230416194126561.png)
+    <img width="855" alt="image-20230416194126561" src="https://user-images.githubusercontent.com/58834857/233541869-358892ce-435b-4861-b929-d8b13dae5cba.png">
+    
+    
 
 - Evaluation Metric
 
@@ -148,11 +163,13 @@ Inner loop에서 (7)의 Distance를 정의하고 이후 distance를 이용한 ou
 
 
 
-![image-20230416193721212](/Users/aailab/Library/Application Support/typora-user-images/image-20230416193721212.png)
+<img width="559" alt="image-20230416193721212" src="https://user-images.githubusercontent.com/58834857/233537556-c1009f54-f802-4d7c-8a00-32720a3069bc.png">
 
 
 
-![image-20230416193749924](/Users/aailab/Library/Application Support/typora-user-images/image-20230416193749924.png)
+<img width="518" alt="image-20230416193749924" src="https://user-images.githubusercontent.com/58834857/233537566-84bd2100-3230-4469-9168-7694380f22d0.png">
+
+
 
 
 
@@ -176,7 +193,9 @@ Dataset
 
 Prompt parameter를 4배를 더 사용함에도 그리 큰 Gain을 얻지 못하는 것이 이 논문의 한계점이라고 생각합니다. 여전히 Target Distribution에 대해서 그리 큰 성능을 만들고 있지 않습니다. 
 
-![image-20230416200530743](/Users/aailab/Library/Application Support/typora-user-images/image-20230416200530743.png)
+<img width="521" alt="image-20230416200530743" src="https://user-images.githubusercontent.com/58834857/233537580-e71c71f6-104a-4256-a756-2ea082faf1d5.png">
+
+
 
 
 
