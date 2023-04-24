@@ -4,7 +4,7 @@ permalink: Prompt_learning_with_optimal_transport.html
 tags: [reviews]
 ---
 
-# **PLOT: PROMPT LEARNING WITH OPTIMAL TRANSPORT FOR VISION-LANGUAGE MODELS **
+# **PLOT: PROMPT LEARNING WITH OPTIMAL TRANSPORT FOR VISION-LANGUAGE MODELS**
 
 ## **1. Problem Definition**
 
@@ -69,7 +69,9 @@ Distribution을 정의했으니 우리는 Optimal transport에서의 distance �
 
 <img width="488" alt="image-20230416171153075" src="https://user-images.githubusercontent.com/58834857/233537388-da2e8cb9-805f-46fa-84aa-f95b66f499dc.png">
 
-![image-20230416171227179](/Users/aailab/Library/Application Support/typora-user-images/image-20230416171227179.png)
+<img width="558" alt="image-20230416171227179" src="https://user-images.githubusercontent.com/58834857/233537399-f99d72fe-68c4-4cf3-b894-e7e67969bf67.png">
+
+
 
 (4)를 optimize하게 되면 두 distribution에 대한 거리를 정의할 수 있지만 적어도 MN개의 변수를 처리해야하기에 이를 해결하는 것은 생각보다 complex합니다. 그래서 이를 해결하기 위해 Sinkhorn algorithm을 이용해 새로운 optimization 식을 정의합니다. 
 
