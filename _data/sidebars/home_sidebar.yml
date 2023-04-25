@@ -18,9 +18,6 @@ entries:
   - title: Reviews
     output: web
     folderitems:
-    - title: DS503 (2022S)
-      url: /reviews_DS503_2022.html
-      output: web
     - title: KSE801 (2022F)
       url: /reviews_kse801_2022.html
       output: web
