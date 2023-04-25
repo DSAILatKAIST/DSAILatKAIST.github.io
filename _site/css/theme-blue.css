@@ -20,21 +20,17 @@ h4 {
     color: white;
 }
 
-/* 왼쪽 메뉴바 클릭 시 색상*/
 .nav>li.active>a {
-    background-color: #002060;
+    background-color: #1d2f3f;
 }
 
 .nav>li>a:hover {
     background-color: #248ec2;
 }
 
-/* 메인 메뉴바 드롭메뉴에서 호버 시 색상*/
-
 div.navbar-collapse .dropdown-menu>li>a:hover {
     background-color: #347DBE;
 }
-
 
 .nav li.thirdlevel>a {
     background-color: #FAFAFA !important;
@@ -48,7 +44,6 @@ a[data-toggle="tooltip"] {
     cursor: default;
 }
 
-/* 메인 메뉴바 백그라운드 색상*/
 .navbar-inverse {
     background-color: #002060;
     border-color: #015CAE;
@@ -103,7 +98,7 @@ a.navbar-brand:hover {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    background-color: #002060;
+    background-color: #248ec2;
     border-color: #002060;
 }
 
