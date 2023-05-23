@@ -309,9 +309,9 @@ support relations와 attention의 효과를 분석하기 위해 각각에 대한
 <center>
 
 $Table 3$  
-![Table 3](https://user-images.githubusercontent.com/96431635/233821159-205e61dd-ea5f-4850-8cd4-48627d5101c7.png)
 
 </center>
+![Table 3](https://user-images.githubusercontent.com/96431635/233821159-205e61dd-ea5f-4850-8cd4-48627d5101c7.png)  
 
 결과를 요약하면, 두 가지 support relations를 고려한 경우가 그렇지 않은 경우보다 더욱 나은 성능을 보였고, attention을 사용한 경우가 그렇지 않은 경우보다 높은 성능을 보였다. 그 이유를 추론하면, HEG는 각 문제의 유사도를 기반으로 attention을 사용하여 문제 간의 관계를 효과적으로 representation하는 과정을 거친다. 그러나, support relations를 한 가지 종류만 사용하거나 병합하게 되면 각 문제의 noise가 modeling에 포함되어 성능을 떨어뜨릴 수 있다. 따라서, convolutional layers와 pooling layers를 활용하여 문제를 압축하고, attention을 사용함으로써 효과적으로 exercise representation이 가능하다.
 
