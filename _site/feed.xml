@@ -3,10 +3,10 @@
     <channel>
         <title>DSAILatKAIST.github.io</title>
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
-        <link>http://dsailatkaist.github.io/</link>
-        <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 23 May 2023 16:06:15 +0900</pubDate>
-        <lastBuildDate>Tue, 23 May 2023 16:06:15 +0900</lastBuildDate>
+        <link>http://localhost:4000/</link>
+        <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Tue, 23 May 2023 16:21:45 +0900</pubDate>
+        <lastBuildDate>Tue, 23 May 2023 16:21:45 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -144,8 +144,8 @@ $\mathcal L = \sum_ {l \in \mathcal Y_ t}[Y^t_ l \log(\hat{Y}_ l)  +  (1- Y_ l^t
 &lt;p&gt;금융 시계열 예측을 위해 Temporal and Heterogeneous graph neural network model을 제시한다. 가장 효과적인 그래프 기반과 비그래프 기반 baseline과 비교하여 제시한 방법의 효과를 종합적으로 평가하였다. 또한 실제 투자 전략에서 THGNN이 우수한 성과를 보였다. 기업간의 관계를 Heteoreneous dynamic graph로 모델링 하고 GNN을 통해 금융 시계열 예측 모델을 개선하였다. 추후 연구에서는 예측 모델이 보다 정확한 training input graph 데이터를 얻을 수 있도로 corporate relation modeling을 개선할 예정이다.&lt;/p&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</guid>
+            <link>http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</guid>
             
             <category>reviews</category>
             
@@ -283,8 +283,8 @@ Capturing temporal 2D-variation&lt;/p&gt;
 
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html</guid>
+            <link>http://localhost:4000/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html</guid>
             
             <category>reviews</category>
             
@@ -490,8 +490,8 @@ TimesBlock은 크게 2가지 역할을 수행합니다.
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html</guid>
+            <link>http://localhost:4000/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html</guid>
             
             <category>reviews</category>
             
@@ -668,8 +668,8 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/TabNet_Attentive_Interpretable_Tabular_Learning.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/TabNet_Attentive_Interpretable_Tabular_Learning.html</guid>
+            <link>http://localhost:4000/TabNet_Attentive_Interpretable_Tabular_Learning.html</link>
+            <guid isPermaLink="true">http://localhost:4000/TabNet_Attentive_Interpretable_Tabular_Learning.html</guid>
             
             <category>reviews</category>
             
@@ -791,8 +791,8 @@ https://doi.org/10.1073/pnas.1918964117
 [2]Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network, &lt;strong&gt;&lt;em&gt;arXiv&lt;/em&gt;&lt;/strong&gt;:1609.0480&lt;/p&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</guid>
+            <link>http://localhost:4000/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Super_resolution_generative_adversarial_networks_of_randomly_seeded_fields.html</guid>
             
             <category>reviews</category>
             
@@ -887,8 +887,8 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html</guid>
+            <link>http://localhost:4000/Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html</guid>
             
             <category>reviews</category>
             
@@ -1446,8 +1446,8 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Structure_Aware_Transformer_for_Graph_Representation_Learning.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Structure_Aware_Transformer_for_Graph_Representation_Learning.html</guid>
+            <link>http://localhost:4000/Structure_Aware_Transformer_for_Graph_Representation_Learning.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Structure_Aware_Transformer_for_Graph_Representation_Learning.html</guid>
             
             <category>reviews</category>
             
@@ -1730,8 +1730,8 @@ https://doi.org/10.1073/pnas.1918964117
 
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html</guid>
+            <link>http://localhost:4000/Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Spatio_Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks.html</guid>
             
             <category>reviews</category>
             
@@ -1873,8 +1873,8 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</guid>
+            <link>http://localhost:4000/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</guid>
             
             <category>reviews</category>
             
@@ -2152,8 +2152,8 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</guid>
+            <link>http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</link>
+            <guid isPermaLink="true">http://localhost:4000/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</guid>
             
             <category>reviews</category>
             

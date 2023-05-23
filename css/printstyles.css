@@ -2,41 +2,34 @@
 
 body {
     font-size: 14px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .nav ul li a {
     border-top: 0px;
     background-color: transparent;
     color: #808080;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #navig a[href] {
     color: #595959 !important;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 table .table {
     max-width: 650px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #navig li.sectionHead {
     font-weight: bold;
     font-size: 18px;
     color: #595959 !important;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #navig li {
     font-weight: normal;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #navig a[href]::after {
     content: leader(".") target-counter(attr(href), page);
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 a[href]::after {
@@ -61,9 +54,10 @@ a[href].noCrossRef::after {
 
 @page {
     margin: 60pt 90pt 60pt 90pt;
+    font-family: sans-serif;
     font-style: none;
     color: gray;
-    font-family: "Noto Sans KR", sans-serif;
+
 }
 
 .printTitle {
@@ -72,13 +66,12 @@ a[href].noCrossRef::after {
     font-weight: bold;
     letter-spacing: -.5px;
     margin-bottom: 25px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .printSubtitle {
     font-size: 19pt;
     color: #cccccc !important;
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Grotesque MT Light";
     line-height: 22pt;
     letter-spacing: -.5px;
     margin-bottom: 20px;
@@ -88,13 +81,11 @@ a[href].noCrossRef::after {
     color: #999999 !important;
     height: 2px;
     width: 100%;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .printTitleImage {
     max-width: 300px;
     margin-bottom: 200px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 
@@ -123,8 +114,7 @@ a[href].noCrossRef::after {
 
 
 body.title {
-    page: title;
-    font-family: "Noto Sans KR", sans-serif;
+    page: title
 }
 
 @page title {
@@ -185,25 +175,21 @@ h1 {
         content: string(doctitle);
         font-size: 11px;
         font-style: italic;
-        font-family: "Noto Sans KR", sans-serif;
     }
 
     @top-right {
         content: prince-script(datestamp);
         font-size: 11px;
-        font-family: "Noto Sans KR", sans-serif;
     }
 
     @bottom-right {
         content: "Page " counter(page);
         font-size: 11px;
-        font-family: "Noto Sans KR", sans-serif;
     }
 
     @bottom-left {
         content: prince-script(guideName);
         font-size: 11px;
-        font-family: "Noto Sans KR", sans-serif;
     }
 }
 
@@ -211,10 +197,8 @@ h1 {
     background-color: #fafafa !important;
     border-color: #dedede !important;
     color: black;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 pre {
     background-color: #fafafa;
-    font-family: "Noto Sans KR", sans-serif;
 }

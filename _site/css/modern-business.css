@@ -9,12 +9,10 @@
 html,
 body {
     height: 100%;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .img-portfolio {
     margin-bottom: 30px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .img-hover:hover {
@@ -44,7 +42,6 @@ header.carousel .fill {
 
 .error-404 {
     font-size: 100px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* Pricing Page Styles */
@@ -53,20 +50,17 @@ header.carousel .fill {
     display: block;
     font-size: 50px;
     line-height: 50px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .price sup {
     top: -20px;
     left: 2px;
     font-size: 20px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 .period {
     display: block;
     font-style: italic;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* Footer Styles */
