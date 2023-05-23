@@ -389,11 +389,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="2-1-fedsage">2-1) Fedsage</h2>
 
-<p>먼저 Fedsage는 일반적인 GNN에서 Node classification model을 학습시키듯이 각각의 label에 대한 prediction 값을 계산한 뒤 아래 Cross Entropy Loss를 계산하고 gradient descent를 통하여 학습시킨다. 
-<img src="https://drive.google.com/uc?export=download&amp;id=1rZ4fhaWnSMNTqxtcpMapl9tWeM6OI2kt" alt="CE" /></p>
+<p>먼저 Fedsage는 일반적인 GNN에서 Node classification model을 학습시키듯이 각각의 label에 대한 prediction 값을 계산한 뒤 아래 Cross Entropy Loss를 계산하고 gradient descent를 통하여 학습시킨다.</p>
 
-<p>그리고 FedAvg를 적용하는데 Fedavg는 1) Round마다 local system을 학습 2) 학습된 local system의 weight를 server에서 average 3) server에서 weight를 각각의 local system으로 배포 의 순서를 반복하는 알고리즘이다. 이는 가장 대표적이고 간단하여 널리 쓰이는 방법론이고 아래 Fedavg논문에서의 수도 코드를 참고하여 쉽게 이해할 수 있다.
-<img src="https://drive.google.com/uc?export=download&amp;id=1TXPt7ESV5qanZHAZpQW8vnrJisC3Wq4s" alt="Fedavg" /></p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1rZ4fhaWnSMNTqxtcpMapl9tWeM6OI2kt" alt="CE" /></p>
+
+<p>그리고 FedAvg를 적용하는데 Fedavg는 1) Round마다 local system을 학습 2) 학습된 local system의 weight를 server에서 average 3) server에서 weight를 각각의 local system으로 배포 의 순서를 반복하는 알고리즘이다. 이는 가장 대표적이고 간단하여 널리 쓰이는 방법론이고 아래 Fedavg논문에서의 수도 코드를 참고하여 쉽게 이해할 수 있다.</p>
+
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1TXPt7ESV5qanZHAZpQW8vnrJisC3Wq4s" alt="Fedavg" /></p>
 
 <h2 id="2-2-fedsage">2-2) Fedsage+</h2>
 
@@ -401,13 +403,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p><img src="https://drive.google.com/uc?export=download&amp;id=1meNAOF25mBHTH6A0yoztAX62jT6Vy0jo" alt="Fedavg" /></p>
 
-<p>그래서 모델 Architecture를 크게 보면 Missing Neighbor Generator (NeighGen)을 통하여 Missing 된 Node들을 다시 만들어서 Observe된 Graph에서 붙여주고 (Graph mending) 복원된 Graph를 통하여 downstream task인 node classification을 수행한다. Node classification 부분은 위 fedsage와 동일하기 때문에 중요한 부분은 NeighGen을 어떻게 구성하는지 인데 우선 missing된  link를 Subgraph내에서 만들어주기 위해서는 각각의 Subgraph 내의 node마다 몇개의 node가 drop되었는지를 알아야 하기 때문에 missing된 node 개수를 예측하는 dGen을 학습시키고 그 예측된 node 개수에 맞게 새로운 node의 feature를 만들어주는 fGen을 학습시킨다.</p>
+<p>그래서 모델 Architecture를 크게 보면 Missing Neighbor Generator (NeighGen)을 통하여 Missing 된 Node들을 다시 만들어서 Observe된 Graph에서 붙여주고 (Graph mending) 복원된 Graph를 통하여 downstream task인 node classification을 수행한다. Node classification 부분은 위 fedsage와 동일하기 때문에 중요한 부분은 NeighGen을 어떻게 구성하는지 인데 우선 missing된 link를 Subgraph내에서 만들어주기 위해서는 각각의 Subgraph 내의 node마다 몇개의 node가 drop되었는지를 알아야 하기 때문에 missing된 node 개수를 예측하는 dGen을 학습시키고 그 예측된 node 개수에 맞게 새로운 node의 feature를 만들어주는 fGen을 학습시킨다.</p>
 
 <p>구체적으로 보면 학습단계에서는 Ground Truth값을 알아야 model을 학습시킬 수 있기 때문에 관측된 Graph에서 몇몇 node를 더 숨겨 (hide) missing link를 발생시킨다. 그리고 NeighGen을 위한 GNN을 통해 node마다의 representation을 뽑아 낸뒤 dGen을 통하여 몇개의 node가 숨겨졌는지 예측한다. 여기서 dGen는 $\theta^d$라고 표기되는 parameter를 가진 linear regression 모델이다. 그래서 논문에는 아래 수식으로 missing neighbor 수인 $\tilde{n_v}$ 를 prediction을 한다고 하는데 논문의 $n_v$는 typo인 것 같고 node representation을 타나내는 $z_v$로 대체 되어야 할 것 같다.</p>
 
-<p><img src="https://drive.google.com/uc?export=download&amp;id=1RdS9I6bgqZPOZ-dPq2a7arkXHg2LyS_a" alt="dGen" /></p>
+<p><img src="https://drive.google.com/uc?export=download&amp;id=1wgW8ENe9ArVcUcWsN3C5cdB0T2u4sYuu" alt="dGen" /></p>
 
-<p>그리고 fGen에서는 예측된 missing neighbor수 만큼 node를 만들어 줘야 하는데 다양성을 위하여 Gaussian noise와 node representatino을 더해주고 fGen의 parameter  $\theta^f$와 곱해주는 방식으로 새로운 node feature를 만들어낸다. 이 때 dGen에서 예측한 missing neighbor 개수인 $\tilde{n_v}$개 만큼 생성하고 수식은 아래와 같다. (여기서 R은 Random Sampler를 의미한다)</p>
+<p>그리고 fGen에서는 예측된 missing neighbor수 만큼 node를 만들어 줘야 하는데 다양성을 위하여 Gaussian noise와 node representatino을 더해주고 fGen의 parameter $\theta^f$와 곱해주는 방식으로 새로운 node feature를 만들어낸다. 이 때 dGen에서 예측한 missing neighbor 개수인 $\tilde{n_v}$개 만큼 생성하고 수식은 아래와 같다. (여기서 R은 Random Sampler를 의미한다)</p>
 
 <p><img src="https://drive.google.com/uc?export=download&amp;id=1U8_7sHEpJIO9IsuPGfEku-IjK4kvmeAk" alt="fGen" /></p>
 
@@ -447,6 +449,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>해당 논문을 종합해보면 <strong>Subgraph Federated Learning</strong>의 필요성을 좋은 예시를 들어 설명해주었고 그에 따라 Missing Link라는 Graph domain만의 문제가 발생할 수 있다는 점을 제기하였다. 이를 해결하기 위해 Neighborhood generator라는 방법론을 제안하였는데 method적으로 아주 획기적인 논문은 아니였지만 연구를 할 때 새로운 문제를 잘 정의해보고 실제로 그런지 실험을 통해서 잘 보여주는 것이 중요하다는 교훈을 주는 논문이라고 생각한다.</p>
 
+<h1 id="reviewer-information">Reviewer Information</h1>
+<ul>
+  <li>Name : Junseok Lee</li>
+  <li>Affilitation : DSAIL in KAIST</li>
+  <li>Research Topic : Graph Mining, Bioinformatics</li>
+</ul>
+
     </div>
 
 
@@ -466,7 +475,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

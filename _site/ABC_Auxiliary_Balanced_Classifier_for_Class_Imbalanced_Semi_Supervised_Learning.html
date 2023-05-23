@@ -54,7 +54,36 @@
 <link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 
@@ -110,7 +139,36 @@
     
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 </head>
@@ -377,7 +435,7 @@ Fixmatch 혹은 Remixmatch를 backbone으로 사용하며, 이들은 당시 SSL 
 
 <p>FixMatch는 weakly augmented labeled data point $\alpha(x_ b)$를 classification loss 계산에 사용한다. 그리고 consistency regularization loss는 weakly augmented unlabeled data $\alpha(u_b)$와 strongly augmented unlabeled data point $A(u_ b)$ 를 이용해 계산한다.</p>
 
-<p>RemixMatch는 weakly augmented unlabeled data $\alpha(u_ b)$의 label을 distribution alignment와 sharpening으로 예측하고, strongly augmented unlabeled data $A(u_ b)$에 label을 부여한다. $A(u_ b)$와 A(x_ b)$가 mixup regularization을 위해 활용된다. ReMixMatch는 FixMatch와 비슷한 방식으로 consistency regularization이 진행되는데, imgae의 rotation을 활용하여 self-supervised learning을 한다.</p>
+<p>RemixMatch는 weakly augmented unlabeled data $\alpha(u_ b)$의 label을 distribution alignment와 sharpening으로 예측하고, strongly augmented unlabeled data $A(u_ b)$에 label을 부여한다. $A(u_ b)$와 $A(x_ b)$가 mixup regularization을 위해 활용된다. ReMixMatch는 FixMatch와 비슷한 방식으로 consistency regularization이 진행되는데, imgae의 rotation을 활용하여 self-supervised learning을 한다.</p>
 
 <p>두 알고리즘은 SSL performance의 향상에 큰 기여를 하였지만, Imbalanced setting에서는 majority class에 편향되어있다.</p>
 
@@ -385,7 +443,7 @@ Fixmatch 혹은 Remixmatch를 backbone으로 사용하며, 이들은 당시 SSL 
   <p><strong>ABC for class-imbalanced Semi-supervised learning</strong></p>
 </blockquote>
 
-<p>ABC를 balanced하게 학습하기 위해, 먼저 $M(x_ b)$ mask를 생성한다. Labeled data $x_b$에 해당 class의 data 개수와 inversely proportional하게 parameter를 설정하고, Bernoulli distribution $\beta()$ 를 이용한다. 즉, data의 개수가 적은 minority class의 mask는 1이 될 확률이 높고, 반대로 data 개수가 많은 majority class의 mask는 0이 될 확률이 높다.</p>
+<p>ABC를 balanced하게 학습하기 위해, 먼저 $M(x_ b)$ mask를 생성한다. Labeled data $x_ b$에 해당 class의 data 개수와 inversely proportional하게 parameter를 설정하고, Bernoulli distribution $\beta()$ 를 이용한다. 즉, data의 개수가 적은 minority class의 mask는 1이 될 확률이 높고, 반대로 data 개수가 많은 majority class의 mask는 0이 될 확률이 높다.</p>
 
 <p>이 mask는 classification loss에 곱해지고, 이로 인해 ABC는 balanced classification loss로 학습된다. mask를 곱해주는 것은 minority class에 대해서는 oversampling, majority class에 대해서는 under sampling이라고 할 수 있다. 하지만 representation learning에서는 모든 sample이 사용되고 ABC를 학습하는 과정에서만 class re-balancing이 일어나기 때문에 앞서 설명한 re-balancing의 단점을 극복할 수 있다.</p>
 
@@ -393,7 +451,7 @@ Fixmatch 혹은 Remixmatch를 backbone으로 사용하며, 이들은 당시 SSL 
 
 <p>$L_{cls} = \frac{1}{B} \displaystyle\sum_ {b=1}^{B} M(x_ b)H(p_ {s}(y \vert \alpha(x_ b)),p_ {b})$</p>
 
-<p>where $M(x_ b) = \beta(\frac{N_ L}{N_{y_ b}})$ , $H$ is the standard cross-entropy loss, $p_s$ is the predicted class distribution using ABC for $\alpha(x_ b)$, and $p_ b$ : one-hot label for $x_ b$</p>
+<p>where $M(x_ b) = \beta(\frac{N_ L}{N_{y_ b}})$ , $H$ is the standard cross-entropy loss, $p_ s$ is the predicted class distribution using ABC for $\alpha(x_ b)$, and $p_ b$ : one-hot label for $x_ b$</p>
 
 <p><img src="https://user-images.githubusercontent.com/130554302/231470747-666ff176-c853-4c91-a5b3-79ff1d0a1452.png" alt="image" />
 위의 내용을 Figure2를 통해 직관적으로 이해할 수 있다.</p>
@@ -513,7 +571,7 @@ Large-scale dataset에서도 실험을 하기 위해 LSUN에서 7.5M개의 256*2
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

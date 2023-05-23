@@ -2,6 +2,8 @@
 title:  "[NIPS 2021] ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning"
 permalink: ABC_Auxiliary_Balanced_Classifier_for_Class_Imbalanced_Semi_Supervised_Learning.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 
@@ -63,13 +65,13 @@ Fixmatch 혹은 Remixmatch를 backbone으로 사용하며, 이들은 당시 SSL 
 
 FixMatch는 weakly augmented labeled data point $\alpha(x_ b)$를 classification loss 계산에 사용한다. 그리고 consistency regularization loss는 weakly augmented unlabeled data $\alpha(u_b)$와 strongly augmented unlabeled data point $A(u_ b)$ 를 이용해 계산한다. 
 
-RemixMatch는 weakly augmented unlabeled data $\alpha(u_ b)$의 label을 distribution alignment와 sharpening으로 예측하고, strongly augmented unlabeled data $A(u_ b)$에 label을 부여한다. $A(u_ b)$와 A(x_ b)$가 mixup regularization을 위해 활용된다. ReMixMatch는 FixMatch와 비슷한 방식으로 consistency regularization이 진행되는데, imgae의 rotation을 활용하여 self-supervised learning을 한다.
+RemixMatch는 weakly augmented unlabeled data $\alpha(u_ b)$의 label을 distribution alignment와 sharpening으로 예측하고, strongly augmented unlabeled data $A(u_ b)$에 label을 부여한다. $A(u_ b)$와 $A(x_ b)$가 mixup regularization을 위해 활용된다. ReMixMatch는 FixMatch와 비슷한 방식으로 consistency regularization이 진행되는데, imgae의 rotation을 활용하여 self-supervised learning을 한다.
 
 두 알고리즘은 SSL performance의 향상에 큰 기여를 하였지만, Imbalanced setting에서는 majority class에 편향되어있다.
 
 >**ABC for class-imbalanced Semi-supervised learning**
 
-ABC를 balanced하게 학습하기 위해, 먼저 $M(x_ b)$ mask를 생성한다. Labeled data $x_b$에 해당 class의 data 개수와 inversely proportional하게 parameter를 설정하고, Bernoulli distribution $\beta()$ 를 이용한다. 즉, data의 개수가 적은 minority class의 mask는 1이 될 확률이 높고, 반대로 data 개수가 많은 majority class의 mask는 0이 될 확률이 높다.
+ABC를 balanced하게 학습하기 위해, 먼저 $M(x_ b)$ mask를 생성한다. Labeled data $x_ b$에 해당 class의 data 개수와 inversely proportional하게 parameter를 설정하고, Bernoulli distribution $\beta()$ 를 이용한다. 즉, data의 개수가 적은 minority class의 mask는 1이 될 확률이 높고, 반대로 data 개수가 많은 majority class의 mask는 0이 될 확률이 높다.
 
 이 mask는 classification loss에 곱해지고, 이로 인해 ABC는 balanced classification loss로 학습된다. mask를 곱해주는 것은 minority class에 대해서는 oversampling, majority class에 대해서는 under sampling이라고 할 수 있다. 하지만 representation learning에서는 모든 sample이 사용되고 ABC를 학습하는 과정에서만 class re-balancing이 일어나기 때문에 앞서 설명한 re-balancing의 단점을 극복할 수 있다.
 
@@ -77,7 +79,7 @@ ABC의 classification loss는 0/1 mask $M()$을 이용하여 다음과 같이 �
 
 $L_{cls} = \frac{1}{B} \displaystyle\sum_ {b=1}^{B} M(x_ b)H(p_ {s}(y \vert \alpha(x_ b)),p_ {b})$
 
-where $M(x_ b) = \beta(\frac{N_ L}{N_{y_ b}})$ , $H$ is the standard cross-entropy loss, $p_s$ is the predicted class distribution using ABC for $\alpha(x_ b)$, and $p_ b$ : one-hot label for $x_ b$ 
+where $M(x_ b) = \beta(\frac{N_ L}{N_{y_ b}})$ , $H$ is the standard cross-entropy loss, $p_ s$ is the predicted class distribution using ABC for $\alpha(x_ b)$, and $p_ b$ : one-hot label for $x_ b$ 
 
 
 ![image](https://user-images.githubusercontent.com/130554302/231470747-666ff176-c853-4c91-a5b3-79ff1d0a1452.png)

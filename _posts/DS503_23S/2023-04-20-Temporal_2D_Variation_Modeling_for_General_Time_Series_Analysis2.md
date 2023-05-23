@@ -2,6 +2,8 @@
 title:  "[ICLR 2023] Temporal 2D-Variation Modeling for General Time Series Analysis2"
 permalink: Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis2.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 **작성자 : 유기선**  
@@ -28,7 +30,7 @@ tags: [reviews]
 
  시계열 분석의 주요 문제인 시간적 변화 모델링은, ARIMA(Anderson & Kendall, 1976), Holt-Winter(Hyndman & Athanasopoulos, 2018) 및 Prophet(Taylor & Letham, 2018) 같은 고전적 모델 기반의 연구가 진행되었으나,  시계열의 변화는 일반적으로 미리 정의된 패턴으로는 충분히 설명하기 어렵기 때문에 실용성은 제한되는 한계가 존재했다.
 
- 최근 에는 MLP, TCN, RNN 기반의 다양한 딥 모델들이 시계열 모델링에 적용되 왔다.  우선 MLP 기반의 방법들 (Oreshkin et al., 2019; Challu et al., 2022; Zeng et al., 2023; Zhang et al., 2022)은 MLP을 시간 축으로 사용하며, 시간 의존성을 MLP 레이어의 고정된 파라미터로 인코딩 한다. TCN 기반의 방법 (2019)은 시간 축을 따라 이동하는 컨볼루션 커널로 시간 변화를 캡쳐하며, RNN 기반의 방법 (Hochreiter & Schmidhuber, 1997; Lai et al., 2018; Gu et al., 2022)은 재귀 구조를 활용하며, 시간 단계 간 상태 전이를 통해 시간 변화를 캡쳐한다. 특히 최근 딥러닝 분야에서 전반적으로 높은 성능을 보이는 Transformer는 시계열 예측에서도 큰 성능을 보여주고 있으며 (Zhou et al., 2021; Liu et al., 2021a; Wu et al., 2021; Zhou et al., 2022), 어텐션 메커니즘을 사용하여 시간 포인트 간의 시간적 종속성을 파악할 수 있다. 특히, Wu et al.은 학습된 주기를 기반으로 자기 상관 메커니즘을 갖춘 Autoformer를 제시 했으며. 그 후, FEDformer (Zhou et al., 2022)는 계절성-추세 분해를 강화하고 주파수 도메인 내에서 sparse 어텐션을 제시했다. 그러나 본 논문의 경우 이전 방법과 달리, 시계열의 다중 주기성을 탐색하여 복잡한 시간적 패턴을 해결하고, 이미 인공지능 컴퓨터 비전에서 잘 알려진 백본을 사용하여 처음으로 2D 공간에서 시간적 2D-변화를 포착한다.
+ 최근 에는 MLP, TCN, RNN 기반의 다양한 Deep 모델들이 시계열 모델링에 적용되 왔다.  우선 MLP 기반의 방법들 (Oreshkin et al., 2019; Challu et al., 2022; Zeng et al., 2023; Zhang et al., 2022)은 MLP을 시간 축으로 사용하며, 시간 의존성을 MLP 레이어의 고정된 파라미터로 인코딩 한다. TCN 기반의 방법 (2019)은 시간 축을 따라 이동하는 컨볼루션 커널로 시간 변화를 캡쳐하며, RNN 기반의 방법 (Hochreiter & Schmidhuber, 1997; Lai et al., 2018; Gu et al., 2022)은 재귀 구조를 활용하며, 시간 단계 간 상태 전이를 통해 시간 변화를 캡쳐한다. 특히 최근 딥러닝 분야에서 전반적으로 높은 성능을 보이는 Transformer는 시계열 예측에서도 큰 성능을 보여주고 있으며 (Zhou et al., 2021; Liu et al., 2021a; Wu et al., 2021; Zhou et al., 2022), 어텐션 메커니즘을 사용하여 시간 포인트 간의 시간적 종속성을 파악할 수 있다. 특히, Wu et al.은 학습된 주기를 기반으로 자기 상관 메커니즘을 갖춘 Autoformer를 제시 했으며. 그 후, FEDformer (Zhou et al., 2022)는 계절성-추세 분해를 강화하고 주파수 도메인 내에서 sparse 어텐션을 제시했다. 그러나 본 논문의 경우 이전 방법과 달리, 시계열의 다중 주기성을 탐색하여 복잡한 시간적 패턴을 해결하고, 이미 인공지능 컴퓨터 비전에서 잘 알려진 백본을 사용하여 처음으로 2D 공간에서 시간적 2D-변화를 포착한다.
 
 ## **3.TIMESNET**
 
@@ -65,12 +67,57 @@ Capturing temporal 2D-variation
 
 
 ## **4.EXPERIMENTS**
+
+ TimesNet의 일반성을 검증하기 위해, 장/단기 예측, 보완, 분류 및 이상 탐지의 다섯 가지 주요 분석 작업에 대한 실험을 진행함.  
 ![대체](https://i.ibb.co/YNP1rS9/fig-13.png)
-위와 같은 setting 을 통해 실험을 진행하였고
+- 위 표 1은 벤치마크의 평가 결과 Summary-
+
+#### **-BaseLine**
+ - 이에는 RNN 기반 모델인 LSTM (1997), LSTNet (2018) 및 LSSL (2022); CNN 기반 모델인 TCN (2019); MLP 기반 모델인 LightTS (2022) 및 DLinear (2023); Transformer 기반 모델인 Reformer (2020), Informer (2021), Pyraformer (2021a), Autoformer (2021), FEDformer (2022), Non-stationary Transformer (2022a) 및 ETSformer (2022) 등이 포함됨. 또한 각각의 특정 작업에 대해 최신 기법인 N-HiTS (2022)와 N-BEATS (2019)를 사용한 단기 예측, 이상 탐지를 위한 Anomaly Transformer (2021), 분류를 위한 Rocket (2020)과 Flowformer (2022) 등과 같은 최신 모델들과도 비교함. 종합적인 비교를 위해 15개 이상의 기준 모델을 포함하였음.
 ![대체](https://i.ibb.co/FmBr4Qj/fig-14.png)
 
-위 그림과 같이 time series 의 5개 Mainstream Task 에서 다른  모델들 대비 모든 방면에서 SOTA 를 달성하였다.
+#### **-4.1 주요결과**
 
+ TimesNet은 위 그림과 같이  5개 Mainstream Task 에서 다른  모델들 대비 모든 방면에서 SOTA 를 달성하였다.  또한 인셉션 블록을 더 강력한 비전 백본으로 대체함으로써 TimesNet의 성능을 더욱 향상시킬 수 있음을 보인다. (위 그림의 오른쪽)
+
+
+#### **-4.1 단기 및 장기 예측 설정 **
+
+
+ 시계열 예측은 날씨 예보, 교통 및 에너지 소비 계획에 필수적이며, 이러한 예측 모델의 성능을 평가하기 위해, 장/단기 예측을 포함한 두 가지 유형의 벤치마크로 비교함. 
+  - 장기 예측: Autoformer (2021)에서 사용한 벤치 사용. 
+  - 단기 예측: M4 (Spyros Makridakis, 2018)를 채택
+	  -  연간, 분기 및 월별로 수집된 단일 변수 마케팅 데이터 포함.	
+
+![대체](https://i.esdrop.com/d/f/uD7EquG4pF/0TfhSU820p.png)
+
+![대체](https://i.esdrop.com/d/f/uD7EquG4pF/bJ0Q1DcKw5.png)
+
+#### **- 결과**
+TimesNet은 장기 및 단기 설정에서 뛰어난 성능을 보여줍니다 (표 2-3). 표13 에서 TimesNet의 장기 예측의 경우 80% 이상의 경우에서 SoTA 달성함. M4 데이터셋의 경우, 시계열이 다른 소스에서 수집되기 때문에 시간적 변동이 매우 커져, 이로 인해 예측이 훨씬 어려질 수 있다. 그러나 본 논문에서 제안한 TimesNet 모델은 이 작업에서 가장 우수한 성능을 발휘하며, 고급 MLP 기반 및 Transformer 기반 모델을 능가함을 보여준다.
+
+#### **- 4.3 IMPUTATION**
+
+ Missing Value로 인해 Imputation 작업은 모델이 불규칙하고 부분적으로 관측된 시계열에서 잠재적인 시간적 패턴을 발견해야 하는 어려운 작업임에도, 표 4에서 볼 수 있듯이, TimesNet은 이해당 작업에서도 SOTA를 달성하여, 복잡한 시간적 변동을 포착하는 모델의 성능 또한 검증함.
+
+#### **- 4.4 CLASSIFICATION**
+
+  시계열 분류의 경우 인식 및 의료 진단에 사용될 수 있으며, 이를 검증하기 위해, UEA 시계열 분류 아카이브 (Bagnall et al., 2018)에서, 의료 진단 및 기타 실제 작업을 포함하는 10개의 다변량 데이터셋을 전처리 하여 사용함.
+
+![대체](https://i.esdrop.com/d/f/uD7EquG4pF/Xr832xCRpQ.png)
+
+![대체](https://i.esdrop.com/d/f/uD7EquG4pF/vQG8qjHpcg.png)
+
+#### **- 4.4 CLASSIFICATION**
+#### **- 결과**
+ Figure 5에서 볼 수 있듯이, TimesNet은 평균 정확도 73.6%로 최고의 성능을 달성하여 이전의 SOTA 방법인 Rocket (72.5%)과 딥 모델인 Flowformer (73.0%)를 능가함. 특히 MLP 기반 모델인 DLinear은 이 dataset 에서 잘 동작하지 않는데, (67.5%) 이는  DLinear의 경우 시간적 의존성이 고정된 자기회귀 작업에 적합한 한 계층의 MLP 모델만 사용하기 때문에, 고수준 표현을 학습하는 데 약점이 있을것으로 보임. 반면에 TimesNet은 2D 공간에서 시간적인 2D 변동을 통합하여 2D 커널을 통해 정보를 학습하기 용이하게 만들어지므로, 계층적 표현을 필요로 하는 분류 작업에 유리해 보임.
+
+#### **- 4.5 ANOMALY DETECTION**
+ 모니터링 데이터에서 이상치 탐지는 매우 중요하나, 일반적으로 데이터 레이블링이 어려워, unsupervised Leaning 방식으로 해당 Point 를 Detection 함. 비교 분석을 위한 벤치마크 데이터 셋은: SMD (Su et al., 2019), MSL (Hundman et al., 2018), SMAP (Hundman et al., 2018), SWaT (Mathur & Tippenhauer, 2016), PSM (Abdulaal et al., 2021). 
+ 
+#### **- 결과**
+![대체](https://i.esdrop.com/d/f/uD7EquG4pF/IGTAd9lmKI.png)
+ Table 5를 보면, TimesNet이 이상 탐지에서 또한 SOTA를 달성하며, 고급 Transformer 기반 모델인 FEDformer (2022)와 Autoformer (2021)보다 뛰어남을 보여줌. 이는 이상 탐지가 드물게 나타나는 이상적인 시간 패턴을 찾아야 하는데 비해, 일반적인 어텐션 메커니즘은 각 시간 지점 쌍 간의 유사성을 계산하므로 주요 정상 시간 지점에 의해 방해를 받기 때문으로 보여짐. 또한TimesNet, FEDformer 및 Autoformer는 모두 휼륭한 성능을 공통적으로 보여 주는데 이러한 결과는 주기성 분석의 중요성을 보여주며, 주기성을 위반하는 변동을 암시적으로 강조하여 이상 탐지에 도움을 주는것으로 보임.
 
 ## **5.CONCLUSION AND FUTURE WORK**
 

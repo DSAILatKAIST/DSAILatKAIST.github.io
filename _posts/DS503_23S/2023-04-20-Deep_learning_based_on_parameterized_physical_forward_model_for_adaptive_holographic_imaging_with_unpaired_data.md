@@ -2,13 +2,10 @@
 title:  "[Nat. Mach. Intell. 2023] Deep learning based on parameterized physical forward model for adaptive holographic imaging with unpaired data"
 permalink: Deep_learning_based_on_parameterized_physical_forward_model_for_adaptive_holographic_imaging_with_unpaired_data.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
-# **Title**
-
-# <center><b>[Nat. Mach. Intell. 2023] Deep learning based on parameterized physical forward model for adaptive holographic imaging with unpaired data</b></center>
-
----
 ## **1. Problem Definition**  
 
 이 논문에서 다루는 문제는 <b><span style="color:Blue">single-shot in-line hologram에서 complex amplitude와 object-to-sensor distance를 재구성</span></b>하는 것이다.
@@ -61,9 +58,60 @@ cutom-built Mach-Zehnder 간섭계를 사용하여 complex amplitude 데이터�
 
 저자들은 complex amplitude 생성기로 U-Net 기반 아키텍처와 distance 생성기로 Deep Neural Network (DNN)을 사용했다. disciminator network는 complex amplitude의 구조 정보와 미세한 세부 정보를 강조하기 위해 구축되었다.
 
+<b><span style="color:Blue">$G_{\theta}$</span></b>는 인코더와 디코더로 이루어진 U-Net 기반의 아키텍처이다.
+
+인코더는 diffraction intensity를 input으로 받고 인코더 내에서 3x3 convolution, group normalization, 기울기 0.2인 leaky ReLU와 2x2 stride 2인 maxpooling으로 구성된 convolution 블럭이 두 번 반복된다. 인코더에 의해 latent vector가 생성되고 이는 디코더의 input으로 주어진다.
+
+디코더는 transpose convolution과 두 개의 convolution 블럭의 반복으로 구성된다. 디코더 내에서 첫 번째 convolution 블럭은 인코더의 마지막 convolution 블럭의 output을 input으로 취한다. 디코더의 output은 squeeze-to-excitation과 1x1 convolution에 대한 input으로 사용되어 complex amplitude map을 생성한다.
+
+<b><span style="color:Blue">$G_{\psi}$</span></b>는 feature extraction layer와 distance regression layer의 조합으로 구성된다.
+
+feature extraion layer들은 kxk convolution (stage1에 대해 k=7, stage2에 대해 k=5, stage3에 대해 k=3), group normalization, 기울기 0.1인 leaky ReLU와 2x2 stride 2인 maxpooling으로 구성된 convolution 블럭이 두 번 반복된다. 추출된 feature들은 global average pooling에 의해 1x1 feature map으로 축소된다. 이는 하나의 1x1 convolution layer로 이루어진 distance regression layer의 input으로 사용되어 결국 distance를 생성한다.
+
+<b><span style="color:Blue">$D_{\eta}$</span></b>는 local feature와 global feature를 강조하기 위해 구축되었다.
+
+low-pass filter와 high-pass filter를 통해 filtering된 이미지는 $D_{\eta}$의 input으로서 주어진다. low-pass filter와 high-pass filter는 각각 5x5 Gaussian blur kernl과 Laplace pyramid representation으로 구현된다. amplitude와 phase 이미지는 각 pass filter에서 filtering된 이미지와 concatenation되며 stride 2인 4x4 convolution, leaky ReLU로 구성된 convolution 블럭의 input으로 들어간다. output들은 concatenation되고 4x4 convolution, group normalization, leaky ReLU로 이루어진 convolution 블럭들의 시리즈 이후의 squeeze-to-excitation network의 input이 된다. 결국 global average pooling과 1x1 convolution을 거쳐 주어진 complex amplitude가 real인지 fake인지 결정할 수 있게 된다.
+
 > <b>4. Loss Function</b>
 
-제안된 모델은 cycle-consistency loss, Wasserstein GAN loss, gradient penalty loss와 structural similarity index loss의 조합으로 훈련되었다.
+제안된 모델은 cycle-consistency loss, Wasserstein GAN (WGAN) loss, gradient penalty loss와 structural similarity index loss의 조합으로 훈련되었다.
+
+제안된 모델은 다음 loss function으로 훈련되었다.
+
+$min_{\Theta,\psi} max_{\eta} l_{tot}(\Theta,\psi;\eta) :$   
+$ = l_{cycle}(\Theta,\psi) + \lambda_{WGAN}l_{WGAN}(\Theta;\eta) + \lambda_{GP}l_{GP}(\eta) + \lambda_{SSIM}l_{SSIM}(\Theta)$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\Theta :$ complex amplitude 생성기  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\psi :$ distance 생성기  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\eta :$ distance 판별기  
+
+<b><span style="color:Blue">cycle-consistency loss</span></b>는 다음과 같이 정의된다.
+
+$l_{cycle}(\Theta,\psi) = \lambda_UE_{U\tilde{}P_U}[\vert G_{\theta}(F(U,d))-U\vert] + \lambda_dE_{d\tilde{}P_D}[\vert G_{\psi}(F(U,d))-d\vert] + \lambda_IE_{I\tilde{}P_J}[\vert I-F(G_{\theta}(I), G_{\psi}(I))\vert]$  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$P_U :$ probability distribution for U  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$P_D :$ probability distribution for d  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$P_J :$ probability distribution for I  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$E[\dot{}] :$ expectation  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\lambda_{U}, \lambda_{d}, \lambda_{I} :$ hyperparameters for each cycle-consistency loss
+
+<b><span style="color:Blue">Wasserstein GAN loss</span></b>는 다음과 같이 정의된다.
+
+$l_{WGAN}(\Theta;\eta) = E_{U \sim P_U}[D_{\eta}(U) - E_{I\tilde{}P_J}[D_{\eta}(G_{\theta}(I))]$  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\lambda_{WGAN} :$ hyperparameters for adversarial loss  
+
+<b><span style="color:Blue">gradient penalty loss</span></b>는 다음과 같이 정의된다.
+
+$l_ {GP}(\eta) = -E_ {U_{0} \sim P_ U}[(\nabla_ {\hat{U}}D_ {\eta}(U) _2 - 1)^2]$  
+
+where $\hat{U} = tU + (1-t)G_ {\theta}(I)$  
+
+<b><span style="color:Blue">structural similarity index loss</span></b>는 다음과 같이 정의된다.
+
+$l_{SSIM}(\Theta) = E_{U \sim P_U}[1-SSIM(U,G_{\theta}(F(U,d)))]$  
 
 > <b>5. Data Preprocessing and Training</b>
 

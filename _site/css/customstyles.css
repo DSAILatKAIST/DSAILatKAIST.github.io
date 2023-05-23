@@ -1,5 +1,6 @@
 body {
     font-size: 15px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .bs-callout {
@@ -78,18 +79,22 @@ body {
 
 .gi-2x {
     font-size: 2em;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .gi-3x {
     font-size: 3em;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .gi-4x {
     font-size: 4em;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .gi-5x {
     font-size: 5em;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 
@@ -109,7 +114,8 @@ h5[id],
 h6[id],
 dt[id] {
     padding-top: 60px;
-    margin-top: -40px
+    margin-top: -40px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .post-content img {
@@ -153,10 +159,12 @@ caption {
     padding-bottom: 8px;
     color: #777;
     text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 th {
     text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 table {
@@ -184,6 +192,7 @@ table>thead>tr>th {
     background-color: #777;
     color: white;
     text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 table>caption+thead>tr:first-child>th,
@@ -222,6 +231,7 @@ p.external a {
     font-size: 12px;
     color: #0088cc;
     display: inline;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 #definition-box-container div a.active {
@@ -239,6 +249,7 @@ p.post-meta {
     line-height: 1.71429;
     margin-bottom: 0;
     text-transform: uppercase;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* search area */
@@ -253,6 +264,7 @@ p.post-meta {
     z-index: -1;
     width: 223px;
     border-left: 1px solid #dedede;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 
@@ -278,6 +290,7 @@ ul#results-container a:hover {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin-top: 10px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* end search */
@@ -324,6 +337,7 @@ div#toc>ul::before {
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 li.dropdownActive a {
@@ -949,7 +963,8 @@ a.accordion-toggle {
 
 span.red {
     color: red;
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    /* font-family: Monaco, Menlo, Consolas, "Courier New", monospace; */
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 h3.codeExplanation {
@@ -957,6 +972,7 @@ h3.codeExplanation {
     font-style: normal;
     color: black;
     line-height: 24px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 span.soft {
@@ -970,14 +986,16 @@ span.soft {
 .endpoint {
     padding: 15px;
     background-color: #f0f0f0;
-    font-family: courier;
+    /* font-family: courier; */
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 110%;
     margin: 20px 0px;
     color: #444;
 }
 
 .parameter {
-    font-family: courier;
+    /* font-family: courier; */
+    font-family: "Noto Sans KR", sans-serif;
     color: red !important;
 }
 
@@ -1060,6 +1078,7 @@ only screen and (min-device-width: 900px) {
 *:hover>.anchorjs-link {
     transition: color .25s linear;
     text-decoration: none;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .kbCaption {
@@ -1072,12 +1091,13 @@ only screen and (min-device-width: 900px) {
 a[href^="http://"]:after,
 a[href^="https://"]:after {
     content: "\f08e";
-    font-family: FontAwesome;
+    /* font-family: FontAwesome; */
     font-weight: normal;
     font-style: normal;
     display: inline-block;
     text-decoration: none;
     padding-left: 3px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* Strip the outbound icon when this class is present */
@@ -1095,16 +1115,19 @@ a.no_icon:after {
 
 .search {
     text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .search input {
     font-size: 20px;
     width: 300px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .results {
     margin: auto;
     text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .results ul {
@@ -1123,10 +1146,12 @@ div.results {
 .post-meta {
     font-size: 14px;
     color: #828282;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .post-link {
     font-size: 22px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .post-list p {
@@ -1158,6 +1183,7 @@ span.label.label-primary {
     background-color: whitesmoke;
     font-weight: bold;
     color: black;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 a code {
@@ -1195,11 +1221,12 @@ table thead th code.highlighter-rouge {
     width: 100px;
     height: 80px;
     background-color: #f5f5f5;
-    font-family: Arial;
+    /* font-family: Arial; */
     font-size: 12px;
     hyphens: auto;
     float: left;
     font-size: 12px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .box:hover {
@@ -1211,20 +1238,24 @@ table thead th code.highlighter-rouge {
     overflow-y: auto;
     padding: 20px;
     min-width: 770px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 #userMap .active {
     background-color: #d6f5d6;
     border: 1px solid #555;
     font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 h2.userMapTitle {
-    font-family: Arial;
+    /* font-family: Arial; */
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 #userMap a:hover {
     text-decoration: none;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 div.arrow {

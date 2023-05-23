@@ -389,7 +389,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>이러한 적대적 공격의 가장 기본적인 형태는 공격하고자 하는 모델 (target model)을 두고, 해당 모델에 대해 적대적 이미지 (adversarial image)의 분류 손실함수 (classification loss)를 높이는 방향으로 이루어져 있다. 아래 식에서 그 형태를 확인할 수 있다:</p>
 
-<p>\(x^{adv}_0 = x, x^{adv}_n = Clip_{x, \epsilon}{x^{adv}_{n-1} + \nabla_x(J(x^{adv}_{n-1}, y))}\).</p>
+<p>$
+x^{adv}_ 0 = x, x^{adv}_ n = Clip_ {x, \epsilon}{x^{adv}_ {n-1} + \nabla_ x(J(x^{adv}_ {n-1}, y))}
+$.</p>
 
 <p>여기서 $x$, $x^{adv}$는 각각 공격받지 않은 기존 이미지와 적대적 이미지를 나타내고, $J(\cdot, \cdot)$은 cross-entropy loss를 나타낸다. 
 즉, 매번 iteration마다 손실함수 값을 높이는 방향으로 적대적 이미지 $x^{adv}$가 업데이트 되는 것이다.</p>
@@ -403,12 +405,19 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 이를 수식으로 나타내면 다음과 같다:</p>
 
 <p>$\arg \max_ {x^{adv}} \mathcal{L}_ \phi(x^{adv}, t), <br />
-\text{s.t.} \parallel x - x^{adv} \parallel_p \le \epsilon, <br />
-\text{and} f_ \theta(x^{adv}) \neq t.\tag{1}$</p>
+\text{s.t.} \parallel x - x^{adv} \parallel_ p \le \epsilon, <br />
+\text{and} f_ \theta(x^{adv}) \neq t.$</p>
 
 <p>즉, 대리 모델 $h_ \phi$와 정답 레이블 $t$ 대해서 임의의 손실함수 (<em>e.g.</em>, classification loss) $\mathcal{L}_ {\phi}$를 최대화하는 적대적 이미지 $x^{adv}$를 생성한다. 
 이 때 $x^{adv}$는 기존 이미지 $x$와 육안으로는 다르지 않아야 한다라는 제한을 만족시키기 위해 적대적 섭동 (adversarial perturbation)의 크기를 $\ell_ p$-norm에서 $\epsilon$으로 제한한다.
 이렇게 생성된 $x^{adv}$가 타겟 모델 $f_ \theta$의 예측을 망가뜨리는 것이 전이 기반 공격의 목적이다.</p>
+
+<p>이러한 전이 기반 공격은 속이고자 하는 모델의 정보를 모른 상태에서도 효과적인 적대적 이미지를 만들 수 있다는 점에서 보다 현실적이고 실용적이다.
+예를 들어, 테슬라 Autopilot의 물체 인식 모델을 속이고자 하는 예를 들어보자.
+보안 이슈 때문에, 테슬라는 해당 모델의 weights 뿐만 아니라 구조와 학습 방법까지 공개하지 않을 것이다.
+이러한 상황에서도 Autopilot의 물체 인식 모델을 속이고자 하는 공격이 전이 기반 공격이다. 
+하지만 이러한 다양한 모델은 모두 다른 구조와 학습 방법을 가지고 있기 때문에, 여러 모델에 적용 가능한 적대적 공격을 만드는 것은 쉽지 않은 일이다.
+이것이 전이 기반 적대적 공격 연구가 활발히 이루어지고 있는 이유다.</p>
 
 <h2 id="2-motivation"><strong>2. Motivation</strong></h2>
 
@@ -417,7 +426,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 본 논문 또한 이러한 추세를 따라 대리 모델에서의 과적합을 방지하려고 한다.</p>
 
 <p>본 논문은 다수의 모델이 다른 구조와 파라미터 값을 가지고 있다고 해도, 이미지를 표현하는데 중요하게 작용하는 특징점 (feature)는 모두 비슷할 것이라는 점에서 착안한다.
-따라서, 모델의 output logit (Eq. 1)을 망가뜨리는 것이 아니라, 모델이 학습한 특징점을 망가뜨린다.
+따라서, 모델의 output logit을 망가뜨리는 것이 아니라, 모델이 학습한 특징점을 망가뜨린다.
 즉, 대리 모델에서 특징점을 망가뜨린 적대적 이미지는, 다수의 모델이 비슷한 특징점을 학습하기 때문에 타겟 모델에서도 특징점을 망가뜨리는 것이다.</p>
 
 <p>또한, 그러한 특징점 중에서도 이미지의 주요 물체에 특정한 특징점을 망가뜨리는 기법을 제안한다. 
@@ -441,8 +450,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="31-feature-importance-by-aggregate-gradient"><strong>3.1. Feature Importance by Aggregate Gradient</strong></h3>
 <p>본 논문에서는 feature importance를 측정하기 위해 aggregate gradient라는 개념을 제안한다.
-True label $t$에 대해 logit $l(x, t)$을 구하고, 그에 대해 k번째 층까지의 gradient를 구함으로써 해당 층에서 추출된 feature $f_k(x)$의 중요도를 측정할 수 있다:
-\(\Delta^x_k = \frac{\partial l(x, t)}{\partial f_k(x)} \tag{2}.\)</p>
+True label $t$에 대해 logit $l(x, t)$을 구하고, 그에 대해 k번째 층까지의 gradient를 구함으로써 해당 층에서 추출된 feature $f_ k(x)$의 중요도를 측정할 수 있다:</p>
+
+<p>$
+\Delta^x_ k = \frac{\partial l(x, t)}{\partial f_ k(x)}.
+$</p>
 
 <p>하지만 이런 gradient에도 물체에 관련된 정보 외에 noisy한 정보가 있을 수 있다. 
 따라서, 이미지에 random pixel dropping을 가하여 다수의 이미지를 만들고, 각 이미지에 대한 gradient를 합산하여 aggregate gradient를 계산한다. 
@@ -462,11 +474,15 @@ Aggregate gradient를 계산하는 과정은 아래 그림에서도 볼 수 있�
 
 <h3 id="32-attack-algorithm"><strong>3.2. Attack Algorithm</strong></h3>
 <p>이렇게 추출한 aggregate gradient를 이용하여 적대적 이미지를 생성하게 된다.
-아래의 손실함수를 이용하여 Eq. 1의 문제를 풀게 된다:
-\(\mathcal{L}(x^{adv}) = \sum(\Delta \odot f_k(x^{adv})), \tag{3} \\
-\arg \min_{x^{adv}} \mathcal{L}(x^{adv}), \\
-\text{s.t.} \parallel x - x^{adv} \parallel_p \le \epsilon.\)
-Eq. 2에서 추출한 aggregate gradient를 각 feature에 element-wise 곱을 통하여 중요한 feature의 activation 값을 높이고, $\mathcal{L}(x^{adv})$를 통하여 중요한 feature의 activation 값을 억제함으로써 모델이 중요한 물체에 대해 적절한 특징점을 추출하지 못하도록 한다.
+아래의 손실함수를 이용하여 문제를 풀게 된다:</p>
+
+<p>$
+\mathcal{L}(x^{adv}) = \sum(\Delta \odot f_ k(x^{adv})), <br />
+\arg \min_ {x^{adv}} \mathcal{L}(x^{adv}), <br />
+\text{s.t.} \parallel x - x^{adv} \parallel_ p \le \epsilon.
+$</p>
+
+<p>추출한 aggregate gradient를 각 feature에 element-wise 곱을 통하여 중요한 feature의 activation 값을 높이고, $\mathcal{L}(x^{adv})$를 통하여 중요한 feature의 activation 값을 억제함으로써 모델이 중요한 물체에 대해 적절한 특징점을 추출하지 못하도록 한다.
 이러한 적대적 공격의 알고리즘은 아래의 그림에 더 명확하게 명시되어 있다.</p>
 
 <p align="center">
@@ -506,13 +522,13 @@ At first, write experiment setup that should be composed of contents.</p>
     <img src="https://user-images.githubusercontent.com/48055164/232282242-86fb72fc-c33c-43bc-9326-2f08d5852429.png" alt="" />
 </p>
 <p align="center">
-    <em>Hyperparameter $p_d$와 ensemble number의 변화에 따른 ASR 변화 분석.</em>
+    <em>Hyperparameter $p_ d$와 ensemble number의 변화에 따른 ASR 변화 분석.</em>
 </p>
 
-<p>위 그림의 그래프는 본 논문의 기법에서 사용된 hyperparameter인 $p_d$와 ensemble number의 변화에 따른 ASR 변화 분석을 보여준다.
-$p_d$는 aggregate gradient을 계산하기 전 pixel dropping을 얼마나 할지를 결정하는 확률을 나타내고, ensemble number는 pixel dropping에 사용되는 마스크의 갯수를 나타낸다.
+<p>위 그림의 그래프는 본 논문의 기법에서 사용된 hyperparameter인 $p_ d$와 ensemble number의 변화에 따른 ASR 변화 분석을 보여준다.
+$p_ d$는 aggregate gradient을 계산하기 전 pixel dropping을 얼마나 할지를 결정하는 확률을 나타내고, ensemble number는 pixel dropping에 사용되는 마스크의 갯수를 나타낸다.
 분석 그래프에 의하면, 각각의 parameter는 FIA의 성능에 큰 영향을 끼친다.
-$p_d$의 값이 너무 높을 때는 이미지의 유의미한 정보가 손실이 될 수 있기 때문에 이미지의 주요 물체를 고려하는 적대적 이미지를 생성하기 어려운 현상을 보인다.
+$p_ d$의 값이 너무 높을 때는 이미지의 유의미한 정보가 손실이 될 수 있기 때문에 이미지의 주요 물체를 고려하는 적대적 이미지를 생성하기 어려운 현상을 보인다.
 Ensemble number 또한 값이 높을수록 대체적으로 좋은 성능을 보이지만, 일정 값 이후로는 ASR이 saturate되는 현상을 보인다.</p>
 
 <h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
@@ -559,7 +575,7 @@ FIA는 feature의 중요도를 고려한 적대적 공격을 제안하여, 다�
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

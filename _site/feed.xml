@@ -5,119 +5,143 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 26 Apr 2023 14:00:15 +0900</pubDate>
-        <lastBuildDate>Wed, 26 Apr 2023 14:00:15 +0900</lastBuildDate>
+        <pubDate>Tue, 23 May 2023 16:06:15 +0900</pubDate>
+        <lastBuildDate>Tue, 23 May 2023 16:06:15 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
             <title>[CIKM 2022] Temporal and Heterogeneous Graph Neural Network for Financial Time Series Prediction</title>
-            <description>&lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1.	Problem Definition&lt;/strong&gt;&lt;/h1&gt;
+            <description>&lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h1&gt;
+
 &lt;p&gt;주식의 가격 움직임은 다양한 측면에 의해 영향을 받는다고 알려져 있다. 선행 연구에서는 가격 움직임을 예측하기 위해 기술적 지표, factor, 재무상태, 뉴스, sns 등을 input으로 구성하였다. 주식시장의 시그널을 stock fundamental과 기술적 지표를 사용해 의사결정을 내리거나 뉴스 기사와 관련된 기업 간의 연결고리를 구축하여 주가 움직임을 예측하는 등 선행 연구에서는 LSTM과 GRU 등을 활용하여 과거 정보를 학습하고 이를 다운스트림 예측 작업에 활용하였다. 하지만 기존 학습 방법은 각 주식의 시계열 정보를 독립적이고 동일하게 분포된 것으로 간주하고 각 분석을 독립적으로 수행한다. 이러한 과정은 각 주식 간의 내부관계를 무시할 밖에 없는 결과를 내고 이는 필연적으로 최적의 성능을 내지 못하는 결과를 초래한다.&lt;/p&gt;
 
-&lt;h1 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2.	Motivation&lt;/strong&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h1&gt;
+
 &lt;p&gt;주식의 가격 변동은 그 자체의 과거 가격과 관련이 있을 뿐만 아니라 공급업체, 고객, 주주, 투자자, 연결된 기업 등과도 관련이 있다. 이러한 관계를 저장하고 표현하기 위해 knowledge graph를 활용하였고 최근에는 그래프 구조의 데이터를 효과적으로 학습할 수 있는 GNN이 방법론으로 제시되었다. 하지만 기존의 방식대로 구축된 그래프는 수작업으로 만든 라벨링과 NLP를 활용하였고 이는 기업간의 관계를 나타내기에 제한되며 많은 리소스 라벨링과 낮은 정확도가 낮은 어려움이 있다.&lt;/p&gt;
 
 &lt;p&gt;실제 기업 관계는 시간에 따라 유동적으로 변화한다. 또한 기업간의 관계는 heterogenous하여 기업 간의 관계 유형은 다양하게 나타난다. 따라서 기존 방법으로는 실제로 기업 관계 그래프의 모든 정보를 표현할 수 없다. 이 논문에서는 이러한 문제를 해결하기 위해 실제 주식가격 시퀀스를 기반으로 relation graph를 구성하고 sequential features와 relational features를 함께 학습하여 주가를 예측을 하는 temporal and heterogenous graph neural network(THGNN) 방법론을 제시한다.&lt;/p&gt;
 
 &lt;h1 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/3MethodAlgorithm.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/3MethodAlgorithm.png?raw=true&quot; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;THGNN모델은 historical price sequence를 input으로 받고 probability of stock movement를 output으로 한다.&lt;/p&gt;
 
-&lt;h3 id=&quot;a-stock-correlatiobn-graph-generation&quot;&gt;&lt;strong&gt;(a) Stock Correlatiobn Graph Generation&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;a-stock-correlation-graph-generation&quot;&gt;&lt;strong&gt;(a) Stock Correlation Graph Generation&lt;/strong&gt;&lt;/h3&gt;
 
 &lt;p&gt;모델의 첫 파트는 주식간의 상관관계 그래프를 생성 하는 과정으로 각 거래일의 주식간의 동적관계를 구축한다. 주식간의 상관관계는 각 주식의 과거 주식데이터를 활용해 상관행렬을 계산하고, 행렬의 각 요소 값에 따라 기업간의 관계를 결정한다.&lt;/p&gt;
 
-&lt;p&gt;기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation &amp;gt; threshold 일 때 positive, correlation &amp;lt; threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_{r_1}, E_{r_2}, \dots) \  \; r \in (pos, neg)$.
-회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $ \tilde{G} = (\tilde{V}, (\tilde{E} _{pos},\tilde{E} _{neg} ))$로 표기한다.&lt;/p&gt;
+&lt;p&gt;기업간의 관계는 postive와 negative 두 가지로 분류한다. 이때 그래프의 노이즈를 제거하기 위해 correlation의 절댓값이 threshold보다 큰 값만 활용하고, correlation &amp;gt; threshold 일 때 positive, correlation &amp;lt; threshold 일 때 negative로 정의한다. 그래프의 edge는 앞서 설명한 relation으로 생성되고, 각 회사간의 heterogenous graph를 앞서 설명한 두개의 관계로 다음과 같이 표현한다. $G = (V, (E_ {r_1}, E_ {r_2}, \dots) \ \; r \in (pos, neg)$.&lt;/p&gt;
+
+&lt;p&gt;회사간의 관계는 동적관계이므로, 기업간의 관계 그래프를 temporal format으로 생성하였다. T 거래일의 그래프는 $ \tilde{G} = (\tilde{V}, (\tilde{E}_ {pos},\tilde{E}_ {neg} ))$로 표기한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;b-historical-price-encoding&quot;&gt;&lt;strong&gt;(b) Historical Price Encoding&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Input인 t번째 거래일의 price sequence는 $X^t \in \mathbb{R}^{n \times T \times d_{feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_{feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다.&lt;/p&gt;
 
-\[\hat{H}^t = W_{in}X^t + b_{in} \\
-H^t = \hat{H}^t + PE \\\]
+&lt;p&gt;Input인 t번째 거래일의 price sequence는 $X^t \in \mathbb{R}^{n \times T \times d_ {feat}}$ 으로 정의한다. T는 t번째 거래일 이전의 거래일 숫자를 의미하고, $d_ {feat}$ 은 과거 주식가격의 dimension을 의미한다. $X^t$는 linear transformation과 positional encoding 과정을 거친다.&lt;/p&gt;
 
-\[\; PE(p,2i) = \sin(p/10000^{2i/d_{in}}) \\
-PE(p,2i + 1) = \cos(p/10000^{2i/d_{in}})\]
+&lt;p&gt;$\hat{H}^t = W_ {in}X^t + b_ {in}$&lt;br /&gt;
+$H^t = \hat{H}^t + PE$&lt;/p&gt;
 
-&lt;p&gt;위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_{in}$은 input feature의 dimension을 의미하고 $W_{in} \in \mathbb{R}^{d_{feat} \times d_{in}}$과 $b_{in} \in \mathbb{R}^{d_{in}}$은 학습 가능한 파라미터다.&lt;/p&gt;
+&lt;p&gt;$PE(p,2i) = \sin(p/10000^{2i/d_ {in}})$&lt;br /&gt;
+$PE(p,2i +  1) = \cos(p/10000^{2i/d_ {in}})$&lt;/p&gt;
 
-\[Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V\\
-Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{in}}})V\\
-EncHead_i^t = Attention(Q_i^t, K_i^t, V_i^t)\\
-H^t_{enc} = Concat(EncHead_1^t, \dots, EncHead^t_{h_{enc}})W_o\]
+&lt;p&gt;위 식에서 p는 거래일의 의미하고, i는 dimension, 그리고 $d_ {in}$은 input feature의 dimension을 의미하고 $W_ {in} \in \mathbb{R}^{d_ {feat} \times d_ {in}}$과 $b_ {in} \in \mathbb{R}^{d_ {in}}$은 학습 가능한 파라미터다.&lt;/p&gt;
 
-&lt;p&gt;앞서 Linear transformation과 PE 과정을 거친 후, Multi-head attentional transformer를 활용하여 주식의 각 input feature를 인코딩한다. $H^t$를 각각 $W_i^Q \in \mathbb{R}^{d_{in} \times d_{hidden}}, W_i^K \in \mathbb{R}^{d_{in} \times d_{hidden}}, W_i^V \in \mathbb{R}^{d_{in} \times d_{hidden}}$와 곱하여 Q(Query), K(Key), V(Value)를 계산한 후 softmax함수를 적용하여  $EncHead_i^T$를 구한다. concat은 Encoder head들을 concatenation하는 것을 의미한다. $W_o \in \mathbb{R}^{h_{enc}d_v \times d_{enc}} $는 output projection matrix로 concatenated matrix에 곱하여 input으로 들어올 때의 사이즈와 동일하게 유지되게 한다.&lt;/p&gt;
+&lt;p&gt;$Q_i^t =H^tW_i^Q, \; K_i^t = H^tW_i^K, V_i^t = H^tW_i^V$&lt;br /&gt;
+$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_ {in}}})V$&lt;br /&gt;
+$EncHead_i^t = Attention(Q_i^t, K_i^t, V_i^t)$&lt;br /&gt;
+$H^t_ {enc} = Concat(EncHead_1^t, \dots, EncHead^t_ {h_ {enc}})W_o$&lt;/p&gt;
+
+&lt;p&gt;앞서 Linear transformation과 PE 과정을 거친 후, Multi-head attentional transformer를 활용하여 주식의 각 input feature를 인코딩한다. $H^t$를 각각 $W_ i^Q \in \mathbb{R}^{d_ {in} \times d_ {hidden}}, W_ i^K \in \mathbb{R}^{d_ {in} \times d_ {hidden}}, W_ i^V \in \mathbb{R}^{d_ {in} \times d_ {hidden}}$와 곱하여 Q(Query), K(Key), V(Value)를 계산한 후 softmax함수를 적용하여 $EncHead_i^T$를 구한다. concat은 Encoder head들을 concatenation하는 것을 의미한다. $W_o \in \mathbb{R}^{h_ {enc}d_v \times d_ {enc}} $는 output projection matrix로 concatenated matrix에 곱하여 input으로 들어올 때의 사이즈와 동일하게 유지되게 한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;c-temporal-graph-attention-mechanism&quot;&gt;&lt;strong&gt;(c) Temporal Graph Attention Mechanism&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;Historical Price Encoding의 output인 $H^t_{enc}$와 Temporal relation Graph인 $\tilde{G}$를 활용하여 다음 단계인 temporal attention mechanism을 진행한다. $H^t_{enc}$의 모든 노드를 1차원으로 flatten하고 2단계의 temporal attention mechanism을 활용한다. 각각의 relationship인 $r \in (pos, neg)$에 대해 다음과 같은 연산을 진행한다.&lt;/p&gt;
+&lt;p&gt;Historical Price Encoding의 output인 $H^t_ {enc}$와 Temporal relation Graph인 $\tilde{G}$를 활용하여 다음 단계인 temporal attention mechanism을 진행한다. $H^t_ {enc}$의 모든 노드를 1차원으로 flatten하고 2단계의 temporal attention mechanism을 활용한다. 각각의 relationship인 $r \in (pos, neg)$에 대해 다음과 같은 연산을 진행한다.&lt;/p&gt;
 
-\[\alpha^i_ {u^t, v^t} = \frac{exp(LeakyReLU(a^T_ {r,i}[h_ {u_ t} \vert h_{v_ t}]))}{\sum_  {k^t \in \nu_ r(v^t)}exp(LeakyReLU(a^T_ {r,i}[h_ {k^t} \vert h_ {v_ t}]))}\]
+&lt;p&gt;$\alpha^i_ {u^t, v^t} = \frac{exp(LeakyReLU(a^T_ {r,i}[h_ {u_t}  \vert h_ {v_t}]))}{\sum_ {k^t \in N_ r(v^t)}exp(LeakyReLU(a^T_ {r,i}[h_ {k^t}  \vert h_ {v_t}]))}$&lt;/p&gt;
 
-&lt;p&gt;$h_{u_t}$는 $H_{enc}^t$의 $u_t$번째 열을 의미하고, $a_{r,i} \in \mathbb{R}^{2Td_{enc}}$는 i번째 head의 r번째 relation에 대한 가중치 벡터를 의미한다. $\alpha^i_{u_t, v_t}$는 노드$u_t$에 대한 노드$v_t$의 중요도를 의미한다. LeakyReLU activation을 활용하여 계산된 Normalized Attention Score는 아래와 같이 i번째 노드의 neighbor importance를 결정하여 input 데이터를 재정의 한다.&lt;/p&gt;
+&lt;p&gt;$h_ {u_t}$는 $H_ {enc}^t$의 $u_t$번째 열을 의미하고, $a_ {r,i}  \in \mathbb{R}^{2Td_ {enc}}$는 i번째 head의 r번째 relation에 대한 가중치 벡터를 의미한다. $\alpha^i_ {u_t, v_t}$는 노드$u_t$에 대한 노드$v_t$의 중요도를 의미한다. LeakyReLU activation을 활용하여 계산된 Normalized Attention Score는 아래와 같이 i번째 노드의 neighbor importance를 결정하여 input 데이터를 재정의 한다.&lt;/p&gt;
 
-\[TgaHead_i = \sum_{v^t \in \tilde{V}} \sigma(\sum_{u^t \in \nu_r(v^t)}\alpha^i_{u^t, v^t}h_{u^t})\\
-H^t_r = Concat(TgaHead_1, \dots, TgaHead_{h_{tga}})W_{o,r}\]
+&lt;p&gt;$TgaHead_i = \sum_ {v^t \in \tilde{V}}  \sigma(\sum_ {u^t \in N_ r(v^t)}\alpha^i_ {u^t, v^t}h_ {u^t})&lt;br /&gt;
+H^t_r = Concat(TgaHead_1, \dots, TgaHead_ {h_ {tga}})W_ {o,r}$&lt;/p&gt;
 
-&lt;p&gt;$\sigma$ 는 activate function으로 sigmoid함수를 활용한다. $W_{o,r} \in \mathbb{R}^{h_{tga}Td_{enc} \times d_{att}}$ 는 output projection matrix를 의미한다.&lt;/p&gt;
+&lt;p&gt;$\sigma$ 는 activate function으로 sigmoid함수를 활용한다. $W_ {o,r}  \in \mathbb{R}^{h_ {tga}Td_ {enc}  \times d_ {att}}$ 는 output projection matrix를 의미한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;d-heterogeneous-graph-attention-mechanism&quot;&gt;&lt;strong&gt;(d) Heterogeneous Graph Attention Mechanism&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;앞선 과정을 통해 3개의 종류의 임베딩($H^t_{self}, H^t_{pos}, H^t_{neg}$)을 정의 하였다. $H^t_{self} = W_{self}H^t_{enc} + b_{self}$로 $H^t_{self}$로 부터 도출되었고, $H^t_{pos}, H^t_{neg}$는 앞선 Temporal Graph Attention Mechanism을 통해 도출되었다. $(\beta_{self}, \beta_{pos}, \beta_{neg})$ 는 3개의 임베딩을 input으로 하여 아래와 같은 과정을 통해 계산된다.&lt;/p&gt;
 
-\[w_r  = \frac{1}{\vert \tilde{V} \vert} \sum_{v^t \in \tilde{V}}q^T \tanh(Wh_{v^t,r}+b) \\
-\beta_r = \frac{exp(w_r)}{\sum_{r \in (self, pos, neg)}exp(w_r)} \\
-Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
+&lt;p&gt;아키텍쳐를 설명하기에 앞서 Heterogeneous Graph에 대해 설명하자면,  기존 Graph(Homogeneous Graph)의 경우 node와 edge의 종류는 한 가지로 이루어져 있다.  반면에 Heterogeneous Graph의 경우 node와 edge의 종류가 여러가지인 그래프를 의미한다. 즉 Heterogenous Grap는 node의 종류는 같지만 다양한 관계를 표현할 수 있고, 다양한 종류의 Node로 이웃을 다양하게 정의 할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;앞선 과정을 통해 3개의 종류의 임베딩($H^t_ {self}, H^t_ {pos}, H^t_ {neg}$)을 정의 하였다. $H^t_ {self} = W_ {self}H^t_ {enc}  + b_ {self}$로 $H^t_ {self}$로 부터 도출되었고, $H^t_ {pos}, H^t_ {neg}$는 앞선 Temporal Graph Attention Mechanism을 통해 도출되었다. $(\beta_ {self}, \beta_ {pos}, \beta_ {neg})$ 는 3개의 임베딩을 input으로 하여 아래와 같은 과정을 통해 계산된다.&lt;/p&gt;
+
+&lt;p&gt;$w_r = \frac{1}{\vert \tilde{V}  \vert}  \sum_ {v^t \in \tilde{V}}q^T \tanh(Wh_ {v^t,r}+b)$&lt;br /&gt;
+$\beta_r = \frac{exp(w_r)}{\sum_ {r \in (self, pos, neg)}exp(w_r)}$&lt;br /&gt;
+$Z^t = \sum_ {r \in (self, pos, neg)}  \beta_r \cdot H^t_r$&lt;/p&gt;
 
 &lt;p&gt;3개의 임베딩을 MLP를 통해 각각 transform하고 heterogeneous attention vector인 &lt;strong&gt;q&lt;/strong&gt; 를 곱한 후 평균을 구해 $w_r$ 를 계산하였다. $w_r$ 을 활용하여 3가지 관계의 가중치인 ($\beta_r$)를 구할 수 있다. 마지막으로 가중치인 $\beta_r$ 을 활용하여 최종 임베딩인 $Z_t$ 를 구한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;e-optimzation-objectives&quot;&gt;&lt;strong&gt;(e) Optimzation Objectives&lt;/strong&gt;&lt;/h3&gt;
+
 &lt;p&gt;목적함수는 다음과 같은 과정을 통해 계산된다. 상위 100개와 하위 100개에 속하는 200개의 주식을 선택하고 해당 노드에 각각 1과 0으로 레이블을 지정한다. 그 후로 한 계층의 MLP를 분류기로 사용하여 라벨링된 노드의 분류결과를 얻는다. Binary cross-entropy를 사용하여 다음과 같이 목적함수 L을 구할 수 있다.&lt;/p&gt;
 
-\[\hat{Y}_l = \sigma(WZ^t_l + b) \\
-\mathcal L = \sum_{l \in \mathcal Y_t}[Y^t_l \log(\hat{Y}_l) + (1- Y_l^t)log(1- \hat{Y}_l)]\]
+&lt;p&gt;$\hat{Y}_ l = \sigma(WZ^t_ l + b)$&lt;br /&gt;
+$\mathcal L = \sum_ {l \in \mathcal Y_ t}[Y^t_ l \log(\hat{Y}_ l)  +  (1- Y_ l^t)log(1-  \hat{Y}_ l)]$&lt;/p&gt;
 
 &lt;p&gt;$Y_l^t, Z_l^t$는 라벨링된 노드 $l$의 임베딩과 시그모이드 함수값을 의미한다. 계산을 위해 Adam Optimizer를 활용한다.&lt;/p&gt;
 
-&lt;h1 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4.	Experiment&lt;/strong&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;h2 id=&quot;experimental-settings&quot;&gt;&lt;strong&gt;Experimental Settings&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;h3 id=&quot;dataset&quot;&gt;&lt;strong&gt;Dataset&lt;/strong&gt;&lt;/h3&gt;
+
 &lt;p&gt;SP500과 CSI300의 2016년부터 2021년까지의 주식데이터를 활용하였다. 기업간의 관계 그래프 를 구성하기 위해 활용된 correlation matrix의 경우, 기준일로 부터 20 거래일 전까지의 주가를 활용하여 계산하였다.&lt;/p&gt;
 
 &lt;h3 id=&quot;parameter-settings&quot;&gt;&lt;strong&gt;Parameter Settings&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;$\tilde{G}$의 경우 20 거래일동안의 기업간의 관계를 담고 있다. $d_{feat}$은 6개의 encoding layer로 구성되어 있고,  $d_{in}$과 $d_{enc}$는 모두 128개의 encoding layer로 구성되어 있다. Attention function에서 활용된 $d_{hidden}$의 경우 512개의 layer, $d_{v}$는 128개 $h_{enc}$는 8개로 구성되어 있다. Temporal graph attention layer에서는 $d_{att}$은 256개, $h_{tga}$는 4개, 그리고 heterogeneous graph attention layer의 $d_q$는 256개의 encoding layer로 구성되어 있다.&lt;/p&gt;
+
+&lt;p&gt;$\tilde{G}$의 경우 20 거래일동안의 기업간의 관계를 담고 있다. $d_ {feat}$은 6개의 encoding layer로 구성되어 있고, $d_ {in}$과 $d_ {enc}$는 모두 128개의 encoding layer로 구성되어 있다. Attention function에서 활용된 $d_ {hidden}$의 경우 512개의 layer, $d_ {v}$는 128개 $h_ {enc}$는 8개로 구성되어 있다. Temporal graph attention layer에서는 $d_ {att}$은 256개, $h_ {tga}$는 4개, 그리고 heterogeneous graph attention layer의 $d_q$는 256개의 encoding layer로 구성되어 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;compared-baselines&quot;&gt;&lt;strong&gt;Compared Baselines&lt;/strong&gt;&lt;/h3&gt;
+
 &lt;p&gt;Non-graph-based approach인 LSTM, GRU, Transformer, eLSTM과 Graph-based approach인 LSTM-GCN, LSTM-RGCN, TGC, MAN-SF, HATS, REST, AD-GAT가 비교군으로 구성되어 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;evaluating-metrics&quot;&gt;&lt;strong&gt;Evaluating Metrics&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;ACC(prediction accuracy, 예측정확도), ARR(annual return rate, 연간 수익률), AV(annual volatility, 연간 변동성),  MDD(Maximum DrawDown), ASR(Annual Sharpe Ratio, $ARR/AV$), CR(Calmar Ratio, $ARR/\vert MDD \vert$), IR(Information Ratio) 총 7가지의 지표를 사용하여 기준선과 모델의 성능을 기록한다.&lt;/p&gt;
+
+&lt;p&gt;ACC(prediction accuracy, 예측정확도), ARR(annual return rate, 연간 수익률), AV(annual volatility, 연간 변동성), MDD(Maximum DrawDown), ASR(Annual Sharpe Ratio, $ARR/AV$), CR(Calmar Ratio, $ARR/\vert MDD \vert$), IR(Information Ratio) 총 7가지의 지표를 사용하여 기준선과 모델의 성능을 기록한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;financial-prediction&quot;&gt;&lt;strong&gt;Financial Prediction&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ResultTable.png?raw=true&quot; /&gt;
-논문에서 활용된 모델인 THGNN의 경우 모든 평가지표에서 대부분의 Baseline보다 우수한 지표를 보임을 알 수 있다. 이를 통해 금융 시계열 예측에서 THGNN의 우수성을 입증하였다.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ResultTable.png?raw=true&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;논문에서 활용된 모델인 THGNN의 경우 모든 평가지표에서 대부분의 Baseline보다 우수한 지표를 보임을 알 수 있다. 이를 통해 금융 시계열 예측에서 THGNN의 우수성을 입증하였다.&lt;/p&gt;
 
 &lt;h2 id=&quot;ablation-study&quot;&gt;&lt;strong&gt;Ablation Study&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4AblationTable.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4AblationTable.png?raw=true&quot; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;Ablation Study는 3에서 진행된 각 섹션들을 하나씩 제거해보며 성능을 평가하였다. 위에서부터 각각 Historical Price Encoding, Temporal Graph Attention, Heterogeneous Graph attention을 제거하였다. 모든 평가지표에서 어떠한 과정도 제거하지 않았을 때 가장 좋은 성능이 나옴을 알 수 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;interpretability-of-graph-neural-network&quot;&gt;&lt;strong&gt;Interpretability of Graph Neural Network&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4GraphAttention.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4GraphAttention.png?raw=true&quot; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;모델의 해석가능성을 살펴보기 위해 모델 예측과정에서 그래프의 관심가중치를 추출하였다. Relational graph의 메시지 전달과정에서 모든 노드에 대한 attention weight를 계산하여 각각의 일일 수익률과 node degrees에 따라 attention weight의 평균을 구하고 시각화 하였다. Pos relationship의 경우, 노드의 degree가 높을 경우 attention weight가 높음을 보여준다. 즉 이웃이 많은 노드가 주변에 더 많은 메시지를 기여한다는 것을 보여준다. 또한 일일 수익률 변동이 큰 기업의 attention weight가 높음을 보였다. 이는 가격 변동성이 클수록 주변에 더 많은 정보를 제공한다는 것을 의미하며, 가격변동이 momentum spillover effect를 일으킨다는 것을 의미한다. 반면 Neg relationship는, 반대로 degree가 낮은 노드에서 높은 attention weight를 보인다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ACC.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://github.com/hynacin121/ML_Paper_Review/blob/main/img/4ACC.png?raw=true&quot; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;이는 앞선 결과에 더 나아가 각 relation의 attention weights를 시각화하여 하나의 relation만 사용했을 때 성능을 보여준다. 기존과 같이 2개의 데이터셋을 사용해 학습시키고 하나의 relationship의 메시지를 input으로 활용하여 위와 같은 결과를 보였다. self와 pos가 neg보다 예측 성능이 우수함을 보였다. 또한 pos 메시지의 리소스가 예측 모델에 대한 기여도가 높음을 볼 수 있다. 그 이유는 비슷한 가격 움직임을 보이는 기업간의 영향력이 향후 가격 움직임을 예측하는데 상대적으로 유용하기 때문이다. Temporal graph attention layer가 각 노드와 가중치 간의 차이를 적절히 보여주고, Heterogeneous graph attention은 각 메시지의 기여도를 적절히 조정할 수 있음을 알 수 있다.&lt;/p&gt;
 
-&lt;h1 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5.	Conclusion&lt;/strong&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;p&gt;금융 시계열 예측을 위해 Temporal and Heterogeneous graph neural network model을 제시한다. 가장 효과적인 그래프 기반과 비그래프 기반 baseline과 비교하여 제시한 방법의 효과를 종합적으로 평가하였다. 또한 실제 투자 전략에서 THGNN이 우수한 성과를 보였다. 기업간의 관계를 Heteoreneous dynamic graph로 모델링 하고 GNN을 통해 금융 시계열 예측 모델을 개선하였다. 추후 연구에서는 예측 모델이 보다 정확한 training input graph 데이터를 얻을 수 있도로 corporate relation modeling을 개선할 예정이다.&lt;/p&gt;
-
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</link>
@@ -154,7 +178,7 @@ Z^t = \sum_{r \in (self, pos, neg)} \beta_r  \cdot H^t_r\]
 
 &lt;p&gt;시계열 분석의 주요 문제인 시간적 변화 모델링은, ARIMA(Anderson &amp;amp; Kendall, 1976), Holt-Winter(Hyndman &amp;amp; Athanasopoulos, 2018) 및 Prophet(Taylor &amp;amp; Letham, 2018) 같은 고전적 모델 기반의 연구가 진행되었으나,  시계열의 변화는 일반적으로 미리 정의된 패턴으로는 충분히 설명하기 어렵기 때문에 실용성은 제한되는 한계가 존재했다.&lt;/p&gt;
 
-&lt;p&gt;최근 에는 MLP, TCN, RNN 기반의 다양한 딥 모델들이 시계열 모델링에 적용되 왔다.  우선 MLP 기반의 방법들 (Oreshkin et al., 2019; Challu et al., 2022; Zeng et al., 2023; Zhang et al., 2022)은 MLP을 시간 축으로 사용하며, 시간 의존성을 MLP 레이어의 고정된 파라미터로 인코딩 한다. TCN 기반의 방법 (2019)은 시간 축을 따라 이동하는 컨볼루션 커널로 시간 변화를 캡쳐하며, RNN 기반의 방법 (Hochreiter &amp;amp; Schmidhuber, 1997; Lai et al., 2018; Gu et al., 2022)은 재귀 구조를 활용하며, 시간 단계 간 상태 전이를 통해 시간 변화를 캡쳐한다. 특히 최근 딥러닝 분야에서 전반적으로 높은 성능을 보이는 Transformer는 시계열 예측에서도 큰 성능을 보여주고 있으며 (Zhou et al., 2021; Liu et al., 2021a; Wu et al., 2021; Zhou et al., 2022), 어텐션 메커니즘을 사용하여 시간 포인트 간의 시간적 종속성을 파악할 수 있다. 특히, Wu et al.은 학습된 주기를 기반으로 자기 상관 메커니즘을 갖춘 Autoformer를 제시 했으며. 그 후, FEDformer (Zhou et al., 2022)는 계절성-추세 분해를 강화하고 주파수 도메인 내에서 sparse 어텐션을 제시했다. 그러나 본 논문의 경우 이전 방법과 달리, 시계열의 다중 주기성을 탐색하여 복잡한 시간적 패턴을 해결하고, 이미 인공지능 컴퓨터 비전에서 잘 알려진 백본을 사용하여 처음으로 2D 공간에서 시간적 2D-변화를 포착한다.&lt;/p&gt;
+&lt;p&gt;최근 에는 MLP, TCN, RNN 기반의 다양한 Deep 모델들이 시계열 모델링에 적용되 왔다.  우선 MLP 기반의 방법들 (Oreshkin et al., 2019; Challu et al., 2022; Zeng et al., 2023; Zhang et al., 2022)은 MLP을 시간 축으로 사용하며, 시간 의존성을 MLP 레이어의 고정된 파라미터로 인코딩 한다. TCN 기반의 방법 (2019)은 시간 축을 따라 이동하는 컨볼루션 커널로 시간 변화를 캡쳐하며, RNN 기반의 방법 (Hochreiter &amp;amp; Schmidhuber, 1997; Lai et al., 2018; Gu et al., 2022)은 재귀 구조를 활용하며, 시간 단계 간 상태 전이를 통해 시간 변화를 캡쳐한다. 특히 최근 딥러닝 분야에서 전반적으로 높은 성능을 보이는 Transformer는 시계열 예측에서도 큰 성능을 보여주고 있으며 (Zhou et al., 2021; Liu et al., 2021a; Wu et al., 2021; Zhou et al., 2022), 어텐션 메커니즘을 사용하여 시간 포인트 간의 시간적 종속성을 파악할 수 있다. 특히, Wu et al.은 학습된 주기를 기반으로 자기 상관 메커니즘을 갖춘 Autoformer를 제시 했으며. 그 후, FEDformer (Zhou et al., 2022)는 계절성-추세 분해를 강화하고 주파수 도메인 내에서 sparse 어텐션을 제시했다. 그러나 본 논문의 경우 이전 방법과 달리, 시계열의 다중 주기성을 탐색하여 복잡한 시간적 패턴을 해결하고, 이미 인공지능 컴퓨터 비전에서 잘 알려진 백본을 사용하여 처음으로 2D 공간에서 시간적 2D-변화를 포착한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3timesnet&quot;&gt;&lt;strong&gt;3.TIMESNET&lt;/strong&gt;&lt;/h2&gt;
 
@@ -188,11 +212,64 @@ Capturing temporal 2D-variation&lt;/p&gt;
 이는 이전 과정을 통해 만들어진 1D time series data 를 Aggregation 하는 과정이다. Amplitude A 는 선택된 Top K 개의 Frequency 와 Period 간 상대적 중요도를 반영할 수 있으므로, Transform 된 Tensor 의 중요도 역시 반영할 수 있다.  이로부터 처음 FFT 과정을 통해 구해진 Amplitude 값을 바탕으로 Aggregation 하게 된다.  이로부터 나온 결과는 서로 다른 Period 간 Interperiod, Intraperiod variation 을 고려한 Temporal 2D Variation 을 동시에 캡쳐한 결과를 얻을 수 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;4experiments&quot;&gt;&lt;strong&gt;4.EXPERIMENTS&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/YNP1rS9/fig-13.png&quot; alt=&quot;대체&quot; /&gt;
-위와 같은 setting 을 통해 실험을 진행하였고
-&lt;img src=&quot;https://i.ibb.co/FmBr4Qj/fig-14.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위 그림과 같이 time series 의 5개 Mainstream Task 에서 다른  모델들 대비 모든 방면에서 SOTA 를 달성하였다.&lt;/p&gt;
+&lt;p&gt;TimesNet의 일반성을 검증하기 위해, 장/단기 예측, 보완, 분류 및 이상 탐지의 다섯 가지 주요 분석 작업에 대한 실험을 진행함.&lt;br /&gt;
+&lt;img src=&quot;https://i.ibb.co/YNP1rS9/fig-13.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;위 표 1은 벤치마크의 평가 결과 Summary-&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-baseline&quot;&gt;&lt;strong&gt;-BaseLine&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;이에는 RNN 기반 모델인 LSTM (1997), LSTNet (2018) 및 LSSL (2022); CNN 기반 모델인 TCN (2019); MLP 기반 모델인 LightTS (2022) 및 DLinear (2023); Transformer 기반 모델인 Reformer (2020), Informer (2021), Pyraformer (2021a), Autoformer (2021), FEDformer (2022), Non-stationary Transformer (2022a) 및 ETSformer (2022) 등이 포함됨. 또한 각각의 특정 작업에 대해 최신 기법인 N-HiTS (2022)와 N-BEATS (2019)를 사용한 단기 예측, 이상 탐지를 위한 Anomaly Transformer (2021), 분류를 위한 Rocket (2020)과 Flowformer (2022) 등과 같은 최신 모델들과도 비교함. 종합적인 비교를 위해 15개 이상의 기준 모델을 포함하였음.
+&lt;img src=&quot;https://i.ibb.co/FmBr4Qj/fig-14.png&quot; alt=&quot;대체&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-41-주요결과&quot;&gt;&lt;strong&gt;-4.1 주요결과&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;TimesNet은 위 그림과 같이  5개 Mainstream Task 에서 다른  모델들 대비 모든 방면에서 SOTA 를 달성하였다.  또한 인셉션 블록을 더 강력한 비전 백본으로 대체함으로써 TimesNet의 성능을 더욱 향상시킬 수 있음을 보인다. (위 그림의 오른쪽)&lt;/p&gt;
+
+&lt;h4 id=&quot;-41-단기-및-장기-예측-설정-&quot;&gt;**-4.1 단기 및 장기 예측 설정 **&lt;/h4&gt;
+
+&lt;p&gt;시계열 예측은 날씨 예보, 교통 및 에너지 소비 계획에 필수적이며, 이러한 예측 모델의 성능을 평가하기 위해, 장/단기 예측을 포함한 두 가지 유형의 벤치마크로 비교함.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;장기 예측: Autoformer (2021)에서 사용한 벤치 사용.&lt;/li&gt;
+  &lt;li&gt;단기 예측: M4 (Spyros Makridakis, 2018)를 채택
+    &lt;ul&gt;
+      &lt;li&gt;연간, 분기 및 월별로 수집된 단일 변수 마케팅 데이터 포함.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.esdrop.com/d/f/uD7EquG4pF/0TfhSU820p.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.esdrop.com/d/f/uD7EquG4pF/bJ0Q1DcKw5.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;--결과&quot;&gt;&lt;strong&gt;- 결과&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;TimesNet은 장기 및 단기 설정에서 뛰어난 성능을 보여줍니다 (표 2-3). 표13 에서 TimesNet의 장기 예측의 경우 80% 이상의 경우에서 SoTA 달성함. M4 데이터셋의 경우, 시계열이 다른 소스에서 수집되기 때문에 시간적 변동이 매우 커져, 이로 인해 예측이 훨씬 어려질 수 있다. 그러나 본 논문에서 제안한 TimesNet 모델은 이 작업에서 가장 우수한 성능을 발휘하며, 고급 MLP 기반 및 Transformer 기반 모델을 능가함을 보여준다.&lt;/p&gt;
+
+&lt;h4 id=&quot;--43-imputation&quot;&gt;&lt;strong&gt;- 4.3 IMPUTATION&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;Missing Value로 인해 Imputation 작업은 모델이 불규칙하고 부분적으로 관측된 시계열에서 잠재적인 시간적 패턴을 발견해야 하는 어려운 작업임에도, 표 4에서 볼 수 있듯이, TimesNet은 이해당 작업에서도 SOTA를 달성하여, 복잡한 시간적 변동을 포착하는 모델의 성능 또한 검증함.&lt;/p&gt;
+
+&lt;h4 id=&quot;--44-classification&quot;&gt;&lt;strong&gt;- 4.4 CLASSIFICATION&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;시계열 분류의 경우 인식 및 의료 진단에 사용될 수 있으며, 이를 검증하기 위해, UEA 시계열 분류 아카이브 (Bagnall et al., 2018)에서, 의료 진단 및 기타 실제 작업을 포함하는 10개의 다변량 데이터셋을 전처리 하여 사용함.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.esdrop.com/d/f/uD7EquG4pF/Xr832xCRpQ.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.esdrop.com/d/f/uD7EquG4pF/vQG8qjHpcg.png&quot; alt=&quot;대체&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;--44-classification-1&quot;&gt;&lt;strong&gt;- 4.4 CLASSIFICATION&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;--결과-1&quot;&gt;&lt;strong&gt;- 결과&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Figure 5에서 볼 수 있듯이, TimesNet은 평균 정확도 73.6%로 최고의 성능을 달성하여 이전의 SOTA 방법인 Rocket (72.5%)과 딥 모델인 Flowformer (73.0%)를 능가함. 특히 MLP 기반 모델인 DLinear은 이 dataset 에서 잘 동작하지 않는데, (67.5%) 이는  DLinear의 경우 시간적 의존성이 고정된 자기회귀 작업에 적합한 한 계층의 MLP 모델만 사용하기 때문에, 고수준 표현을 학습하는 데 약점이 있을것으로 보임. 반면에 TimesNet은 2D 공간에서 시간적인 2D 변동을 통합하여 2D 커널을 통해 정보를 학습하기 용이하게 만들어지므로, 계층적 표현을 필요로 하는 분류 작업에 유리해 보임.&lt;/p&gt;
+
+&lt;h4 id=&quot;--45-anomaly-detection&quot;&gt;&lt;strong&gt;- 4.5 ANOMALY DETECTION&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;모니터링 데이터에서 이상치 탐지는 매우 중요하나, 일반적으로 데이터 레이블링이 어려워, unsupervised Leaning 방식으로 해당 Point 를 Detection 함. 비교 분석을 위한 벤치마크 데이터 셋은: SMD (Su et al., 2019), MSL (Hundman et al., 2018), SMAP (Hundman et al., 2018), SWaT (Mathur &amp;amp; Tippenhauer, 2016), PSM (Abdulaal et al., 2021).&lt;/p&gt;
+
+&lt;h4 id=&quot;--결과-2&quot;&gt;&lt;strong&gt;- 결과&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.esdrop.com/d/f/uD7EquG4pF/IGTAd9lmKI.png&quot; alt=&quot;대체&quot; /&gt;
+ Table 5를 보면, TimesNet이 이상 탐지에서 또한 SOTA를 달성하며, 고급 Transformer 기반 모델인 FEDformer (2022)와 Autoformer (2021)보다 뛰어남을 보여줌. 이는 이상 탐지가 드물게 나타나는 이상적인 시간 패턴을 찾아야 하는데 비해, 일반적인 어텐션 메커니즘은 각 시간 지점 쌍 간의 유사성을 계산하므로 주요 정상 시간 지점에 의해 방해를 받기 때문으로 보여짐. 또한TimesNet, FEDformer 및 Autoformer는 모두 휼륭한 성능을 공통적으로 보여 주는데 이러한 결과는 주기성 분석의 중요성을 보여주며, 주기성을 위반하는 변동을 암시적으로 강조하여 이상 탐지에 도움을 주는것으로 보임.&lt;/p&gt;
 
 &lt;h2 id=&quot;5conclusion-and-future-work&quot;&gt;&lt;strong&gt;5.CONCLUSION AND FUTURE WORK&lt;/strong&gt;&lt;/h2&gt;
 
@@ -219,7 +296,7 @@ Capturing temporal 2D-variation&lt;/p&gt;
             <description>&lt;h1 id=&quot;temporal-2d-variation-modeling-for-general-time-series-analysis&quot;&gt;Temporal 2D-Variation Modeling for General Time Series Analysis&lt;/h1&gt;
 
 &lt;h1 id=&quot;1-problem-definition&quot;&gt;1. Problem Definition&lt;/h1&gt;
-&lt;p&gt;시계열 분석은 일기 예보, 이상치 탐지, 행동 인식 등 많은 응용 분야에서 사용되고 있습니다. 시계열 데이터는 언어나 영상과 같은 순차적 데이터와 달리 연속적으로 기록되며, 각 시점은 일부 값만 저장합니다. 하나의 단일 시점은 충분한 의미를 갖지 않기 때문에, 연속성, 주기성, 추세 등과 같은 시계열의 고유산 속성을 반영하도록 시간적 변화에 초점을 맞추고 있습니다.&lt;/p&gt;
+&lt;p&gt;시계열 분석은 일기 예보, 이상치 탐지, 행동 인식 등 많은 응용 분야에서 사용되고 있습니다. 시계열 데이터는 언어나 영상과 같은 순차적 데이터와 달리 연속적으로 기록되며, 각 시점은 일부 값만 저장합니다. 하나의 단일 시점은 충분한 의미를 갖지 않기 때문에, 연속성, 주기성, 추세 등과 같은 시계열의 고유한 속성을 반영하도록 시간적 변화에 초점을 맞추고 있습니다.&lt;/p&gt;
 
 &lt;h1 id=&quot;2-motivation&quot;&gt;2. Motivation&lt;/h1&gt;
 &lt;p&gt;그러나 실제 시계열 데이터는 여러 변화(상승, 하락, 변동 등)가 복합적으로 섞여 복잡한 패턴을 포함하기 때문에 모델링이 어렵습니다.&lt;/p&gt;
@@ -244,7 +321,7 @@ Capturing temporal 2D-variation&lt;/p&gt;
   &lt;li&gt;RNN-based: time step 당 상태 전환을 통해 시간적 변화를 포착&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;그러나 딥러닝 모델 역시 주기성에 의해 파생되는 시잔적 변동을 고려하지 않습니다.&lt;/p&gt;
+&lt;p&gt;그러나 딥러닝 모델 역시 주기성에 의해 파생되는 시간적 변동을 고려하지 않습니다.&lt;/p&gt;
 
 &lt;p&gt;다양한 분야에서 좋은 성능을 보이는 Transformer 역시 시계열에서도 성능이 좋습니다. attention-mechanism을 이용하여 시점간의 시간적 의존성을 발견할 수 있습니다.&lt;/p&gt;
 &lt;ul&gt;
@@ -274,44 +351,65 @@ Capturing temporal 2D-variation&lt;/p&gt;
 
 &lt;p&gt;아래 일련의 과정을 거쳐 강도(indensity) $\mathbf{A}$를 얻습니다.&lt;/p&gt;
 
-\[\mathbf{A} = \text{Avg}\Bigl( \text{Amp}(\text{FFT}(\mathbf{X}_ {\text{1D}})) \Bigr), \quad \mathbf{A} \in \mathbb{R}^T\]
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{A} = \text{Avg}\Bigl( \text{Amp}(\text{FFT}(\mathbf{X}_ {\text{1D}})) \Bigr), \quad \mathbf{A} \in \mathbb{R}^T$&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_FFT.png?raw=true&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;이때 $\mathbf{A}_ j$는 주파수가 $j$(주기가 $\lceil T/j \rceil$이다.)의 intensity가 된다. 주파수 영역에서 의미없는 고주파는 noise이므로 이를 제거하기 위해 top-$k$의 진폭만 사용하기로 합니다. 
-\(\{ f_1, \cdots, f_k\} = \underset{f_* \in \{1, \cdots , [\frac{T}{2}]\}}{\text{argTopK}(\mathbf{A})}, \quad p_i = \Biggl\lceil\cfrac{T}{f_i} \Biggr\rceil, \quad i \in \{ 1, \cdots, k \}\)&lt;/p&gt;
+&lt;p&gt;이때 $\mathbf{A}_ j$는 주파수가 $j$(주기가 $\lceil T/j \rceil$이다.)의 intensity가 된다. 주파수 영역에서 의미없는 고주파는 noise이므로 이를 제거하기 위해 top-$k$의 진폭만 사용하기로 합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;${ f_1, \cdots, f_k} = \underset{f_* \in {1, \cdots , [\frac{T}{2}]}}{\text{argTopK}(\mathbf{A})}, \quad p_i = \Biggl\lceil\cfrac{T}{f_i} \Biggr\rceil, \quad i \in { 1, \cdots, k }$&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;위 과정을 요약하면, $\mathbf{X}_ {\text{1D}}$로부터 FFT를 이용하여 $k$개의 유의미한 진폭($\mathbf{A}$), 주파수($f_i$), 주기($p_i$)를 얻습니다.
-\(\mathbf{A}, \{f_1, \cdots, f_k\}, \{p_1, \cdots, p_k\} = \text{Period}(\mathbf{X}_ {\text{1D}})\)&lt;/p&gt;
+&lt;p&gt;위 과정을 요약하면, $\mathbf{X}_ {\text{1D}}$로부터 FFT를 이용하여 $k$개의 유의미한 진폭($\mathbf{A}$), 주파수($f_i$), 주기($p_i$)를 얻습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{A}, {f_1, \cdots, f_k}, {p_1, \cdots, p_k} = \text{Period}(\mathbf{X}_ {\text{1D}})$&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_convert2D.png?raw=true&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;32-reshape-1d-time-series-to-2d-tensors&quot;&gt;3.2 Reshape 1D time series to 2D tensors&lt;/h2&gt;
 &lt;p&gt;FFT로 얻은 $f$와 $p$를 이용하여 $\mathbf{X}_ {\text{1D}}$로부터 $k$개의 2D-tensor $\mathbf{X}_ {\text{2D}}$ 를 얻을 수 있습니다. 이때 $\text{Reshape}$ 결과가 $p_i \times f_i$ 모양이 되도록 zero-padding $\text{Padding}(\cdot)$이 필요합니다.&lt;/p&gt;
 
-&lt;p&gt;$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in { 1, \cdots, k } $&lt;/p&gt;
+&lt;p&gt;$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in { 1, \cdots, k }$&lt;/p&gt;
 
 &lt;h2 id=&quot;33-timesblock&quot;&gt;3.3 TimesBlock&lt;/h2&gt;
-&lt;p&gt;TimesBlock 구조는 computer vision에서 자주 사용되는 ResNet의 residual way를 적용하였다. 먼저 raw data $\mathbf{X}_ {\text{1D}} \in \mathbf{R}^{T \times C}$를 모델 차원에 맞게 임베딩하여 $\mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$를 얻게됩니다. 
-\(\mathbf{X}_ {\text{1D}}^0 = \text{Embed}(\mathbf{X}_ {\text{1D}})\)
-그 이후 $l$ 번째 layer마다 deep feature $\mathbf{X}_ {\text{1D}}^{l}$를 구한다.
-\(\mathbf{X}_ {\text{1D}}^l = \text{TimesBlock}(\mathbf{X}_ {\text{1D}}^{l-1}) + \mathbf{X}_ {\text{1D}}^{l-1}\)
-TimesBlock은 크게 2가지 역할을 수행합니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;2D-variation 포착&lt;/li&gt;
-  &lt;li&gt;Adaptively aggregating representations&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;TimesBlock 구조는 computer vision에서 자주 사용되는 ResNet의 residual way를 적용하였다. 먼저 raw data $\mathbf{X}_ {\text{1D}} \in  \mathbf{R}^{T \times C}$를 모델 차원에 맞게 임베딩하여 $\mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$를 얻게됩니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{X}_ {\text{1D}}^0 = \text{Embed}(\mathbf{X}_ {\text{1D}}). \quad \mathbf{X}_ {\text{1D}} \in  \mathbf{R}^{T \times C}, \ \mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 이후 $l$ 번째 layer마다 deep feature $\mathbf{X}_ {\text{1D}}^{l}$를 구한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{X}_ {\text{1D}}^l = \text{TimesBlock}(\mathbf{X}_ {\text{1D}}^{l-1}) + \mathbf{X}_ {\text{1D}}^{l-1}$
+TimesBlock은 크게 2가지 역할을 수행합니다.
+    &lt;ol&gt;
+      &lt;li&gt;2D-variation 포착&lt;/li&gt;
+      &lt;li&gt;Adaptively aggregating representations&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Capturing temporal 2D-variations&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다. 이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다. $\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.&lt;/p&gt;
+&lt;p&gt;TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in {1, \cdots, k}$&lt;/li&gt;
+&lt;/ul&gt;
 
-\[\begin{align*}
-\mathbf{A}^{l-1}, \{ f_1, \cdots, f_k \}, \{ p_1, \cdots, p_k \} &amp;amp;= \text{Period}(\mathbf{X}_ {\text{1D}}^{l-1}) \\
-\mathbf{X}_ {\text{2D}}^i &amp;amp;= \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{1, \cdots, k\} \\
-\widehat{\mathbf{X}}_ {\text{2D}}^{l, i} &amp;amp;= \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in \{1, \cdots, k\} \\
-\widehat{\mathbf{X}}_ {\text{1D}}^{l, i}&amp;amp; = \text{Trunc}(\underset{1, \  (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{X}}_ {\text{2D}}^{l, i})), \quad i \in \{1, \cdots, k \} \\
-\end{align*}\]
+&lt;p&gt;이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$\widehat{\mathbf{X}}_ {\text{2D}}^{l, i} = \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in {1, \cdots, k}$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\widehat{\mathbf{X}}_ {\text{1D}}^{l, i} = \text{Trunc}(\underset{1, \ (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{X}}_ {\text{2D}}^{l, i})), \quad i \in {1, \cdots, k }$&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;각 $l$번째 layer를 통과한 후 $k$개의 1D-representation ${\widehat{\mathbf{X}}_ {\text{1D}}^{l, 1}, \cdots, \widehat{\mathbf{X}}_ {\text{1D}}^{l, k}}$을 얻습니다.&lt;/p&gt;
 
@@ -319,9 +417,11 @@ TimesBlock은 크게 2가지 역할을 수행합니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Adaptive aggregateion&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Autoformer 모델이 제안된 논문에서, Auto-Correlation은 진폭 $\mathbf{A}$는 선택된 주파수와 주기 $f, p$의 상대적 중요성을 반영한다는 사실을 알아냈습니다. 따라서 진폭을 기반으로 1D-representation을 집계합니다.
-\(\widehat{\mathbf{A}}_ {f_1}^{l-1}, \cdots, \widehat{\mathbf{A}}_ {f_k}^{l-1} = \text{Softmax}\left(\mathbf{A}_ {f_1}^{l-1}, \cdots, \mathbf{A}_ {f_k}^{l-1} \right)\)
-\(\mathbf{X}_ {\text{1D}}^l = \sum_{i=1}^{k} \widehat{\mathbf{A}}_ {f_i}^{l-1} \times \widehat{\mathbf{X}}_ {\text{1D}}^{l, i}\)&lt;/p&gt;
+&lt;p&gt;Autoformer 모델이 제안된 논문에서, Auto-Correlation은 진폭 $\mathbf{A}$는 선택된 주파수와 주기 $f, p$의 상대적 중요성을 반영한다는 사실을 알아냈습니다. 따라서 진폭을 기반으로 1D-representation을 집계합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\widehat{\mathbf{A}}_ {f_1}^{l-1}, \cdots, \widehat{\mathbf{A}}_ {f_k}^{l-1} = \text{Softmax}\left(\mathbf{A}_ {f_1}^{l-1}, \cdots, \mathbf{A}_ {f_k}^{l-1} \right)$&lt;/li&gt;
+  &lt;li&gt;$\mathbf{X}_ {\text{1D}}^l = \sum_{i=1}^{k} \widehat{\mathbf{A}}_ {f_i}^{l-1} \times \widehat{\mathbf{X}}_ {\text{1D}}^{l, i}$&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_2.png?raw=true&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
@@ -385,7 +485,7 @@ TimesBlock은 크게 2가지 역할을 수행합니다.&lt;/p&gt;
 &lt;h1 id=&quot;5-conclusion&quot;&gt;5. Conclusion&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;TimesNet은 시계열 분석 영역에서 task-general foundation model입니다.&lt;/li&gt;
-  &lt;li&gt;다중 주기성을 이용하여 TimesNet은 주기내 변화와 주기간 변화 모두 포착합니다.&lt;/li&gt;
+  &lt;li&gt;다중 주기성을 이용하여 TimesNet은 주기내 변화와 주기간 변화 모두 포착합니다. (다양한 시간적 변화 포착)&lt;/li&gt;
   &lt;li&gt;다양한 데이터셋 실험에서 TiemsNet은 5가지 task에 SOTA를 달성했습니다.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
@@ -422,7 +522,19 @@ TimesBlock은 크게 2가지 역할을 수행합니다.&lt;/p&gt;
 &lt;hr /&gt;
 
 &lt;h2 id=&quot;1-problem-definition&quot;&gt;1. Problem Definition&lt;/h2&gt;
-&lt;p&gt;과거 정형 데이터를 활용한 모델들의 성능비교를 했을 때, &lt;strong&gt;&lt;em&gt;LightGBM&lt;/em&gt;&lt;/strong&gt;의 성능이 가장 좋다고 알려져있고, 혹은 앙상블을 고려한 &lt;strong&gt;&lt;em&gt;Extreme Gradient Boosting&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;&lt;em&gt;XGBoost&lt;/em&gt;&lt;/strong&gt;)나 &lt;strong&gt;&lt;em&gt;Catboost&lt;/em&gt;&lt;/strong&gt;을 떠올릴 수 있습니다. 더하여 &lt;strong&gt;&lt;em&gt;Neural Network&lt;/em&gt;&lt;/strong&gt;를 추가하는 방법이 있는데, 정형 데이터의 경우에 &lt;em&gt;Neural Network&lt;/em&gt;는 복잡하거나 깊은 레이어로 구성되지 않는 편이며, 더 깊거나 복잡하다고 성능이 눈에 띄게 좋아지지 않았습니다. &lt;strong&gt;&lt;em&gt;PCA&lt;/em&gt;&lt;/strong&gt;를 활용하여 &lt;strong&gt;차원축소&lt;/strong&gt;를 하거나, &lt;strong&gt;&lt;em&gt;autoencoder&lt;/em&gt;&lt;/strong&gt;를 기반으로 &lt;strong&gt;노이즈를 제거&lt;/strong&gt;하는 등의 방식에 활용이 되는 것이 주 였다고 볼 수 있습니다. &lt;br /&gt;
+&lt;p&gt;과거 정형 데이터를 활용한 모델들의 성능비교를 했을 때, &lt;strong&gt;&lt;em&gt;LightGBM&lt;/em&gt;&lt;/strong&gt;의 성능이 가장 좋다고 알려져있고, 혹은 앙상블을 고려한 &lt;strong&gt;&lt;em&gt;Extreme Gradient Boosting&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;&lt;em&gt;XGBoost&lt;/em&gt;&lt;/strong&gt;)나 &lt;strong&gt;&lt;em&gt;Catboost&lt;/em&gt;&lt;/strong&gt;을 떠올릴 수 있습니다. 더하여 &lt;strong&gt;&lt;em&gt;Neural Network&lt;/em&gt;&lt;/strong&gt;를 추가하는 방법이 있는데, 정형 데이터의 경우에 &lt;em&gt;Neural Network&lt;/em&gt;는 복잡하거나 깊은 레이어로 구성되지 않는 편이며, 더 깊거나 복잡하다고 성능이 눈에 띄게 좋아지지 않았습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;여기서 잠깐!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;[&lt;strong&gt;LightGBM과 기존의 트리기반 알고리즘에 대한 추가 설명&lt;/strong&gt;]&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237000522-a78be61f-9848-4031-9ed2-b03c61bf6e00.jpg&quot; alt=&quot;lightgbm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기존의 트리기반 알고리즘은 &lt;strong&gt;&lt;em&gt;level wise&lt;/em&gt;&lt;/strong&gt;(ex : XGBoost) 방식을 사용했고, 최대한 균형이 잡힌 트리를 유지하면서 분할하기 때문에 tree의 깊이가 최소화 될 수 있다는 장점이 있었지만, 균형을 맞추기 위한 시간이 필요했다. 
+LightGBM의 &lt;strong&gt;&lt;em&gt;leaf wise&lt;/em&gt;&lt;/strong&gt; 방식은 tree의 균형을 고려하지 않고 최대 손실값을 가지는 leaf node를 지속적으로 분할하면서 비대칭적인 tree가 생성된다. 이러한 방식은 level wise tree 분할 방식보다 예측 오류 손실을 최소화 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;PCA&lt;/em&gt;&lt;/strong&gt;를 활용하여 &lt;strong&gt;차원축소&lt;/strong&gt;를 하거나, &lt;strong&gt;&lt;em&gt;autoencoder&lt;/em&gt;&lt;/strong&gt;를 기반으로 &lt;strong&gt;노이즈를 제거&lt;/strong&gt;하는 등의 방식에 활용이 되는 것이 주 였다고 볼 수 있습니다. &lt;br /&gt;
 또한, &lt;strong&gt;&lt;em&gt;CNN, MLP&lt;/em&gt;&lt;/strong&gt;와 같은 딥러닝 모델은 적절한 귀납적 편향(&lt;em&gt;inductive bias&lt;/em&gt;)의 부족으로 지나치게 &lt;strong&gt;&lt;em&gt;Overparametrized&lt;/em&gt;&lt;/strong&gt; 되어 정형 데이터 내 매니폴드에서 일반화된 해결책을 찾는데 어려움을 발생시길 수 있습니다. 그럼에도 불구하고 이런 딥러닝 학습 방법론을 정형 데이터 학습에 사용하고자 하는 이유는 이미지나 다른 종류에 데이터와 정형데이터를 함께 학습(&lt;em&gt;Multi-Modal&lt;/em&gt;)할 수 있으며 트리 기반 모델 성능의 핵심인 Feature Engineering과 같은 작업이 크게 필요하지 않습니다. 또한, 스트리밍 데이터 학습이 용이하고 종단간(&lt;em&gt;end-to-end&lt;/em&gt;) 모델은 Domain adaptation, Generative modeling, Semi-supervised learning과 같은 가치있는 응용 모델과 같은 표현 학습(&lt;em&gt;representation learning&lt;/em&gt;)이 가능합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-motivation&quot;&gt;2. Motivation&lt;/h2&gt;
@@ -439,12 +551,12 @@ TimesBlock은 크게 2가지 역할을 수행합니다.&lt;/p&gt;
 &lt;h2 id=&quot;3-method&quot;&gt;3. Method&lt;/h2&gt;
 &lt;p&gt;본격적으로 TabNet architecture를 살펴보기 전에, TabNet의 feature selection 방법과, encoder, decoder에 대한 설명을 간략히 정리했습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232205929-78a7c5b6-f792-4728-8967-47064f1edadb.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237002064-d235dd1b-7c9e-4566-8fb3-fce2beedc122.jpg&quot; alt=&quot;image_revise1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;기존의 Feature seletion은 Lasso Regularization, Instance-wise feature selection등의 방법을 사용합니다. 이러한 방식을 본 논문에서는 Hard feature selection으로 표현하고 있으며, TabNet은 Soft feature selection을 구현하여 사용합니다.
 간단히 언급하면, &lt;strong&gt;TabNet은 masking&lt;/strong&gt;을 이용하여, 좌측에서 우측으로 &lt;strong&gt;sequential하게 feature selection&lt;/strong&gt;을 하며 피드백을 주고 학습해나가는 구조입니다 (&lt;em&gt;figure 1 그림 참조&lt;/em&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232206115-5e02beaf-6cc7-4891-b1a0-3335b0330035.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237002151-316bc441-2b50-44fd-b71b-1bc8b4f5d7e2.jpg&quot; alt=&quot;image_revise2&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;더하여 tabnet encoder를 통해서 &lt;strong&gt;feature engineering&lt;/strong&gt;효과를 내고, decision making 부분을 통해 &lt;strong&gt;feature selection&lt;/strong&gt;이 이루어집니다. encoder는 &lt;em&gt;fine-tuning&lt;/em&gt;하면서 task에 맞게 성능을 향상시켜 맞춰갑니다. &lt;br /&gt;
 encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조를 가지고 있고, decoder 에서는 ?(물음표) 로 된 &lt;em&gt;missing value&lt;/em&gt; 를 채워넣는 구조입니다.&lt;/p&gt;
@@ -453,30 +565,52 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
   &lt;p&gt;&lt;strong&gt;TabNet encoder와 decoder의 architecture를 좀 더 자세히 살펴보면 아래 그림과 같습니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232206212-771ed0b7-abb8-4ec8-a42a-37c9265ea17e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237002504-8ad61c75-433a-4376-b84d-a1de9464984d.jpg&quot; alt=&quot;image_revise3&quot; /&gt;&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;(a) : TabNet encoder&lt;/strong&gt; 의 경우, 각 decision step에 대해서 &lt;strong&gt;&lt;em&gt;1)feature transformer, 2)attentive transformer, 3)feature masking&lt;/em&gt;&lt;/strong&gt;으로 구성되어 있습니다.    첫 의사결정 단계에서 부족한 부분을 다음 의사결정 단계에서 보완하는 방식이며, 트리기반 부스팅 모델들과 유사합니다.
+&lt;p&gt;우선 &lt;em&gt;Encoder&lt;/em&gt;와 &lt;em&gt;Decoder&lt;/em&gt;를 거시적으로 설명하면 다음과 같습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;Encoder&lt;/em&gt;&lt;/strong&gt;  &lt;br /&gt;
+&lt;em&gt;Encoder&lt;/em&gt;는 여러 Desicion Step으로 구성되며, Step 내의 두가지 블록이 존재합니다.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Feature transformer 블록 : 임베딩 수행&lt;/li&gt;
+    &lt;li&gt;Attentive transformer 블록 : trainable Mask 생성&lt;/li&gt;
+    &lt;li&gt;Masked Feature는 다음 Step의 Input feature가 되며, 이전 step에서 사용되었던 Mask의 정보를 피드백하기에 Feature의 재사용 빈도를 제어할 수 있습니다.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;Decoder&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;em&gt;Decoder&lt;/em&gt;의 각 step은 feature transformer 블록에서 FC layer로 이루어지고 각 step 합산해서 reconstructed feature 결과를 산출합니다. 디코더 구조를 통해 결측치 보간 효과가 가능합니다.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;추가적으로 &lt;em&gt;Encoder&lt;/em&gt;와 &lt;em&gt;Decoder&lt;/em&gt;에 대해 자세히 살펴보면 다음과 같이 정리할 수 있습니다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;(a) : TabNet encoder&lt;/strong&gt; 의 경우, 각 decision step에 대해서 &lt;strong&gt;&lt;em&gt;1)feature transformer, 2)attentive transformer, 3)feature masking&lt;/em&gt;&lt;/strong&gt;으로 구성되어 있습니다.  &lt;br /&gt;
+첫 의사결정 단계에서 부족한 부분을 다음 의사결정 단계에서 보완하는 방식이며, 트리기반 부스팅 모델들과 유사합니다.
 모델의 용어를 좀 더 구체적을 설명하면, BN : 최초 Feature에 대해 배치 정규화를 적용
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Feature transformer&lt;/em&gt;&lt;/strong&gt; : 이후에 아래의 단계 반복.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Attentive transformer&lt;/em&gt;&lt;/strong&gt; : (d)에서 설명&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Mask&lt;/em&gt;&lt;/strong&gt; : Attentive transformer에서 나온 &lt;strong&gt;&lt;em&gt;Mask&lt;/em&gt;&lt;/strong&gt;(&lt;strong&gt;&lt;em&gt;M[i]&lt;/em&gt;&lt;/strong&gt;)에 대해 feature &lt;strong&gt;&lt;em&gt;f&lt;/em&gt;&lt;/strong&gt;를 곱하여 이후 step의 &lt;em&gt;Feature transformer&lt;/em&gt;에 들어가는 input을 조절. Mask를 통해 변수를 soft selection 함.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Feature transformer&lt;/em&gt;&lt;/strong&gt; : (c)에서 설명&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Split&lt;/em&gt;&lt;/strong&gt; : Feature transformer의 output을 두 개로 복제하여 하나는 &lt;em&gt;relu&lt;/em&gt;로, 하나는 &lt;em&gt;Attentive transformer&lt;/em&gt;로 보냄&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;(b) : TabNet decoder&lt;/strong&gt;는 각 단계에서 feature transformer 블록으로 구성됩니다. 일반 학습에서는 Decoder를 사용하지 않고, self-supervised 학습을 진행할 때, 인코더 다음에 붙여져서 기존의 결측값을 보완하고 표현학습을 진행하게 됩니다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(c) Feature Transformer&lt;/strong&gt;는 4개의 네트워크 묶음으로 구성됩니다.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;&lt;em&gt;Fully Connected Layer&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;FC&lt;/strong&gt;) - &lt;strong&gt;&lt;em&gt;Batch Normalization&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;BN&lt;/strong&gt;) - &lt;strong&gt;&lt;em&gt;Gated Linear Unit Activation&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;GLU&lt;/strong&gt;)로 구성된 블럭들을 순차적으로 통과하는 구조를 쌓고, 블럭간의 &lt;em&gt;residual skip connecion&lt;/em&gt;을 적용했습니다. 그리고 &lt;em&gt;residual output&lt;/em&gt;의 &lt;em&gt;normalization&lt;/em&gt;을 위해 &lt;strong&gt;&lt;em&gt;sqrt&lt;/em&gt;&lt;/strong&gt;(&lt;strong&gt;&lt;em&gt;0.5&lt;/em&gt;&lt;/strong&gt;)를 곱했습니다. 이때, 두 레이어는 모든 &lt;em&gt;decision&lt;/em&gt; 단계에서 공유되며, 나머지 두 레이어는 &lt;em&gt;decision&lt;/em&gt; 단계에 의존합니다. 따라서 앞 2개의 네트워크는 모든 파라미터를 공유하며 &lt;strong&gt;글로벌 성향&lt;/strong&gt;을 학습하고, 뒤에 2개의 네트워크 그룹은 &lt;strong&gt;로컬 성향&lt;/strong&gt;을 학습합니다. 
+      &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Feature transformer&lt;/em&gt;&lt;/strong&gt; : 이후에 아래의 단계 반복.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Attentive transformer&lt;/em&gt;&lt;/strong&gt; : (d)에서 설명&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Mask&lt;/em&gt;&lt;/strong&gt; : Attentive transformer에서 나온 &lt;strong&gt;&lt;em&gt;Mask&lt;/em&gt;&lt;/strong&gt;(&lt;strong&gt;&lt;em&gt;M[i]&lt;/em&gt;&lt;/strong&gt;)에 대해 feature &lt;strong&gt;&lt;em&gt;f&lt;/em&gt;&lt;/strong&gt;를 곱하여 이후 step의 &lt;em&gt;Feature transformer&lt;/em&gt;에 들어가는 input을 조절. Mask를 통해 변수를 soft selection 함.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Feature transformer&lt;/em&gt;&lt;/strong&gt; : (c)에서 설명&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Split&lt;/em&gt;&lt;/strong&gt; : Feature transformer의 output을 두 개로 복제하여 하나는 &lt;em&gt;relu&lt;/em&gt;로, 하나는 &lt;em&gt;Attentive transformer&lt;/em&gt;로 보냄&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;p&gt;&lt;strong&gt;(b) : TabNet decoder&lt;/strong&gt;는 각 단계에서 feature transformer 블록으로 구성됩니다. 일반 학습에서는 Decoder를 사용하지 않고, self-supervised 학습을 진행할 때, 인코더 다음에 붙여져서 기존의 결측값을 보완하고 표현학습을 진행하게 됩니다.&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;(c) Feature Transformer&lt;/strong&gt;는 4개의 네트워크 묶음으로 구성됩니다.
+      &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;&lt;em&gt;Fully Connected Layer&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;FC&lt;/strong&gt;) - &lt;strong&gt;&lt;em&gt;Batch Normalization&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;BN&lt;/strong&gt;) - &lt;strong&gt;&lt;em&gt;Gated Linear Unit Activation&lt;/em&gt;&lt;/strong&gt; (&lt;strong&gt;GLU&lt;/strong&gt;)로 구성된 블럭들을 순차적으로 통과하는 구조를 쌓고, 블럭간의 &lt;em&gt;residual skip connecion&lt;/em&gt;을 적용했습니다.&lt;/li&gt;
+        &lt;li&gt;그리고 &lt;em&gt;residual output&lt;/em&gt;의 &lt;em&gt;normalization&lt;/em&gt;을 위해 &lt;strong&gt;&lt;em&gt;sqrt&lt;/em&gt;&lt;/strong&gt;(&lt;strong&gt;&lt;em&gt;0.5&lt;/em&gt;&lt;/strong&gt;)를 곱했습니다. 이때, 두 레이어는 모든 &lt;em&gt;decision&lt;/em&gt; 단계에서 공유되며, 나머지 두 레이어는 &lt;em&gt;decision&lt;/em&gt; 단계에 의존합니다. 따라서 앞 2개의 네트워크는 모든 파라미터를 공유하며 &lt;strong&gt;글로벌 성향&lt;/strong&gt;을 학습하고, 뒤에 2개의 네트워크 그룹은 &lt;strong&gt;로컬 성향&lt;/strong&gt;을 학습합니다. 
 이어서 &lt;strong&gt;D&lt;/strong&gt;개의 변수를 갖는 값들을 입력받은 &lt;em&gt;feature transformer&lt;/em&gt;는 &lt;strong&gt;&lt;em&gt;split&lt;/em&gt;&lt;/strong&gt;할 값들을 내보냅니다. 총(&lt;strong&gt;B,N&lt;/strong&gt;)의 &lt;em&gt;output&lt;/em&gt;을 내보냈을 때, 논문에서는 &lt;em&gt;split&lt;/em&gt; 과정을 통해 &lt;em&gt;d&lt;/em&gt;[&lt;em&gt;i&lt;/em&gt;]와 &lt;em&gt;a&lt;/em&gt;[&lt;em&gt;i&lt;/em&gt;]로 나누었습니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(d) Attnetive transformer&lt;/strong&gt; 블록으로, 현재 의사결정 단계에서 각 변수들이 얼마나 많은 영향을 미쳤는지 사전 정보량(&lt;em&gt;prior scale information&lt;/em&gt;)을 통해 집계합니다. 다시말해, 현재 decision step 전에 각 feature가 얼마나 많이 사용되었는지를 집계한 정보를 나타냅니다. 이것은 단일 레이어에 맵핑하여 사용되며, 계수의 정규화는 각 decision step에서 가장 두드러진 특징을 &lt;strong&gt;&lt;em&gt;sparse&lt;/em&gt;&lt;/strong&gt;하게 선택하고, 계수값들을 일반화(&lt;em&gt;normalization&lt;/em&gt;)하기 위해 &lt;strong&gt;&lt;em&gt;sparsemax&lt;/em&gt;&lt;/strong&gt;를 사용하여 학습되어집니다.&lt;/li&gt;
-&lt;/ul&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;(d) Attnetive transformer&lt;/strong&gt; 블록으로, 현재 의사결정 단계에서 각 변수들이 얼마나 많은 영향을 미쳤는지 사전 정보량(&lt;em&gt;prior scale information&lt;/em&gt;)을 통해 집계합니다. 다시말해, 현재 decision step 전에 각 feature가 얼마나 많이 사용되었는지를 집계한 정보를 나타냅니다. 이것은 단일 레이어에 맵핑하여 사용되며, 계수의 정규화는 각 decision step에서 가장 두드러진 특징을 &lt;strong&gt;&lt;em&gt;sparse&lt;/em&gt;&lt;/strong&gt;하게 선택하고, 계수값들을 일반화(&lt;em&gt;normalization&lt;/em&gt;)하기 위해 &lt;strong&gt;&lt;em&gt;sparsemax&lt;/em&gt;&lt;/strong&gt;를 사용하여 학습되어집니다.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;4. Experiment&lt;/h2&gt;
 &lt;p&gt;본 논문에서는 regression, classification task로 성능을 평가하였고, 데이터 셋의 모든 categorical value 들은 임베딩되었고, numerical value들은 전처리 없이 input으로 활용되었습니다. TabNet은 대부분의 &lt;em&gt;hyperparameter&lt;/em&gt;에 대해 그리 예민하지 않다는 특징을 가집니다.&lt;/p&gt;
@@ -485,7 +619,7 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
   &lt;p&gt;&lt;strong&gt;Instance-wise feature selection&lt;/strong&gt; (synthetic dataset - 임의로 생성한 데이터셋 활용)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232207111-24fad62a-aa60-437c-9574-93f21a0c990c.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237002742-68b8810f-fd98-4077-81c3-799524d74314.jpg&quot; alt=&quot;image_revise4&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Table 1의 결과를 간략히 정리하면 다음과 같다.&lt;/p&gt;
 &lt;ul&gt;
@@ -498,7 +632,7 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
   &lt;p&gt;&lt;strong&gt;Performance on real-world datasets&lt;/strong&gt; (실제 데이터셋 활용)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232207175-64f6f48a-1be9-4485-a3d6-afac6b09bc8c.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237004066-0d97d137-2837-47c2-8357-128642572409.jpg&quot; alt=&quot;image_revise5&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Forest cover type dataset&lt;/em&gt;&lt;/strong&gt;  : 나무 분류 문제 / &lt;strong&gt;&lt;em&gt;Poker Hand&lt;/em&gt;&lt;/strong&gt; : 카드 분류 문제 / &lt;strong&gt;&lt;em&gt;Sarcos&lt;/em&gt;&lt;/strong&gt; : 로봇 팔 관련 데이터 / &lt;strong&gt;&lt;em&gt;Higgs Boson&lt;/em&gt;&lt;/strong&gt; : 이진 분류 문제 /&lt;strong&gt;&lt;em&gt;Rossman Store Sales&lt;/em&gt;&lt;/strong&gt; : 상점 매출 예측&lt;/p&gt;
 
@@ -506,7 +640,7 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
 
 &lt;p&gt;또한 본 논문에서 제안한 그림(&lt;em&gt;Figure 5&lt;/em&gt;)을 통해 알 수 있듯이, 각 스텝에서 활성화된 &lt;strong&gt;feature 를 시각화&lt;/strong&gt;로 확인할 수 있다는 장점이 있고, &lt;strong&gt;instance 별 중요도&lt;/strong&gt; 또한 확인이 가능합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/232208001-15a85c65-4121-43ad-a254-b2ad92bf81e8.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/82039869/237004512-34c5c360-5f8f-423a-8de5-a5d2f700ae5c.jpg&quot; alt=&quot;image_revise6&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그림의 하얀색 부분이 모델 학습에 사용 feature라고 해석할 수 있습니다. &lt;br /&gt;
 간단히 설명해보자면, &lt;em&gt;Syn2 dataset&lt;/em&gt;에서는 &lt;strong&gt;&lt;em&gt;feature X3-X6&lt;/em&gt;&lt;/strong&gt; 만 활용 되었으며 &lt;strong&gt;&lt;em&gt;Magg&lt;/em&gt;&lt;/strong&gt; 는 각 스텝의 &lt;strong&gt;feature importance를 결합&lt;/strong&gt; 했을 때 나오는 결과를 &lt;strong&gt;시각화&lt;/strong&gt; 한 것입니다.&lt;/p&gt;
@@ -618,16 +752,13 @@ encoder에 decoder 구조 결합하면 autoencoder 같은 자기 학습 구조�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;3. Discriminator network&lt;/strong&gt; : spase-high resolution target 그리고 generated fields 사이 예측 정확도를 향상시키 위해, 아래와 같은 discriminator network를 이용하여 generated fields를 입력으로 연결한다 (그림 5b). Discriminator network는 초기에 filter size 3 × 3 그리고 64 feature maps를 이용하여 중요 공간적 정보를 추출하고, 7개의 discriminator blocks이 연속적으로 적용된다. 이때, 홀수 block 마다 stride 사이즈를 높여 차원을 줄이고, 줄여진 feature-map tensor가 하나의 vector로 변환된다. 이때 1,024개의 fully connected layer를 이용하여 변환된 vector를 discriminator 출력 값으로 예측하고, 그 출력값이 sigmoid function을 통해 확률적으로 참 (0s)인지 거짓 (1s)인지 적대적으로 학습시켜 generator의 생성 능력을 향상시킨다. discriminator의 손실 함수 (loss function)는 다음과 같이 정의된다.
-&lt;br /&gt;&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_1.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;여기서 𝔼[]는 mini-batch 내 평균에 대한 연산자이고, H_R 및 L_R은 각각 고해상도 및 저해상도 이미지를 나타내며, D()는 저해상도 입력으로 부터 생성된 고해상도 이미지에 대한 loss를 계산하는 discriminator network를 나타낸다. F_v 는 하나의 연산자 계수로써 고해상도 이미지 내 센서가 존재할때 1 그렇지 않은 경우 0으로 변환하는 역할을 한다. 여기서, generator network의 loss function은 다음과 같이 정의된다.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_2_.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;여기서 G()는 generator network가 실제 참값과 생성하는 sparse high-resolutional 값 사이 격자별 오차를 나타낸다.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;center&gt;&lt;img src=&quot;/images_DS503/eq_3.jpeg&quot; alt=&quot;example image&quot; width=&quot;1000&quot; height=&quot;500&quot; /&gt;&lt;/center&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GANs을 학습시키기 위해, 위의 adversarial loss가 생성된 spase-high resolution field를 binary cross-entropy로 레이블링한다. 여기서, discriminator는 생성된 spase-high resolution field가 ‘fake’ 인지 진위 여부를 해당 1값으로 할당한 binary cross-entropy를 통해 결정한다.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;br /&gt;
+\(\mathcal{L}_{\text{D}} = -\mathbb{E}[\log D(H_R)] - \mathbb{E}[\log(1 - D(F_v  \odot G(L_R)))]\)
+    여기서 𝔼[]는 mini-batch 내 평균에 대한 연산자이고, H_R 및 L_R은 각각 고해상도 및 저해상도 이미지를 나타내며, D()는 저해상도 입력으로 부터 생성된 고해상도 이미지에 대한 loss를 계산하는 discriminator network를 나타낸다. F_v 는 하나의 연산자 계수로써 고해상도 이미지 내 센서가 존재할때 1 그렇지 않은 경우 0으로 변환하는 역할을 한다. 여기서, generator network의 loss function은 다음과 같이 정의된다.
+\(\mathcal{L}_{\text{G}} = -\sum_{i=1}^{Nx}\sum_{i=1}^{Nz}| H_R - F_v \odot G(L_R)_i,_j |^2 + \lambda  \mathcal{L}_A\)
+    여기서 G()는 generator network가 실제 참값과 생성하는 sparse high-resolutional 값 사이 격자별 오차를 나타낸다.
+\(\mathcal{L}_A  =  -\mathbb{E}[\log D(F_v \odot G(L_R))]\)
+    GANs을 학습시키기 위해, 위의 adversarial loss가 생성된 spase-high resolution field를 binary cross-entropy로 레이블링한다. 여기서, discriminator는 생성된 spase-high resolution field가 ‘fake’ 인지 진위 여부를 해당 1값으로 할당한 binary cross-entropy를 통해 결정한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-prediction-results&quot;&gt;2.2 Prediction results&lt;/h3&gt;
 
@@ -688,11 +819,13 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;h2 id=&quot;2-1-fedsage&quot;&gt;2-1) Fedsage&lt;/h2&gt;
 
-&lt;p&gt;먼저 Fedsage는 일반적인 GNN에서 Node classification model을 학습시키듯이 각각의 label에 대한 prediction 값을 계산한 뒤 아래 Cross Entropy Loss를 계산하고 gradient descent를 통하여 학습시킨다. 
-&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1rZ4fhaWnSMNTqxtcpMapl9tWeM6OI2kt&quot; alt=&quot;CE&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;먼저 Fedsage는 일반적인 GNN에서 Node classification model을 학습시키듯이 각각의 label에 대한 prediction 값을 계산한 뒤 아래 Cross Entropy Loss를 계산하고 gradient descent를 통하여 학습시킨다.&lt;/p&gt;
 
-&lt;p&gt;그리고 FedAvg를 적용하는데 Fedavg는 1) Round마다 local system을 학습 2) 학습된 local system의 weight를 server에서 average 3) server에서 weight를 각각의 local system으로 배포 의 순서를 반복하는 알고리즘이다. 이는 가장 대표적이고 간단하여 널리 쓰이는 방법론이고 아래 Fedavg논문에서의 수도 코드를 참고하여 쉽게 이해할 수 있다.
-&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1TXPt7ESV5qanZHAZpQW8vnrJisC3Wq4s&quot; alt=&quot;Fedavg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1rZ4fhaWnSMNTqxtcpMapl9tWeM6OI2kt&quot; alt=&quot;CE&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 FedAvg를 적용하는데 Fedavg는 1) Round마다 local system을 학습 2) 학습된 local system의 weight를 server에서 average 3) server에서 weight를 각각의 local system으로 배포 의 순서를 반복하는 알고리즘이다. 이는 가장 대표적이고 간단하여 널리 쓰이는 방법론이고 아래 Fedavg논문에서의 수도 코드를 참고하여 쉽게 이해할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1TXPt7ESV5qanZHAZpQW8vnrJisC3Wq4s&quot; alt=&quot;Fedavg&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2-2-fedsage&quot;&gt;2-2) Fedsage+&lt;/h2&gt;
 
@@ -700,13 +833,13 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1meNAOF25mBHTH6A0yoztAX62jT6Vy0jo&quot; alt=&quot;Fedavg&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;그래서 모델 Architecture를 크게 보면 Missing Neighbor Generator (NeighGen)을 통하여 Missing 된 Node들을 다시 만들어서 Observe된 Graph에서 붙여주고 (Graph mending) 복원된 Graph를 통하여 downstream task인 node classification을 수행한다. Node classification 부분은 위 fedsage와 동일하기 때문에 중요한 부분은 NeighGen을 어떻게 구성하는지 인데 우선 missing된  link를 Subgraph내에서 만들어주기 위해서는 각각의 Subgraph 내의 node마다 몇개의 node가 drop되었는지를 알아야 하기 때문에 missing된 node 개수를 예측하는 dGen을 학습시키고 그 예측된 node 개수에 맞게 새로운 node의 feature를 만들어주는 fGen을 학습시킨다.&lt;/p&gt;
+&lt;p&gt;그래서 모델 Architecture를 크게 보면 Missing Neighbor Generator (NeighGen)을 통하여 Missing 된 Node들을 다시 만들어서 Observe된 Graph에서 붙여주고 (Graph mending) 복원된 Graph를 통하여 downstream task인 node classification을 수행한다. Node classification 부분은 위 fedsage와 동일하기 때문에 중요한 부분은 NeighGen을 어떻게 구성하는지 인데 우선 missing된 link를 Subgraph내에서 만들어주기 위해서는 각각의 Subgraph 내의 node마다 몇개의 node가 drop되었는지를 알아야 하기 때문에 missing된 node 개수를 예측하는 dGen을 학습시키고 그 예측된 node 개수에 맞게 새로운 node의 feature를 만들어주는 fGen을 학습시킨다.&lt;/p&gt;
 
 &lt;p&gt;구체적으로 보면 학습단계에서는 Ground Truth값을 알아야 model을 학습시킬 수 있기 때문에 관측된 Graph에서 몇몇 node를 더 숨겨 (hide) missing link를 발생시킨다. 그리고 NeighGen을 위한 GNN을 통해 node마다의 representation을 뽑아 낸뒤 dGen을 통하여 몇개의 node가 숨겨졌는지 예측한다. 여기서 dGen는 $\theta^d$라고 표기되는 parameter를 가진 linear regression 모델이다. 그래서 논문에는 아래 수식으로 missing neighbor 수인 $\tilde{n_v}$ 를 prediction을 한다고 하는데 논문의 $n_v$는 typo인 것 같고 node representation을 타나내는 $z_v$로 대체 되어야 할 것 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1RdS9I6bgqZPOZ-dPq2a7arkXHg2LyS_a&quot; alt=&quot;dGen&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1wgW8ENe9ArVcUcWsN3C5cdB0T2u4sYuu&quot; alt=&quot;dGen&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;그리고 fGen에서는 예측된 missing neighbor수 만큼 node를 만들어 줘야 하는데 다양성을 위하여 Gaussian noise와 node representatino을 더해주고 fGen의 parameter  $\theta^f$와 곱해주는 방식으로 새로운 node feature를 만들어낸다. 이 때 dGen에서 예측한 missing neighbor 개수인 $\tilde{n_v}$개 만큼 생성하고 수식은 아래와 같다. (여기서 R은 Random Sampler를 의미한다)&lt;/p&gt;
+&lt;p&gt;그리고 fGen에서는 예측된 missing neighbor수 만큼 node를 만들어 줘야 하는데 다양성을 위하여 Gaussian noise와 node representatino을 더해주고 fGen의 parameter $\theta^f$와 곱해주는 방식으로 새로운 node feature를 만들어낸다. 이 때 dGen에서 예측한 missing neighbor 개수인 $\tilde{n_v}$개 만큼 생성하고 수식은 아래와 같다. (여기서 R은 Random Sampler를 의미한다)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://drive.google.com/uc?export=download&amp;amp;id=1U8_7sHEpJIO9IsuPGfEku-IjK4kvmeAk&quot; alt=&quot;fGen&quot; /&gt;&lt;/p&gt;
 
@@ -745,6 +878,13 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;h1 id=&quot;4-conlcusion&quot;&gt;4. Conlcusion&lt;/h1&gt;
 
 &lt;p&gt;해당 논문을 종합해보면 &lt;strong&gt;Subgraph Federated Learning&lt;/strong&gt;의 필요성을 좋은 예시를 들어 설명해주었고 그에 따라 Missing Link라는 Graph domain만의 문제가 발생할 수 있다는 점을 제기하였다. 이를 해결하기 위해 Neighborhood generator라는 방법론을 제안하였는데 method적으로 아주 획기적인 논문은 아니였지만 연구를 할 때 새로운 문제를 잘 정의해보고 실제로 그런지 실험을 통해서 잘 보여주는 것이 중요하다는 교훈을 주는 논문이라고 생각한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reviewer-information&quot;&gt;Reviewer Information&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Name : Junseok Lee&lt;/li&gt;
+  &lt;li&gt;Affilitation : DSAIL in KAIST&lt;/li&gt;
+  &lt;li&gt;Research Topic : Graph Mining, Bioinformatics&lt;/li&gt;
+&lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/Subraph_Federated_Learning_with_Missing_Neighbor_Generation.html</link>
@@ -757,95 +897,140 @@ https://doi.org/10.1073/pnas.1918964117
         
         <item>
             <title>[ICML 2022] Structure-Aware Transformer for Graph Representation Learning</title>
-            <description>&lt;h1 id=&quot;structure-aware-transformer-for-graph-representation-learning&quot;&gt;&lt;strong&gt;**Structure-Aware Transformer for Graph Representation Learning&lt;/strong&gt;**&lt;/h1&gt;
+            <description>&lt;h1 id=&quot;structure-aware-transformer-for-graph-representation-learning&quot;&gt;&lt;strong&gt;Structure-Aware Transformer for Graph Representation Learning&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Background before reading this review.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Graph구조에 맞게 Transformer를 적용하여 좋은 성능을 낸 SAT를 제시한 논문 &lt;a href=&quot;https://arxiv.org/abs/2202.03036&quot;&gt;Structure-Aware Transformer for Graph Representation Learning&lt;/a&gt;를 읽기전에 알고 넘어가야할 Graph Notation, Transformer에 대한 설명 등 간단하게 짚고 넘어가면 좋은 내용들입니다. 사전 지식이 있으신 경우, 바로 본문으로 넘어가셔도 좋습니다.&lt;/p&gt;
 
 &lt;p&gt;*Notation&lt;/p&gt;
 
 &lt;p&gt;$G = (V, E, \mathbf X)$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;node $u \in V$&lt;/li&gt;
-  &lt;li&gt;node attribute $x_u \in \mathcal X \subset \mathbb R^d$&lt;/li&gt;
-  &lt;li&gt;$\mathbf X \in \mathbb R^{n \times d}$&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;node $u \in V$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;node attribute $x_u \in  \mathcal X \subset  \mathbb R^d$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\mathbf X \in  \mathbb R^{n \times d}$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Transformer 구성 요소&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Self-attention module&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;input node feature $\mathbf X$가 linear projection을 통해 Query($\mathbf Q$), Key($\mathbf K$), Value($\mathbf V$)로 투영되고, 이를 활용하여 self-attention을 계산합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;multi-head attention : self-attention의 initialize를 다양하게 하여 표현력을 높였습니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Transformers on Graph&lt;/p&gt;
-
-    &lt;p&gt;GNN에서는 그래프 구조를 explicit하게 활용하는 반면, transformer는 노드의 attribute를 활용하여 노드들 사이 relation을 나타내는데 활용&lt;/p&gt;
-
-    &lt;p&gt;Transformer 구성 요소&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;Self-attention module
-        &lt;ul&gt;
-          &lt;li&gt;input node feature $\mathbf X$가 linear projection을 통해 Query($\mathbf Q$), Key($\mathbf K$), Value($\mathbf V$)로 투영되고, 이를 활용하여 self-attention을 계산할 수 있음&lt;/li&gt;
-          &lt;li&gt;multi-head attention&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;feed-forward NN
-        &lt;ul&gt;
-          &lt;li&gt;self-attention의 output이 skipconnection이나 FFN등을 거치면 하나의 transforemer layer를 통과하게됨&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Absolute encoding&lt;/p&gt;
-
-    &lt;p&gt;그래프의 위치적/구조적인 representation을 input node feature에 더하거나 concatenate하여 Transformer의 input으로 사용 : Vanilla transformer의 PE&lt;/p&gt;
-
-    &lt;p&gt;Graph Transformer에서 자주 사용되는 Positional encoding method들&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Laplacian PE&lt;/li&gt;
-      &lt;li&gt;Random Walk PE&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;(-) 노드와 그 이웃들 사이의 structural similarity를 반영하지는 않음&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Self-attention and kernel smoothing&lt;/p&gt;
-
-    &lt;p&gt;$\operatorname{Attn}\left(x_v\right)=\sum_ {u \in V} \frac{\kappa_ {\exp }\left(x_v, x_u\right)}{\sum_ {w \in V} \kappa_ {\exp }\left(x_v, x_w\right)} f\left(x_u\right), \forall v \in V$&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;linear value function $f(x) = \mathbf W_ {\mathbf V}x$&lt;/li&gt;
-      &lt;li&gt;$\kappa_ {\exp }$ (non-symmetric) exponential kernel parameterized by $\mathbf W_ {\mathbf Q}, \mathbf W_ {\mathbf K}$&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;$\kappa_ {\exp }\left(x, x^{\prime}\right):=\exp \left(\left\langle\mathbf{W}_ {\mathbf{Q}} x, \mathbf{W}_ {\mathbf{K}} x^{\prime}\right\rangle / \sqrt{d_ {\text {out }}}\right)$&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;$\langle \cdot, \cdot\rangle$ : dotproduct&lt;/li&gt;
-      &lt;li&gt;학습가능한 exponential kernel&lt;/li&gt;
-      &lt;li&gt;(-) only position-aware, not structure-aware encoding&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;feed-forward NN&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;self-attention의 output이 skipconnection이나 FFN등을 거치면 하나의 transforemer layer를 통과한 것 입니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Absolute encoding&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;그래프의 위치적/구조적인 representation을 input node feature에 더하거나 concatenate하여 Transformer의 input으로 사용합니다. (Vanilla transformer의 PE와 같은 역할)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Graph Transformer에서 자주 사용되는 Positional encoding method들&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;자주 사용되는 PE로는 다음 두가지를 꼽을 수 있습니다. 하지만 이 Positional Encoding들의 문제는 노드와 그 이웃들 사이의 structural similarity를 반영하지는 않는다는 것입니다. 각각에 대한 설명은 링크를 타고 들어가 확인하실 수 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://paperswithcode.com/method/laplacian-pe&quot;&gt;Laplacian PE&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2110.07875.pdf&quot;&gt;Random Walk PE&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Self-attention and kernel smoothing&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;$\operatorname{Attn}\left(x_v\right)=\sum_ {u \in V} \frac{\kappa_ {\exp }\left(x_v, x_u\right)}{\sum_ {w \in V} \kappa_ {\exp }\left(x_v, x_w\right)} f\left(x_u\right), \forall v \in V$&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;linear value function $f(x) = \mathbf W_ {\mathbf V}x$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\kappa_ {\exp }$ (non-symmetric) exponential kernel parameterized by $\mathbf W_ {\mathbf Q}, \mathbf W_ {\mathbf K}$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$\kappa_ {\exp }\left(x, x^{\prime}\right):=\exp  \left(\left\langle\mathbf{W}_ {\mathbf{Q}} x, \mathbf{W}_ {\mathbf{K}} x^{\prime}\right\rangle / \sqrt{d_ {\text {out }}}\right)$&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\langle  \cdot, \cdot\rangle$ : dotproduct&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;학습가능한 exponential kernel&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;(-) only position-aware, not structure-aware encoding&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;h2 id=&quot;limitations-of-gnn&quot;&gt;&lt;em&gt;&lt;strong&gt;Limitations of GNN&lt;/strong&gt;&lt;/em&gt;&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;limited expressiveness : 최대 1-WL test의 표현력을 가짐&lt;/li&gt;
-  &lt;li&gt;Over-smoothing problem : GNN layer의 수가 충분히 커지면 모든 node representation이 상수로 수렴하게됨&lt;/li&gt;
-  &lt;li&gt;Over-squashing problem : 그래프의 수많은 메세지들이 고정된 길이의 벡터 하나로 압축되어 발생하는 그래프 “bottleneck”으로 인해 멀리 위치한 노드의 메세지가 효율적으로 전파되지 않는 문제&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;limited expressiveness : GNN은 message passing과정에서의 aggregation operation의 특성으로 인해 최대 1-WL test의 표현력을 가집니다. GNN의 WL-test와 expression에 대한 분석은 GIN을 제시한 논문인 &lt;a href=&quot;https://arxiv.org/abs/1810.00826&quot;&gt;How Powerful are Graph Neural Networks?&lt;/a&gt; 에서 제시되었습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Over-smoothing problem : GNN layer의 수가 충분히 커지면 모든 node representation이 상수로 수렴하게됩니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Over-squashing problem : 그래프의 수많은 메세지들이 고정된 길이의 벡터 하나로 압축되어 발생하는 그래프 “bottleneck”으로 인해 멀리 위치한 노드의 메세지가 효율적으로 전파되지 않는 문제가 발생합니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;⇒ Beyond neighborhood aggregation!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;⇒ Beyond neighborhood aggregation!&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;transformer&quot;&gt;&lt;em&gt;&lt;strong&gt;Transformer&lt;/strong&gt;&lt;/em&gt;&lt;/h2&gt;
 
+&lt;p&gt;Transformer를 적용했을 때의 장점은 다음과 같습니다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;하나의 self-attention layer를 통해 그래프내의 어떤 노드쌍이든지 그 사이의 상호작용을 확인할 수 있음&lt;/li&gt;
-  &lt;li&gt;GNN과 달리 중간 계층에서 structural inductive bias가 발생하지 않아 GNN의 표현력 한계를 해결&lt;/li&gt;
-  &lt;li&gt;graph structure info를 얼마나 학습하는지 input node feature에만 structural, positional info를 encoding해 넣음&lt;/li&gt;
-  &lt;li&gt;노드에 대한 structural, positional info만 input node feature로 encoding하지만, 그래프 구조 자체에서 학습할 수 있는 정보의 양이 제한됨&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;하나의 self-attention layer를 통해 그래프내의 어떤 노드쌍이든지 그 사이의 상호작용을 확인할 수 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GNN과 달리 중간 계층에서 structural inductive bias가 발생하지 않아 GNN의 표현력 한계를 해결할 수 있습니다.&lt;/p&gt;
+
+    &lt;p&gt;반면, 단점은 다음과 같습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;graph structure info를 얼마나 학습하는지 input node feature에만 structural, positional 정보를 인코딩하여 넣기 때문에 제한적입니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;노드에 대한 structural, positional 정보만 input node feature로 인코딩하기 때문에, 그래프 구조 자체에서 학습할 수 있는 정보의 양이 제한적입니다.&lt;/p&gt;
+
+    &lt;p&gt;따라서 논문에서 제시하고자 하는 Graph Transformer의 Goal은 다음과 같습니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
@@ -860,43 +1045,60 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;h2 id=&quot;limitations-of-existing-approaches&quot;&gt;&lt;em&gt;&lt;strong&gt;Limitations of existing approaches&lt;/strong&gt;&lt;/em&gt;&lt;/h2&gt;
 
+&lt;p&gt;기존에 Graph구조에 Transformer를 적용하는 시도가 없었던 것은 아닙니다. 그렇다면 어떤것이 문제가 되었을까요?&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;노드들 사이 positional relationship만 encoding하고, strucutral relationship을 직접 encoding하지않음
-    &lt;ul&gt;
-      &lt;li&gt;노드들 사이 structural similarity를 확인하기가 어렵고, 노드들 사이의 structural interaction을 모델링하는데 실패하게됨&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;노드들 사이 positional relationship만 인코딩하고, strucutral relationship을 직접 인코딩하지않았습니다. 이에 따라 노드들 사이 structural similarity를 확인하기가 어렵고, 노드들 사이의 structural interaction을 모델링하는데 실패한것으로 분석하였습니다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ex.&lt;/p&gt;
+&lt;p&gt;다음의 그림 예시를 보면 이해가 더 쉽습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/69068083/231114064-4063d3f0-f895-4d7c-a932-eddbeb77de34.png&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;ex.
+&lt;img src=&quot;https://github.com/sujinyun999/LearningOnGraph/assets/69068083/4472bb78-65cc-43bf-90be-8dcd203616d8&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;G1과 G2에서 최단거리를 활용한 positional encoding을 할경우 node u와 v가 다른 노드들에 대해 모두 같은 representation을 가지게되지만, 그래프의 실제 구조는 다름 → strucure aware에 실패&lt;/p&gt;
+&lt;p&gt;G1과 G2에서 최단거리를 활용한 positional encoding을 할경우 node u와 v가 다른 노드들에 대해 모두 같은 representation을 가지게되지만, 그래프의 실제 구조는 다릅니다. 
+→ 이 지점이 논문에서 제시하는 기존 Graph Transformer의 문제, 즉, strucure aware에 실패한 것 입니다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;💡 Message-passing GNN과 Transformer architecture 각각의 장점을 살려 local, global info를 모두 고려하는 transformer architecture를 제안&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;contribution-of-this-paper&quot;&gt;&lt;em&gt;&lt;strong&gt;Contribution of this paper&lt;/strong&gt;&lt;/em&gt;&lt;/h2&gt;
-&lt;p&gt;Q. Transformer구조에 structural info를 어떻게 인코딩할것인가?&lt;/p&gt;
+
+&lt;p&gt;Q. 그렇다면 논문에서 해결하고자하는 Structure-Aware를 위해 Transformer구조에 structural info를 어떻게 인코딩할까요?&lt;/p&gt;
+
+&lt;p&gt;논문에서는 다음과 같이 대답합니다.&lt;/p&gt;
 
 &lt;p&gt;A. Structure-aware self attention를 도입한 Structre-Aware Transformer(SAT)&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;reformulate the self-attention mechanism
-    &lt;ul&gt;
-      &lt;li&gt;kernel smoother&lt;/li&gt;
-      &lt;li&gt;원래 노드 feature에 적용하는 exponential 커널을 확장하여 각 노드가 중심인 subgraph representation을 추출하여 local structure에도 적용&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;reformulate the self-attention mechanism&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;kernel smoother&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;subgraph representation들을 자동적으로 만들어내는 방법론 제안
-    &lt;ul&gt;
-      &lt;li&gt;이를 통해 kernel smoother가 구조적/특성적 유사성을 포착할 수 있게됨&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;원래 노드 feature에 적용하는 exponential 커널을 확장하여 각 노드가 중심인 subgraph representation을 추출하여 local structure에도 적용합니다.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;GNN으로 그래프의 subgraph info를 포함하는 node representation을 만들어 기존 GNN에 추가적인 구조 개선 없이도 더 높은 성능을 냄&lt;/li&gt;
-  &lt;li&gt;Transformer의 성능향상이 structure-aware한 측면에서 일어난 것을 증명하고 absolute encoding이 추가된 transfoemr보다 SAT가 얼마나 interpretable한지를 보여줌&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;subgraph representation들을 자동적으로 만들어내는 방법론 제안&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이를 통해 kernel smoother가 구조적/특성적 유사성을 포착할 수 있게됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;GNN으로 그래프의 subgraph info를 포함하는 node representation을 만들어 기존 GNN에 추가적인 구조 개선 없이도 더 높은 성능을 냅니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Transformer의 성능향상이 structure-aware한 측면에서 일어난 것을 증명하고 absolute encoding이 추가된 transfoemr보다 SAT가 얼마나 interpretable한지를 보여줍니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h1 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h1&gt;
@@ -905,29 +1107,36 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;h3 id=&quot;1-structure-aware-self-attention&quot;&gt;&lt;em&gt;1. &lt;strong&gt;Structure-Aware Self-attention&lt;/strong&gt;&lt;/em&gt;&lt;/h3&gt;
 
-&lt;p&gt;position-aware한 structural encoding에 노드들 사이 structural similarity를 포함하기 위해 각 노드의 local structure에 관한 generalized kernel을 추가&lt;/p&gt;
+&lt;p&gt;position-aware한 structural encoding에 노드들 사이 structural similarity를 포함하기 위해 각 노드의 local structure에 관한 generalized kernel을 추가합니다.&lt;/p&gt;
 
-&lt;p&gt;각 노드가 중심이되는 subgraph set을 추가함으로써 structure-aware attention은 다음과 같이 정의될 수 있음&lt;/p&gt;
+&lt;p&gt;각 노드가 중심이되는 subgraph set을 추가함으로써 structure-aware attention은 다음과 같이 정의될 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;$\operatorname{SA-Attn}\left(v\right):=\sum_ {u \in V} \frac{\kappa_ {\text{graph} }\left(S_G(v), S_G(u)\right)}{\sum_ {w \in V} \kappa_ {\text{graph}}\left(S_G(v), S_G(u)\right)} f\left(x_u\right)$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$S_G(v)$ : node feature $\mathbf X$와 연관된 $v$를 중심으로하는 subgraph&lt;/li&gt;
-  &lt;li&gt;$\kappa_ {\text{graph} }$ : subgraph쌍을 비교하는 kernel&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$S_G(v)$ : node feature $\mathbf X$와 연관된 $v$를 중심으로하는 subgraph&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\kappa_ {\text{graph} }$ : subgraph쌍을 비교하는 kernel&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;⇒ attribute &amp;amp; structural similarity 모두 표현 가능한 expressive node representation 생성 → table 1&lt;/p&gt;
+&lt;p&gt;⇒ attribute &amp;amp; structural similarity 모두 표현 가능한 expressive node representation을 생성 → table 1&lt;/p&gt;
 
 &lt;p&gt;⇒ 동일한 subgraph 구조를 가지는 경우에만 permutation equivariant한 성질을 갖게됨&lt;/p&gt;
 
 &lt;p&gt;$\kappa_ {\text {graph }}\left(S_G(v), S_G(u)\right)=\kappa_ {\exp }(\varphi(v, G), \varphi(u, G))$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$\varphi(v, G)$ : feature $\mathbf X$를 가지는 node $v$가 중심에 있는 subgraph의 vector representation을 만들어내는 structure extractor
-    &lt;ul&gt;
-      &lt;li&gt;GNN이나 differentiable Graph kernel등 subgraph의 representation을 만들 수 있는 어느 모델이든 될 수 있음&lt;/li&gt;
-      &lt;li&gt;Task/data 특성에 따라 Edge attribute을 활용할 필요가 있는 경우 그에 맞는GNN을 선택하면 됨. 따로 edge attribute을 활용하지는 않고 subgraph extractor에서 활용&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\varphi(v, G)$ : feature $\mathbf X$를 가지는 node $v$가 중심에 있는 subgraph의 vector representation을 만들어내는 structure extractor&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GNN이나 differentiable Graph kernel등 subgraph의 representation을 만들 수 있는 어느 모델이든 될 수 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Task/data 특성에 따라 Edge attribute을 활용할 필요가 있는 경우 그에 맞는GNN을 선택하는 디자인 초이스가 생깁니다. edge attribute을 따로 활용하지는 않고 subgraph extractor에서 활용합니다.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -936,28 +1145,50 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;p&gt;$\varphi(u, G) = \operatorname{GNN}_G^{(k)}(u)$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;node u에서 시작하는 k-subtree structure의 representation생성&lt;/li&gt;
-  &lt;li&gt;at most 1-WL test&lt;/li&gt;
-  &lt;li&gt;작은 k 값이더라도 over-smoothing, over-squashing issue없이 좋은 성능을 내는것을 확인&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;node u에서 시작하는 k-subtree structure의 representation을 생성하는 역할을 합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;at most 1-WL test : 위에서 지적한 GNN의 한계와 같이, 최대 1WL Test의 표현력을 가집니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;논문에서는 실험을 통해 작은 k 값이더라도 over-smoothing, over-squashing issue없이 좋은 성능을 내는것을 확인하였습니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;k-subgraph GNN extractor.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;$\varphi(u, G) = \sum_ {v \in \mathcal N_k(u)} \operatorname{GNN}_G^{(k)}(v)$&lt;/p&gt;
+&lt;p&gt;$\varphi(u, G) = \sum_ {v \in  \mathcal N_k(u)} \operatorname{GNN}_G^{(k)}(v)$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;node u의 representation만을 사용하는데서 나아가 node u가 중심이 되는 k-hop subgraph전체의 representation을 생성하고 활용&lt;/li&gt;
-  &lt;li&gt;node u 의 k-hop이웃 $\mathcal N_k(u)$에 대해 각 노드에 GNN을 적용한 node representation을 pooling(논문에서는 summation)&lt;/li&gt;
-  &lt;li&gt;More powerful than 1-WL test&lt;/li&gt;
-  &lt;li&gt;original node representation과의 concatenation을 통ㅎ structural similarity뿐만 아니라 attributed similarity도 반영&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;node u의 representation만을 사용하는데서 나아가 node u가 중심이 되는 k-hop subgraph전체의 representation을 생성하고 활용합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;node u 의 k-hop이웃 $\mathcal N_k(u)$에 대해 각 노드에 GNN을 적용한 node representation을 pooling(논문에서는 summation)합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;More powerful than 1-WL test!&lt;/strong&gt; 위에서 k-subtree GNN extractor와의 가장 큰 차이입니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;original node representation과의 concatenation을 통해 structural similarity뿐만 아니라 attributed similarity도 반영합니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;이외에 다른 structure extractor로 다음과 같은 것들을 고려해볼 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Other structure extractors.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;directly learn a number of “hidden graphs” as the “anchor subgraphs” to represent subgraphs&lt;/li&gt;
-  &lt;li&gt;domain-specific GNNs&lt;/li&gt;
-  &lt;li&gt;non-parametric graph-kernel&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;directly learn a number of “hidden graphs” as the “anchor subgraphs” to represent subgraphs&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;domain-specific GNNs&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;non-parametric graph-kernel&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;2-structure-aware-transformer&quot;&gt;&lt;em&gt;2. Structure-Aware Transformer&lt;/em&gt;&lt;/h3&gt;
@@ -971,29 +1202,33 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;p&gt;$x’_v = x_c +1/ \sqrt {d_v} \operatorname{SA-Attn}\left(v\right)$&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$d_v$ : node $v$의 degree&lt;/li&gt;
-  &lt;li&gt;degree factor를 포함하여 연결이 많은 graph component들이 압도적인 영향을 미치지 않도록함&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$d_v$ : node $v$의 degree&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;degree factor를 포함하여 연결이 많은 graph component들이 압도적인 영향을 미치지 않도록합니다.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;*graph-level task를 진행해야 할 경우 input graph에 다른 노드와의 connectivity없이 virtual &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[cls] &lt;/code&gt;node를 추가하거나, node-level representation을 sum/average 등으로 aggregation&lt;/p&gt;
 
 &lt;h3 id=&quot;3-combination-with-absolute-encoding&quot;&gt;&lt;em&gt;3. Combination with Absolute Encoding&lt;/em&gt;&lt;/h3&gt;
 
-&lt;p&gt;위의 structure aware self-attention에 추가로 absolute encoding을 추가하게 되면 postion-aware한 특성이 추가되어 기존의 정보를 보완하는 역할을 하게된다. 이러한 조합을 통해 성능향상을 확인할 수 있었다.&lt;/p&gt;
+&lt;p&gt;위의 structure aware self-attention에 추가로 absolute encoding을 추가하게 되면 postion-aware한 특성이 추가되어 기존의 정보를 보완하는 역할을 하게됩니다. 이러한 디자인 초이스의 조합을 통해 성능향상을 확인할 수 있었습니다.&lt;/p&gt;
 
-&lt;p&gt;RandomWalk PE&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RandomWalk PE&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Absolute PE만 사용할 경우 structural bias가 과도하게 발생하지 않아서 누개의 노드가 유사한 local structure를 갖고 있더라도 비슷한 node representation이 생성되는것을 보장하기 어렵다!&lt;/p&gt;
+&lt;p&gt;Absolute PE만 사용할 경우 structural bias가 과도하게 발생하지 않아서 두개의 노드가 유사한 local structure를 갖고 있더라도 비슷한 node representation이 생성되는것을 보장하기 어렵습니다!&lt;/p&gt;
 
-&lt;p&gt;→ Structural, positional sign으로 주로 사용되는 distance나 Laplacian-based positional representation이 노드들 사이의 structural simialrity를 포함하지 않기때문&lt;/p&gt;
+&lt;p&gt;→ 이는 Structural, positional sign으로 주로 사용되는 distance나 Laplacian-based positional representation이 노드들 사이의 structural simialrity를 포함하지 않기때문으로 분석할 수 있습니다.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;📌 Structural aware attenrion은 inductive bias가 더 강하더라도 노드의 strucutral similarity를 측정하는데 적합하여 유사한 subgraph구조를 가진 노드들이 비슷한 embedding을 갖게하고, expressivity가 향상되어 좋은 성능을 보임&lt;/p&gt;
+  &lt;p&gt;📌 Structural aware attenrion은 inductive bias가 더 강하더라도 노드의 strucutral similarity를 측정하는데 적합하여 유사한 subgraph구조를 가진 노드들이 비슷한 embedding을 갖게하고, expressivity가 향상되어 좋은 성능을 보입니다.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h3 id=&quot;4-expressivity-analysis&quot;&gt;&lt;em&gt;4. Expressivity Analysis&lt;/em&gt;&lt;/h3&gt;
 
-&lt;p&gt;SAT에서는 각노드를 중심으로하는 k-subgraph GNN extractor가 도입되어 적어도 subgraph representation만큼은 expressive하다는 것을 보장&lt;/p&gt;
+&lt;p&gt;SAT에서는 각노드를 중심으로하는 k-subgraph GNN extractor가 도입되어 적어도 subgraph representation만큼은 expressive(More than 1WL Test)하다는 것을 보장합니다.&lt;/p&gt;
 
 &lt;h1 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h1&gt;
 
@@ -1002,39 +1237,90 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Dataset&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;ZINC&lt;/li&gt;
-  &lt;li&gt;CLUSTER&lt;/li&gt;
-  &lt;li&gt;PATTERN&lt;/li&gt;
-  &lt;li&gt;OGBG-PPA&lt;/li&gt;
-  &lt;li&gt;OGBG-CODE2&lt;/li&gt;
+  &lt;li&gt;ZINC :
+    &lt;ul&gt;
+      &lt;li&gt;from &lt;a href=&quot;https://arxiv.org/abs/1610.02415&quot;&gt;Automatic chemical design using a data-driven continuous representation of molecules&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;250,000개의 분자 그래프구조,  with up to 38 heavy atoms&lt;/li&gt;
+      &lt;li&gt;task is to regress the penalized &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logP&lt;/code&gt; (also called constrained solubility)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CLUSTER :
+    &lt;ul&gt;
+      &lt;li&gt;from &lt;a href=&quot;https://arxiv.org/abs/2003.00982&quot;&gt;Benchmarking Graph Neural Networks&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;task is semi-supervised graph clustering (node classification)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;PATTERN
+    &lt;ul&gt;
+      &lt;li&gt;from &lt;a href=&quot;https://arxiv.org/abs/2003.00982&quot;&gt;Benchmarking Graph Neural Networks&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;task is semi-supervised graph pattern recognition&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OGBG-PPA
+    &lt;ul&gt;
+      &lt;li&gt;from &lt;a href=&quot;https://arxiv.org/abs/2005.00687&quot;&gt;Open Graph Benchmark: Datasets for Machine Learning on Graphs&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Protein-Protein Association Network&lt;/li&gt;
+      &lt;li&gt;task is to predict new association edges given the training edges&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OGBG-CODE2
+    &lt;ul&gt;
+      &lt;li&gt;from &lt;a href=&quot;https://arxiv.org/abs/2005.00687&quot;&gt;Open Graph Benchmark: Datasets for Machine Learning on Graphs&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Abstract Syntax Tree of Source Code&lt;/li&gt;
+      &lt;li&gt;AST로 표시되는 Python 메서드 본문과 해당 노드 기능이 주어지면 메서드 이름을 형성하는 하위 토큰을 예측하는 task&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Baseline&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;&lt;strong&gt;GNNs&lt;/strong&gt;&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;GCN&lt;/li&gt;
-      &lt;li&gt;GraphSAGE&lt;/li&gt;
-      &lt;li&gt;GAT&lt;/li&gt;
-      &lt;li&gt;GIN&lt;/li&gt;
-      &lt;li&gt;PNA&lt;/li&gt;
-      &lt;li&gt;Deeper GCN&lt;/li&gt;
-      &lt;li&gt;ExpC&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;&lt;strong&gt;GNNs&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;&lt;strong&gt;Transformers&lt;/strong&gt;&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Original Transformer with RWPE&lt;/li&gt;
-      &lt;li&gt;Graph Transformer&lt;/li&gt;
-      &lt;li&gt;SAN&lt;/li&gt;
-      &lt;li&gt;Graphormer&lt;/li&gt;
-      &lt;li&gt;GraphTrans&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GCN&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GraphSAGE&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GAT&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GIN&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;PNA&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Deeper GCN&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ExpC&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;&lt;strong&gt;Transformers&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Original Transformer with RWPE&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graph Transformer&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SAN&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graphormer&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GraphTrans&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;results&quot;&gt;&lt;em&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/em&gt;&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;Table1.&lt;/strong&gt; SAT와 graph regression, classification task의 sota모델과 비교&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1044,6 +1330,7 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/69068083/231114155-056893f6-8d16-4a59-b43b-62c76fd482a3.png&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Table2.&lt;/strong&gt; SAT와 OGB데이터셋에서의 sota모델 비교&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;OGB dataset의 경우 높을수록 더 좋은 성능을 의미하는 Acurracy, F1 score가 평가지표로 사용되었음.&lt;/li&gt;
 &lt;/ul&gt;
@@ -1063,86 +1350,99 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/69068083/231114263-2ea26465-c8b3-4df8-b7d4-4d329d41d97b.png&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;structure extractor에서의 k의 영향 비교
-    &lt;ul&gt;
-      &lt;li&gt;k=0일때, Absolute encoding만을 활용하는 vanilla transformer랑 같다고 볼 수 있음&lt;/li&gt;
-      &lt;li&gt;k=3일때, optimal performance를 보임을 확인&lt;/li&gt;
-      &lt;li&gt;k=4를 넘어서면 성능이 악화되는것을 확인할 수 있었는데, 이는 GNN에서의 알려진 사실인 더 적은 수의 layer를 가지는 network가 더 좋은 성능을 보이는 것과 마찬가지라고 할 수 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Absolute encoding의 영향 비교
-    &lt;ul&gt;
-      &lt;li&gt;RWPE vs. Laplacian PE&lt;/li&gt;
-      &lt;li&gt;Structure-aware attention의 도입으로 인한 성능향상보다는 그 정도가 낮았지만, RWPE를 도입할 경우 성능이 더 좋은것으로 보았을 때, 두가지 encoding이 상호보완적인 역할을 한다고 해석할 수 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Readout method의 영향 비교
-    &lt;ul&gt;
-      &lt;li&gt;node-level representation을 aggregate할 때 사용하기 위한 readoutd으로 mean과 sum을 비교하였음&lt;/li&gt;
-      &lt;li&gt;추가로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[CLS]&lt;/code&gt; 토큰을 통해 graph-level 정보를 pooling하는 방법도 같이 비교하여보았음&lt;/li&gt;
-      &lt;li&gt;GNN에서는 readout method의 영향이 매우 컸지만 SAT에서는 매우 약한 영향만을 확인함.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;structure extractor에서의 k의 영향 비교&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;k=0일때, Absolute encoding만을 활용하는 vanilla transformer랑 같다고 볼 수 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;k=3일때, optimal performance를 보임을 실험을 통해 확인하였습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;k=4를 넘어서면 성능이 악화되는것을 확인할 수 있었는데, 이는 GNN에서의 알려진 사실인 더 적은 수의 layer를 가지는 network가 더 좋은 성능을 보이는 것과 마찬가지라고 할 수 있습니다.(Oversmoothing and Oversquashing)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Absolute encoding의 영향 비교&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;RandomWalkPE vs. Laplacian PE&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Structure-aware attention의 도입으로 인한 성능향상보다는 그 정도가 낮았지만, RWPE를 도입할 경우 성능이 더 좋은것으로 보았을 때, 두가지 encoding이 상호보완적인 역할을 한다고 해석할 수 있었습니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Readout method의 영향 비교&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;node-level representation을 aggregate할 때 사용하기 위한 readout으로 mean과 sum을 비교하였습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;추가로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[CLS]&lt;/code&gt; 토큰을 통해 graph-level 정보를 pooling하는 방법도 같이 비교하여보았습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GNN에서는 readout method의 영향이 매우 컸지만 SAT에서는 매우 약한 영향만을 확인하였습니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Strong Points.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;structural info를 graphormer에서처럼 휴리스틱하게 shortest path distance(SPD)를 활용하지 않고, 그러한 local info를 잘 배우는 GNN으로 대체한 점이 novel하다고 할 수 있음&lt;/p&gt;
+&lt;p&gt;structural info를 graphormer에서처럼 휴리스틱하게 shortest path distance(SPD)를 활용하지 않고, 그러한 local info를 잘 배우는 GNN으로 대체한 점이 novel하다고 할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;Transformer의 global receptive field 특성과 GNN의 local structure특성이 상호보완적&lt;/p&gt;
+&lt;p&gt;Transformer의 global receptive field 특성과 GNN의 local structure특성이 상호보완적인데,&lt;/p&gt;
 
 &lt;p&gt;encoding에 있어서도&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;RWPE를 통한 positional encoding&lt;/li&gt;
-  &lt;li&gt;k-subtree/subgraph GNN을 통한 structure-aware attention&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;RWPE를 통한 positional encoding&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;k-subtree/subgraph GNN을 통한 structure-aware attention&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;두가지가 상호보완적인 역할을 함&lt;/p&gt;
+&lt;p&gt;두가지가 상호보완적인 역할을 합니다.&lt;/p&gt;
 
-&lt;p&gt;→ 각자가 잘 배우는 특성을 고려하여 상호보완적인 두가지 방법론을 잘 섞어서 좋은 성능을 내었고, 그 이유가 납득하기 쉬움&lt;/p&gt;
+&lt;p&gt;→ 각자가 잘 배우는 특성을 고려하여 상호보완적인 두가지 방법론을 잘 섞어서 좋은 성능을 내었고, 그 이유가 납득하기 쉬운 논문이라고 생각합니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Weak Points.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;그래프데이터에 Transformer를 적용한 다른 논문의 architecture인 Graphormer에서 사용한 SPD만의 장점 : 직접적으로 연결되어있지 않은, 아주 멀리에 위치한 노드쌍이더라도 shortest path상의 weighted edge aggregation을 하는 만큼 그러한 특성 반영되면 좋은 그래프 구조/ 데이터셋에서는 SAT가 capture하지 못하는 부분이 있을 것&lt;/p&gt;
+&lt;p&gt;그래프데이터에 Transformer를 적용한 다른 논문의 architecture인 Graphormer에서 사용한 SPD만의 장점은 직접적으로 연결되어있지 않은, 아주 멀리에 위치한 노드쌍이더라도 shortest path상의 weighted edge aggregation을 하는 만큼 그러한 특성이 반영되면 좋은 그래프 구조/ 데이터셋에서는 더 좋은 성능을 보입니다. 이에따라 작은 k-hop의 subgraph를 고려하는 SAT가 capture하지 못하는 부분이 있을 것으로 생각됩니다.&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h1 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Dexiong Chen&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.&lt;/li&gt;
-      &lt;li&gt;SIB Swiss Institute of Bioinformatics, Switzerland.&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;Sujin Yun&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Leslie O’Bray&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.&lt;/li&gt;
-      &lt;li&gt;SIB Swiss Institute of Bioinformatics, Switzerland.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Karsten Borgwardt&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.&lt;/li&gt;
-      &lt;li&gt;SIB Swiss Institute of Bioinformatics, Switzerland.&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;GSDS, KAIST&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;6-reference--additional-materials&quot;&gt;&lt;strong&gt;6. Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Github Implementation : &lt;a href=&quot;https://github.com/BorgwardtLab/SAT&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/BorgwardtLab/SAT&quot;&gt;https://github.com/BorgwardtLab/SAT&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Reference : &lt;a href=&quot;https://arxiv.org/abs/2202.03036&quot;&gt;Structure-Aware Transformer for Graph Representation Learning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Github Implementation : &lt;a href=&quot;https://github.com/BorgwardtLab/SAT&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/BorgwardtLab/SAT&quot;&gt;https://github.com/BorgwardtLab/SAT&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reference : &lt;a href=&quot;https://arxiv.org/abs/2202.03036&quot;&gt;Structure-Aware Transformer for Graph Representation Learning&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 </description>
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
@@ -1156,9 +1456,7 @@ https://doi.org/10.1073/pnas.1918964117
         
         <item>
             <title>[T-ITS 2021] Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks</title>
-            <description>&lt;h1 id=&quot;tits-21spatio-temporal_knowledge_transfer_for_urban_crowd_flow_prediction_via_deep_attentive_adaptation_networks&quot;&gt;[TITS-21]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks&lt;/h1&gt;
-
-&lt;h1 id=&quot;0-overview&quot;&gt;0. Overview&lt;/h1&gt;
+            <description>&lt;h1 id=&quot;0-overview&quot;&gt;0. Overview&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Title : Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks&lt;/li&gt;
@@ -1168,12 +1466,12 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;/ul&gt;
 
 &lt;aside&gt;
-💡 **How to transfer spatio-temporal knowledge well, between different two domains?**
+💡 How to transfer spatio-temporal knowledge well, between different two domains?
 
 &lt;/aside&gt;
 
 &lt;aside&gt;
-💡 **We propose the ST-DAAN framework : ConvLSTM + DAN + Attention**
+💡 We propose the ST-DAAN framework : ConvLSTM + DAN + Attention
 
 &lt;/aside&gt;
 
@@ -1193,12 +1491,12 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;/ul&gt;
 
 &lt;aside&gt;
-🥲 **하지만, 현실에서 시공간 정보는 그리 풍부하지 않음 → DL 쉽게 적용할 수 없음**
+🥲 하지만, 현실에서 시공간 정보는 그리 풍부하지 않음 → DL 쉽게 적용할 수 없음
 
 &lt;/aside&gt;
 
 &lt;aside&gt;
-🥲 **더불어 앞서 언급한 모델들 = 다른 시공간 정보에도 적용할 만큼 General 하지 않음**
+🥲 더불어 앞서 언급한 모델들 = 다른 시공간 정보에도 적용할 만큼 General 하지 않음
 
 &lt;/aside&gt;
 
@@ -1291,10 +1589,6 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;h2 id=&quot;1-representaion-learning-convlstm&quot;&gt;1) Representaion Learning (ConvLSTM)&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/67723054/233354368-a5edfec0-af04-4a55-9c56-b00429ccf303.jpg&quot; alt=&quot;convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 hidden tensor set ‘H’로 변한다. H는 이후 3D Convolution with MMD을 통과해 feature tensor set ‘F’가 된다. 파란색, 살구색 tensor의 경우 CNN을 거쳐 나오는 차원의 수가 불명확해 ?로 적어두었다. (최종 output인 F에선 다시 3*4*12로 맞춰지는 듯하다.)&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 hidden tensor set ‘H’로 변한다. H는 이후 3D Convolution with MMD을 통과해 feature tensor set ‘F’가 된다. 파란색, 살구색 tensor의 경우 CNN을 거쳐 나오는 차원의 수가 불명확해 ?로 적어두었다. (최종 output인 F에선 다시 3&lt;em&gt;4&lt;/em&gt;12로 맞춰지는 듯하다.)&lt;/p&gt;
-
 &lt;ul&gt;
   &lt;li&gt;Input = Tensor set(4D) 이지만, 작업은 매 image(2D) 마다 진행 → 한 장씩 CNN을 거쳐 새로운 tensor set을 만들어 낼 수 있음 → 다시 LSTM의 Input gate에 투입 + 이전 hidden state tensor set과 결합 + … (마찬가지로 2D 단위로 진행) → 반복&lt;/li&gt;
   &lt;li&gt;모든 stacked LSTM을 통과해 만들어진 최종 결과물을 ‘H’라 하자&lt;/li&gt;
@@ -1333,12 +1627,7 @@ https://doi.org/10.1073/pnas.1918964117
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;3-modeling&quot;&gt;3. Modeling&lt;/h1&gt;
-
-&lt;aside&gt;
-😞 **아직 이해하지 못해서, 다음 Review에서 다뤄볼까 생각 중입니다**
-
-&lt;/aside&gt;
+&lt;h1 id=&quot;3-algorithm--code&quot;&gt;3. Algorithm &amp;amp; Code&lt;/h1&gt;
 
 &lt;h2 id=&quot;1-algorithm&quot;&gt;1) Algorithm&lt;/h2&gt;
 
@@ -1351,22 +1640,22 @@ https://doi.org/10.1073/pnas.1918964117
 &lt;h1 id=&quot;4-evaluation&quot;&gt;4. Evaluation&lt;/h1&gt;
 
 &lt;aside&gt;
-🤷‍♂️ **ST-DAAN is good enough?**
+🤷‍♂️ ST-DAAN is good enough?
 
 &lt;/aside&gt;
 
 &lt;aside&gt;
-🤷‍♂️ **Global Spatial Attention → Performance**
+🤷‍♂️ Global Spatial Attention → Performance
 
 &lt;/aside&gt;
 
 &lt;aside&gt;
-🤷‍♂️ **Amount of available data in Target &amp;amp; Source domain → Performance**
+🤷‍♂️ Amount of available data in Target &amp;amp; Source domain → Performance
 
 &lt;/aside&gt;
 
 &lt;aside&gt;
-🤷‍♂️ **Sensitivity to model structure &amp;amp; parameters**
+🤷‍♂️ Sensitivity to model structure &amp;amp; parameters
 
 &lt;/aside&gt;
 
@@ -1463,7 +1752,7 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;p&gt;GCL은 보통 augmentaion으로 4가지 방법을 주로 사용합니다(node dropping, edge perturbation, attribute masking and subgraph). 하지만 이 4가지 방법은 모든 경우에 사용되는 것이 아니라 graph에 따라 차이가 존재합니다. 예를 들어 소셜 네티워크 graph에서는 edge perturbation이 잘되지만 생화학 분자 구조 edge를 변경하는게 분자 구조를 바꾸어 성능이 좋지않다는 것 등이 있습니다.&lt;/p&gt;
 
-&lt;p&gt;이러한 문제를 해결하기 위해 매뉴얼에따라 augmentaion을 선택하는 trail-and-error를 이용하는 방법들이 제시되었습니다. 하지만 trial-and-error를 이용하는 방식들 여전히 GCL의 일반적인 사용과 실용성에 한계가 존재합니다.   JOAO의 경우는 자동적으로 GCL에서 augmentaion pairs를 선택하는 방법을 제시했으나 계산의 복잡도가 올라갔고 augmentaion pool을 구성한느데 인간의 사전 지식을 이용한다는 한계가 존재합니다. 따라서 본 논문에서는 &lt;strong&gt;어떻게하면 manual trial-and-errors를 사용하지 않고 복잡한 계산이나 domain 지식 또한 사용하는 않고 GCL을 사용할 수있을까&lt;/strong&gt;라는 motivation을 제시합니다. 따라서 저자는 graph augumentaion을 사용하지 않고 semantic-preserved data augmentaion을 사용하여 이를 해결하려합니다.&lt;/p&gt;
+&lt;p&gt;이러한 문제를 해결하기 위해 매뉴얼에따라 augmentaion을 선택하는 trail-and-error를 이용하는 방법들이 제시되었습니다. 하지만 trial-and-error를 이용하는 방식들은 많은 연산량을 요구하고 여전히 GCL의 일반적인 사용에도 한계가 존재합니다. JOAO의 경우는 자동적으로 GCL에서 augmentaion pairs를 선택하는 방법을 제시했으나 계산의 복잡도가 올라갔고 augmentaion pool을 구성한느데 인간의 사전 지식을 이용한다는 한계가 존재합니다. 따라서 본 논문에서는 &lt;strong&gt;어떻게하면 manual trial-and-errors를 사용하지 않고 복잡한 계산이나 domain 지식 또한 사용하는 않고 GCL을 사용할 수있을까&lt;/strong&gt;라는 motivation을 제시합니다. 따라서 저자는 graph augumentaion을 사용하지 않고 semantic-preserved data augmentaion을 사용하여 이를 해결하려합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-contribution&quot;&gt;&lt;strong&gt;3. Contribution&lt;/strong&gt;&lt;/h2&gt;
 
@@ -1471,12 +1760,12 @@ https://doi.org/10.1073/pnas.1918964117
   &lt;li&gt;&lt;em&gt;Significance&lt;/em&gt;: 기존의 GCL 방법들에 비해 일반적으로 적용가능하고 manual trail-and-errors를 사용하지 않는 새로운 GCL 방법을 제시합니다.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Framework&lt;/em&gt;: 새롭고 효율적인 framework를 제시하고 SimGRACE가 잘 작동할 수 있는 이유를 설명합니다.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Algorithm&lt;/em&gt;: GCL의 Robustness를 향상시키기 위해 AT-SimGRACE라는 새로운 알고리즘을 제시합니다. 약간의 computational overhead가 존재하지만 더 Robustness한 결과를 제시합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Experiment&lt;/em&gt;: 여러 종류의 dataset에 대해 state-of-the-art 방법들과 비교해 더 뛰어나가너 경재령있는 모습을 보여줍니다.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Experiment&lt;/em&gt;: 여러 종류의 dataset에 대해 state-of-the-art 방법들과 비교해 더 뛰어나거나 경쟁력있는 모습을 보여줍니다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;4-graph-contrastive-learning&quot;&gt;&lt;strong&gt;4. Graph Contrastive Learning&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;GCL은 2가지로 나눌 수 있다. 첫번째는 local과 global representation을 대조하여 encoding을 진행하는 방식이다. DGI과 InfoGraph는 graph-level representaion과 substructure-level representaion의 차이를 최대화하여 graph나 node의 representaion를 encoding한다. 보다 최근에 나온 MVGRL은 node diffusion을 수행하고 contrast learning을 이용해 graph-level과 node-level의 representaion을 얻는 것을 제안한다. 두번째는 data를 변환하는 방법으로 사용되는데 augment하고 이를 shared encoder과 projection head에 넣어 mutual information을 최대화한다. GCA는 node-level task를 위해 제시되었고 DGCL은 false negative 문제를 해결하기 위해 제시되었습니다. Graph-level에서는 GraphCL이 4가지 방법의 augmentaion을 사용하여 제시되었습니다. JOAO는 GraphCL의 manual trail-and-error의 문제를 해결하기 위해 제시되었습니다.&lt;/p&gt;
+&lt;p&gt;GCL은 2가지로 나눌 수 있습니다. 첫번째는 local과 global representation을 대조하여 encoding을 진행하는 방식입니다. DGI과 InfoGraph는 graph-level representaion과 substructure-level representaion의 차이를 최대화하여 graph나 node의 representaion를 encoding합니다. 보다 최근에 나온 MVGRL은 node diffusion을 수행하고 contrast learning을 이용해 graph-level과 node-level의 representaion을 얻는 것을 제안합니다다. 두번째는 data를 변환하는 방법으로 사용되는데 augment하고 이를 shared encoder과 projection head에 넣어 mutual information을 최대화합니다. GCA는 node-level task를 위해 제시되었고 DGCL은 false negative 문제를 해결하기 위해 제시되었습니다. Graph-level에서는 GraphCL이 4가지 방법의 augmentaion을 사용하여 제시되었습니다. JOAO는 GraphCL의 manual trail-and-error의 문제를 해결하기 위해 제시되었습니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;5-method&quot;&gt;&lt;strong&gt;5. Method&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/101261577/232289501-42c61afb-f639-473e-b6e1-d8c9b8b5f164.png&quot; alt=&quot;SimGRACE&quot; /&gt;&lt;/p&gt;
@@ -1487,8 +1776,8 @@ https://doi.org/10.1073/pnas.1918964117
 
 &lt;p&gt;$h=f(G;\theta),h^\prime=f(G;\theta)$&lt;/p&gt;
 
-&lt;p&gt;$\theta$와 $\theta^\prime$은 GNN 인코더의 l번째 레이어의 weight tensor와 perturbed version이다.
-$\Delta\theta_l$ 는 평균이 0이고 분포가 $\sigma^2_l$ 인 가우시안 분포에서 sampling하는 perturbation term이다. 여기서 SimGRACE는 기존의 모델들과 3가지 차별점이 있는데. (1) 모멘텀 업데이트 대신 무작위 가우시안 노이즈로 인코더를 perturbation 시킨다. (2) data augmentaion을 필요로하지 않는다. (3) graph-level representaion에 집중되어 있다.&lt;/p&gt;
+&lt;p&gt;$\theta$와 $\theta^\prime$은 GNN 인코더의 l번째 레이어의 weight tensor와 perturbed version입니다.
+$\Delta\theta_l$ 는 평균이 0이고 분포가 $\sigma^2_l$ 인 가우시안 분포에서 sampling하는 perturbation term입니다. 여기서 SimGRACE는 기존의 모델들과 3가지 차별점이 있는데. (1) 모멘텀 업데이트 대신 무작위 가우시안 노이즈로 인코더를 perturbation 시킵니다. (2) data augmentaion을 필요로하지 않습니다. (3) graph-level representaion에 집중되어 있습니다.&lt;/p&gt;
 
 &lt;p&gt;$\theta^\prime_l=\theta_l + \eta \cdot \Delta\theta_l$&lt;/p&gt;
 
@@ -1596,8 +1885,7 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
             <title>[NIPS 2022] SHINE: SubHypergraph Inductive Neural nEtwork</title>
             <description>&lt;h1 id=&quot;-shine-subhypergraph-inductive-neural-network&quot;&gt;# SHINE: SubHypergraph Inductive Neural nEtwork&lt;/h1&gt;
 &lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png&quot; width=&quot;200px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;생명체는 다양한 단백질들을 활용하여 생명유지에 필요한 여러가지 반응과 작용들을 합니다. 단백질은 여러가지 gene의 정보를 바탕으로 만들어지기에, gene에 문제가 생기면 암을 포함한 여러가지 질병이 생길 수 있습니다. 단백질과 여러가지 물질들의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능적 단위&lt;/code&gt;의 집합인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;를 활용하여 단백질에 대한 효과적인 representation을 구하고, 환자의 유전 정보의 변이를 바탕으로 subgraph를 형성하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;환자들의 질병을 예측&lt;/code&gt;하는 모델 SHINE을 제안합니다.&lt;/p&gt;
 
@@ -1607,7 +1895,7 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
   &lt;p&gt;&lt;strong&gt;Preliminary - Graph Neural Network(GNN)&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG&quot; width=&quot;300px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그래프는 여러가지 Entity 사이의 relation이나 Interaction을 나타내는 방법중 하나로, 보통 $\mathcal{G}=(\mathbb{V},\mathbb{E})$로 나타냅니다. 여기서 $\mathbb{V}$는 node set으로 vertex들을 모은 집합이며, $\mathbb{E}$는 edge set으로 각 edge는 node들을 연결해주는 선들로 표시됩니다. 두 node 또는 Entity가 edge로 연결된 경우에는 이 둘 사이에 유사한 부분이 있거나, interaction을 한다고 봅니다. 보통 각 node와 연결된 이웃 node들의 정보를 aggregation하여 각 node의 hidden representation을 구하는 방식으로 GNN이 작동합니다. 단순히 (node 관점에서) 자기 자신과 이웃을 mean aggregation(smoothing)하는 방식의 대표적인 예시로는 GCN이 있으며, 이웃 node들에 attention을 기반으로 하는 importance 차이를 두어 aggregation하는 GAT도 있습니다.&lt;/p&gt;
 
@@ -1616,7 +1904,7 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
   &lt;p&gt;&lt;strong&gt;Preliminary - Protein-Protein Interaction graph(PPI)&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png&quot; width=&quot;500px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;단백질에 대한 representation을 잘 뽑기 위하여 흔하게 사용되는 방식중 하나로 PPI network를 사용하는 방법이 있습니다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;protein-protein interaction network(PPI)&lt;/code&gt;는 단백질들을 node로 두고 서로 interaction을 하는 단백질들을 edge로 연결하여 만들어집니다. 만들어진 network에서 GCN, GAT 그리고 heterogeneous GNN등 상황에 따라 적합한 GNN 모델을 사용하게 됩니다. 결과적으로 단백질을 나타내는 각 node는 edge로 연결되어있는 이웃 node들의 정보를 취합하여 단백질에 대한 더 좋은 representation을 얻습니다. 즉, node의 최종 representation에는 해당 단백질의 고유한 정보와 해당 단백질과 관련된 단백질의 정보가 적절히 반영되어있어서, 다양한 downstream task에 효과적으로 사용될 수 있습니다.&lt;/p&gt;
 
@@ -1625,7 +1913,7 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
   &lt;p&gt;&lt;strong&gt;Preliminary - Pathway&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png&quot; width=&quot;800px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;생명체 내부에서 나타나는 다양한 상호작용과 반응은 여러가지 단백질들이 복합적으로 작용하여 이루어집니다. 예를들면, 세포 소기관중 하나인 미토콘드리아에는 에너지를 만들어내기 위한 process가 있으며, 그 과정에서 다양한 단백질들이 사용됩니다. 이렇게 어떤 과정속에서 특정 기능을 하기 위해 사용되는 물질들과 그들의 반응을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능 단위&lt;/code&gt;로 묶어둔 것을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;라고 합니다. 예를 들면, 위의 그림에는 apoptosis(세포사멸)에 관여하는 pathway와 각 pathway별 단백질들이 나타나있습니다. 생명체는 손상이 생기거나 오래된 세포를 스스로 죽도록 하여 관리를 하는데 이를 apoptosis라고 합니다. 이는 세포 외부에서 오는 여러가지 신호에 의해 조절됩니다. 세포 외부에서 신호가 오면, 이를 유전자가 저장되어있는 세포핵과 기타 조직들에 signaling pathway를 경유하여 전달합니다. 위의 그림에 있는 구체적인 예시로는 이미지 왼쪽의 MAPK signaling pathway가 있습니다. 세포 외부에서 survival factor와 관련된 신호가 오면, Ras, Raf MEK1/2 그리고 EPK1/2라는 단백질들을 순차적으로 거쳐서 세포핵까지 신호를 전달하게 되며, 세포핵에서는 해당 신호에 따른 gene regulation을 하게 됩니다. 이전에 설명한 PPI의 경우에는 단백질 사이의 pairwise interaction을 기준으로 만들었기에, 해당 단백질들이 interaction하는 맥락이 나타나지 않지만, pathway를 사용하게 된다면 각 단백질이 다른 단백질들과 상호작용하는 맥락을 활용할 수 있습니다.&lt;/p&gt;
 
@@ -1634,12 +1922,13 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
   &lt;p&gt;&lt;strong&gt;Preliminary - Hypergraph&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG&quot; width=&quot;400px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그래프는 Entity 사이의 pairwise relation을 나타내는 구조였습니다. 즉, edge가 2개의 node를 연결하는 구조였습니다. 이와 다르게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hypegraph&lt;/code&gt;는 hyperedge가 2개 이상의 node(hypernode)를 연결합니다. 그래서 hyperedge를 3개 이상의 element(node)를 가질수 있는 set으로 해석하기도 합니다. 즉, hypergraph는 graph의 일반화된 형태로, 3개 이상의 entity가 모여서 상호작용하는 경우도 표현 가능한 구조입니다. (Hypernode의 경우 일반적으로 node라고 부르기도 합니다. 이번 리뷰에서는 편의상 node로 부르겠습니다.)&lt;/p&gt;
 
-&lt;p&gt;이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high order correlation&lt;/code&gt;이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다. 
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high order correlation&lt;/code&gt;이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG&quot; width=&quot;300px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;실제로, 위에서 이야기한 high order correlation이 존재하는 경우가 많이 있습니다. 예를 들어서, 두 단백질이 상호작용하기 위해 보조인자가 필요한 경우가 있습니다. 보조인자가 없으면 두 단백질이 상호작용이 불가능하지만, 보조인자가 있는 경우 단백질의 3차원 구조가 변형되어 두 단백질이 상호작용 할 수 있게 됩니다. 이런 경우에는 3가지 물질이 모두 있는 경우에만 반응이 일어나기 때문에 hyperedge로 나타내는 것이 좋습니다. 해당 hyperedge를 분해하여 pairwise interaction(edge)로 나타내는 경우에는 high order correlation 특성을 나타내기 힘들며, 2개만 존재하는 경우에는 어떠한 interaction도 발생하지 않기 때문에 edge가 존재할 수 없습니다.&lt;/p&gt;
 
@@ -1662,7 +1951,7 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
 
 &lt;p&gt;$\Theta = D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}$&lt;/p&gt;
 
-&lt;p&gt;$W_ {e}$는 hyperedge의 가중치를 의미합니다. 위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&amp;gt; hyperedge, hyperedge–&amp;gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
+&lt;p&gt;$W_ {e}$는 hyperedge의 가중치를 의미하며, 일반적으로 데이터에서 주어집니다. 만약 모든 hyperedge가 같은 가중치를 가지고 있다면 모두 1의 값을 갖게 되며, 더 중요한 hyperedge가 있는 경우에는 더 큰 값을 주게 됩니다. 일반적으로는 데이터셋에서 hyperedge의 값을 미리 정해두지 않은 경우에는 모두 동등한 가중치(1)를 갖는 것으로 설정합니다.  위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&amp;gt; hyperedge, hyperedge–&amp;gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
 &lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -1707,7 +1996,7 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
 
 &lt;p&gt;$h_ {E}^ {k}(p_ {j}) = \sigma(\sum_ {g_ {i} \in p_ {j}} a_ {E}( p_ {j}, g_ {i})h_ {N}^ {k-1}(g_ {i}))$&lt;/p&gt;
 
-&lt;p&gt;여기서 $a_ {E}$는 hyperedge에 속해있는 node들에 대한 attention score로 다음과 같이 구합니다.&lt;/p&gt;
+&lt;p&gt;이 식의 의미는 결국 node (gene)의 feature를  attention score에 기반하여 가중치를 두고 aggregation하여 hyperedge (pathway)의 representation을 구한다는 것입니다. 여기서 attention score ($a_ {E}$)를 구하는 방법은  gat의 방법과 비슷하지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node 사이의 attention&lt;/code&gt; 대신 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node (gene)와 hyperedge (pathway) 사이의 attention&lt;/code&gt;을 구한다는 점에서 조금 다릅니다. 구체적인 식은 다음과 같습니다.&lt;/p&gt;
 
 &lt;p&gt;$a_ {E}( p_ {j}, g_ {i}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {g_ {i^ {‘}} \in p_ {j}} c^ {\top} s(p_ {j}, g_ {i^ {‘}})))$&lt;/p&gt;
 
@@ -1745,7 +2034,8 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
 
 &lt;p&gt;$h(\mathcal{G}_ {j}) = \sigma(\sum_ {\mathcal{g}_ {i} \in \mathcal{G}_ {j}} a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) h_ {N}^ {K}(\mathcal{g}_ {i}))$&lt;/p&gt;
 
-&lt;p&gt;여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.&lt;/p&gt;
+&lt;p&gt;위 식의 의미는, 환자가 갖는 변이 gene들과 환자 사이의 attention score를 기반으로 하여 변이 gene들의 정보를 aggregation 하는 방식으로 환자를 나타낸다는 것입니다. 
+여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.&lt;/p&gt;
 
 &lt;p&gt;$a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) = exp(M_ {ji}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i}) / (\sum_ {\mathcal{g}_ {i^ {‘}} \in \mathcal{G}_ {j}} exp(M_ {ji^ {‘}}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i^ {‘}})))$&lt;/p&gt;
 

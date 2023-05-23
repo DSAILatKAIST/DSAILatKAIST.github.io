@@ -378,8 +378,15 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
 
 <p>Graph Neural Networks (GNNs)은 논문 작성 당시 state-of-the-art collaborative filtering (CF) solution으로 부상하였다.
-CF의 근본적인 challenge는 implicit feedback에서 negative signal을 추출하는 것이지만 GNN 기반 CF 모델에서의 negative sampling에 대한 연구는 많이 부족하다.</p>
+CF의 근본적인 challenge는 implicit feedback에서 negative signal을 추출하는 것이지만 GNN 기반 CF 모델에서의 negative sampling에 대한 연구는 많이 부족하다.<br />
+추천시스템에서 negative sampling이란 사용자에게 관심을 끌만한 아이템을 추천하기 위해 사용되는 기술로 사용자가 관심을 가질 가능성이 낮은 아이템을 선택하여 negative example로 사용하는 것을 말한다.<br />
+보통 negative sampling은 다음과 같은 단계로 이루어진다.</p>
+<ol>
+  <li>사용자의 이전 행동 기록에서 positive feedback(예: 구매, 평가 등)을 수집한다. 이를 기반으로 사용자의 관심사를 파악한다.</li>
+  <li>사용자의 관심사를 파악한 후 해당 사용자에 대해 positive feedback이 아닌 아이템들 중에서 몇 개를 무작위로 선택한다. 이러한 아이템은 negative sample로 간주된다.</li>
+</ol>
 
+<p>Negative sampling을 통해 모델의 학습 효율성을 높일 수 있으며, 사용자에게 다양한 아이템을 추천함으로써 다양성 또한 높일 수 있다.</p>
 <h2 id="2-motivation"><strong>2. Motivation</strong></h2>
 
 <p>일반적으로 negative sampling에는 uniform distribution이 사용된다. negative samples의 quality를 향상시키기 위해 유익한 negative sample의 우선순위를 정하기 위한 새로운 sampling distribution을 설계하려는 연구들이 있었다.
@@ -389,25 +396,25 @@ GNN에서는 Negative Sampling을 개선하기 위해 다음과 같은 연구가
   <li><a href="https://arxiv.org/abs/2005.09863">MCNS</a>: structural correlation을 염두해 두고 positive와 negative sampling의 분포를 재설계</li>
 </ul>
 
-<p>하지만 GNN에서의 이러한 시도는 GNN의 embedding space에서의 고유한 neighborhood aggregation 과정을 무시하고 불연속 graph space에서의 negative sampling을 개선하는 데에만 초점을 맞춘다.
-<strong>MixGCF</strong>는 데이터에서 실제 negative sample을 직접 sampling하는 대신 negative sample을 합성한다. 그리고 기존 GNN 기반 추천 모델을 연결하여 사용할 수 있는 <em>positive mixing</em>과 <em>hop mixing</em> 전략을 제시하였다.</p>
+<p>하지만 GNN에서의 이러한 시도는 GNN의 embedding space에서의 고유한 neighborhood aggregation 과정을 무시하고 불연속 graph space에서의 negative sampling을 개선하는 데에만 초점을 맞춘다.<br />
+<strong>MixGCF</strong>는 데이터에서 실제 negative sample을 직접 sampling하는 대신 hard negative sample을 합성한다. 그리고 기존 GNN 기반 추천 모델을 연결하여 사용할 수 있는 <em>positive mixing</em>과 <em>hop mixing</em> 전략을 제시하였다.</p>
 
 <h2 id="3-method"><strong>3. Method</strong></h2>
 
-<p><strong>MixGCF</strong>는 GNN 기반 추천에서 negative sampling을 위한 일반적인 알고리즘으로 LightGCN 및 NGCF와 같은 기존 GNN 기반 추천 알고리즘에 연결하여 사용할 수 있다. data의 실제 item을 negative item으로 샘플링하는 대신 GNN 기반 추천 모델을 학습하기 위해 그래프 구조를 기반으로 informative하고 fake한 negative item을 합성할 것을 제안한다. 특히 서로 다른 local graph의 정보를 mixing하여 negative sample을 합성하는 <em>positive mixing</em> 및 <em>hop mixing</em> 전략을 도입하였다.</p>
+<p><strong>MixGCF</strong>는 GNN 기반 추천에서 negative sampling을 위한 일반적인 알고리즘으로 LightGCN 및 NGCF와 같은 기존 GNN 기반 추천 알고리즘에 연결하여 사용할 수 있다. data의 실제 item을 negative item으로 샘플링하는 대신 GNN 기반 추천 모델을 학습하기 위해 그래프 구조를 기반으로 informative하고 fake한 negative item(hard negative item)을 합성할 것을 제안한다. 특히 서로 다른 local graph의 정보를 mixing하여 negative sample을 합성하는 <em>positive mixing</em> 및 <em>hop mixing</em> 전략을 도입하였다.</p>
 
 <p><strong>MixGCF</strong>의 흐름은 아래 그림과 같다.</p>
 <p align="center">
 <img src="https://velog.velcdn.com/images/yst3147/post/a6890d21-f2e9-4cd2-b238-c97de77daa57/image.png" />
 </p>
 
-<p><em>positive mixing</em>에서 positive sample의 정보를 negative sample에 주입하여 hard negative candidates를 만드는 interpolation mixing 방법을 활용한다.
-<em>hop mixing</em>에서 먼저 hard negative selection 전략을 사용하여 위에서 생성된 각 hard negative candidates에서 고유한 정보를 추출한 다음
+<p><em>positive mixing</em>에서 positive sample의 정보를 negative sample에 주입하여 hard negative candidates를 만드는 interpolation mixing 방법을 활용한다.<br />
+<em>hop mixing</em>에서 먼저 hard negative selection 전략을 사용하여 위에서 생성된 각 hard negative candidates에서 고유한 정보를 추출한 다음<br />
 <em>pooling</em> 작업을 하여 추출된 다양한 정보를 결합, fake지만 informative한 negative item들을 생성한다.</p>
 
 <h3 id="31-positive-mixing">3.1 Positive Mixing</h3>
 <p>$L$-layer GNN에서 각 item $v$에 대해  $L+1$ 개의 embedding을 가질 수 있으며, 각 $e_v^{(l)}$은 l layer $(0 \le l \le L)$로 aggregate 되는 embedding을 의미한다.
-negative $v_i^-$를 그것의 embedding인 $e_{v^-}$과 함께 fake로 만들기 위해 $M$개의 negative item을 선택하여 $M$이 일반적으로 데이터의 아이템 수보다 훨씬 작은 candidate set <strong>M</strong> 을 만든다. 이러한 $M$개 negative 아이템은 $M * (L + 1)$ size의  cadidate negative embedding set $\varepsilon = {e_{v_m}^{(l)}}$ 를 형성할 수 있다.</p>
+negative $v_i^-$를 그것의 embedding인 $e_{v^-}$과 함께 fake로 만들기 위해 $M$개의 negative item을 선택하여 $M$이 일반적으로 데이터의 아이템 수보다 훨씬 작은 candidate set <strong>M</strong> 을 만든다. 이러한 $M$개 negative 아이템은 $M * (L + 1)$ size의  cadidate negative embedding set $\varepsilon = \lbrace{e_{v_m}^{(l)}}\rbrace$ 를 형성할 수 있다.</p>
 
 <p><em>Positive mixing</em>은 <a href="https://arxiv.org/abs/1710.09412"><em>mixup</em></a>의 영향을 받아 $\varepsilon$에 속한 negative embedding에 positive information $e_{v^+}$을 주입한다.
 <em>mixup</em>은 interpolation 기반 data augmentation 방법으로 model이 training data 간에 선형적인 output을 갖도록 해준다.
@@ -429,11 +436,11 @@ negative $v_i^-$를 그것의 embedding인 $e_{v^-}$과 함께 fake로 만들기
 $\varepsilon^{\prime} = \lbrace{e_{v_m}^{\prime(l)}}\rbrace$ 를 가지고 합성 negative item $v^-$ 과 그것의 embedding $e_{v^-}$를 만드는 방법이다.</p>
 
 <p><em>hop mixing</em>의 main idea는 GNN의 layer 기반 계층적 aggregation process를 활용하는 것이다.
-각 layer $l(0 \le l \le L)$로부터 <strong>M</strong>에 속한 모든 candidate negative item에 대한 $l$번째 layer embedding이 포함된 $\varepsilon^{\prime(l)}$에서 하나의 candidate negative embedding $e_{v_x}^{\prime(l)}(1 \le x \le M)$을 뽑는다.</p>
+각 layer $l(0 \le l \le L)$로부터 <strong>M</strong>에 속한 모든 candidate negative item에 대한 $l$번째 layer embedding이 포함된 $\varepsilon^{\prime(l)}$에서 하나의 candidate negative embedding $e_{v_x}^{\prime(l)}(1 \le x \le M)$을 뽑는다. 여기서 $x$는 negative sample set에서의 index를 의미한다.</p>
 
 <p>만약 $L = 2$라면 $e_{v_a}^{\prime(0)}, e_{v_b}^{\prime(1)},e_{v_c}^{\prime(2)}$를 $\varepsilon^{\prime}$에서 뽑을 수 있고 $a, b, c$는 반드시 별개일 필요는 없다.
-<em>hop mixing</em>은 각 layer에서 선택한 모든 $(L+1)$개의 embedding을 결합하여 fake negative $v^-$에 대한 representation $e_{v^-}$를 생성한다. representation은 pooling 작업을 통해 모든 candidate embedding을 융합함으로써 합성된다:
-\(e_{v^-} = f_{pool} \left(e_{v_x}^{\prime(0)}, \cdots ,e_{v_y}^{\prime(L)}\right)\)</p>
+<em>hop mixing</em>은 각 layer에서 선택한 모든 $(L+1)$개의 embedding을 결합하여 fake negative $v^-$에 대한 representation $e_{v^-}$를 생성한다. representation은 pooling 작업을 통해 모든 candidate embedding을 융합함으로써 합성된다:<br />
+$e_{v^-} = f_{pool} \left(e_{v_x}^{\prime(0)}, \cdots ,e_{v_y}^{\prime(L)}\right)$</p>
 
 <p>이 때 $e_{v_x}^{\prime(l)}$는 layer $l$ 에서 뽑힌 $v_x$ 의 $l$ 번째 layer embedding이고 $f_{pool}(\cdot)$은 GNN 기반 추천 모델에서 쓰이는 pooling과 동일한 연산을 적용한다.</p>
 
@@ -598,16 +605,6 @@ simple하고 non-parametric한 방법인 <strong>MixGCF</strong>는 기존 negat
 해당 논문에서는 negative sampling의 품질 향상을 위한 연구를 진행하여 gnn 기반 추천 모델의 성능을 향상시킴으로서 negative sampling의 중요성을 잘 보여 주었다.</p>
 
 <hr />
-<h2 id="author-information"><strong>Author Information</strong></h2>
-
-<ul>
-  <li>유승태 (SeungTai Yoo)
-    <ul>
-      <li>Master Student, Graduate School of Data Science(GSDS), KAIST</li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
 
 <ul>
@@ -652,7 +649,7 @@ simple하고 non-parametric한 방법인 <strong>MixGCF</strong>는 기존 negat
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

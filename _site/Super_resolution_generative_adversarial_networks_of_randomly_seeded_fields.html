@@ -445,16 +445,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </code></pre></div></div>
 
 <p><strong>3. Discriminator network</strong> : spase-high resolution target 그리고 generated fields 사이 예측 정확도를 향상시키 위해, 아래와 같은 discriminator network를 이용하여 generated fields를 입력으로 연결한다 (그림 5b). Discriminator network는 초기에 filter size 3 × 3 그리고 64 feature maps를 이용하여 중요 공간적 정보를 추출하고, 7개의 discriminator blocks이 연속적으로 적용된다. 이때, 홀수 block 마다 stride 사이즈를 높여 차원을 줄이고, 줄여진 feature-map tensor가 하나의 vector로 변환된다. 이때 1,024개의 fully connected layer를 이용하여 변환된 vector를 discriminator 출력 값으로 예측하고, 그 출력값이 sigmoid function을 통해 확률적으로 참 (0s)인지 거짓 (1s)인지 적대적으로 학습시켜 generator의 생성 능력을 향상시킨다. discriminator의 손실 함수 (loss function)는 다음과 같이 정의된다.
-<br /></p>
-<center><img src="/images_DS503/eq_1.jpeg" alt="example image" width="1000" height="500" /></center>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>여기서 𝔼[]는 mini-batch 내 평균에 대한 연산자이고, H_R 및 L_R은 각각 고해상도 및 저해상도 이미지를 나타내며, D()는 저해상도 입력으로 부터 생성된 고해상도 이미지에 대한 loss를 계산하는 discriminator network를 나타낸다. F_v 는 하나의 연산자 계수로써 고해상도 이미지 내 센서가 존재할때 1 그렇지 않은 경우 0으로 변환하는 역할을 한다. 여기서, generator network의 loss function은 다음과 같이 정의된다.
-</code></pre></div></div>
-<center><img src="/images_DS503/eq_2_.jpeg" alt="example image" width="1000" height="500" /></center>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>여기서 G()는 generator network가 실제 참값과 생성하는 sparse high-resolutional 값 사이 격자별 오차를 나타낸다.
-</code></pre></div></div>
-<center><img src="/images_DS503/eq_3.jpeg" alt="example image" width="1000" height="500" /></center>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GANs을 학습시키기 위해, 위의 adversarial loss가 생성된 spase-high resolution field를 binary cross-entropy로 레이블링한다. 여기서, discriminator는 생성된 spase-high resolution field가 ‘fake’ 인지 진위 여부를 해당 1값으로 할당한 binary cross-entropy를 통해 결정한다.
-</code></pre></div></div>
+<br />
+\(\mathcal{L}_{\text{D}} = -\mathbb{E}[\log D(H_R)] - \mathbb{E}[\log(1 - D(F_v  \odot G(L_R)))]\)
+    여기서 𝔼[]는 mini-batch 내 평균에 대한 연산자이고, H_R 및 L_R은 각각 고해상도 및 저해상도 이미지를 나타내며, D()는 저해상도 입력으로 부터 생성된 고해상도 이미지에 대한 loss를 계산하는 discriminator network를 나타낸다. F_v 는 하나의 연산자 계수로써 고해상도 이미지 내 센서가 존재할때 1 그렇지 않은 경우 0으로 변환하는 역할을 한다. 여기서, generator network의 loss function은 다음과 같이 정의된다.
+\(\mathcal{L}_{\text{G}} = -\sum_{i=1}^{Nx}\sum_{i=1}^{Nz}| H_R - F_v \odot G(L_R)_i,_j |^2 + \lambda  \mathcal{L}_A\)
+    여기서 G()는 generator network가 실제 참값과 생성하는 sparse high-resolutional 값 사이 격자별 오차를 나타낸다.
+\(\mathcal{L}_A  =  -\mathbb{E}[\log D(F_v \odot G(L_R))]\)
+    GANs을 학습시키기 위해, 위의 adversarial loss가 생성된 spase-high resolution field를 binary cross-entropy로 레이블링한다. 여기서, discriminator는 생성된 spase-high resolution field가 ‘fake’ 인지 진위 여부를 해당 1값으로 할당한 binary cross-entropy를 통해 결정한다.</p>
 
 <h3 id="22-prediction-results">2.2 Prediction results</h3>
 
@@ -505,7 +502,7 @@ https://doi.org/10.1073/pnas.1918964117
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

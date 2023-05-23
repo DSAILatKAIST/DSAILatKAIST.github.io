@@ -16,7 +16,7 @@ usemathjax: true
 <img src="https://user-images.githubusercontent.com/83407412/232241284-b645ac36-0ea1-43cb-98b8-c08c12826e6b.png"  width="80%" height="30%">
 </p>
 
-리스트 스케줄링(List scheduling)은 simplicity로 실무에서 널리 채택되고 있는 우선순위 기반 스케줄 알고리즘로, 초기에 노드의 priority값들을 할당한 뒤 의사결정시점마다 prioirty로 순위를 결정한다 [1]. 
+리스트 스케줄링(List scheduling)은 simplicity로 실무에서 널리 채택되고 있는 우선순위 기반 스케줄 알고리즘로, 초기에 노드의 priority값들을 할당한 뒤 의사결정시점마다 prioirty로 순위를 결정한다 [1]. DAG 구조를 가지는 스케줄링 문제에 리스트 스케줄링을 적용할 경우, 각 작업들에 우선순위 값을 지정하고, 선행 작업들이 끝난 작업들에 대해서 우선순위가 높은 값을 먼저 스케줄링 하는 방식을 통해 모든 작업의 시간을 결정하게 된다.  
 
 최근에 neural network를 활용하여 JSSP 등의 스케줄링 문제를 해결하고자 하는 시도들이 이어지고 있다. 하지만 대부분이 한번의 의사결정(어떤 작업을 먼저 시작하는 지 결정)에 encoding과 decoding을 한번씩 반복하는 구조를 가지고 있어 계산의 효율성이 떨어지며, 노드의 개수가 커졌을 때 실행시간도 함께 커진다는 단점이 있다. 이를 해결하고자 본 논문에서는 LIST scheduling 방법을 모사하여, instance가 한번의 encoder만을 통해 스케줄을 얻을 수 있는 모델을 만들고자 하였다. 
 
@@ -33,7 +33,20 @@ usemathjax: true
 <p align="center">
 <img src="https://user-images.githubusercontent.com/83407412/232241242-0c8173e7-14be-43ce-95b7-61a81f226474.png"  width="80%" height="30%">
 </p>
-해당 구조는 [2] 논문에서 제시한 attention 구조로서, DAG 그래프를 인코딩 할 때에 original DAG만을 사용하는 것이 아닌 주어진 DAG에서 파생될 수 있는 다양한 형태의 그래프 구조를 만들고 multi-head-attention(MHT)에 적용하는 구조이다. 위 그림에서 볼 수 있듯이 총 4가지의 구조를 가지고 있으며 그 중에 3가지는 edge의 방향을 바꿔주어 총 7가지의 그래프에 대해 MHT을 적용하였다. 각 그래프에 대한 자세한 내용은 해당 논문에서 확인할 수 있다. 
+해당 구조는 [2] 논문에서 제시한 attention 구조로서, DAG 그래프를 인코딩 할 때에 original DAG만을 사용하는 것이 아닌 주어진 DAG에서 파생될 수 있는 다양한 형태의 그래프 구조를 만들고 multi-head-attention(MHA)에 적용하는 구조이다. 위 그림에서 볼 수 있듯이 총 4가지의 구조를 가지고 있으며 그 중에 3가지는 edge의 방향을 바꿔주어 총 7가지의 그래프에 대해 MHA을 적용하였다. 다음은 하나의 DAG가 주워졌을 때 7가지 그래프를 생성하는 로직에 대한 간단한 설명이다.   
+
+1.  Transitive Reduction (TR):  DAG 에서 중복된 간선을 제거를 의미한다. 즉, 그래프 내 기존의 edge들로부터 유추될 수 있는 불필요한 edge를 찾아내고 제거하는 것을 의미한다. 
+    
+2.  DAG에서 TR 간선을 제거한 방향 그래프 ($G\backslash E_{\text{TR(G)}}$): 이는 TR에서 식별된 edge들을 원본 DAG에서 제거한 결과를 말함. 이 결과로 얻어지는 방향 그래프는 원래의 그래프보다 edge의 수가 적어지지만, 여전히 도달 가능성 속성은 유지됨.
+    
+3.  DAG의 TC에서 간선을 제거한 방향 그래프 ($TC(G)\backslash E$): TC는 transitive closure을 의미하며, 그래프 내의 모든 도달 가능한 관계를 나타냄. 즉, 이 항목은 원본 DAG에서 transitive closure의 edge를 제거한 방향 그래프를 의미함. 
+    
+4.  위의 세 가지 경우의 역방향 그래프: 이는 각각의 경우에 대해 edge의 방향을 뒤집어 새로운 방향 그래프를 생성하는 것을 의미함.
+    
+5.  비교 불가능한 노드 쌍을 연결하여 얻은 undirected graph: 이는 원래의 방향 그래프에서 서로 비교할 수 없는 노드 쌍을 연결하여 undirected graph를 생성하는 것을 의미함. 비교할 수 없는 노드 쌍은 양방향 간선으로 연결되지 않은 노드들을 의미함.
+
+각 그래프에 대해 조금 더 자세한 내용을 원하시면  해당 논문에서 확인할 수 있다. 
+
 
 ### 3.2. Gumbel max logic 
 Gumbel-Max trick 은 reparametrization tricks 중 하나로, 이 트릭을 통해 x1, ... , xn ∈ R 에 있을 때,  Gumbel(0, 1)에서 무작위추출한 g1, ... , gn 을 더해주었을 때 아래 식을 만족한다 [3].
@@ -81,7 +94,7 @@ Gumbel-max 트릭이 argmax 만으로 softmax를 모사한다는 것에 대해�
 ## 4. Experiment 
 본 논문에서는 DAG 구조를 가진 세가지 스케줄링 문제(JSSP, DAG scheduling on TPC-H dataset, scheduling on computation graphs)에 대해 다양한 노드 개수에 대해서, node 100개의 문제로 학습을 진행한 뒤, 50개의 문제에 대해서 test를 진행하는 방식으로 실험을 실험을 진행하였다. 
 
-아래 table 에서 볼 수 있듯, 모든 문제에 대해서 성능 기존 NCO 보다 좋았으며, 저자가 처음 LIST 스케줄링을 모사하며 주장했듯 computing 시간 역시 기존 NCO 보다 훨씬 빠른 것을 볼 수 있다. 
+아래 table 에서 볼 수 있듯, 모든 문제에 대해서 성능 기존 neural combinatorial optimization(NCO) 방법론들 보다 좋았으며, 저자가 처음 LIST 스케줄링을 모사하며 주장했듯 computing 시간 역시 기존 NCO 보다 훨씬 빠른 것을 볼 수 있다. 
 
 하지만 최근에 많은 NCO 알고리즘들이 나온대 비해 SOTA 알고리즘과 비교를 하지 않고 초기 연구와 비교를 했다는 점에서 성능적으로 가장 뛰어난 NCO 알고리즘이라고 보기에는 것은 어려울 것 같다. (JSSP 의 경우 [5] 와 같이 GNN과 RL을 처음으로 적용한 초기 논문과만 성능을 비교함)
 

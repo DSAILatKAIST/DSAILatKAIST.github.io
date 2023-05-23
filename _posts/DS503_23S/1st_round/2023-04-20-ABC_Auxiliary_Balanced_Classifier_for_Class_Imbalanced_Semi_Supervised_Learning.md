@@ -1,10 +1,9 @@
 ---
 title:  "[NIPS 2021] ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning"
-permalink: ABC_Auxiliary_Balanced_Classifier_for_Class-Imbalanced_Semi-Supervised_Learning.html
+permalink: ABC_Auxiliary_Balanced_Classifier_for_Class_Imbalanced_Semi_Supervised_Learning.html
 tags: [reviews]
-use_math: true
-usemathjax: true
 ---
+
 
 #  **ABC: Auxiliary Balanced Classifier for Class-Imbalanced Semi-Supervised Learning**
 

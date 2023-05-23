@@ -2,13 +2,15 @@
 title:  "[ICLR 2023] Temporal 2D-Variation Modeling for General Time Series Analysis"
 permalink: Temporal_2D_Variation_Modeling_for_General_Time_Series_Analysis.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # Temporal 2D-Variation Modeling for General Time Series Analysis
 
 
 # 1. Problem Definition
-시계열 분석은 일기 예보, 이상치 탐지, 행동 인식 등 많은 응용 분야에서 사용되고 있습니다. 시계열 데이터는 언어나 영상과 같은 순차적 데이터와 달리 연속적으로 기록되며, 각 시점은 일부 값만 저장합니다. 하나의 단일 시점은 충분한 의미를 갖지 않기 때문에, 연속성, 주기성, 추세 등과 같은 시계열의 고유산 속성을 반영하도록 시간적 변화에 초점을 맞추고 있습니다. 
+시계열 분석은 일기 예보, 이상치 탐지, 행동 인식 등 많은 응용 분야에서 사용되고 있습니다. 시계열 데이터는 언어나 영상과 같은 순차적 데이터와 달리 연속적으로 기록되며, 각 시점은 일부 값만 저장합니다. 하나의 단일 시점은 충분한 의미를 갖지 않기 때문에, 연속성, 주기성, 추세 등과 같은 시계열의 고유한 속성을 반영하도록 시간적 변화에 초점을 맞추고 있습니다. 
 
 # 2. Motivation
 그러나 실제 시계열 데이터는 여러 변화(상승, 하락, 변동 등)가 복합적으로 섞여 복잡한 패턴을 포함하기 때문에 모델링이 어렵습니다.
@@ -30,7 +32,7 @@ tags: [reviews]
 - TCN-based: 시간적 변화를 convolution-kernel을 이용하여 포착
 - RNN-based: time step 당 상태 전환을 통해 시간적 변화를 포착
 
-그러나 딥러닝 모델 역시 주기성에 의해 파생되는 시잔적 변동을 고려하지 않습니다.
+그러나 딥러닝 모델 역시 주기성에 의해 파생되는 시간적 변동을 고려하지 않습니다.
 
 다양한 분야에서 좋은 성능을 보이는 Transformer 역시 시계열에서도 성능이 좋습니다. attention-mechanism을 이용하여 시점간의 시간적 의존성을 발견할 수 있습니다. 
 - Autoformer: auto-correlation을 이용하여 시간적 의존성을 포착하고
@@ -56,16 +58,16 @@ tags: [reviews]
 아래 일련의 과정을 거쳐 강도(indensity) $\mathbf{A}$를 얻습니다.
 
 
-$$ \mathbf{A} = \text{Avg}\Bigl( \text{Amp}(\text{FFT}(\mathbf{X}_ {\text{1D}})) \Bigr), \quad \mathbf{A} \in \mathbb{R}^T $$
+- $\mathbf{A} = \text{Avg}\Bigl( \text{Amp}(\text{FFT}(\mathbf{X}_ {\text{1D}})) \Bigr), \quad \mathbf{A} \in \mathbb{R}^T$
 
 ![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_FFT.png?raw=true)
 
 
 이때 $\mathbf{A}_ j$는 주파수가 $j$(주기가 $\lceil T/j \rceil$이다.)의 intensity가 된다. 주파수 영역에서 의미없는 고주파는 noise이므로 이를 제거하기 위해 top-$k$의 진폭만 사용하기로 합니다. 
-$$\{ f_1, \cdots, f_k\} = \underset{f_* \in \{1, \cdots , [\frac{T}{2}]\}}{\text{argTopK}(\mathbf{A})}, \quad p_i = \Biggl\lceil\cfrac{T}{f_i} \Biggr\rceil, \quad i \in \{ 1, \cdots, k \}$$
+- $\{ f_1, \cdots, f_k\} = \underset{f_* \in \{1, \cdots , [\frac{T}{2}]\}}{\text{argTopK}(\mathbf{A})}, \quad p_i = \Biggl\lceil\cfrac{T}{f_i} \Biggr\rceil, \quad i \in \{ 1, \cdots, k \}$
 
 위 과정을 요약하면, $\mathbf{X}_ {\text{1D}}$로부터 FFT를 이용하여 $k$개의 유의미한 진폭($\mathbf{A}$), 주파수($f_i$), 주기($p_i$)를 얻습니다.
-$$\mathbf{A}, \{f_1, \cdots, f_k\}, \{p_1, \cdots, p_k\} = \text{Period}(\mathbf{X}_ {\text{1D}})$$
+- $\mathbf{A}, \{f_1, \cdots, f_k\}, \{p_1, \cdots, p_k\} = \text{Period}(\mathbf{X}_ {\text{1D}})$
 
 
 ![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_convert2D.png?raw=true)
@@ -74,15 +76,19 @@ $$\mathbf{A}, \{f_1, \cdots, f_k\}, \{p_1, \cdots, p_k\} = \text{Period}(\mathbf
 ## 3.2 Reshape 1D time series to 2D tensors
 FFT로 얻은 $f$와 $p$를 이용하여 $\mathbf{X}_ {\text{1D}}$로부터 $k$개의 2D-tensor $\mathbf{X}_ {\text{2D}}$ 를 얻을 수 있습니다. 이때 $\text{Reshape}$ 결과가 $p_i \times f_i$ 모양이 되도록 zero-padding $\text{Padding}(\cdot)$이 필요합니다.  
 
-$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{ 1, \cdots, k \} $
+
+$\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{ 1, \cdots, k \}$
 
 
 
 ## 3.3 TimesBlock
-TimesBlock 구조는 computer vision에서 자주 사용되는 ResNet의 residual way를 적용하였다. 먼저 raw data $\mathbf{X}_ {\text{1D}} \in \mathbf{R}^{T \times C}$를 모델 차원에 맞게 임베딩하여 $\mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$를 얻게됩니다. 
-$$\mathbf{X}_ {\text{1D}}^0 = \text{Embed}(\mathbf{X}_ {\text{1D}})$$
+TimesBlock 구조는 computer vision에서 자주 사용되는 ResNet의 residual way를 적용하였다. 먼저 raw data $\mathbf{X}_ {\text{1D}} \in  \mathbf{R}^{T \times C}$를 모델 차원에 맞게 임베딩하여 $\mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$를 얻게됩니다.
+
+- $\mathbf{X}_ {\text{1D}}^0 = \text{Embed}(\mathbf{X}_ {\text{1D}}). \quad \mathbf{X}_ {\text{1D}} \in  \mathbf{R}^{T \times C}, \ \mathbf{X}_ {\text{1D}}^0 \in \mathbb{R}^{T \times d_{\text{model}}}$
+
 그 이후 $l$ 번째 layer마다 deep feature $\mathbf{X}_ {\text{1D}}^{l}$를 구한다.
-$$\mathbf{X}_ {\text{1D}}^l = \text{TimesBlock}(\mathbf{X}_ {\text{1D}}^{l-1}) + \mathbf{X}_ {\text{1D}}^{l-1}$$
+
+- $\mathbf{X}_ {\text{1D}}^l = \text{TimesBlock}(\mathbf{X}_ {\text{1D}}^{l-1}) + \mathbf{X}_ {\text{1D}}^{l-1}$
 TimesBlock은 크게 2가지 역할을 수행합니다. 
 1. 2D-variation 포착
 2. Adaptively aggregating representations
@@ -90,16 +96,18 @@ TimesBlock은 크게 2가지 역할을 수행합니다.
 **Capturing temporal 2D-variations**
 
 
-TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다. 이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다. $\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.
+TimesNet은 $\text{Reshape}(\cdot)$로 변환한 2D-tensor를 multi-scale 2D kernel로 학습합니다. 
+- $\mathbf{X}_ {\text{2D}}^i = \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{1, \cdots, k\}$
 
-$$
-\begin{align*}
-\mathbf{A}^{l-1}, \{ f_1, \cdots, f_k \}, \{ p_1, \cdots, p_k \} &= \text{Period}(\mathbf{X}_ {\text{1D}}^{l-1}) \\
-\mathbf{X}_ {\text{2D}}^i &= \underset{p_i, f_i}{\text{Reshape}}(\text{Padding}(\mathbf{X}_ {\text{1D}})), \quad i \in \{1, \cdots, k\} \\
-\widehat{\mathbf{X}}_ {\text{2D}}^{l, i} &= \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in \{1, \cdots, k\} \\
-\widehat{\mathbf{X}}_ {\text{1D}}^{l, i}& = \text{Trunc}(\underset{1, \  (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{X}}_ {\text{2D}}^{l, i})), \quad i \in \{1, \cdots, k \} \\
-\end{align*}
-$$
+이때 다양한 vision backbone을 이용할 수 있는데, 저자들은 parameter-efficient한 inception block을 사용했습니다.
+
+
+- $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i} = \text{Inception}(\mathbf{X}_ {\text{2D}}^{l, i}), \quad i \in \{1, \cdots, k\}$
+
+  
+$\text{Inception}(\cdot)$을 통해 표현된 $\widehat{\mathbf{X}}_ {\text{2D}}^{l, i}$은 다시 1D로 reshape하고 길이 $T$를 보존하도록 $\text{Trunc}(\cdot)$로 패딩을 제거합니다.
+- $\widehat{\mathbf{X}}_ {\text{1D}}^{l, i} = \text{Trunc}(\underset{1, \ (p_i \times f_i)}{\text{Reshape}}(\widehat{\mathbf{X}}_ {\text{2D}}^{l, i})), \quad i \in \{1, \cdots, k \}$
+
 
 각 $l$번째 layer를 통과한 후 $k$개의 1D-representation $\{\widehat{\mathbf{X}}_ {\text{1D}}^{l, 1}, \cdots, \widehat{\mathbf{X}}_ {\text{1D}}^{l, k}\}$을 얻습니다.
 
@@ -109,8 +117,8 @@ $$
 **Adaptive aggregateion**
 
 Autoformer 모델이 제안된 논문에서, Auto-Correlation은 진폭 $\mathbf{A}$는 선택된 주파수와 주기 $f, p$의 상대적 중요성을 반영한다는 사실을 알아냈습니다. 따라서 진폭을 기반으로 1D-representation을 집계합니다.
-$$\widehat{\mathbf{A}}_ {f_1}^{l-1}, \cdots, \widehat{\mathbf{A}}_ {f_k}^{l-1} = \text{Softmax}\left(\mathbf{A}_ {f_1}^{l-1}, \cdots, \mathbf{A}_ {f_k}^{l-1} \right)$$
-$$\mathbf{X}_ {\text{1D}}^l = \sum_{i=1}^{k} \widehat{\mathbf{A}}_ {f_i}^{l-1} \times \widehat{\mathbf{X}}_ {\text{1D}}^{l, i}$$
+- $\widehat{\mathbf{A}}_ {f_1}^{l-1}, \cdots, \widehat{\mathbf{A}}_ {f_k}^{l-1} = \text{Softmax}\left(\mathbf{A}_ {f_1}^{l-1}, \cdots, \mathbf{A}_ {f_k}^{l-1} \right)$
+- $\mathbf{X}_ {\text{1D}}^l = \sum_{i=1}^{k} \widehat{\mathbf{A}}_ {f_i}^{l-1} \times \widehat{\mathbf{X}}_ {\text{1D}}^{l, i}$
 
 ![image](https://github.com/ahj1592/CourseMaterials/blob/main/DS503/Paper%20Review/images/TimesNet_TimesBlock_2.png?raw=true)
 
@@ -171,5 +179,5 @@ TimesNet은 예측과 이상치 탐지에서 CKA 유사도가 높고, 결측치 
 
 # 5. Conclusion
 - TimesNet은 시계열 분석 영역에서 task-general foundation model입니다.
-- 다중 주기성을 이용하여 TimesNet은 주기내 변화와 주기간 변화 모두 포착합니다.
+- 다중 주기성을 이용하여 TimesNet은 주기내 변화와 주기간 변화 모두 포착합니다. (다양한 시간적 변화 포착)
 - 다양한 데이터셋 실험에서 TiemsNet은 5가지 task에 SOTA를 달성했습니다. 

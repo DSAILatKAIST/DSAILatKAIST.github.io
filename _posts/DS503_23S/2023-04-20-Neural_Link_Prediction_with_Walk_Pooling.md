@@ -35,6 +35,25 @@ $\mathcal{E^o}$는 관측된 에지의 집합입니다. $\mathcal{E^o}$는 전�
 
 관찰된 그래프 $\mathcal{G^o} \subset\mathcal{G}$를 가지고 정확하게 $\mathcal{E^c}$의 link들을 예측하는 알고리즘 $LearnLP(\mathcal{G^o}) = \Pi :\mathcal{V\times V}\rightarrow \{True,False\}$ 를 설계하는 것.
 
+## 2.1 SEAL
+WALKPOOL을 설명하기 전에 Link prediction 문제를 풀기위한 기존의 방법론 SEAL에 대해 설명하겠습니다.
+
+두 노드 사이의 Link 의 likelihood 를 예측하기 위해, 전통적인 방법으로 Heuristics 이 존재합니다.
+이때의 heuristics 들은 Common neighbors, Katz 등의 scoring function을 말합니다. 그러나 이러한 heuristics 들은 모두 두 노드가 연결될 것이라는 강한 가정을 전제로 하고 있기 때문에, 이러한 가정이 틀릴 경우 정확도가 떨어지는 단점이 있습니다.
+이러한 면에서, 이미 predefined 된 heuristic 을 적용하는 것보다 각 그래프에 적절한 heuristic 을 학습하는 것이 더 합리적인 방법입니다.
+GNN을 이용해 이러한 heuristic 을 배우는 것을 SEAL 이라고 합니다.
+
+SEAL은 세 가지 스텝으로 이루어집니다.
+![seal](https://user-images.githubusercontent.com/130838113/238568053-46e80610-911a-40f3-875e-0280658936bd.png)
+1. Enclosing subgraph 추출
+    - h-hop만큼의 subgraph를 추출합니다.
+2. 노드 정보 행렬 구축
+    - target 노드로 부터 거리가 증가할 수록 큰 수를 노드에 labeling합니다.
+    - 노드임베딩을 노드 정보 행렬에 포함합니다.
+    - 노드 속성을 노드 정보 행렬에 포함합니다.
+3. Graph Neural Network 학습
+ 
+
 ## ****3. Method****
 
 **WALKPOOL**을 소개하기 전에 단순화를 위해 몇 가지 notation에 대해 설명하겠습니다.

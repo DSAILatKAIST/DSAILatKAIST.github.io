@@ -54,7 +54,36 @@
 <link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 
@@ -110,7 +139,36 @@
     
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 </head>
@@ -322,26 +380,48 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>본 논문 리뷰는 한국어로 쓰였고, 최대한 영어를 덜 쓰도록 노력하였습니다. 따라서 본 리뷰에서 사용하는 용어에 대해 먼저 간단히 정리를 해 보았습니다.</p>
 
 <ul>
-  <li>Noise(잡음) : 일반적으로 예측할 수 없는 변동.</li>
-  <li>Adversarial pertubation(적대적 교란 또는 적대적 변동) : 데이터에 적용할 수 있는 미세한 잡음.</li>
-  <li>Adversarial attack(적대적 공격) : 데이터에 적대적 교란을 더하여 기계 학습 알고리즘을 공격하는 기법.</li>
-  <li>Adversarial examples or Adversarial images(적대적 예시 또는 적대적 이미지) : 적대적 공격을 가한 데이터. 적대적 공격에 대항하지 않은 기계 학습 알고리즘은 이를 제대로 분류할 수 없다.</li>
-  <li>Adversarial training(적대적 학습 또는 적대적 훈련) : 적대적 예시를 만든 후 모델 훈련에 통합하여 적대적 공격에 대해 대항하는 기법.</li>
-  <li>Adversarial purification(적대적 정화) : 데이터의 적대적 교란을 정화하기 위해 생성 모형에 의존하는 기법.</li>
-  <li>Unseen threats(보이지 않는 위협) : 적대적 훈련 기법이 학습하지 못한 적대적 공격</li>
-  <li>Diffusion model(확산 모델) : 다음의 두 가지 과정을 통해 데이터를 생성하는 생성 모형.
-    <ul>
-      <li>Forward diffusion process(순방향 과정) : 데이터에 잡음을 점진적으로 더하는 과정. 이 과정을 계속 반복하다 보면 결국에는 데이터가 순수한 잡음으로 변한다.</li>
-      <li>Reverse generative process(역방향 과정) : 잡음을 한 단계씩 제거하는 과정. 이 과정을 통해 순수한 잡음으로부터 데이터를 생성한다.</li>
-    </ul>
+  <li>
+    <p>Noise(잡음) : 일반적으로 예측할 수 없는 변동.</p>
   </li>
-  <li>Adaptive attack(적응성 공격) : 특정 방어 모델을 목표로 설계된 공격
-    <ul>
-      <li>Strong adaptive attack(강력한 적응성 공격) : 방어 모델의 정확도를 기존보다 더 저하시킬 수 있는 공격</li>
-    </ul>
+  <li>
+    <p>Adversarial pertubation(적대적 교란 또는 적대적 변동) : 데이터에 적용할 수 있는 미세한 잡음.</p>
   </li>
-  <li>Adjoint(수반 행렬) : 어떤 행렬에서 각 성분의 여인수 행렬로 이루어진 전치 행렬.</li>
-  <li>SDE or Stochastic differential equation(확률 미분 방정식)</li>
+  <li>
+    <p>Adversarial attack(적대적 공격) : 데이터에 적대적 교란을 더하여 기계 학습 알고리즘을 공격하는 기법.</p>
+  </li>
+  <li>
+    <p>Adversarial examples or Adversarial images(적대적 예시 또는 적대적 이미지) : 적대적 공격을 가한 데이터. 적대적 공격에 대항하지 않은 기계 학습 알고리즘은 이를 제대로 분류할 수 없다.</p>
+  </li>
+  <li>
+    <p>Adversarial training(적대적 학습 또는 적대적 훈련) : 적대적 예시를 만든 후 모델 훈련에 통합하여 적대적 공격에 대해 대항하는 기법.</p>
+  </li>
+  <li>
+    <p>Adversarial purification(적대적 정화) : 데이터의 적대적 교란을 정화하기 위해 생성 모형에 의존하는 기법.</p>
+  </li>
+  <li>
+    <p>Unseen threats(보이지 않는 위협) : 적대적 훈련 기법이 학습하지 못한 적대적 공격</p>
+  </li>
+  <li>
+    <p>Diffusion model(확산 모델) : 다음의 두 가지 과정을 통해 데이터를 생성하는 생성 모형.</p>
+  </li>
+  <li>
+    <p>Forward diffusion process(순방향 과정) : 데이터에 잡음을 점진적으로 더하는 과정. 이 과정을 계속 반복하다 보면 결국에는 데이터가 순수한 잡음으로 변한다.</p>
+  </li>
+  <li>
+    <p>Reverse generative process(역방향 과정) : 잡음을 한 단계씩 제거하는 과정. 이 과정을 통해 순수한 잡음으로부터 데이터를 생성한다.</p>
+  </li>
+  <li>
+    <p>Adaptive attack(적응성 공격) : 특정 방어 모델을 목표로 설계된 공격</p>
+  </li>
+  <li>
+    <p>Strong adaptive attack(강력한 적응성 공격) : 방어 모델의 정확도를 기존보다 더 저하시킬 수 있는 공격</p>
+  </li>
+  <li>
+    <p>Adjoint(수반 행렬) : 어떤 행렬에서 각 성분의 여인수 행렬로 이루어진 전치 행렬.</p>
+  </li>
+  <li>
+    <p>SDE or Stochastic differential equation(확률 미분 방정식)</p>
+  </li>
 </ul>
 
 <h1 id="1-introduction">1. Introduction</h1>
@@ -349,35 +429,56 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <h2 id="motivation">Motivation</h2>
 
 <ol>
-  <li>신경망은 적대적 공격에 취약하다. <strong>데이터에 감지하기 어려운 변동을 주면 신경망이 잘못된 예측을 하도록 이끌 수 있다</strong>.</li>
-  <li>적대적 공격에 대항하는 현재의 표준적인 형태는 적대적 훈련(adversarial training)이다.
-    <ol>
-      <li>그러나 <strong>대부분 적대적 훈련 기법은 그 모델이 훈련한 특정한 공격에만 대항</strong>할 수 있다. 즉, <strong>보이지 않는 위협에 대해 성능이 크게 저하</strong>한다.</li>
-      <li>또한, <strong>적대적 훈련의 계산 복잡도가 일반적인 훈련보다 보통 높다</strong>.</li>
-    </ol>
+  <li>
+    <p>신경망은 적대적 공격에 취약하다. <strong>데이터에 감지하기 어려운 변동을 주면 신경망이 잘못된 예측을 하도록 이끌 수 있다</strong>.</p>
   </li>
-  <li>다른 방어 기법, 적대적 정화는 이미지의 적대적 교란을 정화하기 위해 생성 모형에 의존한다.
-    <ol>
-      <li>적대적 정화는 <strong>모델을 다시 훈련하지 않고도 보이지 않는 위협에 대항</strong>할 수 있다.</li>
-      <li>이러한 이점에도 불구하고 <strong>성능은 적대적 훈련에 비해 떨어진다</strong>. 특히 공격자가 방어 기법에 대한 완벽한 지식을 갖고 있을 때 성능은 더 크게 떨어진다. 이는 적대적 정화 모델에 사용되는 현재 생성 모델의 단점 때문이다.</li>
-    </ol>
+  <li>
+    <p>적대적 공격에 대항하는 현재의 표준적인 형태는 적대적 훈련(adversarial training)이다.</p>
   </li>
-  <li>확산 모델(diffusion model)은 최근 강력한 생성 모델로 떠오르고 있다.
-    <ol>
-      <li><strong>확산 모델의 생성 과정은 적대적 정화 모델의 역할과 유사</strong>하다.</li>
-      <li>확산 모델의 <strong>좋은 생성 능력과 다양성은 정화된 이미지가 원래의 이미지와 가까울 수 있도록 보장</strong>한다.</li>
-      <li>확산 모델의 확률성(stochasticity)은 강력한 확률적 방어(stochastic defense)를 만들 수 있다.</li>
-    </ol>
+  <li>
+    <p>그러나 <strong>대부분 적대적 훈련 기법은 그 모델이 훈련한 특정한 공격에만 대항</strong>할 수 있다. 즉, <strong>보이지 않는 위협에 대해 성능이 크게 저하</strong>한다.</p>
   </li>
-  <li>이러한 특성 덕분에 <strong>확산 모형을 적대적 정화 기법의 이상적인 후보</strong>로 생각할 수 있다.</li>
+  <li>
+    <p>또한, <strong>적대적 훈련의 계산 복잡도가 일반적인 훈련보다 보통 높다</strong>.</p>
+  </li>
+  <li>
+    <p>다른 방어 기법, 적대적 정화는 이미지의 적대적 교란을 정화하기 위해 생성 모형에 의존한다.</p>
+  </li>
+  <li>
+    <p>적대적 정화는 <strong>모델을 다시 훈련하지 않고도 보이지 않는 위협에 대항</strong>할 수 있다.</p>
+  </li>
+  <li>
+    <p>이러한 이점에도 불구하고 <strong>성능은 적대적 훈련에 비해 떨어진다</strong>. 특히 공격자가 방어 기법에 대한 완벽한 지식을 갖고 있을 때 성능은 더 크게 떨어진다. 이는 적대적 정화 모델에 사용되는 현재 생성 모델의 단점 때문이다.</p>
+  </li>
+  <li>
+    <p>확산 모델(diffusion model)은 최근 강력한 생성 모델로 떠오르고 있다.</p>
+  </li>
+  <li>
+    <p><strong>확산 모델의 생성 과정은 적대적 정화 모델의 역할과 유사</strong>하다.</p>
+  </li>
+  <li>
+    <p>확산 모델의 <strong>좋은 생성 능력과 다양성은 정화된 이미지가 원래의 이미지와 가까울 수 있도록 보장</strong>한다.</p>
+  </li>
+  <li>
+    <p>확산 모델의 확률성(stochasticity)은 강력한 확률적 방어(stochastic defense)를 만들 수 있다.</p>
+  </li>
+  <li>
+    <p>이러한 특성 덕분에 <strong>확산 모델을 적대적 정화 기법의 이상적인 후보</strong>로 생각할 수 있다.</p>
+  </li>
 </ol>
 
 <h2 id="main-contributions">Main contributions</h2>
 
 <ul>
-  <li><strong><em>DiffPure</em></strong> 모델을 제시한다. 이는 <strong>사전 훈련된 확산 모델의 순방향, 역방향 과정을 통해 적대적 이미지를 정화</strong>하는 첫 적대적 정화 기법이다.</li>
-  <li>레이블의 의미를 파괴하지 않고 적대적 교란을 제거할 수 있도록 순방향 과정에서 추가되는 잡음의 크기에 대한 이론적 분석을 제공한다.</li>
-  <li>강력한 적응 공격에 대한 평가를 위한 새로운 방법, <strong><em>adjoint method</em></strong>를 제시한다. 이는 역방향 과정의 그래디언트 전체를 효율적으로 계산한다.</li>
+  <li>
+    <p><strong><em>DiffPure</em></strong> 모델을 제시한다. 이는 <strong>사전 훈련된 확산 모델의 순방향, 역방향 과정을 통해 적대적 이미지를 정화</strong>하는 첫 적대적 정화 기법이다.</p>
+  </li>
+  <li>
+    <p>레이블의 의미를 파괴하지 않고 적대적 교란을 제거할 수 있도록 순방향 과정에서 추가되는 잡음의 크기에 대한 이론적 분석을 제공한다.</p>
+  </li>
+  <li>
+    <p>강력한 적응 공격에 대한 평가를 위한 새로운 방법, <strong><em>adjoint method</em></strong>를 제시한다. 이는 역방향 과정의 그래디언트 전체를 효율적으로 계산한다.</p>
+  </li>
 </ul>
 
 <p><img src="https://user-images.githubusercontent.com/54873618/232223127-036b6b7a-f9d7-4c55-ad8f-7223cef1b1e8.png" alt="image" /></p>
@@ -389,61 +490,96 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>이 섹션에서는 연속 시간 확산 모델(continuous-time diffusion model)에 대해 간단하게 리뷰한다.</p>
 
 <ul>
-  <li>$p(x)$ : 알려지지 않은 데이터 분포. 생성 모델의 목표는 이를 추정하는 것이다.
-    <ul>
-      <li>각 데이터 $x \in R^ d$가 이 분포로부터 추출된다.</li>
-      <li>확산 모델은 $p(x)$를 잡음 분포(noise distribution)로 확산한다.</li>
-    </ul>
+  <li>
+    <p>$p(x)$ : 알려지지 않은 데이터 분포. 생성 모델의 목표는 이를 추정하는 것이다.</p>
   </li>
-  <li>순방향 확산 과정(Forward diffusion process) ${ x(t) }_ {t \in [0, 1]}$는 SDE에 의해 다음과 같이 정의한다.
-$dx = f(x, t)dt + g(t)dw\quad (1)$
-    <ul>
-      <li>초깃값(initial value) : $x(0) := x \sim p(x)$</li>
-      <li>드리프트 계수(drift coefficient) : $f : R^ d \times R \rightarrow R^ d$</li>
-      <li>확산 계수(diffusion coefficient) : $g : R \rightarrow R$</li>
-      <li>표준 위너 확률 과정(standard Wiener process) : $w(t) \in R^d$</li>
-      <li>$p_t(x)$ : $x(t)$의 주변 분포(marginal distribution)
-        <ul>
-          <li>$p_ 0(x) := p(x)$</li>
-        </ul>
-      </li>
-      <li>$f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$</li>
-      <li>VP-SDE를 확산 모델로 사용한다.
-        <ul>
-          <li>$f(x, t) := -{1 \over 2}\beta(t)x$</li>
-          <li>$g(t) := \sqrt{ \beta(t) }$
-            <ul>
-              <li>$\beta(t)$ : 시간 의존적인 잡음 스케일(time-dependent noise scale)</li>
-              <li>기본적으로 선형 잡음 스케줄(linear noise schedule)을 사용한다. 즉, $\beta(t) := \beta_ {\min} + (\beta_ {\max} - \beta_ {\min})t$</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
+  <li>
+    <p>각 데이터 $x \in R^ d$가 이 분포로부터 추출된다.</p>
   </li>
-  <li>표본 생성은 역-시간 SDE(reverse-time SDE)를 통해서 가능하다.
-    <ul>
-      <li>$d \hat x = [f_ {(\hat x, t)} - g(t)^ 2 \nabla {\hat x} \log{p t(\hat x)}]dt + g(t)d\bar w \quad (2)$</li>
-      <li>$dt$ : 미소한 음의 시간 단계(An infinitesimal negative time step)</li>
-      <li>$\bar w (t)$  : 표준 역-시간 위너 확률 과정(standard reverse-time Wiener process)</li>
-      <li>$\hat x(1) \sim N(0, I_ d)$를 초깃값으로 설정한 채 위의 역-시간 SDE를 $t=1$에서 $t=0$까지 해결하는 것은 <strong>데이터 분포에서 표본을 추출할 때까지(다시 말해서 $\hat x(0) \sim p_ {0}(x)$ ) 잡음이 덜한 데이터 $\hat x(t)$를 점진적으로 생성</strong>한다.</li>
-      <li>이상적으로, <strong>식 (2)에서 나온 잡음 제거 과정(denoising process)의 결과 ${ \hat x(t) }_ {t \in [0, 1]}$는 식 (1)에서 얻은 순방향 확산 과정 ${ x(t) }_ {t \in [0,1]}$와 같은 분포</strong>를 갖는다.</li>
-    </ul>
+  <li>
+    <p>확산 모델은 $p(x)$를 잡음 분포(noise distribution)로 확산한다.</p>
   </li>
-  <li>식 (2)의 역-시간 SDE는 시간에 의존적인 스코어 함수(time-dependent score function) $\nabla_ x \log{ p_ t(x) }$의 지식을 필요로 한다. 자주 쓰이는 접근 방법 중 하나는 매개 변수화된 신경망(parameterized neural network) $s_ \theta(x, t)$를 이용해 $\nabla_ x \log {p_ t(x)}$를 추정하는 것이다.
-    <ul>
-      <li>확산 모델은 여러 시간 단계에 걸쳐 잡음 제거 스코어 매칭(denoising score matching)의 가중 조합으로 훈련된다.
-  <img src="https://user-images.githubusercontent.com/54873618/232224743-6d6b4b70-f204-4078-ae7c-56728bf8c5ee.png" alt="image" />
-        <ul>
-          <li>$\lambda(t)$ : 가중치 계수(weighting coefficient)</li>
-          <li>$x(0) := x$에서부터 $x(t) := \tilde x$까지 전이 확률(transition probability) : $p_ {0t}(\tilde x \vert x)$
-            <ul>
-              <li>식 (1)의 순방향 SDE를 통해 닫힌 식을 갖는다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
+  <li>
+    <p>순방향 확산 과정(Forward diffusion process) ${ x(t) }_ {t \in [0, 1]}$는 SDE에 의해 다음과 같이 정의된다.</p>
+  </li>
+</ul>
+
+<p>$dx = f(x, t)dt + g(t)dw\quad (1)$</p>
+
+<ul>
+  <li>
+    <p>초깃값(initial value) : $x(0) := x \sim p(x)$</p>
+  </li>
+  <li>
+    <p>드리프트 계수(drift coefficient) : $f : R^ d \times R \rightarrow R^ d$</p>
+  </li>
+  <li>
+    <p>확산 계수(diffusion coefficient) : $g : R \rightarrow R$</p>
+  </li>
+  <li>
+    <p>표준 위너 확률 과정(standard Wiener process) : $w(t) \in R^d$</p>
+  </li>
+  <li>
+    <p>$p_t(x)$ : $x(t)$의 주변 분포(marginal distribution)</p>
+  </li>
+  <li>
+    <p>$p_ 0(x) := p(x)$</p>
+  </li>
+  <li>
+    <p>$f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$</p>
+  </li>
+  <li>
+    <p>VP-SDE를 확산 모델로 사용한다.</p>
+  </li>
+  <li>
+    <p>$f(x, t) := -{1  \over  2}\beta(t)x$</p>
+  </li>
+  <li>
+    <p>$g(t) := \sqrt{ \beta(t) }$</p>
+  </li>
+  <li>
+    <p>$\beta(t)$ : 시간에 의존적인 잡음 스케일(time-dependent noise scale)</p>
+  </li>
+  <li>
+    <p>기본적으로 선형 잡음 스케줄(linear noise schedule)을 사용한다. 즉, $\beta(t) := \beta_ {\min} + (\beta_ {\max} - \beta_ {\min})t$</p>
+  </li>
+  <li>
+    <p>표본 생성은 역-시간 SDE(reverse-time SDE)를 통해서 가능하다.</p>
+  </li>
+  <li>
+    <p>$d \hat x = [f_ {(\hat x, t)} - g(t)^ 2  \nabla {\hat x} \log{p t(\hat x)}]dt + g(t)d\bar w \quad (2)$</p>
+  </li>
+  <li>
+    <p>$dt$ : 미소한 음의 시간 단계(An infinitesimal negative time step)</p>
+  </li>
+  <li>
+    <p>$\bar w (t)$ : 표준 역-시간 위너 확률 과정(standard reverse-time Wiener process)</p>
+  </li>
+  <li>
+    <p>$\hat x(1) \sim N(0, I_ d)$를 초깃값으로 설정한 채 위의 역-시간 SDE를 $t=1$에서 $t=0$까지 해결하는 것은 <strong>데이터 분포에서 표본을 추출할 때까지(다시 말해서 $\hat x(0) \sim p_ {0}(x)$ ) 잡음이 덜한 데이터 $\hat x(t)$를 점진적으로 생성</strong>한다.</p>
+  </li>
+  <li>
+    <p>이상적으로, <strong>식 (2)에서 나온 잡음 제거 과정(denoising process)의 결과 ${ \hat x(t) }_ {t \in [0, 1]}$는 식 (1)에서 얻은 순방향 확산 과정 ${ x(t) }_ {t \in [0,1]}$와 같은 분포</strong>를 갖는다.</p>
+  </li>
+  <li>
+    <p>식 (2)의 역-시간 SDE는 시간에 의존적인 스코어 함수(time-dependent score function) $\nabla_ x \log{ p_ t(x) }$의 지식을 필요로 한다. 자주 쓰이는 접근 방법 중 하나는 매개 변수화된 신경망(parameterized neural network) $s_ \theta(x, t)$를 이용해 $\nabla_ x \log {p_ t(x)}$를 추정하는 것이다.</p>
+  </li>
+  <li>
+    <p>확산 모델은 여러 시간 단계에 걸쳐 잡음 제거 스코어 매칭(denoising score matching)의 가중 조합으로 훈련된다.</p>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/54873618/232224743-6d6b4b70-f204-4078-ae7c-56728bf8c5ee.png" alt="image" /></p>
+
+<ul>
+  <li>
+    <p>$\lambda(t)$ : 가중치 계수(weighting coefficient)</p>
+  </li>
+  <li>
+    <p>$x(0) := x$에서부터 $x(t) := \tilde x$까지 전이 확률(transition probability) : $p_ {0t}(\tilde x \vert x)$</p>
+  </li>
+  <li>
+    <p>식 (1)의 순방향 SDE를 통해 닫힌 식을 갖는다.</p>
   </li>
 </ul>
 
@@ -452,8 +588,12 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
 <p>본 논문에서는 다음 두 가지 기법을 제시한다.</p>
 
 <ol>
-  <li><strong><em>Diffusion purification</em></strong> (또는 <strong><em>DiffPure</em></strong>) : 확산 모델을 사용하여 적대적 이미지를 깨끗한 이미지로 복원하는 기법</li>
-  <li><strong><em>Adjoint method</em></strong> : 강력한 적응 공격에 대해 효율적인 gradient evaluation을 하기 위해 SDE를 역전파하기 위한 기법</li>
+  <li>
+    <p><strong><em>Diffusion purification</em></strong> (또는 <strong><em>DiffPure</em></strong>) : 확산 모델을 사용하여 적대적 이미지를 깨끗한 이미지로 복원하는 기법</p>
+  </li>
+  <li>
+    <p><strong><em>Adjoint method</em></strong> : 강력한 적응 공격에 대해 효율적인 gradient evaluation을 하기 위해 SDE를 역전파하기 위한 기법</p>
+  </li>
 </ol>
 
 <h2 id="31-확산-정화diffusion-purification">3.1 확산 정화(Diffusion Purification)</h2>
@@ -466,49 +606,57 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
 
 <p>${x(t)}_ {t \in [0,1]}$를 식 (1)의 순방향 SDE에 의해 정의된 확산 과정이라고 한다. 만약 $p_ {t}$와 $q_ {t}$를 $x(0) \sim p(x)$(즉, 깨끗한 데이터 분포) 와 $x(0) \sim q(x)$(적대적 표본 분포)일 때의 각각의(respective) 분포로 정의한다면 다음과 같은 식을 얻을 수 있다.</p>
 
-<p>${\partial D_ {KL}(p_ t \vert \vert q_ t) \over \partial t} \le 0$</p>
+<p>${\partial D_ {KL}(p_ t \vert  \vert q_ t) \over  \partial t} \le  0$</p>
 
 <p>위의 부등식은 $p_ t = q_ t$일 때 등식이 된다. 즉, $p_ t$와 $q_ t$의 쿨백-라이블러 발산(KL divergence)은 순방향 SDE에서 $t=0$에서부터 $t=1$로 움직일 때 단조 감소(monotonically decreases)한다.</p>
 
-<p>위 정리에 따라 $D_ {KL}(p_ {t^ {*}} \vert \vert q_ {t^ {*}}) \le \epsilon$ 을 만족하는 최소 시간 단계(timestep) $t^ {*} \in [0, 1]$가 존재한다. 그러나 시간 단계 $t = t^ {*}$에서 확산된 적대적 표본 $x(t^ {*}) \sim q_ {t^ {*}}$는 추가적인 잡음을 포함하고 있고 직접적으로 분류될 수 없다. 그러므로 식 (2)의 SDE를 통해, <strong>$x(t^ {*})$에서부터 시작하여 확률적으로 $t = 0$에서의 깨끗한 데이터를 복원</strong>할 수 있다.</p>
+<p>위 정리에 따라 $D_ {KL}(p_ {t^ {*}} \vert  \vert q_ {t^ {*}}) \le  \epsilon$ 을 만족하는 최소 시간 단계(timestep) $t^ {*} \in [0, 1]$가 존재한다. 그러나 시간 단계 $t = t^ {*}$에서 확산된 적대적 표본 $x(t^ {*}) \sim q_ {t^ {*}}$는 추가적인 잡음을 포함하고 있고 직접적으로 분류될 수 없다. 그러므로 식 (2)의 SDE를 통해, <strong>$x(t^ {*})$에서부터 시작하여 확률적으로 $t = 0$에서의 깨끗한 데이터를 복원</strong>할 수 있다.</p>
 
 <h3 id="확산-정화">확산 정화</h3>
 
 <p>확산 모델을 이용하는 두 단계로 이루어진 적대적 정화 기법을 제시한다.</p>
 
 <ol>
-  <li>$t = 0$에서 주어진 적대적 예시 $x_ {a}$에 대해 식 (1)의 순방향 SDE를 $t=0$에서부터 $t = t^ {*}$까지 해결하여(solve) 이를 확산한다. VP-SDE에 대해, 확산 시간 단계 $t^ {*} \in [0,1]$에서 확산된 적대적 표본은 다음 식을 사용해 효율적으로 추출할 수 있다.
-$x(t^ {*}) = \sqrt{\alpha(t^ {*})}x_ {a} + \sqrt{1 - \alpha(t^ {*})}\epsilon\quad (3) \ \text{ where } \alpha(t) = e^ {- \int^ {t_ {0}} \beta(s)ds} \text{ and } \epsilon \sim N(0, I_ d).$</li>
-  <li>시간 단계 $t = t^ {*}$에서 식 (2)의 역-시간 SDE를 식 (3)에서 주어진 확산된 적대적 표본 $x(t^ {*})$를 사용해서 해결한다. 이 적대적 표본은 식 (2)의 SDE의 마지막 솔루션 $\hat x(0)$을 얻기 위한 초깃값이다. $\hat x(0)$은 닫힌 식 솔루션이 없기 때문에 sdeint로 불리는 SDE 솔버(solver)를 이용한다.
-$\hat x(0) = \text{sdeint}( x(t^ {*}), f_ {rev}, g_ {rev}, \bar w, t^ {*}, 0)$
-sdeint는 여섯 개의 입력(초깃값, 드리프트 계수, 확산 계수, 위너 확률 과정, 초기 시간, 끝 시간)을 받는다. 또한, 드리프트와 확산 계수는 다음과 같이 주어진다.
-$f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sqrt{\beta(t)}$
-결과로 얻은 정화된 데이터 $\hat x(0)$은 예측을 위해 외부의 표준 분류기(standard classifier)로 전달된다.</li>
+  <li>$t = 0$에서 주어진 적대적 예시 $x_ {a}$에 대해 식 (1)의 순방향 SDE를 $t=0$에서부터 $t = t^ {*}$까지 해결하여(solve) 이를 확산한다. VP-SDE에 대해, 확산 시간 단계 $t^ {*} \in [0,1]$에서 확산된 적대적 표본은 다음 식을 사용해 효율적으로 추출할 수 있다.</li>
 </ol>
+
+<p>$x(t^ {*}) = \sqrt{\alpha(t^ {*})}x_ {a} + \sqrt{1 - \alpha(t^ {*})}\epsilon\quad (3) \ \text{ where } \alpha(t) = e^ {- \int^ {t_ {0}} \beta(s)ds} \text{ and } \epsilon  \sim N(0, I_ d).$</p>
+
+<ol>
+  <li>시간 단계 $t = t^ {*}$에서 식 (2)의 역-시간 SDE를 식 (3)에서 주어진 확산된 적대적 표본 $x(t^ {*})$를 사용해서 해결한다. 이 적대적 표본은 식 (2)의 SDE의 마지막 솔루션 $\hat x(0)$을 얻기 위한 초깃값이다. $\hat x(0)$은 닫힌 식 솔루션이 없기 때문에 sdeint로 불리는 SDE 솔버(solver)를 이용한다.</li>
+</ol>
+
+<p>$\hat x(0) = \text{sdeint}( x(t^ {*}), f_ {rev}, g_ {rev}, \bar w, t^ {*}, 0)$</p>
+
+<p>sdeint는 여섯 개의 입력(초깃값, 드리프트 계수, 확산 계수, 위너 확률 과정, 초기 시간, 끝 시간)을 받는다. 또한, 드리프트와 확산 계수는 다음과 같이 주어진다.</p>
+
+<p>$f_ {rev}(x,t) := -{1  \over  2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sqrt{\beta(t)}$</p>
+
+<p>결과로 얻은 정화된 데이터 $\hat x(0)$은 예측을 위해 외부의 표준 분류기(standard classifier)로 전달된다.</p>
 
 <h3 id="확산-시간-단계-t--정하기">확산 시간 단계 $t^ *$ 정하기</h3>
 
-<p>정리 3.1로부터 $t^ *$는 지역적(local) 적대적 변동을 제거하기 위해 충분히 커야 한다는 사실을 알 수 있다. 그러나 이는 무작정 커서는 안 되는데, 왜냐하면 전역적(global) 레이블 의미(label semantics)가 $t^ *$가 증가하면서 확산 과정 속에서 같이 제거될 수 있기 때문이다. 이는 정화된 표본 $\hat x(0)$가 정확하게 분류될 수 없는 결과로 이어질 수 있다.</p>
+<p>정리 3.1로부터 <strong>$t^ *$는 지역적(local) 적대적 변동을 제거하기 위해 충분히 커야 한다는 사실</strong>을 알 수 있다. 그러나 이는 <strong>무작정 커서는 안 되는데, 왜냐하면 전역적(global) 레이블 의미(label semantics)가 $t^ *$가 증가하면서 확산 과정 속에서 같이 제거될 수 있기 때문</strong>이다. 이는 정화된 표본 $\hat x(0)$가 정확하게 분류될 수 없는 결과로 이어질 수 있다.</p>
 
 <p>다음 정리는 어떻게 확산 시간 단계 $t^ *$가 깨끗한 이미지 $x_ 0$과 정화된 이미지 $\hat x(0)$의 차이에 영향을 끼치는지 나타낸다.</p>
 
 <h3 id="정리-32">정리 3.2</h3>
 
-<p>만약 스코어 함수가 $\vert \vert s_ \theta(x,t) \vert \vert \le {1 \over 2}C_ s$를 만족한다면 식 (4)로부터 주어진 깨끗한 데이터 $x$와 정화된 데이터 $\hat x(0)$의 $L2$ 거리는 적어도 $1 - \delta$의 확률로 다음을 만족한다.</p>
+<p>만약 스코어 함수가 $\vert  \vert s_ \theta(x,t) \vert  \vert  \le {1  \over  2}C_ s$를 만족한다면 식 (4)로부터 주어진 깨끗한 데이터 $x$와 정화된 데이터 $\hat x(0)$의 $L2$ 거리는 적어도 $1 - \delta$의 확률로 다음을 만족한다.</p>
 
-<p>$\vert \vert \hat x(0) - x \vert \vert \le \vert \vert \epsilon_ a \vert \vert + \sqrt{ e^ {2\gamma(t^ *)} -1 }C_\delta + \gamma(t^ *)C_s$</p>
+<p>$\vert  \vert  \hat x(0) - x \vert  \vert  \le  \vert  \vert  \epsilon_ a \vert  \vert + \sqrt{ e^ {2\gamma(t^ *)} -1 }C_\delta + \gamma(t^ *)C_s$</p>
 
-<p>$\epsilon_ a$는 $x_ a= x + \epsilon_a$, $\gamma(t^ *) := \int^ {t^ *}_ 0 {1 \over 2}\beta(s)ds$ 그리고 상수 $C_ \delta := \sqrt{ 2d + 4\sqrt{d \log{1 \over \delta}}+4\log{1 \over \delta}}$를 만족하는 적대적 변동을 뜻한다.</p>
+<p>$\epsilon_ a$는 $x_ a= x + \epsilon_a$, $\gamma(t^ *) := \int^ {t^ *}_ 0 {1  \over  2}\beta(s)ds$ 그리고 상수 $C_ \delta := \sqrt{ 2d + 4\sqrt{d \log{1 \over \delta}}+4\log{1 \over \delta}}$를 만족하는 적대적 변동을 뜻한다.</p>
 
-<p>$\gamma(t^ *)$는 $t^ *$ 에 따라 단조적으로 증가하고 $\forall t^ *,\gamma(r^ *) \ge 0$ 이기 때문에 위 정리의 상한의 마지막 두 항은 $t^ *$ 에 따라 증가한다. 그러므로, $\vert \vert \hat x(0) - x \vert \vert $를 최대한 낮게 하기 위해서 $t^ *$는 충분히 작아야 한다. 극단적으로, $t^ *= 0$인 상황에서 우리는 $\vert \vert \hat x (0) - x \vert \vert = \vert \vert \epsilon_a\vert \vert$를 갖는다. 이는 우리가 확산 정화를 수행하지 않으면 $\hat x(0)$이 $x_a$로 감소한다는 사실을 의미한다.</p>
+<p>$\gamma(t^ *)$는 $t^ *$ 에 따라 단조적으로 증가하고 $\forall t^ *,\gamma(r^ *) \ge  0$ 이기 때문에 위 정리의 상한의 마지막 두 항은 $t^ *$ 에 따라 증가한다. 그러므로, $\vert  \vert  \hat x(0) - x \vert  \vert $를 최대한 낮게 하기 위해서 $t^ *$는 충분히 작아야 한다. 극단적으로, $t^ *= 0$인 상황에서 우리는 $\vert \vert \hat x (0) - x \vert \vert = \vert \vert \epsilon_a\vert \vert$를 갖는다. 이는 우리가 확산 정화를 수행하지 않으면 $\hat x(0)$이 $x_a$로 감소한다는 사실을 의미한다.</p>
 
-<p>적대적 예시의 지역 변동을 정화하는 것(큰 $t^ *)$과 전역 구조를 보존하는 것(작은 $t^ *$)의 상충 관계 때문에 <strong>높고 강건한 분류 정확도(high robust classification accuracy)를 얻을 수 있는 좋은 확산 시간 단계(diffsuion timestep) $t^ *$가 존재</strong>한다. 적대적 교란은 보통 작기 때문에 작은 $t^ *$로 제거될 수 있고, 대부분 최적의 $t^ *$는 상대적으로 작다.</p>
+<p>적대적 예시의 지역 변동을 정화하는 것(큰 $t^ *)$과 전역 구조를 보존하는 것(작은 $t^ *$)의 상충 관계 때문에 <strong>높고 강건한 분류 정확도(high robust classification accuracy)를 얻을 수 있는 좋은 확산 시간 단계(diffsuion timestep) $t^ *$가 존재</strong>한다. 적대적 교란은 보통 작기 때문에 작은 $t^ *$로 제거될 수 있고, <strong>대부분 최적의 $t^ *$는 상대적으로 작다.</strong></p>
 
 <h2 id="32-확산-정화에-대한-적응성-공격">3.2 확산 정화에 대한 적응성 공격</h2>
 
 <p>강력한 적응성 공격은 방어 체계의 전체 그래디언트를 계산해야 한다. 그러나 식 (4)에 있는 SDE 솔버를 통해 간단하게 역전파를 하는 것은 계산 메모리(computational memory)에서 제대로 확장되지 않는다. 특히 SDE를 해결하는 데에 쓰이는 함수 평가의 수 N개를 나타내면 필요한 메모리는 O(N) 만큼 증가한다. 이러한 문제 때문에 강력한 적응 공격에 대항하는 본 논문의 기법을 효율적으로 평가하기가 어렵다.</p>
 
-<p>이전의 적대적 정화 기법은 강력한 적응 공격에 대한 메모리 문제 때문에 애를 먹었다. 그래서 그들은 블랙박스 공격에 대해서만 평가를 하거나 전체 그래디언트 계산을 피하도록 평가 전략을 변경했다(예를 들면 그래디언트를 근사해서). 이는 더 표준적인 평가 프로토콜 하에서 적대적 훈련 기법의 비교를 어렵게 했다. 이를 극복하기 위해 이 논문에서는 <em>adjoint method</em>를 제안한다. 이는 SDE의 전체 그래디언트를 메모리 문제 없이 효율적으로 계산할 수 있는 방법이다. 또다른 증가된(augmented) SDE를 해결하는 것으로 SDE의 그래디언트를 얻을 수 있다고 직관적으로 생각할 수 있다.</p>
+<p>이전의 적대적 정화 기법은 강력한 적응 공격에 대한 메모리 문제 때문에 애를 먹었다. 그래서 그들은 블랙박스 공격에 대해서만 평가를 하거나 전체 그래디언트 계산을 피하도록 평가 전략을 변경했다(예를 들면 그래디언트를 근사해서). 이는 더 표준적인 평가 프로토콜 하에서 적대적 훈련 기법의 비교를 어렵게 했다. 이를 극복하기 위해 본 논문에서는 <em>adjoint method</em>를 제안한다. 이는 SDE의 전체 그래디언트를 메모리 문제 없이 효율적으로 계산할 수 있는 방법이다. 또다른 증가된(augmented) SDE를 해결하는 것으로 SDE의 그래디언트를 얻을 수 있다고 직관적으로 생각할 수 있다.</p>
 
 <p>이어지는 명제는 식 (4)에 있는 SDE의 입력 $x(t^ *)$에 대해 목적 함수 $L$의 그래디언트를 계산하는 데에 필요한 증가된 SDE를 제시한다.</p>
 
@@ -518,13 +666,13 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 
 <p><img src="https://user-images.githubusercontent.com/54873618/232223138-6b6bbd62-92b7-448c-b140-e439af30562a.png" alt="image" /></p>
 
-<p>$\partial L \over \partial \hat x(0)$은 식 (4)의 SDE의 결과 $\hat x(0)$에 대한 목적 함수 $L$의 그래디언트다. 그리고,</p>
+<p>$\partial L \over  \partial  \hat x(0)$은 식 (4)의 SDE의 결과 $\hat x(0)$에 대한 목적 함수 $L$의 그래디언트다. 그리고,</p>
 
 <p><img src="https://user-images.githubusercontent.com/54873618/232223141-a8421042-540d-46ab-99d9-489bbb475876.png" alt="image" /></p>
 
 <p>$1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.</p>
 
-<p>이상적으로 만약 SDE 솔버가 작은 수치적 오차를 갖는다면 이 명제로부터 얻은 그래디언트는 참값과 매우 가깝다. 그래디언트 계산이 식 (6)의 증가된 SDE를 해결하는 것으로 변환되었으므로, 우리는 중간 작업을 저장할 필요가 없다. 그러므로 <strong>메모리 비용이 O(1)</strong> 에 그친다. 즉, <em>adjoint method</em>는 식 (4)의 역-시간 SDE를 미분 가능한 연산으로 변환한다(메모리 문제 없이). 식 (3)의 순방향 확산 과정 또한 재매개변수화(reparametrization) 기법을 써서 미분이 가능하기 때문에 <strong>강력한 적응성 공격에 대한 적대적 이미지에 관한 손실 함수의 전체 그래디언트를 쉽게 계산</strong>할 수 있다.</p>
+<p>이상적으로 만약 SDE 솔버가 작은 수치적 오차를 갖는다면 이 명제로부터 얻은 그래디언트는 참값과 매우 가깝다. 그래디언트 계산이 식 (6)의 증가된 SDE를 해결하는 것으로 변환되었으므로, 더 이상 중간 작업을 저장할 필요가 없다. 그러므로 <strong>메모리 비용이 O(1)</strong> 에 그친다. 즉, <em>adjoint method</em>는 식 (4)의 역-시간 SDE를 미분 가능한 연산으로 변환한다(메모리 문제 없이). 식 (3)의 순방향 확산 과정 또한 재매개변수화(reparametrization) 기법을 써서 미분이 가능하기 때문에 <strong>강력한 적응성 공격에 대한 적대적 이미지에 관한 손실 함수의 전체 그래디언트를 쉽게 계산</strong>할 수 있다.</p>
 
 <h1 id="4-related-work">4. Related Work</h1>
 
@@ -549,9 +697,15 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 <p>평가를 위해 세 가지 데이터를 고려한다.</p>
 
 <ol>
-  <li>CIFAR-10</li>
-  <li>CelebA-HQ</li>
-  <li>ImageNet</li>
+  <li>
+    <p>CIFAR-10</p>
+  </li>
+  <li>
+    <p>CelebA-HQ</p>
+  </li>
+  <li>
+    <p>ImageNet</p>
+  </li>
 </ol>
 
 <p>특히, CIFAR-10 및 ImageNet에 대해 표준화된 벤치마크 RobustBench에 의해 보고된 SOTA 방어 기법과 비교한다. 동시에 CIFAR-10 및 CelebA-HQ에 대해서 다른 적대적 정화 방법과도 비교한다.</p>
@@ -559,22 +713,46 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 <p>분류에 대해서는 널리 쓰이는 세 가지 구조를 고려한다.</p>
 
 <ol>
-  <li>ResNet</li>
-  <li>WideResNet</li>
-  <li>ViT</li>
+  <li>
+    <p>ResNet</p>
+  </li>
+  <li>
+    <p>WideResNet</p>
+  </li>
+  <li>
+    <p>ViT</p>
+  </li>
 </ol>
 
 <h3 id="적대적-공격">적대적 공격</h3>
 
-<p>강력한 적응성 공격에 대해서도 기법을 평가한다. 공통적으로 쓰이는 AutoAttack $l_ {\infty}$과 $l_ {2}$위협 모델을 사용하여 적대적 훈련 기법과 비교한다. $l_ p$-norm 공격뿐 아니라 다양하게 적용될 수 있는 DiffPure의 능력을 보이기 위해 부분적으로 변환된 적대적 예시에 대해서도 또한 평가한다. 확산과 잡음 제거 과정에 있는 확률성(stochasticity) 덕분에 이러한 적응성 공격에 대해 Expectation Over Time(EOT)을 적용할 수 있다. EOT는 20을 사용한다. 게다가 다른 적대적 정화 기법과의 공정한 비교를 위해 BPDA+EOT 공격도 적용한다.</p>
+<p>본 논문에서는 다음과 같은 공격에 대해 기법을 평가한다.</p>
+<ul>
+  <li>
+    <p>강력한 적응성 공격</p>
+  </li>
+  <li>
+    <p>적대적 훈련 기법과 비교하기 위해  공통적으로 쓰이는 AutoAttack $l_ {\infty}$과 $l_ {2}$위협 모델을 사용</p>
+  </li>
+  <li>
+    <p>$l_ p$-norm 공격뿐 아니라 다양하게 적용될 수 있는 DiffPure의 능력을 보이기 위해 부분적으로 변환된 적대적 예시(StAdv)에 대해서도 또한 평가한다. 확산과 잡음 제거 과정에 있는 확률성(stochasticity) 덕분에 이러한 적응성 공격에 대해 Expectation Over Time(EOT)을 적용할 수 있다. EOT는 20을 사용한다.</p>
+  </li>
+  <li>
+    <p>다른 적대적 정화 기법과의 공정한 비교를 위해 BPDA+EOT 공격도 적용</p>
+  </li>
+</ul>
 
 <h3 id="평가-지표">평가 지표</h3>
 
 <p>방어 기법의 성능을 평가하기 위해 두 가지 지표를 고려한다.</p>
 
 <ol>
-  <li>표준 정확도(<em>standard accuracy</em>) : 깨끗한 데이터에 대해 방어 기법의 성능을 측정한다. 이는 각 데이터 세트에 있는 모든 테스트 세트를 평가한다.</li>
-  <li>강건한 정확도(<em>robust accuracy</em>) : 적대적 공격으로부터 생성된 적대적 예시에 대한 성능을 측정한다. DiffPure에 적응성 공격을 가하는 데에는 많은 비용이 소모된다. 따라서 강건한 정확도를 측정하기 위해 테스트 데이터 세트에서 임의로 추출한 512개의 고정된 이미지에 대해서만 평가를 진행한다(DiffPure와 이전 모델 모두). 한 가지 알아야 할 사실은, 테스트 데이터 세트 전체를 적용했을 때와 그것에서 추출한 일부 데이터 세트에만 적용했을 때 모두 대부분의 베이스 라인의 강건한 정확도는 달라지지 않는다는 것이다.</li>
+  <li>
+    <p>표준 정확도(<em>standard accuracy</em>) : <strong>깨끗한 데이터에 대해 방어 기법의 성능을 측정</strong>한다. 이는 각 데이터 세트에 있는 모든 테스트 세트를 평가한다.</p>
+  </li>
+  <li>
+    <p>강건한 정확도(<em>robust accuracy</em>) : <strong>적대적 공격으로부터 생성된 적대적 예시에 대한 성능을 측정</strong>한다. DiffPure에 적응성 공격을 가하는 데에는 많은 비용이 소모된다. 따라서 강건한 정확도를 측정하기 위해 테스트 데이터 세트에서 임의로 추출한 512개의 고정된 이미지에 대해서만 평가를 진행한다(DiffPure와 이전 모델 모두). 한 가지 알아야 할 사실은, 테스트 데이터 세트 전체를 적용했을 때와 그것에서 추출한 일부 데이터 세트에만 적용했을 때 모두 대부분의 베이스 라인의 강건한 정확도는 달라지지 않는다는 것이다.</p>
+  </li>
 </ol>
 
 <h2 id="result">Result</h2>
@@ -605,7 +783,7 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 
 <h2 id="53-보이지-않는-위협에-대한-방어">5.3 보이지 않는 위협에 대한 방어</h2>
 
-<p>적대적 훈련의 약점은 보이지 않는 공격에 대해 취약하다는 점이다. 모델이 특정 위협 모델에 강건하다고 하더라도 다른 위협 모델에 취약하다. 이를 확인하기 위해 세 가지 공격, $l _ \infty, l_ 2$ 그리고 StAdv를 이용하여 평가하였다. 적대적 훈련 기법은 특정 공격만 훈련하고 다른 공격에 대해서는 훈련하지 않았다. 예를 들어 아래 테이블에서 첫 번째 기법은 $l_ \infty$ 공격에 대해서만 훈련하였고, 따라서 나머지는 보이지 않는 위협과 같다. 아래 테이블에서 보이는 위협(즉, 이미 훈련한 공격)은 회색 글자로 하였다.</p>
+<p><strong>적대적 훈련의 약점은 보이지 않는 공격에 대해 취약하다는 점</strong>이다. 모델이 특정 위협 모델에 강건하다고 하더라도 다른 위협 모델에 취약하다. 이를 확인하기 위해 세 가지 공격, $l _ \infty, l_ 2$ 그리고 StAdv를 이용하여 평가하였다. 적대적 훈련 기법은 특정 공격만 훈련하고 다른 공격에 대해서는 훈련하지 않았다. 예를 들어 아래 테이블에서 첫 번째 기법은 $l_ \infty$ 공격에 대해서만 훈련하였고, 따라서 나머지는 보이지 않는 위협과 같다. 아래 테이블에서 보이는 위협(즉, 이미 훈련한 공격)은 회색 글자로 하였다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/54873618/232223175-47ccbaca-7c3f-4bbd-beae-f5b0b98c897d.png" alt="image" /></p>
 
@@ -613,7 +791,7 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 
 <h2 id="54-다른-정화-기법과-비교">5.4 다른 정화 기법과 비교</h2>
 
-<p>대부분의 적대적 정화 기법은 최적화(optimization) 또는 표본 추출 루프(sampling loop)를 방어 과정에 포함한다. 때문에 이러한 기법들은 AutoAttack과 같은 가장 강력한 화이트-박스 적응 공격(strongest white-box adaptive attacks)에 대해 직접적으로 평가되지 못한다. 이를 해결하기 위해 우리는 BPDA+EOT 공격을 사용하였다. 이는 특정 정화 기법에 대해 설계된 적응성 공격이고 DiffPure과 베이스라인을 공정하게 비교할 것이다.</p>
+<p>대부분의 적대적 정화 기법은 최적화(optimization) 또는 표본 추출 루프(sampling loop)를 방어 과정에 포함한다. 때문에 이러한 기법들은 AutoAttack과 같은 가장 강력한 화이트-박스 적응 공격(strongest white-box adaptive attacks)에 대해 직접적으로 평가되지 못한다. 이를 해결하기 위해 본 논문에서는 BPDA+EOT 공격을 사용하였다. 이는 특정 정화 기법에 대해 설계된 적응성 공격이고 DiffPure과 베이스라인을 공정하게 비교할 것이다.</p>
 
 <h3 id="celeba-hq">CelebA-HQ</h3>
 
@@ -640,16 +818,26 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 <p>본 논문의 결론은 다음과 같다.</p>
 
 <ol>
-  <li>새로운 기법 <strong><em>DiffPure</em></strong>을 선보였다. 이는 확산 모델을 사용하여 적대적 예시를 정화한다. 이는 이전의 다른 모델에 비해 우수한 성능을 보였다.</li>
-  <li><strong><em>Adjoint method</em></strong>를 제시하였다. 이는 강력한 화이트-박스 적응 공격을 평가하기 위해 SDE 솔버의 전체 그래디언트를 계산한다.</li>
-  <li>DiffPure의 강건성을 보이기 위해 다양한 데이터(CIFAR-10, ImageNet 등)를 통해 이를 SOTA 모델과 비교하여 평가하였다. AutoAttack, StAdv와 같은 강력한 적응성 공격을 방어하는 데에 DiffPure는 이전의 다른 접근과 비교하여 우수한 성능을 보였다.</li>
+  <li>
+    <p>새로운 기법 <strong><em>DiffPure</em></strong>을 선보였다. 이는 <strong>확산 모델을 사용하여 적대적 예시를 정화</strong>한다. 이는 이전의 다른 모델에 비해 우수한 성능을 보였다.</p>
+  </li>
+  <li>
+    <p><strong><em>Adjoint method</em></strong>를 제시하였다. 이는 강력한 화이트-박스 적응 공격을 평가하기 위해 SDE 솔버의 전체 그래디언트를 계산한다.</p>
+  </li>
+  <li>
+    <p>DiffPure의 강건성을 보이기 위해 다양한 데이터(CIFAR-10, ImageNet 등)를 통해 이를 SOTA 모델과 비교하여 평가하였다. AutoAttack, StAdv와 같은 강력한 적응성 공격을 방어하는 데에 <strong>DiffPure는 이전의 다른 접근과 비교하여 우수한 성능</strong>을 보였다.</p>
+  </li>
 </ol>
 
 <p>위와 같은 많은 개선에도 불구하고 DiffPure는 다음과 같은 두 가지 중요한 한계를 갖는다.</p>
 
 <ol>
-  <li>정화 과정은 많은 시간을 소요한다. 이는 해당 기법이 실시간 작업에는 적합하지 않다는 사실을 뜻한다.</li>
-  <li>확산 모델은 이미지의 색에 민감하다. 이는 해당 기법이 색에 연관된 오염을 제대로 방어하지 못한다는 사실을 나타낸다.</li>
+  <li>
+    <p>정화 과정은 많은 시간을 소요한다. 이는 해당 기법이 실시간 작업에는 적합하지 않다는 사실을 뜻한다.</p>
+  </li>
+  <li>
+    <p>확산 모델은 이미지의 색에 민감하다. 이는 해당 기법이 색에 연관된 오염을 제대로 방어하지 못한다는 사실을 나타낸다.</p>
+  </li>
 </ol>
 
 <p>이러한 두 가지 한계를 극복하기 위해 확산 모델 가속화(accelerating)에 대한 최근 연구를 적용하거나 모델의 강건성을 위해 새로운 확산 모델을 설계하는 등의 관심을 기울일 필요가 있다.</p>
@@ -659,10 +847,18 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
 <h1 id="author-information">Author Information</h1>
 
 <ul>
-  <li>Name : SeongWon Kim(김성원)</li>
-  <li>Master student in StatHT, Graduate School of Data Science, KAIST</li>
-  <li>Email : ksw888@kaist.ac.kr</li>
-  <li>github : https://github.com/Won-Seong/</li>
+  <li>
+    <p>Name : SeongWon Kim(김성원)</p>
+  </li>
+  <li>
+    <p>Master student in StatHT, Graduate School of Data Science, KAIST</p>
+  </li>
+  <li>
+    <p>Email : ksw888@kaist.ac.kr</p>
+  </li>
+  <li>
+    <p>github : https://github.com/Won-Seong/</p>
+  </li>
 </ul>
 
     </div>
@@ -684,7 +880,7 @@ $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \ g_ {rev}(t) := \sq
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

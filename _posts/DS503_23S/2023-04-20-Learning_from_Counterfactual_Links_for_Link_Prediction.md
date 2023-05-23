@@ -2,6 +2,8 @@
 title:  "[ICML 2022] Learning from Counterfactual Links for Link Prediction"
 permalink: Learning_from_Counterfactual_Links_for_Link_Prediction.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # [ICML 2022] [Learning from Counterfactual Links for Link Prediction](https://arxiv.org/pdf/2106.02172.pdf)
@@ -45,8 +47,8 @@ Causal Inference에 대한 자세한 설명의 경우, [Casual Inference in Stat
 Counterfactual Question을 구성하는 요소는 총 3가지가 있는데, $T$는 potential intervention(treatment)의 집합, $X$는 contexts의 집합, $Y$는 potential outcome이다. 간단한 예시를 들자면 환자 $x \in X$에 대해 생각해볼 수 있는 intervention으로는 환자에게 주어지는 treatments(여기서는 치료의 의미를 가진다)를 고려해볼 수 있고, 각 intervention에 대응되는 potential outcome으로 혈당량 $Y_ t(x)$를 생각해볼 수 있다. 여기서 중요한 사실은
 > 주어진 context(여기서는 환자)에 대해 현실에서는 단 하나의 potential outcome만 관찰할 수 있다.
 
-이다. 즉, 실제로 관측된 것이 아닌 counterfactual(potential outcome)에 대해서는 적절한 값을 추론해야 하는 것이다. 이러한 조건 속에서 관심 포인트는 바로 각 context $x$에 대해 Individualized Treatment Effect (ITE)를 계산해보고 싶은 것이다. 이 값의 의미를 알아보기 위해 우선 Binary한 intervention(여기서 부터는 treatment라는 용어로 다시 설명하겠다) set  $T = \left\{0,1\right\}$ ( 통상적으로 값이 1일 경우에는 "treated", 0일 경우에는 "control"라고 표현한다. ) 을 가정하자. 이 경우 $ITE = Y_ {1}(x)-Y_ {0}(x)$으로 정의 되는데, 즉 ITE는 한 context에 대해서 treatment에 따른 potential outcome의 값의 차이를 의미한다. 이때 한 outcome밖에 알 수 없다는 것을 알고 있으므로, 자연스럽게 ITE를 추정해야 함을 알 수 있다. 이를 위한 기본적인 approach는 direct modeling으로, 
-> 주어진 $n$ samples $\left\{(x_ i,t_ i,y_ i^F)\right\}_ {i=1}^n$ where $ y_ i^F = t_ iY_ 1(x_ i) + (1-t_ i)Y_ 0(x_ i)$ (Factual Outcome) 에 대해 함수 $ h : X \times T \rightarrow Y$ s.t $ h(x_ i, t_ i) \approx y_ i^F$를 잘 학습하자.
+이다. 즉, 실제로 관측된 것이 아닌 counterfactual(potential outcome)에 대해서는 적절한 값을 추론해야 하는 것이다. 이러한 조건 속에서 관심 포인트는 바로 각 context $x$에 대해 Individualized Treatment Effect (ITE)를 계산해보고 싶은 것이다. 이 값의 의미를 알아보기 위해 우선 Binary한 intervention(여기서 부터는 treatment라는 용어로 다시 설명하겠다) set  $T = \left\lbrace 0,1\right\rbrace$ ( 통상적으로 값이 1일 경우에는 "treated", 0일 경우에는 "control"라고 표현한다. ) 을 가정하자. 이 경우 $ITE = Y_ {1}(x)-Y_ {0}(x)$으로 정의 되는데, 즉 ITE는 한 context에 대해서 treatment에 따른 potential outcome의 값의 차이를 의미한다. 이때 한 outcome밖에 알 수 없다는 것을 알고 있으므로, 자연스럽게 ITE를 추정해야 함을 알 수 있다. 이를 위한 기본적인 approach는 direct modeling으로, 
+> 주어진 $n$ samples $\left\lbrace(x_ i,t_ i,y_ i^F)\right\rbrace_ {i=1}^n$ where $ y_ i^F = t_ iY_ 1(x_ i) + (1-t_ i)Y_ 0(x_ i)$ (Factual Outcome) 에 대해 함수 $ h : X \times T \rightarrow Y$ s.t $ h(x_ i, t_ i) \approx y_ i^F$를 잘 학습하자.
 
 이렇게 될 경우, estimated ITE는 다음과 같다.
 
@@ -82,7 +84,7 @@ Link Prediction의 공통적인 concept은 주어진 observed graph $G$에서 �
 ## **4.Proposed Method**
 
 ### __Leveraging Causal Model__
-Learning Representations for Counterfactual Inference 섹션에서 설명했던 내용을 Link prediction task에 적용해보면 된다. $A$는 observed adjacency matrix로, 관측된 factual outcome을 의미하고 $A^{CF}$는 treatment가 다를 때의 counterfactual link 정보를 담고 있는 unobserved matrix로써, counterfactual outcome을 의미한다. 이때 $T\in\left\{0,1\right\}^{N\times N}$을 binary factual treatment matrix로 정의하는데, 이때 $T_ {i,j}$는 node pair $(v_ i,v_ j)$의 treatment를 의미한다. $T^{CF}$는 counterfactual treatment matrix로써 Binary treatment 상황이기에, $T_ {i,j}^{CF}=1-T_ {i,j}$로 정의된다.
+Learning Representations for Counterfactual Inference 섹션에서 설명했던 내용을 Link prediction task에 적용해보면 된다. $A$는 observed adjacency matrix로, 관측된 factual outcome을 의미하고 $A^{CF}$는 treatment가 다를 때의 counterfactual link 정보를 담고 있는 unobserved matrix로써, counterfactual outcome을 의미한다. 이때 $T\in\left\lbrace 0,1\right\rbrace^{N\times N}$을 binary factual treatment matrix로 정의하는데, 이때 $T_ {i,j}$는 node pair $(v_ i,v_ j)$의 treatment를 의미한다. $T^{CF}$는 counterfactual treatment matrix로써 Binary treatment 상황이기에, $T_ {i,j}^{CF}=1-T_ {i,j}$로 정의된다.
 
 여기서 제안하는 방법론의 목표는 ITE를 잘 찾고자 하는 고전적인 Causal Inference와는 달리 ITE 값을 이용하여, edge existence를 잘 예측할 수 있는 node의 representation을 잘 학습하고자 하는 것이다. 이러한 차이점은 아래의 figure에서 확인해볼 수 있다.
 
@@ -106,7 +108,7 @@ Motivation에서도 neighborhood과 같은 graph structural information이 너�
 
 $P^F$를 observed contexts와 treatment의 factual distribution, $P^{CF}$를 observed context와 반대되는 treatment로 구성된 counterfactual distribution이라고 하자. 
 
-이에 대응되는 empirical factual distribution $\hat{P}^F=\left\{ (v_i,v_j,T_{i,j} ) \right\}_{i,j=1}^N \sim P^F$, empirical counterfactual distribution $\hat{P}^{CF}=\left\{ (v_i,v_j,T_{i,j}^{CF} ) \right\}_{i,j=1}^N \sim P^{CF}$로 저자들은 정의하였다. 이러한 정의는 이 논문의 방법론이 traditional link prediction method와는 달리 counterfactual outcome또한 이용함과 동시에 후술할 population간의 discrepancy를 설명하기 위해 등장했다고 보인다.
+이에 대응되는 empirical factual distribution $\hat{P}^F=\left\lbrace (v_i,v_j,T_ {i,j} ) \right\rbrace_ {i,j=1}^N \sim P^F$, empirical counterfactual distribution $\hat{P}^{CF}=\left\lbrace (v_i,v_j,T_ {i,j}^{CF} ) \right\rbrace_ {i,j=1}^N \sim P^{CF}$로 저자들은 정의하였다. 이러한 정의는 이 논문의 방법론이 traditional link prediction method와는 달리 counterfactual outcome또한 이용함과 동시에 후술할 population간의 discrepancy를 설명하기 위해 등장했다고 보인다.
 
 ### __Learning from Counterfactual Links (Training Framework)__
 
@@ -132,7 +134,7 @@ Loss의 경우, [Learning Representations for Counterfactual Inference](http://p
 
 ![CFLP](https://user-images.githubusercontent.com/74266785/232084288-681da1a5-87bb-4f99-86c4-44851f077e3f.PNG)
 
-여기서 decoder fine-tuning을 따로 진행하는 이유는, discrepancy regularization term인 $L_{disc}$의 경우 graph encoder $f$에 의해 학습된 node pair의 representations으로부터 계산되는데, 이러면 decoder g는 두 empirical distribution 간의 discrepancy가 충분히 해소되지 않은 상황에서의 node representations으로 학습하기 때문이다. 따라서 이를 보완하기 위해 early stage에서 좋은 quality의 node representations를 학습하게 한 후, encoder는 freeze하고 factual data를 통해 g를 fine-tuning 하게 된다.
+여기서 decoder fine-tuning을 따로 진행하는 이유는, discrepancy regularization term인 $L_ {disc}$의 경우 graph encoder $f$에 의해 학습된 node pair의 representations으로부터 계산되는데, 이러면 decoder g는 두 empirical distribution 간의 discrepancy가 충분히 해소되지 않은 상황에서의 node representations으로 학습하기 때문이다. 따라서 이를 보완하기 위해 early stage에서 좋은 quality의 node representations를 학습하게 한 후, encoder는 freeze하고 factual data를 통해 g를 fine-tuning 하게 된다.
 
 끝으로, 이들의 framework를 아래 한 장의 그림으로 요약해볼 수 있다.
 
@@ -153,7 +155,7 @@ Link prediction의 performance를 비교하기 위해 선택한 baseline으로�
 ![Table2](https://user-images.githubusercontent.com/74266785/232090170-70524e0a-1c3d-4eae-aad2-fbcb7b397ca6.PNG)
 ![Table3](https://user-images.githubusercontent.com/74266785/232090181-b94fb47a-3d86-41dc-92df-10d9739f2171.PNG)
 
-결과를 해석해보자면, Hits@20에서는 JKNet으로 CFLP 방식을 이용하였을 때 5개의 dataset에 대하여 좋은 성능을 내었음을 알 수 있고, AUC를 측정하였을 때에도 좋은 성능을 내었음을 알 수 있다. 결과에 대한 해석을 저자가 많이 서술해놓지 않아 개인적으로 아쉬웠던 부분이다.
+결과를 해석해보자면, Hits@20에서는 JKNet으로 CFLP 방식을 이용하였을 때 5개의 dataset에 대하여 좋은 성능을 내었음을 알 수 있고, AUC를 측정하였을 때에도 좋은 성능을 내었음을 알 수 있다. 결과에 대한 해석을 저자가 많이 서술해놓지 않아 개인적으로 아쉬웠던 부분이다. 대부분의 Dataset에서 좋은 성능을 낼 수 있었던 원인으로는, 다른 Method들과는 달리 Counterfactual Links(Treatement Variable은 다르면서, 나와 가장 유사한 Link) 에 대한 개념을 고려하여 좀 더 풍부한 학습을 진행할 수 있었기 때문에, Test dataset에 대해 추론하는 과정에서 더 좋은 성능을 낼 수 있었다고 본다.
 
 ### __ATE with Different Treatments__
 
@@ -164,9 +166,8 @@ Link prediction의 performance를 비교하기 위해 선택한 baseline으로�
 > Q1. CFLP가 observed averaged treatment effect (ATE)를 충분히 학습할 수 있는가?\
 > Q2. estimated ATE와 prediction performance와는 어떤 관계가 있는가?
 
-( 여기서 ATE는 각 context에 대해 ITE값의 평균을 취해주는 것으로써, $E_ {z \sim Z}\text{ITE}(z)$으로 정의되고, 큰 값일수록 Treatment와 Outcome이 강한 causal relation을 갖고 있음을 의미한다 )
-
-만약 Q1의 답이 맞다면, Q2에 대한 대답을 통해 관측된 ATE를 바탕으로 어떻게 treatment를 선정하는지 알 수 있다. 이를 위해 Q1에 대한 답을 하기 위해서는 observed ATE($\hat{ATE}_{obs}$)와 estimated ATE($\hat{ATE}_{est}$)간의 비교를 진행해야 한다. 이를 위해 아래의 수식을 바탕으로 각각이 정의된다. ( 정의의 배경을 이해하고 싶다면 [ICML 16'] Learning Representations for Counterfactual Inference 섹션의 estimated ITE를 생각해보자 )
+( 여기서 ATE는 각 context에 대해 ITE값의 평균을 취해주는 것으로써, $E_ {z \sim Z}\text{ITE}(z)$으로 정의되고, 큰 값일수록 Treatment와 Outcome이 강한 causal relation을 갖고 있음을 의미한다. )
+만약 Q1의 답이 맞다면, Q2에 대한 대답을 통해 관측된 ATE를 바탕으로 어떻게 treatment를 선정하는지 알 수 있다. 이를 위해 Q1에 대한 답을 하기 위해서는 observed ATE와 estimated ATE 간의 비교를 진행해야 한다. 이를 위해 아래의 수식을 바탕으로 각각이 정의된다. ( 정의의 배경을 이해하고 싶다면 [ICML 16'] Learning Representations for Counterfactual Inference 섹션의 estimated ITE를 생각해보자 )
 
 ![ATE Def](https://user-images.githubusercontent.com/74266785/232092671-35073238-7710-4c45-afbf-1cae692754d8.PNG)
 
@@ -186,6 +187,11 @@ Link prediction의 performance를 비교하기 위해 선택한 baseline으로�
 ## **6. Conclusion**
 
 위 논문은 counterfactual link의 novel concept을 제안하고, causal inference의 framework를 활용하여 link prediction의 성능을 끌어올렸다. [Learning Representations for Counterfactual Inference](http://proceedings.mlr.press/v48/johansson16.pdf)과 Causal Inference에 이론적 기반을 두고, 이를 link prediction의 task에 적용하였는데, global graph structure와 link existence 간의 causal relation을 알아내고자 하는 간단한 아이디어로 좋은 성능을 낼 수 있었다는 점이 인상적이었다.
+
+---
+
+## **7. Future Work**
+해볼 수 있는 Future Work로는 단순히 이 개념을 Link에만 국한할 것이 아니라, counterfactual graph의 개념을 도입하여 graph learning에 이용해볼 수 있을 것으로 생각된다. 물론 이를 위해서는 Link의 유사도를 측정했던 방식과는 달리 Graph간의 유사성을 측정할 수 있는 graph kernel과 같은 Metric을 이용해야할 것이다. 이를 통해 counterfactual graph를 training에서 true와 같이 살펴본다면, 좀 더 좋은 representation learning을 할 수 있을 것으로 기대된다. 또한 Node나 Edge type이 다를 수 있는 경우, 즉 Heterogeneous graph에도 적용해볼 수 있다면 좋은 future work가 될 수 있을 것이라고 생각한다. 응용 방안으로는 추천시스템의 데이터를 user-item의 graph 형태로 보고, user-item link에 대한 Counterfactual link를 얻어내어 학습에 이용해봄으로써 좀 더 정확한 추천 성능을 얻어낼 수 있을 것이라고 생각한다.
 
 ---
 

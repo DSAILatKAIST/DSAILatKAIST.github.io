@@ -2,14 +2,15 @@
 title:  "[ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle"
 permalink: EASE_Extractive_Abstractive_Summarization_End_to_End_using_the_Information_Bottleneck_Principle.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
-# [ACL 2021] EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle
 ## 0. Background
 요약은 상대적으로 긴 문장, 혹은 글에 대해서 중요한 문장으로 간추려 짧은 글로 만들어내는 작업을 의미합니다. 이러한 `텍스트 요약(Text Summarization)`은 `추출요약방식(Extractive summarization)`과 `생성요약방식(Abstractive summarization)`으로 나눠집니다.`추출 요약`은 주어진 글에서 중요 단어 및 문장을 그대로 발췌해서 요약을 하는 것을 말합니다. 요약하려는 글에서 그대로 가져오기 때문에 알고리즘이 어떤 단어와 문장을 중요하다고 판단해서 요약을 했는지 쉽게 알 수 있습니다. 그렇지만 추출요약은 단어 및 문장이 선택되고 재배치되는 것으로, 요약의 결과물은 인간의 요약에 비해 자연스러움, 응집성이 부족합니다. 반면, `생성요약`의 경우 알고리즘이 기존의 단어 및 문장에 대해서 새롭게 바꾸거나 생성하여 요약을 만들어 냅니다. 이는 상대적으로 추출요약에 비해서 자연스러움, 응집성에서 이점을 가져갈 수 있지만, 요약하려는 글의 어떤 단어와 문장에서 어떻게 요약이 된건지 알기가 어렵습니다. 
 
 ## 1. Problem Definition
-Pretrained된 언어 모델 (BART, T5, 등)은 요약, 기계번역과 같은 여러 분야에서 좋은 성능을 보여주고 있습니다. Pretraining 과정이 없는 모델들에 비해 요약 분야에서 높은 충실도(fidelity)를 가지지만 생성 요약에 대한 `해석가능성(interpretability)`의 부족은 Pretrained된 언어 모델이 널리 사용됨에 있어 장애물로 남아있습니다. 
+Pretrained된 언어 모델 (BART, T5, 등)은 요약, 기계번역과 같은 여러 분야에서 좋은 성능을 보여주고 있습니다. Pretraining 과정이 없는 모델들에 비해 요약 분야에서 높은 충실도(fidelity)를 가지지만 생성 요약에 대한 `해석가능성(interpretability)`의 부족은 Pretrained된 언어 모델이 널리 사용됨에 있어 장애물로 남아있습니다. 이러한 Pretrained된 언어 모델은 `생성요약방식(Abstractive summarization)`을 통해 요약문을 생성하기 때문에 `해석가능성`이 부족하게 됩니다.  
 Pretrained된 언어 모델이 그렇지 않은 모델에 비해서 더 자연스럽고 좋은 성능을 가지는 요약문을 도출한다고 해도, 왜 그런 요약을 하게 되었는지, 어떤 근거(문장)을 통해서 알기가 어렵다면, 사용에 제약이 생길 수 있습니다. 사용자가 납득할만한 근거를 제시하지 못한다면, 실제 사용에 있어 사용자는 모델이 도출한 정확도를 의심해야하고, 근거를 다시 파악해야합니다. 
 
 결론적으로 글을 다시 읽으면서 사용자 본인이 문서 요약을 다시 해야만 비로서 신뢰도 있는 요약을 얻을 수 있게 되는 것입니다. 모델이 요약한 근거도 제시하고, 사람처럼 자연스러운 요약문을 제공해준다면 더할나위없이 훌륭한 모델일 것입니다. 그러한 모델을 만들고자 시도한 논문이 바로 `2021년 ACL`에 소개된 `EASE:Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle` 입니다. 

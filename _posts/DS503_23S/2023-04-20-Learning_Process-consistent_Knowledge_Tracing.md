@@ -2,6 +2,8 @@
 title:  "[KDD 2021] Learning Process-consistent Knowledge Tracing"
 permalink: Learning_Process-consistent_Knowledge_Tracing.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # Learning Process-consistent Knowledge Tracing
@@ -9,8 +11,7 @@ tags: [reviews]
 
 # 1.INTRODUCTION
 
-Knowledge Tracing은 학생의 문제(exercise) 혹은 문제의 개념(Knowledge concept)의 지식의 정도(knowledge state)가 시간에 따라 어떻게 변화하는지, 다음 문제를 맞출 수 있을지 없을지 예측하는 Task입니다. 예를 들어 산타토익과 같은 문제 풀이 앱을 활용할 때 기존 사용자가 푼 문제 1~6를 학습해 사용자의 학습 수준을 유추하고 이를 활용하여 문제 7,8,9,10의 정오답을 예측하는 것입니다. 
-
+Knowledge Tracing은 학생의 문제(exercise) 혹은 문제의 개념(Knowledge concept)의 지식의 정도(knowledge state)가 시간에 따라 어떻게 변화하는지, 다음 문제를 맞출 수 있을지 없을지 예측하는 Task입니다. 예를 들어 산타토익과 같은 문제 풀이 앱을 활용할 때 기존 사용자가 푼 문제 1~6를 학습해 사용자의 학습 수준을 유추하고 이를 활용하여 문제 7,8,9,10의 정오답을 예측하는 것입니다. 즉, 지식추적이란 학생들의 과거 풀이 이력 데이터를 기반으로 하여 시간의 흐름에 따른 학생의 지식 수준을 모델링 하는 기법으로, 학생의 미래 학습 수행능력을 예측하기 위하여 활용됩니다. 전통적으로는 BKT(Bayesian Knowledge Tracing)모델이 대표적으로 사용되어 왔으나 최근에는 DKT(Deep Knowledge Tracing) 모델이 많이 활용되고 있습니다. DKT 모델은 순환신경망(RNN)에 기반하여 시간의 흐름에 따라 유동적으로 변화하는 학생의 잠재적 지식 수준을 표현하는 모델로, 학생의 과거 문항 정ㆍ오답 데이터를 바탕으로 문항 간 패턴을 탐지한 후 학생이 앞으로 풀지 않은 문항에 대한 정답 확률을 예측합니다.
 
 
 # 2.MOTIVATION 
@@ -72,9 +73,9 @@ Figure 2와 같이, LPKT는 각 학습 단계에서 세 가지 모듈로 구성�
 
 \* Learning Module : 이전 학습 상호작용과 비교하여 학습 효과를 모델링합니다.
 
-\* Forget Module :시간이 지남에 따라 얼마나 많은 지식이 잊혀질지를 측정하는 데 사용됩니다. 이후 학습 효과와 망각된 지식은 학생의 이전 지식 상태를 업데이트하기 위해 활용됩니다.
+\* Forgetting Module :시간이 지남에 따라 얼마나 많은 지식이 잊혀질지를 측정하는 데 사용됩니다. 이후 학습 효과와 망각된 지식은 학생의 이전 지식 상태를 업데이트하기 위해 활용됩니다.
 
-\* Prdect Module : 학생의 최신 지식 상태에 따라 다음 연습문제에서의 성적을 예측하기 위해 사용됩니다.
+\* Prdecting Module : 학생의 최신 지식 상태에 따라 다음 연습문제에서의 성적을 예측하기 위해 사용됩니다.
 
 
 ### 3.3.1 Learning Module 
@@ -105,7 +106,7 @@ $LG_t$를 계산한 후, 학생들의 지식 상태에 추가된 역할을 하�
 
 \* $\Gamma_{t}^{f} = \sigma\left(W_{4}^T \left[h_{t-1} \oplus LG_{t} \oplus it_{t} \right] + b{4}\right)$
 
-\* $h_t = LG_t + \Gamma^{f}_{t} · h_{t−1}$
+\* $h_{t} = LG_{t} + \Gamma^{f}_{t} · h_{t−1}$
 
 
 ### 3.3.3 Predicting Module
@@ -125,19 +126,21 @@ $LG_t$를 계산한 후, 학생들의 지식 상태에 추가된 역할을 하�
 
 LPKT는 학생의 학습 과정을 추적하여 학생의 지식 상태 변화를 모델링하는 방법입니다. LPKT를 사용하면 학생들이 틀리거나 맞은 학습 상호작용에서 얻은 학습 지식을 습득할 수 있으며, 학생이 특정 개념을 풀지 않으면 해당 개념에 대한 지식 상태가 점차적으로 감소한다는 것을 확인할 수 있습니다. 또한 학생의 지식 상태 변화 과정은 그의 학습 과정과 일관성이 있으며, 학생이 새로운 지식을 습득함에 따라 지식 상태가 증가하고, 마지막 학습 상호작용에서는 일정 수준의 감소가 나타난다는 것을 알 수 있습니다. Figure 1과 Figure 3를 통해 LPKT가 학생의 지식 상태 변화를 추적하는 능력을 보여줍니다.
 
+figure 3-b에서 주황색 선이 의미하는바는 초기 KC의 state를 의미합니다. 시간이 지남에 따라서 파란색 선으로 KC state 즉, 지식의 상태가 확장이 되고, 초록색 선이 의미하는바는 지식 상태의 가장 큰 값으로 본 논문에서는 1을 지칭하고 있습니다.
+
 ## 4.2 RQ2 Does our proposed LPKT model outperform the state-ofthe-art knowledge model on student performance prediction?
 
 ![table1](https://user-images.githubusercontent.com/59594139/232192149-9d15f58d-f3b8-4ecc-9392-30773da34bc1.png)
 
 
-Table 2에서는 모든 벤치마크 모델과 LPKT를 학생 성적 예측에서 비교하고 5개의 test fold 에서의 평균 결과를 보여줍니다. 모든 데이터셋에서 실험을 수행하여 모든 모델의 성능을 종합적으로 평가하기 위해 RMSE, AUC, ACC 및 Pearson 상관계수(r2) 제곱으로 성능을 평가합니다.
+Table 2에서는 모든 벤치마크 모델과 LPKT를 학생 성적 예측에서 비교하고 5개의 test fold 에서의 평균 결과를 보여줍니다. 모든 데이터셋에서 실험을 수행하여 모든 모델의 성능을 종합적으로 평가하기 위해 RMSE, AUC, ACC 및 Pearson 상관계수(r2) 제곱으로 성능을 평가합니다. 또한, LPKT는 AKT보다 학습 시퀀스가 짧을 때 더 나은 결과를 보이며, 이는 LPKT가 학습 과정을 더 잘 모델링하기 때문입니다.
 
 
 ## 4.3 RQ3 How does the learning module, forgetting module, and time information in LPKT impact the knowledge tracing result?
 
 ![table2](https://user-images.githubusercontent.com/59594139/232192198-31ca4e48-e143-41a0-a21b-d16e2309c3c7.png)
 
-LPKT에는 3가지 변형이 있으며, 각각은 LPKT의 하나의 모듈을 제거하여 만들어졌습니다. 실험 결과, Forgetting 모듈을 고려하지 않는다면 예측 결과가 가장 크게 감소하며, Learning gain을 고려하는 것이 Learning outcome만 고려하는 것보다 더 좋은 예측 결과를 보입니다. Answer time과 Interval time 정보는 빠뜨리면 학습 과정을 정확하게 모델링하기 어렵습니다. 또한, LPKT는 AKT보다 학습 시퀀스가 짧을 때 더 나은 결과를 보이며, 이는 LPKT가 학습 과정을 더 잘 모델링하기 때문입니다.
+LPKT에는 3가지 변형이 있으며, 각각은 LPKT의 하나의 모듈을 제거하여 만들어졌습니다. 실험 결과, Forgetting 모듈을 고려하지 않는다면 예측 결과가 가장 크게 감소하며, Learning gain을 고려하는 것이 Learning outcome만 고려하는 것보다 더 좋은 예측 결과를 보입니다. Answer time과 Interval time 정보는 빠뜨리면 학습 과정을 정확하게 모델링하기 어렵습니다. 
 
 
 ## 4.4 RQ4 Can LPKT learn meaningful representations of exercises? 

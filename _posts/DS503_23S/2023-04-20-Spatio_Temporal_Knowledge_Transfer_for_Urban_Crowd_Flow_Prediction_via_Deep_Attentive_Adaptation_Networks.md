@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# [TITS-21]Spatio-Temporal_Knowledge_Transfer_for_Urban_Crowd_Flow_Prediction_via_Deep_Attentive_Adaptation_Networks
-
 # 0. Overview
 
 - Title : Spatio-Temporal Knowledge Transfer for Urban Crowd Flow Prediction via Deep Attentive Adaptation Networks
@@ -16,12 +14,12 @@ usemathjax: true
 - Publish : TITS (IEEE Transactions on Intelligent Transportation Systems)
 
 <aside>
-💡 **How to transfer spatio-temporal knowledge well, between different two domains?**
+💡 How to transfer spatio-temporal knowledge well, between different two domains?
 
 </aside>
 
 <aside>
-💡 **We propose the ST-DAAN framework : ConvLSTM + DAN + Attention**
+💡 We propose the ST-DAAN framework : ConvLSTM + DAN + Attention
 
 </aside>
 
@@ -36,12 +34,12 @@ usemathjax: true
     - DeepTransport : predict the traffic data within a transport network (CNN+RNN)
 
 <aside>
-🥲 **하지만, 현실에서 시공간 정보는 그리 풍부하지 않음 → DL 쉽게 적용할 수 없음**
+🥲 하지만, 현실에서 시공간 정보는 그리 풍부하지 않음 → DL 쉽게 적용할 수 없음
 
 </aside>
 
 <aside>
-🥲 **더불어 앞서 언급한 모델들 = 다른 시공간 정보에도 적용할 만큼 General 하지 않음**
+🥲 더불어 앞서 언급한 모델들 = 다른 시공간 정보에도 적용할 만큼 General 하지 않음
 
 </aside>
 
@@ -106,10 +104,6 @@ usemathjax: true
 
 ## 1) Representaion Learning (ConvLSTM)
 
-![convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 hidden tensor set ‘H’로 변한다. H는 이후 3D Convolution with MMD을 통과해 feature tensor set ‘F’가 된다. 파란색, 살구색 tensor의 경우 CNN을 거쳐 나오는 차원의 수가 불명확해 ?로 적어두었다. (최종 output인 F에선 다시 3*4*12로 맞춰지는 듯하다.)](https://user-images.githubusercontent.com/67723054/233354368-a5edfec0-af04-4a55-9c56-b00429ccf303.jpg)
-
-convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 hidden tensor set ‘H’로 변한다. H는 이후 3D Convolution with MMD을 통과해 feature tensor set ‘F’가 된다. 파란색, 살구색 tensor의 경우 CNN을 거쳐 나오는 차원의 수가 불명확해 ?로 적어두었다. (최종 output인 F에선 다시 3*4*12로 맞춰지는 듯하다.)
-
 - Input = Tensor set(4D) 이지만, 작업은 매 image(2D) 마다 진행 → 한 장씩 CNN을 거쳐 새로운 tensor set을 만들어 낼 수 있음 → 다시 LSTM의 Input gate에 투입 + 이전 hidden state tensor set과 결합 + … (마찬가지로 2D 단위로 진행) → 반복
 - 모든 stacked LSTM을 통과해 만들어진 최종 결과물을 ‘H’라 하자
 
@@ -134,12 +128,7 @@ convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 
     - 본 논문에서 다루는 image는 모두 같은 m*n 사이즈 grid cell로 나눠져 있으니 행렬 계산이 용이하다.
     - dot-product, softmax 취해서 attention matrix 만드는 등 널리 알려진 attention mechanism과 크게 다른 점은 보이지 않았다
 
-# 3. Modeling
-
-<aside>
-😞 **아직 이해하지 못해서, 다음 Review에서 다뤄볼까 생각 중입니다**
-
-</aside>
+# 3. Algorithm & Code
 
 ## 1) Algorithm
 
@@ -152,22 +141,22 @@ convLSTM(CNN+LSTM) 과정을 거쳐 spatio-temporal image tensor set이 4차원 
 # 4. Evaluation
 
 <aside>
-🤷‍♂️ **ST-DAAN is good enough?**
+🤷‍♂️ ST-DAAN is good enough?
 
 </aside>
 
 <aside>
-🤷‍♂️ **Global Spatial Attention → Performance**
+🤷‍♂️ Global Spatial Attention → Performance
 
 </aside>
 
 <aside>
-🤷‍♂️ **Amount of available data in Target & Source domain → Performance**
+🤷‍♂️ Amount of available data in Target & Source domain → Performance
 
 </aside>
 
 <aside>
-🤷‍♂️ **Sensitivity to model structure & parameters**
+🤷‍♂️ Sensitivity to model structure & parameters
 
 </aside>
 

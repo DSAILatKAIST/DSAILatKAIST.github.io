@@ -6,6 +6,7 @@ use_math: true
 usemathjax: true
 ---
 
+
 # <span style="font-weight:bold">Learning Graph Models for Retrosynthesis Analysis</span>
 
 이 논문은 Graph Neural Network를 이용하여 분자 구조의 Retrosynthesis analysis를 수행하는 논문입니다.
@@ -143,16 +144,15 @@ Fig3. G2Gs의 Variational Graph Translation 기반의 Reactant Generation.
 
 G2Gs는 Decoder 는 Encoder 로 얻어진 Synthon S 와 Reactant G 가 합쳐진 representation z가 주어졌을 때, 다음 수식에 따라 학습이 됩니다.
 
-$P(t\vert z, S)=P(a_ {1:T}\vert z, S)=\prod_ {i=1} ^{T} {P(a_ {i}\vert z, S ^{i-1})}$
+$P(t\vert z, S)=P(a_ {1:T}\vert z, S)=\prod_ {i=1} ^{T} {P(a_ {i}\vert z, S ^{i-1})}$ 
 
-
-Generator는 Autoregressive 하게 action 을 Generation 하면서 학습됩니다. 이때 action으로 3가지 종류가 있는데, 1. Termination Prediction, 2. Nodes Selection, 3. Edge Labeling 이 그것들 입니다.
+Generator는 Autoregressive 하게 action 을 Generation 하면서 학습됩니다. 이때 action으로 3가지 종류가 있는데, 1) Termination Prediction, 2) Nodes Selection, 3) Edge Labeling 이 그것들 입니다.
 
 $P(G\vert z, S)=\sum_ {t \in \mathcal{T}} {P(t\vert z, S)}$
 
 Reactant $G$ 에 대한 확률은 최종적으로 Reactant G까지 갈 수 있는 모든 action 경로들의 합으로 표현되는데, 최종적으로 모델은 VAE와 동일하게 ELBO term으로 학습됩니다.
 
-$\mathcal{L}_ {ELBO} = \mathbb{E}_ {z\sim q}[log P(G\vert z, S)] - KL[q(z\vert G,S)\vert\vert p(z\vert S)]$
+$\mathcal{L}_ {ELBO} = \mathbb{E}_ {z\sim q}[log P(G\vert z, S)] - KL[q(z\vert G,S)\vert \vert p(z\vert S)]$
 
 이때 $q(z\vert G,S)$ 는 $\mu$와 $\sigma^ {2}$로 parametrized 된 확률 분포이고, $\mu$와 $\sigma^ {2}$ 는 reactant $G$ 와 synthon $S$로부터 학습되어 얻어집니다.
 
@@ -203,7 +203,7 @@ $s_ {u}=\mathbf{u_ {a}}^ {T} \tau(\mathbf{W}_ {\mathbf{a}}\mathbf{c}_ {u} + b)$
 
 $s_ {uvk}=\mathbf{u_ {k}}^ {T} \tau(\mathbf{W}_ {\mathbf{k}}\mathbf{c}_ {uv} + b_ {k})$
 
-이때 $\tau$는 ReLU 활성 함수를 의미하고, 결합 $(u, v)$의 임베딩 $\mathbf{c}_ {uv}  = (\text{ABS}(\mathbf{c}_ {u}, \mathbf{c}_ {v}) \vert \vert \mathbf{c}_ {u}+ \mathbf{c}_ {v})$ 로 임베딩이 permutation에 invariant하도록 설계됩니다.
+이때 $\tau$는 ReLU 활성 함수를 의미하고, 결합 $(u, v)$의 임베딩 $\mathbf{c}_ {uv}  = (\text{ABS}(\mathbf{c}_ {u}, \mathbf{c}_ {v})\vert \vert \mathbf{c}_ {u}+ \mathbf{c}_ {v})$ 로 임베딩이 permutation에 invariant하도록 설계됩니다.
 
 하지만 일반적으로 레이블들이 독립적인 classification 문제와는 달리 edit prediction 문제의 레이블들은 서로 독립적이지 않다는 특징을 가지고 있습니다.
 예를 들어, 분자 구조에서 aromatic ring 구조는 안정되어 물질의 합성 과정에서도 크게 변하지 않을 가능성이 큽니다.
@@ -276,7 +276,18 @@ Reaction Class가 알려져 있을 때 (Reaction class known) Semi-Template-base
 Edit Prediction은 Edit 예측에 대한 Top-$n$ 정확도를 보여주었고, Synthon Completion은 ground-truth edit 이후에 주어진 Synthon으로 부터 얼마나 Leaving group을 잘 선택하는지에 대한 정확도를 보여주었습니다.
 다만 아쉬운 점은 기존의 Semi-Template-based 모델들과 다른 Edit Prediction / Synthon Completion 모듈을 사용했는데, 기존의 모델들과 비교를 해줬다면 더 좋은 실험이지 않았을까 하는 아쉬움이 있습니다.
 
-## <span style="font-weight:bold">5. Conclusion</span>
+
+## <span style="font-weight:bold">5. Limitations</span>
+
+기존의 Semi-Template 기반의 Retrosynthesis analysis 방법은 chemical validity와 novelty 사이의 trade-off가 존재하는 것을 확인했습니다.
+즉, Section 2의 Previous works에서 이야기한 것처럼, 기존의 생성모델 기반의 연구는 기존의 화학 데이터베이스에 국한되지 않으면서 다양한 형태의 분자 구조를 생성해낼 수 있지만, 분자구조가 화학적으로 가능한 형태인지 보장이 어렵다는 문제점을 가지고 있습니다. 따라서 현실에서 적용이 어렵다는 단점을 가지고 있습니다.
+반면, 이 논문에서 제안한 방법론은 화학적으로 가능한 형태가 보장이 되지만, 기존의 화학 데이터베이스에 국한된다는 문제점을 가지고 있습니다.
+
+ML 기반의 retrosynthesis 방법들이 실제로 사용 가능하기 위해서는, 기존의 화학 데이터베이스에 국한되지 않는 reactant들을 제시함으로써 물질의 새로운 합성 방법을 제안할 수 있어야 합니다.
+따라서 기존의 화학 데이터베이스에 국한되지 않으면서 다양한 합성 경로를 제안할 수 있는 방법이 고안될 필요가 있을 것 같습니다.
+
+
+## <span style="font-weight:bold">6. Conclusion</span>
 
 이 논문에서는 새로운 방식의 Semi-Template 기반의 Retrosynthesis Analysis 방법을 제안했습니다.
 기존의 Semi-Template 기반의 방식이 생성 모델 기반의 방법을 선택하면서 가졌던 문제를 분류 문제로 다시 Formulation 한 점이 인상 깊었습니다.

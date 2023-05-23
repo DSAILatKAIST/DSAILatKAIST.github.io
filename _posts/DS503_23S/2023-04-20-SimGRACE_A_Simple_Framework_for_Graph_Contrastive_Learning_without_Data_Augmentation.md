@@ -2,6 +2,8 @@
 title:  "[WWW 2021] SimGRACE: A Simple Framework for Graph Contrastive Learning without Data Augmentation"
 permalink: SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 # **SimGRACE: A Simple Framework for Graph Contrastive Learning without Data Augmentation** 
 
@@ -15,18 +17,18 @@ Graph Contrastive learning(GCL)에서 Graph augmentation이 사용되는데 Grap
 
 GCL은 보통 augmentaion으로 4가지 방법을 주로 사용합니다(node dropping, edge perturbation, attribute masking and subgraph). 하지만 이 4가지 방법은 모든 경우에 사용되는 것이 아니라 graph에 따라 차이가 존재합니다. 예를 들어 소셜 네티워크 graph에서는 edge perturbation이 잘되지만 생화학 분자 구조 edge를 변경하는게 분자 구조를 바꾸어 성능이 좋지않다는 것 등이 있습니다. 
 
-이러한 문제를 해결하기 위해 매뉴얼에따라 augmentaion을 선택하는 trail-and-error를 이용하는 방법들이 제시되었습니다. 하지만 trial-and-error를 이용하는 방식들 여전히 GCL의 일반적인 사용과 실용성에 한계가 존재합니다.   JOAO의 경우는 자동적으로 GCL에서 augmentaion pairs를 선택하는 방법을 제시했으나 계산의 복잡도가 올라갔고 augmentaion pool을 구성한느데 인간의 사전 지식을 이용한다는 한계가 존재합니다. 따라서 본 논문에서는 **어떻게하면 manual trial-and-errors를 사용하지 않고 복잡한 계산이나 domain 지식 또한 사용하는 않고 GCL을 사용할 수있을까**라는 motivation을 제시합니다. 따라서 저자는 graph augumentaion을 사용하지 않고 semantic-preserved data augmentaion을 사용하여 이를 해결하려합니다. 
+이러한 문제를 해결하기 위해 매뉴얼에따라 augmentaion을 선택하는 trail-and-error를 이용하는 방법들이 제시되었습니다. 하지만 trial-and-error를 이용하는 방식들은 많은 연산량을 요구하고 여전히 GCL의 일반적인 사용에도 한계가 존재합니다. JOAO의 경우는 자동적으로 GCL에서 augmentaion pairs를 선택하는 방법을 제시했으나 계산의 복잡도가 올라갔고 augmentaion pool을 구성한느데 인간의 사전 지식을 이용한다는 한계가 존재합니다. 따라서 본 논문에서는 **어떻게하면 manual trial-and-errors를 사용하지 않고 복잡한 계산이나 domain 지식 또한 사용하는 않고 GCL을 사용할 수있을까**라는 motivation을 제시합니다. 따라서 저자는 graph augumentaion을 사용하지 않고 semantic-preserved data augmentaion을 사용하여 이를 해결하려합니다. 
 
 ## **3. Contribution**  
 
 - *Significance*: 기존의 GCL 방법들에 비해 일반적으로 적용가능하고 manual trail-and-errors를 사용하지 않는 새로운 GCL 방법을 제시합니다.
 - *Framework*: 새롭고 효율적인 framework를 제시하고 SimGRACE가 잘 작동할 수 있는 이유를 설명합니다.
 - *Algorithm*: GCL의 Robustness를 향상시키기 위해 AT-SimGRACE라는 새로운 알고리즘을 제시합니다. 약간의 computational overhead가 존재하지만 더 Robustness한 결과를 제시합니다.
-- *Experiment*: 여러 종류의 dataset에 대해 state-of-the-art 방법들과 비교해 더 뛰어나가너 경재령있는 모습을 보여줍니다.
+- *Experiment*: 여러 종류의 dataset에 대해 state-of-the-art 방법들과 비교해 더 뛰어나거나 경쟁력있는 모습을 보여줍니다.
 
 ## **4. Graph Contrastive Learning**  
 
-GCL은 2가지로 나눌 수 있다. 첫번째는 local과 global representation을 대조하여 encoding을 진행하는 방식이다. DGI과 InfoGraph는 graph-level representaion과 substructure-level representaion의 차이를 최대화하여 graph나 node의 representaion를 encoding한다. 보다 최근에 나온 MVGRL은 node diffusion을 수행하고 contrast learning을 이용해 graph-level과 node-level의 representaion을 얻는 것을 제안한다. 두번째는 data를 변환하는 방법으로 사용되는데 augment하고 이를 shared encoder과 projection head에 넣어 mutual information을 최대화한다. GCA는 node-level task를 위해 제시되었고 DGCL은 false negative 문제를 해결하기 위해 제시되었습니다. Graph-level에서는 GraphCL이 4가지 방법의 augmentaion을 사용하여 제시되었습니다. JOAO는 GraphCL의 manual trail-and-error의 문제를 해결하기 위해 제시되었습니다.
+GCL은 2가지로 나눌 수 있습니다. 첫번째는 local과 global representation을 대조하여 encoding을 진행하는 방식입니다. DGI과 InfoGraph는 graph-level representaion과 substructure-level representaion의 차이를 최대화하여 graph나 node의 representaion를 encoding합니다. 보다 최근에 나온 MVGRL은 node diffusion을 수행하고 contrast learning을 이용해 graph-level과 node-level의 representaion을 얻는 것을 제안합니다다. 두번째는 data를 변환하는 방법으로 사용되는데 augment하고 이를 shared encoder과 projection head에 넣어 mutual information을 최대화합니다. GCA는 node-level task를 위해 제시되었고 DGCL은 false negative 문제를 해결하기 위해 제시되었습니다. Graph-level에서는 GraphCL이 4가지 방법의 augmentaion을 사용하여 제시되었습니다. JOAO는 GraphCL의 manual trail-and-error의 문제를 해결하기 위해 제시되었습니다.
 
 ## **5. Method**  
 ![SimGRACE](https://user-images.githubusercontent.com/101261577/232289501-42c61afb-f639-473e-b6e1-d8c9b8b5f164.png)
@@ -38,8 +40,8 @@ $h$ 와 $h^\prime$ 2개의 graph-level representaion을 추출합니다.
 
 $h=f(G;\theta),h^\prime=f(G;\theta)$
 
-$\theta$와 $\theta^\prime$은 GNN 인코더의 l번째 레이어의 weight tensor와 perturbed version이다.
-$\Delta\theta_l$ 는 평균이 0이고 분포가 $\sigma^2_l$ 인 가우시안 분포에서 sampling하는 perturbation term이다. 여기서 SimGRACE는 기존의 모델들과 3가지 차별점이 있는데. (1) 모멘텀 업데이트 대신 무작위 가우시안 노이즈로 인코더를 perturbation 시킨다. (2) data augmentaion을 필요로하지 않는다. (3) graph-level representaion에 집중되어 있다.
+$\theta$와 $\theta^\prime$은 GNN 인코더의 l번째 레이어의 weight tensor와 perturbed version입니다.
+$\Delta\theta_l$ 는 평균이 0이고 분포가 $\sigma^2_l$ 인 가우시안 분포에서 sampling하는 perturbation term입니다. 여기서 SimGRACE는 기존의 모델들과 3가지 차별점이 있는데. (1) 모멘텀 업데이트 대신 무작위 가우시안 노이즈로 인코더를 perturbation 시킵니다. (2) data augmentaion을 필요로하지 않습니다. (3) graph-level representaion에 집중되어 있습니다.
 
 $\theta^\prime_l=\theta_l + \eta \cdot \Delta\theta_l$
 
@@ -56,6 +58,7 @@ SimGRACE에서는 normalized temperature-scaled cross entropy loss (NT-Xent)를 
 $l_n = -log {exp(sim(z_n, z^\prime_n)\tau)\over \sum^N_{n^\prime=1,n^\prime\ne n} exp(sim(z_n,z_{n^\prime}))\tau)}$
 
 sim은 cosine similarity이고, final loss는 모든 postive pairs에 대해서 계산됩니다.
+
 
 ### **AT-SimGRACE**  
 

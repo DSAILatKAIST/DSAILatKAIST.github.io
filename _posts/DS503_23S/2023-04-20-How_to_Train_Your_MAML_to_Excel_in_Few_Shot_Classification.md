@@ -2,11 +2,13 @@
 title:  "[ICLR 2022] How to Train Your MAML to Excel in Few-Shot Classification"
 permalink: How_to_Train_Your_MAML_to_Excel_in_Few_Shot_Classification.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # **How to Train Your MAML to Excel in Few-Shot Classification** 
 
-이 리뷰에서 소개하는 논문, "How to Train Your MAML to Excel in Few-Shot Classification"은 Meta-learning에 대해 소개한다면 반드시 언급되는 Methodology인 Model-Agnostic Meta-Learning(MAML)[1]을 실험적으로 분석하고, 새로운 모델 Unicorn-MAML을 제시한 논문입니다. 참고로 몇몇 용어의 번역은 임의로 작성하였음을 알려드립니다.  
+이 리뷰에서 소개하는 논문, "How to Train Your MAML to Excel in Few-Shot Classification"은 Meta-learning에 대해 소개한다면 반드시 언급되는 Methodology인 Model-Agnostic Meta-Learning(MAML)[2]을 실험적으로 분석하고, 새로운 모델 Unicorn-MAML을 제시한 논문입니다. 참고로 몇몇 용어의 번역은 임의로 작성하였음을 알려드립니다.  
 
 <br/>
 
@@ -21,7 +23,13 @@ tags: [reviews]
 2. MAML이 Testing phase에서 Class 별 label 배정이 어떻게 이뤄지는지(Permutation of class label assignments)에 민감하다는 것을 보여주며, 이를 기반으로 MAML을 Testing phase에서 Permutation-invariant하게 만들 수 있는 여러 가지 방법과 그 효율성을 살펴봅니다.
 3. 위의 발견과 실험을 기반으로, 경쟁력있는 모델인 Unicorn-MAML을 제시합니다.
 
-몇 가지 생소할 수 있는 용어나 개념에 대한 설명은 다음 Section의 Preliminary에서 하도록 하겠습니다.
+이 논문에서 지적하는 가장 중요한 포인트인 2. Testing phase에서의 Class별 label 배정의 Permutation에 따른 문제는 아래 Figure을 통해 확인해볼 수 있습니다.
+
+<p align="center"><img width="600" src="https://github.com/JhngJng/JhngJng/assets/63398447/2dd5f6de-3262-4719-8968-9b100c484be1"></p>
+
+위 이미지를 보면 학습된 Classification head (Linear Classifier)를 새로운 Task에 Fine-tuning할 때, 기존의 MAML은 각 class에 해당하는 head가 다르게 initialize되었기 때문에 Testing Task의 label assignment가 어떻게 되냐에 따라 각 Permutation 별 성능에 큰 차이가 있을 수 있고 이러한 성능 편차는 논문/리뷰의 Section 4에서 확인할 수 있습니다. 그렇기 때문에 저자들은 Unicorn-MAML을 제시하여 이 문제를 해결하고자 합니다.
+
+몇 가지 생소할 수 있는 용어나 개념, 모델에 대한 설명은 다음 Section의 Preliminary에서 하도록 하겠습니다.
 
 <br/>
 

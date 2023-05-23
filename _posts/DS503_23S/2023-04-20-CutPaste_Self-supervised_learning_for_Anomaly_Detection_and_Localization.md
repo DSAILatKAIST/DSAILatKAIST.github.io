@@ -2,6 +2,8 @@
 title:  "[CVPR 2021] CutPaste : Self-Supervised learning for Anomaly Detection and Localization"
 permalink: CutPaste_Self-supervised_learning_for_Anomaly_Detection_and_Localization.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 ## CutPaste : self-Supervised learning for Anomaly Detection and Localization
@@ -37,9 +39,15 @@ tags: [reviews]
 ### Method
 
 - **2단계 프레임 워크 제안**
-  - {54} 의 연구에 따라, 1) 정상 데이터로부터 Representation 을 추출할 DL 모델, 2) Representation을 Input으로 받는 One-classifier 구조를 채택한다. 
+  - Jihoon {54} 의 연구에 따라, 1) 정상 데이터로부터 Representation 을 추출할 DL 모델, 2) Representation을 Input으로 받는 self-supervised learning(One-classifier) 구조를 채택한다.    
 
-  - 이 중 1) 모델에서 self-supervised learning 방식을 도입하여 보다 유의미한 Representation 을 추출할 것이다. 
+    - {54} - Csi : Novelty detection via contrative learning on distributionally shifted instances(2020). 
+
+  - 비정상 데이터는 확보하기 어렵기 때문에 1) 단계에서는 정상 데이터만을 활용하여 deep representation을 학습할 것이다. 
+
+    - 예시) Autoencoder 와 유사함 
+
+  - 이후 2) 단계에서 실제 비정상 데이터와 유사한 형태를 띄는 새로운 Data augmentation인 Cut Paste 방법을 적용함으로써 부족한 비정상 데이터를 확보한다. 그리고 Cut paste 유무를 식별하는 Self-supervised learning 방법을 적용함으로써 성능 향상을 꾀한다.   
 
 <br>
 
@@ -215,6 +223,12 @@ tags: [reviews]
 
     - CutPaste 방식은 기존 이미지의 Local structure 와 정보를 가지고 있어, 데이터셋과 별개로 적용할 수 있는 여지가 크다.
 
+      - 기존의 Cutout 방법에서는 삽입하는 부분은 원본 데이터의 Local 정보를 담고 있지 못하다. 
+
+      - 즉, 합성된 데이터는 실제 비정상 데이터와는 차이가 커, 부족한 비정상 데이터를 보완하기란 제한된다. 
+
+      - 반면, Cut paste는 원본 데이터의 일부를 가져와 붙히기 때문에, 실제 비정상 데이터와 큰 차이가 없게 된다. 
+
 <br>
 
 - 2) Binary v.s. Finer-Grained Classification 
@@ -231,7 +245,7 @@ tags: [reviews]
 
   - MNIST 데이터셋에 다가 사각형, 타원, 하트, 실제 이미지 등 다양한 모양을 다양한 색깔로 붙여 이상치 데이터를 만들었다. 
 
-  - 이후 CutOut / CutPaste 간의 성능을 비교하였을 때, CutPaste 방식의 성능이 항상 뛰어났따. 
+  - 이후 CutOut / CutPaste 간의 성능을 비교하였을 때, CutPaste 방식의 성능이 항상 뛰어났다. 
 
     - <img width="310" alt="10" src="https://user-images.githubusercontent.com/16533475/233392828-f5c367e5-5982-4cfe-aed4-062c71d0397b.png">
 
@@ -253,8 +267,19 @@ tags: [reviews]
 
 - 본 방법은 실제 데이터 사이에서 이미지 단위의 이상치를 탐색하는데 있어 뛰어난 성과를 보였으며, 이미지 Patch 단위에서 Pixel-wise 이상치 localization 성능에 있어 SOTA를 기록했다
 
+
+
+- 본 연구는 ''실제 비정상 데이터와 유사한'' data augmentation 방법을 고안했다는 데 기여점이 있다. 
+
+  - 그럼 이 아이디어를 확장하여 의료계 데이터와 같이 고유의 데이터 특성을 가진 분야에도 적용할 수 있을 것이다.  
+
+  - 즉, 실제 비정상 데이터와 유사한 data augmentation 방법을 새롭게 고안할 수 있다면, 추가 기여를 쌓을 수 있을 것으로 보인다.
+
+
+
+
+
 ### Author Information
 
 - Author name : Chun-Liang Li, Kihyuk Sohn, Jinsung Yoon, Tomas Pfister
   - Affiliation : Google Cloud AI Research 
-

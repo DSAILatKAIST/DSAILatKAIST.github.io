@@ -373,8 +373,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         <h1 id="-shine-subhypergraph-inductive-neural-network"># SHINE: SubHypergraph Inductive Neural nEtwork</h1>
 <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
-
-<p><img src="https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png" width="200px" height="" /></p>
 
 <p>생명체는 다양한 단백질들을 활용하여 생명유지에 필요한 여러가지 반응과 작용들을 합니다. 단백질은 여러가지 gene의 정보를 바탕으로 만들어지기에, gene에 문제가 생기면 암을 포함한 여러가지 질병이 생길 수 있습니다. 단백질과 여러가지 물질들의 <code class="language-plaintext highlighter-rouge">기능적 단위</code>의 집합인 <code class="language-plaintext highlighter-rouge">pathway</code>를 활용하여 단백질에 대한 효과적인 representation을 구하고, 환자의 유전 정보의 변이를 바탕으로 subgraph를 형성하여 <code class="language-plaintext highlighter-rouge">환자들의 질병을 예측</code>하는 모델 SHINE을 제안합니다.</p>
 
@@ -384,7 +383,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p><strong>Preliminary - Graph Neural Network(GNN)</strong></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG" width="300px" height="" /></p>
 
 <p>그래프는 여러가지 Entity 사이의 relation이나 Interaction을 나타내는 방법중 하나로, 보통 $\mathcal{G}=(\mathbb{V},\mathbb{E})$로 나타냅니다. 여기서 $\mathbb{V}$는 node set으로 vertex들을 모은 집합이며, $\mathbb{E}$는 edge set으로 각 edge는 node들을 연결해주는 선들로 표시됩니다. 두 node 또는 Entity가 edge로 연결된 경우에는 이 둘 사이에 유사한 부분이 있거나, interaction을 한다고 봅니다. 보통 각 node와 연결된 이웃 node들의 정보를 aggregation하여 각 node의 hidden representation을 구하는 방식으로 GNN이 작동합니다. 단순히 (node 관점에서) 자기 자신과 이웃을 mean aggregation(smoothing)하는 방식의 대표적인 예시로는 GCN이 있으며, 이웃 node들에 attention을 기반으로 하는 importance 차이를 두어 aggregation하는 GAT도 있습니다.</p>
 
@@ -393,7 +392,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p><strong>Preliminary - Protein-Protein Interaction graph(PPI)</strong></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png" width="500px" height="" /></p>
 
 <p>단백질에 대한 representation을 잘 뽑기 위하여 흔하게 사용되는 방식중 하나로 PPI network를 사용하는 방법이 있습니다. <code class="language-plaintext highlighter-rouge">protein-protein interaction network(PPI)</code>는 단백질들을 node로 두고 서로 interaction을 하는 단백질들을 edge로 연결하여 만들어집니다. 만들어진 network에서 GCN, GAT 그리고 heterogeneous GNN등 상황에 따라 적합한 GNN 모델을 사용하게 됩니다. 결과적으로 단백질을 나타내는 각 node는 edge로 연결되어있는 이웃 node들의 정보를 취합하여 단백질에 대한 더 좋은 representation을 얻습니다. 즉, node의 최종 representation에는 해당 단백질의 고유한 정보와 해당 단백질과 관련된 단백질의 정보가 적절히 반영되어있어서, 다양한 downstream task에 효과적으로 사용될 수 있습니다.</p>
 
@@ -402,7 +401,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p><strong>Preliminary - Pathway</strong></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png" width="800px" height="" /></p>
 
 <p>생명체 내부에서 나타나는 다양한 상호작용과 반응은 여러가지 단백질들이 복합적으로 작용하여 이루어집니다. 예를들면, 세포 소기관중 하나인 미토콘드리아에는 에너지를 만들어내기 위한 process가 있으며, 그 과정에서 다양한 단백질들이 사용됩니다. 이렇게 어떤 과정속에서 특정 기능을 하기 위해 사용되는 물질들과 그들의 반응을 <code class="language-plaintext highlighter-rouge">기능 단위</code>로 묶어둔 것을 <code class="language-plaintext highlighter-rouge">pathway</code>라고 합니다. 예를 들면, 위의 그림에는 apoptosis(세포사멸)에 관여하는 pathway와 각 pathway별 단백질들이 나타나있습니다. 생명체는 손상이 생기거나 오래된 세포를 스스로 죽도록 하여 관리를 하는데 이를 apoptosis라고 합니다. 이는 세포 외부에서 오는 여러가지 신호에 의해 조절됩니다. 세포 외부에서 신호가 오면, 이를 유전자가 저장되어있는 세포핵과 기타 조직들에 signaling pathway를 경유하여 전달합니다. 위의 그림에 있는 구체적인 예시로는 이미지 왼쪽의 MAPK signaling pathway가 있습니다. 세포 외부에서 survival factor와 관련된 신호가 오면, Ras, Raf MEK1/2 그리고 EPK1/2라는 단백질들을 순차적으로 거쳐서 세포핵까지 신호를 전달하게 되며, 세포핵에서는 해당 신호에 따른 gene regulation을 하게 됩니다. 이전에 설명한 PPI의 경우에는 단백질 사이의 pairwise interaction을 기준으로 만들었기에, 해당 단백질들이 interaction하는 맥락이 나타나지 않지만, pathway를 사용하게 된다면 각 단백질이 다른 단백질들과 상호작용하는 맥락을 활용할 수 있습니다.</p>
 
@@ -411,12 +410,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p><strong>Preliminary - Hypergraph</strong></p>
 </blockquote>
 
-<p><img src="https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG" width="400px" height="" /></p>
 
 <p>그래프는 Entity 사이의 pairwise relation을 나타내는 구조였습니다. 즉, edge가 2개의 node를 연결하는 구조였습니다. 이와 다르게 <code class="language-plaintext highlighter-rouge">Hypegraph</code>는 hyperedge가 2개 이상의 node(hypernode)를 연결합니다. 그래서 hyperedge를 3개 이상의 element(node)를 가질수 있는 set으로 해석하기도 합니다. 즉, hypergraph는 graph의 일반화된 형태로, 3개 이상의 entity가 모여서 상호작용하는 경우도 표현 가능한 구조입니다. (Hypernode의 경우 일반적으로 node라고 부르기도 합니다. 이번 리뷰에서는 편의상 node로 부르겠습니다.)</p>
 
-<p>이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 <code class="language-plaintext highlighter-rouge">high order correlation</code>이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다. 
-<img src="https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG" alt="image" /></p>
+<p>이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 <code class="language-plaintext highlighter-rouge">high order correlation</code>이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG" width="300px" height="" /></p>
 
 <p>실제로, 위에서 이야기한 high order correlation이 존재하는 경우가 많이 있습니다. 예를 들어서, 두 단백질이 상호작용하기 위해 보조인자가 필요한 경우가 있습니다. 보조인자가 없으면 두 단백질이 상호작용이 불가능하지만, 보조인자가 있는 경우 단백질의 3차원 구조가 변형되어 두 단백질이 상호작용 할 수 있게 됩니다. 이런 경우에는 3가지 물질이 모두 있는 경우에만 반응이 일어나기 때문에 hyperedge로 나타내는 것이 좋습니다. 해당 hyperedge를 분해하여 pairwise interaction(edge)로 나타내는 경우에는 high order correlation 특성을 나타내기 힘들며, 2개만 존재하는 경우에는 어떠한 interaction도 발생하지 않기 때문에 edge가 존재할 수 없습니다.</p>
 
@@ -439,7 +439,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>$\Theta = D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}$</p>
 
-<p>$W_ {e}$는 hyperedge의 가중치를 의미합니다. 위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&gt; hyperedge, hyperedge–&gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
+<p>$W_ {e}$는 hyperedge의 가중치를 의미하며, 일반적으로 데이터에서 주어집니다. 만약 모든 hyperedge가 같은 가중치를 가지고 있다면 모두 1의 값을 갖게 되며, 더 중요한 hyperedge가 있는 경우에는 더 큰 값을 주게 됩니다. 일반적으로는 데이터셋에서 hyperedge의 값을 미리 정해두지 않은 경우에는 모두 동등한 가중치(1)를 갖는 것으로 설정합니다.  위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&gt; hyperedge, hyperedge–&gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
 <br /> <br /></p>
 
 <blockquote>
@@ -484,7 +484,7 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
 
 <p>$h_ {E}^ {k}(p_ {j}) = \sigma(\sum_ {g_ {i} \in p_ {j}} a_ {E}( p_ {j}, g_ {i})h_ {N}^ {k-1}(g_ {i}))$</p>
 
-<p>여기서 $a_ {E}$는 hyperedge에 속해있는 node들에 대한 attention score로 다음과 같이 구합니다.</p>
+<p>이 식의 의미는 결국 node (gene)의 feature를  attention score에 기반하여 가중치를 두고 aggregation하여 hyperedge (pathway)의 representation을 구한다는 것입니다. 여기서 attention score ($a_ {E}$)를 구하는 방법은  gat의 방법과 비슷하지만, <code class="language-plaintext highlighter-rouge">node 사이의 attention</code> 대신 <code class="language-plaintext highlighter-rouge">node (gene)와 hyperedge (pathway) 사이의 attention</code>을 구한다는 점에서 조금 다릅니다. 구체적인 식은 다음과 같습니다.</p>
 
 <p>$a_ {E}( p_ {j}, g_ {i}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {g_ {i^ {‘}} \in p_ {j}} c^ {\top} s(p_ {j}, g_ {i^ {‘}})))$</p>
 
@@ -522,7 +522,8 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
 
 <p>$h(\mathcal{G}_ {j}) = \sigma(\sum_ {\mathcal{g}_ {i} \in \mathcal{G}_ {j}} a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) h_ {N}^ {K}(\mathcal{g}_ {i}))$</p>
 
-<p>여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.</p>
+<p>위 식의 의미는, 환자가 갖는 변이 gene들과 환자 사이의 attention score를 기반으로 하여 변이 gene들의 정보를 aggregation 하는 방식으로 환자를 나타낸다는 것입니다. 
+여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.</p>
 
 <p>$a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) = exp(M_ {ji}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i}) / (\sum_ {\mathcal{g}_ {i^ {‘}} \in \mathcal{G}_ {j}} exp(M_ {ji^ {‘}}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i^ {‘}})))$</p>
 
@@ -657,7 +658,7 @@ Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

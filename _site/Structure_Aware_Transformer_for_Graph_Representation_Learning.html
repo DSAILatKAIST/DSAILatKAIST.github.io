@@ -54,7 +54,36 @@
 <link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 
@@ -110,7 +139,36 @@
     
 
 
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
 
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 
 
 </head>
@@ -313,95 +371,140 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="structure-aware-transformer-for-graph-representation-learning"><strong>**Structure-Aware Transformer for Graph Representation Learning</strong>**</h1>
+        <h1 id="structure-aware-transformer-for-graph-representation-learning"><strong>Structure-Aware Transformer for Graph Representation Learning</strong></h1>
 
 <p><em><strong>Background before reading this review.</strong></em></p>
+
+<p>Graph구조에 맞게 Transformer를 적용하여 좋은 성능을 낸 SAT를 제시한 논문 <a href="https://arxiv.org/abs/2202.03036">Structure-Aware Transformer for Graph Representation Learning</a>를 읽기전에 알고 넘어가야할 Graph Notation, Transformer에 대한 설명 등 간단하게 짚고 넘어가면 좋은 내용들입니다. 사전 지식이 있으신 경우, 바로 본문으로 넘어가셔도 좋습니다.</p>
 
 <p>*Notation</p>
 
 <p>$G = (V, E, \mathbf X)$</p>
 
 <ul>
-  <li>node $u \in V$</li>
-  <li>node attribute $x_u \in \mathcal X \subset \mathbb R^d$</li>
-  <li>$\mathbf X \in \mathbb R^{n \times d}$</li>
+  <li>
+    <p>node $u \in V$</p>
+  </li>
+  <li>
+    <p>node attribute $x_u \in  \mathcal X \subset  \mathbb R^d$</p>
+  </li>
+  <li>
+    <p>$\mathbf X \in  \mathbb R^{n \times d}$</p>
+  </li>
+</ul>
+
+<p><strong>Transformer 구성 요소</strong></p>
+
+<ol>
+  <li>Self-attention module</li>
+</ol>
+
+<ul>
+  <li>
+    <p>input node feature $\mathbf X$가 linear projection을 통해 Query($\mathbf Q$), Key($\mathbf K$), Value($\mathbf V$)로 투영되고, 이를 활용하여 self-attention을 계산합니다.</p>
+  </li>
+  <li>
+    <p>multi-head attention : self-attention의 initialize를 다양하게 하여 표현력을 높였습니다.</p>
+  </li>
 </ul>
 
 <ol>
-  <li>
-    <p>Transformers on Graph</p>
-
-    <p>GNN에서는 그래프 구조를 explicit하게 활용하는 반면, transformer는 노드의 attribute를 활용하여 노드들 사이 relation을 나타내는데 활용</p>
-
-    <p>Transformer 구성 요소</p>
-
-    <ol>
-      <li>Self-attention module
-        <ul>
-          <li>input node feature $\mathbf X$가 linear projection을 통해 Query($\mathbf Q$), Key($\mathbf K$), Value($\mathbf V$)로 투영되고, 이를 활용하여 self-attention을 계산할 수 있음</li>
-          <li>multi-head attention</li>
-        </ul>
-      </li>
-      <li>feed-forward NN
-        <ul>
-          <li>self-attention의 output이 skipconnection이나 FFN등을 거치면 하나의 transforemer layer를 통과하게됨</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <p>Absolute encoding</p>
-
-    <p>그래프의 위치적/구조적인 representation을 input node feature에 더하거나 concatenate하여 Transformer의 input으로 사용 : Vanilla transformer의 PE</p>
-
-    <p>Graph Transformer에서 자주 사용되는 Positional encoding method들</p>
-
-    <ul>
-      <li>Laplacian PE</li>
-      <li>Random Walk PE</li>
-    </ul>
-
-    <p>(-) 노드와 그 이웃들 사이의 structural similarity를 반영하지는 않음</p>
-  </li>
-  <li>
-    <p>Self-attention and kernel smoothing</p>
-
-    <p>$\operatorname{Attn}\left(x_v\right)=\sum_ {u \in V} \frac{\kappa_ {\exp }\left(x_v, x_u\right)}{\sum_ {w \in V} \kappa_ {\exp }\left(x_v, x_w\right)} f\left(x_u\right), \forall v \in V$</p>
-
-    <ul>
-      <li>linear value function $f(x) = \mathbf W_ {\mathbf V}x$</li>
-      <li>$\kappa_ {\exp }$ (non-symmetric) exponential kernel parameterized by $\mathbf W_ {\mathbf Q}, \mathbf W_ {\mathbf K}$</li>
-    </ul>
-
-    <p>$\kappa_ {\exp }\left(x, x^{\prime}\right):=\exp \left(\left\langle\mathbf{W}_ {\mathbf{Q}} x, \mathbf{W}_ {\mathbf{K}} x^{\prime}\right\rangle / \sqrt{d_ {\text {out }}}\right)$</p>
-
-    <ul>
-      <li>$\langle \cdot, \cdot\rangle$ : dotproduct</li>
-      <li>학습가능한 exponential kernel</li>
-      <li>(-) only position-aware, not structure-aware encoding</li>
-    </ul>
-  </li>
+  <li>feed-forward NN</li>
 </ol>
+
+<ul>
+  <li>self-attention의 output이 skipconnection이나 FFN등을 거치면 하나의 transforemer layer를 통과한 것 입니다.</li>
+</ul>
+
+<ol>
+  <li>Absolute encoding</li>
+</ol>
+
+<ul>
+  <li>그래프의 위치적/구조적인 representation을 input node feature에 더하거나 concatenate하여 Transformer의 input으로 사용합니다. (Vanilla transformer의 PE와 같은 역할)</li>
+</ul>
+
+<p><strong>Graph Transformer에서 자주 사용되는 Positional encoding method들</strong></p>
+
+<p>자주 사용되는 PE로는 다음 두가지를 꼽을 수 있습니다. 하지만 이 Positional Encoding들의 문제는 노드와 그 이웃들 사이의 structural similarity를 반영하지는 않는다는 것입니다. 각각에 대한 설명은 링크를 타고 들어가 확인하실 수 있습니다.</p>
+
+<ul>
+  <li>
+    <p><a href="https://paperswithcode.com/method/laplacian-pe">Laplacian PE</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/2110.07875.pdf">Random Walk PE</a></p>
+  </li>
+</ul>
+
+<ol>
+  <li>Self-attention and kernel smoothing</li>
+</ol>
+
+<p>$\operatorname{Attn}\left(x_v\right)=\sum_ {u \in V} \frac{\kappa_ {\exp }\left(x_v, x_u\right)}{\sum_ {w \in V} \kappa_ {\exp }\left(x_v, x_w\right)} f\left(x_u\right), \forall v \in V$</p>
+
+<ul>
+  <li>
+    <p>linear value function $f(x) = \mathbf W_ {\mathbf V}x$</p>
+  </li>
+  <li>
+    <p>$\kappa_ {\exp }$ (non-symmetric) exponential kernel parameterized by $\mathbf W_ {\mathbf Q}, \mathbf W_ {\mathbf K}$</p>
+  </li>
+</ul>
+
+<p>$\kappa_ {\exp }\left(x, x^{\prime}\right):=\exp  \left(\left\langle\mathbf{W}_ {\mathbf{Q}} x, \mathbf{W}_ {\mathbf{K}} x^{\prime}\right\rangle / \sqrt{d_ {\text {out }}}\right)$</p>
+
+<ul>
+  <li>
+    <p>$\langle  \cdot, \cdot\rangle$ : dotproduct</p>
+  </li>
+  <li>
+    <p>학습가능한 exponential kernel</p>
+  </li>
+  <li>
+    <p>(-) only position-aware, not structure-aware encoding</p>
+  </li>
+</ul>
 
 <h1 id="1-problem-definition"><strong>1. Problem Definition</strong></h1>
 
 <h2 id="limitations-of-gnn"><em><strong>Limitations of GNN</strong></em></h2>
 
 <ol>
-  <li>limited expressiveness : 최대 1-WL test의 표현력을 가짐</li>
-  <li>Over-smoothing problem : GNN layer의 수가 충분히 커지면 모든 node representation이 상수로 수렴하게됨</li>
-  <li>Over-squashing problem : 그래프의 수많은 메세지들이 고정된 길이의 벡터 하나로 압축되어 발생하는 그래프 “bottleneck”으로 인해 멀리 위치한 노드의 메세지가 효율적으로 전파되지 않는 문제</li>
+  <li>
+    <p>limited expressiveness : GNN은 message passing과정에서의 aggregation operation의 특성으로 인해 최대 1-WL test의 표현력을 가집니다. GNN의 WL-test와 expression에 대한 분석은 GIN을 제시한 논문인 <a href="https://arxiv.org/abs/1810.00826">How Powerful are Graph Neural Networks?</a> 에서 제시되었습니다.</p>
+  </li>
+  <li>
+    <p>Over-smoothing problem : GNN layer의 수가 충분히 커지면 모든 node representation이 상수로 수렴하게됩니다.</p>
+  </li>
+  <li>
+    <p>Over-squashing problem : 그래프의 수많은 메세지들이 고정된 길이의 벡터 하나로 압축되어 발생하는 그래프 “bottleneck”으로 인해 멀리 위치한 노드의 메세지가 효율적으로 전파되지 않는 문제가 발생합니다.</p>
+  </li>
 </ol>
 
-<p>⇒ Beyond neighborhood aggregation!</p>
+<p><strong>⇒ Beyond neighborhood aggregation!</strong></p>
 
 <h2 id="transformer"><em><strong>Transformer</strong></em></h2>
 
+<p>Transformer를 적용했을 때의 장점은 다음과 같습니다.</p>
+
 <ul>
-  <li>하나의 self-attention layer를 통해 그래프내의 어떤 노드쌍이든지 그 사이의 상호작용을 확인할 수 있음</li>
-  <li>GNN과 달리 중간 계층에서 structural inductive bias가 발생하지 않아 GNN의 표현력 한계를 해결</li>
-  <li>graph structure info를 얼마나 학습하는지 input node feature에만 structural, positional info를 encoding해 넣음</li>
-  <li>노드에 대한 structural, positional info만 input node feature로 encoding하지만, 그래프 구조 자체에서 학습할 수 있는 정보의 양이 제한됨</li>
+  <li>
+    <p>하나의 self-attention layer를 통해 그래프내의 어떤 노드쌍이든지 그 사이의 상호작용을 확인할 수 있습니다.</p>
+  </li>
+  <li>
+    <p>GNN과 달리 중간 계층에서 structural inductive bias가 발생하지 않아 GNN의 표현력 한계를 해결할 수 있습니다.</p>
+
+    <p>반면, 단점은 다음과 같습니다.</p>
+  </li>
+  <li>
+    <p>graph structure info를 얼마나 학습하는지 input node feature에만 structural, positional 정보를 인코딩하여 넣기 때문에 제한적입니다.</p>
+  </li>
+  <li>
+    <p>노드에 대한 structural, positional 정보만 input node feature로 인코딩하기 때문에, 그래프 구조 자체에서 학습할 수 있는 정보의 양이 제한적입니다.</p>
+
+    <p>따라서 논문에서 제시하고자 하는 Graph Transformer의 Goal은 다음과 같습니다.</p>
+  </li>
 </ul>
 
 <blockquote>
@@ -416,43 +519,60 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="limitations-of-existing-approaches"><em><strong>Limitations of existing approaches</strong></em></h2>
 
+<p>기존에 Graph구조에 Transformer를 적용하는 시도가 없었던 것은 아닙니다. 그렇다면 어떤것이 문제가 되었을까요?</p>
+
 <ul>
-  <li>노드들 사이 positional relationship만 encoding하고, strucutral relationship을 직접 encoding하지않음
-    <ul>
-      <li>노드들 사이 structural similarity를 확인하기가 어렵고, 노드들 사이의 structural interaction을 모델링하는데 실패하게됨</li>
-    </ul>
-  </li>
+  <li>노드들 사이 positional relationship만 인코딩하고, strucutral relationship을 직접 인코딩하지않았습니다. 이에 따라 노드들 사이 structural similarity를 확인하기가 어렵고, 노드들 사이의 structural interaction을 모델링하는데 실패한것으로 분석하였습니다.</li>
 </ul>
 
-<p>ex.</p>
+<p>다음의 그림 예시를 보면 이해가 더 쉽습니다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/69068083/231114064-4063d3f0-f895-4d7c-a932-eddbeb77de34.png" alt="Untitled" /></p>
+<p>ex.
+<img src="https://github.com/sujinyun999/LearningOnGraph/assets/69068083/4472bb78-65cc-43bf-90be-8dcd203616d8" alt="Untitled" /></p>
 
-<p>G1과 G2에서 최단거리를 활용한 positional encoding을 할경우 node u와 v가 다른 노드들에 대해 모두 같은 representation을 가지게되지만, 그래프의 실제 구조는 다름 → strucure aware에 실패</p>
+<p>G1과 G2에서 최단거리를 활용한 positional encoding을 할경우 node u와 v가 다른 노드들에 대해 모두 같은 representation을 가지게되지만, 그래프의 실제 구조는 다릅니다. 
+→ 이 지점이 논문에서 제시하는 기존 Graph Transformer의 문제, 즉, strucure aware에 실패한 것 입니다.</p>
 
 <blockquote>
   <p>💡 Message-passing GNN과 Transformer architecture 각각의 장점을 살려 local, global info를 모두 고려하는 transformer architecture를 제안</p>
 </blockquote>
 
 <h2 id="contribution-of-this-paper"><em><strong>Contribution of this paper</strong></em></h2>
-<p>Q. Transformer구조에 structural info를 어떻게 인코딩할것인가?</p>
+
+<p>Q. 그렇다면 논문에서 해결하고자하는 Structure-Aware를 위해 Transformer구조에 structural info를 어떻게 인코딩할까요?</p>
+
+<p>논문에서는 다음과 같이 대답합니다.</p>
 
 <p>A. Structure-aware self attention를 도입한 Structre-Aware Transformer(SAT)</p>
 
 <ol>
-  <li>reformulate the self-attention mechanism
-    <ul>
-      <li>kernel smoother</li>
-      <li>원래 노드 feature에 적용하는 exponential 커널을 확장하여 각 노드가 중심인 subgraph representation을 추출하여 local structure에도 적용</li>
-    </ul>
+  <li>reformulate the self-attention mechanism</li>
+</ol>
+
+<ul>
+  <li>
+    <p>kernel smoother</p>
   </li>
-  <li>subgraph representation들을 자동적으로 만들어내는 방법론 제안
-    <ul>
-      <li>이를 통해 kernel smoother가 구조적/특성적 유사성을 포착할 수 있게됨</li>
-    </ul>
+  <li>
+    <p>원래 노드 feature에 적용하는 exponential 커널을 확장하여 각 노드가 중심인 subgraph representation을 추출하여 local structure에도 적용합니다.</p>
   </li>
-  <li>GNN으로 그래프의 subgraph info를 포함하는 node representation을 만들어 기존 GNN에 추가적인 구조 개선 없이도 더 높은 성능을 냄</li>
-  <li>Transformer의 성능향상이 structure-aware한 측면에서 일어난 것을 증명하고 absolute encoding이 추가된 transfoemr보다 SAT가 얼마나 interpretable한지를 보여줌</li>
+</ul>
+
+<ol>
+  <li>subgraph representation들을 자동적으로 만들어내는 방법론 제안</li>
+</ol>
+
+<ul>
+  <li>이를 통해 kernel smoother가 구조적/특성적 유사성을 포착할 수 있게됩니다.</li>
+</ul>
+
+<ol>
+  <li>
+    <p>GNN으로 그래프의 subgraph info를 포함하는 node representation을 만들어 기존 GNN에 추가적인 구조 개선 없이도 더 높은 성능을 냅니다.</p>
+  </li>
+  <li>
+    <p>Transformer의 성능향상이 structure-aware한 측면에서 일어난 것을 증명하고 absolute encoding이 추가된 transfoemr보다 SAT가 얼마나 interpretable한지를 보여줍니다.</p>
+  </li>
 </ol>
 
 <h1 id="3-method"><strong>3. Method</strong></h1>
@@ -461,29 +581,36 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="1-structure-aware-self-attention"><em>1. <strong>Structure-Aware Self-attention</strong></em></h3>
 
-<p>position-aware한 structural encoding에 노드들 사이 structural similarity를 포함하기 위해 각 노드의 local structure에 관한 generalized kernel을 추가</p>
+<p>position-aware한 structural encoding에 노드들 사이 structural similarity를 포함하기 위해 각 노드의 local structure에 관한 generalized kernel을 추가합니다.</p>
 
-<p>각 노드가 중심이되는 subgraph set을 추가함으로써 structure-aware attention은 다음과 같이 정의될 수 있음</p>
+<p>각 노드가 중심이되는 subgraph set을 추가함으로써 structure-aware attention은 다음과 같이 정의될 수 있습니다.</p>
 
 <p>$\operatorname{SA-Attn}\left(v\right):=\sum_ {u \in V} \frac{\kappa_ {\text{graph} }\left(S_G(v), S_G(u)\right)}{\sum_ {w \in V} \kappa_ {\text{graph}}\left(S_G(v), S_G(u)\right)} f\left(x_u\right)$</p>
 
 <ul>
-  <li>$S_G(v)$ : node feature $\mathbf X$와 연관된 $v$를 중심으로하는 subgraph</li>
-  <li>$\kappa_ {\text{graph} }$ : subgraph쌍을 비교하는 kernel</li>
+  <li>
+    <p>$S_G(v)$ : node feature $\mathbf X$와 연관된 $v$를 중심으로하는 subgraph</p>
+  </li>
+  <li>
+    <p>$\kappa_ {\text{graph} }$ : subgraph쌍을 비교하는 kernel</p>
+  </li>
 </ul>
 
-<p>⇒ attribute &amp; structural similarity 모두 표현 가능한 expressive node representation 생성 → table 1</p>
+<p>⇒ attribute &amp; structural similarity 모두 표현 가능한 expressive node representation을 생성 → table 1</p>
 
 <p>⇒ 동일한 subgraph 구조를 가지는 경우에만 permutation equivariant한 성질을 갖게됨</p>
 
 <p>$\kappa_ {\text {graph }}\left(S_G(v), S_G(u)\right)=\kappa_ {\exp }(\varphi(v, G), \varphi(u, G))$</p>
 
 <ul>
-  <li>$\varphi(v, G)$ : feature $\mathbf X$를 가지는 node $v$가 중심에 있는 subgraph의 vector representation을 만들어내는 structure extractor
-    <ul>
-      <li>GNN이나 differentiable Graph kernel등 subgraph의 representation을 만들 수 있는 어느 모델이든 될 수 있음</li>
-      <li>Task/data 특성에 따라 Edge attribute을 활용할 필요가 있는 경우 그에 맞는GNN을 선택하면 됨. 따로 edge attribute을 활용하지는 않고 subgraph extractor에서 활용</li>
-    </ul>
+  <li>
+    <p>$\varphi(v, G)$ : feature $\mathbf X$를 가지는 node $v$가 중심에 있는 subgraph의 vector representation을 만들어내는 structure extractor</p>
+  </li>
+  <li>
+    <p>GNN이나 differentiable Graph kernel등 subgraph의 representation을 만들 수 있는 어느 모델이든 될 수 있습니다.</p>
+  </li>
+  <li>
+    <p>Task/data 특성에 따라 Edge attribute을 활용할 필요가 있는 경우 그에 맞는GNN을 선택하는 디자인 초이스가 생깁니다. edge attribute을 따로 활용하지는 않고 subgraph extractor에서 활용합니다.</p>
   </li>
 </ul>
 
@@ -492,28 +619,50 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>$\varphi(u, G) = \operatorname{GNN}_G^{(k)}(u)$</p>
 
 <ul>
-  <li>node u에서 시작하는 k-subtree structure의 representation생성</li>
-  <li>at most 1-WL test</li>
-  <li>작은 k 값이더라도 over-smoothing, over-squashing issue없이 좋은 성능을 내는것을 확인</li>
+  <li>
+    <p>node u에서 시작하는 k-subtree structure의 representation을 생성하는 역할을 합니다.</p>
+  </li>
+  <li>
+    <p>at most 1-WL test : 위에서 지적한 GNN의 한계와 같이, 최대 1WL Test의 표현력을 가집니다.</p>
+  </li>
+  <li>
+    <p>논문에서는 실험을 통해 작은 k 값이더라도 over-smoothing, over-squashing issue없이 좋은 성능을 내는것을 확인하였습니다.</p>
+  </li>
 </ul>
 
 <p><em><strong>k-subgraph GNN extractor.</strong></em></p>
 
-<p>$\varphi(u, G) = \sum_ {v \in \mathcal N_k(u)} \operatorname{GNN}_G^{(k)}(v)$</p>
+<p>$\varphi(u, G) = \sum_ {v \in  \mathcal N_k(u)} \operatorname{GNN}_G^{(k)}(v)$</p>
 
 <ul>
-  <li>node u의 representation만을 사용하는데서 나아가 node u가 중심이 되는 k-hop subgraph전체의 representation을 생성하고 활용</li>
-  <li>node u 의 k-hop이웃 $\mathcal N_k(u)$에 대해 각 노드에 GNN을 적용한 node representation을 pooling(논문에서는 summation)</li>
-  <li>More powerful than 1-WL test</li>
-  <li>original node representation과의 concatenation을 통ㅎ structural similarity뿐만 아니라 attributed similarity도 반영</li>
+  <li>
+    <p>node u의 representation만을 사용하는데서 나아가 node u가 중심이 되는 k-hop subgraph전체의 representation을 생성하고 활용합니다.</p>
+  </li>
+  <li>
+    <p>node u 의 k-hop이웃 $\mathcal N_k(u)$에 대해 각 노드에 GNN을 적용한 node representation을 pooling(논문에서는 summation)합니다.</p>
+  </li>
+  <li>
+    <p><strong>More powerful than 1-WL test!</strong> 위에서 k-subtree GNN extractor와의 가장 큰 차이입니다.</p>
+  </li>
+  <li>
+    <p>original node representation과의 concatenation을 통해 structural similarity뿐만 아니라 attributed similarity도 반영합니다.</p>
+  </li>
 </ul>
+
+<p>이외에 다른 structure extractor로 다음과 같은 것들을 고려해볼 수 있습니다.</p>
 
 <p><em><strong>Other structure extractors.</strong></em></p>
 
 <ul>
-  <li>directly learn a number of “hidden graphs” as the “anchor subgraphs” to represent subgraphs</li>
-  <li>domain-specific GNNs</li>
-  <li>non-parametric graph-kernel</li>
+  <li>
+    <p>directly learn a number of “hidden graphs” as the “anchor subgraphs” to represent subgraphs</p>
+  </li>
+  <li>
+    <p>domain-specific GNNs</p>
+  </li>
+  <li>
+    <p>non-parametric graph-kernel</p>
+  </li>
 </ul>
 
 <h3 id="2-structure-aware-transformer"><em>2. Structure-Aware Transformer</em></h3>
@@ -527,29 +676,33 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>$x’_v = x_c +1/ \sqrt {d_v} \operatorname{SA-Attn}\left(v\right)$</p>
 
 <ul>
-  <li>$d_v$ : node $v$의 degree</li>
-  <li>degree factor를 포함하여 연결이 많은 graph component들이 압도적인 영향을 미치지 않도록함</li>
+  <li>
+    <p>$d_v$ : node $v$의 degree</p>
+  </li>
+  <li>
+    <p>degree factor를 포함하여 연결이 많은 graph component들이 압도적인 영향을 미치지 않도록합니다.</p>
+  </li>
 </ul>
 
 <p>*graph-level task를 진행해야 할 경우 input graph에 다른 노드와의 connectivity없이 virtual <code class="language-plaintext highlighter-rouge">[cls] </code>node를 추가하거나, node-level representation을 sum/average 등으로 aggregation</p>
 
 <h3 id="3-combination-with-absolute-encoding"><em>3. Combination with Absolute Encoding</em></h3>
 
-<p>위의 structure aware self-attention에 추가로 absolute encoding을 추가하게 되면 postion-aware한 특성이 추가되어 기존의 정보를 보완하는 역할을 하게된다. 이러한 조합을 통해 성능향상을 확인할 수 있었다.</p>
+<p>위의 structure aware self-attention에 추가로 absolute encoding을 추가하게 되면 postion-aware한 특성이 추가되어 기존의 정보를 보완하는 역할을 하게됩니다. 이러한 디자인 초이스의 조합을 통해 성능향상을 확인할 수 있었습니다.</p>
 
-<p>RandomWalk PE</p>
+<p><strong>RandomWalk PE</strong></p>
 
-<p>Absolute PE만 사용할 경우 structural bias가 과도하게 발생하지 않아서 누개의 노드가 유사한 local structure를 갖고 있더라도 비슷한 node representation이 생성되는것을 보장하기 어렵다!</p>
+<p>Absolute PE만 사용할 경우 structural bias가 과도하게 발생하지 않아서 두개의 노드가 유사한 local structure를 갖고 있더라도 비슷한 node representation이 생성되는것을 보장하기 어렵습니다!</p>
 
-<p>→ Structural, positional sign으로 주로 사용되는 distance나 Laplacian-based positional representation이 노드들 사이의 structural simialrity를 포함하지 않기때문</p>
+<p>→ 이는 Structural, positional sign으로 주로 사용되는 distance나 Laplacian-based positional representation이 노드들 사이의 structural simialrity를 포함하지 않기때문으로 분석할 수 있습니다.</p>
 
 <blockquote>
-  <p>📌 Structural aware attenrion은 inductive bias가 더 강하더라도 노드의 strucutral similarity를 측정하는데 적합하여 유사한 subgraph구조를 가진 노드들이 비슷한 embedding을 갖게하고, expressivity가 향상되어 좋은 성능을 보임</p>
+  <p>📌 Structural aware attenrion은 inductive bias가 더 강하더라도 노드의 strucutral similarity를 측정하는데 적합하여 유사한 subgraph구조를 가진 노드들이 비슷한 embedding을 갖게하고, expressivity가 향상되어 좋은 성능을 보입니다.</p>
 </blockquote>
 
 <h3 id="4-expressivity-analysis"><em>4. Expressivity Analysis</em></h3>
 
-<p>SAT에서는 각노드를 중심으로하는 k-subgraph GNN extractor가 도입되어 적어도 subgraph representation만큼은 expressive하다는 것을 보장</p>
+<p>SAT에서는 각노드를 중심으로하는 k-subgraph GNN extractor가 도입되어 적어도 subgraph representation만큼은 expressive(More than 1WL Test)하다는 것을 보장합니다.</p>
 
 <h1 id="4-experiment"><strong>4. Experiment</strong></h1>
 
@@ -558,39 +711,90 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p><em><strong>Dataset</strong></em></p>
 
 <ul>
-  <li>ZINC</li>
-  <li>CLUSTER</li>
-  <li>PATTERN</li>
-  <li>OGBG-PPA</li>
-  <li>OGBG-CODE2</li>
+  <li>ZINC :
+    <ul>
+      <li>from <a href="https://arxiv.org/abs/1610.02415">Automatic chemical design using a data-driven continuous representation of molecules</a></li>
+      <li>250,000개의 분자 그래프구조,  with up to 38 heavy atoms</li>
+      <li>task is to regress the penalized <code class="language-plaintext highlighter-rouge">logP</code> (also called constrained solubility)</li>
+    </ul>
+  </li>
+  <li>CLUSTER :
+    <ul>
+      <li>from <a href="https://arxiv.org/abs/2003.00982">Benchmarking Graph Neural Networks</a></li>
+      <li>task is semi-supervised graph clustering (node classification)</li>
+    </ul>
+  </li>
+  <li>PATTERN
+    <ul>
+      <li>from <a href="https://arxiv.org/abs/2003.00982">Benchmarking Graph Neural Networks</a></li>
+      <li>task is semi-supervised graph pattern recognition</li>
+    </ul>
+  </li>
+  <li>OGBG-PPA
+    <ul>
+      <li>from <a href="https://arxiv.org/abs/2005.00687">Open Graph Benchmark: Datasets for Machine Learning on Graphs</a></li>
+      <li>Protein-Protein Association Network</li>
+      <li>task is to predict new association edges given the training edges</li>
+    </ul>
+  </li>
+  <li>OGBG-CODE2
+    <ul>
+      <li>from <a href="https://arxiv.org/abs/2005.00687">Open Graph Benchmark: Datasets for Machine Learning on Graphs</a></li>
+      <li>Abstract Syntax Tree of Source Code</li>
+      <li>AST로 표시되는 Python 메서드 본문과 해당 노드 기능이 주어지면 메서드 이름을 형성하는 하위 토큰을 예측하는 task</li>
+    </ul>
+  </li>
 </ul>
 
 <p><em><strong>Baseline</strong></em></p>
 
 <ul>
-  <li><em><strong>GNNs</strong></em>
-    <ul>
-      <li>GCN</li>
-      <li>GraphSAGE</li>
-      <li>GAT</li>
-      <li>GIN</li>
-      <li>PNA</li>
-      <li>Deeper GCN</li>
-      <li>ExpC</li>
-    </ul>
+  <li>
+    <p><em><strong>GNNs</strong></em></p>
   </li>
-  <li><em><strong>Transformers</strong></em>
-    <ul>
-      <li>Original Transformer with RWPE</li>
-      <li>Graph Transformer</li>
-      <li>SAN</li>
-      <li>Graphormer</li>
-      <li>GraphTrans</li>
-    </ul>
+  <li>
+    <p>GCN</p>
+  </li>
+  <li>
+    <p>GraphSAGE</p>
+  </li>
+  <li>
+    <p>GAT</p>
+  </li>
+  <li>
+    <p>GIN</p>
+  </li>
+  <li>
+    <p>PNA</p>
+  </li>
+  <li>
+    <p>Deeper GCN</p>
+  </li>
+  <li>
+    <p>ExpC</p>
+  </li>
+  <li>
+    <p><em><strong>Transformers</strong></em></p>
+  </li>
+  <li>
+    <p>Original Transformer with RWPE</p>
+  </li>
+  <li>
+    <p>Graph Transformer</p>
+  </li>
+  <li>
+    <p>SAN</p>
+  </li>
+  <li>
+    <p>Graphormer</p>
+  </li>
+  <li>
+    <p>GraphTrans</p>
   </li>
 </ul>
 
 <h3 id="results"><em><strong>Results</strong></em></h3>
+
 <p><strong>Table1.</strong> SAT와 graph regression, classification task의 sota모델과 비교</p>
 
 <ul>
@@ -600,6 +804,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p><img src="https://user-images.githubusercontent.com/69068083/231114155-056893f6-8d16-4a59-b43b-62c76fd482a3.png" alt="Untitled" /></p>
 
 <p><strong>Table2.</strong> SAT와 OGB데이터셋에서의 sota모델 비교</p>
+
 <ul>
   <li>OGB dataset의 경우 높을수록 더 좋은 성능을 의미하는 Acurracy, F1 score가 평가지표로 사용되었음.</li>
 </ul>
@@ -619,86 +824,99 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p><img src="https://user-images.githubusercontent.com/69068083/231114263-2ea26465-c8b3-4df8-b7d4-4d329d41d97b.png" alt="Untitled" /></p>
 
 <ol>
-  <li>structure extractor에서의 k의 영향 비교
-    <ul>
-      <li>k=0일때, Absolute encoding만을 활용하는 vanilla transformer랑 같다고 볼 수 있음</li>
-      <li>k=3일때, optimal performance를 보임을 확인</li>
-      <li>k=4를 넘어서면 성능이 악화되는것을 확인할 수 있었는데, 이는 GNN에서의 알려진 사실인 더 적은 수의 layer를 가지는 network가 더 좋은 성능을 보이는 것과 마찬가지라고 할 수 있음</li>
-    </ul>
-  </li>
-  <li>Absolute encoding의 영향 비교
-    <ul>
-      <li>RWPE vs. Laplacian PE</li>
-      <li>Structure-aware attention의 도입으로 인한 성능향상보다는 그 정도가 낮았지만, RWPE를 도입할 경우 성능이 더 좋은것으로 보았을 때, 두가지 encoding이 상호보완적인 역할을 한다고 해석할 수 있음</li>
-    </ul>
-  </li>
-  <li>Readout method의 영향 비교
-    <ul>
-      <li>node-level representation을 aggregate할 때 사용하기 위한 readoutd으로 mean과 sum을 비교하였음</li>
-      <li>추가로 <code class="language-plaintext highlighter-rouge">[CLS]</code> 토큰을 통해 graph-level 정보를 pooling하는 방법도 같이 비교하여보았음</li>
-      <li>GNN에서는 readout method의 영향이 매우 컸지만 SAT에서는 매우 약한 영향만을 확인함.</li>
-    </ul>
-  </li>
+  <li>structure extractor에서의 k의 영향 비교</li>
 </ol>
+
+<ul>
+  <li>
+    <p>k=0일때, Absolute encoding만을 활용하는 vanilla transformer랑 같다고 볼 수 있습니다.</p>
+  </li>
+  <li>
+    <p>k=3일때, optimal performance를 보임을 실험을 통해 확인하였습니다.</p>
+  </li>
+  <li>
+    <p>k=4를 넘어서면 성능이 악화되는것을 확인할 수 있었는데, 이는 GNN에서의 알려진 사실인 더 적은 수의 layer를 가지는 network가 더 좋은 성능을 보이는 것과 마찬가지라고 할 수 있습니다.(Oversmoothing and Oversquashing)</p>
+  </li>
+</ul>
+
+<ol>
+  <li>Absolute encoding의 영향 비교</li>
+</ol>
+
+<ul>
+  <li>
+    <p>RandomWalkPE vs. Laplacian PE</p>
+  </li>
+  <li>
+    <p>Structure-aware attention의 도입으로 인한 성능향상보다는 그 정도가 낮았지만, RWPE를 도입할 경우 성능이 더 좋은것으로 보았을 때, 두가지 encoding이 상호보완적인 역할을 한다고 해석할 수 있었습니다.</p>
+  </li>
+</ul>
+
+<ol>
+  <li>Readout method의 영향 비교</li>
+</ol>
+
+<ul>
+  <li>
+    <p>node-level representation을 aggregate할 때 사용하기 위한 readout으로 mean과 sum을 비교하였습니다.</p>
+  </li>
+  <li>
+    <p>추가로 <code class="language-plaintext highlighter-rouge">[CLS]</code> 토큰을 통해 graph-level 정보를 pooling하는 방법도 같이 비교하여보았습니다.</p>
+  </li>
+  <li>
+    <p>GNN에서는 readout method의 영향이 매우 컸지만 SAT에서는 매우 약한 영향만을 확인하였습니다.</p>
+  </li>
+</ul>
 
 <h1 id="5-conclusion"><strong>5. Conclusion</strong></h1>
 
 <p><em><strong>Strong Points.</strong></em></p>
 
-<p>structural info를 graphormer에서처럼 휴리스틱하게 shortest path distance(SPD)를 활용하지 않고, 그러한 local info를 잘 배우는 GNN으로 대체한 점이 novel하다고 할 수 있음</p>
+<p>structural info를 graphormer에서처럼 휴리스틱하게 shortest path distance(SPD)를 활용하지 않고, 그러한 local info를 잘 배우는 GNN으로 대체한 점이 novel하다고 할 수 있습니다.</p>
 
-<p>Transformer의 global receptive field 특성과 GNN의 local structure특성이 상호보완적</p>
+<p>Transformer의 global receptive field 특성과 GNN의 local structure특성이 상호보완적인데,</p>
 
 <p>encoding에 있어서도</p>
 
 <ol>
-  <li>RWPE를 통한 positional encoding</li>
-  <li>k-subtree/subgraph GNN을 통한 structure-aware attention</li>
+  <li>
+    <p>RWPE를 통한 positional encoding</p>
+  </li>
+  <li>
+    <p>k-subtree/subgraph GNN을 통한 structure-aware attention</p>
+  </li>
 </ol>
 
-<p>두가지가 상호보완적인 역할을 함</p>
+<p>두가지가 상호보완적인 역할을 합니다.</p>
 
-<p>→ 각자가 잘 배우는 특성을 고려하여 상호보완적인 두가지 방법론을 잘 섞어서 좋은 성능을 내었고, 그 이유가 납득하기 쉬움</p>
+<p>→ 각자가 잘 배우는 특성을 고려하여 상호보완적인 두가지 방법론을 잘 섞어서 좋은 성능을 내었고, 그 이유가 납득하기 쉬운 논문이라고 생각합니다.</p>
 
 <p><em><strong>Weak Points.</strong></em></p>
 
-<p>그래프데이터에 Transformer를 적용한 다른 논문의 architecture인 Graphormer에서 사용한 SPD만의 장점 : 직접적으로 연결되어있지 않은, 아주 멀리에 위치한 노드쌍이더라도 shortest path상의 weighted edge aggregation을 하는 만큼 그러한 특성 반영되면 좋은 그래프 구조/ 데이터셋에서는 SAT가 capture하지 못하는 부분이 있을 것</p>
+<p>그래프데이터에 Transformer를 적용한 다른 논문의 architecture인 Graphormer에서 사용한 SPD만의 장점은 직접적으로 연결되어있지 않은, 아주 멀리에 위치한 노드쌍이더라도 shortest path상의 weighted edge aggregation을 하는 만큼 그러한 특성이 반영되면 좋은 그래프 구조/ 데이터셋에서는 더 좋은 성능을 보입니다. 이에따라 작은 k-hop의 subgraph를 고려하는 SAT가 capture하지 못하는 부분이 있을 것으로 생각됩니다.</p>
 
 <hr />
+
 <h1 id="author-information"><strong>Author Information</strong></h1>
 
 <ul>
   <li>
-    <p>Dexiong Chen</p>
-
-    <ul>
-      <li>Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.</li>
-      <li>SIB Swiss Institute of Bioinformatics, Switzerland.</li>
-    </ul>
+    <p>Sujin Yun</p>
   </li>
   <li>
-    <p>Leslie O’Bray</p>
-
-    <ul>
-      <li>Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.</li>
-      <li>SIB Swiss Institute of Bioinformatics, Switzerland.</li>
-    </ul>
-  </li>
-  <li>
-    <p>Karsten Borgwardt</p>
-
-    <ul>
-      <li>Department of Biosystems Science and Engineering, ETH Zurich, Switzerland.</li>
-      <li>SIB Swiss Institute of Bioinformatics, Switzerland.</li>
-    </ul>
+    <p>GSDS, KAIST</p>
   </li>
 </ul>
 
 <h1 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h1>
 
 <ul>
-  <li>Github Implementation : <a href="https://github.com/BorgwardtLab/SAT"></a><a href="https://github.com/BorgwardtLab/SAT">https://github.com/BorgwardtLab/SAT</a></li>
-  <li>Reference : <a href="https://arxiv.org/abs/2202.03036">Structure-Aware Transformer for Graph Representation Learning</a></li>
+  <li>
+    <p>Github Implementation : <a href="https://github.com/BorgwardtLab/SAT"></a><a href="https://github.com/BorgwardtLab/SAT">https://github.com/BorgwardtLab/SAT</a></p>
+  </li>
+  <li>
+    <p>Reference : <a href="https://arxiv.org/abs/2202.03036">Structure-Aware Transformer for Graph Representation Learning</a></p>
+  </li>
 </ul>
 
     </div>
@@ -720,7 +938,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 26, 2023 <br />
+ Site last generated: May 23, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 title:  "[CVPR 2020] Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion"
 permalink: Dreaming_to_Distill_Data_free_Knowledge_Transfer_via_DeepInversion.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # **Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion  | Paper Review** 
@@ -10,25 +12,27 @@ tags: [reviews]
 ## 1. Problem Definition
 
 
-Teacher network의 기존 학습 데이터셋 없이 Knowledge distilation을 이뤄내는 것을 목표로 한다. 
-
-> **Knowledge Distilation**: 미리 잘 학습한 큰 네트워크(teacher network)의 지식을 실제로 사용하고자 하는 작은 네트워크(student network)에 전달하는 것
-
-## **2. Motivation**  
+> **Teacher network의 Trained dataset 없이 Knowledge distilation을 수행한다.**
 
 Trained neural network를 통해 knowledge를 transfer 시키기 위한 다양한 시도들이 있었고,최근에는 knowledge distilation 개념을 기반으로 문제를 해결하기 위한 시도들이 많이 있었다. 
 
-Knowledge distilation의 경우 Trained network의 데이터셋을 보존하여 활용하거나,  데이터셋의 분포를 나타내는 대표적인 Real image가 일부 활용되어야 한다는 단점들이 있다. 실제로 Teacher network에 활용된 데이터셋은 프라이버시나 보안 등의 문제로 접근하기 어려운 경우도 많고, 용량이 커서 저장하거나 관리하기 어려운 경우가 많아 이전에 연구된 다양한 knowledge distilation 방식들은 현실적으로 활용하는데 한계가 있다.
 
-다양한 제약으로 인한 Prior data나 Metadata의 부재 속에서 knowledge transfer를 하기 위하여 본 논문에서는 학습된 모델이 그 자체적으로 Rich information을 가지고 있다고 가정하고, Neural Network Inversion 방식을 활용하여 Input training data를 복원한다.
+> **Knowledge Distilation**: 미리 잘 학습한 큰 네트워크(teacher network)의 지식을 실제로 사용하고자 하는 작은 네트워크(student network)에 전달하는 것
+
+
+Knowledge distilation의 경우 Trained network의 데이터셋을 보존하여 활용하거나,  데이터셋의 분포를 나타내는 대표적인 Real image가 일부 활용되어야 한다는 단점들이 있다. 실제로 Teacher network에 활용된 데이터셋은 프라이버시나 보안 등의 문제로 접근하기 어려운 경우도 많고, 용량이 커서 저장하거나 관리하기 어려운 경우가 많아 이전에 연구된 다양한 knowledge distilation 방식들은 현실적으로 활용하는데 한계가 있다.  따라서 본 논문에서는 원본 데이터셋 없이 Knowledge distilation을 성공적으로 수행할 수 있는 새로운 방법을 제시한다. 
+
+
+## **2. Motivation**  
+
+Inceptionism: Going deeper into neural networks [Link](https://ai.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html) 에서 prior data나 meta data의 부재 속에서 학습된 모델의 결과 이미지를 시각화하는 방법을 소개하였다. Random noise나 Natural image를 input으로 넣어 몇몇 regularizer를 활용하여 간단하게 예측되는 이미지를 확인할 수 있는 기법이다. 하지만 이를 통해 생성된 image는 부자연스럽고, knowledge transfer를 목적으로 하기에는 유용하지 않았다. 
+
+
+![image](https://github.com/hankkim77/DeepInversion_review/assets/47962184/8819472c-9a89-4557-802b-057b1aca3865)
+
+본 논문에서는 위의 사례를 통해 학습된 모델이 그 자체적으로 Rich information을 가지고 있다고 가정하고, Neural Network Inversion 방식을 활용하여 Input training data를 복원이 가능하다고 주장한다. 
 
 > **Neural network inversion** : pre-trained 모델의 weight을 고정하여 noise한 input을 forwarding 시키고, backpropagation을 통해서 weight가 아닌 node의 output을 update하여 실제 training data와 유사한 input을 예측하는 방식
-
-
-본 논문의 contribution과 application은 다음과 같다. 
-1. Data-free network pruning
-2. Data-free knowledge transfer
-3. Data-free continual learning
 
 
 ## **3. Method**  
@@ -121,7 +125,7 @@ Adaptive DeepInversion의 Reqularization Term은 $R_{DI}$과 $R_{complete}$가 �
 
 Noise 자체는 knowledge distilation에 어떤 도움도 되지 않았음을 확인할 수 있다. Noise만이 Input으로 주어질 경우 input 분포가 급격하게 변화하여 teacher를 방해하고, transferred knowledge까지 영향을 주었다. DeepDream $R_{prior}$을 더해주면 student accuracy가 소폭 상승함을 확인할 수 있다. 
 
-**4.1.B. Effective of DeepInversion & Adaptive DeepInversion**
+**4.1.B. Effectiveness of DeepInversion & Adaptive DeepInversion**
 
 DeepInversion $R_{feature}$를 더해주면 모든 시나리오에서 40% 이상의 accuracy 향상을 확인하였다. 또한 DeepDream에서의 synthesized image와 달리 DeepInversion는 형체를 이해할 수 있는 현실적인 image를 생성하였다. 
 여기에 Adaptive DeepInversion의 $R_{complete}$를 더해주면 student accuracy가 증가하여 teacher accuracy와 거의 비슷해졌다. 
@@ -141,11 +145,20 @@ DeepInversion $R_{feature}$를 더해주면 모든 시나리오에서 40% 이상
 	
 ![image](https://user-images.githubusercontent.com/47962184/232249321-2b1efb64-ff7a-4899-a7e9-859302610a9b.png)
 
-DI를 통한 Knowledge Transfer는 base teacher model에 대비하여 3% 정도만의 accuracy 차이를 보이며 좋은 성과를 보였다. 
+이 섹션에서는 실제 이미지가 없는 상태에서도 knowledge distilation을 성공적으로 수행할 수 있음을 보여주었다. 
+Image clipping과 Multi-resolution synthesis라는 practical consideration이 활용되었다. 
+> **Image Clipping** : 본 application에서는 accuracy를 향상시키기 위하여 synthesized image들이 데이터 전처리 과정에서의 mean과 variance를 따르도록 clipping을 진행하였다. Synthesized image는 [-m/s, m/s] 범위로 Clipping 되었다. (m: per channel mean , s: per channel standard deviation)
+
+> **Multi-resolution synthesis** :  본 application에서는 DI가 multi-resolution optimization을 통하여 speed up 됨을 확인하였다. 첫 step으로 112*`112의 input resolution을 2k iteration동안 optimize 하였다. 그 후 nearest neighbor interpolation을 통하여 224*224 사이즈로 up-sampling을 진행하였다.  
+
+Knowledge distilation은 90/250 epoch 동안 수행되었고, 학습된 ResNet50v 1.5 model만을 활용하여 student model에 distilation이 진행되었다. DI를 활용한 student model은 base teacher model에 대비하여 3% 정도만의 accuracy 차이를 보이며 원본 이미지나 additional prior knowledge 없이도 성공적인 Knowledge transfer이 가능함을 보여주었다. 아래 이미지들은 DI를 통해 만들어진 고화질의 다양한 image들이다. 
+
+![image](https://github.com/hankkim77/DeepInversion_review/assets/47962184/b6b8eaf4-36a5-4d5c-9597-d36fe7157cc1)
+
 
 **4.2.B. Data-free Pruning**
 
-Pruning은 network의 성능이 크게 저하되지 않는 선에서 개별 weight이나 특정 필터(neurons)를 삭제하는 모델 경량화 방식이다. 본 논문에서는 DI, ADI 방식으로 생성된 inverted image를 통하여 filter importance를 계산하여 pruning을 진행하여 타 모델과 결과를 비교하였다. 
+Pruning은 network의 성능이 크게 저하되지 않는 선에서 개별 weight이나 특정 필터(neurons)를 삭제하는 모델 경량화 방식이다. Pruning을 위해서 pruning loss의 taylor approximation 에 대하여 global filter importance ranking을 활용하였다. DI, ADI에 대해서는 생성된 inverted image를 통하여 filter importance를 계산하여 pruning을 진행하여 타 모델과 결과를 비교하였다. 
 
 ![image](https://user-images.githubusercontent.com/47962184/232248656-29de76d4-7b81-448f-9367-43a827685e09.png)
 

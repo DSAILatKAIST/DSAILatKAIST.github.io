@@ -2,6 +2,8 @@
 title:  "[NIPS 2021] Matrix Encoding Networks for Neural Combinatorial Optimization"
 permalink: Matrix_Encoding_Networks_for_Neural_Combinatorial_Optimization.html
 tags: [reviews]
+use_math: true
+usemathjax: true
 ---
 
 # Title  
