@@ -9,7 +9,8 @@ usemathjax: true
 # 1. Problem Definition
 DNN (Deep Neural Network)은 overconfidence 문제가 있다.
 *overconfidence: 특정 레이블에 대한 DNN의 예측 confidence가 실제 발생 확률에 비해 높은 경우
- $P(\hat y = y^*\vert s[\hat y])<s[\hat y]$
+
+$P(\hat y = y^* \vert s[\hat y])<s[\hat y]$
 
 
 # 2. Motivation
@@ -79,19 +80,19 @@ $L_{total} = L_C +\beta L_{MDCA}$
 ## 4.2 Result
 MDCA loss 는 다른 손실 함수들에 추가로 사용되었다. table1에서는 일반적으로 사용되는 3가지 손실 함수(NLL, FS, FL)에 대해 MDCA를 사용한 calibration 성능 향상을 비교한다.
 
-<img width="875" alt="화면 캡처 2023-05-21 231419" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/624699d2-1f30-4d88-9b16-19e68ebc25f2">
+<img width="875" alt="1" src="./images_DS503/stitch_image1.png">
 
  MDCA loss 사용 시 여러 데이터 셋 및 아키텍처에서 calibration 성능이 향상됨을 확인할 수 있다.
 
 table2에서 MDCA 방법의 calibration 성능을 최신 SOTA 방법들과 비교한다.
 
-<img width="876" alt="화면 캡처 2023-05-21 231447" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/9a919057-6cd7-413e-90d0-301362fee8e3">
+<img width="876" alt="2" src="./images_DS503/stitch_image2.png">
 
 MDCA를 사용한 calibration은 다양한 데이터 셋과 아키텍처에서 SCE와 ECE 점수를 모두 향상 시킨다.
 
 MDCA를 방법은 예측 class 뿐만 아니라 모든 class에 대해 뛰어난 calibration임을 보이기 위해, table 3에서는 다양한 calibration 방법을 사용하여 SVHN 데이터셋에서 훈련된 ResNet20 모델의 10개 class에 대한 Class-j-ECE 점수를 나타낸다.
 
-<img width="417" alt="화면 캡처 2023-05-21 233544" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/178b75b8-2479-47d2-b0be-fc971824267f">
+<img width="417" alt="3" src="./images_DS503/stitch_image3.png">
 
 MDCA 방법은 10개 class 중 7개의 class에 대해 최고의 calibration을 보이고, 3개의 class에서는 두 번째로 뛰어나다.
 
