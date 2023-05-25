@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-  
-
 # **Generative Scene Graph Networks**
 
   
