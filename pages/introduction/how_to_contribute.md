@@ -64,7 +64,7 @@ $\vert x \vert$ (O)
 
 ### **Attach image file**
 
-리뷰 작성 시 사진을 첨부한다면, 사진을 url형식으로 변환 후 마크다운에 첨부하시면 됩니다.  
+리뷰 작성 시 사진을 첨부한다면, 사진을 url형식으로 변환 후 마크다운에 첨부하시면 됩니다.   
 사진을 url로 변환하는 방법은 github을 이용하면 편리합니다.  
 
 You can insert your image file using the converted image url as follows :
