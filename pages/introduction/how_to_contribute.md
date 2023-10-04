@@ -7,7 +7,7 @@ toc: false
 folder: introduction
 ---
 
-이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다..  
+이 글에서는 리뷰 작성 방법에 관한 안내를 다룹니다.  
 This writing is the guideline of how to write review.  
 
 ### **Write reviews on .md format**  
@@ -65,6 +65,42 @@ $\vert x \vert$ (O)
 ### **Attach image file**
 
 리뷰 작성 시 사진을 첨부한다면, 사진을 url형식으로 변환 후 마크다운에 첨부하시면 됩니다.   
+사진을 url로 변환하는 방법은 아래를 참고하세요.  
+
+You can insert your image file using the converted image url as follows :
+<br/>
+<br/>
+
+1. 구글에 image to URL을 검색하여 변환 사이트에 접속합니다.  
+Search the website for converting image to URL.  
+![img](https://i.ibb.co/qg7fST4/1.png)  
+<br/>
+<br/>
+
+2. 변환할 이미지를 업로드합니다.  
+Upload the image to convert.  
+![img](https://i.ibb.co/LvC1p64/3.png)  
+<br/>
+<br/>
+
+3. 'HTML 원본 이미지 링크'를 선택하고, 아래에 생성되는 링크 중 빨간 박스 부분을 사용합니다.  
+Select 'HTML full linked' and use the link in the red box below.  
+![img](https://i.ibb.co/KNF0qWQ/4.png)  
+<br/>
+<br/>
+
+4. 본인의 md 파일에서 ```![이미지이름](복사한 URL)``` 의 형태로 입력하여 이미지를 첨부합니다.  
+Enter the ```![image_name](copied URL)``` to your md file.  
+
+**E.g.**
+```markdown
+### How to add images in Markdown?  
+You can insert your image file using the converted image url as follows :
+![image_sample](i.ibb.co/PNTw57H/img.png)  
+```
+
+
+<!--
 사진을 url로 변환하는 방법은 github을 이용하면 편리합니다.  
 
 You can insert your image file using the converted image url as follows :
@@ -93,4 +129,4 @@ Copy the converted URL and use it in yout review.
 You can insert your image file using the converted image url as follows :
 ![image_sample](https://user-images.githubusercontent.com/37684658/227445939-ec25f692-3cd9-4adc-9eac-7d8daab3823e.png)
 ```
-
+-->
