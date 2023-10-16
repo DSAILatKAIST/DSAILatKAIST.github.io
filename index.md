@@ -8,7 +8,9 @@ permalink: index.html
 summary: We publish the extensive paper reviews about data mining (DM) and artificial intelligence (AI) to provide high quality reviews for deep-learning beginners.
 ---
 
-{% include note.html content="The paper reviews on this sites were written by students participated in DS503 or KSE801 course taught by [Prof.Chanyoung Park](http://dsail.kaist.ac.kr/professor/)" %}
+{% include note.html content="The paper reviews on this sites were written by students participated in DS503 or DS535 course taught by [Prof.Chanyoung Park](http://dsail.kaist.ac.kr/professor/)" %}
+
+## DS535 (2023F)
 
 
 ## DS503 (2023S)

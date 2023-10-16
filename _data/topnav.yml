@@ -18,5 +18,7 @@ topnav_dropdowns:
           url: /reviews_kse801_2022.html #/KSE801_2022.html
         - title: DS503 (2023)
           url: /reviews_DS503_2023.html #/KSE801_2022.html
+        - title: DS535 (2023)
+          url: /reviews_DS535_2023.html #/DS535_2023.html
 
 

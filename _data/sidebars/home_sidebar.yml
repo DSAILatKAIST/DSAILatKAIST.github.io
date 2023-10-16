@@ -24,6 +24,9 @@ entries:
     - title: DS503 (2023S)
       url: /reviews_DS503_2023.html
       output: web
+    - title: DS535 (2023F)
+      url: /reviews_DS535_2023.html
+      output: web
 
 # entries:
 # - title: Sidebar
