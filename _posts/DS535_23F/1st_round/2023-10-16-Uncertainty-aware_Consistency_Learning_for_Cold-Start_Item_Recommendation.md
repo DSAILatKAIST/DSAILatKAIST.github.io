@@ -1,6 +1,6 @@
 ﻿---
 title:  "[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation"
-permalink: 2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html
+permalink: 2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html
 tags: [reviews]
 use_math: true
 usemathjax: true

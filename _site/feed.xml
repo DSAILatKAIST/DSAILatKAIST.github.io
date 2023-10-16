@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 17 Oct 2023 00:17:00 +0900</pubDate>
-        <lastBuildDate>Tue, 17 Oct 2023 00:17:00 +0900</lastBuildDate>
+        <pubDate>Tue, 17 Oct 2023 00:21:24 +0900</pubDate>
+        <lastBuildDate>Tue, 17 Oct 2023 00:21:24 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -372,8 +372,8 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</guid>
             
             <category>reviews</category>
             
