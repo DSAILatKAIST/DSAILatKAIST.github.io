@@ -1,3 +1,11 @@
+---
+title:  "[NIPS 2021] A 3D Generative Model for Structure-based Drug Design"
+permalink: 2023-10-16-A_3D_Generative_Model_for_Structure-based_Drug_Design.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # **A 3D Generative Model for Structure-Based Drug Design**
 
 이 논문은 Graph Neural Network를 이용해 단백질의 binding site에 맞는 화합물을 생성하는 모델에 대한 논문입니다.

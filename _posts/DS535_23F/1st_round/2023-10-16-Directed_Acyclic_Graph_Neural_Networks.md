@@ -1,3 +1,11 @@
+---
+title:  "[ICLR 2021] Directed Acyclic Graph Neural Networks"
+permalink: 2023-10-16-Directed_Acyclic_Graph_Neural_Networks.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # [ICLR 2021]DIRECTED ACYCLIC GRAPH NEURAL NETWORKS
 
 # 1. INTRODUCTION

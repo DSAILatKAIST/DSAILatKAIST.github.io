@@ -1,3 +1,11 @@
+---
+title:  "[ICLR 2023] GNNInterpreter: A Probabilistic Generative Model-Level Explanation for Graph Neural Networks"
+permalink: 2023-10-16-GNNInterpreter_A_Probabilistic_Generative_Model-Level_Explanation_for_Graph_Neural_Networks.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # GNNInterpreter: A Probabilitstic Generative Model-level Explanation for Graph Neural Networks
 Writer: 20233497 이광현
 

@@ -1,4 +1,12 @@
-﻿# **RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback** 
+﻿---
+title:  "[WSDM 2020] RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback"
+permalink: 2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+# **RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback** 
 
 ## **1. Introduction**  
 

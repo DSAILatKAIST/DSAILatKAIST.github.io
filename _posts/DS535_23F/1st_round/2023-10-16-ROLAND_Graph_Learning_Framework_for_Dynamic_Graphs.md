@@ -1,3 +1,11 @@
+---
+title:  "[KDD 2022] ROLAND: Graph Learning Framework for Dynamic Graphs"
+permalink: 2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 <!-- ---
 title: ROLAND Reivew
 sidebar: Introduction_sidebar

@@ -1,3 +1,10 @@
+---
+title:  "[NIPS 2021] Robustness of Graph Neural Networks at Scale"
+permalink: 2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
 
 #  Robustness of GNN at Scale
 

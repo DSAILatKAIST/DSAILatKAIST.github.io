@@ -1,3 +1,11 @@
+---
+title:  "[KDD 2022] Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis"
+permalink: 2023-10-16-Addressing_Unmeasured_Confounder_for_Recommendation_with_Sensitivity_Analysis.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # [KDD 2022] [Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis](https://dl.acm.org/doi/pdf/10.1145/3534678.3539240)
 
 ## **1. Introduction**

@@ -1,3 +1,11 @@
+---
+title:  "[SIGIR 2020] Neural Interactive Collaborative Filtering"
+permalink: 2023-10-16-Neural_Interactive_Collaborative_Filtering.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # **Review of "Neural Interactive Collaborative Filtering (Zou et al., 2020)"** 
 
 ### Zou, L., Xia, L., Gu, Y., Zhao, X., Liu, W., Huang, J. X., & Yin, D. (2020, July). Neural interactive collaborative filtering. In Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval (pp. 749-758).

@@ -1,3 +1,12 @@
+---
+title:  "[RecSys 2023] STRec: Sparse Transformer for Sequential Recommendations"
+permalink: 2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+
 # **Title** 
 
 STRec: Sparse Transformer  for  Sequential Recommendations

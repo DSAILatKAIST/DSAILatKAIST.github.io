@@ -1,3 +1,11 @@
+---
+title:  "[SIGIR 2023] Diffusion Recommender Model"
+permalink: 2023-10-16-Diffusion_Recommender_Model.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # Diffusion Recommender Model
 
 # Title

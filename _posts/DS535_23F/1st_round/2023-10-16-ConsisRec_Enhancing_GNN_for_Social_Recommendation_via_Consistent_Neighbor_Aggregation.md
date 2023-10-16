@@ -1,3 +1,11 @@
+---
+title:  "[SIGIR 2021] ConsisRec: Enhancing GNN for Social Recommendation via Consistent Neighbor Aggregation"
+permalink: 2023-10-16-ConsisRec_Enhancing_GNN_for_Social_Recommendation_via_Consistent_Neighbor_Aggregation.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # ConsisRec: Enhancing GNN for Social Recommendation via Consistent Neighbor Aggregation
 
 ## 1. Problem Definition

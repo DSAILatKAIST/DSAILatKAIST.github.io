@@ -1,6 +1,6 @@
 ---
 title:  "[ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks"
-permalink: GNNDelete_A_General_Strategy_for_Unlearning_in_Graph_Neural_Networks.html
+permalink: 2023-10-16-GNNDelete_A_General_Strategy_for_Unlearning_in_Graph_Neural_Networks.html
 tags: [reviews]
 use_math: true
 usemathjax: true

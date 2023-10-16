@@ -1,6 +1,6 @@
 ---
 title:  "[RecSys 2023] Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation"
-permalink: Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html
+permalink: 2023-10-16-Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html
 tags: [reviews]
 use_math: true
 usemathjax: true

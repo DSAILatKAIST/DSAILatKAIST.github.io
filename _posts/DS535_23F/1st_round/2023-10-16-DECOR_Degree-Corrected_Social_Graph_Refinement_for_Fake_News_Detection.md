@@ -1,4 +1,12 @@
-﻿# DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection
+﻿---
+title:  "[KDD 2023] DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection"
+permalink: 2023-10-16-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+# DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection
 
 ## **1. Problem Definition**  
 > **GNN 방법론으로 가짜 뉴스를 탐지한다.**  

@@ -1,4 +1,12 @@
-﻿# **Title**
+﻿---
+title:  "[RecSys 2021] Cold Start Similar Artists Ranking with Gravity-Inspired Graph Autoencoders"
+permalink: 2023-10-16-Cold_Start_Similar_Artists_Ranking_with_Gravity-Inspired_Graph_Autoencoders.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+# **Title**
 [RecSys 2021] Cold Start Similar Artists Ranking with Gravity-Inspired Graph Autoencoders
 
 # **1. Problem Definition**

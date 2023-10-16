@@ -1,3 +1,11 @@
+---
+title:  "[CIKM 2020] Multi-modal Knowledge Graphs for Recommender Systems"
+permalink: 2023-10-16-Multi_modal_Knowledge_Graphs_for_Recommender_Systems.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # Multi-modal Knowledge Graphs for Recommender Systems
 
 ## 0. Preliminary

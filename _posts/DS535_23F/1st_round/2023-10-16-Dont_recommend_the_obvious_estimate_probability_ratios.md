@@ -1,4 +1,11 @@
-﻿
+﻿---
+title:  "[RecSys 2022] Don't recommend the obvious: estimate probability ratios"
+permalink: 2023-10-16-Dont_recommend_the_obvious_estimate_probability_ratios.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 # [RecSys 2022] Don't Recommend the Obvious: Estimate Probability Ratios
 
 # Title
