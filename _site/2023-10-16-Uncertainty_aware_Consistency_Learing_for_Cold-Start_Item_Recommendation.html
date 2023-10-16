@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation</h1>
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="uncertainty-aware-consistency-learning-for-cold-start-item-recommendation"><strong>Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation</strong></h1>
+
+<h2 id="1-problem-definition-and-motivation"><strong>1. Problem Definition and Motivation</strong></h2>
+
+<p>In this paper, the central problem at hand is the Cold-Start problem in  GNN-based recommendation systems, particularly when new items with limited interaction data are introduced to a user-item graph.  The cold-start problem especially becomes tricky when the user-item graph constantly changing. This problem arises due to the scarcity of information on these “cold” items, which hinders accurate recommendations. To tackle this issue, existing models primarily rely on auxiliary user and item features which underutilize actual user-item interactions. Cold items have different embeddings due to fewer interactions comparing to warm items. This difference leads to a challenge of improving recommendations for both simultaneously which is called seesaw phenomenon.</p>
+
+<p><strong>For instance,</strong> Suppose movie recommender system is using a vector of length 100 for movie embeddings:</p>
+
+<p>The embedding for “Spider-Man” might encompass values such as [0.2, 0.1, -0.3, 0.5, …], capturing its distinct characteristics and traits.</p>
+
+<p>However, when a new movie, “Kaist-Man,” is introduced, its embedding might initiate with values like [?, ?, ?, …], primarily due to the lack of interaction data.</p>
+
+<p>in this case, because “Spider-Man” is more likely to be recommended to users who are interested in superhero action movies than “Kaist-Man”. because the system has more information about it. The huge gap between their embeddings makes it challenging to improve recommendations for both simultaneously.</p>
+
+<p>To bridge this gap, in this paper, an Uncertainty-aware Consistency learning framework for Cold-start item recommendation (UCC) was introduced which relies exclusively on user-item interactions.  This framework has two key designs: a) Uncertainty-aware Interaction Generation, and b) Graph-based Teacher-Student Consistency Learning.</p>
+
+<h2 id="2-problem-formulation"><strong>2. Problem formulation</strong></h2>
+
+<p><strong>Notations.</strong> In this paper $U = {u}$ is the set of users and  $I = {i}$ is set of items and  $O ={ (u, i^+) \vert u  ∈ U, i^+ ∈ I }$ is user-item interactions, where each pair represents each observed feedback.
+<strong>Input:</strong>  a bipartite graph, where $V = U∪I$ is node set and $G = (V, O^+)$ is the edge set. if $M$:= number of users, $N$:=number of items, $D$:= dimension size of embedding
+Then in the training process of graph representation learning, $E_ {u}  = [e_ {u_ {1}} , … , e_ {u_ {M}} ]∈ R^{M\times D}$ is user embedding and $E_ {i}  = [e_ {i_ {1}} , … , e_ {i_ {N}}] ∈R^{N\times D}$ is item embedding.
+<strong>Output:</strong> Recommender models assessing the relationships between unobserved user-item pairs using the dot products of their embeddings. For given user $m$ and given item $n$ the score ${s_ {mn}}$ is calculated  as: $s_ {mn}  = e_ {u_ {m}} {e_ {i_ {n}} }^T$.
+A larger value of ${s_ {mn}}$ indicates a stronger preference by the user for the item. The top-k items from the ranking list are recommended to the user.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p><img src="https://i.ibb.co/2qjj3J0/figure1.png" alt="figure1" /></p>
+
+<p>In this paper, they tackle the distribution gap between cold and warm items by employing an uncertainty-aware approach to generate interactions. Then they kept both item-level and model-level similarity with consistency.</p>
+
+<h3 id="31-uncertainty-aware-interaction-generation">3.1. Uncertainty-aware Interaction Generation</h3>
+
+<p>To determine whether generated interactions are accurate and unbiased enough they introduce the uncertainty degree of each user-item interaction which is calculated by cosine distance.
+for user $u_ {m}$ and item $i_ {n}$ cosine distance is
+$d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert \over \vert \vert e_ {u_ {m}}\vert\vert \ \vert \vert e_ {i_ {n}}\vert \vert }$
+${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:
+$\bar{s_n}= \sum_ {k=1}^M s_ {mn}$
+So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
+In order to bridge the gap between cold and warm items’ distribution and popularity bias all interactions with $d_ {mn}&lt;\alpha \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:
+$\hat{O_ {n}}={I(d_ {mn}&gt;\alpha \bar{s_n})}$,
+where $\alpha$ is a pre-defined parameter and $I$ is the indicator function.
+In other words, they find the average ranking score for an item for all users ($\bar{s_n}$) and then for each user if item-user similarity ($d_ {mn}$) is smaller than $\alpha \bar{s_n}$ they regard that interaction as uncertain.</p>
+
+<h3 id="32-teacher-student-consistency-learning">3.2. Teacher-student Consistency learning</h3>
+
+<p>To address seesaw phenomena, and to achieve better recommendations for both warm and cold items at the same time, cold-item with generated low-uncertainty interactions should have a similar distribution with the warm items, so in this paper, they trained the teacher model (generator) and student model (recommender) with consistency learning
+trained the teacher model (generator) and student model (recommender) with consistency learning
+we train the teacher model (generator) and student model (recommender) with consistency learning, to ensure the cold items with additionally generated low-uncertainty interactions can have similar distribution with the warm items.</p>
+
+<h4 id="321-item-level-consistency-learning">3.2.1 Item-level consistency learning</h4>
+
+<p>This technique employs a contrastive loss to compare item embeddings before and after a generation process.
+Two types of augmentations are used:</p>
+<ul>
+  <li><strong>Weak Augmentation:</strong>
+In this, edges in a graph are dropped out based on a dropout ratio $\rho$ to make the model more robust and less sensitive to specific data points. It can be formulated as follows:
+${\mathcal G}^{w}=({\mathcal V},{\mathcal M}\cdot{\mathcal O}^{+})$ where $\mathcal{M}\in{0,1}^{\vert O^{+}}$ is a masking vector.
+For example, in the movie recommendation system, if you always include the same user’s connection to a particular movie, the model might become too biased towards that user’s preferences. By using dropout, you randomly exclude some user-movie connections in each training iteration, making the model more balanced and better at recommending movies for a variety of users.
+Where M is a masking vector containing binary values {0, 1} for each element in O+.</li>
+  <li><strong>Strong Augmentation:</strong>
+This type involves adding more edges to the graph based on generated labels and can be formulated as follows:
+${\mathcal G}^{s}=({\mathcal V},{\mathcal O}^{+} +{\widehat O})$
+For example, if two movies share many common actors or are often rated similarly by users, strong augmentation would introduce more connections between those movies in the recommendation graph. This enriches the information available to the model, allowing it to make more accurate and diverse movie recommendations.</li>
+</ul>
+
+<p>These two augmentation operations create two different views for each node, denoted as $z_i^{\prime},z_i^{\prime\prime}$ 𝑖 (for weak and strong graphs, respectively).
+Consistency Regularization: To encourage the similarity between the different views of the same node, a consistency regularization is implemented. This involves the use of a contrastive loss:
+$\mathcal{L}_ {cr, item}=\sum_ {i\in I}-\log\frac{\exp(sim(z_i’,z_i’’)/\tau)}{\sum_ {j\in I}\exp(sim(z_i’,z_j’’)/\tau)}$,
+where $\mathcal{L}_ {cr, item}$ represents the item-side consistency regularization loss for both the teacher and the student model, $sim()$ is cosine similarity function and $\tau$ is a predefined hyper-parameter.Similarly, $\mathcal{L}_ {cr, user}$ can be computed.  $\mathcal{L}_ {cr}=\mathcal{L}_ {cr, item}+\mathcal{L}_ {cr, user}$ represents the ultimate consistency loss used for consistency regularization.
+Recommendation loss can be calculated as follow:</p>
+
+<p>$\mathcal{L}_ {\mathbf{rec}}=\sum_ {(u,i^+,i^-)\in O}-\ln\sigma(\hat{y}_ {ui^+}-\hat{y}_ {ui^-})+\lambda\vert \vert \Theta\vert \vert <em>2^2,$ is L2-regularization of model’s parameters.
+And Finally, our total loss is $\mathcal{L}</em> {total}=\mathcal{L}_ {rec}+\mu\mathcal{L}_ {cr}$ where $\mu$ is a hyper-parameter.</p>
+
+<h4 id="322-model-level-consistency-learning">3.2.2 Model-level consistency learning</h4>
+
+<p>To keep the consistency between the teacher model and student, they suggested collecting the teacher embedding into the student embedding: 
+$\mathbf{E}^s\leftarrow\gamma\mathbf{E}^s+(1-\gamma)\mathbf{E}^t$
+where $E^s$ and $E^t$ are the embeddings of the student and student model’s embedding respectively.</p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="experiment-setup"><strong>Experiment setup</strong></h3>
+<p><strong>Datasets:</strong></p>
+<ul>
+  <li>Experiments on Yelp and Amazon-Book benchmark datasets.</li>
+  <li>Follow a 10-core setting as in previous studies (Lightgcn and Neural collaborative filtering)</li>
+  <li>Split user-item interactions into training, validation, and testing sets (ratio 7:1:2).
+<strong>Baselines:</strong></li>
+  <li>The foundation for our GNN-based model is LightGCN</li>
+  <li>Focused on modelling user-item interactions, not item features.</li>
+  <li>They used two types of recommendation models, the Generative model and Denoising models for user-item interactions: IRBPR, ADT, and SGL.</li>
+</ul>
+
+<p><strong>Evaluation Metric</strong></p>
+
+<p>Following previous studies, they evaluate performance using Recall@K and  NDCG@K where K = 20</p>
+
+<h3 id="result"><strong>Result</strong></h3>
+
+<p>The overall results are shown in Table 1.</p>
+
+<p><img src="https://i.ibb.co/5F54hKF/table1.png" alt="Table1" /></p>
+
+<p>This table shows how UCC outperforms previous models.</p>
+
+<p>The paper conducts a comparative analysis between the proposed method and LightGCN in the context of cold-start recommendation. Items are categorized into ten groups based on popularity, ensuring equal interaction numbers for each group. The last two groups represent cold-start items, with higher GroupID values indicating warmer items. The following figures show how UCC has better performance in all groups</p>
+
+<p>Unlike other methods that often sacrifice warm item accuracy to improve cold items, the proposed method notably enhances the recall of LightGCN, especially for cold items. For instance, on the Yelp dataset, the proposed method achieves nearly a 7-fold increase in recall compared to LightGCN. The most significant improvement is observed for group-id 1 items in Amazon-Book, with recall improving by 400%, underscoring the method’s effectiveness in addressing cold-start recommendation challenges and highlighting the “seesaw phenomenon” problem.</p>
+
+<p><img src="https://i.ibb.co/j87vzrD/figure2.png" alt="figure2" /></p>
+
+<p>In their ablation study, the result shows that the number of generated interactions is adaptive for different item groups. It notes that low-uncertainty interactions, which are more abundant for cold items, help alleviate the distribution difference between warm and cold items. Using item-side-generated interactions significantly improves performance, while user-side-generated interactions exacerbate the distribution gap. This underscores the effectiveness of the uncertainty-aware interaction generation component. Also, as shown in the following figure teacher-student learning outperforms other methods.</p>
+
+<p><img src="https://i.ibb.co/HhYyCx0/figure3.png" alt="figure3" /></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>This paper tackles the Cold-Start problem in recommendation systems by introducing the Uncertainty-aware Consistency Learning framework (UCC). UCC’s Uncertainty-aware Interaction Generation effectively bridges the gap between cold and warm items, resulting in notable improvements in recommendation performance.</p>
+
+<p>The Teacher-Student Consistency Learning component further enhances recommendation quality, addressing the seesaw phenomenon. Extensive ablation studies and experiments on benchmark datasets showcase the effectiveness of the UCC model, consistently outperforming existing approaches, especially in improving recall for cold items. This paper offers a promising solution to enhance recommendation systems, particularly in dynamic settings.</p>
+
+<p>However, it may face challenges related to complexity, scalability, and generalizability, and a broader evaluation with diverse datasets and consideration of interpretability is needed to establish its practical applicability. Additionally, a more in-depth analysis of its performance compared to a wider range of state-of-the-art approaches would provide a more comprehensive understanding of its competitiveness.</p>
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li><strong>Author Name:</strong>
+    <ul>
+      <li>Taichi Liu</li>
+      <li>Chen Gao</li>
+      <li>Zhenyu Wang</li>
+      <li>Dong Li</li>
+      <li>Jianye Hao</li>
+      <li>Depeng Jin</li>
+      <li>Yong Li</li>
+    </ul>
+  </li>
+  <li><strong>Affiliation:</strong>
+    <ul>
+      <li>Tsinghua University</li>
+      <li>Huawei Noah’s Ark Lab</li>
+    </ul>
+  </li>
+  <li><strong>Research Topic:</strong>
+    <ul>
+      <li>Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation</li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 16, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

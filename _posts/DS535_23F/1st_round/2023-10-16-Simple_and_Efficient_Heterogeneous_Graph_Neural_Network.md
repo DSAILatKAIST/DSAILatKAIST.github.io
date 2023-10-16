@@ -89,9 +89,9 @@ semantic fusion 단계는 semantic feature 벡터를 융합하고 각 노드에 
 $h^{'Pi}$ 에 대해 이 모듈은 이 벡터를 query 벡터 $q^{Pi}$, key 벡터 $k^{Pi}$ 및 value 벡터 $v^{Pi}$로 매핑한다. 상호 attention 가중치 $\alpha(P_i, P_j)$ 는 소프트맥스 normalization 후의 query 벡터 $q^{Pi}$와 key 벡터 $k^{Pi}$의 dot product 결과이다. current semantic $P_i$의 출력 벡터 $h^{Pi}$는 모든 value 벡터 $v^{Pj}$의 weighted sum과 residual connection을 포함한다. semantic fusion 과정은 다음과 같이 표현될 수 있다.
 
 $q^{Pi} = W_Q h'^{Pi}$ , $k^{Pi} = W_K h'^{Pi}$ , $v^{Pi} = W_V h'^{Pi}$ , $P_i \in \Phi$ <br>
-
+{% raw %}
 $\alpha(Pi,Pj) = \frac{exp(q^{Pi} \cdot k^{{Pj}^T})}{\sum_{Pt\in\Phi} exp(q^{Pi} \cdot k^{{Pt}^T})}$ <br>
-
+{% endraw %}
 $h^{Pi} = \beta \sum_{P_j\in\Phi} \alpha(P_i,P_j) v^{P_j} + h'^{P_i}$ <br>
 
 여기서 $W_Q$, $W_K$, $W_V$, β는 모든 metapath 간에 공유되는 학습 가능한 파라미터이다.

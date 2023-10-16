@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[RecSys 2023] Trending Now: Modeling Trend Recommendations | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [RecSys 2023] Trending Now: Modeling Trend Recommendations page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[RecSys 2023] Trending Now: Modeling Trend Recommendations">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[RecSys 2023] Trending Now: Modeling Trend Recommendations</h1>
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <p><strong>[Recsys 2023] Trending Now: Modeling Trend Recommendations</strong></p>
+
+<p><br /></p>
+
+<blockquote>
+  <p><strong>Info</strong></p>
+</blockquote>
+
+<p>▢   <strong>Authors</strong> : AWS AI Labs, Amazon USA</p>
+
+<p>▢   <strong>Research topic</strong> : Trending now (현재 인기있는 상품을 추천하는 추천시스템)</p>
+
+<p>▢   <a href="https://dl.acm.org/doi/10.1145/3604915.3608810">paper links</a></p>
+
+<p><br /></p>
+
+<blockquote>
+  <p><strong>Research Motivation &amp; 논문 선정 이유</strong></p>
+</blockquote>
+
+<p>최근 추천시스템에서는 일반적으로 “현재 인기있는 상품 (trending now)” 과 같은 별도의 추천 항목을 제시해주어 해당 상품의 인기를 높여 활성유저를 유치하고 있습니다. 그러나 일반적으로 “시간 간격 내 interaction 수” 와 같은 단순한 휴리스틱 방법을 기반으로 추천해주기 때문에 rich-get-richer (인기있는 상품만 더 노출되어 더 많은 인기를 얻는) 문제 등 개선의 여지가 많이 남아있으며, 추천시스템에서 trend 를 모델링하는 연구는 제한적으로 이루어져 있습니다. 따라서 해당 논문은 <strong>시계열 예측</strong> 이라는 새로운 관점에서 <strong>trend 를 반영한 추천시스템 모델을 제안</strong>합니다. item trendiness 에 대한 정의를 통해 trend recommendation task 를 <strong>one-step time series forecasting</strong> 문제로 공식화합니다. item 의 미래 trend 를 예측하고 추천 리스트를 생성하는 deep latent variable 모델인 <strong>TrendRec</strong> 을 제안합니다.
+현재 시점에서의 trend 를 파악하고 유저에게 관련 item 을 추천하는 것을 시계열 예측으로 접근한 관점이 신선했고, “acceleration” 이라는 개념을 정의하여 인기가 “빠르게 상승” 하고 있고 가까운 미래에 인기를 얻을 가능성이 있는 item 을 추천한다는 아이디어가 참신한 것 같아 해당 논문을 선정하게 되었습니다.</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="1-introudction">1. Introudction</h3>
+
+<h4 id="1--definition">1-①. Definition</h4>
+
+<h5 id="-용어정의">▶ 용어정의</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>용어</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Popularity</strong></td>
+      <td>특정 시간 간격 내에 발생한 interaction 수</td>
+    </tr>
+    <tr>
+      <td><strong>trend in the recommendation context</strong></td>
+      <td>인기도 (popularity) 또는 가속도 (acceleration)의 <strong>변화율</strong></td>
+    </tr>
+    <tr>
+      <td><strong>trending now</strong></td>
+      <td>현재 시점에서 점점 더 많은 interaction 이 발생하는 item list 이지만, 해당 item 들은 반드시 가장 인기있는 item 을 뜻하진 않는다. 아직 인기가 높지 않은 유망한 trending up item 에 대한 탐색이 가능하므로 popularity bias 없이 효과적으로 item 을 추천한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="-trending-now-의-target-item-예시">▶ trending now 의 target item 예시</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>•  최근 출시된 좋은 품질의 cold items (ex. 왕좌의 게임 새로운 에피소드) = Recently released cold items of good quality</td>
+    </tr>
+    <tr>
+      <td>•  갑작스러운 변화가 발생하는 항목 (ex. 영화가 오스카상을 수상하여 갑자기 유행하는 경우) = Items experiencing sudden changes</td>
+    </tr>
+    <tr>
+      <td>•  주기적으로 유행하는 오래 지속되는 품목 (ex. 겨울의류와 같이 계절적인 영향을 받는 품목) = Long lasting items with periodic up-trend</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="1--challenge">1-②. Challenge</h4>
+
+<p>▢  <strong>Problem</strong>: 현재 trend 를 안정적이고 신뢰성 있게 파악하기 위해서는 충분한 interaction 을 수집하는 데 일정 시간이 필요하나, trend 는 정의 특성상 역동적으로 변화하고 데이터 수집 기간 동안 변동이 있을 수 있다.</p>
+
+<p>▢  <strong>Solution</strong> : trend recommendation 을 one-step forecasting problem 으로 공식화한다.</p>
+
+<p><br /></p>
+
+<h4 id="1--problem-setting--one-step-forecasting-problem">1-③. Problem setting : One-step forecasting problem</h4>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig1.png" alt="image" /></p>
+
+<p>▢ (왼쪽 그래프) 과거 item 의 trend 변화가 주어지면, <strong>다음 시간 단계에 어떤 item 이 유행할지 예측 (→ One-step forecasting)</strong> 하는 것을 목표로 한다. 모델이 다음 시간 단계에서 유행하는 item 을 예측하면, 백엔드에서 데이터를 버퍼링하면서 다음 시간 단계 내 user 에게 해당 item 을 표시한다. 다음 시간 단계가 끝나면 모델은 새로 축적된 데이터를 기반으로 바로 다음 시간 단계에 대한 새로운 예측을 수행한다. 또 다른 데이터 수집의 주기를 시작하는 것으로 추천을 반복한다.</p>
+
+<p>▢ (오른쪽 그래프) 특정 use case 에 대한 최적화된 트렌드 추천을 설계하려면 기존의 시계열 예측 모델을 기반으로 구축할 수 있다. 더불어 시계열 예측 모델 외에도 추천 상황의 고유한 속성이 활용될 수 있다. 시계열에서 각 item 에 대한 대략적인 누적 interaction 수 외에도 더 세분화된 user-item 간 interaction 이 존재한다. 특정 item 에 대해 얼마나 많은 user 가 해당 item 과 상호작용 했는지 알 수 있을 뿐 아니라 이러한 user 가 정확히 누구인지도 알 수 있다. 이는 item 간 근본적인 상관관계를 파악하는 데 도움이 되는 추가적인 정보를 제공하며 <strong>user 가 많이 겹치는 item 은 공통 trend 패턴을 공유 할 수 있으므로 trend 예측의 정확도를 높일</strong> 수 있다.</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="2-preliminaries">2. Preliminaries</h3>
+
+<h4 id="2--term-definition">2-①. Term Definition</h4>
+
+<h5 id="-용어정의-1">▶ 용어정의</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>용어</th>
+      <th>내용</th>
+      <th>표기</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Time Step</strong></td>
+      <td>미리 정의한 시간 간격 (ex. 한시간)</td>
+      <td><strong>Δ𝑡</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Velocity</strong></td>
+      <td>item j 에 대해서, time step t 동안 수집된 interaction 수를 time step t 에서의 velocity 로 정의 (unit time Δ𝑡 당 item j 의 popularity)</td>
+      <td><strong>W𝑗𝑡</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Acceleration</strong></td>
+      <td>time step t 에서의 item j 에 대한 acceleration. item j 의 velocity 가 단위 시간 Δ𝑡당 ΔW𝑗𝑡씩 <strong>변화</strong>하고 있음을 나타낸다 (<strong>변화량</strong>).</td>
+      <td><strong>A𝑗𝑡</strong> = <strong>ΔW𝑗𝑡</strong> = W𝑗(𝑡) - W𝑗(𝑡-1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="-acceleration--trend">▶ <strong>Acceleration = Trend</strong></h5>
+
+<ul>
+  <li>item 𝑗 의 시간 단계 𝑡 에서의  acceleration A𝑗𝑡 가 <strong>모든 item 의 acceleration 중 가장 높으면</strong> 해당 item 은 시간 단계 𝑡에서 <strong>trendy 한 것으로 간주</strong>한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="2--problem-definition">2-②. Problem Definition</h4>
+
+<h5 id="-적절한-time-interval-ex-향후-1시간-trend-item-향후-하루동안-trend-item-이-관건이다">▶ 적절한 Time interval (ex. 향후 1시간 trend item, 향후 하루동안 trend item) 이 관건이다.</h5>
+
+<p>현재 trend 를 빠르게 감지하고 실시간으로 인기 있는 item 을 추천하는 것이 이상적이다. 이를 위해선 충분한 interaction 을 축적하는데 일정 시간이 필요하면서도, trend 는 동적으로 변화하면서 (dynamic variations) 데이터 수집 과정에서 시간적 변동 (temporal drift) 있는 것이 특징이기 때문에 적절한 time interval Δt 를 설정하는 것이 중요하다. Δt 가 너무 작다면 수집된 데이터가 불충분하여 noisy 가 발생할 수 있고, 너무 크다면 시간적 변동성이 발생해 예측 성능이 낮아질 수 있다. 따라서 데이터에 맞는 feasible 하고 short 한 적절한 time interval 을 찾는 것이 중요하다.</p>
+
+<h5 id="-시간-단계-길이-time-step-length-와-작업-실행-가능성-task-feasibility-간의-상관-관계에-대한-가설">▶ 시간 단계 길이 (time step length) 와 작업 실행 가능성 (task feasibility) 간의 상관 관계에 대한 가설</h5>
+
+<p><strong>bias-variance tradeoff</strong> : 시간 단계 길이가 짧으면(예: 1시간) 데이터 희소성 (data sparsity) 으로 인해 variance 가 발생하고, 시간 단계 길이가 길면(예: 하루) 시간적 드리프트 (temporal drift 시간에 따른 변동) 로 인해 편향이 발생한다. 따라서 둘 사이의 균형을 잘 맞출 수 있는 sweet spot 을 찾아야 한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig3.png" alt="fig3" /></p>
+
+<h5 id="-one-step-time-series-forecasting-task">▶ one-step time series forecasting task</h5>
+
+<p>trend recommendation task 를 one-step time series forecasting 문제로 정의한다. 각 item 대해 주어진 <strong>historical acceleration</strong> [A𝑗0, A𝑗1, . . . , A𝑗𝑡] := <strong>A𝑗,0:𝑡</strong> 과, covariates 와 같은 추가적인 <strong>contextual information</strong> [C𝑗0, C𝑗1, . . . , C𝑗𝑡] := <strong>C𝑗,0:t</strong> 가 주어졌을 때, 다음 step 인 (t+1) 에서의 acceleration 을 예측하기를 원한다. 그리고 trend prediction 을 기반으로 상위 k 개의 아이템을 추천한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig2.png" alt="fig2" /></p>
+
+<p><br /></p>
+
+<h4 id="2--baseline-model">2-③. Baseline model</h4>
+
+<ul>
+  <li>널리 채택된 두 가지 휴리스틱 모델을 설명한 다음 일반적인 형태의 딥러닝 기반 확률론적 시계열 예측 모델을 baseline model 로 사용한다.</li>
+</ul>
+
+<h5 id="-1-markov-heuristic-model">▶ (1) Markov Heuristic Model</h5>
+
+<p>임의의 item j 의 next time step 의 acceleration A𝑗 (𝑡+1) 는 “오직” 현재 time step 의 acceleration A𝑗t 에 의존한다고 가정한다. 실제로 acceleration 는  짧은 시간 동안 동일하게 유지되는 경향이 있으므로 마르코프 휴리스틱 모델을 다음과 같이 정의한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig4.png" alt="fig4" /></p>
+
+<ul>
+  <li>Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration</li>
+  <li>Auto regressive model (AR) 의 special case 로도 볼 수 있다.</li>
+</ul>
+
+<h5 id="-2-exponential-moving-average-ema-heuristic-model">▶ (2) Exponential Moving Average (EMA) Heuristic Model</h5>
+
+<p>마르코프 휴리스틱 모델의 가장 큰 단점은 다음 시간 단계의 item acceleration 이 현재 시간 단계의 영향을 받기 때문에 데이터 희소성 등의 문제로 인해 노이즈가 발생할 수 있다는 것이다. 따라서 여러 개의 최신 시간 단계를 고려하여 더 최근의 시간 단계에 더 많은 가중치를 할당하는 지수이동평균 휴리스틱 모델을 정의할 수 있다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig5.png" alt="fig5" /></p>
+
+<ul>
+  <li>Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration</li>
+  <li>T : 모델이 고려하고 있는 최근 시간 단계 수</li>
+  <li>wk : 현재 시간 step 에서 멀어질수록 기하급수적으로 감소하는 미리 정의된 가중치</li>
+  <li>ARIMA model 의 special case 로 볼 수 있다.</li>
+</ul>
+
+<h5 id="-3-deep-learning-based-time-series-forecasting-model">▶ (3) Deep Learning based Time Series Forecasting Model</h5>
+
+<p>휴리스틱 모델은 일반적으로 다양한 시나리오에 적응할 수 있는 유연성이 부족한 일반적인 가정 (general assumptions) 을 인코딩한다. 그러나 <strong>acceleration 패턴은 도메인(리테일, 미디어, 뉴스 등)에 따라 다르다</strong>. 예를 들어, 매주 수요일마다 TV 시리즈의 새 에피소드가 공개되는 것과 같이 리테일과 미디어 영역 모두에서 다양한 주기(일별, 주별, 계절별 등)의 주기적 acceleration  패턴이 풍부하게 존재한다. 반대로 뉴스는 시간에 민감하고 사람들은 가장 최근 뉴스를 팔로우하는 경향이 있기 때문에 뉴스 영역에서는 이러한 규칙적인 acceleration  패턴이 거의 관찰되지 않는다. 또한 같은 도메인 내에서도 다양한 acceleration  패턴이 공존할 수 있다. 예를 들어, 특정 영화 플랫폼에서 새로 개봉한 액션 영화의 acceleration 곡선은 해당 플랫폼 사용자 커뮤니티의 선호도에 따라 새로 개봉한 다큐멘터리 영화의 acceleration 곡선에 비해 지속적으로 가파른 증가세를 보일 수 있다. 따라서 <strong>트렌드 추천을 위한 보다 일반적인 솔루션은 다양한 시나리오에 적응할 수 있는 학습 가능한 딥러닝 기반 시계열 예측 모델을 설계</strong>하는 것이다. 모델을 공식화하면 다음과 같다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig6.png" alt="fig6" /></p>
+
+<ul>
+  <li>𝑓seq (·) : 과거 acceleration  를 집계하고 다음 시간 단계에서 acceleration  의 확률적 분포를 예측하는 순차적 모델로 DeepAR, RNN, MQCNN, TFT 등이 있다.</li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h3 id="3-model--collaborative-time-series-forecasting-model-with-user-item-interactions-trendrec">3. Model : collaborative time series forecasting model with user-item interactions (TRENDREC)</h3>
+
+<h4 id="3--two-phase-framework">3-①. Two-phase framework</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>phase</th>
+      <th>objective</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. 다음 item 추천</strong></td>
+      <td>보조적인 목표로 하여, TrendRec은 user-item 간 interactive signal 을 활용하여 item 간의 기본 상관관계를 감지하고 이러한 지식을 item embedding 으로 인코딩한다.</td>
+    </tr>
+    <tr>
+      <td><strong>2. 다음 time step 의 trend (=acceleration) 예측</strong></td>
+      <td>학습된 item embedding 을 사용하여 시계열 예측 목표를 위해 각 시계열에 대한 추가 context 를 제공한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="3--model-overview">3-②. Model overview</h4>
+
+<blockquote>
+  <p>TrendRec : RecSys + Time series forecasting</p>
+</blockquote>
+
+<ul>
+  <li>추천 모델은 user-item interaction 을 통해 다음 아이템 추천 objective 를 학습한다.
+    <ul>
+      <li>item feature 에 대한 representation learning 을 통해 dense latent item embedding 을 생성한다. 이를 통해 item 간 correlation 을 파악하여 시계열 예측에 대한 추가적인 context 를 제공한다. Item correlation 을 인코딩하는 shared latent item embeddings 을 통해 두 objectives 가 연결된다.</li>
+    </ul>
+  </li>
+  <li>시계열 예측 모델은 item의 accelerations 를 사용하여 다음 단계 acceleration 예측 objective 에 대해 학습한다.</li>
+</ul>
+
+<p><br /></p>
+
+<blockquote>
+  <p>probabilistic graphical model (PGM)</p>
+</blockquote>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig7.png" alt="fig7" /></p>
+
+<h5 id="-노드">▸ <strong>노드</strong></h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>표기</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>V𝑗t ∈ R(D)</td>
+      <td>∘  <strong>item 𝑗’s properties</strong> till time step t  both static properties and dynamic properties <br /> ∘  𝐷 is the hidden dimension of the embedding <br /> ∘ <strong>latent item embedding</strong></td>
+    </tr>
+    <tr>
+      <td>𝜆v</td>
+      <td>∘  <strong>hyperparameters</strong> related to distribution variance of latent item embedding</td>
+    </tr>
+    <tr>
+      <td>A𝑗,0:t ∈ R(𝑁𝑗t)</td>
+      <td>∘  <strong>item 𝑗’s historical acceleration</strong> till time step 𝑡 which is [A𝑗0, A𝑗1, . . . ,A𝑗𝑡]</td>
+    </tr>
+    <tr>
+      <td>A𝑗(𝑡+1) ∈ R</td>
+      <td>∘  the acceleration of item 𝑗 at the next time step 𝑡 + 1</td>
+    </tr>
+    <tr>
+      <td>𝑁𝑗t</td>
+      <td>∘  the number of historical time steps of item 𝑗 till time step t</td>
+    </tr>
+    <tr>
+      <td>U𝑖t ∈ R(D)</td>
+      <td>∘  <strong>user 𝑖’s interests</strong> till time step t <br /> ∘  <strong>latent user embedding</strong></td>
+    </tr>
+    <tr>
+      <td>𝜆u</td>
+      <td>∘  hyperparameters related to distribution variance of latent user embedding</td>
+    </tr>
+    <tr>
+      <td>S𝑖t ∈ R(N𝑖t x D)</td>
+      <td>∘  <strong>user 𝑖’s historical interaction sequence</strong> till time step 𝑡 <br /> ∘  embedding matrix and each row of it represents an item embedding</td>
+    </tr>
+    <tr>
+      <td>𝑁𝑖t</td>
+      <td>∘  the number of interactions from user 𝑖 till time step t</td>
+    </tr>
+    <tr>
+      <td>R𝑖𝑗t ∈ {0, 1}</td>
+      <td>∘  <strong>interaction label</strong> denoting whether user 𝑖 interacted with item 𝑗 at time step t</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="-엣지">▸ <strong>엣지</strong></h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>표기</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Edge S𝑖𝑡 → U𝑖t</td>
+      <td>∘  user 의 이전 interactions 는 user 의 interest 를 표현하며, 이는 user의 다음 행동에 영향을 미친다. <br /> ∘  ex. 휴대폰을 구매한 사용자가 다음에 휴대폰 액세서리를 구매할 수 있다.</td>
+    </tr>
+    <tr>
+      <td>Edge {U𝑖𝑡, V𝑗𝑡} → R𝑖𝑗𝑡</td>
+      <td>∘  Interaction 은 user interests U𝑖𝑡 와 item properties V𝑗t 에 따라 달라진다.</td>
+    </tr>
+    <tr>
+      <td>Edge {V𝑗𝑡, A𝑗,0:𝑡 } → A𝑗 (𝑡+1)</td>
+      <td>∘ 다음 시간 단계 𝑡 +1에서 아이템 𝑖의 acceleration 는 item feature 와 item 의 과거 acceleration 에 영향을 받는다. <br /> ∘ ex. 액션 영화는 특정 웹사이트의 사용자 커뮤니티에서 트렌드가 될 가능성이 높다. <br /> ∘ ex. 주간 trend 패턴이 주기적으로 나타나는 item</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="-generative-process">▸ <strong>Generative process</strong></h5>
+
+<p>평균이 𝝁 그리고 분산이 diagonal covariance λ<sup>-1</sup>ⅠD 인 가우시안 분포에서 latent offset vector 를 설정하여 latent item embedding 과 latent user embedding 을 계산한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig8.png" alt="fig8" /></p>
+
+<p>R𝑖𝑗t 를 구하기 위해서 softmax function 을 latent user embedding 와 latent item embedding 을 내적한 값에 적용하여 recommendation score 를 계산한다.</p>
+<ul>
+  <li>Y𝑖𝑗𝑡 = 𝑓softmax(U’𝑖𝑡•V𝑗𝑡)</li>
+  <li>R𝑖∗𝑡 ~ 𝐶𝑎𝑡([Y𝑖𝑗𝑡]), j: 1,,..,J , 𝐶𝑎𝑡 is categorical distribution.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3--training">3-③. Training</h4>
+
+<h5 id="-maximum-a-posteriori-map-estimation">▸ <strong>Maximum a Posteriori (MAP) Estimation</strong></h5>
+
+<p>maximum a posteriori (MAP) estimation</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig11.png" alt="fig11" /></p>
+
+<p>다음 item 을 추천하는 것에 있어서 interaction R𝑖𝑗t 에 대한 조건부 확률을 다음과 같이 정의한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig9.png" alt="fig9" /></p>
+
+<p>item accelerations A𝑗(𝑡+1) 에 대한 조건부 확률을 다음과 같이 정의한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig10.png" alt="fig10" /></p>
+
+<ul>
+  <li>𝑓𝑡𝑠 (·) : 다음 시간 단계 𝑡에서 acceleration 의 확률적 분포를 예측하기 위해 item 의 과거 acceleration 와 latent item embedding 을 모두 사용하는 모든 유형의 확률론적 시계열 예측 모델</li>
+</ul>
+
+<h5 id="-negative-log-likelihood-nll">▸ <strong>Negative Log Likelihood (NLL)</strong></h5>
+
+<p>posterior probability 를 최대화 하는 것은 negative log likelihood 를 최소화하는 것과 같다. NLL 은 다음과 같이 계산할 수 있다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig12.png" alt="fig12" /></p>
+
+<ul>
+  <li>(10) : Next Item Recommendation Loss → 이를 최소화하면 학습 세트에서 다음 항목 추천 성능이 향상된다.</li>
+  <li>(11) : Time Series Forecasting Loss → 이 term 을 최소화하면 훈련 세트에서 acceleration 예측이 향상된다.</li>
+  <li>(12) : Regularizing Latent Item Embedding V𝑗t and Latent User Embedding U𝑖t  →  V𝑗t 를 zero-mean Gaussian prior 에 근접하게 정규화하고 U𝑖𝑡 를 유저의 과거이력이 유저의 흥미를 나타낸다고 가정하고, 계산된  𝑓seq (S𝑖𝑡) likelihood function adopted by the probabilistic time series forecasting model에 근접하게 정규화한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3--inference">3-④. Inference</h4>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig13.png" alt="fig13" /></p>
+
+<ul>
+  <li>V*jt : the posterior of item j’s latent item embedding</li>
+  <li>𝑓∗ts (·) : the trained sequential time series forecasting model</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3--model-architecture">3-⑤. Model architecture</h4>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig14.png" alt="fig14" /></p>
+
+<ul>
+  <li>왼쪽그림 : overview network structure</li>
+  <li>
+    <p>오른쪽그림 : figure visualizes the full details of the TrendRec implementation</p>
+  </li>
+  <li>the model contains two principal components
+    <ul>
+      <li>(1) a sequential recommender :   <strong>R𝑖𝑗t</strong> ⇨  recommendation score 는 latent user embedding U𝑖t 과 latent item embedding V𝑗t 사이의 내적 곱을 기반으로 계산된다.</li>
+      <li>(2) collaborative time series forecasting model :   <strong>A𝑗(𝑡+1)</strong> ⇨  다음 item 추천 (1) 과정에서 pre-trained 된 latent item embedding 을 가져와 item historical acceleration 와 함께 활용하여 다음 시간 단계에서의 acceleration 를 예측한다.</li>
+    </ul>
+
+    <p>→ 2가지 요소는 학습가능한 latent item embedding 을 통해 join 된다.</p>
+  </li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h3 id="4-experiments">4. Experiments</h3>
+
+<p>▢ <strong>Research question</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Research question</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Q1</strong></td>
+      <td>task feasibility 와 time step length 의 correlations 에 대해 제안한 가설 (적절한 Δ𝑡 의 존재) 이 적용되는지, 각 dataset 의 time step length 는 어떻게 선택해야 하는지</td>
+    </tr>
+    <tr>
+      <td><strong>Q2</strong></td>
+      <td>TrendRec이 휴리스틱 모델과 기본적인 딥러닝 기반 시계열 예측 모델을 포함한 모든 기준 모델보다 성능이 우수한지</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="4--datasets">4-①. Datasets</h4>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig15.png" alt="fig15" /></p>
+
+<ul>
+  <li>리테일 (TaoBao), 미디어(Netflix), 뉴스(MIND)를 포함한 다양한 도메인의 데이터를 이용
+    <ul>
+      <li>TaoBao 의 경우  아이템 카테고리가 크기 때문에 , 3개의 구분된 데이터셋을 구조화하기 위해 인터랙션 수를 기반으로 상위 3개의 아이템 카테고리를 선택한다 → TaoBao Cat1, TaoBao Cat2, TaoBao Cat3</li>
+    </ul>
+  </li>
+  <li>다음 item 추천 objective 와 시계열 예측 objective 사이에 시간적 누수 (temporal leakage) 가 발생하지 않도록 엄격한 실험설정을 적용 : 모든 training interactions 이 모든 testing interactions 보다 먼저 발생하도록 데이터를 시간적으로 분할하고, training 단계에서 두 objective 에 대해 정확하게 동일한 훈련 데이터셋을 사용한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="4--evaluated-methods">4-②. Evaluated methods</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mtehods</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Oracle</strong></td>
+      <td>∘  다음시간 단계에서 실제 정답 (ground truth) 미래 acceleration 에 접근할 수 있다. <br /> ∘  항상 acceleration 을 정확하게 예측하고 상위 k 개의 트렌드 아이템을 추천한다.</td>
+    </tr>
+    <tr>
+      <td><strong>Random</strong></td>
+      <td>∘  전체 아이템 카탈로그에서 replacement 없이 전체 아이템으로부터 random selection 을 하여 아이템을 추천해준다.</td>
+    </tr>
+    <tr>
+      <td><strong>Exponential moving average (EMA)</strong></td>
+      <td>∘  지수이동평균은 최근 m 시간 단계 (latest 𝑚 time steps) 의 acceleration 의 가중치 합을 기반으로 다음 시간 단계의 acceleration 을 예측하는 규칙기반 모델이다. (m=8) <br />  ∘  가중치는 현재 시간 단계로부터 멀어지는 시간 단계수가 증가함에 따라 0.75의 계수로 기하급수적으로 감소한다.</td>
+    </tr>
+    <tr>
+      <td><strong>DeepAR</strong></td>
+      <td>∘  auto-regressive RNN 에 기반한 SOTA 시계열 모델 중 하나이다.</td>
+    </tr>
+    <tr>
+      <td><strong>TrendRec</strong></td>
+      <td>∘  본 연구에서 제안한 모델로 two-phase 로 이루어져있다. <br /> ∘ 다음 아이템 추천을 위해 GRU4Rec 을 채택해 latent item embedding 을 학습한다. <br /> ∘ 시계열 예측을 위해선 DeepAR 모델을 사용한다. 최신 시계열 예측 모델 중 하나이고, 널리 채택되고 있기 때문이다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="4--evaluation-metrics">4-③. Evaluation metrics</h4>
+
+<p>시계열 예측 설정에서 RMSE와 같은 평가 지표를 채택하는 대신, 다음 시간 단계에서 트렌드 아이템을 추천하는 트렌드 추천 집합의 목표에 밀접하게 부합하는 평가 지표를 설계한다.</p>
+
+<h5 id="-1-acceleration-metric">▸ (1) Acceleration metric</h5>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig16.png" alt="fig16" /></p>
+
+<ul>
+  <li>모델이 예측한 다음 단계 시간 t 의accelerations 에 기반하여 상위 k 개 item 을 선택</li>
+  <li>그런 다음 선택한 𝑘 아이템을 다음 시간 단계 𝑡에서 해당 ground truth acceleration 에 다음과 같이 맵핑</li>
+  <li>acceleration 이 trend 의 정량적인 측정 (quantitative measurement) 이기 때문에 item 의 다음 시간 단계의 예측한 acceleration 의 총합 (sum) 으로 계산하고 모델의 trendiness score 로 사용
+    <ul>
+      <li>값이 높을수록 모델은 다음 시간 단계에서의 트렌드한 아이템에 대한 예측을 더 잘한다.</li>
+    </ul>
+  </li>
+  <li>[0,1] 사이의 값으로 스케일링을 하기 위해 trendiness score 의 top 에 대해 min-max normalization 을 적용한다. trendiness score 의 upper bound 는 Oracle 모델에서, lower bound 는 Random 모델에서 온다.</li>
+</ul>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig18.png" alt="fig18" /></p>
+
+<h5 id="-2-tndcg-metric">▸ (2) TNDCG Metric</h5>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig17.png" alt="fig17" /></p>
+
+<ul>
+  <li>Trendiness-Normalized-DCG (TNDCG) metric : 아이템의 rank position 을 logarithmic reduction factor 로 고려한다.</li>
+</ul>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig19.png" alt="fig19" /></p>
+
+<ul>
+  <li>r : index the rank position</li>
+  <li>A<sup>p</sup><sub>r</sub> : acceleration of item ranked at position r based on order from <strong>model prediction (표기 p)</strong></li>
+  <li>A<sup>O</sup><sub>r</sub> : acceleration of item ranked at position r based on order from <strong>ground truth (표기 O)</strong></li>
+</ul>
+
+<h5 id="-3-evaluation-protocol">▸ (3) Evaluation protocol</h5>
+
+<p>timestamp 를 기준으로 training 과 test step 을 나눈다. 그리고 testing 을 위해 가장 최근의 20% time span 을 남긴다. (예. eight hour training window, two-hour testing window)</p>
+
+<p><br /></p>
+
+<h4 id="4---hypothesis-validation-q1--적절한-δt-선택하기">4-④.  Hypothesis validation Q1 : 적절한 Δt 선택하기</h4>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig20.png" alt="fig20" /></p>
+
+<p>Markov heuristic model 을 활용해 성능을 평가한다. 간단하지만 generic 한 가정에 기반한 기초적인 모델이고, 따라서 해당 모델의 성능은 task feasibility 를 반영한다. 
+결과를 보면, TaoBao 와 MIND 데이터 세트의 곡선은 데이터 희소성 완화로 인해 시간 간격이 길어질수록 acc 지표가 먼저 개선된 다음 temporal drift 로 인해 감소하는 Q1 가설과 일치하는 결과를 보인다. 반면 Netflix 데이터셋의 경우 곡선이 계속 감소하고 있는데, 이는 time stamp 단위가 하루로, 충분한 데이터를 수집할 수 있을 만큼 길지만 temporal drift 가 발생하기 때문이다. 전반적으로 위의 결과는 가설을 입증하고 있다. 각 데이터셋의 시간 간격 <strong>Δ𝑡을 각 곡선의 peak 에 따라 선택</strong>한다. 일관성을 위해 3개의 TaoBao dataset 은 모두 3시간, Netflix 는 하루, MIND 는 30분 시간간격으로 설정한다.</p>
+
+<p><br /></p>
+
+<h4 id="4---experimental-results-q2--trendrec-모델의-우수함-증명">4-⑤.  Experimental results Q2 : TrendRec 모델의 우수함 증명</h4>
+
+<p>TrendRec 모델을 3개 도메인의 데이터에 대한 다양한 베이스라인모델에 대해 평가한다.</p>
+
+<p><img src="https://github.com/hopebii/kaist_ds535/blob/main/fig21.png" alt="fig21" /></p>
+
+<p>TrendRec 이 가장 좋은 performance 를 보인다. TrendRec 의 시계열 예측 부분이 DeepAR 로 구성되어 있는데, DeepAR 대비 TrendRec 의 성능 향상은, 다음 item 추천 파트에서 얻은 pre-trained 된 latent item embedding 을 활용한 것이 효과적이었음을 보여준다.</p>
+
+<p><br /></p>
+
+<h4 id="4---findings">4-⑥.  Findings</h4>
+
+<h5 id="-deep-learning-based-models-significantly-outperform-heuristic-models">▸ Deep learning based models significantly outperform heuristic models</h5>
+
+<p>딥러닝 기반의 모델은 휴리스틱 모델보다 성능이 높다. 특히 TaoBao 과 Netflix 데이터셋에 대해 DeepAR 과 TrendRec 과 같은 딥러닝 기반의 모델은 휴리스틱 모델을 큰 차이로 더 성능이 높게 나온다. 해당 결과는 trend 추천을 위해 학습가능한 모델을 채택하는 것의 중요성을 강조한다.</p>
+
+<h5 id="-the-ema-model-is-worse-than-the-markov-model-in-most-cases">▸ The EMA model is worse than the Markov model in most cases</h5>
+
+<p>EMA 모델은 대부분의 경우에서 마르코프 모델보다 성능이 더 저하되는 결과를 보였다. 이는 trend 가 동적으로 변하고  이러한 결과는, recency bias 를 가진 간단한 가중치합 (weighted sum) 보다, 다음 시간 단계에서의 트렌드와 과거 트렌드 (historical trends) 사이에 의존적인 관계가 보다 더 복잡하다는 것을 의미한다.</p>
+
+<h5 id="-performance-gain-from-deep-learning-based-models-is-relatively-small-in-the-news-domain">▸ Performance gain from deep learning based models is relatively small in the News domain</h5>
+
+<p>뉴스도메인이 리테일이나 미디어 도메인과 비교했을 때, 딥러닝 기반의 모델과 휴리스틱 모델 사이의 성능 차이는 상대적으로 미미하다. (relatively marginal) 뉴스 도메인의 item 시계열을 분석해 보면 일반적으로 아이템이 출시되면 단기간에 최대 acceleration 에 도달한 후 급격히 하락하는 것으로 나타난다.  이는 주로 시간에 민감한 뉴스의 특성 때문이며, 딥러닝 기반 모델에 큰 도전 과제이다.</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="5-conclusion">5. Conclusion</h3>
+
+<h4 id="5--summary">5-①. Summary</h4>
+
+<ul>
+  <li>이 연구에서는 추천 시스템에서 잘 다루어지지 않은 주제인 trend recommender 를 연구한다. 선행 연구가 제한적으로 이루어져 있기 때문에 trend 라는 개념을 공식적으로 정의하는 것으로 시작한다. 이후 적시에 안정적으로 trend 를 식별하는데 문제가 되는 bias-variance tradeoff 현상을 관찰하여 이를 바탕으로 trend recommendation 을 one-step time series forecasting 로 공식화한다.</li>
+  <li>방법론 측면에서 user-item interactive signal 을 활용하여 item 간 correlation 을 파악하고 이를 바탕으로 trend 예측을 용이하게 하는 TrendRec 이라는 two phase model 을 개발하였다.</li>
+  <li>Recommendation context 에서 trend 의 개념을 공식적으로 정의하고 그에 맞는 평가지표와 평가 프로세스를 수립했다.</li>
+  <li>리테일, 미디어, 뉴스 등 다양한 영역의 데이터셋에 대한 실험으로 통해 TrendRec 모델의 효과를 입증했다.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="5--opinion">5-②. Opinion</h4>
+
+<p>해당 논문은 시계열 예측 모델을 적용하여 trend 한 item set 을 추천해주는 방법론을 제안하고 있습니다. user-item 간 interaction 정보를 바탕으로 item 정보를 embedding 하여, 더 효과적으로 시계열 예측이 가능하도록 모델 구조를 구성하였으며 특히 trend 라는 맥락에서 발생할 수 있는 적절한 time interval 을 설정하는 데 있어 bias-variance tradeoff 문제를 명시하고 관련된 해결책을 제시하고 있습니다. interaction 수의 변화율 (acceleration) 을 기준으로 trend 를 감지하려고 한 시도가 신선하게 다가왔으며, 수업에서 배웠던 sequence 한 정보를 기반으로 추천해주는 추천시스템 모델들과는 또 다른 맥락의 추천 방법론인 것 같아 전반적으로 인상깊었던 논문이었습니다. 또한 dataset 마다 trend 가 발생하는 상이한 특징에 따라 optimal 한 time interval 을 설정하는 접근 방식이 논문에서 뉴스나 영화 예시를 들었던 것 처럼 domain-based 한 부분이라, 추천 메커니즘에 대한 해석이 더 흥미롭게 다가왔던 것 같습니다. 그러나 TrendRec 에서 시계열 예측 모델로 DeepAR 을 선택한 것, 다음 아이템 예측 모델에 임베딩 방식으로 GRU4Rec을 채택한 것 대한 근거가 조금 부족하다고 느꼈습니다. 추가적인 다른 모델 채택 구성방식의 실험결과도 비교해주었으면 좋을 것 같다는 생각이 들었습니다. 하지만 trend recommendation 이라는 분야에서 해당 논문이 가지고 있는 가치는 매우 크다고 생각하며 앞으로 해당 분야가 발전함에 있어서 중요한 연구가 될 것이라 생각합니다.</p>
+
+<p><br />
+<br /></p>
+
+<h4 id="-review-writer-information">👩🏻 Review writer information</h4>
+<ul>
+  <li>이다현 (Lee Dahyeon)
+    <ul>
+      <li>Master student, Department of Data science, KAIST</li>
+      <li>contact : isdawell@kaist.ac.kr</li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 16, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

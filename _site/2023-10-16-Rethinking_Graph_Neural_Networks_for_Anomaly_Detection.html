@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection</h1>
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="icml-22-rethinking-graph-neural-networks-for-anomaly-detection">[ICML-22] Rethinking Graph Neural Networks for Anomaly Detection</h1>
+
+<h1 id="title">Title</h1>
+
+<hr />
+
+<p>Rethinking Graph Neural Networks for Anomaly Detection</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Booktitle</th>
+      <th>Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tang, Jianheng and Li, Jiajin and Gao, Ziqi and Li, Jia</td>
+      <td>International Conference on Machine Learning</td>
+      <td>2022</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<h3 id="11-background">1.1 Background</h3>
+
+<p>이상치 (An anomaly or an outlier) 는 대부분의 개체에서 크게 벗어난 데이터 객체를 뜻하며, 이상치 탐지 (Anomaly Detection) 문제로는 사이버 보안, 사기 탐지, 장치 오류 탐지 등이 있습니다. 기술의 발전으로 인하여 그래프 데이터가 보편화되면서 structural data에 대한 분석으로 Graph Neural Networks (이하 “GNN”)이 각광받았고 자연스럽게 그래프 이상 탐지 작업 (Graph Anomaly Detection Task)에 적용되었습니다. 하지만, vanilla GNN은 지나친 확일화 문제로 인하여 이상치 탐지에 적합하지 않았고 이를 개선하기 위하여 attention 매커니즘을 적용하는 방법, resampling 전략을 사용하는 방법, 그리고 보조의 losses를 설계하는 방법이 제안되었습니다. 이 세 가지 방법은 모두 spatial domain에서의 분석이며, spectral domain에서의 분석은 거의 이루어지지 않았습니다. GNN을 설계할 때 알맞는 spectral filter을 적용하는 것 또한 중요하기에 해당 논문에서는 ‘이상치 탐지를 위한 GNN에서 적절한 spectral filter을 어떻게 고를 것인가?’ 에 대해 답변하고자 합니다.</p>
+
+<h3 id="12-overview">1.2 Overview</h3>
+
+<p>‘이상치 탐지를 위한 GNN에서 적절한 spectral filter을 어떻게 고를 것인가?’에 대해 답변하기 위해 두 가지 과정을 거칩니다. 첫 번째로, 그래프 이상 탐지에서 spectral localized band-pass filters의 중요성을 확인하는 과정입니다. 논문의 저자는 이상의 정도(degree)가 커질수록, 저주파 에너지가 점진적으로 고주파 에너지로 전환됨을 확인하였고 이를 spectral 에너지 분포의 ‘오른쪽 편이 (right-shift)’ 현상으로 정의하였습니다. ‘오른쪽 편이’ 현상에 대한 수리적 증명 및 데이터를 통한 검증으로 적절한 spectral filter의 필요성을 보입니다. 두 번째로, 그래프 이상치에서의 ‘오른쪽 편이’ 현상을 잘 다루는 새로운 알고리즘, Beta Wavelet Graph Neural Network (이하 “BWGNN”)을 제안합니다. Hammond’s graph wavelet theory에서 착안하여 Heat kernal이 아닌 Beta kernal을 사용함으로써, 매우 유동적이고 spatial/spectral-localized 하며 band-pass한 filter을 통해 고주파 이상 현상을 해결합니다.</p>
+
+<h3 id="13-preliminaries">1.3 Preliminaries</h3>
+
+<p>속성 그래프 (Attributed graph)는  $G = { V,E,X }$ 로 정의되며, $V$ 는 node, $E$는 edge, $X$는 node features을 의미합니다. $A$를 adjacency matrix, $D$를 degree matrix로 표현합니다. $V_ {a}$ 와 $V_ {n}$을 두 개의 분리된 하위집합이라 할때, $V_ {a}$ 는 모든 이상 노드를 나타내고, $V_ {n}$ 은 모든 정상 노드를 나타냅니다. 그래프 기반 이상 탐지는 주어진 그래프 구조 $E$, node features $X$, 그리고 부분적인 노드 라벨 ${V_ {a}, V_ {n}}$ 정보를 활용하여 $G$ 내의 라벨링 되지 않은 노드를 이상 또는 정상으로 분류하는 것입니다. 해당 논문은 node 이상치에 집중하며, 모든 edge는 신뢰된다고 가정합니다. 보통, 정상 노드가 이상 노드보다 훨씬 많기에 그래프 기반 이상 탐지는 불균형한 이진 노드 분류 문제로 여겨집니다.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>그래프 이상 탐지에서 spatial domain에 대한 분석은 이루어졌으나 spectral domain에 대한 분석이 거의 이루어지지 않았음이 해당 논문의 동기입니다. 그래프 이상 탐지를 위한 spectral domain 분석이 유효한지를 확인하기 위하여 ‘오른쪽 편이’ 현상을 정의하고 Gaussian anomaly model로 증명하며 인조적인 데이터와 실제 데이터에서 유효한지 확인하였습니다.</p>
+
+<h3 id="21-theoretical-insights-of-the-right-shift-phenomenon">2.1 Theoretical insights of the ‘right-shift’ phenomenon</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}<em>1, \hat{x}_2, … , \hat{x}_N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 이때 $\hat{x}^2_k / \sum</em> {i=1}^N \hat{x}^2_i$ 를 $\lambda_k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다. 논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e_N,\sigma^2 I_N)$ 이때, $x$의 이상치 정도는 $\sigma /</td>
+      <td>\mu</td>
+      <td>$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2<em>i } {\sum</em> {i=1}^N \hat{x}^2<em>i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S</em> {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2<em>i } {\sum</em> {i=1}^N \hat{x}^2_i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="22-validation-on-datasets">2.2 Validation on Datasets</h3>
+
+<p>해당 논문에서는 $x$가 Gaussian distribution을 따르는 데이터셋과 따르지 않은 데이터셋 각각에 대하여 ‘오른쪽 편이’ 현상을 검증합니다. 첫 번째로, 인조적인 데이터셋인 Barabasi-Albert graph (Figure 1 (a)-(b))와 Minnesota road graph (Figure 1 (c)-(d)) 에서 이상치의 효과를 보입니다. 아래 그림에서 파란색 원은 spatial domain에서의 이상 노드를 나타내며 원의 크기가 클수록 이상치의 정도가 심함을 의미합니다. 그래프를 해석하면, 이상치의 정도, 즉, $\sigma$ 와 $\alpha$ 가$\alpha\(\lambda$ $\lambda\)\alpha$가 큼을 확인할 수 있으며 이는 2.1에서 설명한 ‘오른쪽 편이’ 현상이 보임을 의미합니다.</p>
+
+<p><img src="https://ibb.co/fXmJ8Gf" alt="Figure1.png" /></p>
+
+<p>두 번째로, node feature가 Gaussian distribution을 엄격하게는 따르지 않는 현실의 데이터셋에서의 ‘오른쪽 편이’ 현상을 입증합니다. 아래는 해당 4가지 데이터셋, Amazon, YelpChi, T-Finance, T-Social 의 특징과 이상치 효과에 대하여 정리한 도표입니다.</p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table1.png" alt="Table1.png" /></p>
+
+<p>아래의 표는 Amazon dataset에서 (1) 기존 그래프, (2) 모든 이상치를 없앤 그래프, (3) 임의의 같은 노드의 수를 없앤 그래프의 spectral energy를 비교한 표입니다. Figure 3의 왼쪽 그래프에서, 낮은 주파수일때, 즉, $\lambda$ 값이 작을 때, Drop-Anomaly 가 Drop-Random 보다 큰 spectral energy distribution을 가짐을 확인할 수 있으며 이는  ‘오른쪽 편이’ 현상이 있음을 나타냅니다.</p>
+
+<p><img src="https://ibb.co/nrYcYtq" alt="Figure3.png" /></p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p>대부분의 해당 논문 이전의 GNN은 low-pass filter 또는 adaptive filter을 사용하였으며 이는 band-pass 와 spectral-localized 를 보장하지 못합니다. 이러한 단점을 극복하기 위하여 해당 논문에서는 Hammond’s graph wavelet theory를 기반으로 한 새로운 GNN architecture인 BWGNN를 제안합니다. Hammond’s Graph Wavelet 은 graph signal $x \in R^N$ 에 wavelets $W = (W_ {\psi_1}, W_ {\psi_2},…)$ 를 적용하여 변형시키는 것이며 이때, $\psi$ 는 “mother” wavelet 입니다.</p>
+
+<p>Beta distribution은 종종 wavelet basis의 역할을 합니다. 이전에 Beta distribution을 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. Heat Wavelet과 Beta Wavelet 를 비교해보면, Figure 4의 왼쪽에서 볼 수 있듯이 Beta Wavelet은 low-pass filter만 있는 Heat Wavelet 과 달리 low-pass 와 band-pass를 포함한 다양한 filter type을 포함합니다. Figure 4의 오른쪽에서는 Beta Wavelet은 긍정의 반응만 보이는 Heat Wavelet 과 달리 서로 다른 채널에 대해 긍정과 부정의 효과를 둘다 보임을 확인할 수 있습니다.</p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure4.png" alt="Figure4.png" /></p>
+
+<p>위에서 설명한 Beta graph wavelet을 활용하여 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.</p>
+
+\[Z_i = W_ {i,C-i} (MLP(X))\]
+
+\[H = AGG([Z_0, Z_1, ..., Z_C])\]
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="41-experiment-setup">4.1 <strong>Experiment setup</strong></h3>
+
+<ul>
+  <li>4 Dataset : T-Finance, T-Social , YelpChi, Amazon
+    <ul>
+      <li>T-Finance : 거래 네트워크에서의 이상 계좌를 찾는 것을 목적으로 하는 데이터셋</li>
+      <li>T-Social : 소셜 네트워크에서 이상 계정을 찾는 것을 목적으로 하는 데이터셋</li>
+      <li>YelpChi : <a href="http://Yelp.com">Yelp.com</a> 에 올라온 악성 리뷰를 찾는 것을 목적으로 하는 데이터셋</li>
+      <li>Amazon : <a href="http://Amazon.com">Amazon.com</a> 의 음악 악기 카테고리에 올라온 가짜 제품 리뷰를 찾는 것을 목적으로 하는 데이터셋</li>
+    </ul>
+  </li>
+  <li>Evaluation Metric : F1-macro, AUC</li>
+  <li>Baselines
+    <ul>
+      <li>First group : MLP, SVM</li>
+      <li>Second group : GCN, ChebyNet, GAT, GIN, GraphSAGE, GWNN</li>
+      <li>Third group : GraphConsis, CAREGNN, PC-GNN</li>
+      <li>Fourth group : BWGNN (hetero), BWGNN (homo)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="42-result">4.2 <strong>Result</strong></h3>
+
+<p>아래의 표에서 확인할 수 있듯이 BWGNN은 Amazon을 제외한 dataset 에서의 최고의 성능을 보여줌을 확인할 수 있습니다.</p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table2.png" alt="Table2.png" /></p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table3.png" alt="Table3.png" /></p>
+
+<p>민감도 분석을 진행한 결과는 아래와 같습니다. 중요한 hyperparameter인 order C와 이상치 정도의 영향에 대하여 민감도 분석을 진행하였고 각각 왼쪽과 오른쪽의 결과를 보였습니다.</p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure5.png" alt="Figure5.png" /></p>
+
+<p><img src="%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure6.png" alt="Figure6.png" /></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>해당 논문은 그래프 이상 탐지에 대하여 설명한 후 ‘이상치 탐지를 위한 GNN에서 적절한 spectral filter을 어떻게 고를 것인가?’에 대해 답변합니다. 이를 위하여 핵심 특징인 ‘오른쪽 편이’에 대해 그래프로 증명하여 알고리즘의 필요성을 이야기한 후 Beta Wavelet Graph를 활용한 새로운 알고리즘인 BWGNN를 수식적으로 보여줍니다. 실험에서는 4가지 datasets을 활용하여 알고리즘 비교 실험을 진행하였고 BWGNN은 우수한 성능을 보였습니다. Future work로 noe anomalies에서 더 나아간 edge anomalies를 분석해볼 수 있다고 생각합니다. 수리적으로 energy distribution 을 표현한 것이 인상깊었습니다.</p>
+
+<hr />
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>심윤주 (Yoonju Sim)
+    <ul>
+      <li>Master Student, Department of Industrial &amp; Systems Engineering, KAIST</li>
+      <li>Computational Optimization, Reinforcement Learning, Transportation system</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>Github : https://github.com/squareRoot3/Rethinking-Anomaly-Detection</li>
+  <li>Datasets :  <a href="https://drive.google.com/drive/folders/1PpNwvZx_YRSCDiHaBUmRIS3x1rZR7fMr?usp=sharing">google drive</a></li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 16, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
