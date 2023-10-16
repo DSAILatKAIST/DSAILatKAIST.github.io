@@ -3,10 +3,10 @@
     <channel>
         <title>DSAILatKAIST.github.io</title>
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
-        <link>http://localhost:4000/</link>
-        <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 16 Oct 2023 20:45:20 +0900</pubDate>
-        <lastBuildDate>Mon, 16 Oct 2023 20:45:20 +0900</lastBuildDate>
+        <link>http://dsailatkaist.github.io/</link>
+        <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Mon, 16 Oct 2023 20:46:26 +0900</pubDate>
+        <lastBuildDate>Mon, 16 Oct 2023 20:46:26 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -208,8 +208,8 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</guid>
             
             <category>reviews</category>
             
@@ -370,8 +370,8 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</guid>
             
             <category>reviews</category>
             
@@ -973,8 +973,8 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</guid>
             
             <category>reviews</category>
             
@@ -1151,8 +1151,8 @@ Table 3은 네 가지 데이터셋에서 SeHGNN의 성능을 HGB 벤치마크의
 
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</guid>
             
             <category>reviews</category>
             
@@ -1555,8 +1555,8 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</guid>
             
             <category>reviews</category>
             
@@ -1751,8 +1751,8 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</guid>
             
             <category>reviews</category>
             
@@ -1907,8 +1907,8 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
             
             <category>reviews</category>
             
@@ -2293,8 +2293,8 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
 &lt;/div&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
             
             <category>reviews</category>
             
@@ -2547,8 +2547,8 @@ Please write the reference. If paper provides the public code or other materials
 * Reference   --&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
             
             <category>reviews</category>
             
@@ -2745,8 +2745,8 @@ Now for each set of consecutive items purchased by an user, we create a list of 
 
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
             
             <category>reviews</category>
             
