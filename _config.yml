@@ -133,3 +133,10 @@ plugins:
   - jekyll-sitemap
 
 google_site_verification: 1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw
+
+mathjax:
+  TeX: {
+    Macros: {
+      mathcal: ['{\\mathcal{#1}}', 1]
+    }
+  }
