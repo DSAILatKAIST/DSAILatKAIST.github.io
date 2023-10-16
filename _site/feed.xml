@@ -5,9 +5,379 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 16 Oct 2023 17:03:00 +0900</pubDate>
-        <lastBuildDate>Mon, 16 Oct 2023 17:03:00 +0900</lastBuildDate>
+        <pubDate>Mon, 16 Oct 2023 17:35:34 +0900</pubDate>
+        <lastBuildDate>Mon, 16 Oct 2023 17:35:34 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
+        
+        <item>
+            <title>[RecSys 2023] Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation</title>
+            <description>&lt;h1 id=&quot;a-review-on-fairllm&quot;&gt;A Review on FaiRLLM&lt;/h1&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;SUMMARY&lt;/h3&gt;
+&lt;p&gt;This is a scientific review on the paper “Is Chat GPT fair for Recommendation? Evaluating Fairness in Large Language
+Model Recommendation” by Jizhi Zhang, Keqin Bao, Yan Zhang, Wenjoe Wang, Fuli Feng, and Xiangnan He.
+The paper was accepted not long ago in July 2023 by the RecSys conference and has been since then already cited 22 times
+(October 14th on Google Scholar).&lt;br /&gt;
+Within this work, the paper is analysed according to its completeness and the methods that were used. The significance
+and impact of the work is easily recognizable considering search result using the indicated keywords by the authors.
+Without doubt, their approach has been conducted scientifically clean and added great value to the RecSys community. Yet,
+this analysis points out limitations and minor issues, that are necessary to consider in future work in order to showcase
+the broad bandwidth in which unfairness exists.&lt;/p&gt;
+
+&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+&lt;p&gt;In recent years, the realm of recommender systems has witnessed a burgeoning trend in the adoption of generative models
+to augment the efficacy of recommendations. With the ascent of Large Language Models (LLMs) such as ChatGPT by OpenAI
+and Bard by Google, the allure of leveraging these powerful models for recommendation tasks has surged. &lt;br /&gt;
+However, as LLMs gain prominence in recommendation systems, concerns regarding recommendation fairness have surfaced.
+These concerns are not limited to traditional recommendation systems and are equally pertinent to LLM-based 
+recommendation systems. Notably, traditional fairness metrics are often inapplicable in this novel context 
+(Zhang et al.), necessitating the emergence of a research domain centered around LLM fairness and bias.&lt;/p&gt;
+
+&lt;p&gt;The persistence of unfairness in LLM-based recommendation systems is of paramount concern, given its potential to 
+significantly impact the user experience of marginalized groups. In response to this pressing issue, Zhang et al. 
+have introduced the benchmarking method known as FaiRLLM. This method seeks to evaluate the fairness of LLMs in the 
+context of recommendations, particularly for the top-k recommendation task. Notably, this method has been rigorously 
+tested on ChatGPT, demonstrating the existence of unfairness in LLM-based recommendations and highlighting the metrics’
+resilience to prompt modification.&lt;/p&gt;
+
+&lt;p&gt;Given the authors’ assertion of being pioneers in developing a fairness metric for LLM-based recommender systems, 
+a comprehensive review of this paper is imperative to assess its efficacy, comprehensiveness, and accuracy.
+A preliminary examination of the paper’s impact reveals that it has already garnered 22 citations, underscoring its 
+influence on subsequent research and the significance of this work. &lt;br /&gt;
+Moreover, in light of the rapid evolution and advancements within the LLM community, it is incumbent upon LLM-based 
+recommender systems to keep pace with ongoing developments in fairness and bias mitigation. Consequently, the primary 
+objective of this paper review is to contribute to the acceleration of research progress in this dynamic field.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-summary&quot;&gt;2. Summary&lt;/h2&gt;
+
+&lt;p&gt;The authors of the paper “Is ChatGPT fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation”
+introduce the purpose and motivation of their work in a thorough introduction paragraph. There, they underline the
+fairness concerns in LLMs due to the bias in the training corpus and that it is necessary to reduce those in the
+context of recommendations, since the traditional metrics to measure fairness in recommender systems can not be applied
+for LLMs. This is due to the fact, that those metrics require the scores of the model prediction results, which are 
+difficult to obtain in a LLM. In addition, the fairness needs to be computed on a fixed candidate set based on a
+specific dataset, which would limit the recommendation ability of Recommendations via LLM (RecLLM) significantly.&lt;/p&gt;
+
+&lt;p&gt;In order to set a proper starting point in the fairness evaluation of RecLLMs, the authors have decided to consider the
+user-side group-fairness for a top-k recommendation task on the music and movie domain. They reason their choice for
+the scope setting according to the nature of conversational recommendation tasks and the complexity reduction. For
+instance, music or movie items consist of way less and explicit features compared to fashion items.&lt;/p&gt;
+
+&lt;p&gt;After setting the scope, the authors proceed on explaining the evaluation method, the metrics they constructed to 
+compute fairness, and finally document how they have generated the benchmarking dataset.  &lt;br /&gt;
+For the evaluation method, the authors have chosen to compare neutral instructions against sensitive instructions, which
+are instructions that consist additional user information in addition to the expressed preference and task. For the 
+additional user information added in the sensitive prompt, the authors decided on testing the eight most discussed attributes
+in the area of recommendation system fairness: &lt;em&gt;age, continent, country, occupation, gender, religion, race, physics&lt;/em&gt;.  &lt;br /&gt;
+The values for injection they have considered are depicted in the following extraction of the paper:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Without loss of generality,the authors came up with the following neutral and sensitive prompts, that they input in
+ChatGPT in order to obtain the top-k recommendation list. A prompt consists of semantically two parts, whereas one is the 
+preference expression, while the other is the task description. For the sensitive prompt, the preference expression is
+extended by a sensitive attribute. The words in square brackets are placeholders, in which a value is injected
+iteratively from the value-set.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Neutral&lt;/strong&gt;: &lt;em&gt;“I am a fan of [names]. Please provide me with a list of 𝐾 song/movie titles…”&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Sensitive&lt;/strong&gt;: &lt;em&gt;“I am a/an [sensitive feature] fan of [names]. Please provide me with a list of 𝐾 song/movie titles…”&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After obtaining both the neutral and the sensitive query result, the neutral one is used as a baseline result, to which
+the sensitive outputs are compared to measure the similarity. &lt;br /&gt;
+While the attributes and values for the sensitive features have been well-defined, the choice of the values for the 
+&lt;em&gt;[names]&lt;/em&gt;-placeholder, representing a user preference, needed to be known by the RecLLM.
+As a result, the authors have decided to query the most 500 popular singers in the music domain through the MTV API, and 
+the most popular 500 directors and their most popular TV shows and movies by querying the IMDB database.&lt;br /&gt;
+Thus, the resulting two benchmark databases, one for each domain, consist of neutral and sensitive instructions in form
+of natural language. In order to ensure reproducibility of the query outputs, the authors have decided on fixing
+the hyperparameters of ChatGPT accordingly, such as &lt;em&gt;temperature, top_p, and frequency_penalty&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the purpose of similarity computation of the sensitive recommendation set with the neutral output, the authors have 
+designed three metrics:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Jaccard&lt;/strong&gt;   &lt;br /&gt;
+Computes the ratio between common elements, but does not consider the ranking.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;SERP&lt;/strong&gt;*   &lt;br /&gt;
+Is a modification of the &lt;strong&gt;Search Result Page Misinformation Score&lt;/strong&gt;, which computes the similarity between two
+recommendation lists. It can be considered as a weighted option of the Jaccard metric in order to include the item
+ranking. The relative item ranking in this metric is nevertheless neglected.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;PRAG&lt;/strong&gt;*  &lt;br /&gt;
+Is a modification of Pairwise Ranking Accuracy Gap metric to include the importance of relative rankings. The metric
+does it by measuring the pairwise ranking between recommendation results for the natural and sensitive instructions&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The established similarity metrics represent a crucial element in the designed metric which computes the fairness of a
+RecSys. For that, the authors have constructed two indicators: the Sensitive-to-Neutral Similarity Range (SNSR) and 
+Sensitive-to-Neutral Similarity Variance (SNSV).&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;SNSR&lt;/strong&gt;   &lt;br /&gt;
+It measures the similarities between the most advantaged and the most disadvantaged group.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;SNSV&lt;/strong&gt;  &lt;br /&gt;
+Computes the divergence across all possible attribute values using the Standard Deviation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;(Note: For a detailed mathematical formulation of the metrics please refer to Appendix A)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In consideration with the similarity metrics, there are therefore three options to compute the fairness score.
+For the analysis, all possible fairness metrics were computed and presented in a table, which is added as an excerpt
+below. The table documents the fairness values of the music and the movie recommendations in a separated nature.
+Aside from the &lt;em&gt;SNSR&lt;/em&gt; and &lt;em&gt;SNSV&lt;/em&gt; metrics, the authors have decided on adding the Min/Max value for each attribute,
+which denote the minimum and maximum similarity value among all values for one attribute. The sensitive attributes
+are listed in decreasing SNSV-score from left to right.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_1.png&quot; alt=&quot;img_1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, the scores are used for an analysis of the developed metrics by setting two research questions (RQ1 and RQ2).
+By formulating these two questions, the authors attempt to proof the validity and robustness of their benchmarking
+method. To facilitate the data interpretation, the authors visualized the most crucial data points by plotting for each
+attribute the similarity score for the top-k recommendations against the number of k, setting k from 1 to 20. By
+using the collected data as an argumentative foundation, the authors have shown that both research questions could be 
+answered in favor of their developed benchmarking method:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RQ1:&lt;/strong&gt; &lt;em&gt;How unfair is the LLM when serving as a recommender on various sensitive user attributes?&lt;/em&gt;    &lt;br /&gt;
+For evaluating the overall unfairness in ChatGPT as a RecLLM, the authors performed a thorough analysis on the collected
+data and determined three major findings:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The unfairness is present in both, the music and the movie domains. The SNSV and SNSR score show clear varying values
+across  the different attributes and thus proof the preference of some groups over others.&lt;/li&gt;
+  &lt;li&gt;The recommendation unfairness does not depend on the recommendation length, as truncating the lists lead to the same results.&lt;/li&gt;
+  &lt;li&gt;The unfairness in regard to the attribute values align with real world disadvantages. For example, African groups
+receive a recommendation list which diverges more from the neutral recommendation, than Americans.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;RQ2:&lt;/strong&gt; &lt;em&gt;Is the unfairness phenomenon for using LLM as a recommender robust across different cases?&lt;/em&gt;   &lt;br /&gt;
+The authors produced additional recommendation lists in order to test the confidence of their metrics and the
+existing bias in RecLLM by 1) replacing the sensitive attribute values through typos and 2) by inserting the prompts
+in a different language. Due to resource limitations, the authors tested the robustness only on the &lt;em&gt;country&lt;/em&gt;
+attribute and on the values &lt;em&gt;African&lt;/em&gt; and &lt;em&gt;American&lt;/em&gt;. While, typos were generated by randomly adding and removing letters,
+the language robustness was tested by using Chinese instructions. &lt;br /&gt;
+For both parts, the results have shown that the unfairness shown in RQ1 persisted and therefore confirmed the author’s
+contribution.&lt;/p&gt;
+
+&lt;p&gt;The paper is then concluded with a brief summary about the findings within the paper and an outlook on future work
+in regard to the author’s goal. They state, that it is in their interest to evaluate other RecLLMs, such as LLaMA for
+fairness and develop methods that mitigate the unfairness score in RecLLMs.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-analysis-on-the-paper&quot;&gt;3. Analysis on the Paper&lt;/h2&gt;
+
+&lt;p&gt;The paper “Is Chat GPT fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation” by
+Zhang et al. is a solid academic foundation in the area of fairness evaluation for RecLLMs. Additional research on
+fairness metrics for RecLLMs has confirmed the author’s claim of providing the first contribution to a benchmarking method 
+in this field. For that reason alone, the academic significance of this work should be recognized. Even though a paper 
+with a similar research goal by Hua et al. was published a few months before the paper of Zhang et al., it is noticeable 
+that the target and scope by Hua et al. differs significantly from Zhang et al. While Hua et al. also developed methods
+to probed unfairness in a LLM-based recommendation system, they limited the methods to the used model and the trained
+dataset. Thus, their approach is not applicable for unfairness probing on other LLMs.&lt;/p&gt;
+
+&lt;p&gt;In addition, the scientific methods used in this paper coherently align with the basics of scientific principles, as
+described by W.S. Jevons. Considering that following these standards, such as following the formalities of correct
+citation, proof-based argumentation, and the empirical and experimental approach, are the status quo for published papers,
+their details shall not be further elaborated within this review. &lt;br /&gt;
+Nevertheless, it is to note that the authors have taken the requirement for benchmarking robustness into account and
+fulfilled by addressing different recommendation domains and crucial varieties of the prompts, by testing their method
+for typos and for the language of the prompt. &lt;br /&gt;
+Furthermore, the instrumentalization of similarity metrics that are used in traditional recommendation systems are 
+effective for the fairness metrics and provide an easy-to-understand transfer, allowing for adaptivity of the fairness
+metrics without the need for additional hard-to-obtain data.
+The persuasive nature of the paper is also supported by the paper structure, in which knowledge is transferred to the
+reader in a reasonable order, so that the more complex topics are easy to follow and understand.&lt;/p&gt;
+
+&lt;p&gt;Finally, with their pragmatic and experimental-based reasoning, the authors manage to propose their benchmarking method in a 
+convincing manner through their well-thought-out metrics that underline their statements about existing unfairness in 
+RecLLM and their robustness. In general, they always provided immediate reasoning for any choice of methodology aside from
+a few exceptions. For example, the authors did not specify their choice on the sensitive attribute values. Aside from 
+that, other minor research gaps have been identified during the paper review, leaving room for future improvement or
+initiating some adjustments to their work.&lt;/p&gt;
+
+&lt;p&gt;Structurally, the analysis of the experiment results have validated the usefulness of FaiRLLM. Yet, for a proper
+360-degree view on their work, the paper is missing a section listing their limitations of their approach and the
+discussion of their findings. Even though the limitations have been mentioned in places of the paper, such as when
+the authors stated to focus only on the top-k recommendation task, an explicit paragraph about the limitations would
+have provided more clearance after reading the results. Missing the discussion paragraph is pretty crucial though, as 
+the interim results of the author’s findings have not been discussed in other parts of the paper. As a result, it leaves
+the impression as if he authors did not try to put their findings into question.&lt;/p&gt;
+
+&lt;p&gt;Within the analysis of the benchmarking robustness to changes in the prompts, typos have only been tested on the attribute
+&lt;em&gt;continent&lt;/em&gt; and the values &lt;em&gt;African&lt;/em&gt; and &lt;em&gt;American&lt;/em&gt;. Since the authors did not argue that this small set on experiment
+suffices, a broader consideration should have been shown. Especially an analysis on whether the unfairness still holds
+when considering attribute values, that are already close to each other. Evaluating the recommendation lists with typos
+could provide additional insights, that could either strengthen or weaken the author’s points. An example would be to
+consider typos for the attribute &lt;em&gt;occupation&lt;/em&gt; for &lt;em&gt;writer&lt;/em&gt; and &lt;em&gt;worker&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_2.png&quot; alt=&quot;img_2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Moreover, the language robustness has been tested solely for Chinese prompts. Since it is noticeable, that the similarity
+score between Africans and Asians have switched after querying for movies, a RecLLM might show cultural bias based on the
+language in which the user queries the prompt. Thus, testing language robustness in multiple languages should is
+necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_3.png&quot; alt=&quot;img_3.png&quot; /&gt; 
+&lt;img src=&quot;img_4.png&quot; alt=&quot;img_4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, the authors did not provide any reasoning for their choice of the sensitive attribute values.
+Looking at those in more detail, some values should have been included in order to properly cross-check the unfairness
+of the RecLLM. Since the attributes &lt;em&gt;continet&lt;/em&gt; and &lt;em&gt;country&lt;/em&gt; have a hierarchical order, the consistency of the fairness
+probing should have been applied as well. Due to the lack of fitting values though, this is not clear. For example, 
+for the attribute &lt;em&gt;country&lt;/em&gt;, there are European and South American countries, but Europe and South America are not 
+included as values in the &lt;em&gt;continent&lt;/em&gt; attribute. At the same time, there is no African country listed in the &lt;em&gt;country&lt;/em&gt;
+attribute, making it question, whether a user from Ghana might end up with the same ranking distribution when considering
+the &lt;em&gt;continent&lt;/em&gt; attribute.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-open-questions&quot;&gt;4. Open Questions&lt;/h2&gt;
+
+&lt;p&gt;The work of Zhang et al. is in its own very thorough and provides a solid instrument to benchmark LLMs as recommender
+systems in regard to their fairness attribute. Yet, there are still few open questions that have not been dealt with
+within the scope of their work, which are nevertheless important to include in follow-up work on that matter.&lt;/p&gt;
+
+&lt;p&gt;First, users can be described through a set of sensitive attributes and not only one. Even though the analysis of the
+sensitive attributes as their own provides the recognition on the most discriminated ones, the group-fairness should be
+extended by a set of sensitive attributes for additional insight.&lt;/p&gt;
+
+&lt;p&gt;Second, another popular task with RecLLMs are sequential recommendations. Since LLMs provide the power of iteratively 
+refining their outputs based on user interactions, the question is on how the benchmarking method by Zhang et al. can
+be transferred to this task. Since it is way more complex in the data format, as in recommendation representation,
+sequential representation, and data load, it might require a different benchmarking method to bve developed. Considering
+the popularity and customization of this task, sequential recommendations in LLMs, when containing bias, could run into 
+the danger of reinforcing the bias and unfairness (Shu et al.). Zhang et al. have not made a statement on a 
+benchmarking approach in that regard since the publication of this paper.&lt;/p&gt;
+
+&lt;p&gt;Lastly, the authors have introduced three similarity scores which are all used in order to probe a model for fairness.
+Yet, for the overall and robustness analysis, only the Jaccard similarity was referenced. Within the second part of the
+work, the other metrics, SERP* and PRAG* were not mention anymore. Even though their differences were explained
+during their mathematical definition, it is still questionable which of those metrics should be used for a proper 
+indicator in which scenarios and why the consideration of all of them are significant. In regard to the performed 
+analysis by Zhang et al., it would have sufficed to solely compute the SNSR and SNSV score based on the Jaccard similarity
+only. One therefore wonders: so why needing to do all the work in computing the similarities with the other two metrics?&lt;/p&gt;
+
+&lt;h2 id=&quot;4-conclusion&quot;&gt;4. Conclusion&lt;/h2&gt;
+
+&lt;p&gt;All in all the work of Zhang et al. is a crucial milestone in the context of fairness probing for RecLLMs. FaiRLLM 
+is a solid benchmarking tool in order to probe for RecLLM fairness and compare existing LLMs against each other.
+Even though minor gaps have been detected during this paper review, those are issues that can be easily extended with
+a rework on the analysis part of the paper. The curves of the plotted results look promising, so that an extension of
+the attribute values might not affect the overall result of the paper.
+While FaiRLLM has not yet been applied except for ChatGPT within the context of the author’s work, it represents a
+promising start to create an incentive for mitigating discrimination in LLMs. Even though it’s downside requires 
+computational effort, the gained insights by using FaiRLLM represent a solid foundation to improve user experience and
+do not only leverage the development of recommender-based LLMs, but also LLMs themselves. &lt;br /&gt;
+For LLM-developers, using FaiRLLM can become a key performance indicator in development improvements and for users a
+decisive factor on which LLM to use. Since developing methods to mitigate unfairness in LLMs is a research area in 
+itself, FaiRLLM is a helpful metric to design such a method using a standardized benchmarking metric, which can then
+be compared against others easily.
+The open questions defined during this paper review are future work topics that are to be further defined. Especially
+the inclusion of sequential recommendation benchmarking can set another new milestone in this area. Even though Zhang et
+al. have stated to work on benchmarking other LLMs and developing methods to mitigate discrimination, it would be
+exciting to see them pioneering in developing a benchmarking for framework for sequential recommendations with user-item
+interactions.&lt;/p&gt;
+
+&lt;h2 id=&quot;appendix&quot;&gt;Appendix&lt;/h2&gt;
+
+&lt;h3 id=&quot;a-mathemtiacal-definition-of-the-similarity-and-fairness-metrices&quot;&gt;A) Mathemtiacal Definition of the Similarity and Fairness Metrices&lt;/h3&gt;
+&lt;p&gt;Due to the limitations in writing for mathematical expressions in Markdown, the mathematical representations of the
+deefined metrics by Zhang et al. are added as excerpts from the original paper.&lt;/p&gt;
+
+&lt;p&gt;For the metrics, the following mathematical notations are to be considered:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_7.png&quot; alt=&quot;img_7.png&quot; /&gt; is the set of neutral instructions&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_5.png&quot; alt=&quot;img_5.png&quot; /&gt; is the set of top-k recommendations for a neutral instruction &lt;img src=&quot;img_6.png&quot; alt=&quot;img_6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_8.png&quot; alt=&quot;img_8.png&quot; /&gt; denotes a sensitive attribute where 𝑎 is a specific value of the attribute. 𝑎 is a word or a
+phrase.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_17.png&quot; alt=&quot;img_17.png&quot; /&gt; denotes the number of all possible values in a studied attribute&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_9.png&quot; alt=&quot;img_9.png&quot; /&gt; is a set of sensitive instructions for each value of attribute &lt;img src=&quot;img_10.png&quot; alt=&quot;img_10.png&quot; /&gt; by injecting the value 𝑎&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_12.png&quot; alt=&quot;img_12.png&quot; /&gt; is the recommendation list for a sensitive attribute &lt;img src=&quot;img_10.png&quot; alt=&quot;img_10.png&quot; /&gt; and the value 𝑎&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_13.png&quot; alt=&quot;img_13.png&quot; /&gt; computes the similarity between &lt;img src=&quot;img_14.png&quot; alt=&quot;img_14.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_15.png&quot; alt=&quot;img_15.png&quot; /&gt; is the aggregated similarity value across all M instructions&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_16.png&quot; alt=&quot;img_16.png&quot; /&gt; is the level of unfairness in RecLLM as the divergence of these aggregated similarities 
+across different values of the sensitive attribute&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_21.png&quot; alt=&quot;img_21.png&quot; /&gt; denotes the number of common items between the two recommendation lists&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;𝑣&lt;/strong&gt; represents an item in a sensitive recommendation list&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_24.png&quot; alt=&quot;img_24.png&quot; /&gt; represents the rank of the item 𝑣&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_25.png&quot; alt=&quot;img_25.png&quot; /&gt; is 1 if 𝑣 is in the neutral recommendation list, else 0&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_27.png&quot; alt=&quot;img_27.png&quot; /&gt; denote two different recommended items in the sensitive recommendation list&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;img_28.png&quot; alt=&quot;img_28.png&quot; /&gt; or &lt;img src=&quot;img_29.png&quot; alt=&quot;img_29.png&quot; /&gt; is the rank in the recommendation list &lt;img src=&quot;img_30.png&quot; alt=&quot;img_30.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SNSR&lt;/strong&gt;
+&lt;img src=&quot;img_19.png&quot; alt=&quot;img_19.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SNSV&lt;/strong&gt;  &lt;br /&gt;
+&lt;img src=&quot;img_18.png&quot; alt=&quot;img_18.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jaccard&lt;/strong&gt; &lt;br /&gt;
+&lt;img src=&quot;img_20.png&quot; alt=&quot;img_20.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SEREP&lt;/strong&gt;*  &lt;br /&gt;
+&lt;img src=&quot;img_22.png&quot; alt=&quot;img_22.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PRAG&lt;/strong&gt;*
+&lt;img src=&quot;img_26.png&quot; alt=&quot;img_26.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sources&quot;&gt;Sources&lt;/h2&gt;
+
+&lt;p&gt;Asia J. Biega, Krishna P. Gummadi, and Gerhard Weikum. 2018. Equity of
+Attention: Amortizing Individual Fairness in Rankings. In SIGIR ’18: The
+41st International ACM SIGIR Conference on Research and Development in
+Information Retrieval, July 8–12, 2018, Ann Arbor, MI, USA. ACM, New York,
+NY, USA, 10 pages. https://doi.org/10.1145/3209978.3210063&lt;/p&gt;
+
+&lt;p&gt;Jizhi Zhang, Keqin Bao, Yang Zhang, Wenjie Wang, Fuli Feng, and Xiangnan He. 2023.
+Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation. arXiv preprint
+arXiv:2305.07609.&lt;/p&gt;
+
+&lt;p&gt;Jevons, W. S. 1958. Principles of Science. Daedalus, 87(4), 148-154.&lt;/p&gt;
+
+&lt;p&gt;Wenqi Fan, Zihuai Zhao, Jiatong Li, Yunqing Liu, Xiaowei Mei, Yiqi Wang, Zhen Wen, Fei Wang, Xiangyu Zhao, 
+Jiliang Tang, and Qing Li. 2023. Recommender Systems in the Era of Large Language Models (LLMs). arXiv.
+https://arxiv.org/pdf/2307.02046.pdf&lt;/p&gt;
+
+&lt;p&gt;Wenyue Hua, Yingqiang Ge, Shuyuan Xu, Jianchao Ji, and Yongfeng Zhang. 2023.
+UP5: Unbiased Foundation Model for Fairness-aware Recommendation. arXiv. https://arxiv.org/abs/2305.12090&lt;/p&gt;
+
+&lt;p&gt;Yubo Shu, Hansu Gu, Peng Zhang, Haonan Zhang, Tun Lu, Dongsheng Li, Ning Gu. 2023. 
+RAH! RecSys-Assistant-Human: A Human-Central Recommendation Framework with Large Language Models.
+arXiv. https://doi.org/10.48550/arXiv.2308.09904&lt;/p&gt;
+
+&lt;p&gt;Yunqi Li, Hanxiong Chen, Zuohui Fu, Yingqiang Ge, and Yongfeng Zhang. 2021. 
+User-oriented Fairness in Recommendation. In Proceedings of the Web Conference 2021 (WWW ’21), 
+April 19–23, 2021, Ljubljana, Slovenia. ACM, New York, NY, USA, 9 pages. 
+https://doi.org/10.1145/3442381.3449866&lt;/p&gt;
+
+</description>
+            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <link>http://dsailatkaist.github.io/Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
         
         <item>
             <title>[CIKM 2022] Temporal and Heterogeneous Graph Neural Network for Financial Time Series Prediction</title>
@@ -1875,285 +2245,6 @@ Figure 5은 다양한 배치 크기와 epoch로 훈련된 결과를 나타냅니
             <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/SimGRACE_A_Simple_Framework_for_Graph_Contrastive_Learning_without_Data_Augmentation.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[NIPS 2022] SHINE: SubHypergraph Inductive Neural nEtwork</title>
-            <description>&lt;h1 id=&quot;-shine-subhypergraph-inductive-neural-network&quot;&gt;# SHINE: SubHypergraph Inductive Neural nEtwork&lt;/h1&gt;
-&lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283689-d231476b-740e-4938-9446-de7b4a07aa9b.png&quot; width=&quot;200px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생명체는 다양한 단백질들을 활용하여 생명유지에 필요한 여러가지 반응과 작용들을 합니다. 단백질은 여러가지 gene의 정보를 바탕으로 만들어지기에, gene에 문제가 생기면 암을 포함한 여러가지 질병이 생길 수 있습니다. 단백질과 여러가지 물질들의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능적 단위&lt;/code&gt;의 집합인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;를 활용하여 단백질에 대한 효과적인 representation을 구하고, 환자의 유전 정보의 변이를 바탕으로 subgraph를 형성하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;환자들의 질병을 예측&lt;/code&gt;하는 모델 SHINE을 제안합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Graph Neural Network(GNN)&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258261-5b1b0adb-6428-447f-84cb-30974eee4367.PNG&quot; width=&quot;300px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 여러가지 Entity 사이의 relation이나 Interaction을 나타내는 방법중 하나로, 보통 $\mathcal{G}=(\mathbb{V},\mathbb{E})$로 나타냅니다. 여기서 $\mathbb{V}$는 node set으로 vertex들을 모은 집합이며, $\mathbb{E}$는 edge set으로 각 edge는 node들을 연결해주는 선들로 표시됩니다. 두 node 또는 Entity가 edge로 연결된 경우에는 이 둘 사이에 유사한 부분이 있거나, interaction을 한다고 봅니다. 보통 각 node와 연결된 이웃 node들의 정보를 aggregation하여 각 node의 hidden representation을 구하는 방식으로 GNN이 작동합니다. 단순히 (node 관점에서) 자기 자신과 이웃을 mean aggregation(smoothing)하는 방식의 대표적인 예시로는 GCN이 있으며, 이웃 node들에 attention을 기반으로 하는 importance 차이를 두어 aggregation하는 GAT도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Protein-Protein Interaction graph(PPI)&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283637-9fe695d6-e7cb-4272-8b58-486c04d34cbe.png&quot; width=&quot;500px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;단백질에 대한 representation을 잘 뽑기 위하여 흔하게 사용되는 방식중 하나로 PPI network를 사용하는 방법이 있습니다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;protein-protein interaction network(PPI)&lt;/code&gt;는 단백질들을 node로 두고 서로 interaction을 하는 단백질들을 edge로 연결하여 만들어집니다. 만들어진 network에서 GCN, GAT 그리고 heterogeneous GNN등 상황에 따라 적합한 GNN 모델을 사용하게 됩니다. 결과적으로 단백질을 나타내는 각 node는 edge로 연결되어있는 이웃 node들의 정보를 취합하여 단백질에 대한 더 좋은 representation을 얻습니다. 즉, node의 최종 representation에는 해당 단백질의 고유한 정보와 해당 단백질과 관련된 단백질의 정보가 적절히 반영되어있어서, 다양한 downstream task에 효과적으로 사용될 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Pathway&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283770-0b7e3a2f-7d63-40a4-8a7d-881a54bdf3f8.png&quot; width=&quot;800px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생명체 내부에서 나타나는 다양한 상호작용과 반응은 여러가지 단백질들이 복합적으로 작용하여 이루어집니다. 예를들면, 세포 소기관중 하나인 미토콘드리아에는 에너지를 만들어내기 위한 process가 있으며, 그 과정에서 다양한 단백질들이 사용됩니다. 이렇게 어떤 과정속에서 특정 기능을 하기 위해 사용되는 물질들과 그들의 반응을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능 단위&lt;/code&gt;로 묶어둔 것을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pathway&lt;/code&gt;라고 합니다. 예를 들면, 위의 그림에는 apoptosis(세포사멸)에 관여하는 pathway와 각 pathway별 단백질들이 나타나있습니다. 생명체는 손상이 생기거나 오래된 세포를 스스로 죽도록 하여 관리를 하는데 이를 apoptosis라고 합니다. 이는 세포 외부에서 오는 여러가지 신호에 의해 조절됩니다. 세포 외부에서 신호가 오면, 이를 유전자가 저장되어있는 세포핵과 기타 조직들에 signaling pathway를 경유하여 전달합니다. 위의 그림에 있는 구체적인 예시로는 이미지 왼쪽의 MAPK signaling pathway가 있습니다. 세포 외부에서 survival factor와 관련된 신호가 오면, Ras, Raf MEK1/2 그리고 EPK1/2라는 단백질들을 순차적으로 거쳐서 세포핵까지 신호를 전달하게 되며, 세포핵에서는 해당 신호에 따른 gene regulation을 하게 됩니다. 이전에 설명한 PPI의 경우에는 단백질 사이의 pairwise interaction을 기준으로 만들었기에, 해당 단백질들이 interaction하는 맥락이 나타나지 않지만, pathway를 사용하게 된다면 각 단백질이 다른 단백질들과 상호작용하는 맥락을 활용할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Hypergraph&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283807-f608b997-5b74-4ba9-ae6d-024a534c73ca.PNG&quot; width=&quot;400px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 Entity 사이의 pairwise relation을 나타내는 구조였습니다. 즉, edge가 2개의 node를 연결하는 구조였습니다. 이와 다르게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hypegraph&lt;/code&gt;는 hyperedge가 2개 이상의 node(hypernode)를 연결합니다. 그래서 hyperedge를 3개 이상의 element(node)를 가질수 있는 set으로 해석하기도 합니다. 즉, hypergraph는 graph의 일반화된 형태로, 3개 이상의 entity가 모여서 상호작용하는 경우도 표현 가능한 구조입니다. (Hypernode의 경우 일반적으로 node라고 부르기도 합니다. 이번 리뷰에서는 편의상 node로 부르겠습니다.)&lt;/p&gt;
-
-&lt;p&gt;이렇게 3개 이상의 entity가 모여 interaction하는 경우에는 보통 해당 entity들이 모두 모여야지만 의미가 있다고 보며 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high order correlation&lt;/code&gt;이 있다고 표현합니다. 또한  hyperedge의 subset으로 이루어진 hyperedge는 존재할 수 없다고 보거나, 만약 있더라도 전혀 다른 의미를 갖는다고 해석합니다. 따라서 hyperedge는 pairwise relation(그래프의 edge)로 분해될 수 없다고 이야기합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232283841-20055381-7d85-448c-8036-af0224930c59.PNG&quot; width=&quot;300px&quot; height=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;실제로, 위에서 이야기한 high order correlation이 존재하는 경우가 많이 있습니다. 예를 들어서, 두 단백질이 상호작용하기 위해 보조인자가 필요한 경우가 있습니다. 보조인자가 없으면 두 단백질이 상호작용이 불가능하지만, 보조인자가 있는 경우 단백질의 3차원 구조가 변형되어 두 단백질이 상호작용 할 수 있게 됩니다. 이런 경우에는 3가지 물질이 모두 있는 경우에만 반응이 일어나기 때문에 hyperedge로 나타내는 것이 좋습니다. 해당 hyperedge를 분해하여 pairwise interaction(edge)로 나타내는 경우에는 high order correlation 특성을 나타내기 힘들며, 2개만 존재하는 경우에는 어떠한 interaction도 발생하지 않기 때문에 edge가 존재할 수 없습니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서 활용하는 pathway의 경우 여러가지 물질과 단백질들이 순차적으로 상호작용하지만, 수많은 pathway의 작용 순서가 아직 알려지지 않은 상태입니다. 따라서 일반적으로 각 pathway를 단백질들의 집합으로 나타내며, 순서는 나타내지 않습니다. 따라서 이 논문에서는 pathway를 활용하기 위해 hypergraph를 사용합니다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Preliminary - Hypergraph Neural Network&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232259158-11cec002-cbcd-4502-98fb-e426e2530dfc.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래프는 entity 사이의 pairwise relation을 나타내기에 adjacency matrix를 통하여 node 사이의 연결성을 나타내었습니다. 하지만 hypergraph의 경우에는 여러가지 node들이 hyperedge에 동시에 참여하기에 다른 방식으로 연결성을 표현합니다. 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Incidence matrix&lt;/code&gt;라고 하며, node와 hyperedge의 연결성을 나타냅니다. node가 특정hyperedge에 속할 경우에는 1의 값을 갖게되며, 속하지 않는 경우에는 0의 값을 갖게 됩니다. 이를 나타내면 아래와 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37684658/233369386-0b8eab9a-8ae8-4aaa-b1d3-72f9cebaa780.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;만약 $HH^ {\top}$를 하게 되면 결국 node-node matrix가 나오게 되며, 일반적인 그래프의 adjacency matrix와 같이 node 사이의 연결성을 나타내는 matrix가 나오게 됩니다. HGNN 모델은 이를 활용하여 hypergraph에서의 학습을 합니다.
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232259205-ac05f9e6-85f3-4841-a352-ce305873cbfb.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;HGNN 논문에서 제시하는 hypergraph laplacian은 아래의 식과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;$\Theta = D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}$&lt;/p&gt;
-
-&lt;p&gt;$W_ {e}$는 hyperedge의 가중치를 의미하며, 일반적으로 데이터에서 주어집니다. 만약 모든 hyperedge가 같은 가중치를 가지고 있다면 모두 1의 값을 갖게 되며, 더 중요한 hyperedge가 있는 경우에는 더 큰 값을 주게 됩니다. 일반적으로는 데이터셋에서 hyperedge의 값을 미리 정해두지 않은 경우에는 모두 동등한 가중치(1)를 갖는 것으로 설정합니다.  위의 식에서 $D_ {v}$는 node degree로 각 node가 속해있는 hyperedge의 숫자를 의미하며,  $D_ {e}$는 hyperedge degree로 각 hyperedge가 갖는 node의 수를 나타냅니다. $D_ {v}^ {-{1}\over{2}}$와 $D_ {e}^ {-1}$를 곱하여 node와 edge의 degree에 의해 좌우되지 않도록 normalize를 해줍니다. 이를 aggregation 관점에서 본다면 이웃의 정보들을 평균내는 것과 같습니다. 위의 hypergraph laplacian을 활용하여 각 layer는 $activation(\Theta X W)$형태로 구성됩니다. 여기서 $X$는 node feature나 hidden representation이며 W는 학습 가능한 weight matrix입니다. 위의 그림에 나타나있듯이, $H^ {\top}D_ {v}^ {-{1}\over{2}}X$ 부분에서 각 hyperedge는 가지고 있는 node의 정보들을 aggregation하게 됩니다. 그 이후에 $W_ {e}D_ {e}^ {-1}$ 부분을 거쳐 $W_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 weight와 degree normalization이 진행됩니다. 마지막으로  $D_ {v}^ {-{1}\over{2}}H$ 부분을 거쳐 $D_ {v}^ {-{1}\over{2}}HW_ {e}D_ {e}^ {-1}H^ {\top}D_ {v}^ {-{1}\over{2}}X$가 되면서 hyperedge의 정보들이 각 node들로 모이게 됩니다. 즉, 2단계(node–&amp;gt; hyperedge, hyperedge–&amp;gt;node)로 정보 전달이 이루어집니다. 그리고 학습가능한 weight $W$를 곱하며 해당 layer가 완성됩니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Motivation&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기존의 drug discovery나 drug-drug synergy prediction 등 protein을 기반으로하는 다양한 모델들은 PPI network에서 GNN을 학습하는 방식으로 진행이 되었습니다. 하지만 이는 단백질들의 interaction의 유무만 사용하기에 해당 interaction이 어떠한 맥락에서 사용되는지에 대한 정보를 반영할 수 없었습니다. 이를 해결하기 위해 pathway라는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능&lt;/code&gt;위주의 정보를 hypergraph를 통하여 나타내고, dual attention 기반 hypergraph neural network를 학습하여 단백질에 대한 효과적인 representation을 학습합니다. 또한 환자의 gene 변이 정보를 subgraph로 나타내어 질병과 암의 종류를 예측하는데 성공합니다.
- &lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Contribution&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Hypergraph에서의 subgraph representation learning을 학습하는 방식을 최초로 제안합니다.&lt;/li&gt;
-    &lt;li&gt;Node와 hyperedge의 representation을 같이 학습하여 pathway 사이의 correlation에 대한 분석이 가능합니다.&lt;/li&gt;
-    &lt;li&gt;Genetic Medicine 분야에 적용한 최초의 논문입니다. (pathway 기반 방식으로 접근하는 모델이 bioinformatics 분야에 있기는 했으나 알고리즘 위주의 방식이며 hypergraph neural network를 이 분야에 사용한 것은 이 논문이 처음입니다.)
- &lt;br /&gt; &lt;br /&gt;
-      &lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
-      &lt;p&gt;&lt;strong&gt;Notation&lt;/strong&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232235555-f9e10fcf-af42-436c-bde9-183c6f90c840.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 논문에서 사용하는 표기는 위의 표와 같습니다. 또한 Hyperedge incidence matrix에 대한 정의는 2번 section의 preliminary에 있었듯이 다음과 같이 정의합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37684658/233369386-0b8eab9a-8ae8-4aaa-b1d3-72f9cebaa780.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Node set($\mathcal{N}$)은 gene($g_ {i}$)들로 구성되어있습니다. ($\mathcal{N} = {g_ {1}, …, g_ {\vert \mathcal{N} \vert}}$)
-Hyperedge set($\mathcal{E}$)은 pathway($p_ {j}$)들로 구성되어있습니다. ($\mathcal{E} = {p_ {1}, …, p_ {\vert \mathcal{E} \vert}}$) 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Hypergraph - Strongly Dual Attention Message Passing&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232225281-0aeb8d7c-edf2-4929-8905-cceeb5930ca6.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;앞서 preliminary에서 설명 드렸지만 hypergraph의 경우에는 2가지 단계를 거쳐 정보를 전달합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;node to hyperedge aggregation&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;새로운 hyperedge representation은 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$h_ {E}^ {k}(p_ {j}) = \sigma(\sum_ {g_ {i} \in p_ {j}} a_ {E}( p_ {j}, g_ {i})h_ {N}^ {k-1}(g_ {i}))$&lt;/p&gt;
-
-&lt;p&gt;이 식의 의미는 결국 node (gene)의 feature를  attention score에 기반하여 가중치를 두고 aggregation하여 hyperedge (pathway)의 representation을 구한다는 것입니다. 여기서 attention score ($a_ {E}$)를 구하는 방법은  gat의 방법과 비슷하지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node 사이의 attention&lt;/code&gt; 대신 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node (gene)와 hyperedge (pathway) 사이의 attention&lt;/code&gt;을 구한다는 점에서 조금 다릅니다. 구체적인 식은 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;$a_ {E}( p_ {j}, g_ {i}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {g_ {i^ {‘}} \in p_ {j}} c^ {\top} s(p_ {j}, g_ {i^ {‘}})))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $s(p_ {j}, g_ {i})$는 아래의 식으로 구하며 $*$는 element wise product입니다.&lt;/p&gt;
-
-&lt;p&gt;$s(p_ {j}, g_ {i}) = LeakyReLU((W_ {N}h_ {N}^ {k-1}(g_ {i}) + b_ {N})*(W_ {E}h_ {E}^ {k-1}(p_ {j}) + b_ {E}))$&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;hyperedge to node aggregation&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;새로운 node representation 학습은 전반적으로 위의 경우와 거의 동일합니다만 hyperedge와 node의 위치만 바뀝니다.&lt;/p&gt;
-
-&lt;p&gt;$h_ {N}^ {k}(g_ {i}) = \sigma(\sum_ {p_ {j} \owns g_ {i}} a_ {N}( g_ {i}, p_ {j})h_ {E}^ {k-1}(p_ {j}))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $a_ {N}$는 node가 속해있는 hyperedge들에 대한 attention score로 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$a_ {N}(  g_ {i}, p_ {j}) = exp(c^ {\top} s(p_ {j}, g_ {i}) / (\sum_ {p_ {j^ {‘}} \owns g_ {i}} c^ {\top} s(p_ {j^ {‘}}, g_ {i})))$&lt;/p&gt;
-
-&lt;p&gt;여기서 $s(p_ {j}, g_ {i})$는 위에서(node to hyperedge aggregation) 구한것과 완벽히 동일합니다. 다른 hypergraph attention 방법들과는 다르게 두 과정에서 완전히 같은 attention matrix를 사용하며 이를 strongly dual attention이라고 저자들은 이야기합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Regularization&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;GNN과 hypergraph Neural Network에는 공통점이 있습니다. 바로 edge/hyperedge로 연결된 node의 representation이 비슷해진다는 점입니다. 이는 graph/hypergraph 자체가 ‘비슷한 entity끼리 연결된다’는 전제를 가지기 때문입니다. 따라서 aggregation을 통해 점점 비슷해지도록 학습을 하는 것입니다. 따라서 이웃한(연결된) node의 representation이 다를 경우 같아지도록 하기위해 penalize를 할 필요가 있습니다. preliminary에서 설명드린 hypergraph laplacian을 활용하여 저자는 연결된 node끼리 비슷해지도록 regularization term을 추가로 만들었으며 바로 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;$\mathcal{L_ {reg}} = \sum_ {i,j} ((X_ {i}- X_ {j})(X_ {i}- X_ {j})^ {\top}  * \Theta_ {i,j} ) =  \sum_ {i,j} ((X_ {i}X_ {i}^ {\top} -2X_ {i}X_ {j}^ {\top} + X_ {j}X_ {j}^ {\top}) * \Theta_ {i,j} )$
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Subgraph - Weighted Subgraph Attention&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Hypergraph Neural Network를 대략 만들었으니, 환자의 변이 gene정보로부터 subgraph를 만들어야합니다. 데이터셋으로부터 통계를 내어 $M$ matrix를 만듭니다. 해당 matrix의 row는 환자를 나타내며, column은 gene을 의미합니다. Matrix에 담겨있는 값들은 해당 환자의 특정 gene의 mutation rate을 의미합니다.&lt;/p&gt;
-
-&lt;p&gt;데이터셋으로부터 얻은 환자의 mutation 관련 gene들을 묶어서 subhypergraph(또는 subgraph)를 만듭니다. $j$번째 환자의 subgraph를 $\mathcal{G}_ {j}$로 표기하고 $i$번째 gene을 $\mathcal{g}_ {i}$로 표기하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;각 환자(subgraph)의 representation은 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$h(\mathcal{G}_ {j}) = \sigma(\sum_ {\mathcal{g}_ {i} \in \mathcal{G}_ {j}} a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) h_ {N}^ {K}(\mathcal{g}_ {i}))$&lt;/p&gt;
-
-&lt;p&gt;위 식의 의미는, 환자가 갖는 변이 gene들과 환자 사이의 attention score를 기반으로 하여 변이 gene들의 정보를 aggregation 하는 방식으로 환자를 나타낸다는 것입니다. 
-여기서 $a(\mathcal{G}_ {j}, \mathcal{g}_ {i})$는 attention score이며 다음과 같이 구합니다.&lt;/p&gt;
-
-&lt;p&gt;$a(\mathcal{G}_ {j}, \mathcal{g}_ {i}) = exp(M_ {ji}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i}) / (\sum_ {\mathcal{g}_ {i^ {‘}} \in \mathcal{G}_ {j}} exp(M_ {ji^ {‘}}b^ {\top}h_ {N}^ {K}(\mathcal{g}_ {i^ {‘}})))$&lt;/p&gt;
-
-&lt;p&gt;이는 환자의 representation을 attention 기반으로 구하지만 여기에 환자의 gene mutation rate정보가 반영되도록 만든것입니다. 이렇게 여러 환자의 subgraph representation을 concatentation으로 합쳐서 $S$를 만듭니다.&lt;/p&gt;
-
-&lt;p&gt;$S = [h(\mathcal{G}_ {1})^ {\top} \vert h(\mathcal{G}_ {2})^ {\top} \vert … \vert  h(\mathcal{G}_ {n})^ {\top}]^ {\top}$&lt;/p&gt;
-
-&lt;p&gt;각 subgraph를 분류하기 위해 다음과같이 classifier를 만듭니다.&lt;/p&gt;
-
-&lt;p&gt;$Z = softmax(W^ {(1)}(ReLU \circ FC)^ {(2)} (S)+W^ {(0)})$&lt;/p&gt;
-
-&lt;p&gt;Loss function으로는 cross-entropy loss를 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;$\mathcal{L} = - \sum_ {j \in \mathcal{Y}_ {D}} {\sum_ {f =1}^ {F} Y_ {jf} \ln Z_ {jf}} + \mathcal{L}_ {reg}$&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;4-experiment&quot;&gt;4. Experiment&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Task and Dataset&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 연구에서는 3개의 데이터셋을 사용합니다 :  MSigDB, DisGeNet, TCGA-MC3.&lt;/p&gt;
-
-&lt;p&gt;먼저 Molecular Signature Database(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MSigDB&lt;/code&gt;)를 사용합니다. MsigDB에는 다양한 종류의 pathway와 각 pathway에 참여하는 gene들에 대한 정보가 있습니다. 해당 데이터셋의 경우에는 전문가들에 의해 curated되어있습니다. MSigDB의 경우 단백질의 학습보다는 각 task에 사용되는 데이터셋(DisGeNet, TCGA-MC3)를 전처리하기 위하여 사용합니다. 이 데이터셋을 활용하여 기능이 알려지지 않은 gene과 겹치는 hyperedge를 제거하는 전처리를 합니다.&lt;/p&gt;
-
-&lt;p&gt;그 다음으로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DisGeNet&lt;/code&gt; dataset을 사용합니다. 해당 데이터는 환자의 유전자 변이와 그로 인한 질병에 대한 정보를 담고 있습니다. 해당 데이터셋을 바탕으로 hypergraph와 subgraph를 구성하게 되며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Disease Type Prediction&lt;/code&gt; task를 위하여 사용됩니다. 해당 task는 변이된 gene 정보를 바탕으로 환자의 질병을 분류하는 것이며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multi class classification&lt;/code&gt; 형태입니다. 질병의 종류는 MeSH code로 정해져있으며, 데이터에 대한 split과 통계는 아래 표에 정리되어있습니다. (위에서 설명하였듯이 DisGeNet 전처리를 위해 MSigDB를 사용합니다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258276-11cf92fb-da27-491d-8bb7-523c886f4c70.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;마지막으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TCGA-MC3&lt;/code&gt; dataset입니다. 해당 데이터는 변이된 gene에 대한 정보와 그에 해당하는 암에 대한 정보를 담고있는 방대한 규모의 데이터입니다. Gene 정보를 바탕으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cancer Type Prediction&lt;/code&gt;을 하는 task를 진행하며 이는 마찬가지로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multi class classification&lt;/code&gt; 형태입니다. TCGA-MC3 dataset은 전문가들에 의하여 7가지의 mutation-calling algorithm을 적용하여 pass 표시를 하였으며, 이 논문에서도 pass 표시가 되어있는 데이터만 활용했습니다. 전처리후 데이터에 대한 통계는 아래의 표와 같습니다. (위에서 설명하였듯이 TCGA-MC3 전처리를 위해 MSigDB를 사용합니다.)
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258277-a495971e-5c29-4643-88ff-0b2ec7365031.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아래는 두 task의 데이터셋마다 존재하는 hyperedge의 수와 class, subgraph 수에 대한 통계입니다. hyperedge는 pathway들이며 subgraph는 gene 변이 정보(환자 정보)를 바탕으로 하여 subgraph를 만든 것입니다. 
-&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258273-adebb37f-7283-417f-a886-d1ae42381c91.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Baseline Models&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HGNN&lt;/code&gt; : Hypergraph Neural Network 초기 논문중 하나로 preliminary에 설명한것과 같이 hypergraph laplacian을 제시하며 이를 활용하여 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HyperGCN&lt;/code&gt; : HyperGCN의 경우 hypergraph를 graph로 변형시킨 다음에 GNN모델을 학습합니다. 매 iteration마다  hyperedge마다 가장 학습이 급한(feature difference가 큰) 두 node를 선별하여 edge로 연결하고 기존의 hyperedge를 삭제합니다. 이렇게 만들어진 graph위에서 GCN을 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HyperGAT&lt;/code&gt; : text classification을 위해 만들어진 모델입니다. hyperedge를 하나의 가상의 node처럼 취급하여 GAT를 학습하였다고 생각하면 가장 간단합니다. HGNN과는 다르게 $HH^ {\top}$ 대신 hyperedge로 node들의 정보를 attention 기반으로 aggregation하고, node에서 hyperedge정보를 aggregation할때 attention을 사용합니다. SHINE 논문에서는 dual attention으로 같은 attention matrix를 사용한것과 다르게 HyperGAT에서는 두 단계에서 다른 attention matrix를 학습합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllSetTransformer&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AllDeepSets&lt;/code&gt; :  Hypergraph Neural Network를 가장 generalize하여 나타낸 모델로 DeepSet 논문으로부터 이야기를 시작합니다. AllDeepSet의 경우 hyperedge/ node의 representation을 얻기 위해 이웃한 node/hyperedge의 representation을 MLP를 거쳐서 aggregation하며, AllSetTransformer는 여기서 attention을 추가하기 위해 Transformer를 기반으로 하여 mean aggregation을 합니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SubGNN&lt;/code&gt; : hyperedge를 node처럼 생각하여 hypergraph를 2가지 type이 존재하는 graph로 봅니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PRS&lt;/code&gt; : polygenic risk score의 약자로 genetic medicine 분야에서 사용하는 방법입니다.(전문 지식)&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NMF&lt;/code&gt; : Non-negative matrix factorization의 약자로 Matrix를 latent vector들로 분해하는 방식입니다.&lt;/li&gt;
-    &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XGBoost&lt;/code&gt; : end-to-end tree boosting system&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Disease Type Prediction &amp;amp; Cancer Type Prediction&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232258270-faa1b12e-668a-43a5-92ea-3fd2c851ed6c.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;저자는 제안한 모델인 SHINE과 다른 baseline들을 비교하며 SHINE이 다른 모델들에 비하여 확실하게 우월한 성능을 갖고 있음을 보여줍니다. 특히 attention을 사용한 hyperGAT와 AllSetTransformer와의 비교를 통해 node to hyperedge 정보전달 과정(aggregation)과 hyperedge to node 정보전달 과정에서 같은 attention matrix를 사용하는 dual attention 기법이 효과적임을 보여주었습니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Enrichment Analysis&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43372696/232273370-e309f525-7444-461c-82e9-3de1f286c22f.PNG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;저자는 SHINE이 node와 hyperedge의 representation을 같이 학습하기에 결과를 해석하거나 correlation을 분석하는데 있어서 장점이 있다고 주장했습니다. 이를 입증하기 위하여 암의 종류별로, attention 값을 기반으로 관련이 높은 pathway들을 추출했습니다. 위의 표에서 각 column이 암마다 관련있는 pathway들입니다. 첫 column은 breast cancer관련 pathway들이며 두번째 column은 lung cancer 관련 pathway들을 추출한 결과입니다. 글자의 색은 MSigDB를 구축하는 과정에서 사용한 데이터 출처이므로 실험 해석과 관련이 없습니다. 저자는 생명과학쪽 지식을 바탕으로 shine으로 추출한 암 종류별 pathway들이 실제로 해당 암과 관련이 높은것을 설명합니다. 예를 들어 breast cancer의 경우  HER2/4-1BB bispecific molecule(표의 제일 왼쪽 column, 위에서 3번째 row)의 경우 HER2-positive breast cancer의  치료 방법중 하나로 밝혀졌다고 합니다. 이외에도 appendix에서 각 pathway가 어떻게 해당 암과 관련이 있는지 생명과학/의학 지식을 활용하여 설명합니다. 이를 통해 SHINE 모델이 해석을 쉽게 할 수 있도록 도와준다는걸 보여주었습니다. 
-&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;
-해다 논문은 기존의 PPI 기반 학습보다 효과적으로 기능적인 정보를 반영하기 위해 pathway라는 정보로 구축된 hypergraph를 사용하였습니다. strong dual attention을 기반으로 효과적으로 학습하였으며, subhypergraph를 classification하는 첫 논문으로, 새로운 application으로 질병과 암을 예측하는 논문입니다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Discussion &amp;amp; Further Development&lt;/strong&gt;&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;간략한 평가 :  새로운 application에 잘 적용하였고 효과적이지만 논문의 설명 방식이 명확하지 않으며 설명이 깔끔하지는 않았습니다.&lt;/li&gt;
-    &lt;li&gt;발전 방향 : pathway들이 여러 단백질의 기능적인 집합이듯이, 여러 pathway들이 모여 어떤 더 큰 기능과 작용을 구성하는것은 분명합니다. 이러한 정보를 활용하여 hypergraph in hypergraph 모델을 만들거나, pathway사이의 관계에 대한 데이터를 활용하면 더 좋은 representation을 뽑는것이 가능해보입니다.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;br /&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Yoonho Lee
-    &lt;ul&gt;
-      &lt;li&gt;Affiliation: &lt;a href=&quot;http://dsail.kaist.ac.kr&quot;&gt;DSAIL@KAIST&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Research Topic: Graph Nerual Network, Topological Deep Learning, Category Theory.&lt;/li&gt;
-      &lt;li&gt;Contact: sml0399benbm@kaist.ac.kr
-        &lt;h2 id=&quot;reference--additional-materials&quot;&gt;&lt;strong&gt;Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h2&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Github Implementation
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/luoyuanlab/shine&quot;&gt;Code for the paper&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Reference
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1609.02907.pdf&quot;&gt;[ICLR-17] Semi-Supervised Classification with Graph Convolutional Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1710.10903.pdf&quot;&gt;[ICLR-18] Graph Attention Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1809.09401.pdf&quot;&gt;[AAAI-19] Hypergraph Neural Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2011.00387.pdf&quot;&gt;[EMNLP-20] Be More with Less: Hypergraph Attention Networks for Inductive Text Classification&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2106.13264.pdf&quot;&gt;[ICLR-22] You are AllSet: A Multiset Function Framework for Hypergraph Neural Networks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/2210.07309.pdf&quot;&gt;[NeurIPS-22] SHINE: SubHypergraph Inductive Neural nEtwork&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-            <pubDate>Thu, 20 Apr 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/SHINE_SubHypergraph_Inductive_Neural_nEtwork.html</guid>
             
             <category>reviews</category>
             

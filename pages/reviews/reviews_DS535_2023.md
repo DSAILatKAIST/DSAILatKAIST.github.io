@@ -9,7 +9,7 @@ summary: Archive to save the reviews from DS535 (2023F)
 ---
 
 - [[NIPS 2021] Learning Graph Models for Retrosynthesis Prediction](../../_posts/DS503_23S/2023-04-20-Learning_Graph_Models_for_Retrosynthesis_Prediction.md)
-- [[RecSys 2023] Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation](../../_posts/DS535_23F/1st_round/[ACM-2023]Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_In_Large_Language_Model_Recommendation.md)
+- [[RecSys 2023] Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation](../../_posts/DS535_23F/1st_round/2023-10-16-Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.md)
 - [[CIKM 2020] Multi-modal Knowledge Graphs for Recommender Systems](../../_posts/DS535_23F/1st_round/[CIKM-20]Multi_modal_Knowledge_Graphs_for_Recommender_Systems.md)
 - [[CVPR 2023] Learning to Generte Language-supervised and Open-vocabulary Scene Graph using Pre-trained Visual-Semantic Space](../../_posts/DS535_23F/1st_round/[CVPR-23]Learning%20to%20Generate%20Language-supervised%20and%20Open-vocabulary%20Scene%20Graph%20using%20Pre-trained%20Visual-Semantic%20Space.md)
 - [[ICLR 2023] GNNInterpreter: A Probabilistic Generative Model-Level Explanation for Graph Neural Networks](../../_posts/DS535_23F/1st_round/[ICLR%202023]%20GNNInterpreter_%20A%20Probabilistic%20Generative%20Model-Level%20Explanation%20for%20Graph%20Neural%20Networks.md)

@@ -2,6 +2,22 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
     <url>
+      <loc>http://dsailatkaist.github.io/Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html</loc>
+      
+        <lastmod>2023-10-16T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
       <loc>http://dsailatkaist.github.io/Temporal_and_Heterogeneous_Graph_Neural_Network_for_Financial_Time_Series_Prediction.html</loc>
       
         <lastmod>2023-04-20T00:00:00+09:00</lastmod>
