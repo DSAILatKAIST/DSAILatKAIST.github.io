@@ -26,12 +26,12 @@ NGCF (Neural Graph Collaborative Filtering) is a specific application of GCN to 
 
 ![Example Image](https://i.ibb.co/F4M0jJj/User-item-Interaction.png)
 Then NGCF leverages the user-item interaction graph to propagate embeddings as: 
-$\begin{gathered}
-\mathbf{e}_{u}^{(k+1)} =\sigma\Bigl(\mathbf{W}_{1}\mathbf{e}_{u}^{(k)}+\sum_{i\in\mathcal{N}_{u}}\frac{1}{\sqrt{|N_{u}||N_{i}|}}(\mathbf{W}_{1}\mathbf{e}_{i}^{(k)}+\mathbf{W}_{2}(\mathbf{e}_{i}^{(k)}\odot\mathbf{e}_{u}^{(k)}))\Bigr), \\
-\mathbf{e}_{i}^{(k+1)} =\sigma\Big(\mathbf{W}_{1}\mathbf{e}_{i}^{(k)}+\sum_{u\in\mathcal{N}_{i}}\frac{1}{\sqrt{|\mathcal{N}_{u}||\mathcal{N}_{i}|}}(\mathbf{W}_{1}\mathbf{e}_{u}^{(k)}+\mathbf{W}_{2}(\mathbf{e}_{u}^{(k)}\odot\mathbf{e}_{i}^{(k)}))\Big), 
-\end{gathered}$
+$
+\mathbf{e}_ {u}^{(k+1)} =\sigma\Bigl(\mathbf{W}_{1}\mathbf{e}_ {u}^{(k)}+\sum_{i\in\mathcal{N}_ {u}}\frac{1}{\sqrt{\vert N_{u} \vert\vert N_{i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {i}^{(k)}\odot\mathbf{e}_ {u}^{(k)}))\Bigr), \\
+\mathbf{e}_ {i}^{(k+1)} =\sigma\Big(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\sum_{u\in\mathcal{N}_ {i}}\frac{1}{\sqrt{\vert \mathcal{N}_ {u} \vert\vert \mathcal{N}_ {i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {u}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {u}^{(k)}\odot\mathbf{e}_ {i}^{(k)}))\Big), 
+$
 
-where $\mathbf{e}_{u}^{(k)}\mathrm{~and~}\mathbf{e}_{i}^{(k)}$respectively denote the refined embedding of user u and item i after k layers propagation, σ is the nonlinear activation function. $N_u$ denotes the set of items that are interacted by user u, $N_i$ denotes the set of users that interact with item i, and $W_1$ and $W_2$ are trainable weight matrix to perform feature transformation in each layer. By propagating L layers, NGCF obtains $L + 1$ embeddings to describe a user $(\mathbf{e}_u^{(0)},\mathbf{e}_u^{(1)},...,\mathbf{e}_u^{(L)})$ and an item $(\mathbf{e}_i^{(0)},\mathbf{e}_i^{(1)},...,\mathbf{e}_i^{(L)}).$  It then concatenates these $L + 1$ embeddings to obtain the final user embedding and item embedding, using inner product to generate the prediction score
+where $\mathbf{e}_ {u}^{(k)}\mathrm{~and~}\mathbf{e}_ {i}^{(k)}$respectively denote the refined embedding of user u and item i after k layers propagation, σ is the nonlinear activation function. $N_u$ denotes the set of items that are interacted by user u, $N_i$ denotes the set of users that interact with item i, and $W_1$ and $W_2$ are trainable weight matrix to perform feature transformation in each layer. By propagating L layers, NGCF obtains $L + 1$ embeddings to describe a user $(\mathbf{e}_u^{(0)},\mathbf{e}_u^{(1)},...,\mathbf{e}_u^{(L)})$ and an item $(\mathbf{e}_i^{(0)},\mathbf{e}_i^{(1)},...,\mathbf{e}_i^{(L)}).$  It then concatenates these $L + 1$ embeddings to obtain the final user embedding and item embedding, using inner product to generate the prediction score
 
 ## LightGCN 
 
