@@ -106,18 +106,18 @@ transE 모델을 통해 knowledge graph의 구조화된 representation을 학습
 
 이후에 entity $h$에 multi-modal 이웃 entity 정보를 aggregate 한다.
 
-$$ e_{agg} = \sum_{(h,r,t)\in N_h} \pi(h,r,t) e(h,r,t) $$ 
+$ e_{agg} = \sum_{(h,r,t)\in N_h} \pi(h,r,t) e(h,r,t) $ 
 
 - $N_h$: h와 연결된 triplet(h,r,t)들의 집합
 
 - $e(h,r,t)$: triplet (h,r,t)의 임베딩
   - head entity, relation, tail entity 임베딩의 연결에 대해 linear transformation으로 학습
-$$e(h,r,t) = W_1(e_h||e_r||e_t)$$
+$e(h,r,t) = W_1(e_h||e_r||e_t)$
 
 - $\pi(h,r,t)$: attention score
   - attention 이후 normalize
-$$ \pi(h,r,t)=LeakyReLU(W_2e(h,r,t)) $$
-$$ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r',t')\in N_h} exp(\pi(h,r',t'))} $$
+$ \pi(h,r,t)=LeakyReLU(W_2e(h,r,t)) $
+$ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r',t')\in N_h} exp(\pi(h,r',t'))} $
 
 
 ii) Aggregation layer
@@ -126,11 +126,11 @@ entity representation $e_h$와 앞서 propagate 된 $e_{agg}$ 를 aggregate 한�
 
 - 방법1: Add aggregation
 
-$$ f_{add} = W_3 e_h + e_{agg} $$
+$ f_{add} = W_3 e_h + e_{agg} $
 
 - 방법2: Concatenation aggregation
 
-$$ f_{concat} = W_4 (e_h||e_{agg})$$
+$ f_{concat} = W_4 (e_h \vert \vert e_{agg})$
 
 
 iii) High-order propagation

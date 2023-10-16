@@ -462,7 +462,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>이후에 entity $h$에 multi-modal 이웃 entity 정보를 aggregate 한다.</p>
 
-\[e_{agg} = \sum_{(h,r,t)\in N_h} \pi(h,r,t) e(h,r,t)\]
+<p>$ e_{agg} = \sum_{(h,r,t)\in N_h} \pi(h,r,t) e(h,r,t) $</p>
 
 <ul>
   <li>
@@ -471,14 +471,14 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>$e(h,r,t)$: triplet (h,r,t)의 임베딩
     <ul>
       <li>head entity, relation, tail entity 임베딩의 연결에 대해 linear transformation으로 학습
-\(e(h,r,t) = W_1(e_h||e_r||e_t)\)</li>
+$e(h,r,t) = W_1(e_h||e_r||e_t)$</li>
     </ul>
   </li>
   <li>$\pi(h,r,t)$: attention score
     <ul>
       <li>attention 이후 normalize
-\(\pi(h,r,t)=LeakyReLU(W_2e(h,r,t))\)
-\(\pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r',t')\in N_h} exp(\pi(h,r',t'))}\)</li>
+$ \pi(h,r,t)=LeakyReLU(W_2e(h,r,t)) $
+$ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,t’))} $</li>
     </ul>
   </li>
 </ul>
@@ -491,13 +491,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>방법1: Add aggregation</li>
 </ul>
 
-\[f_{add} = W_3 e_h + e_{agg}\]
+<p>$ f_{add} = W_3 e_h + e_{agg} $</p>
 
 <ul>
   <li>방법2: Concatenation aggregation</li>
 </ul>
 
-\[f_{concat} = W_4 (e_h||e_{agg})\]
+<p>$ f_{concat} = W_4 (e_h \vert \vert e_{agg})$</p>
 
 <p>iii) High-order propagation</p>
 

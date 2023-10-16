@@ -38,7 +38,7 @@ Rethinking Graph Neural Networks for Anomaly Detection
 
 ### 2.1 Theoretical insights of the ‘right-shift’ phenomenon
 
-$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_1, \hat{x}_2, … , \hat{x}_N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 이때 $\hat{x}^2_k / \sum_ {i=1}^N \hat{x}^2_i$ 를 $\lambda_k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다. 논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e_N,\sigma^2 I_N)$ 이때, $x$의 이상치 정도는 $\sigma / |\mu|$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2_i } {\sum_ {i=1}^N \hat{x}^2_i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S_ {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2_i } {\sum_ {i=1}^N \hat{x}^2_i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.
+$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 1, \hat{x}_ 2, … , \hat{x}_ N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 이때 $\hat{x}^2_ {k} / \sum _ {i=1} ^ N \hat{x} ^2 _i$ 를 $\lambda _k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다. 논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e_ N,\sigma^2 I_ N)$ 이때, $x$의 이상치 정도는 $\sigma \vert \mu \vert$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_ k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S_ {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.
 
 ### 2.2 Validation on Datasets
 
@@ -66,14 +66,13 @@ $G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_1
 
  위에서 설명한 Beta graph wavelet을 활용하여 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.
 
-$$
+$
 Z_i = W_ {i,C-i} (MLP(X))
+$
 
-$$
-
-$$
+$
 H = AGG([Z_0, Z_1, ..., Z_C])
-$$
+$
 
 ## **4. Experiment**
 

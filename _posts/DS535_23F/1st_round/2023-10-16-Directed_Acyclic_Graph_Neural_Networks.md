@@ -46,7 +46,7 @@ MPNN과의 주요 차이점은 다음과 같습니다. 이전 layer 정보 대�
 
 이를 식으로 나타내면 다음과 같습니다.
 
-$h^{l}_v = F^{l}(h_v^{l-1},G^l(\{h_u^l|u\in \mathcal{P}(v)\},h_v^{l-1}))\quad l=1,...,L,\quad (3)$
+$h^{l}_v = F^{l}(h_v^{l-1},G^l(\{h_u^l \vert u\in \mathcal{P}(v)\},h_v^{l-1}))\quad l=1,...,L,\quad (3)$
 
 $h_\mathcal{G} = R^{l}({h^{l}_v, l=0,1,...,L,v \in \mathcal{T}})\quad(4)$ 
 
@@ -106,7 +106,7 @@ MPNN과의 주요 차이점은 DAGNN이 partial order를 따라야 하기때문�
 
 이러한 아이디어를 구체화 하기위해 본 논문에서는 topological batching을 고려합니다. 
 {% raw %}
-topological batching은 아래와 같은 세가지 속성을 만족하도록 노드 집합을 순서를 가진 배치$\mathcal\{{B}_i\}_{i\ge0}$로 나눕니다.
+topological batching은 아래와 같은 세가지 속성을 만족하도록 노드 집합을 순서를 가진 배치$\mathcal\{{B}_i\} _{i\ge0}$로 나눕니다.
 {% endraw %}
 $(i) \quad B_i$ 는 disjoint 이고 그들의 union은 노드집합 $\mathcal{V}$가 됩니다.
 
@@ -129,13 +129,13 @@ $\mathcal{M}$을 그래프에서 그래프 representation으로 바꾸는 함수
 DAGNN은 아래와 같은 성질을 만족합니다.
 
 
-$$Theorem 2.\text{ The graph representation }\mathcal{h_g} \text{ is invariant to node indexing if all }G^l,F^l\text{and R are so.}$$
+$ Theorem  2.\text{ The graph representation }\mathcal{h_g} \text{ is invariant to node indexing if all }G^l,F^l\text{and R are so.} $
 
-$$Corollary 3.\text{ The functions } G^l, F^l,\text{and }R \text{ defined in (5)–(8) are invariant to node indexing.}\text{ Hence, the resulting graph representation. } \mathcal{h_G}\text{ is, too.}$$
+$ Corollary  3.\text{ The functions } G^l, F^l,\text{and }R \text{ defined in (5)–(8) are invariant to node indexing.}\text{ Hence, the resulting graph representation. } \mathcal{h_G}\text{ is, too.} $
 
-$$Theorem 4.\text{ The mapping M is injective if } 
+$ Theorem  4.\text{ The mapping M is injective if } 
 G^l, F^l
-\text{ and R, considered as multiset functions, are so.}$$
+\text{ and R, considered as multiset functions, are so.} $
 
 # 3. COMPARISON TO RELATED MODELS
 

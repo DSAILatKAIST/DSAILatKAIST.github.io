@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 17 Oct 2023 00:27:53 +0900</pubDate>
-        <lastBuildDate>Tue, 17 Oct 2023 00:27:53 +0900</lastBuildDate>
+        <pubDate>Tue, 17 Oct 2023 01:24:34 +0900</pubDate>
+        <lastBuildDate>Tue, 17 Oct 2023 01:24:34 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1622,40 +1622,17 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 
 &lt;p&gt;(1) 옳게 분류된 pertubing node들에 대해서만 incentive를 주고,&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$\frac{\partial L^\prime}{\partial z_c^*}&lt;/td&gt;
-      &lt;td&gt;\psi_0 = 0$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$&lt;/p&gt;
 
 &lt;p&gt;(2) Decision Boundary 근처에 있는 node들을 선호하는 방식으로 Loss를 구성한다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$\frac{\partial L^\prime}{\partial z_c^*}&lt;/td&gt;
-      &lt;td&gt;\psi_1 &amp;lt; \frac{\partial L^\prime}{\partial z_c^*}&lt;/td&gt;
-      &lt;td&gt;\psi_2 \; for \, any \,0&amp;lt;\psi_1&amp;lt;\psi_2$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$\frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 2 \; for \, any \,0&amp;lt;\psi_ 1&amp;lt;\psi_ 2$&lt;/p&gt;
 
 &lt;p&gt;위 정의에서 도출된 명제에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.&lt;/p&gt;
 
 &lt;p&gt;논문은 Surrogate loss에 맞는 loss로써 Masked Cross Entropy(MCE)를 제안한다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$MCE = \frac{1}{&lt;/td&gt;
-      &lt;td&gt;V^+&lt;/td&gt;
-      &lt;td&gt;}  \sum_{i \in V^+}  -\log(p^{(i)}_{c^*})$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$MCE = \frac{1}{\vert V^+ \vert}  \sum_{i \in V^+}  -\log(p^{(i)}_ {c^*})$&lt;/p&gt;
 
 &lt;p&gt;MCE는 Projected Gradient Descent attack(PR-BCD)에 대해서는 Cross Entropy와 큰 차이를 보이지 않지만, Greedy Gradient-Based attack에 있어서는 강점을 보이는 것을 확인할 수 있다.&lt;/p&gt;
 
@@ -1669,15 +1646,8 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 
 &lt;p&gt;(2) 정의 1과 마찬가지로 Decision Boundary 근처에 있는 point들을 선호하는 방식으로 Loss를 구성한다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$\frac{\partial L^\prime}{\partial z_c^*}&lt;/td&gt;
-      &lt;td&gt;\psi_1 &amp;lt; \frac{\partial L^\prime}{\partial z_c^*}&lt;/td&gt;
-      &lt;td&gt;\psi_2&amp;lt;0 \; \ for \, any \; 0&amp;lt;\psi_1&amp;lt;\psi_2&amp;lt;1 \; \ or \; -1&amp;lt;\psi_2&amp;lt;\psi_1&amp;lt;0$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$\frac{\partial L^\prime} {\partial z_ c^{*}} $
+$ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_ 2 &amp;lt; 0 \; \ for \, any \; 0 &amp;lt; \psi_ 1 &amp;lt; \psi_ 2 &amp;lt; 1 \; \ or \; -1 &amp;lt; \psi_ 2 &amp;lt; \psi_ 1 &amp;lt; 0$&lt;/p&gt;
 
 &lt;h2 id=&quot;32-scalable-attacks&quot;&gt;3.2 Scalable Attacks&lt;/h2&gt;
 
@@ -1705,7 +1675,7 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 
 &lt;p&gt;GNN의 메세지 패싱 프레임워크를 다음과 같이 표현할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;$h^{(l)}&lt;em&gt;v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}{\big(A&lt;/em&gt;{uv}, h^{(l-1)}_uW^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)}\big] \ \ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\text{and} \; AGG = \text{l-th layer message passing aggregation} \ \text{and} \; h^{(l)}_v = \text{embedding}, \sigma^{(l)}  \text{activation function}$&lt;/p&gt;
+&lt;p&gt;$h^{(l)}_ v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)}\big] \ \ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\text{and} \; AGG = \text{l-th layer message passing aggregation} \ \text{and} \; h^{(l)}_ v = \text{embedding}, \sigma^{(l)}  \text{activation function}$&lt;/p&gt;
 
 &lt;p&gt;Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 제안했다. Soft Medoid는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다.&lt;/p&gt;
 
@@ -1808,15 +1778,7 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 
 &lt;h3 id=&quot;21-theoretical-insights-of-the-right-shift-phenomenon&quot;&gt;2.1 Theoretical insights of the ‘right-shift’ phenomenon&lt;/h3&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}&lt;em&gt;1, \hat{x}_2, … , \hat{x}_N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 이때 $\hat{x}^2_k / \sum&lt;/em&gt; {i=1}^N \hat{x}^2_i$ 를 $\lambda_k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다. 논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e_N,\sigma^2 I_N)$ 이때, $x$의 이상치 정도는 $\sigma /&lt;/td&gt;
-      &lt;td&gt;\mu&lt;/td&gt;
-      &lt;td&gt;$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2&lt;em&gt;i } {\sum&lt;/em&gt; {i=1}^N \hat{x}^2&lt;em&gt;i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S&lt;/em&gt; {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2&lt;em&gt;i } {\sum&lt;/em&gt; {i=1}^N \hat{x}^2_i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 1, \hat{x}_ 2, … , \hat{x}_ N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 이때 $\hat{x}^2_ {k} / \sum _ {i=1} ^ N \hat{x} ^2 &lt;em&gt;i$ 를 $\lambda _k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다. 논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e&lt;/em&gt; N,\sigma^2 I_ N)$ 이때, $x$의 이상치 정도는 $\sigma \vert \mu \vert$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_ k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S_ {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-validation-on-datasets&quot;&gt;2.2 Validation on Datasets&lt;/h3&gt;
 
@@ -1842,9 +1804,13 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 
 &lt;p&gt;위에서 설명한 Beta graph wavelet을 활용하여 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.&lt;/p&gt;
 
-\[Z_i = W_ {i,C-i} (MLP(X))\]
+&lt;p&gt;$
+Z_i = W_ {i,C-i} (MLP(X))
+$&lt;/p&gt;
 
-\[H = AGG([Z_0, Z_1, ..., Z_C])\]
+&lt;p&gt;$
+H = AGG([Z_0, Z_1, …, Z_C])
+$&lt;/p&gt;
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
 

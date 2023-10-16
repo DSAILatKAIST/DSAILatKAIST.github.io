@@ -68,7 +68,7 @@ usemathjax: true
 
   
 
-$\frac{\partial L^\prime}{\partial z_c^*}|\psi_0 = 0$
+$\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$
 
   
 
@@ -76,7 +76,7 @@ $\frac{\partial L^\prime}{\partial z_c^*}|\psi_0 = 0$
 
   
 
-$\frac{\partial L^\prime}{\partial z_c^*}|\psi_1 < \frac{\partial L^\prime}{\partial z_c^*}|\psi_2 \; for \, any \,0<\psi_1<\psi_2$
+$\frac{\partial L^\prime}{\partial z_ c^{\*}} \vert \psi_ 1 < \frac{\partial L^\prime}{\partial z_ c^{\*}} \vert \psi_ 2 \; for \, any \,0<\psi_ 1<\psi_ 2$
 
   
 
@@ -88,7 +88,7 @@ $\frac{\partial L^\prime}{\partial z_c^*}|\psi_1 < \frac{\partial L^\prime}{\par
 
   
 
-$MCE = \frac{1}{|V^+|}  \sum_{i \in V^+}  -\log(p^{(i)}_{c^*})$
+$MCE = \frac{1}{\vert V^+ \vert}  \sum_{i \in V^+}  -\log(p^{(i)}_ {c^*})$
 
   
 
@@ -115,9 +115,10 @@ $\lim_{\psi  \to  -1^+} L^\prime < \infty$
 (2) 정의 1과 마찬가지로 Decision Boundary 근처에 있는 point들을 선호하는 방식으로 Loss를 구성한다.
 
   
-
-$\frac{\partial L^\prime}{\partial z_c^*}|\psi_1 < \frac{\partial L^\prime}{\partial z_c^*}|\psi_2<0 \; \\ for \, any \; 0<\psi_1<\psi_2<1 \; \\ or \; -1<\psi_2<\psi_1<0$
-
+{% raw %}
+$\frac{\partial L^\prime} {\partial z_ c^{\*}} $
+$ \vert \psi_ 1 < \frac{\partial L^\prime} {\partial z_c^{\*}} \vert \psi_ 2 < 0 \; \\ for \, any \; 0 < \psi_ 1 < \psi_ 2 < 1 \; \\ or \; -1 < \psi_ 2 < \psi_ 1 < 0$
+{% endraw %}
   
 
 ##  3.2 Scalable Attacks
@@ -167,7 +168,7 @@ GNN의 메세지 패싱 프레임워크를 다음과 같이 표현할 수 있다
 
   
 
-$h^{(l)}_v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}\{\big(A_{uv}, h^{(l-1)}_uW^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)\}\big] \\ \\ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\\\text{and} \; AGG = \text{l-th layer message passing aggregation} \\ \text{and} \; h^{(l)}_v = \text{embedding}, \sigma^{(l)}  \text{activation function}$
+$h^{(l)}_ v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}\{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)\}\big] \\ \\ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\\\text{and} \; AGG = \text{l-th layer message passing aggregation} \\ \text{and} \; h^{(l)}_ v = \text{embedding}, \sigma^{(l)}  \text{activation function}$
 
   
 

@@ -60,9 +60,9 @@ Single gpu만 사용가능한 환경에서 large entire graph에서 message pass
 (이 논문에서 single gpu만 사용가능한 환경은 memory가 큰 gpu는 사용할 수 없는, memory가 작은 gpu를 사용할 때를 말합니다. 실험에서는 여러대의 gpu를 parallel하게 사용하는데, 하나의 gpu만 있어도 같은 방식을 적용할 수있습니다. 물론 시간은 multiple-parallel 방식을 사용할 때 보다 부족한 gpu개수 배 만큼 걸리겠습니다.) 
 왜냐하면 key bottleneck으로 $AX$ 의 계산이 매우 높은 computation cost를 요구하기 때문입니다. 그래서 `graph ladling`논문은 SOTA graph sampling 과 graph partitioning방식을 사용하여 single gpu resouce 상황에서 large graph를 다루고자합니다. 메모리 제약사항을 해결하기 위해서 sampling 방식과 partitioning방식은 full batch training이 아니라 sampling based batch training을 시행합니다. 이에 따른 GNNs 모델은 아래와 같이 표현될 수 있습니다.
 
->**$X_{B_{0}}^{(K)}[M_{i}]=\tilde{A}_{B_{1}}^{(K-1)}\sigma (\tilde{A}_{B_{2}}^{(K-2)}\sigma(\cdots \sigma(\tilde{A}_{B_{K}}^{(0)}X_{B_{K}}^{(0)}[M_{i}]W^{(0)}[M_{i}]))\cdots W^{K-2}[M_{i}])W^{K-1}[M_{i}]$**
+>**$X_ {B_ {0}}^{(K)}[M_ {i}]=\tilde{A}_ {B_ {1}}^{(K-1)}\sigma (\tilde{A}_ {B_{2}}^{(K-2)}\sigma(\cdots \sigma(\tilde{A}_ {B_ {K}}^{(0)}X_ {B_{ K}}^{(0)}[M_ {i}]W^{(0)}[M_ {i}]))\cdots W^{K-2}[M_ {i}])W^{K-1}[M_ {i}]$**
 
-$\tilde{A}^{l}은 전체 batch $B_{l}$ 에서 sampled 된 graph의 $l$ 번째 layer에 대한 adjacency matrix이며, $M_{i}$와 $W^{(l)}[M_{i}]$는 $i$ th ingredient model과 해당하는 weight를 나타냅니다.
+$\tilde{A}^{l}$은 전체 batch $B_{l}$ 에서 sampled 된 graph의 $l$ 번째 layer에 대한 adjacency matrix이며, $M_ {i}$와 $W^{(l)}[M_ {i}]$는 $i$ th ingredient model과 해당하는 weight를 나타냅니다.
 
 이렇게 mini-batch 방식과 sampling 및 partitioning방식이 결합된다면, time consumption과 memory usage를 줄일수 있을 것입니다. 
 
