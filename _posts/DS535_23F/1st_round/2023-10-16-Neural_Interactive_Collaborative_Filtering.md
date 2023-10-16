@@ -45,7 +45,7 @@ Interactive recommendation process에서 $\pi$의 전체 T-trial의 payoff는 $\
 
 ![MAB](https://i.ibb.co/YWg6Qds/1.png)
 
-위 그림은 MAB Based approach 방법을 나타냅니다. 현재, interactive follaborative filtering에서의 exploration은 probabilistic matrix factorization (PMF)을 기반으로 합니다. PMF는 rating의 conditional probability가 gaussian, 즉 $Pr(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2}) = \mathcal{N}(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2})$ 을 가정합니다. 여기서 $\mathbf{p}_ {u}$와 $\mathbf{q}_ {i}$는 각각 zero mean Gaussian prior인 user, item feature vector이고, $\sigma$는 prior variance입니다. 
+위 그림은 MAB Based approach 방법을 나타냅니다. 현재, interactive follaborative filtering에서의 exploration은 probabilistic matrix factorization (PMF)을 기반으로 합니다. PMF는 rating의 conditional probability가 gaussian, 즉 $$Pr(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2}) = \mathcal{N}(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2})$$ 을 가정합니다. 여기서 $\mathbf{p}_ {u}$와 $\mathbf{q}_ {i}$는 각각 zero mean Gaussian prior인 user, item feature vector이고, $\sigma$는 prior variance입니다. 
 
 기존의 MAB 접근에서 learning procedure은 위의 그림과 같이 1) $t-1$ 번의 interaction이 끝나고 $Pr(\mathbf{p}_ {u})=\mathcal{N}(\mathbf{p}_ {u,t}\vert \mathbf{\mu}_ {u,t}, \Sigma_ {u,t})$과, $Pr(\mathbf{q}_ {i})=\mathcal{N}(\mathbf{q}_ {i,t}\vert \mathbf{\nu}_ {i,t}, \Psi_ {u,t})$로 정의되는 posterior distribution 을 얻습니다. 각각의 mean, variance term은 MCMC-Gibbs 등으로 얻을 수 있습니다. 2) cumulative reward를 최대화시키는 $t$ 번째 추천을 휴리스틱하게 선택합니다. 선택하는 방법으로는 대표적으로 2가지가 있는데, 각각 Thomson Sampling, Upper Confidence Bound 방법입니다. 
 
