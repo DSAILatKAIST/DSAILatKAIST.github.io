@@ -469,36 +469,15 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="overview">Overview</h3>
 
-<table>
-  <tbody>
-    <tr>
-      <td>논문에서 제안한 모델은 binding site의 3D space에서 존재할 수 있는 원자들의 distribution을 학습하고자 합니다. $\mathcal{C}$ 를 binding site(Input), <strong><em>e</em></strong>를 원소 종류, <strong><em>r</em></strong>을 3D space에서의 좌표라고 했을 때 **P(e, r</td>
-      <td>$\mathcal{C}$)<strong>를 modeling 하고자 합니다. Binding site의 conditional context $\mathcal{C}$에서 3D 좌표 **<em>r</em></strong>을 입력했을 때 해당 좌표에서 원자 <strong><em>e</em></strong>가 그 곳을 점유하고 있을 확률을 계산하는 것 입니다. 이때 실제 단백질의 binding site에서의 rotation이나 translation에 invariant한 모델을 만들기 위해 rotationally invariant GNN을 사용합니다.</td>
-    </tr>
-  </tbody>
-</table>
+<p>논문에서 제안한 모델은 binding site의 3D space에서 존재할 수 있는 원자들의 distribution을 학습하고자 합니다. $\mathcal{C}$ 를 binding site(Input), <strong><em>e</em></strong>를 원소 종류, <strong><em>r</em></strong>을 3D space에서의 좌표라고 했을 때 <strong>$P(e, r \vert \mathcal{C})$</strong>를 modeling 하고자 합니다. Binding site의 conditional context $\mathcal{C}$에서 3D 좌표 <strong><em>r</em></strong>을 입력했을 때 해당 좌표에서 원자 <strong><em>e</em></strong>가 그 곳을 점유하고 있을 확률을 계산하는 것 입니다. 이때 실제 단백질의 binding site에서의 rotation이나 translation에 invariant한 모델을 만들기 위해 rotationally invariant GNN을 사용합니다.</p>
 
 <h3 id="challenge-and-proposal">Challenge and Proposal</h3>
 
-<table>
-  <tbody>
-    <tr>
-      <td>***P(e, r</td>
-      <td>$\mathcal{C}$)<strong>*를 계산하는 모델을 만드는 것과 별개로 이 모델로부터 **<u>다양</u></strong>하고 <strong><u>유효한</u></strong> molecule을 얻는 것은 다음과 같은 이유로 매우 어렵습니다.</td>
-    </tr>
-  </tbody>
-</table>
+<p><strong><em>$P(e, r \vert \mathcal{C})$</em></strong>를 계산하는 모델을 만드는 것과 별개로 이 모델로부터 <strong><u>다양</u></strong>하고 <strong><u>유효한</u></strong> molecule을 얻는 것은 다음과 같은 이유로 매우 어렵습니다.</p>
 
 <ol>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>***P(e, r</td>
-          <td>$\mathcal{C}$)<strong><em>로부터 *i.i.d.</em> sample을 얻는 것은 **유효</strong>한 molecule을 보장하지 않습니다.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p><strong><em>$P(e, r \vert \mathcal{C})$</em></strong>로부터 <em>i.i.d.</em> sample을 얻는 것은 <strong>유효</strong>한 molecule을 보장하지 않습니다.</p>
 
     <p>molecule을 구성하는 원자들은 서로 independent하지 않기 때문입니다.</p>
   </li>
@@ -529,7 +508,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>Binding site는 $\mathcal{C} = {(a_i, r_i)}^{N_b}_{i = 1}$ 와 같은 식으로 정의합니다. $N_b$는 원자의 개수, $a_i$는 $i$번째 원자의 특징을 말합니다. 특징이라 하면 원자의 종류나 어떤 아미노산에 속하는지 여부 등 이 있습니다. $r_i$는 해당 원자의 3D 좌표입니다.</p>
 
-<p>Binding site에서 원자를 생성하기 위해선 특정 위치 $r$에서 원자가 발생할 확률을 modeling해야 합니다. 다시 말하면, $p(e\vert r, \mathcal{C})$를 modeling하는 것이며 여기서 $r \in \R^3$ 은 임의의 3D 좌표, $e \in \mathcal{E} = {H,\ C,\ O\ …}$는 원자의 종류입니다.</p>
+<p>Binding site에서 원자를 생성하기 위해선 특정 위치 $r$에서 원자가 발생할 확률을 modeling해야 합니다. 다시 말하면, $p(e\vert r, \mathcal{C})$를 modeling하는 것이며 여기서 $r \in R^3$ 은 임의의 3D 좌표, $e \in \mathcal{E} = {H,\ C,\ O\ …}$는 원자의 종류입니다.</p>
 
 <p>직관적으로 해석하자면, 어떤 3D 좌표 $r$에서 $\mathcal{C}$라는 제한조건 하에서 $e$ 라는 종류의 원자가 있을 확률을 예측하는 분류 모델입니다.</p>
 
@@ -555,9 +534,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>먼저 $\mathcal{C}$ 에 대한 natural topology는 없기 때문에 원자의 거리를 기준으로 $k$-nearest-neighbor graph를 adjacency matrix $A$와 함께 $\mathcal{G} = \langle C, A \rangle$를 구성합니다. 또한 표기의 편의상 $i$번째 원자의  $k$-NN neighborhood를 $N_k(r_i)$라고 표현합니다.</p>
 
-<p>Context Encoder의 첫번째 층은 linear layer로 ${a_{i}}$의 특징을 첫번째 embedding 층인 ${h^{(0)}<em>{i}}$로 mapping합니다. 그 후, $A$를 통해 message passing layer $L$로 이어집니다. 이 과정에 대한 수식은 아래와 같습니다.
+<p>Context Encoder의 첫번째 층은 linear layer로 ${a_{i}}$의 특징을 첫번째 embedding 층인 $h^{(0)}_ {i}$로 mapping합니다. 그 후, $A$를 통해 message passing layer $L$로 이어집니다. 이 과정에 대한 수식은 아래와 같습니다.
 \(h^{l+1}_{i} = \sigma \left( W^{l}_0 h^{(l)}_i + \sum_{j\in N_k(r_i)} W^l_1w(d_{ij}\ \odot\ W^l_2h^{l}_j) \right)\)
-여기서 $w(\cdot)$은 weight network, $d</em>{ij}$는 원자 $i, \ j$ 사이의 거리입니다. 여기서 주목할 점은 수식의 모양이 continous filter convolution과 유사하지만 $j$에서 $i$로 가는 message는 $d_{ij}$를 통해서만 이동하기 때문에 rotation과 translation에 invariant합니다. 마지막 $h$ layer ${h_i^{(L)}}$은 $\mathcal{C}$에 있는 각 원자의 embedding이 됩니다.</p>
+여기서 $w(\cdot)$은 weight network, $d_{ij}$는 원자 $i, \ j$ 사이의 거리입니다. 여기서 주목할 점은 수식의 모양이 continous filter convolution과 유사하지만 $j$에서 $i$로 가는 message는 $d_{ij}$를 통해서만 이동하기 때문에 rotation과 translation에 invariant합니다. 마지막 $h$ layer ${h_i^{(L)}}$은 $\mathcal{C}$에 있는 각 원자의 embedding이 됩니다.</p>
 
 <h4 id="41-2-spatial-classifier">4.1-2 Spatial Classifier</h4>
 
@@ -598,7 +577,7 @@ $\xi$는 가능한 원자 집합이며, 분모에 1을 더함으로써 좌표 $r
 
 <h4 id="auto-regressive-sampling">Auto-Regressive Sampling</h4>
 
-<p>step $t$에서, context $\mathcal{C}<em>t$를 고려한 하나의 원소를 생성합니다. 이 때 $\mathcal{C}_t$는 binding site의 context 뿐만 아니라 step $t$ 까지 sampling한 molecule까지 고려합니다. Molecule로써 생성된 원자는 binding site의 원자와 동일한 취급을 받지만 각자 다른 attribute를 가져 서로 구별합니다. 이후 $t+1$번째 원자는 $p(e, r \vert \mathcal{C}_t)$로 부터 생성되며 $\mathcal{C}</em>{t+1}$에 포함됩니다. 이를 수식으로 정리하면 아래와 같습니다.
+<p>step $t$에서, context $\mathcal{C}_ t$를 고려한 하나의 원소를 생성합니다. 이 때 $\mathcal{C}_ t$는 binding site의 context 뿐만 아니라 step $t$ 까지 sampling한 molecule까지 고려합니다. Molecule로써 생성된 원자는 binding site의 원자와 동일한 취급을 받지만 각자 다른 attribute를 가져 서로 구별합니다. 이후 $t+1$번째 원자는 $p(e, r \vert \mathcal{C}_ t)$로 부터 생성되며 $\mathcal{C}_ {t+1}$에 포함됩니다. 이를 수식으로 정리하면 아래와 같습니다.
 \((e_{t+1}, r_{t+1}) \sim p(e, r \vert \mathcal{C}_t) \\
 \mathcal{C}_{t+1} \leftarrow \mathcal{C}_t \cup \{ e_{t+1}, r_{t+1} \}\)
   auxiliary network를 이용해 Auto-regressive sampling을 종료할 시기를 정합니다. 이 frontier network는 지금까지 sampling된 원자들의 embedding을 각각 frontier과 non-frontier로 구별하고, 모든 원자가 non-frontier로 구별되면 sampling을 종료합니다. sampling이 끝나면 OpenBabel을 이용해 원자간의 결합을 생성합니다.</p>

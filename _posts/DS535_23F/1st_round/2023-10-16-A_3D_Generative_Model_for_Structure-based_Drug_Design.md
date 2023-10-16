@@ -106,15 +106,15 @@ usemathjax: true
 
 ### Overview
 
-논문에서 제안한 모델은 binding site의 3D space에서 존재할 수 있는 원자들의 distribution을 학습하고자 합니다. $\mathcal{C}$ 를 binding site(Input), ***e***를 원소 종류, ***r***을 3D space에서의 좌표라고 했을 때 **P(e, r | $\mathcal{C}$)**를 modeling 하고자 합니다. Binding site의 conditional context $\mathcal{C}$에서 3D 좌표 ***r***을 입력했을 때 해당 좌표에서 원자 ***e***가 그 곳을 점유하고 있을 확률을 계산하는 것 입니다. 이때 실제 단백질의 binding site에서의 rotation이나 translation에 invariant한 모델을 만들기 위해 rotationally invariant GNN을 사용합니다.
+논문에서 제안한 모델은 binding site의 3D space에서 존재할 수 있는 원자들의 distribution을 학습하고자 합니다. $\mathcal{C}$ 를 binding site(Input), ***e***를 원소 종류, ***r***을 3D space에서의 좌표라고 했을 때 **$P(e, r \vert \mathcal{C})$**를 modeling 하고자 합니다. Binding site의 conditional context $\mathcal{C}$에서 3D 좌표 ***r***을 입력했을 때 해당 좌표에서 원자 ***e***가 그 곳을 점유하고 있을 확률을 계산하는 것 입니다. 이때 실제 단백질의 binding site에서의 rotation이나 translation에 invariant한 모델을 만들기 위해 rotationally invariant GNN을 사용합니다.
 
 
 
 ### Challenge and Proposal
 
-  ***P(e, r | $\mathcal{C}$)***를 계산하는 모델을 만드는 것과 별개로 이 모델로부터 **<u>다양</u>**하고 **<u>유효한</u>** molecule을 얻는 것은 다음과 같은 이유로 매우 어렵습니다. 
+  ***$P(e, r \vert \mathcal{C})$***를 계산하는 모델을 만드는 것과 별개로 이 모델로부터 **<u>다양</u>**하고 **<u>유효한</u>** molecule을 얻는 것은 다음과 같은 이유로 매우 어렵습니다. 
 
-1. ***P(e, r | $\mathcal{C}$)***로부터 *i.i.d.* sample을 얻는 것은 **유효**한 molecule을 보장하지 않습니다.
+1. ***$P(e, r \vert \mathcal{C})$***로부터 *i.i.d.* sample을 얻는 것은 **유효**한 molecule을 보장하지 않습니다.
 
    molecule을 구성하는 원자들은 서로 independent하지 않기 때문입니다.
 
@@ -145,7 +145,7 @@ usemathjax: true
 
   Binding site는 $\mathcal{C} = {(a_i, r_i)}^{N_b}_{i = 1}$ 와 같은 식으로 정의합니다. $N_b$는 원자의 개수, $a_i$는 $i$번째 원자의 특징을 말합니다. 특징이라 하면 원자의 종류나 어떤 아미노산에 속하는지 여부 등 이 있습니다. $r_i$는 해당 원자의 3D 좌표입니다. 
 
-  Binding site에서 원자를 생성하기 위해선 특정 위치 $r$에서 원자가 발생할 확률을 modeling해야 합니다. 다시 말하면, $p(e\vert r, \mathcal{C})$를 modeling하는 것이며 여기서 $r \in \R^3$ 은 임의의 3D 좌표, $e \in \mathcal{E} = \{H,\ C,\ O\ ...\}$는 원자의 종류입니다.
+  Binding site에서 원자를 생성하기 위해선 특정 위치 $r$에서 원자가 발생할 확률을 modeling해야 합니다. 다시 말하면, $p(e\vert r, \mathcal{C})$를 modeling하는 것이며 여기서 $r \in R^3$ 은 임의의 3D 좌표, $e \in \mathcal{E} = \{H,\ C,\ O\ ...\}$는 원자의 종류입니다.
 
   직관적으로 해석하자면, 어떤 3D 좌표 $r$에서 $\mathcal{C}$라는 제한조건 하에서 $e$ 라는 종류의 원자가 있을 확률을 예측하는 분류 모델입니다.
 
@@ -169,7 +169,7 @@ Context encoder의 목적은 제한조건 $\mathcal{C}$에 있는 원자들에�
 
   먼저 $\mathcal{C}$ 에 대한 natural topology는 없기 때문에 원자의 거리를 기준으로 $k$-nearest-neighbor graph를 adjacency matrix $A$와 함께 $\mathcal{G} = \langle C, A \rangle$를 구성합니다. 또한 표기의 편의상 $i$번째 원자의  $k$-NN neighborhood를 $N_k(r_i)$라고 표현합니다.
 
-  Context Encoder의 첫번째 층은 linear layer로 $\{a_{i}\}$의 특징을 첫번째 embedding 층인 $\{h^{(0)}_{i}\}$로 mapping합니다. 그 후, $A$를 통해 message passing layer $L$로 이어집니다. 이 과정에 대한 수식은 아래와 같습니다.
+  Context Encoder의 첫번째 층은 linear layer로 $\{a_{i}\}$의 특징을 첫번째 embedding 층인 $h^{(0)}_ {i}$로 mapping합니다. 그 후, $A$를 통해 message passing layer $L$로 이어집니다. 이 과정에 대한 수식은 아래와 같습니다.
 $$
 h^{l+1}_{i} = \sigma \left( W^{l}_0 h^{(l)}_i + \sum_{j\in N_k(r_i)} W^l_1w(d_{ij}\ \odot\ W^l_2h^{l}_j) \right)
 $$
@@ -223,7 +223,7 @@ $$
 
 #### Auto-Regressive Sampling
 
-  step $t$에서, context $\mathcal{C}_t$를 고려한 하나의 원소를 생성합니다. 이 때 $\mathcal{C}_t$는 binding site의 context 뿐만 아니라 step $t$ 까지 sampling한 molecule까지 고려합니다. Molecule로써 생성된 원자는 binding site의 원자와 동일한 취급을 받지만 각자 다른 attribute를 가져 서로 구별합니다. 이후 $t+1$번째 원자는 $p(e, r \vert \mathcal{C}_t)$로 부터 생성되며 $\mathcal{C}_{t+1}$에 포함됩니다. 이를 수식으로 정리하면 아래와 같습니다.
+  step $t$에서, context $\mathcal{C}_ t$를 고려한 하나의 원소를 생성합니다. 이 때 $\mathcal{C}_ t$는 binding site의 context 뿐만 아니라 step $t$ 까지 sampling한 molecule까지 고려합니다. Molecule로써 생성된 원자는 binding site의 원자와 동일한 취급을 받지만 각자 다른 attribute를 가져 서로 구별합니다. 이후 $t+1$번째 원자는 $p(e, r \vert \mathcal{C}_ t)$로 부터 생성되며 $\mathcal{C}_ {t+1}$에 포함됩니다. 이를 수식으로 정리하면 아래와 같습니다.
 $$
 (e_{t+1}, r_{t+1}) \sim p(e, r \vert \mathcal{C}_t) \\
 \mathcal{C}_{t+1} \leftarrow \mathcal{C}_t \cup \{ e_{t+1}, r_{t+1} \}

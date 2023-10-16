@@ -15,10 +15,10 @@ STRec: Sparse Transformer  for  Sequential Recommendations
 
 Transformer 구조가 급속도로 발전함에 따라 researcher들은 SRS(sequential recommender systems)에서 Transformer 구조를 적용하고 이전 SRS model들에 비해 SRS task에 대하여 발전된 성능을 나타내는 model을 제시하고 있다. \
 이 논문에서 user-item interaction history는 다음과 같이 정의된다. \
- $\begin{align}S = {\left\{\left(v_ 1, t_ 1 \right), \ldots, \left(v_ n, t_ n \right), \ldots, \left(v_ N, t_ N \right)  \right\}} \end{align}$
+ $\begin{align}S = {(v_ 1, t_ 1), \ldots, (v_ n, t_ n ), \ldots, (v_ N, t_ N )} \end{align}$
 
  여기서 $v_ n \in V$는 timestamp $t_ n$에서 sequence $S$의 $n$번째 interacted item이고 $N$은 sequence의 최대 길이이다. 단순화를 위해 user 및 실제 길이에 대한 표기는 생략되었고 interacted timestamp $t_ n$을 고려한다. \
-SRS는 제공된 길이가 $N$인 interaction sequence ${\left\{\left(v_ 1, t_ 1 \right), \ldots, \left(v_ N, t_ N \right)  \right\}}$를 활용해서 다음 interacted item $v_ {N+1}$을 예측해야 하는 문제이다. \
+SRS는 제공된 길이가 $N$인 interaction sequence ${(v_ 1, t_ 1), \ldots, (v_ N, t_ N )}$를 활용해서 다음 interacted item $v_ {N+1}$을 예측해야 하는 문제이다. \
 그러나 대부분의 기존 transformer 기반 SRS model들은 모든 item-item pair 간의 attention score를 계산하는 vanilla attention mechanism을 사용하고 있다.
 이 경우 중복되는 item interaction으로 인해 model 성능이 저하되고 많은 계산 시간과 메모리를 필요로 할 수 있다는 문제점이 발생한다.
 
@@ -85,7 +85,7 @@ vanila self-attention transformer layer와 비교했을 때 cross-attention laye
 
 #### 3.2.2 Sampling strategy
 Figure 1을 통해 후방 item이 SR task에서 중요할 가능성이 높음을 알 수 있다.
-따라서 논문에서는 마지막 item과의 time interval을 바탕으로 학습 가능한 parameter를 사용해서 sampling 전략을 수행한다. time interval은 $T = \left\{\tilde{t}_ {i}\right\}_ {1 \le i \le N}$로 표현한다.
+따라서 논문에서는 마지막 item과의 time interval을 바탕으로 학습 가능한 parameter를 사용해서 sampling 전략을 수행한다. time interval은 $T = {\tilde{t}_ i}_ {1 \le i \le N}$로 표현한다.
 
 $ \begin{align} \tilde{t}_ {i} = t_ i - t_ N  \end{align}$
 $t_ i, 1 \le i \le N$은 interaction $v_ i$에 대해 기록된 timestamp이다.\
@@ -129,10 +129,10 @@ $\begin{align} \hat{y} = \sigma\left(h_ {N}^ {L}E^ {T} \right)  \end{align}$
 
 위 식에 나온 기호 정리를 하면 다음과 같다.
 - $h_ {N}^ {L} \in R^ d$: 마지막 transformer layer에서 나온 마지막 item representation
-- $E \in R^ {|V| \times d}$: candidate item $V$에 대한 embedding matrix
+- $E \in R^ {\vert V \vert \times d}$: candidate item $V$에 대한 embedding matrix
 - $\sigma\left(\cdot\right)$: softmax 
 - $d$: embedding 차원
-- $\hat{y} \in R^ {|V|}$: prediction 결과로서 item set $V$에 대한 다음 item의 probability distribution
+- $\hat{y} \in R^ {\vert V \vert}$: prediction 결과로서 item set $V$에 대한 다음 item의 probability distribution
 
 ### 3.4 Optimization
 논문에서는 **STRec**을 pre-train과 fine-tuning의 두 단계로 나누어서 train한다. 
