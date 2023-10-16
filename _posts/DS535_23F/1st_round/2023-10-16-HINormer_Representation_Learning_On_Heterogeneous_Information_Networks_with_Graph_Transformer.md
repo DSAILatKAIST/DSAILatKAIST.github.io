@@ -41,52 +41,51 @@ Heterogeneous graph를 활용한 GNN은 구조와 heterogeneity을 동시에 학
 
 ## *3.1. Preliminaries*
 본 연구에서는 기존의 HINs의 효과적인 학습을 위해 선행 연구된 GNN 모델과 Transformer 모델을 기반으로 전체적인 model architecture를 구성한다. 먼저, 앞으로 사용될 notation을 정리하면 <Table 1>과 같다.  
-<center>
+
 
 | Notations   | Descriptions    |
 | ------- | ------- | 
 | G = {*V*, *E*, **X**, $\phi$, $\psi$}    | Heterogeneous Information Network  | 
 | *V* | 노드 집합  | 
 | *E*    | 엣지 집합  |
-| **X** $\in \R^{\vert V \vert \times d_{x}}$    | 노드 feature 행렬  |
-| **x**$_{v} \in \R^{d_x}$    | 노드 feature 벡터  |
+| **X** $\in R^{\vert V \vert \times d_{x}}$    | 노드 feature 행렬  |
+| **x**$_{v} \in R^{d_x}$    | 노드 feature 벡터  |
 | $\phi$    | 노드 타입 mapping 함수  |
 | $\psi$    | 엣지 타입 mapping 함수  |
 | $\phi(v)$    | 특정 노드 타입  |
 | $\psi(e)$    | 특정 엣지 타입  |
 | $T_{v}$ = {$\phi(v): \forall_{v} \in V$}    | 노드 타입 집합  |
 | $T_{e}$ = {$\psi(e): \forall_{e} \in E$}    | 엣지 타입 집합  |
-</center>
 
-<center>
+
 
 **\<Table 1> Notations**
 
-</center>
 
 GNN은 layer에 따른 이웃 노드 aggregation을 통해 주변 노드의 feature를 학습하며 graph representation을 업데이트하는 모델이다. GNN의 학습 과정은 아래의 <Eq 1>식으로 표현된다.  
-<center>
 
-$\boldsymbol{h_{v}^{l}} = AGGR(\boldsymbol{h}_{v}^{l-1}, \{\boldsymbol{h}_{i}^{l-1} : i \in \mathcal{N}_{v} \};\theta_{g}^{l})$,  
-$\mathcal{N}_{v}$ : v노드의 이웃 노드 집합,  
+<center>
+$\boldsymbol{h_ {v}^{l}} = AGGR(\boldsymbol{h}_ {v}^{l-1}, \{\boldsymbol{h}_ {i}^{l-1} : i \in N_ {v} \};\theta_{g}^{l})$,  
+$N_ {v}$ : v노드의 이웃 노드 집합,  
 $AGGR(\cdot ; \theta_{g}^{l})$ : 이웃 노드 aggregation function.  
-**<Eq 1> Aggregation of GNN**
 </center>
+**<Eq 1> Aggregation of GNN**
 
 GNN은 위 식으로 표현되는 aggregation의 방법에 따라 mean-pooling을 활용하는 GCN[7], attention을 활용하는 GAT[8] 등의 다양한 방법이 있다.  
 Transformer mechanism은 self-attention과 feed-forward로 구성되는데, multi-head self-attention을 통해 특정 벡터의 요소별 중요도를 계산한 후 feed-forward를 통해 그 중요도를 반영한 새로운 형태의 벡터를 추출하는 방법이다. 설명의 간략화를 위해 multi-head과정을 생략하고 <Eq 2>과 <Eq 3>로 표현할 수 있으며 architecture에 대한 자세한 내용은 [9]에서 확인할 수 있다.
 <center>
 
 $Q = HW_{Q}, K = HW_{K}, V = HW_{V}$,  
-$W_{Q} \in \R^{d \times d_{Q}}, W_{K} \in \R^{d \times d_{K}}, W_{V} \in \R^{d \times d_{V}}$  
+$W_{Q} \in R^{d \times d_{Q}}, W_{K} \in R^{d \times d_{K}}, W_{V} \in R^{d \times d_{V}}$  
 $MSA(H) = Softmax(\frac{\boldsymbol{QK}^{\top}}{\sqrt{d_{K}}}\boldsymbol{V})$  
 **<Eq 2> Multi-head Self-Attention Mechanism**
 
 $\boldsymbol{\widetilde{H}^{l}} = Layer Normalization(MSA(\boldsymbol{H^{l-1}}) + \boldsymbol{H^{l-1}})$  
 $\boldsymbol{H^{l}} = Layer Normalization(FFN(\widetilde{\boldsymbol{H^{l}}})+\boldsymbol{\widetilde{H}^{l}})$  
+</center>
 **<Eq 3> Feed Forward Network**
 
-</center>
+
 
 ## *3.2. Overall Architecture*
 HINormer는 HINs의 정보를 학습하기 위한 새로운 방법으로, Graph Transformer를 사용하였다. HINormer는 local-structure encoder와 hetero-relation encoder 로 구성이 되는데, local-structure encoder는 주변 노드의 feature를 aggregate하여 노드의 local structure을 학습하고, hetero-relation encoder는 주변 노드의 타입 정보를 aggregate하여 heterogeneity를 학습에 반영한다. 그리고, Graph Transformer는 두 encoder에서 얻은 정보를 aggregate하여 종합적인 노드 정보를 생성하는데 사용된다. 모델의 전체적인 architecture는 <Fig 2>와 같다.
@@ -100,30 +99,31 @@ HINormer는 HINs의 정보를 학습하기 위한 새로운 방법으로, Graph 
 </center>
 
 ## *3.3. Node-level Heterogeneous Graph Transformer Architecture*
-본 연구는 노드 embedding 과정에 Transformer Mechanism을 효율적으로 적용하고자 새로운 방안을 제안한다. 특히, Transformer를 GNN에 적용함에 따라 불가피하게 증가하는 parameter의 수로 인한 확장성 저하 및 과적합 문제를 해결하는 것에 집중하였다. 먼저, self-attention을 수행하기 위해서 target node를 중심으로 정해진 길이($S$) 만큼의 이웃 노드를 정해진 깊이($D$)만큼 탐색하며 추출한다. 이때 사용되는 $S$와 $D$는 하이퍼파라미터이다. 구체적인 예를 들어 설명하자면, 임의의 타겟 노드 $v$와 관련하여 추출된 이웃노드 집합을 $s(v) = {v, v_{1}, ..., v_{S-1}}$로 정의한다. 이들을 다시 Transformer 모델에 입력할 수 있는 embedding 형태의 집합으로 표현하면 $\boldsymbol{H}_{v}^{s} = [\boldsymbol{h}_{v}^{s}, \boldsymbol{h}_{v_{1}}^{s},...,\boldsymbol{h}_{v_{S-1}}^{s}]^{\top} \in \R^{S\times d}$와 같다. 여기서, $d$는 노드 embedding 차원을 의미하고, $\boldsymbol{h}_{v_{i}}^{S}$는 3.4장에서 설명할 local structure encoder를 통해 학습되는 주변 노드 기반의 노드 feature이다. 유념해야 할 것은 본 장에서 설명하는 Transformer는 앞으로 설명할 local-structure encoder를 통해 학습한 노드 feature와 hetero-relation encoder를 통해 학습한 관계성 정보를 aggregate하는 방법이다.  
+본 연구는 노드 embedding 과정에 Transformer Mechanism을 효율적으로 적용하고자 새로운 방안을 제안한다. 특히, Transformer를 GNN에 적용함에 따라 불가피하게 증가하는 parameter의 수로 인한 확장성 저하 및 과적합 문제를 해결하는 것에 집중하였다. 먼저, self-attention을 수행하기 위해서 target node를 중심으로 정해진 길이($S$) 만큼의 이웃 노드를 정해진 깊이($D$)만큼 탐색하며 추출한다. 이때 사용되는 $S$와 $D$는 하이퍼파라미터이다. 구체적인 예를 들어 설명하자면, 임의의 타겟 노드 $v$와 관련하여 추출된 이웃노드 집합을 $s(v) = {v, v_{1}, ..., v_{S-1}}$로 정의한다. 이들을 다시 Transformer 모델에 입력할 수 있는 embedding 형태의 집합으로 표현하면 $\boldsymbol{H}_ {v}^{s} = [\boldsymbol{h}_ {v}^{s}, \boldsymbol{h}_ {v_ {1}}^{s},...,\boldsymbol{h}_ {v_ {S-1}}^{s}]^{\top} \in R^{S\times d}$와 같다. 여기서, $d$는 노드 embedding 차원을 의미하고, $\boldsymbol{h}_ {v_ {i}}^{S}$는 3.4장에서 설명할 local structure encoder를 통해 학습되는 주변 노드 기반의 노드 feature이다. 유념해야 할 것은 본 장에서 설명하는 Transformer는 앞으로 설명할 local-structure encoder를 통해 학습한 노드 feature와 hetero-relation encoder를 통해 학습한 관계성 정보를 aggregate하는 방법이다.  
 해당 연구에서는 Graph Transformer와 관련하여 앞서 설명한 문제들을 해결하기 위해서 Graph Attention Network 모델[8]에서 제안된 attention 기반의 aggregation 방식을 변형한 GATv2[10]를 Transformer model의 multi-head self-attention 방법으로 활용하였다. GATv2은 벡터간의 관계성 추출을 위해 내적(dot-product)이 아닌 concatenation을 활용함으로써 learnable parameter의 개수를 줄였다. 또한, 본 연구의 저자는 각 Transformer layer의 feed-forward network를 삭제함으로써 parameter의 개수를 현저히 줄였다. 먼저, 본 연구에서 활용된 Transformer의 작동 과정을 이해하기 위해서는 [8]에서 소개된 GAT의 attention mechanism을 이해할 필요가 있다. 본 페이퍼에서는 GAT의 과정에 자세하게 설명되지 않았지만 앞으로 설명할 내용의 이해를 돕기 위해 [8]의 내용을 일부 활용하여 GAT를 설명하면 <Eq 4>와 같다. 
 <center>
 
-$s_{i}^{(k)} = \alpha_{i,i}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k-1)} + \sum_{j \in \mathcal{N}_{i}}\alpha_{i,j}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k-1)}$,  
+$s_{i}^{(k)} = \alpha_{i,i}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k-1)} + \sum_{j \in N_{i}}\alpha_{i,j}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k-1)}$,  
 $\boldsymbol{h}_{i}^{(k)} = f_{k}(s_{i}^{(k)})$  
-<Eq 4>
 </center>
+<Eq 4>
 
-<Eq 4>에서 $\mathcal{N}_{i}$는 $i$번째 노드에 대한 인접 노드들의 index이며, $\boldsymbol{W^{(k)}}$와 $f_{k}$는 각각 k번째 GAT의 가중치 행렬과 활성화 함수이다. attention score $\alpha_{i,j}^{(k)}$는 <Eq 5>에 의해 계산된다. 
+<Eq 4>에서 $N_{i}$는 $i$번째 노드에 대한 인접 노드들의 index이며, $\boldsymbol{W^{(k)}}$와 $f_{k}$는 각각 k번째 GAT의 가중치 행렬과 활성화 함수이다. attention score $\alpha_{i,j}^{(k)}$는 <Eq 5>에 의해 계산된다. 
 <center>
 
-$\alpha_{i,j}^{(k)} = \frac{exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k)}))}{\sum_{r \in \mathcal{N}_{i}}exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{r}^{(k)}))}$  
-<Eq 5>
+$\alpha_{i,j}^{(k)} = \frac{exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k)}))}{\sum_{r \in N_{i}}exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{r}^{(k)}))}$  
 </center>
+<Eq 5>
 
-GATv2은 $exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k)}))$ 함수에서 GAT과 차이가 있다. 두 방식을 나타내면 <Eq 6>과 같다. 
+GATv2은 $exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_ {i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_ {j}^{(k)}))$ 함수에서 GAT과 차이가 있다. 두 방식을 나타내면 <Eq 6>과 같다. 
 <center>
 
 $GAT : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) =  LEAKYRELU(\boldsymbol{a}^{\top}\cdot[\boldsymbol{Wh_{i}||Wh_{j}}])$   
+<br>
 
 $GATv2 : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) = \boldsymbol{a}^{\top}\cdot LEAKYRELU(\boldsymbol{W}\cdot[\boldsymbol{h_{i}}||\boldsymbol{h_{j}}])$  
-<Eq 6>
 </center>
+<Eq 6>
 
 앞서 설명한 바와 같이 본 연구에서는 GATv2방식을 활용하였다.
 
@@ -133,8 +133,8 @@ $GATv2 : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) = \boldsymbol{a}^{\top}\
 <center>
 
 $\boldsymbol{h}_{v} = \boldsymbol{W}_{\phi(v)}\boldsymbol{x}_{v} + \boldsymbol{b}_{\phi(v)}$  
-<**Eq 7**>
 </center>
+<**Eq 7**>
 
 다음으로, 사전에 정의된 $K_{s}$-hop만큼 기존의 GNN 모델(GCN, GAT, etc)을 활용하여 이웃 노드의 feature을 학습한다. 해당 부분의 작동 과정은 앞서 설명한 <Eq 1>과 동일하다. 다만, 본 연구에서는 모델의 성능을 세밀하게 분석하기 위해서 이웃 노드의 feature를 aggregate하는 과정에서 weight parameter가 곱해져서 학습되던 vanilla GNN과 달리 weight을 제거한 aggregation(<Eq 8>) 또한 실험을 진행하였다. 
 
@@ -142,18 +142,18 @@ $\boldsymbol{h}_{v} = \boldsymbol{W}_{\phi(v)}\boldsymbol{x}_{v} + \boldsymbol{b
 
 $\boldsymbol{h}_{v}^{K_{s}} =(\boldsymbol{\hat{A}}^{K_{s}}\boldsymbol{H})[v,:]$  
 $\boldsymbol{\hat{A}} = \boldsymbol{D}^{-1/2}\boldsymbol{A}\boldsymbol{D}^{-1/2} \rightarrow$ *Normalized Adjacency Matrix*  
-<**Eq 8**>
 </center>
+<**Eq 8**>
 
 ## *3.5. Heterogeneous Relation Encoder*
-해당 encoder는 각 노드와 엣지의 타입을 고려한 정보인 heterogeneous semantic proximity를 학습하기 위한 encoder로서 각 노드를 타입별로 mapping하여 학습한다. 타입별 정보의 초기화를 위해서 one-hot vector를 각 노드의 초기 정보로 활용하였다. 즉, 노드 타입 행렬 $T \in \R^{\vert T \vert \times \vert T \vert}$에서 노드 v의 타입 벡터 초깃값($r^{0}_{v}$)은 $T[\phi(v), :]$이다. 타겟 노드의 이웃 노드 타입에 대한 정보를 aggregate 하기 위한 과정 또한 기존의 GNN layer(GCN, GAT, etc)를 활용한다. 단, 기존의 방식과 다른 점은 GNN aggregation 이후에 타입별 learnable parameter $w^{t-1}_{\phi(u)}$를 가중합(weighted sum)함으로써 추가적인 aggregation을 진행하는 것이다. 이에 대한 수식은 <Eq 9>와 같다.
+해당 encoder는 각 노드와 엣지의 타입을 고려한 정보인 heterogeneous semantic proximity를 학습하기 위한 encoder로서 각 노드를 타입별로 mapping하여 학습한다. 타입별 정보의 초기화를 위해서 one-hot vector를 각 노드의 초기 정보로 활용하였다. 즉, 노드 타입 행렬 $T \in R^{\vert T \vert \times \vert T \vert}$에서 노드 v의 타입 벡터 초깃값$(r^{0}_ {v})$은 $T[\phi(v), :]$이다. 타겟 노드의 이웃 노드 타입에 대한 정보를 aggregate 하기 위한 과정 또한 기존의 GNN layer(GCN, GAT, etc)를 활용한다. 단, 기존의 방식과 다른 점은 GNN aggregation 이후에 타입별 learnable parameter $w^{t-1}_ {\phi(u)}$를 가중합(weighted sum)함으로써 추가적인 aggregation을 진행하는 것이다. 이에 대한 수식은 <Eq 9>와 같다.
 <center>
 
 $\boldsymbol{r}^{t}_{v} = \sum_{u \in N(v)}w^{t-1}_{\phi(u)}f(\boldsymbol{r}_{u}^{t-1};\theta_{h}^{t}),$  
 $f(\cdot ; \theta^{t}_{h})=$Aggregation function of GNN layers  
-<**Eq 9**>
 
 </center>
+<**Eq 9**>
 
 Relation encoder에서 헷갈리지 말아야 할 것은 <Eq 9>에서 진행한 것은 하나의 노드를 기준으로 했을 때 이웃 노드의 타입 정보를 aggregate함으로써 노드 embedding을 하는 것이다. 본 연구에서는 여기에서 머무는 것이 아니라, 주변 노드와의 self-attention을 기반으로 한 Graph Transformer를 통해서 효과적인 학습을 기대한다. 따라서, 임의의 노드쌍 간의 관계성 또한 반영된 정보를 최종적으로 추출해야 한다. 해당 과정은 <Eq 10>에 자세히 나타나 있다.
 
@@ -161,27 +161,27 @@ Relation encoder에서 헷갈리지 말아야 할 것은 <Eq 9>에서 진행한 
 
 $\boldsymbol{q}_{i}^{R} = \boldsymbol{W_{Q_R}}\boldsymbol{r}_{i}, \ \boldsymbol{k}_{j}^{R} = \boldsymbol{W}_{K_{R}}\boldsymbol{r_{j}}$,  
 $\hat{\alpha}_{i,j} = \alpha_{i,j} + \beta\cdot\boldsymbol{q}_{i}^{R}\boldsymbol{k}_{j}^{R}$  
-<**Eq 10**>
 </center>
+<**Eq 10**>
 
 <Eq 10>을 구체적으로 살펴보면 먼저 각 노드에 learnable parameter를 활용해서 각각 한번 더 projection을 해주고, 그 결과를 내적(inner-product)함으로써 두 노드간의 유사도를 계산한다. 다음으로, 하이퍼파라미터 $\beta$만큼 해당 유사도를 반영하여 이전 layer의 Transformer 과정에서 추출된 attention score와 합하여 positional encoding인 $\hat{\alpha}_{i,j}$를 추출한다. 최종적으로 local-structure encoder의 결과 벡터와 hetero-relation encoder의 결과 벡터에 multi-head self-attention을 적용하여 <Eq 11>과 같이 Transformer layer에 태워 최종 output을 출력한다.
 
 <center> 
 
 $\boldsymbol{H^{l}} = LayerNormalization(\boldsymbol{H^{l-1}} + HETEROMSA(\boldsymbol{H^{l-1}}, \boldsymbol{R}))$
-<**Eq 11**>
 </center>
+<**Eq 11**>
 
 ## *3.6. Training Objective*
 본 연구에서는 대표적인 downstream task로 node classification을 진행하였다. Transformer를 통해 출력된 output값에 linear layer를 통해 1차원의 벡터를 추출한 후, 크로스 엔트로피(cross-entropy)를 통해 loss값을 계산하였다. 구체적인 과정은 <Eq 12>와 같다.
 
 <center>
 
-$\tilde{y}_{v} \in \R^{C} = \phi_{Linear}(\boldsymbol{h_{v}};\theta_{pre})$  
-$\mathcal{L} = \sum_{v\in V_{tr}}CROSSENTROPY(\tilde{y}_{v}, y_{v})$,  
+$\tilde{y}_{v} \in R^{C} = \phi_{Linear}(\boldsymbol{h_{v}};\theta_{pre})$  
+$L = \sum_{v\in V_{tr}}CROSSENTROPY(\tilde{y}_{v}, y_{v})$,  
 $V_{tr}=$training nodes  
-<**Eq 12**>
 </center>
+<**Eq 12**>
 
 ## **4. Experiment**  
 
@@ -218,7 +218,6 @@ $V_{tr}=$training nodes
   
 * **Hyperparameters Settings**   
 본 연구에서는 baseline 하이퍼파라미터 설정을 위해 각 논문의 실험셋팅을 최대한 유지하였다. 또한, 제안하는 HINormer의 실험 셋팅을 <Table 2>와 같이 설정하여 진행하였다.  
-<center>
 
 | Settings   | Value    |
 | ------- | ------- | 
@@ -231,7 +230,6 @@ $V_{tr}=$training nodes
 
 \<Table 2\> Hyperparameter Settings
 
-</center>
 
 * **Evaluation Metric**  
 모델의 분류 성능을 평가하기 위해 Micro-F1과 Macro-F1이 지표로 사용되었고, 모든 실험은 5번 반복되어, 표준 편차와 함께 평균 결과를 각 모델의 성능으로 설정하였다.

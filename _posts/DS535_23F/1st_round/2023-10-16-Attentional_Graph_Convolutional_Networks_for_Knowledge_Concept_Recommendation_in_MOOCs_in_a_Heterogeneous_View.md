@@ -45,7 +45,7 @@ MOOCs 플랫폼에서 다양한 엔터티 간의 복잡한 상호 작용을 포�
 
 ### 2.1 Problem Statement
  
-MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: "c++", "binary tree", "linked list" 등)를 생성하는 데 사용되며, $f : u \rightarrow \{ki |ki \in K, i < N\}$.
+MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: "c++", "binary tree", "linked list" 등)를 생성하는 데 사용되며, $f : u \rightarrow \{ki \vert ki \in K, i < N\}$.
 
 ### 2.2 System Architecture
 ![image_sample](https://i.ibb.co/CsczfFr/Figure2.png)  
@@ -97,10 +97,10 @@ MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌�
 
 - **네트워크 및 메타 경로 정의**:
   - 다양한 정보 네트워크 $G = (V, E)$
-  - 메타 경로 집합 $ MP = \{MP_1, MP_2, ... MP_{|MP|}\} $
-  - 인접 행렬 $ A = \{A_1, A_2, ... A_{|MP|}\} $
+  - 메타 경로 집합 $ MP = \{MP_1, MP_2, ... MP_{\vert MP \vert}\} $
+  - 인접 행렬 $ A = \{A_1, A_2, ... A_{\vert MP \vert}\} $
 
-메타 경로의 수는 $ |MP| $로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 그래프 합성곱 네트워크 (GCN)를 채택합니다:
+메타 경로의 수는 $ \vert MP \vert $로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 그래프 합성곱 네트워크 (GCN)를 채택합니다:
 
 $ h^{(l+1)} = \sigma(P h^l W^l) $
 여기서, $ h^{(l+1)} $는 엔터티의 새로운 표현을 나타냅니다. 특히, $ h^0 $는 첫 번째 단계에서 추출한 콘텐츠 특징입니다.
@@ -114,9 +114,9 @@ $ h^{(l+1)} = \sigma(P h^l W^l) $
 세 개의 전파 계층을 거쳐 각 메타 경로에 대한 표현을 학습합니다. 그러나 다른 메타 경로들은 동등하게 고려되어서는 안됩니다. 이 문제를 해결하기 위해, 본 연구는 주의 메커니즘을 활용하여 다른 메타 경로의 안내 아래에서 학습된 엔터티의 표현을 융합하고 주의를 집중하는 공동 표현을 생성합니다.
 
 - **주의 메커니즘**:
-  - $ e = \sum_{i=1}^{|MP|} \text{att}(e^{MP_i} \otimes e^{MP_i}) $
-  - $ \alpha^{MP_i} = \frac{\exp(\sigma(a e^{MP_i}))}{\sum_{j \in |MP|} \exp(\sigma(a e^{MP_j}))} $
-  - 최종 표현: $ e = \sum_{i=1}^{|MP|} \alpha^{MP_i} e^{MP_i} $
+  - $ e = \sum_{i=1}^{\vert MP \vert} \text{att}(e^{MP_i} \otimes e^{MP_i}) $
+  - $ \alpha^{MP_i} = \frac{\exp(\sigma(a e^{MP_i}))}{\sum_{j \in \vert MP \vert} \exp(\sigma(a e^{MP_j}))} $
+  - 최종 표현: $ e = \sum_{i=1}^{\vert MP \vert} \alpha^{MP_i} e^{MP_i} $
 
 이 알고리즘은 다양한 메타 경로의 상관 관계를 활용하여 엔터티 표현을 학습하도록 허용합니다.
 ### 3.4 Matrix Factorization for Knowledge Concept Recommendation

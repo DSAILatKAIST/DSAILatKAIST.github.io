@@ -56,22 +56,22 @@ $M = \{X_P : P \in \Phi_X\}$
 
 일반적으로 각 노드 $v_i$에 대해, 각 주어진 metapath로부터 metapath 기반 이웃의 feature를 aggregate하기 위해 mean aggregation을 사용하며 semantic feature vector들의 list를 다음과 같이 출력하는데,
 
-$mi = \{z_P^i = \frac{1}{||SP||} \sum_{p(i,j)\in SP} x_j : P \in \Phi_X\}$
+$mi = \{z_P^i = \frac{1}{\vert\vert SP \vert\vert} \sum_{p(i,j)\in SP} x_j : P \in \Phi_X\}$
 
 본 논문에서는 metapath 기반 neighbor collection을 간소화하기 위해 새로운 방법을 제안한다. HAN과 같은 기존의 metapath 기반 방법은 각 metapath에 대해 모든 metapath 기반 이웃을 열거하는 metapath neighbor 그래프를 구축하며, 이는 metapath의 길이에 따라 metapath 인스턴스의 수가 기하급수적으로 증가하므로 높은 부하를 초래했다. 본 논문에서는 GCN의 레이어별 전파에서 영감을 얻어 각 노드의 최종 기여 가중치를 인접 행렬의 곱셈을 사용하여 계산한다. 
 
-$X_c = \{x_0^{cT}; x_1^{cT}; \ldots; x_{||V_c||-1}^{cT}\} \in \mathbb{R}^{||V_c|| \times d_c}$
+$X_c = \{x_0^{cT}; x_1^{cT}; \ldots; x_{\vert\vert V_c \vert\vert-1}^{cT}\} \in \mathbb{R}^{\vert\vert V_c \vert\vert \times d_c}$
 
 여기서 $d_c$는 feature dimension이고, $X_c$는 $c$ 유형에 속하는 모든 노드의 초기 feature matrix를 나타낸다. 그런 다음 간소화된 neighbor aggregation 과정은 다음과 같이 표현될 수 있다.
 
-$XP = \hat{A}_{c,c1}\hat{A}_{c1,c2}\ldots \hat{A}_{cl-1,cl}X^{cl}$
+$XP = \hat{A}_ {c,c1}\hat{A}_ {c1,c2}\ldots \hat{A}_ {cl-1,cl}X^{cl}$
 
-여기서 $P = c1c2 ... cl$은 $l$-hop metapath이며, $\hat{A}_{ci,ci+1}$은 노드 유형 $c_i$와 $c_{i+1}$ 간의 인접 행렬 $A_{ci,ci+1}$의 row-normalized된 형태이다.
+여기서 $P = c1c2 ... cl$은 $l$-hop metapath이며, $\hat{A}_ {ci,ci+1}$은 노드 유형 $c_i$와 $c_ {i+1}$ 간의 인접 행렬 $A_ {ci,ci+1}$의 row-normalized된 형태이다.
 
 
 여기에 레이블을 추가 입력으로 통합하면 모델 성능을 향상시킬 수 있다는 것을 입증한 이전 연구(Wang and Leskovec 2020; Wang et al. 2021b; Shi et al. 2021)를 활용하기 위해, raw feature들을 aggregation하는 것과 유사하게, 레이블을 one-hot 형식으로 표현하고 다양한 metapath를 통해 전파한다. 이 과정은 일련의 행렬 $\{Y_P : P \in \Phi_Y\}$ 을 생성하며, 이러한 행렬은 해당 metapath neighbor 그래프의 레이블 분포를 반영한다. metapath $P \in \Phi_Y$ 의 두 끝점은 노드 분류 작업에서 대상 노드 유형 $c$여야 한다. metapath $P = cc_1c_2 \ldots c_{l-1}c \in \Phi_Y$ 가 주어지면, 레이블 전파 과정은 다음과 같이 표현될 수 있다.
 
-$Y^P = rm \_ diag(\hat{A}^P)Y^c, \, \hat{A}^P = \hat{A}_{c,c1}\hat{A}_{c1,c2}\ldots \hat{A}_{cl-1,c}\,$
+$Y^P = rm \_ diag(\hat{A}^P)Y^c, \, \hat{A}^P = \hat{A}_ {c,c1} \hat{A}_ {c1,c2}\ldots \hat{A}_ {cl-1,c}\,$
 
 여기서 $Y^c$는 raw label matrix이다. $Y^c$에서 training set에 속하는 노드에 해당하는 행은 one-hot 형태의 label 값을 가지며, 다른 행은 0으로 채워진다. 레이블 유출을 방지하기 위해 각 노드가 자신의 실제 레이블 정보를 받지 않도록 하기 위해 인접 행렬의 곱셈 결과에서 대각선에 있는 값을 제거한다. 레이블 전파는 neighbor aggregation 단계에서 실행되며 나중에 학습을 위한 추가 입력으로 semantic 행렬을 생성한다.
 
@@ -85,7 +85,7 @@ $H'_P = \text{MLP}_P(X_P)$
 
 <li>Transformer-based Semantic Fusion</li><br>
 
-semantic fusion 단계는 semantic feature 벡터를 융합하고 각 노드에 대한 최종 임베딩 벡터를 생성한다. 단순한 weighted sum 형식 대신, 본 논문에서는 각 semantic 쌍 간의 상호 관계를 더 탐색하기 위해 트랜스포머 기반의 semantic fusion 모듈을 제안하였다. 트랜스포머 기반의 semantic fusion 모듈은 미리 정의된 metapath list $\Phi = \{P_1, \ldots, P_K\}$ 와 각 노드에 대한 projected된 semantic 벡터 $\{h'_{P1}, \ldots, h'_{PK}\}$ 을 고려하여 semantic 벡터 쌍 간의 상호 attention를 학습하도록 설계되었다. 각 semantic 벡터 
+semantic fusion 단계는 semantic feature 벡터를 융합하고 각 노드에 대한 최종 임베딩 벡터를 생성한다. 단순한 weighted sum 형식 대신, 본 논문에서는 각 semantic 쌍 간의 상호 관계를 더 탐색하기 위해 트랜스포머 기반의 semantic fusion 모듈을 제안하였다. 트랜스포머 기반의 semantic fusion 모듈은 미리 정의된 metapath list $\Phi = \{P_1, \ldots, P_K\}$ 와 각 노드에 대한 projected된 semantic 벡터 $\{h'_ {P1}, \ldots, h'_ {PK}\}$ 을 고려하여 semantic 벡터 쌍 간의 상호 attention를 학습하도록 설계되었다. 각 semantic 벡터 
 $h^{'Pi}$ 에 대해 이 모듈은 이 벡터를 query 벡터 $q^{Pi}$, key 벡터 $k^{Pi}$ 및 value 벡터 $v^{Pi}$로 매핑한다. 상호 attention 가중치 $\alpha(P_i, P_j)$ 는 소프트맥스 normalization 후의 query 벡터 $q^{Pi}$와 key 벡터 $k^{Pi}$의 dot product 결과이다. current semantic $P_i$의 출력 벡터 $h^{Pi}$는 모든 value 벡터 $v^{Pj}$의 weighted sum과 residual connection을 포함한다. semantic fusion 과정은 다음과 같이 표현될 수 있다.
 
 $q^{Pi} = W_Q h'^{Pi}$ , $k^{Pi} = W_K h'^{Pi}$ , $v^{Pi} = W_V h'^{Pi}$ , $P_i \in \Phi$ <br>
@@ -98,7 +98,7 @@ $h^{Pi} = \beta \sum_{P_j\in\Phi} \alpha(P_i,P_j) v^{P_j} + h'^{P_i}$ <br>
 
 각 노드의 최종 임베딩 벡터는 모든 출력 벡터의 연결로 이루어지는데, node classification과 같은 downstream 작업을 위해 또 다른 MLP가 사용되어 예측 결과를 생성하며, 이는 다음과 같이 표현될 수 있다.
 
-$Pred = \text{MLP}([h^{P1} || h^{P2} || \ldots || h^{P|\Phi|}])$
+$Pred = \text{MLP}([h^{P1} \vert\vert h^{P2} \vert\vert \ldots \vert\vert h^{P \vert \Phi \vert}])$
 
 
 ## Experiment

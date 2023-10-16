@@ -428,14 +428,7 @@ MOOCs 플랫폼에서 다양한 엔터티 간의 복잡한 상호 작용을 포�
 
 <h3 id="21-problem-statement">2.1 Problem Statement</h3>
 
-<table>
-  <tbody>
-    <tr>
-      <td>MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: “c++”, “binary tree”, “linked list” 등)를 생성하는 데 사용되며, $f : u \rightarrow {ki</td>
-      <td>ki \in K, i &lt; N}$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: “c++”, “binary tree”, “linked list” 등)를 생성하는 데 사용되며, $f : u \rightarrow {ki \vert ki \in K, i &lt; N}$.</p>
 
 <h3 id="22-system-architecture">2.2 System Architecture</h3>
 <p><img src="https://i.ibb.co/CsczfFr/Figure2.png" alt="image_sample" /><br />
@@ -505,41 +498,13 @@ MOOCs 플랫폼에서 다양한 엔터티 간의 복잡한 상호 작용을 포�
   <li><strong>네트워크 및 메타 경로 정의</strong>:
     <ul>
       <li>다양한 정보 네트워크 $G = (V, E)$</li>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>메타 경로 집합 $ MP = {MP_1, MP_2, … MP_{</td>
-              <td>MP</td>
-              <td>}} $</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>인접 행렬 $ A = {A_1, A_2, … A_{</td>
-              <td>MP</td>
-              <td>}} $</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
+      <li>메타 경로 집합 $ MP = {MP_1, MP_2, … MP_{\vert MP \vert}} $</li>
+      <li>인접 행렬 $ A = {A_1, A_2, … A_{\vert MP \vert}} $</li>
     </ul>
   </li>
 </ul>
 
-<table>
-  <tbody>
-    <tr>
-      <td>메타 경로의 수는 $</td>
-      <td>MP</td>
-      <td>$로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 그래프 합성곱 네트워크 (GCN)를 채택합니다:</td>
-    </tr>
-  </tbody>
-</table>
+<p>메타 경로의 수는 $ \vert MP \vert $로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 그래프 합성곱 네트워크 (GCN)를 채택합니다:</p>
 
 <p>$ h^{(l+1)} = \sigma(P h^l W^l) $
 여기서, $ h^{(l+1)} $는 엔터티의 새로운 표현을 나타냅니다. 특히, $ h^0 $는 첫 번째 단계에서 추출한 콘텐츠 특징입니다.</p>
@@ -560,39 +525,9 @@ MOOCs 플랫폼에서 다양한 엔터티 간의 복잡한 상호 작용을 포�
 <ul>
   <li><strong>주의 메커니즘</strong>:
     <ul>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>$ e = \sum_{i=1}^{</td>
-              <td>MP</td>
-              <td>} \text{att}(e^{MP_i} \otimes e^{MP_i}) $</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>$ \alpha^{MP_i} = \frac{\exp(\sigma(a e^{MP_i}))}{\sum_{j \in</td>
-              <td>MP</td>
-              <td>} \exp(\sigma(a e^{MP_j}))} $</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>최종 표현: $ e = \sum_{i=1}^{</td>
-              <td>MP</td>
-              <td>} \alpha^{MP_i} e^{MP_i} $</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
+      <li>$ e = \sum_{i=1}^{\vert MP \vert} \text{att}(e^{MP_i} \otimes e^{MP_i}) $</li>
+      <li>$ \alpha^{MP_i} = \frac{\exp(\sigma(a e^{MP_i}))}{\sum_{j \in \vert MP \vert} \exp(\sigma(a e^{MP_j}))} $</li>
+      <li>최종 표현: $ e = \sum_{i=1}^{\vert MP \vert} \alpha^{MP_i} e^{MP_i} $</li>
     </ul>
   </li>
 </ul>
