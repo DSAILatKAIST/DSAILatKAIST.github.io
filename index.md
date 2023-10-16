@@ -19,7 +19,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ICLR 2023] GNNDelete: A General Strategy for Unlearning in Graph Neural Networks](/_posts/DS535_23F/1st_round/2023-10-16-GNNDelete_A_General_Strategy_for_Unlearning_in_Graph_Neural_Networks.md)
 - [[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection](/_posts/DS535_23F/1st_round/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.md)
 - [[ICML 2023] Graph Ladling: Shockingly Simple Parallel GNN Training without Intermediate Communication](/_posts/DS535_23F/1st_round/2023-10-16-Graph_Ladling_Shocikingly_Simple_Parallel_GNN_Training_without_Intermediate_Communication.md)
-- [[KDD 2022] Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis](2023-10-16-Addressing_Unmeasured_Confounder_for_Recommendation_with_Sensitivity_Analysis.md)
+- [[KDD 2022] Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis](/_posts/DS535_23F/1st_round/2023-10-16-Addressing_Unmeasured_Confounder_for_Recommendation_with_Sensitivity_Analysis.md)
 - [[KDD 2022] ROLAND: Graph Learning Framework for Dynamic Graphs](/_posts/DS535_23F/1st_round/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.md)
 - [[KDD 2023] DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection](/_posts/DS535_23F/1st_round/2023-10-16-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.md)
 - [[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace](/_posts/DS535_23F/1st_round/2023-10-16-AB_Testing_for_Recommender_Systems_in_a_Two-sided_Marketplace.md)

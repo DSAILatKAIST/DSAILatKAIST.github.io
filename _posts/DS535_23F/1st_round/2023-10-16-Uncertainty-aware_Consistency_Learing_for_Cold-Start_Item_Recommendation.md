@@ -1,6 +1,6 @@
 ﻿---
 title:  "[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation"
-permalink: 2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html
+permalink: 2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html
 tags: [reviews]
 use_math: true
 usemathjax: true
@@ -42,7 +42,9 @@ To determine whether generated interactions are accurate and unbiased enough the
 for user $u_ {m}$ and item $i_ {n}$ cosine distance is
 $d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert \over \vert \vert e_ {u_ {m}}\vert\vert \ \vert \vert e_ {i_ {n}}\vert \vert }$
 $\{s_ {mn}\}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:
+{% raw %}
 $\bar{s_n}= {{1\over M}}\sum_ {k=1}^M s_ {mn}$
+{% endraw %}
 So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
 In order to bridge the gap between cold and warm items' distribution and popularity bias all interactions with $d_ {mn}<\alpha \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:
 $\hat{O_ {n}}={I(d_ {mn}>\alpha \bar{s_n})}$,

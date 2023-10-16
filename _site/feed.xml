@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 16 Oct 2023 20:59:17 +0900</pubDate>
-        <lastBuildDate>Mon, 16 Oct 2023 20:59:17 +0900</lastBuildDate>
+        <pubDate>Tue, 17 Oct 2023 00:17:00 +0900</pubDate>
+        <lastBuildDate>Tue, 17 Oct 2023 00:17:00 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -253,9 +253,11 @@ A larger value of ${s_ {mn}}$ indicates a stronger preference by the user for th
 &lt;p&gt;To determine whether generated interactions are accurate and unbiased enough they introduce the uncertainty degree of each user-item interaction which is calculated by cosine distance.
 for user $u_ {m}$ and item $i_ {n}$ cosine distance is
 $d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert \over \vert \vert e_ {u_ {m}}\vert\vert \ \vert \vert e_ {i_ {n}}\vert \vert }$
-${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:
-$\bar{s_n}= \sum_ {k=1}^M s_ {mn}$
-So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
+${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:&lt;/p&gt;
+
+&lt;p&gt;$\bar{s_n}= {{1\over M}}\sum_ {k=1}^M s_ {mn}$&lt;/p&gt;
+
+&lt;p&gt;So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
 In order to bridge the gap between cold and warm items’ distribution and popularity bias all interactions with $d_ {mn}&amp;lt;\alpha \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:
 $\hat{O_ {n}}={I(d_ {mn}&amp;gt;\alpha \bar{s_n})}$,
 where $\alpha$ is a pre-defined parameter and $I$ is the indicator function.
@@ -370,8 +372,8 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty_aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</guid>
+            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learing_for_Cold-Start_Item_Recommendation.html</guid>
             
             <category>reviews</category>
             

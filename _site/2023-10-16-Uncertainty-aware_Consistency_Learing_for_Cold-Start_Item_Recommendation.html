@@ -417,9 +417,11 @@ A larger value of ${s_ {mn}}$ indicates a stronger preference by the user for th
 <p>To determine whether generated interactions are accurate and unbiased enough they introduce the uncertainty degree of each user-item interaction which is calculated by cosine distance.
 for user $u_ {m}$ and item $i_ {n}$ cosine distance is
 $d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert \over \vert \vert e_ {u_ {m}}\vert\vert \ \vert \vert e_ {i_ {n}}\vert \vert }$
-${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:
-$\bar{s_n}= \sum_ {k=1}^M s_ {mn}$
-So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
+${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:</p>
+
+<p>$\bar{s_n}= {{1\over M}}\sum_ {k=1}^M s_ {mn}$</p>
+
+<p>So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
 In order to bridge the gap between cold and warm items’ distribution and popularity bias all interactions with $d_ {mn}&lt;\alpha \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:
 $\hat{O_ {n}}={I(d_ {mn}&gt;\alpha \bar{s_n})}$,
 where $\alpha$ is a pre-defined parameter and $I$ is the indicator function.
@@ -552,7 +554,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 16, 2023 <br />
+ Site last generated: Oct 17, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
