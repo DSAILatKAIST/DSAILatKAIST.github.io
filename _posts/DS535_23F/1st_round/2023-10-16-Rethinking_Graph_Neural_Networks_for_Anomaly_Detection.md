@@ -42,19 +42,19 @@ $G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 
 
 ### 2.2 Validation on Datasets
 
- 해당 논문에서는 $x$가 Gaussian distribution을 따르는 데이터셋과 따르지 않은 데이터셋 각각에 대하여 ‘오른쪽 편이’ 현상을 검증합니다. 첫 번째로, 인조적인 데이터셋인 Barabasi-Albert graph (Figure 1 (a)-(b))와 Minnesota road graph (Figure 1 (c)-(d)) 에서 이상치의 효과를 보입니다. 아래 그림에서 파란색 원은 spatial domain에서의 이상 노드를 나타내며 원의 크기가 클수록 이상치의 정도가 심함을 의미합니다. 그래프를 해석하면, 이상치의 정도, 즉, $\sigma$ 와 $\alpha$ 가$\alpha$$\lambda$ $\lambda$$\alpha$가 큼을 확인할 수 있으며 이는 2.1에서 설명한 ‘오른쪽 편이’ 현상이 보임을 의미합니다. 
+ 해당 논문에서는 $x$가 Gaussian distribution을 따르는 데이터셋과 따르지 않은 데이터셋 각각에 대하여 ‘오른쪽 편이’ 현상을 검증합니다. 첫 번째로, 인조적인 데이터셋인 Barabasi-Albert graph (Figure 1 (a)-(b))와 Minnesota road graph (Figure 1 (c)-(d)) 에서 이상치의 효과를 보입니다. 아래 그림에서 파란색 원은 spatial domain에서의 이상 노드를 나타내며 원의 크기가 클수록 이상치의 정도가 심함을 의미합니다. 그래프를 해석하면, 이상치의 정도, 즉, $\sigma$ 와 $\alpha$ 가$\alpha$ $\lambda$ $\lambda$ $\alpha$가 큼을 확인할 수 있으며 이는 2.1에서 설명한 ‘오른쪽 편이’ 현상이 보임을 의미합니다. 
 
-![Figure1.png](https://ibb.co/fXmJ8Gf)
+![Figure1.png](https://i.ibb.co/hgYpfq9/Figure1.png)
 
  
 
 두 번째로, node feature가 Gaussian distribution을 엄격하게는 따르지 않는 현실의 데이터셋에서의 ‘오른쪽 편이’ 현상을 입증합니다. 아래는 해당 4가지 데이터셋, Amazon, YelpChi, T-Finance, T-Social 의 특징과 이상치 효과에 대하여 정리한 도표입니다.
 
-![Table1.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table1.png)
+![Table1.png](https://i.ibb.co/njWJRtj/Table1.png)
 
 아래의 표는 Amazon dataset에서 (1) 기존 그래프, (2) 모든 이상치를 없앤 그래프, (3) 임의의 같은 노드의 수를 없앤 그래프의 spectral energy를 비교한 표입니다. Figure 3의 왼쪽 그래프에서, 낮은 주파수일때, 즉, $\lambda$ 값이 작을 때, Drop-Anomaly 가 Drop-Random 보다 큰 spectral energy distribution을 가짐을 확인할 수 있으며 이는  ‘오른쪽 편이’ 현상이 있음을 나타냅니다.
 
-![Figure3.png](https://ibb.co/nrYcYtq)
+![Figure3.png](https://i.ibb.co/9VCmrWV/Figure3.png)
 
 ## **3. Method**
 
@@ -62,7 +62,7 @@ $G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 
 
  Beta distribution은 종종 wavelet basis의 역할을 합니다. 이전에 Beta distribution을 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. Heat Wavelet과 Beta Wavelet 를 비교해보면, Figure 4의 왼쪽에서 볼 수 있듯이 Beta Wavelet은 low-pass filter만 있는 Heat Wavelet 과 달리 low-pass 와 band-pass를 포함한 다양한 filter type을 포함합니다. Figure 4의 오른쪽에서는 Beta Wavelet은 긍정의 반응만 보이는 Heat Wavelet 과 달리 서로 다른 채널에 대해 긍정과 부정의 효과를 둘다 보임을 확인할 수 있습니다.
 
-![Figure4.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure4.png)
+![Figure4.png](https://i.ibb.co/S0FG2Nc/Figure4.png)
 
  위에서 설명한 Beta graph wavelet을 활용하여 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.
 
@@ -94,15 +94,15 @@ $
 
 아래의 표에서 확인할 수 있듯이 BWGNN은 Amazon을 제외한 dataset 에서의 최고의 성능을 보여줌을 확인할 수 있습니다.
 
-![Table2.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table2.png)
+![Table2.png](https://i.ibb.co/k6ZSy1T/Table2.png)
 
-![Table3.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Table3.png)
+![Table3.png](https://i.ibb.co/yVjMqxg/Table3.png)
 
 민감도 분석을 진행한 결과는 아래와 같습니다. 중요한 hyperparameter인 order C와 이상치 정도의 영향에 대하여 민감도 분석을 진행하였고 각각 왼쪽과 오른쪽의 결과를 보였습니다.
 
-![Figure5.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure5.png)
+![Figure5.png](https://i.ibb.co/TRSBmsj/Figure5.png)
 
-![Figure6.png](%5BICML-22%5D%20Rethinking%20Graph%20Neural%20Networks%20for%20Ano%2021e4e1d2410f4095b1a56d4b069a2342/Figure6.png)
+![Figure6.png](https://i.ibb.co/2kggTsk/Figure6.png)
 
 ## **5. Conclusion**
 

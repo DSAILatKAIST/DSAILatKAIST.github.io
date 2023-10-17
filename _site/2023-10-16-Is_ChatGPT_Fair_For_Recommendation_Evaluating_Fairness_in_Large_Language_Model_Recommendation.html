@@ -443,7 +443,7 @@ additional user information added in the sensitive prompt, the authors decided o
 in the area of recommendation system fairness: <em>age, continent, country, occupation, gender, religion, race, physics</em>.  <br />
 The values for injection they have considered are depicted in the following extraction of the paper:</p>
 
-<p><img src="img.png" alt="img.png" /></p>
+<p><img src="https://i.ibb.co/rtS1CF3/img.png" alt="img.png" /></p>
 
 <p>Without loss of generality,the authors came up with the following neutral and sensitive prompts, that they input in
 ChatGPT in order to obtain the top-k recommendation list. A prompt consists of semantically two parts, whereas one is the 
@@ -510,7 +510,7 @@ Aside from the <em>SNSR</em> and <em>SNSV</em> metrics, the authors have decided
 which denote the minimum and maximum similarity value among all values for one attribute. The sensitive attributes
 are listed in decreasing SNSV-score from left to right.</p>
 
-<p><img src="img_1.png" alt="img_1.png" /></p>
+<p><img src="https://i.ibb.co/C09xz6X/img-1.png" alt="img_1.png" /></p>
 
 <p>Finally, the scores are used for an analysis of the developed metrics by setting two research questions (RQ1 and RQ2).
 By formulating these two questions, the authors attempt to proof the validity and robustness of their benchmarking
@@ -589,15 +589,15 @@ when considering attribute values, that are already close to each other. Evaluat
 could provide additional insights, that could either strengthen or weaken the author’s points. An example would be to
 consider typos for the attribute <em>occupation</em> for <em>writer</em> and <em>worker</em>.</p>
 
-<p><img src="img_2.png" alt="img_2.png" /></p>
+<p><img src="https://i.ibb.co/DLChRNn/img-2.png" alt="img_2.png" /></p>
 
 <p>Moreover, the language robustness has been tested solely for Chinese prompts. Since it is noticeable, that the similarity
 score between Africans and Asians have switched after querying for movies, a RecLLM might show cultural bias based on the
 language in which the user queries the prompt. Thus, testing language robustness in multiple languages should is
 necessary.</p>
 
-<p><img src="img_3.png" alt="img_3.png" /> 
-<img src="img_4.png" alt="img_4.png" /></p>
+<p><img src="https://i.ibb.co/L9HBSK0/img-3.png" alt="img_3.png" /> 
+<img src="https://i.ibb.co/9cXYPP4/img-4.png" alt="img_4.png" /></p>
 
 <p>Finally, the authors did not provide any reasoning for their choice of the sensitive attribute values.
 Looking at those in more detail, some values should have been included in order to properly cross-check the unfairness
@@ -655,6 +655,11 @@ al. have stated to work on benchmarking other LLMs and developing methods to mit
 exciting to see them pioneering in developing a benchmarking for framework for sequential recommendations with user-item
 interactions.</p>
 
+<h2 id="author-information">Author Information</h2>
+
+<p>This paper review was written by <strong>Luoshan Rosan Zheng</strong> (rosanzheng@gmail.com or lr.zheng@kaist.ac.kr), an exchange student from the Technical University of Munich in Germany. She is a computer science graduate student and conducts research in Cloud-based data processing.
+Data Science topics are also of great interest of her, which is why her Master’s thesis topic is tightly coupled do generative AI.</p>
+
 <h2 id="appendix">Appendix</h2>
 
 <h3 id="a-mathemtiacal-definition-of-the-similarity-and-fairness-metrices">A) Mathemtiacal Definition of the Similarity and Fairness Metrices</h3>
@@ -663,52 +668,52 @@ deefined metrics by Zhang et al. are added as excerpts from the original paper.<
 
 <p>For the metrics, the following mathematical notations are to be considered:</p>
 
-<p><img src="img_7.png" alt="img_7.png" /> is the set of neutral instructions</p>
+<p><img src="https://i.ibb.co/FJbF6Dm/img-7.png" alt="img_7.png" /> is the set of neutral instructions</p>
 
-<p><img src="img_5.png" alt="img_5.png" /> is the set of top-k recommendations for a neutral instruction <img src="img_6.png" alt="img_6.png" /></p>
+<p><img src="https://i.ibb.co/F70pJ7q/img-5.png" alt="img_5.png" /> is the set of top-k recommendations for a neutral instruction <img src="https://i.ibb.co/TbDf4PD/img-6.png" alt="img_6.png" /></p>
 
-<p><img src="img_8.png" alt="img_8.png" /> denotes a sensitive attribute where 𝑎 is a specific value of the attribute. 𝑎 is a word or a
+<p><img src="https://i.ibb.co/PrSqPJN/img-8.png" alt="img_8.png" /> denotes a sensitive attribute where 𝑎 is a specific value of the attribute. 𝑎 is a word or a
 phrase.</p>
 
-<p><img src="img_17.png" alt="img_17.png" /> denotes the number of all possible values in a studied attribute</p>
+<p><img src="https://i.ibb.co/2FXL288/img-17.png" alt="img_17.png" /> denotes the number of all possible values in a studied attribute</p>
 
-<p><img src="img_9.png" alt="img_9.png" /> is a set of sensitive instructions for each value of attribute <img src="img_10.png" alt="img_10.png" /> by injecting the value 𝑎</p>
+<p><img src="https://i.ibb.co/NgvN7GJ/img-9.png" alt="img_9.png" /> is a set of sensitive instructions for each value of attribute <img src="https://i.ibb.co/KLv2fQn/img-10.png" alt="img_10.png" /> by injecting the value 𝑎</p>
 
-<p><img src="img_12.png" alt="img_12.png" /> is the recommendation list for a sensitive attribute <img src="img_10.png" alt="img_10.png" /> and the value 𝑎</p>
+<p><img src="https://i.ibb.co/F4m4fLb/img-12.png" alt="img_12.png" /> is the recommendation list for a sensitive attribute <img src="https://i.ibb.co/KLv2fQn/img-10.png" alt="img_10.png" /> and the value 𝑎</p>
 
-<p><img src="img_13.png" alt="img_13.png" /> computes the similarity between <img src="img_14.png" alt="img_14.png" /></p>
+<p><img src="https://i.ibb.co/zS6L0kJ/img-13.png" alt="img_13.png" /> computes the similarity between <img src="https://i.ibb.co/t47q3CR/img-14.png" alt="img_14.png" /></p>
 
-<p><img src="img_15.png" alt="img_15.png" /> is the aggregated similarity value across all M instructions</p>
+<p><img src="https://i.ibb.co/CHqXz78/img-15.png" alt="img_15.png" /> is the aggregated similarity value across all M instructions</p>
 
-<p><img src="img_16.png" alt="img_16.png" /> is the level of unfairness in RecLLM as the divergence of these aggregated similarities 
+<p><img src="https://i.ibb.co/VxKynzC/img-16.png" alt="img_16.png" /> is the level of unfairness in RecLLM as the divergence of these aggregated similarities 
 across different values of the sensitive attribute</p>
 
-<p><img src="img_21.png" alt="img_21.png" /> denotes the number of common items between the two recommendation lists</p>
+<p><img src="https://i.ibb.co/T1TvkHw/img-21.png" alt="img_21.png" /> denotes the number of common items between the two recommendation lists</p>
 
 <p><strong>𝑣</strong> represents an item in a sensitive recommendation list</p>
 
-<p><img src="img_24.png" alt="img_24.png" /> represents the rank of the item 𝑣</p>
+<p><img src="https://i.ibb.co/2PWfzdt/img-24.png" alt="img_24.png" /> represents the rank of the item 𝑣</p>
 
-<p><img src="img_25.png" alt="img_25.png" /> is 1 if 𝑣 is in the neutral recommendation list, else 0</p>
+<p><img src="https://i.ibb.co/Fz6RxFF/img-25.png" alt="img_25.png" /> is 1 if 𝑣 is in the neutral recommendation list, else 0</p>
 
-<p><img src="img_27.png" alt="img_27.png" /> denote two different recommended items in the sensitive recommendation list</p>
+<p><img src="https://i.ibb.co/C9dZv7c/img-27.png" alt="img_27.png" /> denote two different recommended items in the sensitive recommendation list</p>
 
-<p><img src="img_28.png" alt="img_28.png" /> or <img src="img_29.png" alt="img_29.png" /> is the rank in the recommendation list <img src="img_30.png" alt="img_30.png" /></p>
+<p><img src="https://i.ibb.co/k10NcTN/img-28.png" alt="img_28.png" /> or <img src="https://i.ibb.co/zXr4pPv/img-29.png" alt="img_29.png" /> is the rank in the recommendation list <img src="https://i.ibb.co/qrgZMnJ/img-30.png" alt="img_30.png" /></p>
 
 <p><strong>SNSR</strong>
-<img src="img_19.png" alt="img_19.png" /></p>
+<img src="https://i.ibb.co/9VkwhjN/img-19.png" alt="img_19.png" /></p>
 
 <p><strong>SNSV</strong>  <br />
-<img src="img_18.png" alt="img_18.png" /></p>
+<img src="https://i.ibb.co/2WRknN8/img-18.png" alt="img_18.png" /></p>
 
 <p><strong>Jaccard</strong> <br />
-<img src="img_20.png" alt="img_20.png" /></p>
+<img src="https://i.ibb.co/M8CMzPD/img-20.png" alt="img_20.png" /></p>
 
 <p><strong>SEREP</strong>*  <br />
-<img src="img_22.png" alt="img_22.png" /></p>
+<img src="https://i.ibb.co/DkZNzfj/img-22.png" alt="img_22.png" /></p>
 
 <p><strong>PRAG</strong>*
-<img src="img_26.png" alt="img_26.png" /></p>
+<img src="https://i.ibb.co/rQ8xR9h/img-26.png" alt="img_26.png" /></p>
 
 <h2 id="sources">Sources</h2>
 

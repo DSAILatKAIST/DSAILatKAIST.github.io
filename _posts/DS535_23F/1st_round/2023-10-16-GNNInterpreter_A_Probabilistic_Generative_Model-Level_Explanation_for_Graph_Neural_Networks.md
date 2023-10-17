@@ -17,7 +17,7 @@ Writer: 20233497 이광현
 
 아래의 그림은 XAI 시스템을 표현한 그림입니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/d374a21d-bce1-4b0c-bebe-ba8425433f1f)
+![image](hhttps://i.ibb.co/sH5CRCs/1-d-C5-Ha-OQVUXn-VPDXWdop65-A.png)
 
 (출처: https://towardsdatascience.com/knowledge-graphs-for-explainable-ai-dcd73c5c016)
 
@@ -62,7 +62,7 @@ Writer: 20233497 이광현
 GNNInterpreter의 학습을 위한 Objective Function은 아래와 같이 정의됩니다.
 $$L(G)=L(A,Z,X)=\phi_c(A,Z,X)+\mu sim_{cos}(\psi(A,Z,X), \bar{\psi}_c)$$
 그리고 모델 학습은 위의 Objective function을 maximize하는 $A,Z,X$를 찾는, learning objective를 가집니다.
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/34ed6ec7-edd5-45d5-a75c-27b5c33d0585)
+![image](https://i.ibb.co/qNhkbLJ/image1.png)
 
 여기서 $\phi_c, \psi, \bar{\psi}_c$는 각각 다음의 역할을 합니다.
 * $\phi_c$: 특정 클래스 $c$에 대한 설명하고자 하는 GNN가 예측한 softmax 함수에 태우기 전의 scoring function 값입니다.
@@ -81,7 +81,7 @@ $$L(G)=L(A,Z,X)=\phi_c(A,Z,X)+\mu sim_{cos}(\psi(A,Z,X), \bar{\psi}_c)$$
 
 이러한 2개의 independence 가정을 통해, 그래프 $G$의 확률 분포는 다음과 같이 factorize가 가능합니다. 
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/2673ba4d-45dc-4ce2-a671-bef774f85d7e)
+![image](https://i.ibb.co/NN282s3/image2.png)
 
 즉, 이상적인 아이디어는 adjacency matrix $A$, node feature $X$, edge feature $Z$를 모두 확률 변수로 생각하고 다음의 분포를 가진다고 가정하는 것입니다.
 
@@ -92,21 +92,21 @@ $$L(G)=L(A,Z,X)=\phi_c(A,Z,X)+\mu sim_{cos}(\psi(A,Z,X), \bar{\psi}_c)$$
 
 이러한 확률 분포를 가정하였을 때 learning objective를 아래와 같이 다시 쓸 수 있습니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/c7876691-dd05-4eee-af7a-4aee5abe6012)
+![image](https://i.ibb.co/VvyYMMk/image3.png)
 
 즉, generative model에서 자주 사용되는 (expected) learning objective를 maximize하는 각 variable의 parameter를 optimize하는 task가 됩니다.
 
 그리고 gradient method를 사용하기 위해 discrete한 $a_{ij}, x_i, z_{ij}$를 아래와 같이 categorical distribtuion의 continuous 버전인 concrete distribution으로 relaxation합니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/d91a11c5-928b-42bd-94e4-9ef7e1cd5273)
+![image](https://i.ibb.co/Fh4j6gT/image4.png)
 
 여기서 또 문제가 생기는 것이, 여전히 각 feature가 분포를 가정하고 샘플링을 하면 gradient 계산을 통한 backpropagation을 하기 어렵기 때문에 $\epsilon ~ Uniform(0,1)$를 이용한 reparametrization trick을 사용합니다. 이를 통해 gradient 계산 및 backpropagation이 가능해집니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/8d6fb21c-f2a2-471c-b69f-361fd9e14014)
+![image](https://i.ibb.co/sqr0y06/image5.png)
 
 위와 같이 continuous relaxation 및 reparametrization trick을 적용한 learning objective는 Monte Carlo 샘플링을 통해 근사가 가능해집니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/755be909-7de1-4c71-80bb-3cbaeaa058c0)
+![image](https://i.ibb.co/ZcRb84P/image6.png)
 
 추가로 GNNInterpreter 구현에서 더 나은 최적화를 위해 논문에서는 3가지의 regularization을 주었습니다.
 
@@ -116,7 +116,7 @@ $$L(G)=L(A,Z,X)=\phi_c(A,Z,X)+\mu sim_{cos}(\psi(A,Z,X), \bar{\psi}_c)$$
 
 아래 Algorithm 1은 위에서 설명한 GNNInterpreter를 학습하고 explanation graph를 generating, 즉 샘플링하는 알고리즘입니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/4da5ebef-eadb-48c8-b32f-dc659fbb4a38)
+![image](https://i.ibb.co/x8Dk6BY/image7.png)
 
 ## 4. Experimental study
 
@@ -124,25 +124,25 @@ GNNInterpreter의 실험은 총 4개의 데이터셋에서 진행되었고, XGNN
 
 아래는 본 논문에서 사용한 데이터셋과 해당 데이터셋에서 학습한 GNN의 종류에 대한 정보입니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/e5000fcb-1d35-48db-b53a-bd9299064b49)
+![image](https://i.ibb.co/KzMvtk7/image8.png)
 
 4개의 데이터셋 중 Cyclicity, Motif, Shape는 Synthetic한 데이터셋으로 클래스에 따른 다양한 모양의 그래프가 있습니다.
 MUTAG는 분자구조에 따른 돌연변이 여부와 관련된 데이터셋으로 화학적 특징을 고려한 현실 세계에 가까운 데이터셋입니다.
 
 XGNN의 경우, multiple edge feature를 적용할 수 없기 때문에 Cyclicity 데이터셋에서는 비교할 수 없었습니다. 그리고 Motif와 Shape 데이터셋의 경우, 논문에서는 XGNN을 해당 GNN에 학습시켜 표현하는데 여러 시행착오를 거쳤지만, 수용되기 어려울 정도의 퀄리티를 가진 설명 결과가 나와 공정한 비교를 위해 MUTAG 데이터셋에 대해서만 XGNN과 GNNInterpreter를 비교했다고 합니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/7b16fedb-6f10-4b0a-a9d6-948986df3913)
+![image](https://i.ibb.co/ZS8YDRd/image9.png)
 
 Table 2는 4개의 데이터셋에 대해서 1000개의 그래프 분류 평균 성능입니다. MUTAG 데이터셋에서는 XGNN보다 더 높은 확률과 더 적은 분산을 보이고 있으며, 평균적인 학습시간도 XGNN에 비해 작은 것을 확인할 수 있습니다.
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/bfe60db8-7659-4db3-aca6-ff43b10bf7bd)
+![image](https://i.ibb.co/2qG1XS0/image10.png)
 
 Figure 1은 4개 데이터셋에 대한 정량적인 결과를 보여줍니다. 그림에서 왼쪽은 Explanation으로, XGNN 또는 GNNInterpreter가 예측한 그래프의 Node, Edge를 표현한 것입니다. 오른쪽은 Example, Motif라 하여 Explanation으로 보여준 그래프의 원래 모습입니다. MUTAG 데이터셋에서 XGNN과 GNNInterpreter를 비교하면 GNNInterpreter가 만든 그래프가 조금 더 원형에 가까운 모습인 것을 볼 수 있고, Motif나 Shape 데이터셋에서는 일부 그래프가 원형과 매우 비슷한 것을 확인할 수 있습니다. (House, Complete-5 등)
 
 또한 논문에서 Ablation Study로써, 많은 경우에 논문에서 제안한 Objective 식의 seconde term이 도메인 지식과 관련하여 의미있는 설명을 생성하는데 중요한 역할을 한다고 주장합니다. 아래의 Figure 3은 second term을 추가하지 않았을 때 도메인 지식을 얼마나 놓치는 지를 보여줍니다.
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/34ed6ec7-edd5-45d5-a75c-27b5c33d0585)
+![image](https://i.ibb.co/qNhkbLJ/image1.png)
 
-![image](https://github.com/KwanghyeonLee/DS535/assets/83794094/66bb4c9b-ba08-4ad3-a028-add12f232768)
+![image](https://i.ibb.co/kJDgJ0P/image11.png)
 
 
 논문에서는 mutagen class의 경우 NO2를 feature로 가지는 그래프가 많은데 second term을 고려하지 않았을 때 N이나 O node를 전혀 표현하지 못하는 것으로 보아 second term이 유의미한 explanation graph를 생성하는데 큰 역할을 한다고 주장합니다.

@@ -67,7 +67,7 @@ usemathjax: true
 
 #### 1-③. Problem setting : One-step forecasting problem 
 
-![image](https://github.com/hopebii/kaist_ds535/blob/main/fig1.png)
+![image](https://i.ibb.co/N6sr5Wx/fig1.png)
 
 ▢ (왼쪽 그래프) 과거 item 의 trend 변화가 주어지면, **다음 시간 단계에 어떤 item 이 유행할지 예측 (→ One-step forecasting)** 하는 것을 목표로 한다. 모델이 다음 시간 단계에서 유행하는 item 을 예측하면, 백엔드에서 데이터를 버퍼링하면서 다음 시간 단계 내 user 에게 해당 item 을 표시한다. 다음 시간 단계가 끝나면 모델은 새로 축적된 데이터를 기반으로 바로 다음 시간 단계에 대한 새로운 예측을 수행한다. 또 다른 데이터 수집의 주기를 시작하는 것으로 추천을 반복한다. 
 
@@ -112,14 +112,14 @@ usemathjax: true
 
 **bias-variance tradeoff** : 시간 단계 길이가 짧으면(예: 1시간) 데이터 희소성 (data sparsity) 으로 인해 variance 가 발생하고, 시간 단계 길이가 길면(예: 하루) 시간적 드리프트 (temporal drift 시간에 따른 변동) 로 인해 편향이 발생한다. 따라서 둘 사이의 균형을 잘 맞출 수 있는 sweet spot 을 찾아야 한다. 
 
-![fig3](https://github.com/hopebii/kaist_ds535/blob/main/fig3.png)
+![fig3](https://i.ibb.co/8613tW1/fig3.png)
 
 
 ##### ▶ one-step time series forecasting task 
 
 trend recommendation task 를 one-step time series forecasting 문제로 정의한다. 각 item 대해 주어진 **historical acceleration** [A𝑗0, A𝑗1, . . . , A𝑗𝑡] := **A𝑗,0:𝑡** 과, covariates 와 같은 추가적인 **contextual information** [C𝑗0, C𝑗1, . . . , C𝑗𝑡] := **C𝑗,0:t** 가 주어졌을 때, 다음 step 인 (t+1) 에서의 acceleration 을 예측하기를 원한다. 그리고 trend prediction 을 기반으로 상위 k 개의 아이템을 추천한다. 
 
-![fig2](https://github.com/hopebii/kaist_ds535/blob/main/fig2.png) 
+![fig2](https://i.ibb.co/gVBST8w/fig2.png) 
 
 
 <br> 
@@ -133,7 +133,7 @@ trend recommendation task 를 one-step time series forecasting 문제로 정의�
 
 임의의 item j 의 next time step 의 acceleration A𝑗 (𝑡+1) 는 “오직” 현재 time step 의 acceleration A𝑗t 에 의존한다고 가정한다. 실제로 acceleration 는  짧은 시간 동안 동일하게 유지되는 경향이 있으므로 마르코프 휴리스틱 모델을 다음과 같이 정의한다. 
 
-![fig4](https://github.com/hopebii/kaist_ds535/blob/main/fig4.png)
+![fig4](https://i.ibb.co/FXrwj30/fig4.png)
 
 
 - Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration 
@@ -144,7 +144,7 @@ trend recommendation task 를 one-step time series forecasting 문제로 정의�
 
 마르코프 휴리스틱 모델의 가장 큰 단점은 다음 시간 단계의 item acceleration 이 현재 시간 단계의 영향을 받기 때문에 데이터 희소성 등의 문제로 인해 노이즈가 발생할 수 있다는 것이다. 따라서 여러 개의 최신 시간 단계를 고려하여 더 최근의 시간 단계에 더 많은 가중치를 할당하는 지수이동평균 휴리스틱 모델을 정의할 수 있다. 
 
-![fig5](https://github.com/hopebii/kaist_ds535/blob/main/fig5.png)
+![fig5](https://i.ibb.co/7yZxLch/fig5.png)
 
 
 - Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration
@@ -158,7 +158,7 @@ trend recommendation task 를 one-step time series forecasting 문제로 정의�
 
 휴리스틱 모델은 일반적으로 다양한 시나리오에 적응할 수 있는 유연성이 부족한 일반적인 가정 (general assumptions) 을 인코딩한다. 그러나 **acceleration 패턴은 도메인(리테일, 미디어, 뉴스 등)에 따라 다르다**. 예를 들어, 매주 수요일마다 TV 시리즈의 새 에피소드가 공개되는 것과 같이 리테일과 미디어 영역 모두에서 다양한 주기(일별, 주별, 계절별 등)의 주기적 acceleration  패턴이 풍부하게 존재한다. 반대로 뉴스는 시간에 민감하고 사람들은 가장 최근 뉴스를 팔로우하는 경향이 있기 때문에 뉴스 영역에서는 이러한 규칙적인 acceleration  패턴이 거의 관찰되지 않는다. 또한 같은 도메인 내에서도 다양한 acceleration  패턴이 공존할 수 있다. 예를 들어, 특정 영화 플랫폼에서 새로 개봉한 액션 영화의 acceleration 곡선은 해당 플랫폼 사용자 커뮤니티의 선호도에 따라 새로 개봉한 다큐멘터리 영화의 acceleration 곡선에 비해 지속적으로 가파른 증가세를 보일 수 있다. 따라서 **트렌드 추천을 위한 보다 일반적인 솔루션은 다양한 시나리오에 적응할 수 있는 학습 가능한 딥러닝 기반 시계열 예측 모델을 설계**하는 것이다. 모델을 공식화하면 다음과 같다. 
 
-![fig6](https://github.com/hopebii/kaist_ds535/blob/main/fig6.png)
+![fig6](https://i.ibb.co/vc5k5JC/fig6.png)
 
 - 𝑓seq (·) : 과거 acceleration  를 집계하고 다음 시간 단계에서 acceleration  의 확률적 분포를 예측하는 순차적 모델로 DeepAR, RNN, MQCNN, TFT 등이 있다. 
 
@@ -191,7 +191,7 @@ trend recommendation task 를 one-step time series forecasting 문제로 정의�
 
 > probabilistic graphical model (PGM)
 
-![fig7](https://github.com/hopebii/kaist_ds535/blob/main/fig7.png)
+![fig7](https://i.ibb.co/yVDd9qx/fig7.png)
 
 
 ##### ▸ **노드**
@@ -221,7 +221,7 @@ trend recommendation task 를 one-step time series forecasting 문제로 정의�
 
 평균이 𝝁 그리고 분산이 diagonal covariance λ<sup>-1</sup>ⅠD 인 가우시안 분포에서 latent offset vector 를 설정하여 latent item embedding 과 latent user embedding 을 계산한다. 
 
-![fig8](https://github.com/hopebii/kaist_ds535/blob/main/fig8.png)
+![fig8](https://i.ibb.co/xsMpXM4/fig8.png)
 
 R𝑖𝑗t 를 구하기 위해서 softmax function 을 latent user embedding 와 latent item embedding 을 내적한 값에 적용하여 recommendation score 를 계산한다.
 - Y𝑖𝑗𝑡 = 𝑓softmax(U'𝑖𝑡•V𝑗𝑡)
@@ -237,16 +237,16 @@ R𝑖𝑗t 를 구하기 위해서 softmax function 을 latent user embedding �
 
 maximum a posteriori (MAP) estimation 
 
-![fig11](https://github.com/hopebii/kaist_ds535/blob/main/fig11.png)
+![fig11](https://i.ibb.co/r2YHhD7/fig11.png)
 
 
 다음 item 을 추천하는 것에 있어서 interaction R𝑖𝑗t 에 대한 조건부 확률을 다음과 같이 정의한다. 
 
-![fig9](https://github.com/hopebii/kaist_ds535/blob/main/fig9.png)
+![fig9](https://i.ibb.co/djW18N7/fig9.png)
 
 item accelerations A𝑗(𝑡+1) 에 대한 조건부 확률을 다음과 같이 정의한다. 
 
-![fig10](https://github.com/hopebii/kaist_ds535/blob/main/fig10.png)
+![fig10](https://i.ibb.co/cgTNhX0/fig10.png)
 
 -  𝑓𝑡𝑠 (·) : 다음 시간 단계 𝑡에서 acceleration 의 확률적 분포를 예측하기 위해 item 의 과거 acceleration 와 latent item embedding 을 모두 사용하는 모든 유형의 확률론적 시계열 예측 모델
 
@@ -255,7 +255,7 @@ item accelerations A𝑗(𝑡+1) 에 대한 조건부 확률을 다음과 같이
 
 posterior probability 를 최대화 하는 것은 negative log likelihood 를 최소화하는 것과 같다. NLL 은 다음과 같이 계산할 수 있다. 
 
-![fig12](https://github.com/hopebii/kaist_ds535/blob/main/fig12.png)
+![fig12](https://i.ibb.co/d5z24HJ/fig12.png)
 
 - (10) : Next Item Recommendation Loss → 이를 최소화하면 학습 세트에서 다음 항목 추천 성능이 향상된다. 
 - (11) : Time Series Forecasting Loss → 이 term 을 최소화하면 훈련 세트에서 acceleration 예측이 향상된다.
@@ -265,7 +265,7 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
 
 #### 3-④. Inference 
 
-![fig13](https://github.com/hopebii/kaist_ds535/blob/main/fig13.png)
+![fig13](https://i.ibb.co/K24SvyK/fig13.png)
 
 - V*jt : the posterior of item j’s latent item embedding
 - 𝑓∗ts (·) : the trained sequential time series forecasting model
@@ -274,7 +274,7 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
 
 #### 3-⑤. Model architecture  
 
-![fig14](https://github.com/hopebii/kaist_ds535/blob/main/fig14.png)
+![fig14](https://i.ibb.co/YkTR6LN/fig14.png)
 
 - 왼쪽그림 : overview network structure
 - 오른쪽그림 : figure visualizes the full details of the TrendRec implementation
@@ -305,7 +305,7 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
 
 #### 4-①. Datasets
 
-![fig15](https://github.com/hopebii/kaist_ds535/blob/main/fig15.png)
+![fig15](https://i.ibb.co/sVpgrZ4/fig15.png)
 
 - 리테일 (TaoBao), 미디어(Netflix), 뉴스(MIND)를 포함한 다양한 도메인의 데이터를 이용
   - TaoBao 의 경우  아이템 카테고리가 크기 때문에 , 3개의 구분된 데이터셋을 구조화하기 위해 인터랙션 수를 기반으로 상위 3개의 아이템 카테고리를 선택한다 → TaoBao Cat1, TaoBao Cat2, TaoBao Cat3
@@ -332,7 +332,7 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
 
 ##### ▸ (1) Acceleration metric
 
-![fig16](https://github.com/hopebii/kaist_ds535/blob/main/fig16.png)
+![fig16](https://i.ibb.co/YhrfP9c/fig16.png)
 
 - 모델이 예측한 다음 단계 시간 t 의accelerations 에 기반하여 상위 k 개 item 을 선택
 - 그런 다음 선택한 𝑘 아이템을 다음 시간 단계 𝑡에서 해당 ground truth acceleration 에 다음과 같이 맵핑
@@ -340,7 +340,7 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
   - 값이 높을수록 모델은 다음 시간 단계에서의 트렌드한 아이템에 대한 예측을 더 잘한다.
 - [0,1] 사이의 값으로 스케일링을 하기 위해 trendiness score 의 top 에 대해 min-max normalization 을 적용한다. trendiness score 의 upper bound 는 Oracle 모델에서, lower bound 는 Random 모델에서 온다. 
  
-![fig18](https://github.com/hopebii/kaist_ds535/blob/main/fig18.png)
+![fig18](https://i.ibb.co/WxJDZVJ/fig18.png)
 
 
 
@@ -348,11 +348,11 @@ posterior probability 를 최대화 하는 것은 negative log likelihood 를 �
 ##### ▸ (2) TNDCG Metric
 
 
-![fig17](https://github.com/hopebii/kaist_ds535/blob/main/fig17.png)
+![fig17](https://i.ibb.co/n1cqYQh/fig17.png)
 
 -  Trendiness-Normalized-DCG (TNDCG) metric : 아이템의 rank position 을 logarithmic reduction factor 로 고려한다. 
 
-![fig19](https://github.com/hopebii/kaist_ds535/blob/main/fig19.png)
+![fig19](https://i.ibb.co/7QFyjGs/fig19.png)
 
 
 - r : index the rank position
@@ -370,7 +370,7 @@ timestamp 를 기준으로 training 과 test step 을 나눈다. 그리고 testi
 
 #### 4-④.  Hypothesis validation Q1 : 적절한 Δt 선택하기 
 
-![fig20](https://github.com/hopebii/kaist_ds535/blob/main/fig20.png)
+![fig20](https://i.ibb.co/HhkxtsJ/fig20.png)
 
 Markov heuristic model 을 활용해 성능을 평가한다. 간단하지만 generic 한 가정에 기반한 기초적인 모델이고, 따라서 해당 모델의 성능은 task feasibility 를 반영한다. 
 결과를 보면, TaoBao 와 MIND 데이터 세트의 곡선은 데이터 희소성 완화로 인해 시간 간격이 길어질수록 acc 지표가 먼저 개선된 다음 temporal drift 로 인해 감소하는 Q1 가설과 일치하는 결과를 보인다. 반면 Netflix 데이터셋의 경우 곡선이 계속 감소하고 있는데, 이는 time stamp 단위가 하루로, 충분한 데이터를 수집할 수 있을 만큼 길지만 temporal drift 가 발생하기 때문이다. 전반적으로 위의 결과는 가설을 입증하고 있다. 각 데이터셋의 시간 간격 **Δ𝑡을 각 곡선의 peak 에 따라 선택**한다. 일관성을 위해 3개의 TaoBao dataset 은 모두 3시간, Netflix 는 하루, MIND 는 30분 시간간격으로 설정한다. 
@@ -381,7 +381,7 @@ Markov heuristic model 을 활용해 성능을 평가한다. 간단하지만 gen
 
 TrendRec 모델을 3개 도메인의 데이터에 대한 다양한 베이스라인모델에 대해 평가한다. 
 
-![fig21](https://github.com/hopebii/kaist_ds535/blob/main/fig21.png)
+![fig21](https://i.ibb.co/ZxSJ9Np/fig21.png)
 
 
 TrendRec 이 가장 좋은 performance 를 보인다. TrendRec 의 시계열 예측 부분이 DeepAR 로 구성되어 있는데, DeepAR 대비 TrendRec 의 성능 향상은, 다음 item 추천 파트에서 얻은 pre-trained 된 latent item embedding 을 활용한 것이 효과적이었음을 보여준다. 

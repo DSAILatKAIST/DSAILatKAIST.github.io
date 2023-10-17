@@ -66,7 +66,7 @@ additional user information added in the sensitive prompt, the authors decided o
 in the area of recommendation system fairness: *age, continent, country, occupation, gender, religion, race, physics*.    
 The values for injection they have considered are depicted in the following extraction of the paper:
 
-![img.png](img.png)
+![img.png](https://i.ibb.co/rtS1CF3/img.png)
 
 Without loss of generality,the authors came up with the following neutral and sensitive prompts, that they input in
 ChatGPT in order to obtain the top-k recommendation list. A prompt consists of semantically two parts, whereas one is the 
@@ -120,7 +120,7 @@ Aside from the *SNSR* and *SNSV* metrics, the authors have decided on adding the
 which denote the minimum and maximum similarity value among all values for one attribute. The sensitive attributes
 are listed in decreasing SNSV-score from left to right.
 
-![img_1.png](img_1.png)
+![img_1.png](https://i.ibb.co/C09xz6X/img-1.png)
 
 Finally, the scores are used for an analysis of the developed metrics by setting two research questions (RQ1 and RQ2).
 By formulating these two questions, the authors attempt to proof the validity and robustness of their benchmarking
@@ -197,15 +197,15 @@ when considering attribute values, that are already close to each other. Evaluat
 could provide additional insights, that could either strengthen or weaken the author's points. An example would be to
 consider typos for the attribute _occupation_ for _writer_ and _worker_.
 
-![img_2.png](img_2.png)
+![img_2.png](https://i.ibb.co/DLChRNn/img-2.png)
 
 Moreover, the language robustness has been tested solely for Chinese prompts. Since it is noticeable, that the similarity
 score between Africans and Asians have switched after querying for movies, a RecLLM might show cultural bias based on the
 language in which the user queries the prompt. Thus, testing language robustness in multiple languages should is
 necessary.
 
-![img_3.png](img_3.png) 
-![img_4.png](img_4.png)
+![img_3.png](https://i.ibb.co/L9HBSK0/img-3.png) 
+![img_4.png](https://i.ibb.co/9cXYPP4/img-4.png)
 
 Finally, the authors did not provide any reasoning for their choice of the sensitive attribute values.
 Looking at those in more detail, some values should have been included in order to properly cross-check the unfairness
@@ -263,6 +263,12 @@ al. have stated to work on benchmarking other LLMs and developing methods to mit
 exciting to see them pioneering in developing a benchmarking for framework for sequential recommendations with user-item
 interactions.
 
+## Author Information
+
+This paper review was written by **Luoshan Rosan Zheng** (rosanzheng@gmail.com or lr.zheng@kaist.ac.kr), an exchange student from the Technical University of Munich in Germany. She is a computer science graduate student and conducts research in Cloud-based data processing.
+Data Science topics are also of great interest of her, which is why her Master's thesis topic is tightly coupled do generative AI.
+
+
 ## Appendix
 
 ### A) Mathemtiacal Definition of the Similarity and Fairness Metrices
@@ -271,54 +277,54 @@ deefined metrics by Zhang et al. are added as excerpts from the original paper.
 
 For the metrics, the following mathematical notations are to be considered:
 
-![img_7.png](img_7.png) is the set of neutral instructions
+![img_7.png](https://i.ibb.co/FJbF6Dm/img-7.png) is the set of neutral instructions
 
-![img_5.png](img_5.png) is the set of top-k recommendations for a neutral instruction ![img_6.png](img_6.png)
+![img_5.png](https://i.ibb.co/F70pJ7q/img-5.png) is the set of top-k recommendations for a neutral instruction ![img_6.png](https://i.ibb.co/TbDf4PD/img-6.png)
 
-![img_8.png](img_8.png) denotes a sensitive attribute where 𝑎 is a specific value of the attribute. 𝑎 is a word or a
+![img_8.png](https://i.ibb.co/PrSqPJN/img-8.png) denotes a sensitive attribute where 𝑎 is a specific value of the attribute. 𝑎 is a word or a
 phrase.
 
-![img_17.png](img_17.png) denotes the number of all possible values in a studied attribute
+![img_17.png](https://i.ibb.co/2FXL288/img-17.png) denotes the number of all possible values in a studied attribute
 
-![img_9.png](img_9.png) is a set of sensitive instructions for each value of attribute ![img_10.png](img_10.png) by injecting the value 𝑎
+![img_9.png](https://i.ibb.co/NgvN7GJ/img-9.png) is a set of sensitive instructions for each value of attribute ![img_10.png](https://i.ibb.co/KLv2fQn/img-10.png) by injecting the value 𝑎
 
-![img_12.png](img_12.png) is the recommendation list for a sensitive attribute ![img_10.png](img_10.png) and the value 𝑎
+![img_12.png](https://i.ibb.co/F4m4fLb/img-12.png) is the recommendation list for a sensitive attribute ![img_10.png](https://i.ibb.co/KLv2fQn/img-10.png) and the value 𝑎
 
-![img_13.png](img_13.png) computes the similarity between ![img_14.png](img_14.png)
+![img_13.png](https://i.ibb.co/zS6L0kJ/img-13.png) computes the similarity between ![img_14.png](https://i.ibb.co/t47q3CR/img-14.png)
 
-![img_15.png](img_15.png) is the aggregated similarity value across all M instructions
+![img_15.png](https://i.ibb.co/CHqXz78/img-15.png) is the aggregated similarity value across all M instructions
 
-![img_16.png](img_16.png) is the level of unfairness in RecLLM as the divergence of these aggregated similarities 
+![img_16.png](https://i.ibb.co/VxKynzC/img-16.png) is the level of unfairness in RecLLM as the divergence of these aggregated similarities 
 across different values of the sensitive attribute
 
-![img_21.png](img_21.png) denotes the number of common items between the two recommendation lists
+![img_21.png](https://i.ibb.co/T1TvkHw/img-21.png) denotes the number of common items between the two recommendation lists
 
 **𝑣** represents an item in a sensitive recommendation list
 
-![img_24.png](img_24.png) represents the rank of the item 𝑣
+![img_24.png](https://i.ibb.co/2PWfzdt/img-24.png) represents the rank of the item 𝑣
 
-![img_25.png](img_25.png) is 1 if 𝑣 is in the neutral recommendation list, else 0
+![img_25.png](https://i.ibb.co/Fz6RxFF/img-25.png) is 1 if 𝑣 is in the neutral recommendation list, else 0
 
-![img_27.png](img_27.png) denote two different recommended items in the sensitive recommendation list
+![img_27.png](https://i.ibb.co/C9dZv7c/img-27.png) denote two different recommended items in the sensitive recommendation list
 
-![img_28.png](img_28.png) or ![img_29.png](img_29.png) is the rank in the recommendation list ![img_30.png](img_30.png)
+![img_28.png](https://i.ibb.co/k10NcTN/img-28.png) or ![img_29.png](https://i.ibb.co/zXr4pPv/img-29.png) is the rank in the recommendation list ![img_30.png](https://i.ibb.co/qrgZMnJ/img-30.png)
 
 
 
 **SNSR**
-![img_19.png](img_19.png)
+![img_19.png](https://i.ibb.co/9VkwhjN/img-19.png)
 
 **SNSV**    
-![img_18.png](img_18.png)
+![img_18.png](https://i.ibb.co/2WRknN8/img-18.png)
 
 **Jaccard**   
-![img_20.png](img_20.png)
+![img_20.png](https://i.ibb.co/M8CMzPD/img-20.png)
 
 **SEREP***    
-![img_22.png](img_22.png)
+![img_22.png](https://i.ibb.co/DkZNzfj/img-22.png)
 
 **PRAG***
-![img_26.png](img_26.png)
+![img_26.png](https://i.ibb.co/rQ8xR9h/img-26.png)
 
 ## Sources
 
