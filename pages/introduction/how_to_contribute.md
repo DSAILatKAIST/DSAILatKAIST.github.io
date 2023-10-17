@@ -96,7 +96,7 @@ Enter the ```![image_name](copied URL)``` to your md file.
 ```markdown
 ### How to add images in Markdown?  
 You can insert your image file using the converted image url as follows :
-![image_sample](i.ibb.co/PNTw57H/img.png)  
+![image_sample](https://i.ibb.co/PNTw57H/img.png)  
 ```
 
 
