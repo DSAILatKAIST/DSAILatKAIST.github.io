@@ -33,9 +33,9 @@ U와 I는 set of users and items를 의미한다. Key components의 경우,
 
 * 여기서 Potential outcome이 무엇인지 궁금한 독자들이 있을 것이다. 이는 Causal Inference의 잘 정돈된 세팅인 potential outcome framework를 구성하는 성분이다. 이러한 개념의 등장 배경을 살펴보자면, 현실 세계에서 실제로 일어난(observed) 사건의 경우, (여기서는 특정 item의 exposure를 생각해볼 수 있다) 하나밖에 관찰되지 않고, 우리는 그 사건이 다르게 진행되었다면 어떻게 결과가 바뀔지에 대해 관심이 있는 것이기에 (일어나지 않은) 잠재적인 상황에 대한 결과를 표현하기 위해 potential outcome이라는 개념을 만들어 표현하고자 한 것이다. 이에 대해 좀 더 자세히 알고 싶은 경우 (https://www.youtube.com/watch?v=C15mZUnN7Ng)를 참고하기를 바란다.
 
-P와 E를 target population (이를 random variable로써 간주할 것이다)에 대한 distribution과 expectation으로 두고, exposed units을 모아둔 set $O = { (u,i) : (u,i) \in D, o_ {u,i}=1 }$을 생각하자. 추천에서는 $E(r_{u,i}(1) | x_ {u,i})$ (given feature $x_{u,i}$에 대하여, item $i$가 user $u$에게 노출되었을 때 feedback에 대한 기댓값)을 구하고자 하는 것이다. 이때 unmeasured confounders 또한 고려해주어야 하기에, measured confounders $x_ {u,i}$ ( feature는 우리가 알고 있기에 measured confounders로 활용해볼 수 있다 )와 unmeasured confounders $h_ {u,i}$를 고려해주면 다음과 같은 관계식을 얻어볼 수 있다.
+P와 E를 target population (이를 random variable로써 간주할 것이다)에 대한 distribution과 expectation으로 두고, exposed units을 모아둔 set $O = { (u,i) : (u,i) \in D, o_ {u,i}=1 }$을 생각하자. 추천에서는 $E(r_{u,i}(1) \vert x_ {u,i})$ (given feature $x_ {u,i}$에 대하여, item $i$가 user $u$에게 노출되었을 때 feedback에 대한 기댓값)을 구하고자 하는 것이다. 이때 unmeasured confounders 또한 고려해주어야 하기에, measured confounders $x_ {u,i}$ ( feature는 우리가 알고 있기에 measured confounders로 활용해볼 수 있다 )와 unmeasured confounders $h_ {u,i}$를 고려해주면 다음과 같은 관계식을 얻어볼 수 있다.
 
-> $o_{u,I} \perp r_ {u,i}(1) | (x_ {u,i}, h_ {u,i}), \; o_ {u,I} \not\perp r_ {u,i}(1) | x_ {u,i}$
+> $o_{u,I} \perp r_ {u,i}(1) \vert (x_ {u,i}, h_ {u,i}), \; o_ {u,I} \not\perp r_ {u,i}(1) \vert x_ {u,i}$
 
 이는 아래의 causal graph에서 그 의미를 확인해볼 수 있다. ( 여기서 causal graph는 Random Variable 간의 causal relation을 directed graph의 형태로 나타낸 것으로써, 좀 더 자세히 알고 싶은 독자는 (https://www.youtube.com/watch?v=rbZ4ebZCHMY)를 참고해보기를 바란다. )
 
@@ -43,7 +43,7 @@ P와 E를 target population (이를 random variable로써 간주할 것이다)�
 
 즉, $x_ {u,i}$ 만 알고 있을 경우 confounding effect로 인해 $o_ {u,i}$ 와 $r_ {u,i}(1)$의 causal effect 관계를 정확히 파악할 수 없지만, $h_ {u,i}$도 알고 있다면 둘의 causal effect 관계를 파악할 수 있다는 의미로 해석해볼 수 있다.
 
-이러한 상황 하에서 결국 우리는 $E(r_ {u,i}(1)|x_ {u,i})$를 예측하는 recommender model $f_ {\phi}$을 학습하고자 하는 것이다. 이때 만약 모든 potential outcomes $\left\{ r_ {u,i}(1) : (u,i) \in D \right\}$ 을 관측했다면, 이상적인 loss function은
+이러한 상황 하에서 결국 우리는 $E(r_ {u,i}(1) \vert x_ {u,i})$를 예측하는 recommender model $f_ {\phi}$을 학습하고자 하는 것이다. 이때 만약 모든 potential outcomes ${ r_ {u,i}(1) : (u,i) \in D }$ 을 관측했다면, 이상적인 loss function은
 
 > $ L_ {ideal}(\phi) = \frac{1}{D}\sum_{(u,i)\in D}e_ {u,i} $
 
@@ -63,7 +63,7 @@ Propensity based model인 IPS와 doubly robust (DR) learning의 경우 confoundi
 > __Theorem 3.1__
 > Unmeasured confounders $h$가 ( Causal Graph 상에서 ) 있을 때,
 > (a) $\hat{p}_ {u,i}$과 $\hat{e}_ {u,i}$ 이 정확히 estimate와 일치한다고 하더라도, IPS와 DR estimator가 biased.
-> (b) 만약 우리가 true propensity score를 $\tilde{p}_{u,i} = P(o_{u,i}=1|x_ {u,i}, h_ {u,i})$
+> (b) 만약 우리가 true propensity score를 $\tilde{p}_ {u,i} = P(o_ {u,i}=1 \vert x_ {u,i}, h_ {u,i})$
 로 정의하고 accurate estimate of $\tilde{p}_ {u,i}$를 $\hat{p}_ {u,i}$ 라고 하면, IPS와 DR estimator가 unbiased.
 
 위 Theorem은 결국 기존의 model이 정의한 propensity score의 경우 measured confounders $x$에 의해 생기는 confounding bias만 통제할 수 있기에, 모든 confounding bias를 제거하기 위해서는 unmeasured confounders $h$도 propensity score에 고려해줘야 한다는 점을 시사하고 있다.
@@ -72,11 +72,11 @@ Propensity based model인 IPS와 doubly robust (DR) learning의 경우 confoundi
 
 unmeasured confounders의 경우 우리가 접근할 수 없기에, strong assumption을 도입하여 $\tilde{p}_ {u,i}$을 estimate하여야 한다. 이를 위해서 propensity score model에 sensitivity analysis를 적용한 것에서 영감을 받아서, treatment에 가해지는 unmeasured confounding의 strength를 제한함으로써 $\tilde{p}_ {u,i}$의 uncertainty set은 얻어볼 수 있다. 여기서 nominal propensity score(measured confounder만을 고려한 score)를 arbitrary function $m$을 통해 정의하면 다음과 같다.
 
-> $p_ {u,i}=P(o_{u,i}=1|x_ {u,i})=\frac{exp(m(x_ {u,i})) }{1+ exp(m(x_ {u,i})) }$
+> $p_ {u,i}=P(o_ {u,i}=1 \vert x_ {u,i})=\frac{exp(m(x_ {u,i})) }{1+ exp(m(x_ {u,i})) }$
 
 이때 주어진 bound $\Gamma \geq 1$에 대하여 additive model을 기반으로 arbitrary function $\phi$를 통해 true propensity score를 정의해볼 수 있다.
 
-> $ \tilde{p}_ {u,i}=P(o_ {u,i}=1|x_ {u,i}, h_ {u,i} )=\frac{exp(m(x_ {u,i}) + \phi(h_ {u,i}) ) }{1+ exp(m(x_ {u,i}) + \phi(h_ {u,i}) )  }$
+> $ \tilde{p}_ {u,i}=P(o_ {u,i}=1 \vert x_ {u,i}, h_ {u,i} )=\frac{exp(m(x_ {u,i}) + \phi(h_ {u,i}) ) }{1+ exp(m(x_ {u,i}) + \phi(h_ {u,i}) )  }$
 
 아까 언급했듯이 unmeasured confounders의 strength에 대한 제약을 $ \vert \phi(h) \vert \leq \log{\Gamma}$로 잡아준다면 아래와 같은 부등식을 얻게 된다.
 
@@ -89,7 +89,7 @@ b_ {u,i} = 1 + (1/p_ {u,i} -1 )\Gamma$에 대하여
 
 가 성립한다. 이때 $\Gamma = 1$ 인 경우 $p_ {u,i} = \tilde{p}_ {u,i}$가 되어 unmeasured confounders가 없는 상황으로 볼 수 있고, 이 값을 키울수록 unmeasured strength를 크게한다고 볼 수 있다.
 
-여기서 Uncertainty set $\mathbb{W} = \left\{W \in \mathbb{R}_ +^{\vert D \vert} : \hat{a}_ {u,i} \leq w_ {u,i} \leq \hat{b}_ {u,i} \right\}$ (여기서 $W = \left\{w_ {u,i} : (u,i) \in D \right\}$이고 vector 형태로 생각하면 된다. 그리고 $\hat{a}_ {u,i}$과 $\hat{b}_ {u,i}$는 $a_ {u,i}$와 $b_ {u,i}$의 estimator이다. ) 이 uncertainty set $\mathbb{W}$이 이들이 제안한 framework의 핵심이라고 볼 수 있는데, 바로 이 $\mathbb{W}$ 내에서 inverse of estimated nominal propensity를 변화시키면서 adversarial learning을 진행할 수 있기 때문이다. 기존의 Model인 IPS와 RD의 estimator가 다음과 같이 표현된다.
+여기서 Uncertainty set $\mathbb{W} = W \in \mathbb{R}_ +^{\vert D \vert} : \hat{a}_ {u,i} \leq w_ {u,i} \leq \hat{b}_ {u,i}$ (여기서 $W = w_ {u,i} : (u,i) \in D$이고 vector 형태로 생각하면 된다. 그리고 $\hat{a}_ {u,i}$과 $\hat{b}_ {u,i}$는 $a_ {u,i}$와 $b_ {u,i}$의 estimator이다. ) 이 uncertainty set $\mathbb{W}$이 이들이 제안한 framework의 핵심이라고 볼 수 있는데, 바로 이 $\mathbb{W}$ 내에서 inverse of estimated nominal propensity를 변화시키면서 adversarial learning을 진행할 수 있기 때문이다. 기존의 Model인 IPS와 RD의 estimator가 다음과 같이 표현된다.
 
 > $L_ {RD-IPS}(\phi) = \underset{W \in \mathbb{W}}{\max}{\frac{1}{\vert D \vert}\sum_ {(u,i) \in D}o_ {u,i}e_ {u,i}w_ {u,i}}$
 
@@ -105,9 +105,9 @@ b_ {u,i} = 1 + (1/p_ {u,i} -1 )\Gamma$에 대하여
 
 $\phi$라는 parameter를 바탕으로 prediction error를 $e_ {u,i}(\phi)$라 하자. 이때 $\phi$의 estimator를 얻어낼 수 있다고 하고 이를 $\hat{\phi}^{(0)}$라고 하자. 그러면
 
-> $L_ {BRD-IPS}(\phi) = \underset{W \in \mathbb{W}}{\max}{\frac{1}{\vert D \vert}\sum_ {(u,i) \in D}o_ {u,i} \left\{ e_ {u,i}(\phi) – e_ {u,i}(\hat{\phi}^(0)) \right\} w_ {u,i}} $
+> $L_ {BRD-IPS}(\phi) = \underset{W \in \mathbb{W}}{\max}{\frac{1}{\vert D \vert}\sum_ {(u,i) \in D}o_ {u,i} { e_ {u,i}(\phi) – e_ {u,i}(\hat{\phi}^(0)) } w_ {u,i}} $
 
-가 된다. 기존의 RD-IPS estimator에서 $\hat{e}_{u,i}$ 부분이 $e_{u,i}(\hat{\phi}^{(0)} )$으로 바뀐 것을 볼 수 있다. DR의 경우에도 똑같이 적용해볼 수 있고, 이러한 framework 우수성을 아래의 Theorem 3.2에서 확인해볼 수 있다.
+가 된다. 기존의 RD-IPS estimator에서 $\hat{e}_ {u,i}$ 부분이 $e_ {u,i}(\hat{\phi}^{(0)} )$으로 바뀐 것을 볼 수 있다. DR의 경우에도 똑같이 적용해볼 수 있고, 이러한 framework 우수성을 아래의 Theorem 3.2에서 확인해볼 수 있다.
 여기서 $\phi^\dagger = \text{arg}\underset{\phi}\min{L_ {BRD-IPS}(\phi)}, \; \phi^\ddagger = \text{arg}\underset{\phi}\min{L_ {BRD-DR}(\phi)}$를 정의하면,
 
 > __Theorem 3.2__ (“No-Harm” Property). $\phi^{(0)}$를 $\phi$의 benchmark estimator라 하고 $\vert D \vert $가 충분히 크다고 하자. 그러면
@@ -128,10 +128,10 @@ AutoDebias는 역시 propensity-based method 로써 uniform data로부터 propen
 
 > $R(F) = \mathbb{E}_ {\sigma \sim {-1,+1}^{\vert D \vert} } \underset{f_ {\phi} \in F}{\sup}{\left[ \frac{1}{\vert D \vert}\sum_ {(u,i) \in D}\sigma_ {u,i}e_{u,i} \right] }$
 
-이때 $\sigma = \left\{ \sigma_ {u,i} : (u,i) \in D \right\}$는 Rademacher sequence이다. 여기서 $\vert D \vert \rightarrow \infty$ 임에 따라 $R(F) \rightarrow 0$라고 하자. ( 이는 matrix factorization과 같은 모델도 성립하는 매우 약한 가정으로, vanishing complexities로도 불린다 ) 그러면 앞서 언급했던 Theorem 4.1을 유도해볼 수 있다.
+이때 $\sigma = \sigma_ {u,i} : (u,i) \in D $는 Rademacher sequence이다. 여기서 $\vert D \vert \rightarrow \infty$ 임에 따라 $R(F) \rightarrow 0$라고 하자. ( 이는 matrix factorization과 같은 모델도 성립하는 매우 약한 가정으로, vanishing complexities로도 불린다 ) 그러면 앞서 언급했던 Theorem 4.1을 유도해볼 수 있다.
 
 > __Theorem 4.1__ (Generalization bound of RD-IPS and BRD-IPS )
-> 모든 $(u,i)$ 쌍에 대하여 $\tilde{w}_{u,i} \in [ \hat{a}_{u,i}, \hat{b}_{u,i} ], e_{u,i} \leq C_1, \tilde{w}_{u,i} \leq C_2$ 를 만족한다고 가정하자. 그러면 임의의 $f_{\phi} \in F$ 와 $\eta > 0$ 에 대하여 적어도 $1-\eta$의 확률로 아래의 부등식이 성립한다.
+> 모든 $(u,i)$ 쌍에 대하여 $\tilde{w}_ {u,i} \in [ \hat{a}_ {u,i}, \hat{b}_ {u,i} ], e_{u,i} \leq C_1, \tilde{w}_ {u,i} \leq C_ 2$ 를 만족한다고 가정하자. 그러면 임의의 $f_ {\phi} \in F$ 와 $\eta > 0$ 에 대하여 적어도 $1-\eta$의 확률로 아래의 부등식이 성립한다.
 
 > $L_ {ideal}(\phi) \leq L_{RD-IPS(\phi)} + B(\eta, D, F)$
 
