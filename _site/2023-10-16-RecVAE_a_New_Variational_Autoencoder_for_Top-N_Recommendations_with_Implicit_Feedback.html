@@ -543,7 +543,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 <p>섹션 3.1, 3.2, 3.3의 결과를 종합하여 개선 손실 함수를 제안한다.</p>
 
 <blockquote>
-  <p>$\mathcal{L} <em>{\text{RecVAE}} = \mathbb{E}</em> {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$</p>
+  <p>$\mathcal{L}_ {\text{RecVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$</p>
 </blockquote>
 
 <p>모델 훈련을 마친 뒤, 새로운 사용자에 $x$에 대해서 $p_ {\theta}( x \vert q_ {\phi}(z \vert x))$은 항목 별 긍정적으로 평가할 확률을 준다. 이를 이용하여 상위 항목을 추천 해줄 수 있다.</p>
@@ -650,41 +650,17 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
 
 <hr />
 <h2 id="additional-materials--references"><strong>Additional materials &amp; References</strong></h2>
-<p>Code Availability</p>
+<p>Official Code Availability</p>
 <blockquote>
   <p>https://github.com/ilya-shenbin/RecVAE</p>
 </blockquote>
 
-<p>Author information</p>
+<p>(Review) Author information</p>
 <ul>
-  <li>Ilya Shenbin
+  <li>Gwangwoo Kim
     <ul>
-      <li>Samsung-PDMI Joint AI Center</li>
-      <li>ilya.shenbin@gmail.com</li>
-    </ul>
-  </li>
-  <li>Anton Alekseev
-    <ul>
-      <li>Samsung-PDMI Joint AI Center</li>
-      <li>anton.m.alexeyev@gmail.com</li>
-    </ul>
-  </li>
-  <li>Elena Tutubalina
-    <ul>
-      <li>Samsung-PDMI Joint AI Center</li>
-      <li>tutubalinaev@gmail.com</li>
-    </ul>
-  </li>
-  <li>Valentin Malykh
-    <ul>
-      <li>Neural Systems and Deep Learning Laboratory</li>
-      <li>valentin.malykh@phystech.edu</li>
-    </ul>
-  </li>
-  <li>Sergey I. Nikolenko
-    <ul>
-      <li>Samsung-PDMI Joint AI Center</li>
-      <li>sergey@logic.pdmi.ras.ru</li>
+      <li>Korea Advanced Institute of Science and Technology (KAIST), Graduate School of Data Science (GSDS)</li>
+      <li>urikokp@kaist.ac.kr</li>
     </ul>
   </li>
 </ul>

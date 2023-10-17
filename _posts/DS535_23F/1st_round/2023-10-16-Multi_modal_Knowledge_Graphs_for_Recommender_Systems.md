@@ -19,7 +19,7 @@ directed graph G = (V,E) - V: 노드 집합, E: 엣지 집합
 - 엣지: relation
 - Triplet: head entity - relation - tail entity (h,r,t)
   
-![image](https://github.com/parkhyeongminn/paper_review/assets/81458623/32fc0e00-a88e-46e9-a5fb-f951568fed21)
+![image](https://i.ibb.co/sbNh7bB/figure1.png)
 
 
 
@@ -27,14 +27,14 @@ directed graph G = (V,E) - V: 노드 집합, E: 엣지 집합
 #### 2) Multi-modal Knowledge Graph (MKG)
 multi-modal entity(텍스트, 이미지)가 추가된 knowledge graph
 
-<img width="279" alt="image-1" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/477ef9b3-bc1b-4244-8a1c-97dd24eebe56">
+![figure2](https://i.ibb.co/3NXB0P7/figure2.png)
 
 
 
 #### 3) Collaborative Knowledge Graph (CKG)
 item-entity knowledge graph와 user-item bipartite graph가 통합된 knowledge graph
 
-<img width="266" alt="image-2" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/a12af34e-48c2-48f2-b25c-c61740093eba">
+![figure3](https://i.ibb.co/zRLFT9G/figure3.png)
 
 
 
@@ -69,7 +69,7 @@ feature 기반 방법은 modal 정보를 entity의 보조적인 feature로 처�
 
 모델의 전체 프레임워크 구조는 아래 그림과 같다.
 
-<img width="568" alt="image-3" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/9d2dcadc-3dc3-4a0c-900c-66bcebddd851">
+![figure4](https://i.ibb.co/TvSwZsm/figure5.png)
 
 ### 3.1 Multi-modal Knowledge Graph Embedding
 
@@ -79,7 +79,7 @@ feature 기반 방법은 modal 정보를 entity의 보조적인 feature로 처�
 
 각각의 특정 데이터 유형을 독립적인 벡터로 임베딩하기 위해 서로 다른 인코더를 사용한다.
 
-<img width="281" alt="image-5" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/03eb95db-639b-4fad-afe2-f6bbc43064c8">
+![figure5](https://i.ibb.co/8NdBwwr/figure4.png)
 
 
 - structured knowledge(entity id, relation id): 독립적인 임베딩 layer
@@ -94,7 +94,7 @@ dense layer를 사용하여 모든 형태의 entity를 동일한 차원으로 �
 
 GAT를 활용한 KG relation 임베딩
 
-<img width="281" alt="image-6" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/0ca2af69-2e86-485b-af63-e2fadd7bcd6e">
+![figure6](https://i.ibb.co/QHZRPWg/figure6.png)
 
 
 
@@ -190,7 +190,7 @@ Dianping
 - knowledge graph는 Meituan Brain에서 수집
 - 인기 추천 요리의 이미지 수집,텍스트는 사용자 리뷰 크롤링
 
-<img width="183" alt="image-7" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/fbad45a7-ec06-4b21-9a72-cf60255f2059">
+![table1](https://i.ibb.co/cx8pV0f/table1.png)
 
 
 
@@ -213,14 +213,14 @@ top-k 추천을 위한 평가 지표 (k = 20)
 
 ### 4.2 Experimental Results
 
-<img width="208" alt="image-8" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/9b6e2cc5-198c-479e-94a0-0dfaaa0b7067">
+![table2](https://i.ibb.co/3T2cPTg/table2.png)
 
 제안된 MKGAT 모델은 두 데이터셋에서 모든 베이스라인의 성능을 능가한다.
 
 
 i) Effects of Modalities
 
-<img width="238" alt="image-9" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/fbeff217-9a2f-44b8-a512-45d78f6ee4fd">
+![table3](https://i.ibb.co/qdsdFJ5/table3.png)
 
 - multi-modal feature를 사용한 경우 single-modal feaure만 사용했을 때에 비해 성능이 좋다.
 - 이미지가 텍스트보다 추천에 중요한 역할을 한다.
@@ -228,7 +228,7 @@ i) Effects of Modalities
 
 ii) Effect of Model Depth
 
-<img width="242" alt="image-10" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/a6f0726d-30ec-4129-ac71-3aeeaa5f6185">
+![table4](https://i.ibb.co/7zrJbBz/table4.png)
 
 
 - 최적의 layer 수는 데이터셋에 따라 다르고, knowledge graph embedding 모듈에서와 추천 모듈에서 각각 다르다.
@@ -237,7 +237,7 @@ iii) Effect of Combination Layers
 
 Aggregation layer로 Concat layer를 사용한 방법이 Add layer를 사용한 방법보다 성능이 좋다.
 
-<img width="240" alt="image-11" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/2d12ae95-0802-4d34-a5cf-197d47fa6e38">
+![table5](https://i.ibb.co/bzpxckT/table5.png)
 
 - Concat은 여러 feature 간 차원의 확장으로, 다양한 semantic space에서 feature를 상호 작용하는 데 더 적합하다.
 
@@ -250,6 +250,5 @@ MKGAT는 multi-modal knowledge graph를 활용하여 entity 추론 및 이웃 �
 이미지나 텍스트와 같은 사이드 정보가 추천 시스템에 사용되는 연구들이 많은데, 이를 knowledge graph에 적용해 user-item graph와 결합되어 모델링하는 것이 인상 깊었다. 본 연구에서는 knowledge graph와 user-item bipartite graph를 교대로 학습시키는데, 하나의 heterogeneous graph를 구성하여 end-to-end 프레임워크로 동시에 학습하는 방법도 고려해볼 수 있을 것 같다.
 
 
-
 ## Author Information
-- Rui Sun, Xuezhi Cao, Yan Zhao, Junchen Wan, Kun Zhou, Fuzheng Zhang, Zhongyuan Wang and Kai Zheng
+- KAIST 산업및시스템공학과 석사과정 박형민 <mike980409@kaist.ac.kr>

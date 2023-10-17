@@ -383,6 +383,17 @@ Linker prediction이란 특정 binding site context에서 연결되어있지 않
 
 
 
-## 7. Reference & Additional materials
+## 7. Author informantion and Reference
 
-[1] Niklas WA Gebauer, Michael Gastegger, and Kristof T Schütt. Symmetry-adapted generation of 3d point sets for the targeted discovery of molecules. arXiv preprint arXiv:1906.00957, 2019
+### Author information
+
+* Joohyun Cho
+  * Affliliation : [BCBL@KAIST](https://sites.google.com/view/kaist-bcbl)
+  * Research Topic : Protein Design, Drug discovery
+  * Contact : joohyun98@kaist.ac.kr
+
+
+
+### Reference
+
+Niklas WA Gebauer, Michael Gastegger, and Kristof T Schütt. Symmetry-adapted generation of 3d point sets for the targeted discovery of molecules. arXiv preprint arXiv:1906.00957, 2019

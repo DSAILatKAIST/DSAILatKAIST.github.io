@@ -395,17 +395,17 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>Triplet: head entity - relation - tail entity (h,r,t)</li>
 </ul>
 
-<p><img src="https://github.com/parkhyeongminn/paper_review/assets/81458623/32fc0e00-a88e-46e9-a5fb-f951568fed21" alt="image" /></p>
+<p><img src="https://i.ibb.co/sbNh7bB/figure1.png" alt="image" /></p>
 
 <h4 id="2-multi-modal-knowledge-graph-mkg">2) Multi-modal Knowledge Graph (MKG)</h4>
 <p>multi-modal entity(텍스트, 이미지)가 추가된 knowledge graph</p>
 
-<p><img width="279" alt="image-1" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/477ef9b3-bc1b-4244-8a1c-97dd24eebe56" /></p>
+<p><img src="https://i.ibb.co/3NXB0P7/figure2.png" alt="figure2" /></p>
 
 <h4 id="3-collaborative-knowledge-graph-ckg">3) Collaborative Knowledge Graph (CKG)</h4>
 <p>item-entity knowledge graph와 user-item bipartite graph가 통합된 knowledge graph</p>
 
-<p><img width="266" alt="image-2" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/a12af34e-48c2-48f2-b25c-c61740093eba" /></p>
+<p><img src="https://i.ibb.co/zRLFT9G/figure3.png" alt="figure3" /></p>
 
 <h2 id="1-problem-definition">1. Problem Definition</h2>
 
@@ -430,7 +430,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>모델의 전체 프레임워크 구조는 아래 그림과 같다.</p>
 
-<p><img width="568" alt="image-3" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/9d2dcadc-3dc3-4a0c-900c-66bcebddd851" /></p>
+<p><img src="https://i.ibb.co/TvSwZsm/figure5.png" alt="figure4" /></p>
 
 <h3 id="31-multi-modal-knowledge-graph-embedding">3.1 Multi-modal Knowledge Graph Embedding</h3>
 
@@ -438,7 +438,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>각각의 특정 데이터 유형을 독립적인 벡터로 임베딩하기 위해 서로 다른 인코더를 사용한다.</p>
 
-<p><img width="281" alt="image-5" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/03eb95db-639b-4fad-afe2-f6bbc43064c8" /></p>
+<p><img src="https://i.ibb.co/8NdBwwr/figure4.png" alt="figure5" /></p>
 
 <ul>
   <li>structured knowledge(entity id, relation id): 독립적인 임베딩 layer</li>
@@ -452,7 +452,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>GAT를 활용한 KG relation 임베딩</p>
 
-<p><img width="281" alt="image-6" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/0ca2af69-2e86-485b-af63-e2fadd7bcd6e" /></p>
+<p><img src="https://i.ibb.co/QHZRPWg/figure6.png" alt="figure6" /></p>
 
 <p>i) Propagation layer</p>
 
@@ -558,7 +558,7 @@ $ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,
   <li>인기 추천 요리의 이미지 수집,텍스트는 사용자 리뷰 크롤링</li>
 </ul>
 
-<p><img width="183" alt="image-7" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/fbad45a7-ec06-4b21-9a72-cf60255f2059" /></p>
+<p><img src="https://i.ibb.co/cx8pV0f/table1.png" alt="table1" /></p>
 
 <h4 id="2-baselines">2) Baselines</h4>
 <ul>
@@ -586,13 +586,13 @@ $ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,
 
 <h3 id="42-experimental-results">4.2 Experimental Results</h3>
 
-<p><img width="208" alt="image-8" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/9b6e2cc5-198c-479e-94a0-0dfaaa0b7067" /></p>
+<p><img src="https://i.ibb.co/3T2cPTg/table2.png" alt="table2" /></p>
 
 <p>제안된 MKGAT 모델은 두 데이터셋에서 모든 베이스라인의 성능을 능가한다.</p>
 
 <p>i) Effects of Modalities</p>
 
-<p><img width="238" alt="image-9" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/fbeff217-9a2f-44b8-a512-45d78f6ee4fd" /></p>
+<p><img src="https://i.ibb.co/qdsdFJ5/table3.png" alt="table3" /></p>
 
 <ul>
   <li>multi-modal feature를 사용한 경우 single-modal feaure만 사용했을 때에 비해 성능이 좋다.</li>
@@ -602,7 +602,7 @@ $ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,
 
 <p>ii) Effect of Model Depth</p>
 
-<p><img width="242" alt="image-10" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/a6f0726d-30ec-4129-ac71-3aeeaa5f6185" /></p>
+<p><img src="https://i.ibb.co/7zrJbBz/table4.png" alt="table4" /></p>
 
 <ul>
   <li>최적의 layer 수는 데이터셋에 따라 다르고, knowledge graph embedding 모듈에서와 추천 모듈에서 각각 다르다.</li>
@@ -612,7 +612,7 @@ $ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,
 
 <p>Aggregation layer로 Concat layer를 사용한 방법이 Add layer를 사용한 방법보다 성능이 좋다.</p>
 
-<p><img width="240" alt="image-11" src="https://github.com/parkhyeongminn/paper_review/assets/81458623/2d12ae95-0802-4d34-a5cf-197d47fa6e38" /></p>
+<p><img src="https://i.ibb.co/bzpxckT/table5.png" alt="table5" /></p>
 
 <ul>
   <li>Concat은 여러 feature 간 차원의 확장으로, 다양한 semantic space에서 feature를 상호 작용하는 데 더 적합하다.</li>
@@ -626,7 +626,7 @@ $ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_{(h,r’,t’)\in N_h} exp(\pi(h,r’,
 
 <h2 id="author-information">Author Information</h2>
 <ul>
-  <li>Rui Sun, Xuezhi Cao, Yan Zhao, Junchen Wan, Kun Zhou, Fuzheng Zhang, Zhongyuan Wang and Kai Zheng</li>
+  <li>KAIST 산업및시스템공학과 석사과정 박형민 <a href="mailto:mike980409@kaist.ac.kr">mike980409@kaist.ac.kr</a></li>
 </ul>
 
     </div>

@@ -144,7 +144,7 @@ $\max_{P\; \text{s.t.}\; P \in \{0, 1\}^{n \times n},\; \sum P \leq  \Delta} L(f
 그러나 $O(n^2)$ 만큼의 공간복잡도이기에 논문은 Projected Randomized Block Coordinate Descent(PR-BCD)를 제안한다.
 
   
-![img2.png](https://i.ibb.co/XsZ1v5K/img2.png)
+![img2.png](https://i.ibb.co/fC7NNv7/2023-10-15-18-08-22.png)
 
 P는 이산 Edge 행렬로, 각 element(p)는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 그리고 논문은 PR-BCD에 대한 또 다른 대안으로 **GR-BCD**를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 **greedy**하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다. 그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.
 
@@ -236,7 +236,18 @@ Cora ML, Citeseer, arXiv에서 PR-BCD가 SGA보다 효과적으로 공격을 하
 
 ---
 
- 
+**Author Information**
+
+- Sumin Lee
+
+	- Affiliation: Dept. of Data Science, KAIST
+
+	- Research Topic: Machine learning, Differential Equation Approximation
+
+	- Contact : sumlee@kaist.ac.kr
+
+
+**Reference**
 -  Geisler, Simon, et al. "Robustness of graph neural networks at scale." *Advances in Neural Information Processing Systems* 34 (2021): 7637-7649.
 
 -  Bojchevski, Aleksandar, et al. "Scaling graph neural networks with approximate pagerank." *Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*. 2020.

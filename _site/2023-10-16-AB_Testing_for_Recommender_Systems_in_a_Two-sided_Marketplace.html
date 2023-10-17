@@ -429,7 +429,7 @@ $k, i, s$ = index for treatment variant, item, and session</p>
 Accuracy and cost are trade-off in the experimental design. Accuracy is defined by comparing the design rankings $R_{D}(i, \Gamma_{s})$ with the ideal ranking $R^*(i, \Gamma_{s})$ that equals $R_{k}(i, \Gamma_{s})$ if $i \in P_{k}$.</p>
 
 <p>Definition 1. The inaccuracy of the experimental design $D$ is given by
-$Inaccuracy(D) := \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}))^2$, where $R^2(i,\Gamma_{s}) = \sum^K_{k=0} R_{k}(i, \Gamma_{s}) 1<em>{{i\in P</em>{k}}}$.</p>
+$Inaccuracy(D) := \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}))^2$, where $R^2(i,\Gamma_ {s}) = \sum^K_ {k=0} R_ {k}(i, \Gamma_ {s}) 1_ {{i\in P_ {k}}}$.</p>
 
 <p>Definition 2. Let $N_{D}(i, \Gamma_{s})$ denote the total number of times a scoring function (i.e. one of $T_{k}$’s) needs to be applied to to obtain a ranking of the items in $I_{s}$ according to $D$. The cost of an experimental design $D$ is given by $Cost(D) := \mathbb{E} (N_{D}(i, \Gamma_{s}))$</p>
 
@@ -471,12 +471,12 @@ The total computation cost = $c_{0} + (1 - (1 - \alpha)p_{0}) \sum_{k \ge 1} c_{
 <strong>Theorem 1 Optimality of $UniCoRn(P_{0}, P_{1}, 1)$</strong> 
 Let $D_{U}$ be a design based on Algorithm 1 with randomly chosen $P_{0}$ and $P_{1}$, and with $\alpha = 1$. Then, for any other design $D$,
 $\mathbb{E}(R_{D_{u}}(i, \Gamma_{s}) - R^* (i, \Gamma_{s}) \mid \Gamma_{s})^2 \le \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}) \mid \Gamma_{s})^2$   (Equation 1)
-where $\Kappa = 1$. Equation (1) implies the optimality of $D_{U}$ with respect to the $Inaccuracy(D_{U}, T_{0}, T_{1}) \le Inaccuracy(D, T_{0}, T_{1})$ for all $T_{0}, T_{1}$, and for all design $D$</p>
+where $ \kappa = 1 $. Equation (1) implies the optimality of $D_{U}$ with respect to the $Inaccuracy(D_{U}, T_{0}, T_{1}) \le Inaccuracy(D, T_{0}, T_{1})$ for all $T_{0}, T_{1}$, and for all design $D$</p>
 
     <p><strong>Theorem 2 Bias and Variance Bounds</strong></p>
 
-    <p>Let $D_{U}$ be a design based on Algorithm 1 with randomly chosen $P_{0}$ and $P_{1}$ and with $\alpha = 1$. Then, for  $k \in {0, 1}$, the conditional bias and the conditional variance of the observed rank $R_{D_{u}}(i, \Gamma_{s})$ given $A_{s,k,i,r} = {\Gamma_{s}, R^<em>(i, \Gamma_{s} = r, i \in P_{k}}$ is given by 
-         1. $\mid\mathbb{E} (R_{D_{U}} (i, \Gamma_{s}) - R^</em>(i, \Gamma_{s}) \mid A_{s,k,i,r}) \mid  \le c(k, p_{1})$, and
+    <p>Let $D_{U}$ be a design based on Algorithm 1 with randomly chosen $P_{0}$ and $P_{1}$ and with $\alpha = 1$. Then, for  $k \in {0, 1}$, the conditional bias and the conditional variance of the observed rank $R_{D_{u}}(i, \Gamma_{s})$ given $A_ {s,k,i,r} = (\Gamma_ {s}, R^{*} {i, \Gamma_ {s} = r, i \in P_ {k}})$ is given by 
+         1. $\mid\mathbb{E} (R_{D_{U}} (i, \Gamma_{s}) - R^*(i, \Gamma_{s}) \mid A_{s,k,i,r}) \mid  \le c(k, p_{1})$, and
          2. $Var (R_{D_{U}} (i, \Gamma_{s}) \mid A_{s,k,i,r}) \le 2 min(r - 1, \mid \gamma_{s} \mid - r)   p_{1} (1 - p_{1}) + c(k, p_{1}) (1 - c(k, p_{1}))$.</p>
   </li>
 </ol>
@@ -543,9 +543,11 @@ The graph on the right showed the cost and inaccuracy trade-off for a fixed valu
 <h2 id="author-information"><strong>Author Information</strong></h2>
 
 <ul>
-  <li>Authors: Preetam Nandy , Divya Venugopalan, Chun Lo, Shaunak Chatterjee
+  <li>Karin Rizky Irminanda
     <ul>
-      <li>Affiliation: LinkedIn Corporation</li>
+      <li>Affiliation: <a href="http://hfel.kaist.ac.kr/">Human Factors and Ergonomics Lab</a></li>
+      <li>Research Topic: VR/AR, ergonomics</li>
+      <li>Contact: karinirminanda@kaist.ac.kr</li>
     </ul>
   </li>
 </ul>

@@ -130,7 +130,7 @@ $\beta$-VAE[^3]은 재표현을 학습하기 위한 좋은 방법이지만 파�
 
 섹션 3.1, 3.2, 3.3의 결과를 종합하여 개선 손실 함수를 제안한다.
 
-> $\mathcal{L} _{\text{RecVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$
+> $\mathcal{L}_ {\text{RecVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$
 
 모델 훈련을 마친 뒤, 새로운 사용자에 $x$에 대해서 $p_ {\theta}( x \vert q_ {\phi}(z \vert x))$은 항목 별 긍정적으로 평가할 확률을 준다. 이를 이용하여 상위 항목을 추천 해줄 수 있다.
 
@@ -199,29 +199,13 @@ RecVAE을 각 경쟁 모델과 비교한 결과이다. 볼드체는 가장 좋�
 
 ---  
 ## **Additional materials & References**
-Code Availability
+Official Code Availability
 >https://github.com/ilya-shenbin/RecVAE
 
-Author information
-* Ilya Shenbin
-    * Samsung-PDMI Joint AI Center
-    * ilya.shenbin@gmail.com
-
-* Anton Alekseev
-    * Samsung-PDMI Joint AI Center
-    * anton.m.alexeyev@gmail.com
-
-* Elena Tutubalina
-    * Samsung-PDMI Joint AI Center
-    * tutubalinaev@gmail.com
-
-* Valentin Malykh
-    * Neural Systems and Deep Learning Laboratory
-    * valentin.malykh@phystech.edu
-
-* Sergey I. Nikolenko
-    * Samsung-PDMI Joint AI Center
-    * sergey@logic.pdmi.ras.ru
+(Review) Author information
+* Gwangwoo Kim
+    * Korea Advanced Institute of Science and Technology (KAIST), Graduate School of Data Science (GSDS)
+    * urikokp@kaist.ac.kr
  
 [^1]: Yao Wu, Christopher DuBois, Alice X Zheng, and Martin Ester. 2016. Collaborative denoising auto-encoders for top-n recommender systems. In Proceedings of the Ninth ACM International Conference on Web Search and Data Mining. ACM, 153–162.
 [^2]: Dawen Liang, Rahul G Krishnan, Matthew D Hoffman, and Tony Jebara. 2018. Variational autoencoders for collaborative filtering. In Proceedings of the 2018 World Wide Web Conference on World Wide Web. International World Wide Web Conferences Steering Committee, 689–698.

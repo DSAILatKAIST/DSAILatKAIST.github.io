@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 17 Oct 2023 19:15:06 +0900</pubDate>
-        <lastBuildDate>Tue, 17 Oct 2023 19:15:06 +0900</lastBuildDate>
+        <pubDate>Tue, 17 Oct 2023 19:56:33 +0900</pubDate>
+        <lastBuildDate>Tue, 17 Oct 2023 19:56:33 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1113,6 +1113,10 @@ Table 3은 네 가지 데이터셋에서 SeHGNN의 성능을 HGB 벤치마크의
 
 &lt;p&gt;본 논문은 heterogeneouos 그래프 representation learning을 위한 SeHGNN이라는 새로운 방법을 제안한다. 이 방법은 attention 사용 여부와 네트워크 구조에 따른 효과성에 대한 두 가지 주요 발견을 기반으로 제안되었다. 본 논문에서는 light mean aggregation을 사용하여 neighbor aggregation을 사전에 계산함으로써 구조 정보를 효과적으로 포착하면서, neighbor attention이 과도하게 사용되는 것을 방지하고 반복적인 neighbor aggregation도 피할 수 있도록 하였다. 이와 함께 receptive field를 확장하고 semantic 정보를 더 잘 활용하기 위해 긴 metapath를 사용하는 single-layer 구조와, 트랜스포머 기반의 semantic fusion 모듈을 사용하여 모델의 효과성을 향상시켰다.&lt;/p&gt;
 
+&lt;h2 id=&quot;author-information&quot;&gt;Author Information&lt;/h2&gt;
+&lt;li&gt; 정민규 &lt;/li&gt;
+&lt;p&gt;Contact: minkyujeong@kaist.ac.kr&lt;/p&gt;
+
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
@@ -1603,7 +1607,7 @@ $ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_
 
 &lt;p&gt;그러나 $O(n^2)$ 만큼의 공간복잡도이기에 논문은 Projected Randomized Block Coordinate Descent(PR-BCD)를 제안한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/XsZ1v5K/img2.png&quot; alt=&quot;img2.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/fC7NNv7/2023-10-15-18-08-22.png&quot; alt=&quot;img2.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;P는 이산 Edge 행렬로, 각 element(p)는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 그리고 논문은 PR-BCD에 대한 또 다른 대안으로 &lt;strong&gt;GR-BCD&lt;/strong&gt;를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 &lt;strong&gt;greedy&lt;/strong&gt;하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다. 그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.&lt;/p&gt;
 
@@ -1655,6 +1659,27 @@ $ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_
 
 &lt;hr /&gt;
 
+&lt;p&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sumin Lee&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Affiliation: Dept. of Data Science, KAIST&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Research Topic: Machine learning, Differential Equation Approximation&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Contact : sumlee@kaist.ac.kr&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;Geisler, Simon, et al. “Robustness of graph neural networks at scale.” &lt;em&gt;Advances in Neural Information Processing Systems&lt;/em&gt; 34 (2021): 7637-7649.&lt;/p&gt;
@@ -1988,7 +2013,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 &lt;p&gt;섹션 3.1, 3.2, 3.3의 결과를 종합하여 개선 손실 함수를 제안한다.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L} &lt;em&gt;{\text{RecVAE}} = \mathbb{E}&lt;/em&gt; {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$&lt;/p&gt;
+  &lt;p&gt;$\mathcal{L}_ {\text{RecVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;모델 훈련을 마친 뒤, 새로운 사용자에 $x$에 대해서 $p_ {\theta}( x \vert q_ {\phi}(z \vert x))$은 항목 별 긍정적으로 평가할 확률을 준다. 이를 이용하여 상위 항목을 추천 해줄 수 있다.&lt;/p&gt;
@@ -2095,41 +2120,17 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
 
 &lt;hr /&gt;
 &lt;h2 id=&quot;additional-materials--references&quot;&gt;&lt;strong&gt;Additional materials &amp;amp; References&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Code Availability&lt;/p&gt;
+&lt;p&gt;Official Code Availability&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;https://github.com/ilya-shenbin/RecVAE&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Author information&lt;/p&gt;
+&lt;p&gt;(Review) Author information&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;Ilya Shenbin
+  &lt;li&gt;Gwangwoo Kim
     &lt;ul&gt;
-      &lt;li&gt;Samsung-PDMI Joint AI Center&lt;/li&gt;
-      &lt;li&gt;ilya.shenbin@gmail.com&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Anton Alekseev
-    &lt;ul&gt;
-      &lt;li&gt;Samsung-PDMI Joint AI Center&lt;/li&gt;
-      &lt;li&gt;anton.m.alexeyev@gmail.com&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Elena Tutubalina
-    &lt;ul&gt;
-      &lt;li&gt;Samsung-PDMI Joint AI Center&lt;/li&gt;
-      &lt;li&gt;tutubalinaev@gmail.com&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Valentin Malykh
-    &lt;ul&gt;
-      &lt;li&gt;Neural Systems and Deep Learning Laboratory&lt;/li&gt;
-      &lt;li&gt;valentin.malykh@phystech.edu&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Sergey I. Nikolenko
-    &lt;ul&gt;
-      &lt;li&gt;Samsung-PDMI Joint AI Center&lt;/li&gt;
-      &lt;li&gt;sergey@logic.pdmi.ras.ru&lt;/li&gt;
+      &lt;li&gt;Korea Advanced Institute of Science and Technology (KAIST), Graduate School of Data Science (GSDS)&lt;/li&gt;
+      &lt;li&gt;urikokp@kaist.ac.kr&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -2651,7 +2652,33 @@ Now for each set of consecutive items purchased by an user, we create a list of 
 &lt;p&gt;By plotting the data, we may notice that the 3, 4 and 5 most recent purchases uniquely identify users with 99% probability.&lt;/p&gt;
 
 &lt;h4 id=&quot;attack-method-2&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;For the period of time the recent purchases remain the same, every query sent by the user has the same list of recent purchases, i.e., most recent items purchased by a user usually do not change with a very high frequency. The attacker uses this knowledge to launch the attack. So, the attacker first selects a time threshold. This time threshold is chosen to help the attacker to decide if the queries come from the same&lt;/p&gt;
+&lt;p&gt;For the period of time the recent purchases remain the same, every query sent by the user has the same list of recent purchases, i.e., most recent items purchased by a user usually do not change with a very high frequency. The attacker uses this knowledge to launch the attack. So, the attacker first selects a time threshold. This time threshold is chosen to help the attacker to decide if the queries come from the same user or not.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;It helps in the way that if the time difference between receiving them is less than the time threshold and two distinct queries received by the cloud have the same most recent purchases, the attacker will predict that they come from the same user. Otherwise, it is assumed that queries come from two different users.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;evaluation-metrics&quot;&gt;Evaluation Metrics&lt;/h4&gt;
+&lt;p&gt;We use the concept of precision and recall to measure the accuracy of this attack:&lt;/p&gt;
+
+&lt;p&gt;Precision = $\frac{TP}{(TP+FP)}$&lt;/p&gt;
+
+&lt;p&gt;Recall = $\frac{TP}{(TP+FN)}$&lt;/p&gt;
+
+&lt;p&gt;where, TP = &lt;strong&gt;T&lt;/strong&gt;rue &lt;strong&gt;P&lt;/strong&gt;ositives
+FP = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;P&lt;/strong&gt;ositives
+FN = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;N&lt;/strong&gt;egetives&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In simpler terms, precision is asking the question “Of all the items model has predicted positive, how many are truly positive?”  whereas recall is asking the question “Of all the truly positive items in the dataset, how many did the model correctly identify?”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;author-information-section&quot;&gt;Author Information Section&lt;/h2&gt;
+&lt;h4 id=&quot;anurag-yadav&quot;&gt;Anurag Yadav&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Affiliation&lt;/strong&gt;: &lt;a href=&quot;https://csdlab-kaist.github.io/&quot;&gt;Complex System Design Laboratory (csdlab-kaist.github.io)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Department&lt;/strong&gt;: Data Science&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Contact&lt;/strong&gt;: anusim2003@kaist.ac.kr&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
             <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>

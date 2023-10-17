@@ -26,10 +26,8 @@ NGCF (Neural Graph Collaborative Filtering) is a specific application of GCN to 
 
 ![Example Image](https://i.ibb.co/F4M0jJj/User-item-Interaction.png)
 Then NGCF leverages the user-item interaction graph to propagate embeddings as: 
-$
-\mathbf{e}_ {u}^{(k+1)} =\sigma\Bigl(\mathbf{W}_{1}\mathbf{e}_ {u}^{(k)}+\sum_{i\in\mathcal{N}_ {u}}\frac{1}{\sqrt{\vert N_{u} \vert\vert N_{i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {i}^{(k)}\odot\mathbf{e}_ {u}^{(k)}))\Bigr), \\
-\mathbf{e}_ {i}^{(k+1)} =\sigma\Big(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\sum_{u\in\mathcal{N}_ {i}}\frac{1}{\sqrt{\vert \mathcal{N}_ {u} \vert\vert \mathcal{N}_ {i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {u}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {u}^{(k)}\odot\mathbf{e}_ {i}^{(k)}))\Big), 
-$
+
+![Example Image](https://i.ibb.co/C6n4GYR/equation1.png)
 
 where $\mathbf{e}_ {u}^{(k)}\mathrm{~and~}\mathbf{e}_ {i}^{(k)}$respectively denote the refined embedding of user u and item i after k layers propagation, σ is the nonlinear activation function. $N_u$ denotes the set of items that are interacted by user u, $N_i$ denotes the set of users that interact with item i, and $W_1$ and $W_2$ are trainable weight matrix to perform feature transformation in each layer. By propagating L layers, NGCF obtains $L + 1$ embeddings to describe a user $(\mathbf{e}_u^{(0)},\mathbf{e}_u^{(1)},...,\mathbf{e}_u^{(L)})$ and an item $(\mathbf{e}_i^{(0)},\mathbf{e}_i^{(1)},...,\mathbf{e}_i^{(L)}).$  It then concatenates these $L + 1$ embeddings to obtain the final user embedding and item embedding, using inner product to generate the prediction score
 
@@ -54,12 +52,14 @@ LightGCN aims to make the design of GCN more concise and appropriate for recomme
 ![Example Image](https://i.ibb.co/sQ9GK0k/image.png)
 ## Light Graph Convolution(LGC)
 By removing nonlinear activation $\sigma (.)$and feature transformation $W_1$  and $W_2$, the graph convolution operation in LightGCN is simplified as:
-$\begin{aligned}\mathbf{e}_u^{(k+1)}&=\sum_{i\in\mathcal{N}_u}\frac{1}{\sqrt{|\mathcal{N}_u|}\sqrt{|\mathcal{N}_i|}}\mathbf{e}_i^{(k)},\\\mathbf{e}_i^{(k+1)}&=\sum_{u\in\mathcal{N}_i}\frac{1}{\sqrt{|\mathcal{N}_i|}\sqrt{|\mathcal{N}_u|}}\mathbf{e}_u^{(k)}.\end{aligned}$
-The symmetric normalization term $\frac{1}{\sqrt{|N_{u}|}\sqrt{|N_{i}|}}$follows the design of standard GCN.
+
+![Example Image](https://i.ibb.co/DwsVZ6Q/equation2.png)
+
+The symmetric normalization term $\frac{1}{\sqrt{\vert N_ {u} \vert}\sqrt{\vert N_ {i} \vert}}$follows the design of standard GCN.
 
 ## Layer Combination & Model Prediction
 In LightGCN, the only trainable model parameters are the embeddings at the 0-th layer. When $u_i$ given, the embeddings at higher layers can be computed via LGC. After K layers LGC, they further combine the embeddings obtained at each layer to form the final representation of a user (an item): 
-$\mathbf{e}_{u}=\sum\limits_{k=0}^{K}\alpha_{k}\mathbf{e}_{u}^{(k)};\quad\mathbf{e}_{i}=\sum\limits_{k=0}^{K}\alpha_{k}\mathbf{e}_{i}^{(k)},\quad$
+![Example Image](https://i.ibb.co/27Xwwdk/equation3.png)
 
 
 where $α_k ≥ 0$ denotes the importance of the k-th layer embedding
@@ -67,7 +67,7 @@ in constituting the final embedding. It can be treated as a hyperparameter to be
 
 The model prediction is defined as the inner product of user and
 item final representations: 
-$\hat{y}_{ui}=\mathbf{e}_{u}^{T}\mathbf{e}_{i},$
+![Example Image](https://i.ibb.co/zXrB28Y/equation4.png)
 
 # Experiments
 
@@ -110,9 +110,32 @@ The contribution of this paper is the development of LightGCN, a simple yet effe
 The limitation of this study is that it does not explore the use of dropout mechanisms, which are commonly used in graph convolutional networks (GCNs) and Neural Graph Collaborative Filtering (NGCF). The reason for not using dropout in LightGCN is that it does not have feature transformation weight matrices, so enforcing L2 regularization on the embedding layer is sufficient to prevent overfitting. However, NGCF requires tuning two dropout ratios and normalizing the embedding of each layer to unit length. Additionally, the study found that learning the layer combination coefficients on training data did not lead to improvement, possibly because the training data did not contain sufficient signal to learn good coefficients that can generalize to unknown data. The study also tried learning the coefficients from validation data, which slightly improved performance. However, the exploration of optimal settings for the coefficients, such as personalizing them for different users and items, is left as future work.
 
 
-# Reference Materials
+## Author Information
+### Auther Name:
+ - Xiangnan He
+ - Kuan Deng
+ - Xiang Wang
+ - Yan Li
+ - Yongdong Zhang
+ - Meng Wang∗
 
- 
+### Affiliation:
+
+ - University of Science and Technology
+of China
+ - National University of Singapore
+ - Beijing Kuaishou Technology
+ - Hefei University of Technology
+
+
+## Reviewer  
+> **Dewei Zhu**  
+> **Industrial & System Engineering**  
+>**Human Factors & Ergonomics Lab**  
+>**Email**: deweizhu@kaist.ac.kr
+
+
+# Reference Materials
 
  1. **LightGCN**：He, X., Deng, K., Wang, X., Li, Y., Zhang, Y., & Wang, M. (2020, July). Lightgcn: Simplifying and powering graph convolution network for recommendation. In _Proceedings of the 43rd International ACM SIGIR conference on research and development in Information Retrieval_ (pp. 639-648).
 2. **NGCF**：Wang, Xiang, et al. "Neural graph collaborative filtering." _Proceedings of the 42nd international ACM SIGIR conference on Research and development in Information Retrieval_. 2019.

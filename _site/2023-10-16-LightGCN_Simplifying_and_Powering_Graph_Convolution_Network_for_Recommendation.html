@@ -399,11 +399,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>NGCF (Neural Graph Collaborative Filtering) is a specific application of GCN to the task of collaborative filtering. The author of NGCF integrates the user-item interactions, specifically the bipartite graph structure, into the embedding process. as shown in the following Figure. NGCF using embedding propagation on the graph structure to capture high-order connectivity and inject the collaborative signal into the embeddings. NGCF has become new state-of-the-art for collaborative filtering.</p>
 
 <p><img src="https://i.ibb.co/F4M0jJj/User-item-Interaction.png" alt="Example Image" />
-Then NGCF leverages the user-item interaction graph to propagate embeddings as: 
-$
-\mathbf{e}_ {u}^{(k+1)} =\sigma\Bigl(\mathbf{W}<em>{1}\mathbf{e}</em> {u}^{(k)}+\sum_{i\in\mathcal{N}_ {u}}\frac{1}{\sqrt{\vert N_{u} \vert\vert N_{i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {i}^{(k)}\odot\mathbf{e}_ {u}^{(k)}))\Bigr), <br />
-\mathbf{e}_ {i}^{(k+1)} =\sigma\Big(\mathbf{W}_ {1}\mathbf{e}_ {i}^{(k)}+\sum_{u\in\mathcal{N}_ {i}}\frac{1}{\sqrt{\vert \mathcal{N}_ {u} \vert\vert \mathcal{N}_ {i} \vert}}(\mathbf{W}_ {1}\mathbf{e}_ {u}^{(k)}+\mathbf{W}_ {2}(\mathbf{e}_ {u}^{(k)}\odot\mathbf{e}_ {i}^{(k)}))\Big), 
-$</p>
+Then NGCF leverages the user-item interaction graph to propagate embeddings as:</p>
+
+<p><img src="https://i.ibb.co/C6n4GYR/equation1.png" alt="Example Image" /></p>
 
 <p>where $\mathbf{e}_ {u}^{(k)}\mathrm{~and~}\mathbf{e}_ {i}^{(k)}$respectively denote the refined embedding of user u and item i after k layers propagation, σ is the nonlinear activation function. $N_u$ denotes the set of items that are interacted by user u, $N_i$ denotes the set of users that interact with item i, and $W_1$ and $W_2$ are trainable weight matrix to perform feature transformation in each layer. By propagating L layers, NGCF obtains $L + 1$ embeddings to describe a user $(\mathbf{e}_u^{(0)},\mathbf{e}_u^{(1)},…,\mathbf{e}_u^{(L)})$ and an item $(\mathbf{e}_i^{(0)},\mathbf{e}_i^{(1)},…,\mathbf{e}_i^{(L)}).$  It then concatenates these $L + 1$ embeddings to obtain the final user embedding and item embedding, using inner product to generate the prediction score</p>
 
@@ -429,20 +427,22 @@ matrices and non-linear activation function.</li>
 
 <p><img src="https://i.ibb.co/sQ9GK0k/image.png" alt="Example Image" /></p>
 <h2 id="light-graph-convolutionlgc">Light Graph Convolution(LGC)</h2>
-<p>By removing nonlinear activation $\sigma (.)$and feature transformation $W_1$  and $W_2$, the graph convolution operation in LightGCN is simplified as:
-$\begin{aligned}\mathbf{e}<em>u^{(k+1)}&amp;=\sum</em>{i\in\mathcal{N}<em>u}\frac{1}{\sqrt{|\mathcal{N}_u|}\sqrt{|\mathcal{N}_i|}}\mathbf{e}_i^{(k)},\\mathbf{e}_i^{(k+1)}&amp;=\sum</em>{u\in\mathcal{N}<em>i}\frac{1}{\sqrt{|\mathcal{N}_i|}\sqrt{|\mathcal{N}_u|}}\mathbf{e}_u^{(k)}.\end{aligned}$
-The symmetric normalization term $\frac{1}{\sqrt{|N</em>{u}|}\sqrt{|N_{i}|}}$follows the design of standard GCN.</p>
+<p>By removing nonlinear activation $\sigma (.)$and feature transformation $W_1$  and $W_2$, the graph convolution operation in LightGCN is simplified as:</p>
+
+<p><img src="https://i.ibb.co/DwsVZ6Q/equation2.png" alt="Example Image" /></p>
+
+<p>The symmetric normalization term $\frac{1}{\sqrt{\vert N_ {u} \vert}\sqrt{\vert N_ {i} \vert}}$follows the design of standard GCN.</p>
 
 <h2 id="layer-combination--model-prediction">Layer Combination &amp; Model Prediction</h2>
 <p>In LightGCN, the only trainable model parameters are the embeddings at the 0-th layer. When $u_i$ given, the embeddings at higher layers can be computed via LGC. After K layers LGC, they further combine the embeddings obtained at each layer to form the final representation of a user (an item): 
-$\mathbf{e}<em>{u}=\sum\limits</em>{k=0}^{K}\alpha_{k}\mathbf{e}<em>{u}^{(k)};\quad\mathbf{e}</em>{i}=\sum\limits_{k=0}^{K}\alpha_{k}\mathbf{e}_{i}^{(k)},\quad$</p>
+<img src="https://i.ibb.co/27Xwwdk/equation3.png" alt="Example Image" /></p>
 
 <p>where $α_k ≥ 0$ denotes the importance of the k-th layer embedding
 in constituting the final embedding. It can be treated as a hyperparameter to be tuned manually, or as a model parameter (e.g., output of an attention network) to be optimized automatically.</p>
 
 <p>The model prediction is defined as the inner product of user and
 item final representations: 
-$\hat{y}<em>{ui}=\mathbf{e}</em>{u}^{T}\mathbf{e}_{i},$</p>
+<img src="https://i.ibb.co/zXrB28Y/equation4.png" alt="Example Image" /></p>
 
 <h1 id="experiments">Experiments</h1>
 
@@ -484,6 +484,35 @@ $\hat{y}<em>{ui}=\mathbf{e}</em>{u}^{T}\mathbf{e}_{i},$</p>
 <p>The contribution of this paper is the development of LightGCN, a simple yet effective model for collaborative filtering. The authors conducted ablation studies to analyze the impact of different operations and found that removing feature transformation and nonlinear activation improved the performance significantly. They also compared LightGCN with other state-of-the-art methods and demonstrated its superiority in terms of recall and ndcg metrics on multiple datasets.</p>
 <h2 id="limitation">Limitation</h2>
 <p>The limitation of this study is that it does not explore the use of dropout mechanisms, which are commonly used in graph convolutional networks (GCNs) and Neural Graph Collaborative Filtering (NGCF). The reason for not using dropout in LightGCN is that it does not have feature transformation weight matrices, so enforcing L2 regularization on the embedding layer is sufficient to prevent overfitting. However, NGCF requires tuning two dropout ratios and normalizing the embedding of each layer to unit length. Additionally, the study found that learning the layer combination coefficients on training data did not lead to improvement, possibly because the training data did not contain sufficient signal to learn good coefficients that can generalize to unknown data. The study also tried learning the coefficients from validation data, which slightly improved performance. However, the exploration of optimal settings for the coefficients, such as personalizing them for different users and items, is left as future work.</p>
+
+<h2 id="author-information">Author Information</h2>
+<h3 id="auther-name">Auther Name:</h3>
+<ul>
+  <li>Xiangnan He</li>
+  <li>Kuan Deng</li>
+  <li>Xiang Wang</li>
+  <li>Yan Li</li>
+  <li>Yongdong Zhang</li>
+  <li>Meng Wang∗</li>
+</ul>
+
+<h3 id="affiliation">Affiliation:</h3>
+
+<ul>
+  <li>University of Science and Technology
+of China</li>
+  <li>National University of Singapore</li>
+  <li>Beijing Kuaishou Technology</li>
+  <li>Hefei University of Technology</li>
+</ul>
+
+<h2 id="reviewer">Reviewer</h2>
+<blockquote>
+  <p><strong>Dewei Zhu</strong><br />
+<strong>Industrial &amp; System Engineering</strong><br />
+<strong>Human Factors &amp; Ergonomics Lab</strong><br />
+<strong>Email</strong>: deweizhu@kaist.ac.kr</p>
+</blockquote>
 
 <h1 id="reference-materials">Reference Materials</h1>
 

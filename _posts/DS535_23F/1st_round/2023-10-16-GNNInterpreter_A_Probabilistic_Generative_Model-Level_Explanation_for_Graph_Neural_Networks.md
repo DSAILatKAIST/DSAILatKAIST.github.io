@@ -150,3 +150,11 @@ Figure 1은 4개 데이터셋에 대한 정량적인 결과를 보여줍니다. 
 ## 5. Conclusion
 
 본 논문에서 제안한 GNNInterpreter는 GNN의 explanation을 위해 확률적 생성 모델의 아이디어를 사용합니다. 각각의 feature의 분포를 가정하고 분포의 parameter를 학습하는 방식으로 그래프의 패턴을 파악합니다. 새로운 objective를 설정하여 node, edge feature에 대한 제약을 줄였으며, 이러한 objective는 도메인과 상관없이 적용될 수 있고, 또한 도메인 지식을 표현하는데 효과를 보였습니다. 실제로 GNNInterpreter는 4개의 데이터셋에서 대해서 유의미한 설명력을 보였으며, 이를 통해 현실 세계의 데이터셋에 대해 좋은 설명력을 보일 것으로 기대됩니다. 또한 latent distribution을 정의함으로써 기존 방법으로 찾지 못하는 새로운 그래프 패턴을 발견할 수 있다는 점에서 Model Explanation (Graph), XAI 분야에 상당한 기여를 했다고 생각됩니다.
+
+## Author Information
+* Kwanghyeon Lee
+  * Affiliation: Applied Artifical Intelligence Lab
+  * Research Topic: Probabilistic Generative Model
+
+## Reference
+* Reference: Wang, X. & Shen, H. (2022, Sep). GNNInterpreter: A Probabilitstic Generative Model-Level Explanation for Graphg Neural Networks. [https://arxiv.org/pdf/2209.07924.pdf]
