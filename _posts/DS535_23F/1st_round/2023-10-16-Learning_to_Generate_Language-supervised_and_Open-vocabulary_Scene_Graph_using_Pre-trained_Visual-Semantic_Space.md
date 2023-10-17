@@ -226,9 +226,17 @@ cap, racket, player, logo, lady, laptop과 같은 novel category에 대해 scene
  
 pre-trained VSS를 활용해 SGG에 적용하여 open vocabulary로 확장하고 language description을 이용해 기존의 label annotation의 한계를 잘 극복하려는 연구다.
 
-  
 
-## **6. Reference & Additional materials**
+## **6. Author Information**
+
+* Author name : Jaehyeong Jeon
+
+	* Affiliation : [DSAIL@KAIST](https://dsail.kaist.ac.kr/)
+	* Research Topic : Scene graph generation
+	* Contact : wogud405@kaist.ac.kr  
+
+
+## **7. Reference & Additional materials**
 
   
 

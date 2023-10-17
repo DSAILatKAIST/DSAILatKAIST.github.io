@@ -17,7 +17,7 @@ Writer: 20233497 이광현
 
 아래의 그림은 XAI 시스템을 표현한 그림입니다.
 
-![image](hhttps://i.ibb.co/sH5CRCs/1-d-C5-Ha-OQVUXn-VPDXWdop65-A.png)
+![image](https://i.ibb.co/cw0s1kG/image0.png)
 
 (출처: https://towardsdatascience.com/knowledge-graphs-for-explainable-ai-dcd73c5c016)
 
