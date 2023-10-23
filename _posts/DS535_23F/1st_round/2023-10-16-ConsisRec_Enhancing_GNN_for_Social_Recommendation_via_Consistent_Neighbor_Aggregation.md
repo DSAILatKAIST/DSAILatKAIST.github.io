@@ -34,7 +34,7 @@ Two metrics were used to evaluate the quality of the social recommendations of t
 
 ### Table 1: Performance results
 
-![](https://hackmd.io/_uploads/SyTE14WW6.png)
+![](https://i.ibb.co/tHBpR67/Screen-Shot-2023-10-09-at-16-41-33.png)
 
 This table includes the performance of the ConsisRec method, as well as the six baselines. The best results are in bold, and the second-best results are underlined. Measured in both MAE and RMSE and using either dataset, ConsisRec outperforms all other measured models. On average, it has a 1.7% relative improvement compared to the second-best in every examined case.
 
@@ -43,13 +43,13 @@ This table includes the performance of the ConsisRec method, as well as the six 
 The "cold-start" problem is a well-known one in the field of recommender systems, where there is an insufficient amount of data about a user or item to use for recommendations. In order to alleviate this issue, alternative sources of information have been utilized, one of which is social network interactions. However, this has led to the "social inconsistency problem", which suggests that social links may not consistently correlate with ratings. The authors of the paper seek to solve this problem using a novel method they call "ConsisRec" which includes a new process for embedding nodes in a graph neural network recommender system that promotes "consistent" node neighbors as a source for the node's embedding. Using two representative datasets for the rating prediction task, the new method outperforms all existing models by an average of 1.7% relative to the second-best performer, as measured in mean absolute error and root-mean-square error.
 
 ## Author Information
-Author: Hugo Dettner Källander
-Affiliation: School of Computing at KAIST
+Author: Hugo Dettner Källander  
+Affiliation: School of Computing at KAIST  
 Research Topic: Recommendation systems and graph machine learning
 
 ## 6. Reference & Additional materials
 
-Github Implementation: https://github.com/YangLiangwei/ConsisRec
+Github Implementation: https://github.com/YangLiangwei/ConsisRec  
 Reference:
 Liangwei Yang, Zhiwei Liu, Yingtong Dou, Jing Ma, and Philip S. Yu. 2021. ConsisRec: Enhancing GNN for Social Recommendation via Consistent Neighbor Aggregation. In Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR ’21), July 11–15, 2021, Virtual Event, Canada. ACM, New York, NY, USA, 5 pages. https://doi.org/10.1145/3404835.3463028
 

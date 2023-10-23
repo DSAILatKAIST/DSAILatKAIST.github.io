@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 18 Oct 2023 20:35:17 +0900</pubDate>
-        <lastBuildDate>Wed, 18 Oct 2023 20:35:17 +0900</lastBuildDate>
+        <pubDate>Mon, 23 Oct 2023 13:30:35 +0900</pubDate>
+        <lastBuildDate>Mon, 23 Oct 2023 13:30:35 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -345,28 +345,12 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;p&gt;However, it may face challenges related to complexity, scalability, and generalizability, and a broader evaluation with diverse datasets and consideration of interpretability is needed to establish its practical applicability. Additionally, a more in-depth analysis of its performance compared to a wider range of state-of-the-art approaches would provide a more comprehensive understanding of its competitiveness.&lt;/p&gt;
 
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
-
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Author Name:&lt;/strong&gt;
+  &lt;li&gt;Mahsa Aghazadeh
     &lt;ul&gt;
-      &lt;li&gt;Taichi Liu&lt;/li&gt;
-      &lt;li&gt;Chen Gao&lt;/li&gt;
-      &lt;li&gt;Zhenyu Wang&lt;/li&gt;
-      &lt;li&gt;Dong Li&lt;/li&gt;
-      &lt;li&gt;Jianye Hao&lt;/li&gt;
-      &lt;li&gt;Depeng Jin&lt;/li&gt;
-      &lt;li&gt;Yong Li&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Affiliation:&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Tsinghua University&lt;/li&gt;
-      &lt;li&gt;Huawei Noah’s Ark Lab&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Research Topic:&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation&lt;/li&gt;
+      &lt;li&gt;Affiliation:  &lt;a href=&quot;http://hfel.kaist.ac.kr/&quot;&gt;Human Factors and Ergonomics Lab&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Research Topic: HCI, Ergonomics, VR/AR&lt;/li&gt;
+      &lt;li&gt;Contact: mahsa_agz@kaist.ac.kr&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;

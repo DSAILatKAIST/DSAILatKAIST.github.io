@@ -112,12 +112,10 @@ RQ.3에 답하기 위해 저자들은 복원추출된 HIT@k 메트릭을 고려�
 반면 저자들은 조건부 확률을 사용하는 것보다 PMI가 더 좋은 성능을 내지만, 사용자에 대한 정보가 없는 등의 상황에서는 그렇지 않을 수 있다는 것을 언급하였다. 또한 인기가 없는 꼬리 부분에 위치한 아이템들의 비율을 추정하는 데에 있어 노이즈가 많을 수 있으며, 이로 인해 이러한 방법인 주가 되어 사용되어진다면 사용자에게 관련이 없거나 이상한 항목을 보여줄 위험이 있을 수 있다는 것을 언급하였다. 
 
 # Author Information
-Roberto Pellegrini
-Amazon Development Centre Scotland, United Kingdom
-Wenjie Zhao
-Amazon Development Centre Scotland, United Kingdom
-Iain Murray
-Amazon Development Centre Scotland, United Kingdom and School of Informatics, University of Edinburgh, United Kingdom
+- Jiwon Park
+	- Affiliation: [AT Policy LAB@KAIST](https://aging.kaist.ac.kr/)
+	- Research Topic: Digital Divide among older adults
+	- Contact: jiwonp99@kaist.ac.kr 
 
 
 # Reference & Additional Materials

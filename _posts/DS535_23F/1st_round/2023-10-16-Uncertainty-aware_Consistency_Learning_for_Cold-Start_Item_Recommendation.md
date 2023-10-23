@@ -128,20 +128,9 @@ The Teacher-Student Consistency Learning component further enhances recommendati
 
 However, it may face challenges related to complexity, scalability, and generalizability, and a broader evaluation with diverse datasets and consideration of interpretability is needed to establish its practical applicability. Additionally, a more in-depth analysis of its performance compared to a wider range of state-of-the-art approaches would provide a more comprehensive understanding of its competitiveness.
 
+
 ## **Author Information**
-
-- **Author Name:**
-	- Taichi Liu
-	- Chen Gao
-	- Zhenyu Wang
-	- Dong Li
-	- Jianye Hao
-	- Depeng Jin
-	- Yong Li
-
-- **Affiliation:**
-	- Tsinghua University
-	- Huawei Noah's Ark Lab
-
-- **Research Topic:**
-	- Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation
+- Mahsa Aghazadeh
+	-  Affiliation:  [Human Factors and Ergonomics Lab](http://hfel.kaist.ac.kr/)
+	-   Research Topic: HCI, Ergonomics, VR/AR
+	-   Contact: mahsa_agz@kaist.ac.kr
