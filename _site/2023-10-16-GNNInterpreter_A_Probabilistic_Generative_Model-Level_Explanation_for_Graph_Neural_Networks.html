@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[ICLR 2023] GNNInterpreter: A Probabilistic Generative Model-Level Explanation for Graph Neural Networks</h1>
-        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
             
             
             
@@ -409,7 +409,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>그래프 구조는 다양한 종류의 Node와 Edge feature를 가지고 있기 때문에 이를 일반적으로 설명하는 method를 제안하는 것은 굉장히 어렵습니다.</li>
 </ul>
 
-<p>현재까지 GNN을 설명하는 연구는 방식에 따라 크게 2가지로 분류할 수 있습니다. Instance-level과 Model-level로 나뉘며, Instance-level explanation은 특정 그래프 인스턴스에 대한 모델의 예측을 설명하는 것에 초점을 맞춘다면, Model-level explanation은 모델의 전반적인 이동을 분석하여 표현하는데 초점을 맞춥니다. 예를 들어, 암을 예측하는 모델이 있다면 Instance-level로는 특정 환자의 특정 이상 건강 정보를 가지고 암이 걸렸음을 설명한다면, Model-level은 전반적으로 어떠한 feature가 암 진단 여부에 얼마나 영향을 미치는지를 설명한다고 생각할 수 있습니다. 그렇기에, Model-level explanation은 Black-Box GNN에 대해 이 모델이 어떠한 feature에 대해 어떻게 움직이고, 특정 feature에 편향된 결과값을 도출하는 지에 대한 여부를 확인할 수 있습니다. Model-level이 더 고차원적인 접근이라고 볼 수 있습니다.</p>
+<p>현재까지 GNN을 설명하는 연구는 방식에 따라 크게 2가지로 분류할 수 있습니다. Instance-level과 Model-level로 나뉘며, Instance-level explanation은 특정 그래프 인스턴스에 대한 모델의 예측을 설명하는 것에 초점을 맞춘다면, Model-level explanation은 모델의 전반적인 움직임을 분석하여 표현하는데 초점을 맞춥니다. 예를 들어, 암을 예측하는 모델이 있다면 Instance-level로는 특정 환자의 특정 이상 건강 정보를 가지고 암이 걸렸음을 설명한다면, Model-level은 전반적으로 어떠한 feature가 암 진단 여부에 얼마나 영향을 미치는지를 설명한다고 생각할 수 있습니다. 그렇기에, Model-level explanation은 Black-Box GNN에 대해 이 모델이 어떠한 feature에 대해 어떻게 움직이고, 특정 feature에 편향된 결과값을 도출하는 지에 대한 여부를 확인할 수 있습니다. Model-level이 더 고차원적인 접근이라고 볼 수 있습니다.</p>
 
 <p>본 논문이 제안한 GNNInterpreter는 기존 Model-level explanation method 중 state-of-art method인 XGNN과 비교하여 다음의 장점을 가지고 있습니다.</p>
 
@@ -436,6 +436,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <ul>
   <li>i번째 Hidden layer에 대한 Message passing은 다음과 같이 표현됩니다. $H^i = f(H^{i-1},A,Z), H^0 = X, where H^i \in {\mathbb {R}}^{N \times F^i}$</li>
+  <li>여기서 $H^i$는 GNN encoder의 $i$번째 layer의 hidden node representation output을 의미하며, $F^i$는 output feature의 dimension을 의미합니다.</li>
 </ul>
 
 <h2 id="3-gnninterpreter-implementation">3. GNNInterpreter Implementation</h2>
@@ -443,10 +444,15 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>본 논문에서는 해당 GNN을 설명하는 과정을 explanation graph을 샘플링하는 것으로 보여줍니다.</p>
 
+<hr />
+<h4 id="여기서-왜-gnninterpreter가-gnn-model-자체를-설명하는-model-level-explanation-method라고-불릴-수-있는지-의문을-가질-수-있습니다-이전-introduction에서-설명-하였듯이-model-level-explanation은-특정-모델의-전반적인-움직임을-설명할-수-있어야-합니다-그리고-gnninterpreter의-경우-probabilistic-generative-model-관점에서-node-edge의-distribution을-학습한다는-점에서-input-gnn-model을-model-level에서-설명할-수-있다고-말할-수-있습니다-variational-autoencoder-vae-또는-diffusion-model과-같은-generative-model에서도-input-image-distribution을-여러-방법으로-inference하는-것처럼-gnninterpreter도-gnn-model-자체를-inference하기-때문에-model-level-explanation-method라-부를-수-있다고-이해하면-좋을-것-같습니다">여기서 왜 GNNInterpreter가 GNN model 자체를 설명하는 Model-level Explanation method라고 불릴 수 있는지 의문을 가질 수 있습니다. 이전 Introduction에서 설명 하였듯이 Model-level Explanation은 특정 모델의 전반적인 움직임을 설명할 수 있어야 합니다. 그리고 GNNInterpreter의 경우 probabilistic generative model 관점에서 Node, Edge의 distribution을 학습한다는 점에서 input GNN model을 Model-level에서 설명할 수 있다고 말할 수 있습니다. Variational AutoEncoder (VAE), 또는 Diffusion Model과 같은 generative model에서도 input image distribution을 여러 방법으로 inference하는 것처럼 GNNInterpreter도 GNN model 자체를 inference하기 때문에 Model-level Explanation method라 부를 수 있다고 이해하면 좋을 것 같습니다.</h4>
+<hr />
+
 <p>GNNInterpreter의 학습을 위한 Objective Function은 아래와 같이 정의됩니다.
 \(L(G)=L(A,Z,X)=\phi_c(A,Z,X)+\mu sim_{cos}(\psi(A,Z,X), \bar{\psi}_c)\)
-그리고 모델 학습은 위의 Objective function을 maximize하는 $A,Z,X$를 찾는, learning objective를 가집니다.
-<img src="https://i.ibb.co/qNhkbLJ/image1.png" alt="image" /></p>
+그리고 모델 학습은 위의 Objective function을 maximize하는 $A,Z,X$를 찾는, learning objective를 가집니다.</p>
+
+<p><img src="https://i.ibb.co/zV3JHB3/image1.png" alt="image" /></p>
 
 <p>여기서 $\phi_c, \psi, \bar{\psi}_c$는 각각 다음의 역할을 합니다.</p>
 <ul>
@@ -578,7 +584,7 @@ MUTAG는 분자구조에 따른 돌연변이 여부와 관련된 데이터셋으
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 23, 2023 <br />
+ Site last generated: Nov 20, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

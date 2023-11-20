@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 23 Oct 2023 13:30:35 +0900</pubDate>
-        <lastBuildDate>Mon, 23 Oct 2023 13:30:35 +0900</lastBuildDate>
+        <pubDate>Mon, 20 Nov 2023 17:06:51 +0900</pubDate>
+        <lastBuildDate>Mon, 20 Nov 2023 17:06:51 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -29,39 +29,40 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;추천에서의 다양성:
+    &lt;p&gt;&lt;strong&gt;다양성&lt;/strong&gt;:
 다양성은 추천 목록에서 유사성이 다른 아이템을 생성하도록 장려하는 방안이다. 이는 후처리 및 엔드-투-엔드 방법으로 나눌 수 있다. 전자는 몇몇 모델에 의해 생성된 추천 목록을 다시 순위 지정을 통해 다양화시키며, 후자는 모델 훈련 및 예측 과정에서 정확도와 다양성의 균형을 맞추는 방향으로 진행된다. 그러나 이러한 방식들 역시 단순히 사용자에게 다양한 아이템을 추천한 후 사용자의 피드백을 통해 새로운 아이템 카테고리를 발굴해가는 것으로 많은 시간이 필요하다. 심지어 다양한 아이템을 추천하는 단계에서 사용자 선호도와 관련 없는 아이템을 많이 가져올 수 있다는 단점이 있다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;추천에서의 공정성:
+    &lt;p&gt;&lt;strong&gt;공정성&lt;/strong&gt;:
 추천시스템에서 공정성을 달성하기 위해서는 다양한 사용자 그룹 또는 아이템 카테고리 간에 균형을 맞추어야 한다. 이것은 특정 그룹에게 더 많은 추천을 하도록 조절하거나 특정 카테고리의 아이템을 다른 것보다 자주 포함시키는 것을 의미하여 필터버블을 어느 정도 완화할 수 있다. 그러나 이렇게 균형을 맞추는 과정에서, 일부 사용자 또는 아이템 그룹에 대한 추천 정확성을 희생시킬 수 있다. 예를 들어, 만약 특정 사용자 그룹에게 더 많은 공정성을 부여하려면 그 그룹에 대한 추천 목록에서 다른 사용자 그룹의 선호를 무시하고 그 그룹에 맞춰야 할 수 있기 때문에 그 그룹에 대한 정확한 추천이 희생되고 사용자 경험이 저하될 수 있다.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;이렇듯 기존 접근 방식은 다양성, 공정성을 고려하여 필터버블을 완화하지만 정확성과 사용자 경험을 희생해야 한다는 단점이 있다.&lt;/p&gt;
 
-&lt;p&gt;또한, 사용자의 피드백을 통해서 추천시스템이 모델 훈련-예측의 무한 루프를 도는 과정에서, 사용자는 추천 결과를 수동적으로만 받아들이게 때문에 진정한 ‘개별맞춤’ 결과를 생성하기까진 많은 시간과 비용을 필요로 하다. 즉, 비록 추천시스템이 사용자의 선호도를 기반으로 결과를 생성하긴 하지만, 다양성과 공정성 향상 과정에서 다시 불필요한 정보까지 포함시킬 수 있기 때문에 사용자가 자신에게 필요한 정보만을 얻기 위해선 생성된 추천 결과에 대해 ‘like’ 혹은 ‘dislike’ 등 지속적인 피드백을 제공하고 학습을 시켜야 한다.&lt;/p&gt;
+&lt;p&gt;또한, 사용자의 피드백을 통해 추천시스템이 모델 훈련-예측의 무한 루프를 도는 과정에서, 사용자는 추천 결과를 수동적으로만 받아들이게 때문에 진정한 ‘개별맞춤’ 결과를 생성하기까진 많은 시간과 비용을 필요로 한다. 즉, 비록 추천시스템이 사용자의 선호도를 기반으로 결과를 생성하긴 하지만, 다양성과 공정성 향상 과정에서 다시 불필요한 정보까지 포함시킬 수 있기 때문에 사용자가 자신에게 필요한 정보만을 얻기 위해선 생성된 추천 결과에 대해 ‘like’ 혹은 ‘dislike’ 등 지속적인 피드백을 제공하고 학습을 시켜야 한다.&lt;/p&gt;
 
-&lt;p&gt;따라서, 동 연구는 사용자가 직접 컨트롤을 통해 자신이 원하는 추천 결과를 생성할 수 있게끔 ‘User-Controllable Recommendation System(UCRS)’ 방안을 제시했다.&lt;/p&gt;
+&lt;p&gt;따라서, 저자는 사용자가 직접 컨트롤을 통해 자신이 원하는 추천 결과를 생성할 수 있게끔 ‘User-Controllable Recommendation System(UCRS)’ 방안을 제시했다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/9wXYx34/rsloop.png&quot; alt=&quot;rsloop&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;사용자가 제어할 수 있는 추천시스템인 UCRS는 기존 추천시스템 외에 아래 3가지 기능을 추가시켰다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;필터버블의 수준을 측정하여 사용자에게 알려주는 필터버블 경고 기능&lt;/li&gt;
-  &lt;li&gt;4가지 수준의 제어 명령 기능&lt;/li&gt;
-  &lt;li&gt;사용자 제어에 따라 추천결과를 조정하는 응답 메커니즘&lt;/li&gt;
-&lt;/ol&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;필터버블의 탐지하여 사용자에게 알려주는 필터버블 경고 기능&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;4가지 수준의 제어 명령 기능&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;사용자 제어에 따라 추천결과를 조정하는 응답 메커니즘&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;이로써, 동 연구는 사용자가 추천시스템의 동작을 제어할 수 있는 방법을 제공하여 사용자의 참여를 촉진하고, 사용자가 더 많은 표현력과 제어권을 가지게 함으로써 사용자 경험을 향상시키는 것을 목적으로 삼았다.&lt;/p&gt;
+&lt;p&gt;이로써, 저자는 사용자가 추천시스템의 동작을 제어할 수 있는 방법을 제공하여 사용자의 참여를 촉진하고, 사용자가 더 많은 표현력과 제어권을 가지게 함으로써 사용자 경험을 향상시키는 것을 목적으로 삼았다.&lt;/p&gt;
 
-&lt;p&gt;이와 더불어, 동 연구는 앞서 말한 응답 메거니즘 단계에서 사용자 A가 1년 전에는 액션 영화를 많이 시청했지만 현재는 코미디 영화에 더 관심이 있을 수 있는 것처럼 시간 지남에 따라 사용자의 선호도가 변할 수 있다는 점까지 인식하였다. 이에 따라, 사용자 표현의 오래된 정보가 추천에 미치는 영향을 완화하는 데 중점을 둔 ‘User-Controllable Inference(UCI)’ 프레임 워크가 제안되었다.&lt;/p&gt;
+&lt;p&gt;이와 더불어, 저자는 앞서 말한 응답 메커니즘 단계에서 사용자 A가 1년 전에는 액션 영화를 많이 시청했지만 현재는 코미디 영화에 더 관심이 있을 수 있는 것처럼 시간이 지남에 따라 사용자의 선호도가 변할 수 있다는 점까지 인식하였다. 이에 따라, 사용자 표현의 오래된 정보가 추천에 미치는 영향을 완화하는 데 중점을 둔 ‘User-Controllable Inference(UCI)’ 프레임 워크가 제안되었다.&lt;/p&gt;
 
-&lt;p&gt;UCI는 사용자가 제어 명령을 제공하면,  반 사실(counterfactual)인 대조적 추론을 사용하여 과거에 나온 사용자 표현의 영향을 줄이는 방안이다. 예를 들어, 여성인 사용자 B는 여성 사용자 그룹이 선호하는 영화 리스트에 질려 남성 사용자 그룹이 선호하는 영화 리스트를 추천시키는 제어 명령을 내렸다고 가정하자. 이 때, 반 사실인 대조적 추론은 ‘사용자 B가 남성이라면 추천 리스트는 어떻게 변할까?’라는 질문의 대한 예측이라고 생각할 수 있다. 즉, UCI는 오래된 사용자 표현이 폐기되는 반 사실 세계를 상상하고 이런 반 사실 조건에 맞는 새로운 추천 결과를 생성한다. 이로써 과거 사용자-아이템 간 상호작용 패턴에 극한되지 않고 사용자가 원하는 추천을 얻을 수 있다.&lt;/p&gt;
+&lt;p&gt;UCI는 사용자가 제어 명령을 제공하면,  반 사실(counterfactual)인 대조적 추론을 사용하여 과거에 나온 사용자 표현의 영향을 줄이는 방안이다. 예를 들어, 여성인 사용자 B는 여성 사용자 그룹이 선호하는 영화 리스트에 질려 남성 사용자 그룹이 선호하는 영화 리스트를 추천시키는 제어 명령을 내렸다고 가정하자. 이 때, 반 사실인 대조적 추론은 ‘사용자 B가 남성이라면 추천 리스트는 어떻게 변할까?’라는 질문의 대한 예측이라고 생각할 수 있다. 즉, UCI는 오래된 사용자 표현이 폐기되는 반 사실 세계를 가정하고 이런 조건에 맞는 새로운 추천 결과를 생성한다. 이로써 과거 사용자-아이템 간 상호작용 패턴에 극한되지 않고 사용자가 원하는 추천을 얻을 수 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-preliminary&quot;&gt;3. Preliminary&lt;/h2&gt;
-&lt;p&gt;동 연구는 Method를 확립하기 전에 다양한 사용자 그룹에 대한 필터버블 결과를 분석하는 사전 실험을 수행했다:&lt;/p&gt;
+&lt;h3 id=&quot;31-experimental-settings&quot;&gt;3.1 Experimental settings&lt;/h3&gt;
+&lt;p&gt;저자는 Method를 확립하기에 앞서 추천시스템에서 필터버블이 어떠한 유형으로 발생되는지 알아보는 사전 실험을 수행했다:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;대표적인 추천 모델인 Factorization Machine (FM)을 DIGIX-Video, Amazon-Book 및 ML-1M과 같은 세 개의 공개 데이터셋에 훈련시킴.&lt;/li&gt;
@@ -70,6 +71,7 @@
   &lt;li&gt;FM이 생성한 추천결과와 사용자 그룹에 따른 사용자의 과거 상호작용 패턴을 비교함.&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h3 id=&quot;32-analysis&quot;&gt;3.2 Analysis&lt;/h3&gt;
 &lt;p&gt;분석 결과로는, 사용자 특성과 아이템 특성(Item Features) 2가지 측면에서 필터버블이 존재한다는 사실이 발견되었다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/0c9Qt8R/fbresult.png&quot; alt=&quot;fbresult&quot; /&gt;&lt;/p&gt;
@@ -80,46 +82,125 @@
 
 &lt;p&gt;또한, 이미지 2(d) 및 2(e)는 Amazon-Book 및 ML-1M 데이터셋에 대해 사용자 상호작용에 따라 나눈 결과이다. 동 결과에서도 과거 사용자 상호작용 패턴에 따른 카테고리 편향 증폭이 발견되었다. 즉, 사용자으로부터 가장 큰 관심을 받은 카테고리가 이후 추천 목록에서도 증가된 것이다. 이는 필터버블의 강화를 초래하고 사용자의 관심을 좁혀 사용자 그룹 분리로 이어지게 된다.&lt;/p&gt;
 
+&lt;p&gt;따라서, 저자는 사용자 특성과 아이템 특성 2가지 측면에서 필터버블을 완화하는 UCRS 체계를 제안했다.&lt;/p&gt;
+
 &lt;h2 id=&quot;4-method&quot;&gt;&lt;strong&gt;4. Method&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#3-method&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;전반적으로 동 연구는 커버리지(Coverage), 격리지수(Isolation Index), 최다 카테고리 지배도(Majority Category Domination, MCD) 등 지표를 통해 필터버블의 수준을 실시간으로 감지하고 사용자에게 알람을 보내는 경고 기능을 구현했다.&lt;/p&gt;
+&lt;p&gt;전반적으로 저자는 커버리지(Coverage), 격리지수(Isolation Index), 최다 카테고리 지배도(Majority Category Domination, MCD) 등 지표를 통해 필터버블의 수준을 실시간으로 감지하고 사용자에게 알람을 보내는 경고 기능을 구현했다.&lt;/p&gt;
 
-&lt;p&gt;또한, 제어 명령 기능과 관련해서는 앞서 사전 실험에서 사용자 특성과 아이템 특성 2가지 측면에서 필터버블이 존재한다는 사실을 발견함에 따라, UCRS를 설계할 때에도 사용자 특성과 아이템 특성 각각의 방면에서 제어시스템을 구현했다.&lt;/p&gt;
+&lt;p&gt;또한, 제어 명령 기능과 관련해서는 앞서 사전 실험 결과에 따라, 사용자 특성과 아이템 특성 2가지 방면에서 UCRS 제어시스템을 구현했다.&lt;/p&gt;
 
-&lt;p&gt;마지막으로, 사용자 제어에 따라 추천결과를 조정하는 반 사실 대조적 추론 응답 메커니즘을 통해 필터버블을 완화하는 동시에 정확성은 유지하고 사용자가 원하는 결과를 얻을 수 있는 추천시스템을 구현했다.&lt;/p&gt;
+&lt;p&gt;마지막으로, 사용자 제어에 따라 추천결과를 조정하는 반 사실 추론 응답 메커니즘을 통해 필터버블을 완화하는 동시에 추천 정확성은 유지하고 사용자가 원하는 결과를 얻을 수 있는 추천시스템을 구현했다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/7Nrkm21/ucrs.png&quot; alt=&quot;ucrs&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;41-필터버블-감지-지표&quot;&gt;4.1 필터버블 감지 지표&lt;/h3&gt;
-&lt;p&gt;추천시스템에서 필터버블을 감지한다는 것은 다양성을 제한하고 특정 그룹 내에서 사용자를 고립시키는 개인화된 추천의 심각도를 측정하는 것을 의미한다. 추천 목록의 항목 카테고리 수를 계산하는 Coverage와 서로 다른 사용자 특성 그룹 간의 분리를 평가하는 Isolation Index와 같은 지표를 사용하여 필터버블의 심각도를 정량화할 수 있다. MCD는 아이템 특성과 관련된 필터버블을 감지하는 용도로 사용되어 가장 자주 추천되는 아이템 카테고리의 비율을 확인할 수 있다. 시간이 지남에 따라 MCD가 증가하면 아이템 카테고리와 관련된 필터 버블의 심각성이 커지고 있음을 나타낸다. 이러한 지표들을 통해 사용자에게 실시간으로 필터버블 경고를 보내고 이를 제어할지 여부를 결정하게 도울 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Coverage&lt;/strong&gt;:
+필터버블은 추천 항목의 다양성을 감소시키는 경우가 많으므로 추천 목록의 카테고리 수를 계산하는 Coverage를 다양성 척도로 사용했다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Isolation Index&lt;/strong&gt;: 
+다양성 척도 외에도 저자는 서로 다른 사용자 그룹 간의 분리수준을 측정하기 위해 Isolation Index를 제안했다. 두 사용자 그룹 a와 b가 주어졌을 때 권장 격리 지수는 다음과 같이 계산할 수 있다:
+&lt;img src=&quot;https://i.ibb.co/vDmB3Dx/isolation.png&quot; alt=&quot;isolation&quot; /&gt;
+여기서 $I$는 아이템 집합을 의미하며,  $a_ {i}$와 $b_{i}$는 그룹 $a$와 그룹 $b$에서 추천 아이템 $i$를 받은 사용자 수를 나타낸다. $a_{n} = ∑&lt;em&gt;{i ∈ I} a&lt;/em&gt;{i}$는 그룹 $a$에서 해당 아이템의 총 노출 빈도이며, $b_{n}$도 같은 방법으로 계산된다.  마지막으로, $s$는 그룹 a의 아이템 노출 빈도 가중 평균 값에서 그룹 b의 가중 평균 값을 뺀 값과 같으며, $\frac{a_i}{a_i+b_i}$가 가중치가 된다. 즉, s는 0~1 사이의 값을 가지며,  두 그룹 간의 권장 분리 수준을 나타내고, 값이 클수록 더 심한 분리를 의미하게 된다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;MCD&lt;/strong&gt;:
+MCD는 아이템 특성과 관련된 필터버블을 감지하는 용도로 사용되어 가장 자주 추천되는 아이템 카테고리의 비율을 확인할 수 있다. 시간이 지남에 따라 MCD가 증가하면 아이템 카테고리와 관련된 필터 버블의 심각성이 커지고 있음을 나타낸다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;결론적으로 이러한 지표들을 통해 사용자에게 실시간으로 필터버블 경고를 보내고 이를 제어할지 여부를 결정하게 도울 수 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;42-제어-명령-기능&quot;&gt;4.2 제어 명령 기능&lt;/h3&gt;
-&lt;p&gt;사용자의 과거 상호작용 데이터인 𝐷가 주어졌을 때, 기존의 추천 모델은 추천 𝑅을 예측하기 위해 𝑃(𝑅|𝐷)를 사용한다. 그러나 UCRS는 추가로 사용자 제어인 𝐶를 고려하며 사용자 개입(𝑑𝑜(𝐶))을 통해 𝑃(𝑅|𝐷, 𝑑𝑜(𝐶))를 추정할 것을 제시했다. 이때, 사용자 제어과 관련해서 UCRS는 사용자 및 항목별로 ‘Fine-grained controls’와 ‘Coarse-grained controls’를 2수준으로 나눠 총 4가지 유형의 사용자 제어를 제시했다.&lt;/p&gt;
+&lt;p&gt;사용자의 과거 상호작용 데이터인 𝐷가 주어졌을 때, 기존의 추천 모델은 추천 𝑅을 예측하기 위해 𝑃(𝑅|𝐷)를 사용한다. 그러나 UCRS는 추가로 사용자 제어인 𝐶를 고려하며 사용자 개입(𝑑𝑜(𝐶))을 통해 𝑃(𝑅|𝐷, 𝑑𝑜(𝐶))를 추정할 것을 제시했다. 이때, 사용자 및 아이템 제어 각각 ‘Fine-grained controls’와 ‘Coarse-grained controls’ 2가지 세부 수준으로 또 나눠져 총 4가지 유형의 사용자 제어가 제시됐다.&lt;/p&gt;
 
 &lt;h4 id=&quot;421-사용자-특성-제어user-feature-controls&quot;&gt;4.2.1 사용자 특성 제어(User-feature Controls)&lt;/h4&gt;
-&lt;p&gt;N가지 사용자 특성과 사용자 𝑢가 있을 때, 사용자 𝑢는 $x_ u = [ x^1_ {u}, \ldots, x^n_ {u}, \ldots,  x^N_ {u} ], \text{ where }  x^n_ {u} \in {0,1 }$ 로 나타내며, 여기서 $x^n_ {u} \in {0,1 }$
-는 사용자 𝑢가 사용자 특성 $x^n$을 가지고 있는지 여부를 나타낸다. 예를 들어, 특성 $x_ {1}$과 $x_ {2}$가 남성과 여성을 나타낸다면, $x_ {u}$ = [0, 1]은 사용자 𝑢가 여성임을 뜻한다.&lt;/p&gt;
+&lt;p&gt;N가지 사용자 특성과 사용자 𝑢가 있을 때, 사용자 𝑢는 $x_ u = [ x^1_ {u}, \ldots, x^n_ {u}, \ldots,  x^N_ {u} ], \text{ where }  x^n_ {u} \in {0,1 }$ 로 표현되며, 여기서 $x^n_ {u} \in {0,1 }$는 사용자 𝑢가 사용자 특성 $x^n$을 가지고 있는지 여부를 나타낸다. 예를 들어,  [$x^{1}$과 $x^{2}$]가 남성과 여성을 나타낸다면, $x_ {u}$ = [0, 1]은 사용자 𝑢가 여성임을 뜻한다.&lt;/p&gt;
 
-&lt;p&gt;사용자 특성 제어는 ‘Fine-grained controls’와 ‘Coarse-grained controls’를 2수준으로 또 나뉘게 된다.  ‘Fine-grained controls’에서는 사용자가 세분화된 사용자 특성을 활용하여 구체적인 제어를 통해 다른 사용자 그룹의 관심사에 맞는 추천을 받을 수 있게 된다(예: 30대 사용자가 10대가 선호하는 동영상을 추천 받기).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Fine-grained controls&lt;/strong&gt;
+사용자 특성 측면에서 발생되는 필터버블(예: 성별 및 연령)을 완화하기 위해 저자는 UCRS가 다른 사용자 그룹이 좋아하는 항목을 더 많이 추천하도록 하는 세분화된 사용자 특성 컨트롤을 설계했다.&lt;/p&gt;
 
-&lt;p&gt;반면에 ‘Coarse-grained controls’를 사용하면 사용자의 기존 특성만을 제한하는 방안으로 추천을 줄이게 된다. 예를 들어, ‘연령=30’처럼 사용자의 나이 특성을 제거함으로써 기존 자신의 사용자 그룹에 제시되었던 추천을 줄임으로써 필터버블을 완화할 수 있다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;예를 들어, 30대의 중년 사용자는 10대가 좋아하는 영화에 관심이 있을 수 있다. 이 때, 사용자 $u$에 대한 𝑃(𝑅&lt;/td&gt;
+      &lt;td&gt;𝐷, 𝑑𝑜(𝐶))를 계산할 때, 제어령은 $do(C=c_u(+ \hat{x},\alpha))$와 같이 쓸 수 있다. 여기서 $c_u(+\hat{x},\alpha)$는 다른 사용자 그룹$\hat{x}$에서 많이 추천되는 아이템을 더 많이 노출시키는 제어령이다. 참고로 $\hat{x}$는 사용자 $u$가 기존에 가지고 있지 않았던 feature이어야 한다. $α ∈ [0,1]$는 사용자 제어의 강도를 조정하는 계수이다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Coarse-grained controls&lt;/strong&gt;
+하지만, 사용자는 단순히 필터버블을 제거하길 원하지 다른 사용자 그룹이 좋아하는 아이템은 추천 받고 싶지 않을 수 있다. 혹은 어떤 사용자 그룹이 더 좋은 추천 결과를 가지는지 모르는 사용자도 있을 것이다. 따라서 저자는 사용자가 자신이 속한 그룹의 필터버블을 벗어날 수 있도록 coarse-grained 수준의 제어령도 설계했다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;예를 들어, 중년 사용자는 추천리스트가 ‘연령=30세’로 제한되는 것을 원하지 않는다고 가정하자. 𝑃(𝑅&lt;/td&gt;
+      &lt;td&gt;𝐷, 𝑑𝑜(𝐶))에서 제어령은 $do(C = c_u(-\overline{x},\alpha))$로 표현된다. 이로써 기존에 자신의 사용자 그룹에 제시되었던 feature $\overline{x}$을 줄임으로써 필터버블을 완화할 수 있다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h4 id=&quot;422-아이템-특성-제어item-feature-controls&quot;&gt;4.2.2 아이템 특성 제어(Item-feature Controls)&lt;/h4&gt;
-&lt;p&gt;사용자 기능 제어는 사용자 특성과 관련된 필터버블을 해결하지만 사용자 상호 작용의 영향은 고려하지 않는다. 사용자 특성 제어를 보완하기 위해 아이템 특성 제어가 도입되어 아이템 특성에 따라 추천 목록을 조정할 수 있다. 이러한 제어 명령을 사용하면 액션 영화와 같은 특정 카테고리에 속하는지 여부와 같은 아이템의 특성을 고려하여 추천을 지정할 수 있게 된다.&lt;/p&gt;
+&lt;p&gt;사용자 기능 제어는 사용자 특성과 관련된 필터버블을 해결하지만 사용자 상호 작용의 영향은 고려하지 않는다. 사용자 특성 제어를 보완하기 위해 아이템 특성 제어를 도입시키면서 추천 목록을 조정할 수 있다. 이러한 제어령을 사용하면 카테고리(예: 액션 영화, 로맨스 영화) 등 아이템 특성을 고려하여 추천시스템을 설정할 수 있게 된다.&lt;/p&gt;
 
-&lt;p&gt;M개의 아이템 특성과 아이템 i는 $h _{i} = [ h^1 _{i}, \ldots, h^m _{i}, \ldots,  h^M _{i} ], \text{ where }  h^n _{i} \in {0,1 }$ 로 나타내며, 여기서 $h^m _{i} \in {0,1 }$ 는 아이템i가 아이템 특성 $h^m$ 을 가지고 있는지 여부를 나타낸다.&lt;/p&gt;
+&lt;p&gt;M개의 아이템 특성과 아이템$i$는 $h _{i} = [ h^1 _{i}, \ldots, h^m _{i}, \ldots,  h^M _{i} ], \text{ where }  h^m _{i} \in {0,1 }$ 로 나타내며, 여기서 $h^m _{i} \in {0,1 }$ 는 아이템$i$가 아이템 특성 $h^m$ 을 가지고 있는지를 나타낸다.&lt;/p&gt;
 
-&lt;p&gt;‘Fine-grained controls’에서는 사용자가 특정 아이템 카테고리의 추천을 늘리도록 허용할 수 있다. 예를 들어 로맨스 영화와 같은 특정 카테고리의 아이템을 더 많이 받을 수 있게끔 구체적인 제어 명령을 내릴 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Fine-grained controls&lt;/strong&gt;
+Fine-grained controls에서는 사용자가 특정 아이템 카테고리의 추천을 늘리도록 허용할 수 있다. 예를 들어 로맨스 영화와 같은 특정 카테고리의 아이템을 더 많이 받을 수 있게끔 구체적인 제어령을 내릴 수 있다. $do(C=c_i(+\hat{h},\beta))$로 표현되며, $\hat{h}$는 타겟 아이템 카테고리이며, $β ∈ [ 0 , 1 ]$는 사용자 제어 강도를 조정하는 계수이다.&lt;/p&gt;
 
-&lt;p&gt;‘Coarse-grained controls’에서는 사용자의 과거 상호작용에서 가장 큰 아이템 카테고리의 추천을 줄이도록 진행된다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Coarse-grained controls&lt;/strong&gt;
+ Coarse-grained controls는 사용자가 타겟 카테고리를 지정해야 하는 부담을 줄이기 위해 제안됐다. 이는 사용자의 과거 상호작용에서 가장 큰 비중을 차지했던 아이템 카테고리의 추천을 줄이도록 진행된다. 제어령은 $do(C=c_i(-\overline{h},\beta))$처럼 표현된다.&lt;/p&gt;
 
-&lt;p&gt;종합적으로 보면,  UCRS의 ‘Fine-grained controls’에서는 사용자가 세분화된 사용자 혹은 아이템 특성을 활용하여 구체적인 제어 명령을 통해 특정 추천 목표를 달성하는 방안이고,  ‘Coarse-grained controls’는 세분화된 특성에 대해서 사용자가 구체적인 제어 명령을 지시할 필요없이 간단하게 필터버블을 완화하는 방법을 구현했다.&lt;/p&gt;
+&lt;p&gt;종합적으로 보면,  UCRS의 Fine-grained controls는 사용자가 세분화된 사용자 혹은 아이템 특성을 활용하여 구체적인 제어 명령을 통해 특정 추천 목표를 달성하는 방안이고,  Coarse-grained controls는 세분화된 특성에 대해서 사용자가 구체적인 제어 명령을 지시할 필요 없이 간단하게 필터버블을 완화하는 방법이다.&lt;/p&gt;
 
 &lt;h3 id=&quot;43-반-사실적counterfactual-응답-메커니즘&quot;&gt;4.3 반 사실적(Counterfactual) 응답 메커니즘&lt;/h3&gt;
-&lt;p&gt;‘Fine-grained controls’에는 연령과 같이 변경된 사용자 특성을 기반으로 추천을 생성하여 다양한 사용자 그룹에서 사실과 다른 질문에 답하는 추론 과정이 포함된다.&lt;/p&gt;
+&lt;p&gt;Fine-grained controls나 Coarse-grained controls에서는 연령 혹은 카테고리 등 변경된 features를 기반으로 추천리스트를 새롭게 생성하게 된다. 여기서 기존 features에 대해 사실과 다른 질문에 답하는 추론 과정이 포함된다. 이게 무슨 뜻인지 아래 내용에서 더 자세히 설명하겠다.&lt;/p&gt;
 
-&lt;p&gt;UCI는 사용자의 이전 상호작용 패턴에 반대되는 반 사실적인 조건 아래에서 새로운 추천을 생성하게 된다. 이를 통해 사용자가 과거 패턴에 제한받지 않고 원하는 추천을 받을 수 있다.&lt;/p&gt;
+&lt;h4 id=&quot;431-response-to-user-feature-controls&quot;&gt;4.3.1 Response to User-feature Controls&lt;/h4&gt;
+&lt;p&gt;앞서 User-feature Controls의 Fine-grained controls에서 $do(C=c_u(+\hat{x},\alpha))$ 제어령을 사용하는 것을 확인했다. 이에 따라, UCRS는 변경된 $\hat{x}$를 기반으로 추천을 생성해야 한다. 예를 들어, 30대 중년이 10대가 좋아하는 영화 리스트를 보고 싶은 경우, 인과적 관점에서 볼 때, 제어령의 목표는 반 사실적인 질문에 답하는 것이다. 즉, “사용자가 $\hat{x$}에 속한다면 사용자의 추천은 어떻게 될 것인가?”라는 질문에 답하는 것이라고 생각하면 된다. 마찬가지로, Coarse-grained controls는 “사용자가 실제 그룹 $\overline{x}$에 속하지 않는 경우 사용자의 추천은 어떻게 될 것인가?”라는 질문에 답하는 것이다. 이런 반 사실적 질문에 답하기 위해 UCI 프레임워크는 사용자 features과 추천 간의 인과적 연관성을 식별하고 반 사실적 추론을 수행해야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Sx0GdrJ/causal-graph.png&quot; alt=&quot;causal_graph&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Causal view of generating recommendations&lt;/strong&gt;
+Figure 4는 추천 생성 과정을 나타낸다. 대부분의 모델에서 추천시스템은 사용자 ID, 나이, 성별 등 상호작용을 통해 사용자 표현을 학습한다. 즉, 사용자 $u$와 항목 $i$에 대한 표현은 사용자가 한 아이템을 선호할 확률$Y_{u,i}\in [0,1]$를 예측하는 데 사용된다.  $Y_{u,i}$는 각 features와 상응하는 그룹들의 선호도를 반영한다.&lt;/p&gt;
+
+&lt;p&gt;반 사실적 추론에 답하려면 Fine-grained controls에서는 특정 $\hat{x}$를 변경하고, Coarse-grained controls에서는 특정 $\overline{x}$를 제거하는 게 직관적인 판단일 것이다. 그러나 Figure 4에서 볼 수 있듯이 추천시스템 학습 과정에는 features 간 상호작용 또한 이루어진다. 예를 들어, 나이를 30세에서 18세로 변경하거나 아예 제거하더라도, ‘User ID’는 여전히 과거 features 간의 상호작용을 인코딩하므로 사용자가 새로 원하는 추천을 방해하게 된다.&lt;/p&gt;
+
+&lt;p&gt;이런 방해를 제거하기 위해 기존 연구에서는 confounder balancing, back-door/front-door adjustments이 널리 사용됐다. confounder balancing과 back-door adjustments를 사용하려면 방해 요소가 표현에 미치는 인과적 효과를 추정해야 하는데 이런 추정은 거의 불가능하다. 왜냐하면 (1) 사용자 상호작용은 시간 지남에 따라 새로운 상호작용이 지속적으로 추가되는 동적인 고차원 공간에서 이뤄지며, (2) 사용자 상호작용이 표현에 미치는 영향은 추천시스템의 학습 과정에 따라 결정되고, 학습 접근 방식에 따라 결과도 달라지기 때문이다. 또한 front-door adjustments 조정을 위해서는 모든 back-door 경로를 차단하는 매개체를 밝혀내야 하는데, 이는 Figure 4의 인과 그래프에는 적용할 수 없다. 이러한 문제를 해결하기 위해 저자는 추론 과정에서 ‘User ID’ 표현이 예측 결과 $Y_{u,i}$에 미치는 영향을 직접적으로 줄이는 방법을 제안했으며, 이를 통해 학습 과정을 알지 못해도 features가 가지고 있는 과거 정보의 영향을 효과적으로 줄일 수 있게 됐다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Implementation of counterfactual inference&lt;/strong&gt;
+UCI 프레임워크는 먼저 사실과 반대되는 추론을 사용하여 ‘User ID’ 표현의 효과를 추정하고, 원래 예측 $Y_{u,i}$에서 해당 효과를 뺀 다음 추정을 재개한다. 즉, 사용자 $u$가 ID 표현이 없는 경우를 가정한 $Y_{\hat{u},i}$를 예측하는 것이다. $Y_{u,i}-Y_{\hat{u},i}$를 사용하여 ‘User ID’의 효과를 측정할 수 있으며 $α$ 계수를 사용하여 강도를 조절할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/QFJSc4J/uci.png&quot; alt=&quot;uci&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;432-response-to-item-feature-control&quot;&gt;4.3.2 Response to Item-feature Control&lt;/h4&gt;
+&lt;p&gt;Item-feature Control에서 Fine-grained controls는 아이템 카테고리$\hat{h}$의 수를 늘리는 것을 목표로 하고, Coarse-grained controls는 최다 카테고리 $\overline{h}$를 줄이는 것을 목표로 한다. 사실 이러한 과정 중에는 이하 2가지 질문이 내포되어 있다: (1) 사용자가 더 많은 특정 카테고리 $\hat{h}$를 원한다면 어떻게 될 것인가? (2) 사용자가 최다 카테고리 $\overline{h}$를 원하지 않으면 어떻게 될 것인가? 이러한 질문에 답하기 위해 UCI 프레임워크는 사용자가 추천 순서(ranking)을 제어할 수 있도록 아래와 같이 설계했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/0XZhPPg/ranking.png&quot; alt=&quot;ranking&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 $Y_{u,i}$는 수정된 순서 점수이고 $β ∈ [ 0 , 1 ]$는 제어 강도를 조정하는 계수이다. $r(i)$는 아이템 $i$의 정규화 항을 나타낸다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/94WHy7y/r.png&quot; alt=&quot;r(i)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fine-grained controls에서 $r(i)$는 더 많은 타겟 카테고리 $\hat{h}$를 추천하도록 권장하고, Coarse-grained controls를 적용하는 경우 최다 카테고리 $\overline{h}$를 줄이도록 조정이 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Target category prediction&lt;/strong&gt;
+현실에서는 아이템 카테고리의 수가 많기 때문에 Fine-grained controls에서 타겟 카테고리를 선별하는 것은 사용자에게 시간적 부담이 될 수 있다. Coarse-grained controls를 통해 이러한 부담을 일부 해소할 수 있지만, 만약 Fine-grained controls에서 사용자가 선호할 수 있는 타겟 카테고리를 예측할 수만 있다면 사용자 부담도 줄고 더욱 정확한 결과를 생성할 수 있다. 사용자가 추천리스트에서 최대 카테고리를 줄이려는 경우, 해당 사용자가 선호할 가능성이 높은 아이템 카테고리를 예측한 다음, Fine-grained controls를 통해 제어를 개선할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Vmp4KgW/target.png&quot; alt=&quot;target&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Figure 5에서 볼 수 있듯이, 사용자의 상호작용 아이템을 시간에 따라 분류한 다음, 상호작용 시퀀스를 두 부분으로 나누어 아이템 카테고리의 분포를 별도로 구할 수 있다. 그런 다음 다층 퍼셉트론(MLP)을 사용하여 첫 번째 부분을 기반으로 두 번째 부분의 분포를 예측한다. 훈련 중에 MLP는 모든 사용자의 카테고리 분포를 사용하여 (1) 시간적 관심사 변화(예: 일부 카테고리에 대한 선호도가 점차 증가)와 (2) 아이템 카테고리 간의 관계(예: 액션 영화를 좋아하는 사용자는 범죄 영화도 좋아할 수 있음)를 포착할 수 있다. 추론 단계에서는 분포의 두 번째 부분을 사용하여 상위 K개의 타겟 카테고리를 예측하게 된다. 또한, $do(\overline{h}=0)$를 사용하여 카테고리 $\overline{h}$를 축소시킨다. 이로써, 상위 K개의 아이템 카테고리는 Fine-grained controls의 최종 추천리스트로 간주되게 된다. 궁극적으로 UCI는 타켓 카테고리 예측을 사용하여 Fine-grained controls를 더욱 향상시킬 수 있게 된다.&lt;/p&gt;
 
 &lt;h2 id=&quot;5-experiment&quot;&gt;&lt;strong&gt;5. Experiment&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#4-experiment&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;research-question&quot;&gt;&lt;strong&gt;Research question&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;RQ1. UCI는 4가지 수준의 사용자 제어를 통해 어떻게 필터버블을 제거하고 추천을 조정하는가?&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RQ2. 사용자가 추천을 제어할 때 계수(예: α 및 β)는 결과에 어떻게 영향을 미치는가?&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RQ3. 제안된 사실과 반대되는 추론이 추천에 어떤 영향을 미치는?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;experiment-setup&quot;&gt;&lt;strong&gt;Experiment setup&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#experiment-setup&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
 
@@ -127,31 +208,58 @@
 &lt;ul&gt;
   &lt;li&gt;DIGIX-Video&lt;/li&gt;
   &lt;li&gt;ML-1M&lt;/li&gt;
-  &lt;li&gt;Amazon-Book&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Amazon-Book
+ &lt;img src=&quot;https://i.ibb.co/VQ7cnkc/data.png&quot; alt=&quot;data&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DIGIX-Video2&lt;/li&gt;
+  &lt;li&gt;는 2021 DIGIX AI Challenge에서 공개된 비디오 추천 데이터셋이다. 이 데이터셋에는 사용자와 아이템의 다양한 특성이 포함되어 있으며, 연령, 성별, 아이템 카테고리 등이 포함되어 있다.&lt;/li&gt;
+  &lt;li&gt;ML-1M은 널리 사용되는 영화 데이터셋으로, 각 영화에는 여러 장르 카테고리가 포함되어 있다.&lt;/li&gt;
+  &lt;li&gt;Amazon-Book은 책 추천을 위해 만들어진 데이터셋으로, 사용자는 ID feature만 가지고 있으며 각 책 카테고리에 대한 레이블은 계층적인 topology로 이루어져 있다. 따라서 저자는 데이터 분석에서는 최상위 카테고리만 유지함으로써 각 책은 하나의 카테고리에만 할당되게 지정하였다.&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;또한 저자는 각 데이터셋에 대해 10-core 설정을 사용하며, 점수가 4 이상인 데이터들만 양성 샘플로 처리했다. 타임스탬프로 상호작용을 정렬한 후 상호작용의 80%, 10%, 10%를 각각 훈련, 검증 및 테스트 세트로 사용했다.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;Baseline&lt;/strong&gt;
- Factorization Machine(FM)과  Neural Factorization Machine(NFM) 2가지 추천 모델에 대해 아래와 같은 베이스라인을 적용함&lt;/p&gt;
+모든 baseline과 제안된 UCI는 모델에 독립적이며, Factorization Machine(FM)과  Neural Factorization Machine(NFM) 2가지 추천 모델를 기준으로 비교되었다.&lt;/p&gt;
+
+&lt;h5 id=&quot;evaluation-of-user-feature-controls&quot;&gt;&lt;strong&gt;Evaluation of user-feature controls&lt;/strong&gt;&lt;/h5&gt;
 &lt;ul&gt;
-  &lt;li&gt;woUF: 사용자 특성 없이 학습된 포로토타입&lt;/li&gt;
-  &lt;li&gt;maskUF:  사용자 특성을 삭제하는 포로토타입&lt;/li&gt;
-  &lt;li&gt;changeUF: 사용자 특성을 변경한 포로토타입&lt;/li&gt;
-  &lt;li&gt;Fairco: 공정성 기반 ranking 포로토타입&lt;/li&gt;
-  &lt;li&gt;Diversity: 다양성 기반 re-ranking 포로토타입&lt;/li&gt;
-  &lt;li&gt;Reranking: UCI의 한 변형으로, counterfactual 추론과 target category 예측을 제외한 포로토타입&lt;/li&gt;
+  &lt;li&gt;woUF는 user feature 없이 모델을 학습하므로 추천 학습 중에 서로 다른 사용자 그룹 간의 분리를 완화함&lt;/li&gt;
+  &lt;li&gt;changeUF는 훈련된 추천 모델을 활용하고 user feature만을 변경하여 추론 대상 $\hat{x}$에 적용한다. changeUF는 fine-grained user-feature controls에서 사용됨&lt;/li&gt;
+  &lt;li&gt;maskUF는 추론 시 기존 사용자 특성 $\overline{x}$ (예: 나이=30)을 제거하여 coarse-grained user-feature controls에서 사용됨&lt;/li&gt;
+  &lt;li&gt;Fairco는 공정한 노출 기회를 구현하는 랭킹 알고리즘&lt;/li&gt;
+  &lt;li&gt;Diversity는 추천리스트를 다양화하기 위해 목록 내 유사성을 최소화하는 재랭킹 알고리즘&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;evaluation-of-item-feature-controls&quot;&gt;&lt;strong&gt;Evaluation of item-feature controls&lt;/strong&gt;&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;woIF는 item feature 없이 모델을 학습함&lt;/li&gt;
+  &lt;li&gt;Fairco(상동)&lt;/li&gt;
+  &lt;li&gt;Diversity(상동)&lt;/li&gt;
+  &lt;li&gt;Reranking은 UCI의 한 가지 변형으로, 𝑌′𝑢,𝑖 = 𝑌𝑢,𝑖 + 𝛽 · 𝑟(𝑖)에서 랭킹 알고리즘만 사용하며 반 사실 추론과 타켓 카테고리 예측은 사용되지 않음&lt;/li&gt;
   &lt;li&gt;C-UCI: ‘Coarse-grained controls’ UCI 포로토타입&lt;/li&gt;
   &lt;li&gt;F-UCI: ‘Fined-grained controls’ UCI 포로토타입&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Evaluation Metric&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&quot;evaluation-of-user-feature-controls-1&quot;&gt;&lt;strong&gt;Evaluation of user-feature controls&lt;/strong&gt;&lt;/h5&gt;
 &lt;ul&gt;
   &lt;li&gt;Recall: 정확도 척도&lt;/li&gt;
   &lt;li&gt;NDCG: 정확도 척도&lt;/li&gt;
-  &lt;li&gt;Weighted-NDCG: 카테고리 선호도 우선순위 척도&lt;/li&gt;
   &lt;li&gt;Coverage: 다양성 척도&lt;/li&gt;
   &lt;li&gt;Isolation Index: 격리지수 척도&lt;/li&gt;
+  &lt;li&gt;DIS-EUC: 사용자와 그룹의 추천리스트 간의 거리 비교 척도
+$\overline{x}$와 $\hat{x}$ 은 각각 사용자 $u$의 기존 그룹과 타겟 그룹을 나타냄; $d_{u} \in R^{M}$은 사용자 $𝑢$의 추천 아이템 카테고리에 대한 분포임; $\overline{g_u} ∈ R^{M}$는 원본 그룹 $\overline{x}$(예: 30세 사용자)의 사용자들의 평균 카테고리 분포를 나타내며;$\hat{g_u} ∈ R^{M}$은 대상 그룹 𝑥ˆ의 동일한 분포를 나타냅니다. 이후, 우리는 사용자 𝑢에 대해 $DIS-EUC = dis(𝑑_𝑢, \hat{g_𝑢}) - dis(𝑑_𝑢, \overline{𝑔_u})$를 계산합니다. 여기서 dis(·)는 유클리드 거리를 사용함. DIS-EUC는 사용자가 두 그룹 사이의 거리 차이를 측정하는데, 더 큰 거리는 더 심각한 그룹 분리와 필터버블을 나타냄.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;evaluation-of-item-feature-controls-1&quot;&gt;&lt;strong&gt;Evaluation of item-feature controls&lt;/strong&gt;&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Recall: 정확도 척도&lt;/li&gt;
+  &lt;li&gt;NDCG: 정확도 척도&lt;/li&gt;
+  &lt;li&gt;Coverage: 다양성 척도&lt;/li&gt;
   &lt;li&gt;MCD: 최다 카테고리 비율 척도&lt;/li&gt;
-  &lt;li&gt;DIS-EUC: 유클리디언 거리 척도&lt;/li&gt;
+  &lt;li&gt;Weighted-NDCG: 카테고리 선호도 우선순위 척도&lt;/li&gt;
   &lt;li&gt;TCD(Target Category Domination): 목표 카테고리 비율 척도&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -162,14 +270,17 @@
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/WpSs466/rs3.png&quot; alt=&quot;rs3&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;Table 2와 Table 3는각각 Fine-grained controls과 Coarse-grained controls 결과이다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;3가지 데이터 세트를 대상으로 실험한 결과, UCI 프레임워크가 사용자 제어를 기반으로 원하는 항목을 더 많이 추천하는 효과가 입증되었으며, 정확성과 다양성 측면에서 유망한 성과를 보였다.&lt;/li&gt;
-  &lt;li&gt;UCI 프레임워크는 사용자 제어를 기반으로 더 많은 원하는 항목을 효과적으로 추천하여 사용자 만족도와 추천 생태계 참여도를 높일 수 있는 결론을 얻을 수 있다.&lt;/li&gt;
+  &lt;li&gt;baseline (즉, woUF, changeUF 및 maskUF)은 추천 정확도를 약간 감소시키고 격리 지수 및 DIS-EUC 측면에서 그룹 분리를 완화시켰다. 한편, 대부분의 경우 다양성이 약간 상승했다. 그러나 전반적인 성능은 FM 또는 NFM과 매우 유사했다. 즉, 사용자 특성이 훈련에서 제거되거나 추론을 위해 변경/제거되더라도, 사용자 ID 표현은 여전히 과거 상호 작용을 인코딩하며 이는 사용자의 원래 특성에 영향을 받아 FM 및 NFM과 유사한 추천을 이끌어낸다.&lt;/li&gt;
+  &lt;li&gt;공정성 및 다양성 방법은 필터버블 문제를 효과적으로 완화하고 추천 목록을 다양화할 수 있다. 그러나 이들은 성능을 급격히 감소시켰다. 예를 들어, Table 3의 NDCG에 따른 FM의 Fairco의 정확도는 15.38% 감소했다. 이는 공정성 및 다양성의 목표를 추구함에 따라 필연적으로 관련 없는 항목을 많이 추천하게 되어 긍정적인 항목의 기회를 차지하기 때문이다.&lt;/li&gt;
+  &lt;li&gt;UCI는 필터 버블에서 그룹 분리를 유의미하게 완화시키면서 뛰어난 정확도를 달성했다. 또한, 다양성도 FM 및 NFM과 비교하여 증가하는데, 이는 정확성과 다양성 사이의 딜레마를 완화했다. 저자는 이러한 개선을 반 사실추론의 효과적인 작용에 기인한다고 보고 있다. 이는 오래된 사용자 ID 표현의 영향을 줄이는 데 효과적이며, 이로 인해 추천 모델이 과거 상호 작용과 유사한 항목을 덜 추천하고 추천을 더 다양하게 만들었다. 동시에, 우수한 정확도는 사용자 제어 𝑐𝑢 (·, 𝛼)의 𝛼가 사용자 ID 및 다른 그룹 특성 (예: 연령 및 성별)의 표현에 대한 영향을 조절하여 개인 선호도와 그룹 선호도 사이의 균형을 더 잘 조정하기 때문입니다. Figure 4에 나와 있는 것과 같다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;6-conclusion&quot;&gt;&lt;strong&gt;6. Conclusion&lt;/strong&gt;&lt;a href=&quot;https://dsailatkaist.github.io/template.html#5-conclusion&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;동 연구는 사용자가 필터버블 완화를 능동적으로 제어할 수 있도록 하는 UCRS (User-Controllable Recommender System) 를 제안하여 사용자 특성 및 과거 상호작용을 기반으로 유사한 항목을 과도하게 추천하는 문제를 해결하는 시도를 보였다.&lt;/li&gt;
+  &lt;li&gt;저자는 사용자가 필터버블 완화를 능동적으로 제어할 수 있도록 하는 UCRS (User-Controllable Recommender System) 를 제안하여 사용자 특성 및 과거 상호작용을 기반으로 유사한 항목을 과도하게 추천하는 문제를 해결하는 시도를 보였다.&lt;/li&gt;
   &lt;li&gt;UCRS 프로토타입은 필터버블의 심각도를 감지하고 사용자에게 4가지 제어 명령을 제공하여 사용자로 하여금 추천시스템의 제어권을 능동적으로 실시할 수 있도록 추천시스템 생태계에 방향을 제시했다.&lt;/li&gt;
   &lt;li&gt;세 가지 데이터셋을 대상으로 한 실험을 통해 UCRS 프로토타입과 UCI 프레임워크는 정확성과 다양성 측면에서 유망한 성과를 보였으며 사용자 만족도와 추천 생태계에 대한 참여도를 높일 수 있을 것으로 기대된다.&lt;/li&gt;
   &lt;li&gt;단, 동 연구는 UCRS 프로토타입과 UCI 프레임워크를 평가할 때 온라인 실시간 데이터 대신 오프라인 데이터셋을 사용했고, 일부 사용자가 필터버블을 완화하고 제어 기능을 제공할 의향이 있다고 가정을 했기 때문에 현실 데이터와 비교하면 strong assumption일 것으로 판단된다.&lt;/li&gt;
@@ -207,7 +318,7 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</guid>
             
@@ -217,12 +328,27 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
         </item>
         
         <item>
-            <title>[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation</title>
-            <description>&lt;h1 id=&quot;uncertainty-aware-consistency-learning-for-cold-start-item-recommendation&quot;&gt;&lt;strong&gt;Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation&lt;/strong&gt;&lt;/h1&gt;
+            <title>Uncertainty Aware_consistency_learning_for_cold Start_item_recommendation</title>
+            <description>
+&lt;hr /&gt;
+
+&lt;p&gt;title: “[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation”&lt;/p&gt;
+
+&lt;p&gt;permalink: 2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html&lt;/p&gt;
+
+&lt;p&gt;tags: [reviews]&lt;/p&gt;
+
+&lt;p&gt;use_math: true&lt;/p&gt;
+
+&lt;p&gt;usemathjax: true&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;uncertainty-aware-consistency-learning-for-cold-start-item-recommendation&quot;&gt;&lt;strong&gt;Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;h2 id=&quot;1-problem-definition-and-motivation&quot;&gt;&lt;strong&gt;1. Problem Definition and Motivation&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;In this paper, the central problem at hand is the Cold-Start problem in  GNN-based recommendation systems, particularly when new items with limited interaction data are introduced to a user-item graph.  The cold-start problem especially becomes tricky when the user-item graph constantly changing. This problem arises due to the scarcity of information on these “cold” items, which hinders accurate recommendations. To tackle this issue, existing models primarily rely on auxiliary user and item features which underutilize actual user-item interactions. Cold items have different embeddings due to fewer interactions comparing to warm items. This difference leads to a challenge of improving recommendations for both simultaneously which is called seesaw phenomenon.&lt;/p&gt;
+&lt;p&gt;In this paper, the central problem at hand is the Cold-Start problem in GNN-based recommendation systems, particularly when new items with limited interaction data are introduced to a user-item graph. The cold-start problem especially becomes tricky when the user-item graph constantly changing. This problem arises due to the scarcity of information on these “cold” items, which hinders accurate recommendations. To tackle this issue, existing models primarily rely on auxiliary user and item features which underutilize actual user-item interactions. Cold items have different embeddings due to fewer interactions comparing to warm items. This difference leads to a challenge of improving recommendations for both simultaneously which is called seesaw phenomenon. (i.e. Improveing the recommender system for cold-item, can potationally weaken recommender system for warm-items and vice versa)&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;For instance,&lt;/strong&gt; Suppose movie recommender system is using a vector of length 100 for movie embeddings:&lt;/p&gt;
 
@@ -232,91 +358,138 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
 
 &lt;p&gt;in this case, because “Spider-Man” is more likely to be recommended to users who are interested in superhero action movies than “Kaist-Man”. because the system has more information about it. The huge gap between their embeddings makes it challenging to improve recommendations for both simultaneously.&lt;/p&gt;
 
-&lt;p&gt;To bridge this gap, in this paper, an Uncertainty-aware Consistency learning framework for Cold-start item recommendation (UCC) was introduced which relies exclusively on user-item interactions.  This framework has two key designs: a) Uncertainty-aware Interaction Generation, and b) Graph-based Teacher-Student Consistency Learning.&lt;/p&gt;
+&lt;p&gt;To bridge this gap, in this paper, an Uncertainty-aware Consistency learning framework for Cold-start item recommendation (UCC) was introduced which relies exclusively on user-item interactions. This framework has two key designs: a) Uncertainty-aware Interaction Generation, and b) Graph-based Teacher-Student Consistency Learning.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-problem-formulation&quot;&gt;&lt;strong&gt;2. Problem formulation&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong&gt;Notations.&lt;/strong&gt; In this paper $U = {u}$ is the set of users and  $I = {i}$ is set of items and  $O ={ (u, i^+) \vert u  ∈ U, i^+ ∈ I }$ is user-item interactions, where each pair represents each observed feedback.
-&lt;strong&gt;Input:&lt;/strong&gt;  a bipartite graph, where $V = U∪I$ is node set and $G = (V, O^+)$ is the edge set. if $M$:= number of users, $N$:=number of items, $D$:= dimension size of embedding
-Then in the training process of graph representation learning, $E_ {u}  = [e_ {u_ {1}} , … , e_ {u_ {M}} ]∈ R^{M\times D}$ is user embedding and $E_ {i}  = [e_ {i_ {1}} , … , e_ {i_ {N}}] ∈R^{N\times D}$ is item embedding.
-&lt;strong&gt;Output:&lt;/strong&gt; Recommender models assessing the relationships between unobserved user-item pairs using the dot products of their embeddings. For given user $m$ and given item $n$ the score ${s_ {mn}}$ is calculated  as: $s_ {mn}  = e_ {u_ {m}} {e_ {i_ {n}} }^T$.
-A larger value of ${s_ {mn}}$ indicates a stronger preference by the user for the item. The top-k items from the ranking list are recommended to the user.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notations.&lt;/strong&gt; In this paper $U = {u}$ is the set of users and $I = {i}$ is set of items and $O ={ (u, i^+) \vert u ∈ U, i^+ ∈ I }$ is user-item interactions, where each pair represents each observed feedback.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; a bipartite graph, where $V = U∪I$ is node set and $G = (V, O^+)$ is the edge set. if $M$:= number of users, $N$:=number of items, $D$:= dimension size of embedding&lt;/p&gt;
+
+&lt;p&gt;Then in the training process of graph representation learning, $E_ {u} = [e_ {u_ {1}} , … , e_ {u_ {M}} ]∈ R^{M\times D}$ is user embedding and $E_ {i} = [e_ {i_ {1}} , … , e_ {i_ {N}}] ∈R^{N\times D}$ is item embedding.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt; Recommender models assessing the relationships between unobserved user-item pairs using the dot products of their embeddings. For given user $m$ and given item $n$ the score ${s_ {mn}}$ is calculated as: $s_ {mn} = e_ {u_ {m}} {e_ {i_ {n}} }^T$.&lt;/p&gt;
+
+&lt;p&gt;A larger value of ${s_ {mn}}$ indicates a stronger preference by the user for the item. The top-k items from the ranking list are recommended to the user.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/2qjj3J0/figure1.png&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this paper, they tackle the distribution gap between cold and warm items by employing an uncertainty-aware approach to generate interactions. Then they kept both item-level and model-level similarity with consistency.&lt;/p&gt;
 
 &lt;h3 id=&quot;31-uncertainty-aware-interaction-generation&quot;&gt;3.1. Uncertainty-aware Interaction Generation&lt;/h3&gt;
 
-&lt;p&gt;To determine whether generated interactions are accurate and unbiased enough they introduce the uncertainty degree of each user-item interaction which is calculated by cosine distance.
-for user $u_ {m}$ and item $i_ {n}$ cosine distance is
-$d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert \over \vert \vert e_ {u_ {m}}\vert\vert \ \vert \vert e_ {i_ {n}}\vert \vert }$
-${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained  recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:&lt;/p&gt;
+&lt;p&gt;To determine whether generated interactions are accurate and unbiased enough they introduce the uncertainty degree of each user-item interaction which is calculated by cosine distance.&lt;/p&gt;
+
+&lt;p&gt;for user $u_ {m}$ and item $i_ {n}$ cosine distance is&lt;/p&gt;
+
+&lt;p&gt;$d_ {mn}= {\vert e_ {u_ {m}} {e_ {i_ {n}} }^T\vert  \over  \vert  \vert e_ {u_ {m}}\vert\vert \ \vert  \vert e_ {i_ {n}}\vert  \vert }$&lt;/p&gt;
+
+&lt;p&gt;${s_ {mn}}_ {n=1}^N$ is ranking scores of item $i_ {n}$ for all users calculated with the pre-trained recommender, then overall interaction uncertainty of the item $i_ {n}$ can be estimated by the average of all rankings scores:&lt;/p&gt;
 
 &lt;p&gt;$\bar{s_n}= {{1\over M}}\sum_ {k=1}^M s_ {mn}$&lt;/p&gt;
 
-&lt;p&gt;So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.
-In order to bridge the gap between cold and warm items’ distribution and popularity bias all interactions with $d_ {mn}&amp;lt;\alpha \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:
-$\hat{O_ {n}}={I(d_ {mn}&amp;gt;\alpha \bar{s_n})}$,
-where $\alpha$ is a pre-defined parameter and $I$ is the indicator function.
-In other words, they find the average ranking score for an item for all users ($\bar{s_n}$) and then for each user if item-user similarity ($d_ {mn}$) is smaller than $\alpha \bar{s_n}$ they regard that interaction as uncertain.&lt;/p&gt;
+&lt;p&gt;So, high $\bar{s_n}$ suggests low item uncertainty, indicating widespread user acceptance, and whole low $\bar{s_n}$ indicates higher uncertainty.&lt;/p&gt;
+
+&lt;p&gt;In order to bridge the gap between cold and warm items’ distribution and popularity bias all interactions with $d_ {mn}&amp;lt;\alpha  \bar{s_n}$ will be regarded as uncertain interactions and filtered in the generation stage. So the selection would be as follow:&lt;/p&gt;
+
+&lt;p&gt;$\hat{O_ {n}}={I(d_ {mn}&amp;gt;\alpha  \bar{s_n})}$,&lt;/p&gt;
+
+&lt;p&gt;where $\alpha$ is a pre-defined parameter and $I$ is the indicator function.&lt;/p&gt;
+
+&lt;p&gt;In other words, they find the average ranking score for an item for all users ($\bar{s_n}$) and then for each user if item-user similarity ($d_ {mn}$) is smaller than $\alpha  \bar{s_n}$ they regard that interaction as uncertain.&lt;/p&gt;
 
 &lt;h3 id=&quot;32-teacher-student-consistency-learning&quot;&gt;3.2. Teacher-student Consistency learning&lt;/h3&gt;
 
-&lt;p&gt;To address seesaw phenomena, and to achieve better recommendations for both warm and cold items at the same time, cold-item with generated low-uncertainty interactions should have a similar distribution with the warm items, so in this paper, they trained the teacher model (generator) and student model (recommender) with consistency learning
-trained the teacher model (generator) and student model (recommender) with consistency learning
-we train the teacher model (generator) and student model (recommender) with consistency learning, to ensure the cold items with additionally generated low-uncertainty interactions can have similar distribution with the warm items.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/2qjj3J0/figure1.png&quot; alt=&quot;figure1&quot; /&gt;
+To address seesaw phenomena, and to achieve better recommendations for both warm and cold items at the same time, cold-item with generated low-uncertainty interactions should have a similar distribution with the warm items, so in this paper, they trained the teacher model (generator) and student model (recommender) with consistency learning&lt;/p&gt;
+
+&lt;p&gt;trained the teacher model (generator) and student model (recommender) with consistency learning&lt;/p&gt;
+
+&lt;p&gt;we train the teacher model (generator) and student model (recommender) with consistency learning, to ensure the cold items with additionally generated low-uncertainty interactions can have similar distribution with the warm items.&lt;/p&gt;
 
 &lt;h4 id=&quot;321-item-level-consistency-learning&quot;&gt;3.2.1 Item-level consistency learning&lt;/h4&gt;
 
-&lt;p&gt;This technique employs a contrastive loss to compare item embeddings before and after a generation process.
-Two types of augmentations are used:&lt;/p&gt;
+&lt;p&gt;This technique employs a contrastive loss to compare item embeddings before and after a generation process.&lt;/p&gt;
+
+&lt;p&gt;Two types of augmentations are used:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Weak Augmentation:&lt;/strong&gt;
-In this, edges in a graph are dropped out based on a dropout ratio $\rho$ to make the model more robust and less sensitive to specific data points. It can be formulated as follows:
-${\mathcal G}^{w}=({\mathcal V},{\mathcal M}\cdot{\mathcal O}^{+})$ where $\mathcal{M}\in{0,1}^{\vert O^{+}}$ is a masking vector.
-For example, in the movie recommendation system, if you always include the same user’s connection to a particular movie, the model might become too biased towards that user’s preferences. By using dropout, you randomly exclude some user-movie connections in each training iteration, making the model more balanced and better at recommending movies for a variety of users.
-Where M is a masking vector containing binary values {0, 1} for each element in O+.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Strong Augmentation:&lt;/strong&gt;
-This type involves adding more edges to the graph based on generated labels and can be formulated as follows:
-${\mathcal G}^{s}=({\mathcal V},{\mathcal O}^{+} +{\widehat O})$
-For example, if two movies share many common actors or are often rated similarly by users, strong augmentation would introduce more connections between those movies in the recommendation graph. This enriches the information available to the model, allowing it to make more accurate and diverse movie recommendations.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Weak Augmentation:&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;These two augmentation operations create two different views for each node, denoted as $z_i^{\prime},z_i^{\prime\prime}$ 𝑖 (for weak and strong graphs, respectively).
-Consistency Regularization: To encourage the similarity between the different views of the same node, a consistency regularization is implemented. This involves the use of a contrastive loss:
-$\mathcal{L}_ {cr, item}=\sum_ {i\in I}-\log\frac{\exp(sim(z_i’,z_i’’)/\tau)}{\sum_ {j\in I}\exp(sim(z_i’,z_j’’)/\tau)}$,
-where $\mathcal{L}_ {cr, item}$ represents the item-side consistency regularization loss for both the teacher and the student model, $sim()$ is cosine similarity function and $\tau$ is a predefined hyper-parameter.Similarly, $\mathcal{L}_ {cr, user}$ can be computed.  $\mathcal{L}_ {cr}=\mathcal{L}_ {cr, item}+\mathcal{L}_ {cr, user}$ represents the ultimate consistency loss used for consistency regularization.
-Recommendation loss can be calculated as follow:&lt;/p&gt;
+&lt;p&gt;In this, edges in a graph are dropped out based on a dropout ratio $\rho$ to make the model more robust and less sensitive to specific data points. It can be formulated as follows:&lt;/p&gt;
 
-&lt;p&gt;$\mathcal{L}_ {\mathbf{rec}}=\sum_ {(u,i^+,i^-)\in O}-\ln\sigma(\hat{y}_ {ui^+}-\hat{y}_ {ui^-})+\lambda\vert \vert \Theta\vert \vert &lt;em&gt;2^2,$ is L2-regularization of model’s parameters.
-And Finally, our total loss is $\mathcal{L}&lt;/em&gt; {total}=\mathcal{L}_ {rec}+\mu\mathcal{L}_ {cr}$ where $\mu$ is a hyper-parameter.&lt;/p&gt;
+&lt;p&gt;${\mathcal G}^{w}=({\mathcal V},{\mathcal M}\cdot{\mathcal O}^{+})$ where $\mathcal{M}\in{0,1}^{\vert O^{+}}$ is a masking vector.&lt;/p&gt;
+
+&lt;p&gt;For example, in the movie recommendation system, if you always include the same user’s connection to a particular movie, the model might become too biased towards that user’s preferences. By using dropout, you randomly exclude some user-movie connections in each training iteration, making the model more balanced and better at recommending movies for a variety of users.&lt;/p&gt;
+
+&lt;p&gt;Where M is a masking vector containing binary values {0, 1} for each element in O+.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Strong Augmentation:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This type involves adding more edges to the graph based on generated labels and can be formulated as follows:&lt;/p&gt;
+
+&lt;p&gt;${\mathcal G}^{s}=({\mathcal V},{\mathcal O}^{+} +{\widehat O})$&lt;/p&gt;
+
+&lt;p&gt;For example, if two movies share many common actors or are often rated similarly by users, strong augmentation would introduce more connections between those movies in the recommendation graph. This enriches the information available to the model, allowing it to make more accurate and diverse movie recommendations.&lt;/p&gt;
+
+&lt;p&gt;These two augmentation operations create two different views for each node, denoted as $z_i^{\prime},z_i^{\prime\prime}$ 𝑖 (for weak and strong graphs, respectively).&lt;/p&gt;
+
+&lt;p&gt;Consistency Regularization: To encourage the similarity between the different views of the same node, a consistency regularization is implemented. This involves the use of a contrastive loss:&lt;/p&gt;
+
+&lt;p&gt;$\mathcal{L}_ {cr, item}=\sum_ {i\in I}-\log\frac{\exp(sim(z_i’,z_i’’)/\tau)}{\sum_ {j\in I}\exp(sim(z_i’,z_j’’)/\tau)}$,&lt;/p&gt;
+
+&lt;p&gt;where $\mathcal{L}_ {cr, item}$ represents the item-side consistency regularization loss for both the teacher and the student model, $sim()$ is cosine similarity function and $\tau$ is a predefined hyper-parameter.Similarly, $\mathcal{L}_ {cr, user}$ can be computed. $\mathcal{L}_ {cr}=\mathcal{L}_ {cr, item}+\mathcal{L}_ {cr, user}$ represents the ultimate consistency loss used for consistency regularization.&lt;/p&gt;
+
+&lt;p&gt;Recommendation loss can be calculated as follow:&lt;/p&gt;
+
+&lt;p&gt;$\mathcal{L}_ {\mathbf{rec}}=\sum_ {(u,i^+,i^-)\in O}-\ln\sigma(\hat{y}_ {ui^+}-\hat{y}_ {ui^-})+\lambda\vert  \vert  \Theta\vert  \vert _2^2,$ is L2-regularization of model’s parameters.&lt;/p&gt;
+
+&lt;p&gt;And Finally, our total loss is $\mathcal{L}_ {total}=\mathcal{L}_ {rec}+\mu\mathcal{L}_ {cr}$ where $\mu$ is a hyper-parameter.&lt;/p&gt;
 
 &lt;h4 id=&quot;322-model-level-consistency-learning&quot;&gt;3.2.2 Model-level consistency learning&lt;/h4&gt;
 
-&lt;p&gt;To keep the consistency between the teacher model and student, they suggested collecting the teacher embedding into the student embedding: 
-$\mathbf{E}^s\leftarrow\gamma\mathbf{E}^s+(1-\gamma)\mathbf{E}^t$
-where $E^s$ and $E^t$ are the embeddings of the student and student model’s embedding respectively.&lt;/p&gt;
+&lt;p&gt;To keep the consistency between the teacher model and student, they suggested collecting the teacher embedding into the student embedding:&lt;/p&gt;
+
+&lt;p&gt;$\mathbf{E}^s\leftarrow\gamma\mathbf{E}^s+(1-\gamma)\mathbf{E}^t$&lt;/p&gt;
+
+&lt;p&gt;where $E^s$ and $E^t$ are the embeddings of the student and student model’s embedding respectively.&lt;/p&gt;
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;h3 id=&quot;experiment-setup&quot;&gt;&lt;strong&gt;Experiment setup&lt;/strong&gt;&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;Datasets:&lt;/strong&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Experiments on Yelp and Amazon-Book benchmark datasets.&lt;/li&gt;
-  &lt;li&gt;Follow a 10-core setting as in previous studies (Lightgcn and Neural collaborative filtering)&lt;/li&gt;
-  &lt;li&gt;Split user-item interactions into training, validation, and testing sets (ratio 7:1:2).
-&lt;strong&gt;Baselines:&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;The foundation for our GNN-based model is LightGCN&lt;/li&gt;
-  &lt;li&gt;Focused on modelling user-item interactions, not item features.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experiments on Yelp and Amazon-Book benchmark datasets.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Follow a 10-core setting as in previous studies (Lightgcn and Neural collaborative filtering)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Split user-item interactions into training, validation, and testing sets (ratio 7:1:2).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Baselines:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The foundation for our GNN-based model is LightGCN 
+&lt;em&gt;- Quick review on LightGCN:&lt;/em&gt; 
+&lt;em&gt;LightGCN is a simplified and highly efficient approach to recommendation systems, acting as a streamlined version of Graph Convolutional Networks (GCN). It centers its operation on the connections within a recommendation graph, mainly between users and items. In this graph, users and items are represented as nodes, while interactions are depicted as edges. LightGCN starts by initializing embeddings for both users and items, encapsulating their latent characteristics. This algorithm then performs multiple layers of message passing within the graph. During each layer, user embeddings are updated based on the embeddings of the connected items, and vice versa. The simplicity of LightGCN’s update rule is striking; it merely aggregates neighbor embeddings, eschewing complex transformations, often taking the straightforward approach of averaging the embeddings of connected items in a single layer. By repeatedly executing these message-passing iterations, LightGCN ultimately generates user and item embeddings that capture the collaborative filtering signals, facilitating enhanced recommendations. The elegance of LightGCN lies in its computational efficiency, making it particularly advantageous for large-scale recommendation tasks, all the while focusing on the fundamental relationships between users and items within the recommendation graph.&lt;/em&gt;&lt;a href=&quot;https://doi.org/10.48550/arXiv.2002.02126&quot;&gt;read more here&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Focused on modelling user-item interactions, not item features.&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;They used two types of recommendation models, the Generative model and Denoising models for user-item interactions: IRBPR, ADT, and SGL.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Evaluation Metric&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Following previous studies, they evaluate performance using Recall@K and  NDCG@K where K = 20&lt;/p&gt;
+&lt;p&gt;Following previous studies, they evaluate performance using Recall@K and NDCG@K where K = 20&lt;/p&gt;
 
 &lt;h3 id=&quot;result&quot;&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;/h3&gt;
 
@@ -345,27 +518,31 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;p&gt;However, it may face challenges related to complexity, scalability, and generalizability, and a broader evaluation with diverse datasets and consideration of interpretability is needed to establish its practical applicability. Additionally, a more in-depth analysis of its performance compared to a wider range of state-of-the-art approaches would provide a more comprehensive understanding of its competitiveness.&lt;/p&gt;
 
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Mahsa Aghazadeh
-    &lt;ul&gt;
-      &lt;li&gt;Affiliation:  &lt;a href=&quot;http://hfel.kaist.ac.kr/&quot;&gt;Human Factors and Ergonomics Lab&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Research Topic: HCI, Ergonomics, VR/AR&lt;/li&gt;
-      &lt;li&gt;Contact: mahsa_agz@kaist.ac.kr&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mahsa Aghazadeh&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Affiliation: &lt;a href=&quot;http://hfel.kaist.ac.kr/&quot;&gt;Human Factors and Ergonomics Lab&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Research Topic: Human Computer Interaction (HCI), Ergonomics, VR/AR&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Contact: mahsa_agz@kaist.ac.kr&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</guid>
-            
-            <category>reviews</category>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
+            <link>http://dsailatkaist.github.io/2023/11/20/Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</guid>
             
             
         </item>
         
         <item>
-            <title>[RecSys 2023] Trending Now: Modeling Trend Recommendations</title>
+            <title>Trending_now_modeling_trend_recommendations</title>
             <description>&lt;p&gt;&lt;strong&gt;[Recsys 2023] Trending Now: Modeling Trend Recommendations&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -454,7 +631,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h4 id=&quot;1--problem-setting--one-step-forecasting-problem&quot;&gt;1-③. Problem setting : One-step forecasting problem&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/N6sr5Wx/fig1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;▢ (왼쪽 그래프) 과거 item 의 trend 변화가 주어지면, &lt;strong&gt;다음 시간 단계에 어떤 item 이 유행할지 예측 (→ One-step forecasting)&lt;/strong&gt; 하는 것을 목표로 한다. 모델이 다음 시간 단계에서 유행하는 item 을 예측하면, 백엔드에서 데이터를 버퍼링하면서 다음 시간 단계 내 user 에게 해당 item 을 표시한다. 다음 시간 단계가 끝나면 모델은 새로 축적된 데이터를 기반으로 바로 다음 시간 단계에 대한 새로운 예측을 수행한다. 또 다른 데이터 수집의 주기를 시작하는 것으로 추천을 반복한다.&lt;/p&gt;
 
@@ -514,13 +691,13 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;&lt;strong&gt;bias-variance tradeoff&lt;/strong&gt; : 시간 단계 길이가 짧으면(예: 1시간) 데이터 희소성 (data sparsity) 으로 인해 variance 가 발생하고, 시간 단계 길이가 길면(예: 하루) 시간적 드리프트 (temporal drift 시간에 따른 변동) 로 인해 편향이 발생한다. 따라서 둘 사이의 균형을 잘 맞출 수 있는 sweet spot 을 찾아야 한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/8613tW1/fig3.png&quot; alt=&quot;fig3&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig3.png&quot; alt=&quot;fig3&quot; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;-one-step-time-series-forecasting-task&quot;&gt;▶ one-step time series forecasting task&lt;/h5&gt;
 
 &lt;p&gt;trend recommendation task 를 one-step time series forecasting 문제로 정의한다. 각 item 대해 주어진 &lt;strong&gt;historical acceleration&lt;/strong&gt; [A𝑗0, A𝑗1, . . . , A𝑗𝑡] := &lt;strong&gt;A𝑗,0:𝑡&lt;/strong&gt; 과, covariates 와 같은 추가적인 &lt;strong&gt;contextual information&lt;/strong&gt; [C𝑗0, C𝑗1, . . . , C𝑗𝑡] := &lt;strong&gt;C𝑗,0:t&lt;/strong&gt; 가 주어졌을 때, 다음 step 인 (t+1) 에서의 acceleration 을 예측하기를 원한다. 그리고 trend prediction 을 기반으로 상위 k 개의 아이템을 추천한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/gVBST8w/fig2.png&quot; alt=&quot;fig2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig2.png&quot; alt=&quot;fig2&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -534,7 +711,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;임의의 item j 의 next time step 의 acceleration A𝑗 (𝑡+1) 는 “오직” 현재 time step 의 acceleration A𝑗t 에 의존한다고 가정한다. 실제로 acceleration 는  짧은 시간 동안 동일하게 유지되는 경향이 있으므로 마르코프 휴리스틱 모델을 다음과 같이 정의한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/FXrwj30/fig4.png&quot; alt=&quot;fig4&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig4.png&quot; alt=&quot;fig4&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration&lt;/li&gt;
@@ -545,7 +722,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;마르코프 휴리스틱 모델의 가장 큰 단점은 다음 시간 단계의 item acceleration 이 현재 시간 단계의 영향을 받기 때문에 데이터 희소성 등의 문제로 인해 노이즈가 발생할 수 있다는 것이다. 따라서 여러 개의 최신 시간 단계를 고려하여 더 최근의 시간 단계에 더 많은 가중치를 할당하는 지수이동평균 휴리스틱 모델을 정의할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/7yZxLch/fig5.png&quot; alt=&quot;fig5&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig5.png&quot; alt=&quot;fig5&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Aˆ𝑗 (𝑡+1) = next time step 에서 예측된 acceleration&lt;/li&gt;
@@ -558,7 +735,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;휴리스틱 모델은 일반적으로 다양한 시나리오에 적응할 수 있는 유연성이 부족한 일반적인 가정 (general assumptions) 을 인코딩한다. 그러나 &lt;strong&gt;acceleration 패턴은 도메인(리테일, 미디어, 뉴스 등)에 따라 다르다&lt;/strong&gt;. 예를 들어, 매주 수요일마다 TV 시리즈의 새 에피소드가 공개되는 것과 같이 리테일과 미디어 영역 모두에서 다양한 주기(일별, 주별, 계절별 등)의 주기적 acceleration  패턴이 풍부하게 존재한다. 반대로 뉴스는 시간에 민감하고 사람들은 가장 최근 뉴스를 팔로우하는 경향이 있기 때문에 뉴스 영역에서는 이러한 규칙적인 acceleration  패턴이 거의 관찰되지 않는다. 또한 같은 도메인 내에서도 다양한 acceleration  패턴이 공존할 수 있다. 예를 들어, 특정 영화 플랫폼에서 새로 개봉한 액션 영화의 acceleration 곡선은 해당 플랫폼 사용자 커뮤니티의 선호도에 따라 새로 개봉한 다큐멘터리 영화의 acceleration 곡선에 비해 지속적으로 가파른 증가세를 보일 수 있다. 따라서 &lt;strong&gt;트렌드 추천을 위한 보다 일반적인 솔루션은 다양한 시나리오에 적응할 수 있는 학습 가능한 딥러닝 기반 시계열 예측 모델을 설계&lt;/strong&gt;하는 것이다. 모델을 공식화하면 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/vc5k5JC/fig6.png&quot; alt=&quot;fig6&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig6.png&quot; alt=&quot;fig6&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;𝑓seq (·) : 과거 acceleration  를 집계하고 다음 시간 단계에서 acceleration  의 확률적 분포를 예측하는 순차적 모델로 DeepAR, RNN, MQCNN, TFT 등이 있다.&lt;/li&gt;
@@ -613,7 +790,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
   &lt;p&gt;probabilistic graphical model (PGM)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/yVDd9qx/fig7.png&quot; alt=&quot;fig7&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig7.png&quot; alt=&quot;fig7&quot; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;-노드&quot;&gt;▸ &lt;strong&gt;노드&lt;/strong&gt;&lt;/h5&gt;
 
@@ -627,43 +804,43 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;V𝑗t ∈ R(D)&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;item 𝑗’s properties&lt;/strong&gt; till time step t  both static properties and dynamic properties &lt;br /&gt; ∘  𝐷 is the hidden dimension of the embedding &lt;br /&gt; ∘ &lt;strong&gt;latent item embedding&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;∘  &lt;strong&gt;item 𝑗&lt;/strong&gt; 의 속성은 시간 단계 t 까지의 정적속성과 동적속성을 모두 포함한다. &lt;br /&gt; ∘  𝐷 는 embedding 의 hidden dimension &lt;br /&gt; ∘ &lt;strong&gt;latent item embedding&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;𝜆v&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;hyperparameters&lt;/strong&gt; related to distribution variance of latent item embedding&lt;/td&gt;
+      &lt;td&gt;∘ latent item embedding 의 분산 분포와 관련된 &lt;strong&gt;hyperparameter&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;A𝑗,0:t ∈ R(𝑁𝑗t)&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;item 𝑗’s historical acceleration&lt;/strong&gt; till time step 𝑡 which is [A𝑗0, A𝑗1, . . . ,A𝑗𝑡]&lt;/td&gt;
+      &lt;td&gt;∘ t 시점까지 item 𝑗 의 과거 acceleration : [A𝑗0, A𝑗1, . . . ,A𝑗𝑡]&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;A𝑗(𝑡+1) ∈ R&lt;/td&gt;
-      &lt;td&gt;∘  the acceleration of item 𝑗 at the next time step 𝑡 + 1&lt;/td&gt;
+      &lt;td&gt;∘  다음 시간 단계 t+1 에서의 item j 의 acceleration&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;𝑁𝑗t&lt;/td&gt;
-      &lt;td&gt;∘  the number of historical time steps of item 𝑗 till time step t&lt;/td&gt;
+      &lt;td&gt;∘  time step t 까지 item  𝑗 의 과거 time step 의 개수&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;U𝑖t ∈ R(D)&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;user 𝑖’s interests&lt;/strong&gt; till time step t &lt;br /&gt; ∘  &lt;strong&gt;latent user embedding&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;∘ time step t 까지 &lt;strong&gt;user 𝑖’s interests&lt;/strong&gt;  &lt;br /&gt; ∘  &lt;strong&gt;latent user embedding&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;𝜆u&lt;/td&gt;
-      &lt;td&gt;∘  hyperparameters related to distribution variance of latent user embedding&lt;/td&gt;
+      &lt;td&gt;∘  latent user embedding 의 분산 분포와 관련된 &lt;strong&gt;hyperparameter&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;S𝑖t ∈ R(N𝑖t x D)&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;user 𝑖’s historical interaction sequence&lt;/strong&gt; till time step 𝑡 &lt;br /&gt; ∘  embedding matrix and each row of it represents an item embedding&lt;/td&gt;
+      &lt;td&gt;∘ t 시점까지의 유저 𝑖의 과거 interaction sequence&lt;br /&gt; ∘  임베딩 행렬의 각 행은 item 임베딩을 나타낸다&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;𝑁𝑖t&lt;/td&gt;
-      &lt;td&gt;∘  the number of interactions from user 𝑖 till time step t&lt;/td&gt;
+      &lt;td&gt;∘  t 시점까지 user 𝑖 로부터 발생하는 interaction 개수&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;R𝑖𝑗t ∈ {0, 1}&lt;/td&gt;
-      &lt;td&gt;∘  &lt;strong&gt;interaction label&lt;/strong&gt; denoting whether user 𝑖 interacted with item 𝑗 at time step t&lt;/td&gt;
+      &lt;td&gt;∘ t 시점에서 item 𝑗 와 user 𝑖 사이에 interaction 이 발생했는지 여부를 나타낸   &lt;strong&gt;interaction label&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -697,12 +874,25 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;평균이 𝝁 그리고 분산이 diagonal covariance λ&lt;sup&gt;-1&lt;/sup&gt;ⅠD 인 가우시안 분포에서 latent offset vector 를 설정하여 latent item embedding 과 latent user embedding 을 계산한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/xsMpXM4/fig8.png&quot; alt=&quot;fig8&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig8.png&quot; alt=&quot;fig8&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;R𝑖𝑗t 를 구하기 위해서 softmax function 을 latent user embedding 와 latent item embedding 을 내적한 값에 적용하여 recommendation score 를 계산한다.&lt;/p&gt;
+&lt;p&gt;자세한 도출 과정은 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;For each time step 𝑡 ∈ [𝑇]&lt;/p&gt;
+
+&lt;p&gt;∘  For each item j ∈ [𝐽] ⇨ latent item offset vector ϵjt ~ N(0, λ&lt;sup&gt;-1&lt;/sup&gt;ⅠD) 를 설정하고, latent item offset vector 를 latent item embedding 으로 채택한다 ⇨ V𝑗𝑡 = ϵ𝑗𝑡&lt;/p&gt;
+
+&lt;p&gt;∘  For each user i ∈ [𝐼] ⇨ latent user offset vector ϵit ~ N(0, λ&lt;sup&gt;-1&lt;/sup&gt;ⅠD) 를 설정하고, GRU4Rec 을 통해 얻은 user embedding n𝑖𝑡 = 𝑓seq (S𝑖𝑡) 을 더해 latent user embedding 을 계산한다 ⇨ U𝑖𝑡 = ϵ𝑖𝑡 + n𝑖𝑡&lt;/p&gt;
+
+&lt;p&gt;R𝑖𝑗t 를 구하기 위해서 softmax function 을 latent user embedding 와 latent item embedding 을 내적한 값에 적용하여 recommendation score (Y𝑖𝑗𝑡) 를 계산한다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Y𝑖𝑗𝑡 = 𝑓softmax(U’𝑖𝑡•V𝑗𝑡)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;user i 에 대해 모든 아이템에 대한 recommendation score (R𝑖∗𝑡) 를 계산한다.&lt;/p&gt;
+&lt;ul&gt;
   &lt;li&gt;R𝑖∗𝑡 ~ 𝐶𝑎𝑡([Y𝑖𝑗𝑡]), j: 1,,..,J , 𝐶𝑎𝑡 is categorical distribution.&lt;/li&gt;
+  &lt;li&gt;∗ 는 특정 차원에 있는 모든 요소의 집합을 나타낸다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -713,15 +903,15 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;maximum a posteriori (MAP) estimation&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/r2YHhD7/fig11.png&quot; alt=&quot;fig11&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig11.png&quot; alt=&quot;fig11&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;다음 item 을 추천하는 것에 있어서 interaction R𝑖𝑗t 에 대한 조건부 확률을 다음과 같이 정의한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/djW18N7/fig9.png&quot; alt=&quot;fig9&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig9.png&quot; alt=&quot;fig9&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;item accelerations A𝑗(𝑡+1) 에 대한 조건부 확률을 다음과 같이 정의한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/cgTNhX0/fig10.png&quot; alt=&quot;fig10&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig10.png&quot; alt=&quot;fig10&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;𝑓𝑡𝑠 (·) : 다음 시간 단계 𝑡에서 acceleration 의 확률적 분포를 예측하기 위해 item 의 과거 acceleration 와 latent item embedding 을 모두 사용하는 모든 유형의 확률론적 시계열 예측 모델&lt;/li&gt;
@@ -731,7 +921,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;posterior probability 를 최대화 하는 것은 negative log likelihood 를 최소화하는 것과 같다. NLL 은 다음과 같이 계산할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/d5z24HJ/fig12.png&quot; alt=&quot;fig12&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig12.png&quot; alt=&quot;fig12&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;(10) : Next Item Recommendation Loss → 이를 최소화하면 학습 세트에서 다음 항목 추천 성능이 향상된다.&lt;/li&gt;
@@ -743,7 +933,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h4 id=&quot;3--inference&quot;&gt;3-④. Inference&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/K24SvyK/fig13.png&quot; alt=&quot;fig13&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig13.png&quot; alt=&quot;fig13&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;V*jt : the posterior of item j’s latent item embedding&lt;/li&gt;
@@ -754,7 +944,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h4 id=&quot;3--model-architecture&quot;&gt;3-⑤. Model architecture&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/YkTR6LN/fig14.png&quot; alt=&quot;fig14&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig14.png&quot; alt=&quot;fig14&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;왼쪽그림 : overview network structure&lt;/li&gt;
@@ -801,7 +991,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h4 id=&quot;4--datasets&quot;&gt;4-①. Datasets&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/sVpgrZ4/fig15.png&quot; alt=&quot;fig15&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig15.png&quot; alt=&quot;fig15&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;리테일 (TaoBao), 미디어(Netflix), 뉴스(MIND)를 포함한 다양한 도메인의 데이터를 이용
@@ -819,7 +1009,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Mtehods&lt;/th&gt;
+      &lt;th&gt;Methods&lt;/th&gt;
       &lt;th&gt;설명&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
@@ -855,7 +1045,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h5 id=&quot;-1-acceleration-metric&quot;&gt;▸ (1) Acceleration metric&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/YhrfP9c/fig16.png&quot; alt=&quot;fig16&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig16.png&quot; alt=&quot;fig16&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;모델이 예측한 다음 단계 시간 t 의accelerations 에 기반하여 상위 k 개 item 을 선택&lt;/li&gt;
@@ -868,17 +1058,17 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
   &lt;li&gt;[0,1] 사이의 값으로 스케일링을 하기 위해 trendiness score 의 top 에 대해 min-max normalization 을 적용한다. trendiness score 의 upper bound 는 Oracle 모델에서, lower bound 는 Random 모델에서 온다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/WxJDZVJ/fig18.png&quot; alt=&quot;fig18&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig18.png&quot; alt=&quot;fig18&quot; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;-2-tndcg-metric&quot;&gt;▸ (2) TNDCG Metric&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/n1cqYQh/fig17.png&quot; alt=&quot;fig17&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig17.png&quot; alt=&quot;fig17&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Trendiness-Normalized-DCG (TNDCG) metric : 아이템의 rank position 을 logarithmic reduction factor 로 고려한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/7QFyjGs/fig19.png&quot; alt=&quot;fig19&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig19.png&quot; alt=&quot;fig19&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;r : index the rank position&lt;/li&gt;
@@ -894,7 +1084,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;h4 id=&quot;4---hypothesis-validation-q1--적절한-δt-선택하기&quot;&gt;4-④.  Hypothesis validation Q1 : 적절한 Δt 선택하기&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/HhkxtsJ/fig20.png&quot; alt=&quot;fig20&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig20.png&quot; alt=&quot;fig20&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Markov heuristic model 을 활용해 성능을 평가한다. 간단하지만 generic 한 가정에 기반한 기초적인 모델이고, 따라서 해당 모델의 성능은 task feasibility 를 반영한다. 
 결과를 보면, TaoBao 와 MIND 데이터 세트의 곡선은 데이터 희소성 완화로 인해 시간 간격이 길어질수록 acc 지표가 먼저 개선된 다음 temporal drift 로 인해 감소하는 Q1 가설과 일치하는 결과를 보인다. 반면 Netflix 데이터셋의 경우 곡선이 계속 감소하고 있는데, 이는 time stamp 단위가 하루로, 충분한 데이터를 수집할 수 있을 만큼 길지만 temporal drift 가 발생하기 때문이다. 전반적으로 위의 결과는 가설을 입증하고 있다. 각 데이터셋의 시간 간격 &lt;strong&gt;Δ𝑡을 각 곡선의 peak 에 따라 선택&lt;/strong&gt;한다. 일관성을 위해 3개의 TaoBao dataset 은 모두 3시간, Netflix 는 하루, MIND 는 30분 시간간격으로 설정한다.&lt;/p&gt;
@@ -905,7 +1095,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;TrendRec 모델을 3개 도메인의 데이터에 대한 다양한 베이스라인모델에 대해 평가한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/ZxSJ9Np/fig21.png&quot; alt=&quot;fig21&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/hopebii/kaist_ds535/blob/main/fig21.png&quot; alt=&quot;fig21&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;TrendRec 이 가장 좋은 performance 를 보인다. TrendRec 의 시계열 예측 부분이 DeepAR 로 구성되어 있는데, DeepAR 대비 TrendRec 의 성능 향상은, 다음 item 추천 파트에서 얻은 pre-trained 된 latent item embedding 을 활용한 것이 효과적이었음을 보여준다.&lt;/p&gt;
 
@@ -933,7 +1123,7 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 &lt;h4 id=&quot;5--summary&quot;&gt;5-①. Summary&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;이 연구에서는 추천 시스템에서 잘 다루어지지 않은 주제인 trend recommender 를 연구한다. 선행 연구가 제한적으로 이루어져 있기 때문에 trend 라는 개념을 공식적으로 정의하는 것으로 시작한다. 이후 적시에 안정적으로 trend 를 식별하는데 문제가 되는 bias-variance tradeoff 현상을 관찰하여 이를 바탕으로 trend recommendation 을 one-step time series forecasting 로 공식화한다.&lt;/li&gt;
+  &lt;li&gt;이 연구에서는 추천 시스템에서 잘 다루어지지 않은 주제인 trend recommender 를 연구한다. 선행 연구가 제한적으로 이루어져 있기 때문에 trend 라는 개념을 공식적으로 정의하는 것으로 시작한다 (cf. 1-①. Definition 에서 acceleration 개념을 도입하고 2-①. Term Definition 에서 A𝑗𝑡 로 수식을 통해 구체화 함). 이후 적시에 안정적으로 trend 를 식별하는데 문제가 되는 bias-variance tradeoff 현상을 관찰하여 이를 바탕으로 trend recommendation 을 one-step time series forecasting 로 공식화한다.&lt;/li&gt;
   &lt;li&gt;방법론 측면에서 user-item interactive signal 을 활용하여 item 간 correlation 을 파악하고 이를 바탕으로 trend 예측을 용이하게 하는 TrendRec 이라는 two phase model 을 개발하였다.&lt;/li&gt;
   &lt;li&gt;Recommendation context 에서 trend 의 개념을 공식적으로 정의하고 그에 맞는 평가지표와 평가 프로세스를 수립했다.&lt;/li&gt;
   &lt;li&gt;리테일, 미디어, 뉴스 등 다양한 영역의 데이터셋에 대한 실험으로 통해 TrendRec 모델의 효과를 입증했다.&lt;/li&gt;
@@ -958,11 +1148,9 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Trending_Now_Modeling_Trend_Recommendations.html</guid>
-            
-            <category>reviews</category>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
+            <link>http://dsailatkaist.github.io/2023/11/20/Trending_Now_Modeling_Trend_Recommendations.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Trending_Now_Modeling_Trend_Recommendations.html</guid>
             
             
         </item>
@@ -971,11 +1159,11 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
             <title>[AAAI 2023] Simple and Efficient Heterogeneous Graph Neural Network</title>
             <description>&lt;h1 id=&quot;simple-and-efficient-heterogeneous-graph-neural-network&quot;&gt;Simple and Efficient Heterogeneous Graph Neural Network&lt;/h1&gt;
 
-&lt;h2 id=&quot;1-problem-definition&quot;&gt;1. Problem Definition&lt;/h2&gt;
+&lt;h2 id=&quot;problem-definition&quot;&gt;Problem Definition&lt;/h2&gt;
 
 &lt;p&gt;Heterogeneous Graph Neural Networks(HGNN)은 기존 Graph Neural Network(GNN)에서 사용하는 attention이나 multi-layer 구조 등의 매커니즘을 그대로 사용해왔다. 하지만 homogeneous graph를 위해 디자인된 GNN에서 사용하는 매커니즘을 Heterogeneous graph에 적용했을 때, 정말 효과가 있는지에 대한 분석은 이루어지지 않았다. 본 논문에서는 이러한 매커니즘들의 효과성에 대한 분석을 바탕으로, Heterogeneous graph를 효율적으로 모델링할 수 있는 Simple and Efficient Heterogeneous Graph Neural Networks(SeHGNN)을 제안한다.&lt;/p&gt;
 
-&lt;h2 id=&quot;2-motivation&quot;&gt;2. Motivation&lt;/h2&gt;
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 
 &lt;p&gt;이전의 Heterogeneous Graph Neural Network(HGNN)은 GNN에서 사용하는 메커니즘이 heterogeneous 그래프에 효과가 있는지에 대한 분석은 거의 하지 않은 채, 이를 그대로 사용하면서 heterogeneous 그래프의 representation learning을 수행해왔다. 본 논문에서는 attention이나 multi-layer 구조가 heterogeneous 그래프를 모델링하는데 효과적인지에 대해 분석하는 과정에서 중요한 두 가지 발견을 하였고, 이를 바탕으로 SeHGNN 아키텍처를 설계하였다. Heterogeneous 그래프에 대한 기존 매커니즘의 효과성에 대한 분석 과정과 그에 따른 발견은 아래와 같다.&lt;/p&gt;
 
@@ -1017,9 +1205,12 @@ where $E^s$ and $E^t$ are the embeddings of the student and student model’s em
 
 &lt;p&gt;일반적으로 각 노드 $v_i$에 대해, 각 주어진 metapath로부터 metapath 기반 이웃의 feature를 aggregate하기 위해 mean aggregation을 사용하며 semantic feature vector들의 list를 다음과 같이 출력하는데,&lt;/p&gt;
 
-&lt;p&gt;$mi = {z_P^i = \frac{1}{\vert\vert SP \vert\vert} \sum_{p(i,j)\in SP} x_j : P \in \Phi_X}$&lt;/p&gt;
+&lt;p&gt;$m_i = {z_i^P = \frac{1}{\vert\vert S^P \vert\vert} \sum_{p(i,j)\in S_P} x_j : P \in \Phi_X}$&lt;/p&gt;
 
-&lt;p&gt;본 논문에서는 metapath 기반 neighbor collection을 간소화하기 위해 새로운 방법을 제안한다. HAN과 같은 기존의 metapath 기반 방법은 각 metapath에 대해 모든 metapath 기반 이웃을 열거하는 metapath neighbor 그래프를 구축하며, 이는 metapath의 길이에 따라 metapath 인스턴스의 수가 기하급수적으로 증가하므로 높은 부하를 초래했다. 본 논문에서는 GCN의 레이어별 전파에서 영감을 얻어 각 노드의 최종 기여 가중치를 인접 행렬의 곱셈을 사용하여 계산한다.&lt;/p&gt;
+&lt;p&gt;여기서 $S^P$는 메타패스 $P$에 상응하는 모든 메타패스 인스턴스들의 집합을 나타내고,
+$p(i,j)$는 target 노드 $i$와 source 노드 $j$를 갖는 하나의 매타패스 인스턴스를 나타낸다.&lt;/p&gt;
+
+&lt;p&gt;본 논문에서는 이러한 metapath 기반 neighbor collection을 간소화하기 위해 새로운 방법을 제안한다. HAN과 같은 기존의 metapath 기반 방법은 각 metapath에 대해 모든 metapath 기반 이웃을 enumerate하는 metapath neighbor 그래프를 구축하며, 이는 metapath의 길이에 따라 metapath 인스턴스의 수가 기하급수적으로 증가하므로 높은 부하를 초래했다. 본 논문에서는 GCN의 레이어별 전파에서 영감을 얻어 각 노드의 최종 기여 가중치를 인접 행렬의 곱셈을 사용하여 계산한다.&lt;/p&gt;
 
 &lt;p&gt;$X_c = {x_0^{cT}; x_1^{cT}; \ldots; x_{\vert\vert V_c \vert\vert-1}^{cT}} \in \mathbb{R}^{\vert\vert V_c \vert\vert \times d_c}$&lt;/p&gt;
 
@@ -1102,7 +1293,7 @@ Table 3은 네 가지 데이터셋에서 SeHGNN의 성능을 HGB 벤치마크의
 &lt;p&gt;Contact: minkyujeong@kaist.ac.kr&lt;/p&gt;
 
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</guid>
             
@@ -1123,7 +1314,8 @@ Table 3은 네 가지 데이터셋에서 SeHGNN의 성능을 HGB 벤치마크의
 이 논문에서 user-item interaction history는 다음과 같이 정의된다. &lt;br /&gt;
  $\begin{align}S = {(v_ 1, t_ 1), \ldots, (v_ n, t_ n ), \ldots, (v_ N, t_ N )} \end{align}$&lt;/p&gt;
 
-&lt;p&gt;여기서 $v_ n \in V$는 timestamp $t_ n$에서 sequence $S$의 $n$번째 interacted item이고 $N$은 sequence의 최대 길이이다. 단순화를 위해 user 및 실제 길이에 대한 표기는 생략되었고 interacted timestamp $t_ n$을 고려한다. &lt;br /&gt;
+&lt;p&gt;여기서 $v_ n \in V$는 timestamp $t_ n$에서 sequence $S$의 $n$번째 interacted item이고 $N$은 sequence의 최대 길이이다. 
+ 단순화를 위해 user 및 실제 길이에 대한 표기는 생략되었고 interacted timestamp $t_ n$을 고려한다. &lt;br /&gt;
 SRS는 제공된 길이가 $N$인 interaction sequence ${(v_ 1, t_ 1), \ldots, (v_ N, t_ N )}$를 활용해서 다음 interacted item $v_ {N+1}$을 예측해야 하는 문제이다. &lt;br /&gt;
 그러나 대부분의 기존 transformer 기반 SRS model들은 모든 item-item pair 간의 attention score를 계산하는 vanilla attention mechanism을 사용하고 있다.
 이 경우 중복되는 item interaction으로 인해 model 성능이 저하되고 많은 계산 시간과 메모리를 필요로 할 수 있다는 문제점이 발생한다.&lt;/p&gt;
@@ -1166,7 +1358,7 @@ x축은 eigenvalue, y축은 value의 비율이다.
 
 &lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;https://velog.velcdn.com/images/yst3147/post/18dfd67a-8704-4238-b825-762bff970ac5/image.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Model은 Embedding layer, 여러 Transformer layer, Prediction layer로 구성되어 있다. 
+&lt;p&gt;Model은 Embedding layer, 여러 Transformer layer, Prediction layer로 구성되어 있다. &lt;br /&gt;
 Backbone model과 비교했을 때 TransformerLayer에서 차이가 있는데, 논문에서는 cross-attention과 학습 가능한 parameter를 활용한 효율적인 sampling 전략을 기반으로 하는 sparse transformer를 활용한다. &lt;br /&gt;
 Model의 각 layer를 설명하되 이 논문의 핵심인 Cross Attention Transformer Layer와 Sampling 전략 부분을 좀 더 자세히 설명할 예정이다.&lt;/p&gt;
 
@@ -1180,8 +1372,9 @@ Model의 각 layer를 설명하되 이 논문의 핵심인 Cross Attention Trans
 &lt;h3 id=&quot;32-sparse-transformer-in-strec&quot;&gt;3.2 Sparse Transformer in STRec&lt;/h3&gt;
 
 &lt;h4 id=&quot;321-cross-attention-transformer-layer&quot;&gt;3.2.1 Cross Attention Transformer Layer&lt;/h4&gt;
-&lt;p&gt;Attention layer의 계산 비용을 줄이기 위해 vanilla self-attention을 cross-attention으로 대체하였다. cross-attention은 input sequence를 key, value로 샘플링된 item sequence를 query로 사용한다.
-sampling된 query matrix는 기존 query matrix에 비해 크게 축소되기 때문에 계산이 더 효율적이다.
+&lt;p&gt;Attention layer의 계산 비용을 줄이기 위해 vanilla self-attention을 cross-attention으로 대체하였다. &lt;br /&gt;
+cross-attention은 input sequence를 key, value로 샘플링된 item sequence를 query로 사용한다.
+sampling된 query matrix는 기존 query matrix에 비해 크게 축소되기 때문에 계산이 더 효율적이다. &lt;br /&gt;
 $H^ {l-1}$에 대해서 cross-attention은 다음과 같은 식으로 나타낼 수 있다. &lt;br /&gt;
 $ \begin{align} \tilde{H}^ {l-1} = Add\&amp;amp;Norm\left(Attention\left(H_{I}^ {l-1}, H^ {l-1}, H^ {l-1}\right) \right)  \end{align}$
 $\tilde{H}^ {l-1}$은 사전 정의된 $k_l$의 길이를 갖으며 sampling index $I_l$에 의해 $H_ {l-1}$에 있는 item representation이 sampling된 부분집합이다.
@@ -1201,7 +1394,7 @@ $t_ i, 1 \le i \le N$은 interaction $v_ i$에 대해 기록된 timestamp이다.
 첫번째 layer의 경우 MLP(Multi-layer Perceptron)을 활용해서 time interval $T$를 sampling density로 mapping한다. 무작위 샘플링을 위해 uniform distribution을 갖는 random matrix $R$ 을 추가한다. sampling index $I$는 다음과 같이 생성된다.&lt;/p&gt;
 
 &lt;p&gt;$ \begin{align} I_ {1} = Top_k\left(MLP(T) + R, k_ 1\right)  \end{align}$
-$ \begin{align} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{align}$&lt;/p&gt;
+$ \begin{gather} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{gather}$&lt;/p&gt;
 
 &lt;p&gt;$Top_k\left(\cdot \right)$는 내림차순으로 정렬된 index들의 set을 생성한다.
 $k_ 1$은 hyperparameter로서 첫번째 layer의 pre-define된 sample size이다.&lt;/p&gt;
@@ -1218,8 +1411,11 @@ $I$는 미분 가능한 방식으로 근사된(하지만 미분 가능한 방식
 
 &lt;p&gt;$ \begin{align} S_ {l} = Sigmoid\left(MLP\left(T\right) + R + \alpha _ l\right)  ∀ 1 \le l \le L  \end{align}$
 $ \begin{align} S_ {0} = \left[ 1, 1, \ldots, 1\right] \end{align}$
-$ \begin{align} M_ {l} = S_ {l-1} \otimes S_ {l}  ∀ 1 \le l \le L  \end{align}$
-$ \begin{align} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{align}$&lt;/p&gt;
+$ \begin{align} M_ {l} = S_ {l-1} \otimes S_ {l}  ∀ 1 \le l \le L  \end{align}$&lt;/p&gt;
+
+&lt;p&gt;$\begin{gather}
+ r_ {i} \sim Uniform\left(0, 1\right) \nonumber 
+\end{gather}$&lt;/p&gt;
 
 &lt;p&gt;$MLP\left(\cdot\right)$는 normalization이 포함된 multi-layer perceptron이다. &lt;br /&gt;
 $\alpha$는 sampling될 interaction 수(mask matrix $S_l$의 1 개수)를 제어하는데 사용된다.
@@ -1290,7 +1486,7 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
   &lt;li&gt;식 $(2)$ 활용 각 interaction의 초기 representation을 만들고 $H^ 0$과 연결&lt;/li&gt;
   &lt;li&gt;식 $(5)$ 활용 visiting time interval $T$ 계산&lt;/li&gt;
   &lt;li&gt;식 $(6)$ 활용 첫 layer에 대한 index $I_ 1$ 생성&lt;/li&gt;
-  &lt;li&gt;$H^ 0$가 $L$개의 transformer layer에 의해 식 $(3, 4)$와 같이 변환됨&lt;/li&gt;
+  &lt;li&gt;$H^ 0$가 $L$개의 transformer layer에 의해 식 $(3)$, $(4)$와 같이 변환됨&lt;/li&gt;
   &lt;li&gt;식 $(7)$ 활용 각 layer $l$의 index $I_ l$이 포함된 sampling query 직접 생성&lt;/li&gt;
   &lt;li&gt;모든 candidate item과 sparse transformer의 output을 내적&lt;/li&gt;
 &lt;/ul&gt;
@@ -1334,8 +1530,8 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
   &lt;/li&gt;
   &lt;li&gt;Evaluation Metric
     &lt;ul&gt;
-      &lt;li&gt;mean reciprocal rank(MRR)&lt;/li&gt;
-      &lt;li&gt;normalized discounted cumulative gain(NDCG)&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Mean_reciprocal_rank&quot;&gt;mean reciprocal rank(MRR)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Discounted_cumulative_gain&quot;&gt;normalized discounted cumulative gain(NDCG)&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;hit ratio(HR)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -1384,7 +1580,7 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
 
 &lt;p&gt;x축은 모든 layer애서의 sample size $k_ l$에 의해 계산된 sparsity를 의미한다.&lt;br /&gt;
 e.g. sequence 길이가 50이고 $k_ l$이 5일 때 sparsity는 (50 - 5) / 50 = 90% &lt;br /&gt;
-y축은 accuracy performance와 efficiency performance(backbone model과의 inference time과 memory cost의 persentage 비교)를 나타낸다.&lt;/p&gt;
+y축은 accuracy performance와 efficiency performance(backbone model과의 inference time과 memory cost의 percentage 비교)를 나타낸다.&lt;/p&gt;
 
 &lt;p&gt;Figure 4와 5에 대한 분석 결과는 다음과 같다.&lt;/p&gt;
 &lt;ul&gt;
@@ -1392,10 +1588,10 @@ y축은 accuracy performance와 efficiency performance(backbone model과의 infe
   &lt;li&gt;sparsity가 42%보다 낮을 때 sparsity와 model 성능은 비례한다. 그 이유는 중요하지 않은 period의 interaction에 대한 영향을 제거하여 transformer가 sequential user preference를 잘 학습할 수 있도록 중복되는 interaction 계산을 생략하기 때문이다.&lt;/li&gt;
   &lt;li&gt;너무 높은 sparsity는 성능을 감소시킨다. 77%보다 sparsity가 커질 때 모델 성능은 점점 감소된다. 그 이유는 sparsity가 너무 심하면 많은 key information을 잃어버리고 prediction을 충분히 학습할 수 없기 때문이다.&lt;/li&gt;
   &lt;li&gt;(42%-77%)의 sparsity 범위에서 STRec은 SASRec(가장 성능이 좋은 baseline)의 성능을 능가한다. 그 이유는 sequence에서 representative interaction을 선택하는 성공적인 sampling 전략 덕분이다.(denoising과 비슷)&lt;/li&gt;
-  &lt;li&gt;100%에 가까운 sparsity에서도 inference을 위한 backbone model의 cost으로 인해 I/O 및 embedding layer에도 약 15%의 시간이 소요된다. Memory cost은 주로 transformer layer에 의해 발생하므로 sparsity이 100%에 가까워지면 memory cost가 거의 0%가 될 수 있다.
-    &lt;h4 id=&quot;training-pipeline-analysis&quot;&gt;Training Pipeline Analysis&lt;/h4&gt;
-  &lt;/li&gt;
+  &lt;li&gt;100%에 가까운 sparsity에서도 inference을 위한 backbone model의 cost으로 인해 I/O 및 embedding layer에도 약 15%의 시간이 소요된다. Memory cost은 주로 transformer layer에 의해 발생하므로 sparsity이 100%에 가까워지면 memory cost가 거의 0%가 될 수 있다.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h4 id=&quot;training-pipeline-analysis&quot;&gt;Training Pipeline Analysis&lt;/h4&gt;
 
 &lt;p&gt;Figure 6는 pretrain epoch $C$를 변화시켜 가며 실험을 진행한 결과이다.&lt;/p&gt;
 
@@ -1454,12 +1650,22 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 그 결과 &lt;strong&gt;STRec&lt;/strong&gt;은 inference time을 54% 단축하고 GPU memory 비용을 70%를 줄이면서도 다른 state-of-the-art 방법들보다 더 나은 accuracy 성능을 보인다. &lt;br /&gt;
 추천시스템에서 발생하는 sparsity 특성을 활용하여 더 빠르고 memory를 적게 차지하면서도 성능이 좋은 transformer 기반 추천 모델을 제시하였다는 점이 인상깊었다.&lt;/p&gt;
 
+&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SeungTai Yoo
+    &lt;ul&gt;
+      &lt;li&gt;Contact : styoo@kaist.ac.kr&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;6-reference--additional-materials&quot;&gt;&lt;strong&gt;6. Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Github Implementation
     &lt;ul&gt;
-      &lt;li&gt;https://github.com/ChengxiLi5/STRec&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/ChengxiLi5/STRec&quot;&gt;https://github.com/ChengxiLi5/STRec&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Reference
@@ -1486,7 +1692,7 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</guid>
             
@@ -1497,183 +1703,165 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
         
         <item>
             <title>[NIPS 2021] Robustness of Graph Neural Networks at Scale</title>
-            <description>&lt;h1 id=&quot;robustness-of-gnn-at-scale&quot;&gt;Robustness of GNN at Scale&lt;/h1&gt;
-
-&lt;h1 id=&quot;0-background&quot;&gt;0. Background&lt;/h1&gt;
+            <description>&lt;h2 id=&quot;0-background&quot;&gt;&lt;strong&gt;0. Background&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Adversarial Attack on GNN?&lt;/p&gt;
-
+  &lt;li&gt;Adversarial Attack on GNN : Adversarial Pertubation을 적용해 기존 분류기 또는 GNN 모델의 성능을 낮추는 것을 말한다.&lt;/li&gt;
+  &lt;li&gt;Testing Phase Attack : 분류 모델에 대해서 간섭을 주진 않지만 모델이 정확하게 동작하지 않도록 오동작을 유발하는 공격이다. 공격을 수행할 시 사용 가능한 지식의 양에 따라 White Box, Black Box Attack으로 분류한다.
     &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Adversarial Pertubation을 적용해 기존 분류기 또는 GNN 모델의 성능을 낮추는 것을 말함.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;이는 현실에 존재할 수 있는 이미지에 대해서는 정상적으로 동작하도록 설계되었지만 사람이 일부 변화를 취한 Adversarial Examples(Perturbed된 결과물들)에 대해서는 취약할 수 있음.&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Testing Phase Attack : 분류 모델에 대해서 간섭을 주진 않지만 모델이 정확하게 동작하지 않도록 오동작을 유발하는 공격. 공격을 수행할 시 사용 가능한 지식의 양에 따라 공격을 분류&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;White Box Attacks : 분류에 사용되는 model에 대한 모든 지식을 가지고 있는 공격&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Black Box Attacks : model에 대한 정보 모르는 공격자가 행하는 공격. 조작된 input과 이것이 주는 output 관찰함으로써 이용될 수 있음.&lt;/p&gt;
-      &lt;/li&gt;
+      &lt;li&gt;White Box Attacks : 분류에 사용되는 model에 대한 모든 지식을 가지고 있는 공격이다.&lt;/li&gt;
+      &lt;li&gt;Black Box Attacks : model에 대한 정보를 모르는 공격자가 행하는 공격으로 input과 이것이 주는 output을 관찰함으로써 수행될 수 있다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;논문에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;testing phase&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;white box&lt;/code&gt; 조건에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Adversarial Robustness&lt;/code&gt;를 달성하고자 아래 방법론들을 제시한다.&lt;/p&gt;
 
-&lt;p&gt;Graph Neural Networks가 Adversarial Perturbations에 Robust하지 않다는 점은 발견이 되나, 이를 실험하고 해결하고자 한 연구들은 거의 없다. 예를 들어 PubMed라는 GNN Dataset의 경우, 인접 행렬을 기반으로 한 공격에 있어서 20GB의 메모리가 필요하며 이러한 경우 공격을 실행하기 어렵다. 이는 GNN의 Robustness를 확인해보고자 하는 연구가 진전되는 것을 어렵게 한다.&lt;/p&gt;
+&lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;h1 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Graph Neural Networks가 Adversarial Perturbations에 Robust하지 않다는 점은 발견이 되나, 이를 중점으로 한 연구들은 거의 없다. 예를 들어 PubMed Graph Dataset의 경우, 인접 행렬을 기반으로 한 공격을 위해선 약 20GB의 메모리가 필요하다. 이런 메모리 요구는 GNN의 Robustness를 확인해보고자 하는 실질적인 연구를 어렵게 한다.&lt;/p&gt;
 
-&lt;p&gt;해당 논문은 GNN의 Adversarial robustness에 대한 기존 연구의 한계점들을 다음과 같이 명시했다.: (1) 기존의 Loss는 Global Attack에 적합하지 않다는 점과 (2) GNN Attack에 소요되는 비용이 $O(n^2)$이상으로 매우 큰 점 그리고 (3) 기존의 Robust GNN은 scalable하지 않다는 점이다.&lt;/p&gt;
+&lt;h2 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;해당 논문은 GNN의 Adversarial robustness에 대한 기존 연구의 한계점들을 다음과 같이 명시했다 : 
+	(1) 기존의 Loss는 Global Attack에 적합하지 않음
+	(2) GNN Attack에 소요되는 비용이 $O(n^2)$이상으로 매우 큼
+	(3) 기존의 Robust GNN은 scalable하지 않음.&lt;/p&gt;
 
 &lt;p&gt;따라서, 위의 한계점들을 (1) &lt;strong&gt;Surrogate loss&lt;/strong&gt;를 제시함으로써, (2) R-BCD를 기반으로 하여 &lt;strong&gt;시간복잡도를 $O(\Delta)$로 줄이는 방법을 제시함&lt;/strong&gt;으로써, 마지막으로 (3) &lt;strong&gt;Soft Median으로 효과적으로 GNN을 방어하는 방법을 관찰함&lt;/strong&gt;으로써 해결하고자 했다.&lt;/p&gt;
 
-&lt;h1 id=&quot;3-method-and-experiment&quot;&gt;&lt;strong&gt;3. Method and Experiment&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&quot;3-method-and-experiment&quot;&gt;&lt;strong&gt;3. Method and Experiment&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;h2 id=&quot;31-surrogate-losses&quot;&gt;3.1 Surrogate Losses&lt;/h2&gt;
+&lt;h3 id=&quot;31-surrogate-losses-for-global-attacks&quot;&gt;3.1 Surrogate Losses for global attacks&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;Why previous loss invalid?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;GNN의 Global Attacks들은 평균 Cross Entropy Loss(CE)를 증가시킨다. 그러나 Node가 많은 Large Graph들의 경우 CE loss는 효율적이지 않다. Accuracy가 낮아질 때, CE loss 는 증가할 것이다. 그러나 CE의 경우, Accuracy가 감소하지 않아도 증가할 때가 있다.&lt;/p&gt;
 
-&lt;p&gt;많은 GNN의 Global Attacks들은 평균 Cross Entropy Loss를 증가시킨다. 그러나 node가 많은 Large Graph들의 경우 위의 loss는 효율적이지 않다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/w7fSMqc/Untitled.png&quot; alt=&quot;Untitled.png&quot; /&gt;
+$\psi$는 Classification Margin으로 값이 클수록 Classification을 Confident하게 수행하는 것을, 값이 작을수록 Confident하지 않게 수행하는 것을 의미한다. 즉, 이 값이 작을 수록 misclassified될 가능성이 크다.
+ 위의 그림은 1% of nodes를 가지고 feature perturbation을 준 모습이다. CE Loss는 Tanh margin에 비해서 Classification margin이 낮은 node들에 대해 Attack을 가하며 Budget $\Delta$를 사용하는 모습을 볼 수 있다. ($\Delta$ : Perturbed된 인접행렬의 변경된 Entry의 수)
+ &lt;img src=&quot;https://i.ibb.co/TLW11Mw/Untitled-99.png&quot; alt=&quot;Untitled-99.png&quot; /&gt;
+위 그래프는 각 데이터셋에 대한 CE, CW, Tanh margin loss에 대한 실험결과이다. CE, CW는 tanh margin loss에 비해서 loss, accuracy의 그래프의 결과가 안정적이지 못하고 그 성능이 덜한 것을 확인할 수 있다.&lt;/p&gt;
 
-&lt;h3 id=&quot;surrogate-loss&quot;&gt;Surrogate loss&lt;/h3&gt;
+&lt;p&gt;그래서 이들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Surrogate loss&lt;/code&gt;를 새롭게 정의한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;(정의 1)&lt;/strong&gt; Global Attack에 대한 Surrogate Loss $L^\prime$은&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Definition of Surrogate Loss:&lt;/strong&gt; Global Attack에 대한 Surrogate Loss $L^\prime$는&lt;/p&gt;
 
-&lt;p&gt;(1) 옳게 분류된 pertubing node들에 대해서만 incentive를 주고,&lt;/p&gt;
-
-&lt;p&gt;$\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$&lt;/p&gt;
+&lt;p&gt;(1) 옳게 분류된 perturbed node들에 대해서만 incentive를 주고, $\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$&lt;/p&gt;
 
 &lt;p&gt;(2) Decision Boundary 근처에 있는 node들을 선호하는 방식으로 Loss를 구성한다.&lt;/p&gt;
 
-&lt;p&gt;$\frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 2 \; for \, any \,0&amp;lt;\psi_ 1&amp;lt;\psi_ 2$&lt;/p&gt;
+&lt;p&gt;$\frac{\partial L^\prime}{\partial z_ c^{_}} \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime}{\partial z_ c^{_}} \vert \psi_ 2 \;\; for \;  any \;\;  0&amp;lt;\psi_ 1&amp;lt;\psi_ 2$&lt;/p&gt;
 
-&lt;p&gt;위 정의에서 도출된 명제에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.&lt;/p&gt;
+&lt;p&gt;위 정의에서 도출된 정의에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.&lt;/p&gt;
 
-&lt;p&gt;논문은 Surrogate loss에 맞는 loss로써 Masked Cross Entropy(MCE)를 제안한다.&lt;/p&gt;
+&lt;p&gt;논문은 Surrogate loss에 맞는 loss로써 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Masked Cross Entropy(MCE)&lt;/code&gt;를 제안한다.&lt;/p&gt;
 
-&lt;p&gt;$MCE = \frac{1}{\vert V^+ \vert}  \sum_{i \in V^+}  -\log(p^{(i)}_ {c^*})$&lt;/p&gt;
+&lt;p&gt;$MCE = \frac{1}{\vert V^+ \vert} \sum_{i \in V^+} -\log(p^{(i)}_ {c^*})$&lt;/p&gt;
 
-&lt;p&gt;MCE는 Projected Gradient Descent attack(PR-BCD)에 대해서는 Cross Entropy와 큰 차이를 보이지 않지만, Greedy Gradient-Based attack에 있어서는 강점을 보이는 것을 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;MCE는 Projected Gradient Descent attack(PR-BCD)에 대해서는 Cross Entropy와 큰 차이를 보이지 않지만, Greedy Gradient-Based attack에 있어서는 강점을 보이는 것을 확인할 수 있다. 따라서, 이후 실험에서는 Greedy Attack에선 MCE를 사용하고 다른 경우는 Tanh margin loss를 사용한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/gJFYDfd/2023-10-15-17-52-14.png&quot; alt=&quot;2023-10-15-17-52-14.png&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;32-scalable-attacks&quot;&gt;3.2 Scalable Attacks&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;(정의 2)&lt;/strong&gt; 정의 1을 더 확장하여 Surrogate Loss $L^\prime$는&lt;/p&gt;
-
-&lt;p&gt;(1) 확실하게 잘못 분류된 노드($\psi$가 -1에 가까운 노드)들에 대해서 확실하게 구분하고,&lt;/p&gt;
-
-&lt;p&gt;$\lim_{\psi  \to  -1^+} L^\prime &amp;lt; \infty$&lt;/p&gt;
-
-&lt;p&gt;(2) 정의 1과 마찬가지로 Decision Boundary 근처에 있는 point들을 선호하는 방식으로 Loss를 구성한다.&lt;/p&gt;
-
-&lt;p&gt;$\frac{\partial L^\prime} {\partial z_ c^{*}} $
-$ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_ 2 &amp;lt; 0 \; \ for \, any \; 0 &amp;lt; \psi_ 1 &amp;lt; \psi_ 2 &amp;lt; 1 \; \ or \; -1 &amp;lt; \psi_ 2 &amp;lt; \psi_ 1 &amp;lt; 0$&lt;/p&gt;
-
-&lt;h2 id=&quot;32-scalable-attacks&quot;&gt;3.2 Scalable Attacks&lt;/h2&gt;
-
-&lt;p&gt;Gradient-based attacks들은 인접행렬 $A$에 대해서 모두 최적화하기에 $\Theta(n^2)$의 시간 복잡도를 보여 Large Graph에 대한 robustness는 대개 측정하기 어려웠다.&lt;/p&gt;
+&lt;p&gt;Gradient-based attacks들은 인접행렬 $A$에 대해서 모두 최적화하기에 $\Theta(n^2)$의 공간 복잡도를 보여 Large Graph에 대한 robustness는 대개 측정하기 어려웠다.&lt;/p&gt;
 
 &lt;p&gt;Large-scale Optimization을 위해 R-BCD(Randomized Block Coordinate Descent)를 사용함으로써 변수들의 부분집합에 대해서만 gradients를 구하기 때문에 사용되는 메모리와 수행 시간을 줄일 수 있다.&lt;/p&gt;
 
 &lt;p&gt;Perturbation $P\in{0,1}^{n*n}$ 는 아래와 같이 모델되었다.&lt;/p&gt;
 
-&lt;p&gt;$\max_{P\; \text{s.t.}\; P \in {0, 1}^{n \times n},\; \sum P \leq  \Delta} L(f_\theta(A \otimes P, X)) \ \Delta = \text{edge budget}$&lt;/p&gt;
+&lt;p&gt;$\max_{P\; \text{s.t.}\; P \in {0, 1}^{n \times n},\; \sum P \leq \Delta} L(f_\theta(A \oplus P, X))$
+여기서 $\oplus$는 element-wise XOR을 나타내고 $\Delta$는 Edge budget을 의미한다.&lt;/p&gt;
 
-&lt;p&gt;그러나 $O(n^2)$ 만큼의 공간복잡도이기에 논문은 Projected Randomized Block Coordinate Descent(PR-BCD)를 제안한다.&lt;/p&gt;
+&lt;p&gt;그러나 $n^2$만큼의 parameter를 위 식에서 저장해야 하기때문에$O(n^2)$ 만큼의 공간 복잡도를 가진다. 이에 논문은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Projected Randomized Block Coordinate Descent(PR-BCD)&lt;/code&gt;를 제안한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/fC7NNv7/2023-10-15-18-08-22.png&quot; alt=&quot;img2.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Qb9hygL/Untitled-1.png&quot; alt=&quot;Untitled-1&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;P는 이산 Edge 행렬로, 각 element(p)는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 그리고 논문은 PR-BCD에 대한 또 다른 대안으로 &lt;strong&gt;GR-BCD&lt;/strong&gt;를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 &lt;strong&gt;greedy&lt;/strong&gt;하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다. 그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Explanation of PR-BCD :&lt;/strong&gt; P는 이산 Edge 행렬로 element p는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 
+ PR-BCD에서는 block size로 공간 복잡도를 줄이고 효율적인 공격을 가능하게한다. 효율적인 공격을 위해서 전체 가능한 edge들을 탐색할 필요가 없다고 생각했다. Figure 3-(a)를 보면 상대적으로 작은 Dataset인 Cora ML에서는 작은 block size($b$)로도 낮은 Accuracy를 달성할 수 있었다. 그리고 Figure 3-(b)를 통해 여러 block size에 대해서 실험해본 결과 향상된 Attack을 위해서는 Epoch의 수를 늘리는 것이 중요한 것을 확인할 수 있었다. 
+ 이로써 PR-BCD로 이전에는 $\mathcal{O}(n^2)$가 필요했던 것을 $\mathcal{O}(b)$로 줄일 수 있어 효과적인 Attack을 시행할 수 있었다.&lt;/p&gt;
 
-&lt;p&gt;위 방법론에서 확장하여 더 큰 그래프들을 사용하기 위해, PPRGo를 사용했다. 이는 Personalized Page Rank(PPR) Matrix($\Pi$)를 사용함으로써 explicit message passing steps 수를 1로 줄여 constant complexity를 가질 수 있게 한다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/P5hzD8b/Utitled-98.png&quot; alt=&quot;Utitled-98.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;$p = softmax \big[\text{AGG}{\Pi_{uv}(A_{uv}, f_\text{enc}(x_u)\big), \;  \forall u \in  \mathbb{N}^\prime(v)}\big]$&lt;/p&gt;
+&lt;p&gt;그리고 논문은 PR-BCD에 대한 또 다른 대안으로 위와 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GR-BCD&lt;/code&gt;를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 &lt;strong&gt;greedy&lt;/strong&gt;하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/s6chCC0/img3.png&quot; alt=&quot;img3.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.&lt;/p&gt;
 
-&lt;h2 id=&quot;33-scalable-defense&quot;&gt;3.3 Scalable Defense&lt;/h2&gt;
+&lt;p&gt;위 방법론에서 확장하여 더 큰 그래프들을 사용하기 위해, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PPRGo&lt;/code&gt;를 사용했다. 이는 Personalized Page Rank(PPR) Matrix($\Pi$)를 사용함으로써 explicit message passing steps 수를 1로 줄여 constant complexity를 가질 수 있게 한다.&lt;/p&gt;
+
+&lt;p&gt;$p = softmax \big[\text{AGG}{\Pi_{uv}(A_{uv}, f_\text{enc}(x_u)\big), \; \forall u \in \mathbb{N}^\prime(v)}\big]$&lt;/p&gt;
+
+&lt;h3 id=&quot;33-scalable-defense&quot;&gt;3.3 Scalable Defense&lt;/h3&gt;
 
 &lt;p&gt;GNN의 메세지 패싱 프레임워크를 다음과 같이 표현할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;$h^{(l)}_ v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)}\big] \ \ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\text{and} \; AGG = \text{l-th layer message passing aggregation} \ \text{and} \; h^{(l)}_ v = \text{embedding}, \sigma^{(l)}  \text{activation function}$&lt;/p&gt;
+&lt;p&gt;$h^{(l)}_ v = \phi^{(l)} \big[( \text{AGG}^{(l)}{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad \forall u \in \mathbb{N}^\prime(v)}\big]$  where $\text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v) \cup v$ 
+and $AGG = \text{l-th layer message passing aggregation}$ 
+and $h^{(l)}_ v = \text{embedding},\; \sigma^{(l)} \text{activation function}$&lt;/p&gt;
 
-&lt;p&gt;Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 제안했다. Soft Medoid는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다.&lt;/p&gt;
+&lt;p&gt;이전 논문인 Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 다음과 같이 제안했다 : $\tilde{f}&lt;em&gt;{\text{WSM}}(X, a) = c(s \circ a)X \quad where  \quad s_i = \frac{\exp \left( -\frac{1}{T} \sum&lt;/em&gt;{j=1}^{n} a_j ||x_j - x_i|| \right)}{\sum_{q=1}^{n} \exp \left( -\frac{1}{T} \sum_{j=1}^{n} a_j ||x_j - x_q|| \right)}$
+ Soft Medoid는 $s_i$로 표현되는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다.&lt;/p&gt;
 
-&lt;p&gt;이를 개선하기 위해 논문은 Soft Median을 제시한다.&lt;/p&gt;
+&lt;p&gt;이를 개선하기 위해 논문은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Soft Median&lt;/code&gt;을 제시한다.&lt;/p&gt;
 
-&lt;p&gt;$\mu_\text{SoftMedian}(X) = \text{softmax}(\frac{-c}{T\sqrt{d}}  )^\intercal  \cdot  \mathbf{X} = \mathbf{s}^\intercal  \cdot  \mathbf{X}  \approx  \arg  \min_{x^\prime  \in  \mathbf{X}} |x_{\bar{}}  - x^\prime|$&lt;/p&gt;
+&lt;p&gt;$\mu_\text{SoftMedian}(X) \= \text{softmax}(\frac{-c}{T\sqrt{d}} )^\intercal \cdot \mathbf{X} = \mathbf{s}^\intercal \cdot \mathbf{X} \approx \arg \min_{x^\prime \in \mathbf{X}} |x_{\bar{}} - x^\prime|$&lt;/p&gt;
 
 &lt;p&gt;이로써 Dimension($d$)에만 의존함으로써 계산을 효율적으로 할 수 있다. $d$를 충분히 작게 한다면 Soft Median 스케일은 $\mathbb{N}$에 linear한 scale을 보인다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/5vY3Fdk/img4.png&quot; alt=&quot;img4.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/g6v6dk2/Untitled-97.png&quot; alt=&quot;Untitled-97.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위 왼편의 그래프는 원본 그래프와 Pertubed된 그래프를 첫 번째 message passing을 한 후의 latent space의 $L_2$ Distance를 나타낸 그래프이다. Soft Median이 Weighted Sum보다 20% 가까이 낮은 error를 보인다. 반면, 그래프에는 Soft Medoid가 Soft Median보다 Robust한 결과를 가지는 것으로 보인다. 그러나 오른쪽 표가 나타내듯 Adversarial accuracy에서는 Soft Medoid가 Soft Median보다 좋은 성능을 보이지 못했다.&lt;/p&gt;
+&lt;p&gt;위의 그래프는 원본 그래프와 Pertubed된 그래프를 첫 번째 message passing을 한 후의 latent space의 $L_2$ Distance를 나타낸 그래프이다. Soft Median이 Weighted Sum보다 20% 가까이 낮은 error를 보인다. 반면, 그래프에는 Soft Medoid가 Soft Median보다 Robust한 결과를 가지는 것으로 보인다. 그러나 오른쪽 표가 나타내듯 Adversarial accuracy에서는 Soft Medoid가 Soft Median보다 좋은 성능을 보이지 못했다.&lt;/p&gt;
 
-&lt;p&gt;이처럼 Soft Median은 (1)차원에 대한 고려 없이 단순히 Summation 한다면 computation 비용이 많이 든다는 점과 (2)Soft Median에 비해 robust하지 않은 결과와 마찬가지로 잘못된 robustness의 결과를 가져올 수 있다는 점을 한계점으로 삼을 수 있다. 그러나 PPRGo와 결합하여 사용한다면 위 한계를 완화할 수 있다고 설명한다.&lt;/p&gt;
+&lt;p&gt;이처럼 Soft Median은 (1) 차원에 대한 고려 없이 단순히 Summation 한다면 computation 비용이 많이 든다는 점과 (2) Soft Median에 비해 robust하지 않은 결과와 마찬가지로 잘못된 robustness의 결과를 가져올 수 있다는 점을 한계점으로 삼을 수 있다. 그러나 PPRGo와 결합하여 사용한다면 위 한계를 완화할 수 있다고 설명한다.&lt;/p&gt;
 
-&lt;h2 id=&quot;34-empirical-evaluation&quot;&gt;3.4 Empirical Evaluation&lt;/h2&gt;
+&lt;h3 id=&quot;34-empirical-evaluation&quot;&gt;3.4 Empirical Evaluation&lt;/h3&gt;
 
-&lt;h3 id=&quot;robustness-wrt-global-attacks&quot;&gt;Robustness w.r.t global attacks.&lt;/h3&gt;
+&lt;h4 id=&quot;surrogate-loss&quot;&gt;Surrogate Loss&lt;/h4&gt;
 
-&lt;p&gt;아래 실험 결과는 Pubmed, arXiv, Products Dataset 각각에 대해 $\text{budget} = \Delta$만큼의 공격 후에 adversarial accuracy를 측정한 결과이다. 약 2%가량 Pertubation을 가했을 때, 대략 60%의 정확도로 떨어지는 모습을 확인할 수 있었다고 밝혔다. 각 경우에서 Soft Median GDC, Soft Median PPRGo, PPRGo Defense가 타 모델보다 비교적 좋은 결과가 보임을 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Tr2CFsN/Untitled-2.png&quot; alt=&quot;Untitled-2&quot; /&gt;
+Figure 5는 logit의 classification margin을 가지고 loss들을 분류한 결과이다. CE, margin이 low margin에 Incentive를 주는 경향을 보이고, CW, NCE, elu margin들은 high confidence nodes들에 집중하는 경향을 보인다. 그리고 Surrogate loss에서 강조했듯 Decision boundary에 있는 node들에 집중하는 MCE, Tanh margin을 확인할 수 있다.
+Figure 6는 Pubmed Dataset에 Loss들을 달리하여 Attack 후 Accuracy를 측정한 결과이다. 위에서 살펴본 바와 같이 MCE와 Tanh margin의 경우 Adversarial accuracy를 낮추는데 효과적이었고, 특히 MCE는 Greedy attack을 시행했을 때 더욱 효과적임을 볼 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/x18qbsH/img5.png&quot; alt=&quot;img5.png&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;robustness-wrt-global-attacks&quot;&gt;Robustness w.r.t global attacks.&lt;/h4&gt;
 
-&lt;h3 id=&quot;robustness-wrt-local-attacks&quot;&gt;Robustness w.r.t local attacks.&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/bFrdktP/Untitled-3.png&quot; alt=&quot;Untitled-3&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Y2pV6Lp/img6.png&quot; alt=&quot;img6.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/b6P7Xwd/Untitled-4.png&quot; alt=&quot;Untitled-4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 실험 결과는 Pubmed, arXiv, Products Dataset 각각에 대해 $\text{budget} = \Delta$만큼의 공격 후에 adversarial accuracy를 측정한 결과이다. 약 2%가량 Pertubation을 가했을 때, 대략 60%의 정확도로 떨어지는 모습을 확인할 수 있었다고 밝혔다. 각 경우에서 Soft Median GDC, Soft Median PPRGo, PPRGo Defense가 타 모델보다 비교적 좋은 결과가 보임을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;robustness-wrt-local-attacks&quot;&gt;Robustness w.r.t local attacks.&lt;/h4&gt;
 
 &lt;p&gt;Cora ML, Citeseer, arXiv에서 PR-BCD가 SGA보다 효과적으로 공격을 하는 것을 볼 수 있었다. 그리고 아래 그래프가 보이듯 Soft Median PPRGo가 위 공격에 대해서 Vanila PPRGo와 Vanila GCN보다 대체로 잘 견디는 것을 확인할 수 있었다. (b)의 Papers100M에서 $\Delta_i = 0.25$일 때, Soft Median PPRGo는 공격자의 성공률을 90%에서 30%로 줄인 것을 그래프에서 볼 수 있다.&lt;/p&gt;
 
-&lt;h1 id=&quot;4-conclusion&quot;&gt;4. Conclusion&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/m0cRXCv/Untitled-5.png&quot; alt=&quot;Untitled-5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/b5xBzvx/Untitled-6.png&quot; alt=&quot;Untitled-6&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-conclusion&quot;&gt;4. Conclusion&lt;/h2&gt;
 
 &lt;p&gt;규모가 있는 GNN에서의 Adversarial Robustness를 살펴보았다. 논문은 이전까지 데이터셋의 규모로 인해 잘 다뤄지지 않았던 문제를 확인하기 위해 Attack과 Defense에 대해 직접 방법을 제시하고 실험한 결과를 보였다.&lt;/p&gt;
 
-&lt;p&gt;따라서, Complexity를 줄이기 위해 PPRGo와 Soft Median이라는 방법을 도입하고 Attack과 Defense에 반영하여 실제로 큰 데이터셋에 대한 실험결과를 낸 것을 보며 문제상황에 대한 해결 의지를 느낄 수 있었다. 공격자가 Model을 다 안다는 가정(White-box attack)을 하고 Budget($\Delta$)를 중점으로 Complexity를 해결했던 것이 현실에서 어떻게 적용이 될 수 있을지를 찾아보고 싶어졌다.&lt;/p&gt;
+&lt;p&gt;따라서, Complexity를 줄이기 위해 PPRGo와 Soft Median이라는 방법을 도입하고 Attack과 Defense에 반영하여 실제로 큰 데이터셋에 대한 실험결과를 낸 것을 보며 문제상황에 대해 여러 모델을 활용하여 다각도로 실험해본 것을 확인할 수 있었다. 그러나, 그들이 강조한 PPRGo에 대한 모델 설명이 타 모델에 비해서 부족한 점과 white box과 attack budget에 대한 가정이 실제 적용될 수 있는 부분인지에 대한 의문이 남아있다.&lt;/p&gt;
 
 &lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sumin Lee&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Affiliation: Dept. of Data Science, KAIST&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Research Topic: Machine learning, Differential Equation Approximation&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Contact : sumlee@kaist.ac.kr&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Sumin Lee&lt;/li&gt;
+  &lt;li&gt;Affiliation: Dept. of Data Science, KAIST&lt;/li&gt;
+  &lt;li&gt;Research Topic: Machine learning&lt;/li&gt;
+  &lt;li&gt;Contact : &lt;a href=&quot;mailto:sumlee@kaist.ac.kr&quot;&gt;sumlee@kaist.ac.kr&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Reference&lt;/strong&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Geisler, Simon, et al. “Robustness of graph neural networks at scale.” &lt;em&gt;Advances in Neural Information Processing Systems&lt;/em&gt; 34 (2021): 7637-7649.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Bojchevski, Aleksandar, et al. “Scaling graph neural networks with approximate pagerank.” &lt;em&gt;Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp;amp; Data Mining&lt;/em&gt;. 2020.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Geisler, Simon, et al. “Robustness of graph neural networks at scale.” &lt;em&gt;Advances in Neural Information Processing Systems&lt;/em&gt; 34 (2021): 7637-7649.&lt;/li&gt;
+  &lt;li&gt;Bojchevski, Aleksandar, et al. “Scaling graph neural networks with approximate pagerank.” &lt;em&gt;Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp;amp; Data Mining&lt;/em&gt;. 2020.&lt;/li&gt;
+  &lt;li&gt;Geisler, Simon, et al. “Reliable graph neural networks via robust aggregation” &lt;em&gt;In Proceedings of the 34th International Conference on Neural Information Processing Systems (NIPS’20)&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</guid>
             
@@ -1685,8 +1873,6 @@ $ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_
         <item>
             <title>[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection</title>
             <description>&lt;h1 id=&quot;icml-22-rethinking-graph-neural-networks-for-anomaly-detection&quot;&gt;[ICML-22] Rethinking Graph Neural Networks for Anomaly Detection&lt;/h1&gt;
-
-&lt;h1 id=&quot;title&quot;&gt;Title&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -1729,14 +1915,17 @@ $ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_
 
 &lt;h3 id=&quot;21-theoretical-insights-of-the-right-shift-phenomenon&quot;&gt;2.1 Theoretical insights of the ‘right-shift’ phenomenon&lt;/h3&gt;
 
-&lt;p&gt;$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 1, \hat{x}_ 2, … , \hat{x}_ N)^T = U^T$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 
+&lt;p&gt;Laplacian matrix L 을 $D-A$ 또는 $I-D^{-1/2}AD^{-1/2}$ 라 해봅시다. 이때, $I$는 Identity matrix 입니다. $L$ 은 $0=\lambda_1 \leq \lambda_2 \leq … \leq \lambda_N$ 인 고유값을 갖는 대칭행렬이며, 이에 대응하는 고유벡터는 $U = (u_1,u_2,…,u_N)$ 입니다. 두 끝 점 $\lambda_1$과 $\lambda_N$을 제외하고 임의의 기준값 $\lambda_k$에 대하여 우리는 고유값을 두 개의 집합, 저주파 ${\lambda_1, \lambda_2, … \lambda_k}$와 고주파 ${\lambda_ {k+1}, \lambda_ {k+2}, … \lambda_N}$ 로 나눌 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;$G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 1, \hat{x}_ 2, … , \hat{x}_ N)^T = U^Tx$ 를 $x$ 의 graph Fourier transform 이라 가정해봅시다. 
 이때 $\hat{x}^2_ {k} / \sum _ {i=1} ^ N \hat{x} ^2 _i$ 를 $\lambda _k (1 \leq k \leq N)$ 에서의 spectral energy distribution 이라 합니다.&lt;/p&gt;
 
-&lt;p&gt;논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 증명을 위해 $x$가 Gaussian distribution을 따른다고 가정합니다. (i.e. $x \sim N(\mu e_ N,\sigma^2 I_ N)$ 이때, $x$의 이상치 정도는 $\sigma \vert \mu \vert$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_ k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i}$ 로 정의합니다. x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하면 시간이 많이 소요됩니다. 따라서 본문은 high-frequency area $S_ {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i} = \frac {x^T Lx} {x^Tx}$ 를 정의내려 설명합니다. 이를 통해 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 증명할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;논문의 저자는 이상치의 존재가 존재하면 spectral energy 에서의 ‘오른쪽 편이’ 현상이 나타남을 확인하였으며, 이는 spectral energy distribution이 낮은 주파수에는 적게 집중되어 있고 높은 주파수에는 많이 집중되어 있음을 의미합니다. 본문은 probabilistic anomaly model을 사용하여 이 현상을 증명합니다. 증명 과정은 다음과 같습니다. 그래프의 특징은 Gaussian distribution을 따르며 i.i.d 하다고  가정이 됩니다. (i.e. $x \sim N(\mu e_ N,\sigma^2 I_ N)$. 이때, $x$의 이상치 정도는 $\sigma / \vert \mu \vert$로 표현할 수 있습니다. $x$의 이상치 정도에 따라 spectral energy distribution이 얼마나 바뀌는지를 energy ratio라 할때, 어떠한 $1 \leq k \leq N-1$에 대하여 k번째 낮은 주파수 energy ratio 를 $\eta_ k(x,L) = \frac{\sum_ {i=1}^k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i}$ 로 정의합니다. $\eta_ k(x,L)$ 가 크다는 것은 에너지의 더 큰 부분이 처음 $k$개의 고유값으로 축소된다는 것을 의미합니다. 이때, 만약 $\vert \mu \vert \neq 0$ 이고 $L = D - A$ 라면, 저주파 energy ratio의 역의 기댓값 $E_x[1/\eta_k(x,L)]$ 는 이상치 정도 $\sigma / \vert \mu \vert$ 로 단조롭게 증가한다는 것을 수식으로 증명할 수 있습니다.(해당 논문의 Appendix A 참고) 아쉽게도, x의 이상치 정도가 바뀜에 따라 $\eta_k(x,L)$ 가 어떻게 바뀌는지를 알기 위하여 eigen-decomposition을 수행하여 계산하면 시간이 많이 소요됩니다. 따라서 본문은 계산이 쉽도록 고주파 영역 $S_ {high}$에 대한 정의를 내리는데 이것의 핵심은 고주파 영역이 위에서 표현한 $E_x[1/\eta_k(x,L)]$ 을 대체할 수 있다는 것입니다. 고주파 영역은 다음으로 계산할 수 있습니다: $S_ {high} = \frac{\sum_ {i=1}^k \lambda_k \hat{x}^2_ i } {\sum_ {i=1}^N \hat{x}^2_ i} = \frac {x^T Lx} {x^Tx}$. 낮은 주파수의 스펙트럼 에너지는 작은 고유값을 곱한 후엔 $S_ {high}$ 에 덜 기여하기에 우리는 $S_ {high}$의 변화를 이용하여 모든 스펙트럼에서의 ‘오른쪽 편이’ 현상을 표현할 수 있습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-validation-on-datasets&quot;&gt;2.2 Validation on Datasets&lt;/h3&gt;
 
-&lt;p&gt;해당 논문에서는 $x$가 Gaussian distribution을 따르는 데이터셋과 따르지 않은 데이터셋 각각에 대하여 ‘오른쪽 편이’ 현상을 검증합니다. 첫 번째로, 인조적인 데이터셋인 Barabasi-Albert graph (Figure 1 (a)-(b))와 Minnesota road graph (Figure 1 (c)-(d)) 에서 이상치의 효과를 보입니다. 아래 그림에서 파란색 원은 spatial domain에서의 이상 노드를 나타내며 원의 크기가 클수록 이상치의 정도가 심함을 의미합니다. 그래프를 해석하면, 이상치의 정도, 즉, $\sigma$ 와 $\alpha$ 가$\alpha$ $\lambda$ $\lambda$ $\alpha$가 큼을 확인할 수 있으며 이는 2.1에서 설명한 ‘오른쪽 편이’ 현상이 보임을 의미합니다.&lt;/p&gt;
+&lt;p&gt;해당 논문에서는 $x$가 Gaussian distribution을 따르는 데이터셋과 따르지 않은 데이터셋 각각에 대하여 ‘오른쪽 편이’ 현상을 검증합니다. 첫 번째로, 인조적인 데이터셋인 Barabasi-Albert graph (Figure 1 (a)-(b))와 Minnesota road graph (Figure 1 (c)-(d)) 에서 이상치의 효과를 보입니다. 저자는 이상 현상의 두 가지 변형을 분석합니다. (i) 이상 현상의 비율은 5%로 고정되고 이상 현상의 표준 편차는 변경되는 경우 (즉, $\sigma$ = 1, 2, 5, 20). (ii) 이상치의 표준편차는 5로 고정되고 이상치의 비율이 변경되는 경우 (즉, $\alpha$ = 0%, 1%, 5%, 20%).
+ 아래 그림의 상단에서 파란색 원은 spatial domain에서의 이상 노드를 나타내며 원의 크기가 클수록 이상치의 정도가 심함을 의미합니다. 그림의 하단은 $x$의 energy distribution 을 spectral domain과 이상치 정도에 따라 그린 그래프입니다. 이를 해석하면, 이상치의 정도, 즉, $\sigma$ 와 $\alpha$ 가 커질수록, $\lambda$ $\geq$ 0.5 일때의 spectral energy가 큼을 확인할 수 있으며 이는 2.1에서 설명한 ‘오른쪽 편이’ 현상이 보임을 의미합니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/hgYpfq9/Figure1.png&quot; alt=&quot;Figure1.png&quot; /&gt;&lt;/p&gt;
 
@@ -1750,13 +1939,14 @@ $ \vert \psi_ 1 &amp;lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_
 
 &lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;대부분의 해당 논문 이전의 GNN은 low-pass filter 또는 adaptive filter을 사용하였으며 이는 band-pass 와 spectral-localized 를 보장하지 못합니다. 이러한 단점을 극복하기 위하여 해당 논문에서는 Hammond’s graph wavelet theory를 기반으로 한 새로운 GNN architecture인 BWGNN를 제안합니다. Hammond’s Graph Wavelet 은 graph signal $x \in R^N$ 에 wavelets $W = (W_ {\psi_1}, W_ {\psi_2},…)$ 를 적용하여 변형시키는 것이며 이때, $\psi$ 는 “mother” wavelet 입니다.&lt;/p&gt;
+&lt;p&gt;대부분의 해당 논문 이전의 GNN은 low-pass filter 또는 adaptive filter을 사용하였으며 이는 band-pass 와 spectral-localized 를 보장하지 못합니다. 이러한 단점을 극복하기 위하여 해당 논문에서는 Hammond’s graph wavelet theory를 기반으로 한 새로운 GNN architecture인 BWGNN를 제안합니다. Hammond’s Graph Wavelet 은 graph signal $x \in R^N$ 에 wavelets $W = (W_ {\psi_1}, W_ {\psi_2},…)$ 를 적용하여 변형시키는 것이며 이때, $\psi$ 는 “mother” wavelet 입니다. graph signal $x$ 에 $W_ {\psi_i}$를 적용하는 것은 다음과 같이 쓸 수 있습니다 : $W_ {\psi_i}(x) = Ug_i(\Lambda)U^Tx$. 이때, $g_i(\cdot)$ 은 $[0, \lambda_N]$ 에서 정의된 spectral domain의 kernal function이며, $g_i(\Lambda) = diag(g_i(\lambda))$ 입니다.&lt;/p&gt;
 
-&lt;p&gt;Beta distribution은 종종 wavelet basis의 역할을 합니다. 이전에 Beta distribution을 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. Heat Wavelet과 Beta Wavelet 를 비교해보면, Figure 4의 왼쪽에서 볼 수 있듯이 Beta Wavelet은 low-pass filter만 있는 Heat Wavelet 과 달리 low-pass 와 band-pass를 포함한 다양한 filter type을 포함합니다. Figure 4의 오른쪽에서는 Beta Wavelet은 긍정의 반응만 보이는 Heat Wavelet 과 달리 서로 다른 채널에 대해 긍정과 부정의 효과를 둘다 보임을 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;Beta distribution은 몇몇 논문에서 wavelet basis의 역할을 하였습니다. 하지만 이전에 Beta distribution을 그래프 데이터에 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. 해당 논문에서 제안하는 Beta wavelet transform $W_ {p,q}$ 는 다음과 같이 작성할 수 있습니다: $W_ {p,q} = U\beta^&lt;em&gt;_ {p,q}(\Lambda)U^T = \beta^&lt;/em&gt;_ {p,q}(L) = \frac{(L/2)^p(I-L/2)^q}{2B(p+1,q+1)}$. 이때, $p+q = C$ 는 상수이며 Beta wavelet transform $W$ 는 $W = (W_ {0,C}, W_ {1,C-1}, …, W_ {C,0})$ 로 총 $C+1$ 개의 Beta wavelets 으로 구성될 수 있습니다. $C$ 가 클수록 더 안좋은 공간적 집약성을 희생하여 더 나은 스펙트럼 집약성을 제공할 수 있습니다.
+ Heat Wavelet과 Beta Wavelet 를 비교해보면, Figure 4의 왼쪽에서 볼 수 있듯이 Beta Wavelet은 low-pass filter만 있는 Heat Wavelet 과 달리 low-pass 와 band-pass를 포함한 다양한 filter type을 포함합니다. Figure 4의 오른쪽에서는 Beta Wavelet은 긍정의 반응만 보이는 Heat Wavelet 과 달리 서로 다른 채널에 대해 긍정과 부정의 효과를 둘다 보임을 확인할 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/S0FG2Nc/Figure4.png&quot; alt=&quot;Figure4.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위에서 설명한 Beta graph wavelet을 활용하여 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.&lt;/p&gt;
+&lt;p&gt;위에서 설명한 Beta graph wavelet을 활용하여 만든 BWGNN은 병렬적으로 서로 다른 wavelet kernel을 사용한 후 해당 filtering의 결과를 병합합니다. 구체적으로 BWGNN은 아래의 propagation 과정을 채택합니다.&lt;/p&gt;
 
 &lt;p&gt;$
 Z_i = W_ {i,C-i} (MLP(X))
@@ -1765,6 +1955,8 @@ $&lt;/p&gt;
 &lt;p&gt;$
 H = AGG([Z_0, Z_1, …, Z_C])
 $&lt;/p&gt;
+
+&lt;p&gt;이때, MLP($\cdot$) 은 multi-layer perceptron, AGG($\cdot$)은 단순 집계 합수를 의미하며, $W_ {i,C-i}$ 는 우리의 wavelet kernel을 뜻합니다. BWGNN의  학습을 위하여 weighted cross-entropy loss가 사용되었으며 BWGNN의 시간복잡도는 $O(C \vert \epsilon \vert)$에 해당합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
 
@@ -1779,36 +1971,68 @@ $&lt;/p&gt;
       &lt;li&gt;Amazon : &lt;a href=&quot;http://Amazon.com&quot;&gt;Amazon.com&lt;/a&gt; 의 음악 악기 카테고리에 올라온 가짜 제품 리뷰를 찾는 것을 목적으로 하는 데이터셋&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Evaluation Metric : F1-macro, AUC&lt;/li&gt;
+  &lt;li&gt;Evaluation Metric
+    &lt;ul&gt;
+      &lt;li&gt;F1-macro : 두 클래스의 F1 점수에 대한 비가중 평균으로, 정상 레이블과 이상 레이블 간의 불균형 비율을 무시함&lt;/li&gt;
+      &lt;li&gt;AUC : ROC 곡선 아래 영역&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;Baselines
     &lt;ul&gt;
-      &lt;li&gt;First group : MLP, SVM&lt;/li&gt;
-      &lt;li&gt;Second group : GCN, ChebyNet, GAT, GIN, GraphSAGE, GWNN&lt;/li&gt;
-      &lt;li&gt;Third group : GraphConsis, CAREGNN, PC-GNN&lt;/li&gt;
-      &lt;li&gt;Fourth group : BWGNN (hetero), BWGNN (homo)&lt;/li&gt;
+      &lt;li&gt;First group : 그래프 관계 없이 노드 기능만 고려
+        &lt;ul&gt;
+          &lt;li&gt;MLP : 활성화 함수가 있는 두 개의 선형 레이어로 구성된 Multi-layer Perceptron Network&lt;/li&gt;
+          &lt;li&gt;SVM : RBF(Radial Basis Function) 커널을 갖춘 Support Vector Machine&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Second group : 노드 분류를 위한 일반 GNN 모델
+        &lt;ul&gt;
+          &lt;li&gt;GCN : 그래프의 국지적 스펙트럼 필터의 1차 근사를 사용하는 Graph Convolutional Network&lt;/li&gt;
+          &lt;li&gt;ChebyNet : Convolution kernal을 Chebyshev 다항식으로 제한하는 Graph Convolutional Network&lt;/li&gt;
+          &lt;li&gt;GAT : 이웃 집계(Aggregation)을 위한 Attention 메커니즘을 사용하는 Graph Attention Network&lt;/li&gt;
+          &lt;li&gt;GIN : Weisfeiler-Lehman(WL) 그래프 동형성 테스트에 연결되는 GNN 모델&lt;/li&gt;
+          &lt;li&gt;GraphSAGE : 고정된 이웃 노드 샘플 수를 기반으로 하는 GNN 모델&lt;/li&gt;
+          &lt;li&gt;GWNN : wavelet 변환을 생성하기 위해 heat kernal을 사용하는 Graph Wavelet Neural Network&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Third group : 그래프 기반 이상 탐지를 위한 최신 기법
+        &lt;ul&gt;
+          &lt;li&gt;GraphConsis : 그래프 이상 탐지에서 문맥, 기능 및 관계 불일치 문제를 해결하는 heterogeneous GNN&lt;/li&gt;
+          &lt;li&gt;CAREGNN : 위장 및 강화 학습에 대한 세 가지 고유 모듈을 통해 집계 프로세스를 향상하는 위장 방지 GNN&lt;/li&gt;
+          &lt;li&gt;PC-GNN : 리샘플링을 통해 그래프 기반 사기 탐지의 클래스 불균형 문제를 해결하는 GNN 기반 불균형 학습 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Fourth group : 해당 논문에서 제안하는 모델
+        &lt;ul&gt;
+          &lt;li&gt;BWGNN (homo) : 모든 종류의 edges를 동일하게 취급하는 Beta Wavelet GNN&lt;/li&gt;
+          &lt;li&gt;BWGNN (hetero) : 각 관계에 대해 개별적으로 그래프 전파를 수행하고 maximum pooling을 적용한 Beta Wavelet GNN&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;42-result&quot;&gt;4.2 &lt;strong&gt;Result&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;아래의 표에서 확인할 수 있듯이 BWGNN은 Amazon을 제외한 dataset 에서의 최고의 성능을 보여줌을 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;첫 번째 표는 training 비율이 1%와 40%인 YelpChi와 Amazon에서 비교된 모든 알고리즘의 실험 결과입니다.
+&lt;img src=&quot;https://i.ibb.co/k6ZSy1T/Table2.png&quot; alt=&quot;Table2.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/k6ZSy1T/Table2.png&quot; alt=&quot;Table2.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;두 번째 표는 training 비율이 다른 T-Finance 및 T-Social 데이터셋에 대한 실험 결과 및 전체 훈련 시간입니다.
+&lt;img src=&quot;https://i.ibb.co/yVjMqxg/Table3.png&quot; alt=&quot;Table3.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/yVjMqxg/Table3.png&quot; alt=&quot;Table3.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;결과를 분석하면, 일반적으로 BWGNN은 PC-GNN이 최고의 AUC 점수를 얻는 Amazon(1%)을 제외한 모든 데이터세트에서 최고의 성능을 보입니다. 다중 관계 그래프가 있는 두 데이터셋의 경우 BWGNN(Hetero)은 YelpChi에서 더 나은 성능을 발휘하고 BWGNN(Homo)은 Amazon에서 더 나은 성능을 발휘합니다. GraphConsis, CAREGNN 및 PC-GNN은 그래프 기반 이상 탐지를 위한 세 가지 최첨단 방법인 반면, BWGNN은 훨씬 짧은 훈련 시간으로 이들보다 훨씬 뛰어난 성능을 발휘합니다. 추가적으로, 그래프 구조가 무시되더라도 MLP와 SVM은 일부 데이터셋에서 비슷한 성능을 달성할 수 있음을 알 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;민감도 분석을 진행한 결과는 아래와 같습니다. 중요한 hyperparameter인 order C와 이상치 정도의 영향에 대하여 민감도 분석을 진행하였고 각각 왼쪽과 오른쪽의 결과를 보였습니다.&lt;/p&gt;
+&lt;p&gt;민감도 분석을 진행한 결과는 아래와 같습니다. 중요한 hyperparameter인 order C와 이상치 정도의 영향에 대하여 민감도 분석을 진행하였고 다음의 결과를 보였습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/TRSBmsj/Figure5.png&quot; alt=&quot;Figure5.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/TRSBmsj/Figure5.png&quot; alt=&quot;Figure5.png&quot; /&gt;
+Beta Wavelet 은 $L$의 $C$-order 다항식이고 각 노드의 $C$-hops에 국한되어 있으므로 C-order은 BWGNN에서 중요한 hyperparameter입니다. 그림 5는 C를 1에서 5로 변경할 때 두 데이터셋에 대한 BWGNN의 F1-macro 및 AUC 점수를 나타냅니다. T-Social에서는 C가 높을수록 성능이 향상되는 반면, T-Finance에서는 C $\geq$ 2에 대한 결과에 큰 차이가 없습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/2kggTsk/Figure6.png&quot; alt=&quot;Figure6.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/2kggTsk/Figure6.png&quot; alt=&quot;Figure6.png&quot; /&gt;
+그림 6은 T-Finance(1%)에서 BWGNN, ChebyNet 및 CAREGNN의 F1-macro 및 AUC 점수를 다양한 이상 수준으로 비교합니다. $\sigma$가 증가하면 이상 현상을 더 잘 구별할 수 있으므로 세 가지 모델 모두 더 나은 성능을 발휘합니다. 그 중에서 BWGNN은 가장 빠르게 성장하는 알고리즘이며 $\sigma$ = 4에서 99% F1-macro에 도달합니다. $\alpha$ 가 변화할 때 BWGNN은 일관되게 다른 방법보다 성능이 뛰어나며 다양한 이상 정도에 대해 견고합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;해당 논문은 그래프 이상 탐지에 대하여 설명한 후 ‘이상치 탐지를 위한 GNN에서 적절한 spectral filter을 어떻게 고를 것인가?’에 대해 답변합니다. 이를 위하여 핵심 특징인 ‘오른쪽 편이’에 대해 그래프로 증명하여 알고리즘의 필요성을 이야기한 후 Beta Wavelet Graph를 활용한 새로운 알고리즘인 BWGNN를 수식적으로 보여줍니다. 실험에서는 4가지 datasets을 활용하여 알고리즘 비교 실험을 진행하였고 BWGNN은 우수한 성능을 보였습니다. Future work로 noe anomalies에서 더 나아간 edge anomalies를 분석해볼 수 있다고 생각합니다. 수리적으로 energy distribution 을 표현한 것이 인상깊었습니다.&lt;/p&gt;
-
-&lt;hr /&gt;
+&lt;p&gt;해당 논문은 그래프 이상 탐지에 대하여 설명한 후 ‘이상치 탐지를 위한 GNN에서 적절한 spectral filter을 어떻게 고를 것인가?’에 대해 답변합니다. 이를 위하여 핵심 특징인 ‘오른쪽 편이’에 대해 여러 데이터셋으로 검증하여 알고리즘의 필요성을 이야기한 후 Beta Wavelet Graph를 활용한 새로운 알고리즘인 BWGNN를 수식적으로 보여줍니다. 알고리즘 비교 실험에서는 4가지 datasets을 활용하였고 BWGNN은 우수한 성능을 보였습니다. Future work로 node anomalies에서 더 나아간 edge anomalies를 분석해볼 수 있다고 생각합니다. 수리적으로 energy distribution 을 표현한 것이 인상깊었습니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
 
@@ -1816,7 +2040,7 @@ $&lt;/p&gt;
   &lt;li&gt;심윤주 (Yoonju Sim)
     &lt;ul&gt;
       &lt;li&gt;Master Student, Department of Industrial &amp;amp; Systems Engineering, KAIST&lt;/li&gt;
-      &lt;li&gt;Computational Optimization, Reinforcement Learning, Transportation system&lt;/li&gt;
+      &lt;li&gt;Interest: Computational Optimization, Reinforcement Learning, Transportation system&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -1828,7 +2052,7 @@ $&lt;/p&gt;
   &lt;li&gt;Datasets :  &lt;a href=&quot;https://drive.google.com/drive/folders/1PpNwvZx_YRSCDiHaBUmRIS3x1rZR7fMr?usp=sharing&quot;&gt;google drive&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
             
@@ -1843,21 +2067,21 @@ $&lt;/p&gt;
 
 &lt;h2 id=&quot;1-introduction&quot;&gt;&lt;strong&gt;1. Introduction&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;행렬 분해 (Matrix Factorization)은 협업 필터링 (Collaborative Filtering)을 기반으로 한 추천시스템의 기본적인 방법 중 하나이다. 하지만 이는 다음과 같은 문제점을 가지고 있다.&lt;/p&gt;
+&lt;p&gt;Matrix Factorization은 Collaborative Filtering을 기반으로 한 추천시스템의 기본적인 방법 중 하나이다. 하지만 이는 다음과 같은 문제점을 가지고 있다.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;행렬의 크기가 사용자 (User)와 항목 (Item)의 수에 선형적으로 비례하기 때문에 매우 많은 파라미터를 필요로 한다.&lt;/li&gt;
-  &lt;li&gt;콜드 스타트 (Cold Start) 문제가 발생한다. 즉, 새로운 사용자나 항목이 추가될 때, 정확한 추천을 하기가 어렵다.&lt;/li&gt;
+  &lt;li&gt;행렬의 크기가 사용자 (User)와 항목 (item)에 선형적으로 비례하기 때문에 매우 많은 파라미터를 필요로 한다.&lt;/li&gt;
+  &lt;li&gt;Cold Start 문제가 발생한다. 즉, 새로운 사용자나 항목이 추가될 때, 정확한 추천을 하기가 어렵다.&lt;/li&gt;
   &lt;li&gt;몇몇 사용자나 항목에 대해서 주어진 데이터가 매우 적을 수 있다. 이는 과적합을 초래할 수 있으며 일반적으로 강력한 정규화가 필요하다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;최근에 이러한 극복하기 위해 오토인코더 기반의 접근이 지속적으로 연구되고 있다. Collaborative Denoising Autoencoder (CDAE)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 사용자 피드백을 임베딩 (Embedding)하여 콜드 스타트 문제를 해결하였다. Variational Autoencoder (Mult-VAE)&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 적절한 우도 (Likelihood)를 도입하여 향상된 결과를 보여주었다. 이 연구에서는 Mult-VAE의 확장으로서 암시적 피드백 (Implicit Feedback)을 활용하는 Recommender VAE (RecVAE) 를 제안하고 이것의 기여는 아래와 같다.&lt;/p&gt;
+&lt;p&gt;최근에 이러한 극복하기 위해 Autoencoder 기반의 접근이 지속적으로 연구되고 있다. Collaborative Denoising Autoencoder (CDAE)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 사용자 피드백을 임베딩 하여 Cold Start 문제를 해결하였다. Variational Autoencoder (Mult-VAE)&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 Likelihood를 도입하여 향상된 결과를 보여주었다. 이 연구에서는 Mult-VAE의 확장으로서 Implicit Feedback을 활용하는 Recommender VAE (RecVAE) 를 제안하고 이것의 기여는 아래와 같다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;ul&gt;
     &lt;li&gt;사용자 임베딩을 향상시키는 인코더 네트워크 설계 제안&lt;/li&gt;
     &lt;li&gt;추천 시스템에 알맞는 적절한 사전분포 제안&lt;/li&gt;
-    &lt;li&gt;암시적 피드백으로 인한 새로운 $\beta$-VAE 제안&lt;/li&gt;
+    &lt;li&gt;Implicit Feedback으로 인한 새로운 $\beta$-VAE 제안&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1865,7 +2089,7 @@ $&lt;/p&gt;
 
 &lt;h3 id=&quot;21-variational-autoencoders-and-their-extensions&quot;&gt;&lt;strong&gt;2.1 Variational autoencoders and their extensions&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;변분 오토인코더는 복잡한 분포를 학습할 수 있는 잠재 변수 모델이다. 이에 대한 간략한 요약으로 시작하자. 주어진 데이터가 $p_ {true}(x)$를 따르고 모델을 $p_ {\theta}(x)$라고 하자. 잠재변수 $z$를 통해서 모델을 다시 표현 할 수 있다.&lt;/p&gt;
+&lt;p&gt;Variational Autoencoder (VAE)는 복잡한 분포를 학습할 수 있는 잠재 변수 모델이다. 이에 대한 간략한 요약으로 시작하자. 주어진 데이터가 $p_ {true}(x)$를 따르고 모델을 $p_ {\theta}(x)$라고 하자. 잠재변수 $z$를 통해서 모델을 다시 표현 할 수 있다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;$p_ {\theta}(x) = \int p_ {\theta}(x \vert z)p(z)dz$&lt;/p&gt;
@@ -1877,7 +2101,7 @@ $&lt;/p&gt;
   &lt;p&gt;$p_ {\theta}(x) \geq \mathcal{L}_ {\text{VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right],$&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;여기서 $\text{KL}$은 KL-divergence를 의미하고 $p(z), q_ {\phi}(z \vert x)$는 각각 사전분포와 변분 분포를 의미한다. $p_ {\theta}(z,x)$를 학습함으로써 변분 오토인코더는 생성모델로서 활용될 수 있다. 또한, $q_ {\phi}(z \vert x)$를 이용한다면 임베딩을 통한 재표현 (Representation)을 얻을 수 있다. $\beta$-VAE&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;는 더욱 향상된 재표현을 얻기 위해 다음과 같이 변형된 손실 함수를 제안 하였다.&lt;/p&gt;
+&lt;p&gt;여기서 $\text{KL}$은 KL-divergence를 의미하고 $p(z), q_ {\phi}(z \vert x)$는 각각 사전분포와 변분 분포를 의미한다. $p_ {\theta}(z,x)$를 학습함으로써 VAE는 생성모델로서 활용될 수 있다. 또한, $q_ {\phi}(z \vert x)$를 이용한다면 임베딩을 통한 재표현 (Representation)을 얻을 수 있다. $\beta$-VAE&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;는 더욱 향상된 재표현을 얻기 위해 다음과 같이 변형된 손실 함수를 제안 하였다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;$\mathcal{L}_ {\beta\text{-VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \beta \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right]$&lt;/p&gt;
@@ -1889,7 +2113,7 @@ $&lt;/p&gt;
   &lt;p&gt;$\mathcal{L}_ {\text{DVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z) )\right]$,&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;그 결과로서 노이즈가 있는 데이터에 대해서도 의미있는 재표현을 얻을 수 있다. Conditional Variational Autoencoder (CVAE)&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;는 변분 오토인코더의 또 다른 확장이다. 주어진 데이터가 $x$ 뿐만 아니라 $y$라는 레이블이 있다면 이것에 따른 조건부 확률 분포를 학습 할 수 있다.&lt;/p&gt;
+&lt;p&gt;그 결과로서 노이즈가 있는 데이터에 대해서도 의미있는 재표현을 얻을 수 있다. Conditional Variational Autoencoder (CVAE)&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;는 VAE의 또 다른 확장이다. 주어진 데이터가 $x$ 뿐만 아니라 $y$라는 레이블이 있다면 이것에 따른 조건부 확률 분포를 학습 할 수 있다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;$\mathcal{L}_ {\text{CVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x, y)}\left[ \log p_ {\theta}(x \vert z, y) - \text{KL}({q_ {\phi}(z \vert x, y)} \parallel p(z \vert y) )\right]$&lt;/p&gt;
@@ -1901,13 +2125,19 @@ $&lt;/p&gt;
   &lt;p&gt;$\mathcal{L}_ {\text{VAEAC}} = \mathbb{E}_ {q_ {\phi}(z \vert x, b)}\left[ \log p_ {\theta}(x_ {b} \vert z, x_ {1-b}, b) - \text{KL}({q_ {\phi}(z \vert x, b)} \parallel p(z \vert x_ {1-b}, b) )\right],$&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;여기서 $b$는 이진 마스킹 (Binary Masking)을 의미한다.&lt;/p&gt;
+&lt;p&gt;여기서 $b$는 Binary Masking을 의미한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-autoencoders-and-regularization-for-collaborative-filtering&quot;&gt;&lt;strong&gt;2.2 Autoencoders and Regularization for Collaborative Filtering&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 암시적 피드백 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE&lt;sup id=&quot;fnref:1:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 $x_ {u}$에 마스킹을 적용해서 복구하는 모델이므로 2.1 섹션의 DVAE를 협업 필터링에 적용한 것으로 볼 수 있다.&lt;/p&gt;
+&lt;p&gt;$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 Implicit Feedback 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE&lt;sup id=&quot;fnref:1:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 $x_ {u}$에 베르누이 노이즈를 적용해서 복구하는 모델이므로 2.1 섹션의 Denosing 방법을 Autoencoder에 적용한 것과 같다. 즉, 손실 함수는 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;Mult-VAE&lt;sup id=&quot;fnref:2:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 협업 필터링에 적용하기 위해서 우도를 다항 분포로 가정한 변분 오토인코더 모델이다. $n_ {u}:= \sum_{j} (x_ {u})_ {j}$ 라고 하면 모델은 다음과 같이 정의된다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;$\frac{1}{U}\sum_{u=1}^{U}\mathbb{E}&lt;em&gt;{p(\tilde{y&lt;/em&gt;{u}} \vert y_{u})}\ell(\tilde{y_{u}},\hat{y_{u}})$,&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;여기서 $p$는 베르누이 노이즈, $\hat{y_{u}}$는 모델 추정값, $\ell$은 적절한 손실함수이다. (e.g. MSE)&lt;/p&gt;
+
+&lt;p&gt;Mult-VAE&lt;sup id=&quot;fnref:2:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 Collaborative Filtering에 적용하기 위해서 Likelihhod를 다항 분포로 가정한 VAE이다. $n_ {u}:= \sum_{j} (x_ {u})_ {j}$ 라고 하면 모델은 다음과 같이 정의된다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;ul&gt;
@@ -1921,7 +2151,7 @@ $&lt;/p&gt;
 
 &lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;기본적으로, 제안된 모델 RecVAE는 Mult-VAE의 확장이다. DAE 방법을 추가하여 생성모델을 정의한다.&lt;/p&gt;
+&lt;p&gt;기본적으로, 제안된 모델 RecVAE는 Mult-VAE의 확장이다. DVAE 방법을 추가하여 생성모델을 정의한다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;ul&gt;
@@ -1939,7 +2169,7 @@ $&lt;/p&gt;
 &lt;img src=&quot;https://i.ibb.co/xJQrsLz/2023-10-14-164239.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;첫번째 변화는 dense CNNs&lt;sup id=&quot;fnref:7&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;, swish activation functions&lt;sup id=&quot;fnref:8&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:8&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;, layer normalization&lt;sup id=&quot;fnref:9&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:9&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt;과 같은 아이디어를 결합해 협업 필터링에 알맞는 추론 네트워크를 제안하며 위 그림과 같은 구조를 가지고 있다.&lt;/p&gt;
+&lt;p&gt;첫째 변화는 dense CNNs&lt;sup id=&quot;fnref:7&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;, swish activation functions&lt;sup id=&quot;fnref:8&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:8&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;, layer normalization&lt;sup id=&quot;fnref:9&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:9&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt;과 같은 아이디어를 결합해 Collaborative Filtering에 알맞는 Inference Network를 제안하며 위 그림과 같은 구조를 가지고 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;32-composite-prior&quot;&gt;&lt;strong&gt;3.2 Composite prior&lt;/strong&gt;&lt;/h3&gt;
 
@@ -1947,9 +2177,9 @@ $&lt;/p&gt;
 &lt;img src=&quot;https://i.ibb.co/tJDwC9P/2023-10-14-205240.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Mult-VAE 구조에서 데이터의 희소성 (Sparsity) 때문에 변분 분포의 파라미터 최적화가 어려움을 겪을 수 있다. 이는 강화학습에서 forgetting 효과라고 알려져 있으며 정책 기반 강화학습 논문에 많은 논의가 있었다&lt;sup id=&quot;fnref:10&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:10&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt;. 이를 해결 하기 위한 방법중 하나는 학습된 파라미터를 기억해두는 방법이다. 즉, 새로운 파라미터를 찾는 학습은 좋은 결과를 주는 파라미터로 부터 크게 벗어나지 않게 정규화를 주어야 한다.&lt;/p&gt;
+&lt;p&gt;Mult-VAE 구조에서 데이터의 Sparsity 때문에 변분 분포의 파라미터 최적화가 어려움을 겪을 수 있다. 이는 강화학습에서 forgetting 효과라고 알려져 있으며 Policy 기반 강화학습 논문에 많은 논의가 있었다&lt;sup id=&quot;fnref:10&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:10&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt;. 이를 해결 하기 위한 방법중 하나는 학습된 파라미터를 기억해두는 방법이다. 즉, 새로운 파라미터를 찾는 학습은 좋은 결과를 주는 파라미터로 부터 크게 벗어나지 않게 정규화를 주어야 한다.&lt;/p&gt;
 
-&lt;p&gt;이는 오토인코더에 구조에서 $q_ {\phi}(z \vert x)$를 업데이트 할 때, 이전에 얻었던 $q_ {\phi_ {\text{old}}}(z \vert x)$을 적당히 유지하고 싶은 것과 같다 . 이를 수행할 수 있는 한 방법은 본래의 사전분포와 $q_ {\phi_ {\text{old}}}(z \vert x)$의 컨벡스 결합을 새로운 사전분포로 사용하는 것이다. 즉,&lt;/p&gt;
+&lt;p&gt;이는 Autoencoder 구조에서 $q_ {\phi}(z \vert x)$를 업데이트 할 때, 이전에 얻었던 $q_ {\phi_ {\text{old}}}(z \vert x)$을 적당히 유지하고 싶은 것과 같다 . 이를 수행할 수 있는 한 방법은 본래의 사전분포와 $q_ {\phi_ {\text{old}}}(z \vert x)$의 Convex Combination을 새로운 사전분포로 사용하는 것이다. 즉,&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;$p(z \vert \phi_ {\text{old}},x) = \alpha N(z \vert 0,I) + (1-\alpha)q_ {\phi_ \text{old}}(z \vert x)$&lt;/p&gt;
@@ -1959,9 +2189,9 @@ $&lt;/p&gt;
 
 &lt;h3 id=&quot;33-rescaling-kl-divergence&quot;&gt;&lt;strong&gt;3.3 Rescaling KL divergence&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;$\beta$-VAE&lt;sup id=&quot;fnref:3:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;은 재표현을 학습하기 위한 좋은 방법이지만 파라미터를 선택하는 방법이 학습에 큰 영향을 미친다. 기존의 연구&lt;sup id=&quot;fnref:11&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:11&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;와는 다르게 협업 필터링 변분 오토인코더 모델에 알맞는 $\beta$ 선택 방법에 대한 연구가 필요하다.&lt;/p&gt;
+&lt;p&gt;$\beta$-VAE&lt;sup id=&quot;fnref:3:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;은 재표현을 학습하기 위한 좋은 방법이지만 파라미터를 선택하는 방법이 학습에 큰 영향을 미친다. 기존의 연구&lt;sup id=&quot;fnref:11&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:11&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;와는 다르게 Collaborative Filtering VAE에 알맞는 $\beta$ 선택 방법에 대한 연구가 필요하다.&lt;/p&gt;
 
-&lt;p&gt;유저 피드백이 부분적으로 주어졌다고 하자. 부분적인 데이터에 대해서 $X_ {u}^{0}$를 유저 $u$가 긍정적으로 평가한 항목의 집합이라 하고 $X_ {u}^{f}$ 긍정적으로 평가한 모든 항목의 집합이라고 하자. 항목들이 원 핫 인코딩으로 주어졌다고 하고, 다음과 같이 기호를 적자.&lt;/p&gt;
+&lt;p&gt;유저 피드백이 부분적으로 주어졌다고 하자. 부분적인 데이터에 대해서 $X_ {u}^{0}$를 유저 $u$가 긍정적으로 평가한 항목의 집합이라 하고 $X_ {u}^{f}$ 긍정적으로 평가한 모든 항목의 집합이라고 하자. 항목들이 One-hot Encoded Vecotr로 주어졌다고 하고, 다음과 같이 기호를 적자.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$x_ {u} = \sum_ {a \in X_ {u}^{0}}1_ {a}$&lt;/li&gt;
@@ -1970,7 +2200,7 @@ $&lt;/p&gt;
   &lt;li&gt;$\text{KL}_ {u}^{f} = \text{KL}(q_ {\phi}(z_ {u} \vert x_ {u}^{f}) \parallel p(z_ {u}))$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;여기서 $1_ {a}$는 항목 $a$에 대응되는 원 핫 인코딩된 벡터이다. 기존의 ELBO를 다음과 같이 정리 할 수 있다.&lt;/p&gt;
+&lt;p&gt;여기서 $1_ {a}$는 항목 $a$에 대응되는 One-hot Encoded Vector이다. 기존의 ELBO를 다음과 같이 정리 할 수 있다.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;$\mathcal{L} = \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})}\left[ \log \text{Multinomial}(x_ {u}^{f} \vert \pi(z_ {u})) - \text{KL}_ {u}^{f}\right]$
@@ -1993,7 +2223,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
   &lt;p&gt;$\mathcal{L} \approx \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[  \log \text{Multinomial}(x_ {u} \vert \pi(z_ {u})) - \gamma \vert X_ {u}^{0}\vert \text{KL}_ {u}\right]$&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;이와 같은 방법으로 암시적인 피드백이 주어졌을 때 $\beta = \beta(x)$를 $\gamma \vert X_ {u}^{0}\vert$로 선택 할 수 있다.&lt;/p&gt;
+&lt;p&gt;이와 같은 방법으로 Implicit Feedback이 주어졌을 때 $\beta = \beta(x)$를 $\gamma \vert X_ {u}^{0}\vert$로 선택 할 수 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;34-summary&quot;&gt;&lt;strong&gt;3.4 Summary&lt;/strong&gt;&lt;/h3&gt;
 
@@ -2007,7 +2237,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;RecVAE는 Adam&lt;sup id=&quot;fnref:12&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:12&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;12&lt;/a&gt;&lt;/sup&gt;옵티마이저로 최적화 됐으며 $\text{lr} = 5*10^{-4}$와 $500$의 배치 크기가 사용되었다. 노이즈는 평균이 $0.5$인 베르누이 분포로 주입됐고 성능을 향상시키위해 $N(0,10I)$을 복합 사전분포에 추가했다. 즉, $p(z)$, $q_ {\phi_ {\text{old}}}$, $N(0,10I)$가 복합 사전분포로 사용됐고 각각의 비율은 3:15:2가 적합했다. $\gamma$는 교차검증 (Cross-validation)을 통해 데이터마다 다른 값을 선택했다.&lt;/p&gt;
+&lt;p&gt;RecVAE는 Adam&lt;sup id=&quot;fnref:12&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:12&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;12&lt;/a&gt;&lt;/sup&gt; Optimizer로 최적화 됐으며 $\text{lr} = 5*10^{-4}$와 $500$의 배치 크기가 사용되었다. 노이즈는 평균이 $0.5$인 베르누이 분포로 주입됐고 성능을 향상시키위해 $N(0,10I)$을 복합 사전분포에 추가했다. 즉, $p(z)$, $q_ {\phi_ {\text{old}}}$, $N(0,10I)$가 복합 사전분포로 사용됐고 각각의 비율은 3:15:2가 적합했다. $\gamma$는 Cross-validation을 통해 데이터마다 다른 값을 선택했다.&lt;/p&gt;
 
 &lt;h3 id=&quot;41-datasets&quot;&gt;&lt;strong&gt;4.1 Datasets&lt;/strong&gt;&lt;/h3&gt;
 
@@ -2051,35 +2281,75 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 &lt;ul&gt;
   &lt;li&gt;Linear models from classical collaborative filtering
     &lt;ul&gt;
-      &lt;li&gt;Weighted Matrix Factorization (WMF)&lt;sup id=&quot;fnref:16&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:16&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;16&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-      &lt;li&gt;Sparse LInear Method (SLIM)&lt;sup id=&quot;fnref:17&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:17&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;17&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-      &lt;li&gt;Embarrassingly Shallow Autoencoder (EASE)&lt;sup id=&quot;fnref:18&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:18&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;18&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+      &lt;li&gt;Weighted Matrix Factorization (WMF)&lt;sup id=&quot;fnref:16&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:16&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;16&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;기존의 NMF 방법에서 각 성분에 신뢰도 계수를 결합한 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Sparse LInear Method (SLIM)&lt;sup id=&quot;fnref:17&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:17&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;17&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;NMF의 또 다른 변형으로서 Lasso 정규화를 사용하는 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Embarrassingly Shallow Autoencoder (EASE)&lt;sup id=&quot;fnref:18&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:18&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;18&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Linear autoencoder를 가정한 뒤, closed form solution을 구하는 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Rank method
     &lt;ul&gt;
-      &lt;li&gt;WARP&lt;sup id=&quot;fnref:19&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;19&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-      &lt;li&gt;LambdaNet&lt;sup id=&quot;fnref:20&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:20&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;20&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+      &lt;li&gt;WARP&lt;sup id=&quot;fnref:19&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;19&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;각 유저와 항목의 쌍에 대해서 score를 추정하는 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;LambdaNet&lt;sup id=&quot;fnref:20&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:20&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;20&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;이산적인 rank의 gradient를 제시함으서 rank에 SGD를 적용한 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Autoencoder-based method
     &lt;ul&gt;
-      &lt;li&gt;CDAE&lt;sup id=&quot;fnref:1:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-      &lt;li&gt;Mult-DAE &amp;amp; Mult-VAE&lt;sup id=&quot;fnref:2:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-      &lt;li&gt;Ranking-Critical Training (RaCT)&lt;sup id=&quot;fnref:21&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:21&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;21&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+      &lt;li&gt;CDAE&lt;sup id=&quot;fnref:1:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;2.2절 참고&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Mult-DAE &amp;amp; Mult-VAE&lt;sup id=&quot;fnref:2:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;2.2절 참고&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Ranking-Critical Training (RaCT)&lt;sup id=&quot;fnref:21&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:21&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;21&lt;/a&gt;&lt;/sup&gt;
+        &lt;ul&gt;
+          &lt;li&gt;확률적 모델을 강화학습 아이디어와 결합한 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;43-evaluation-metrics&quot;&gt;&lt;strong&gt;4.3 Evaluation Metrics&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;테스트 유저 $u$의 항목 $X_ {u}^{t}$와 모델의 (내림차순) 결과 $R_ {u}^{(n)}$에 대해서 $\text{Recall@}k(u)$와 $\text{NDCG@}(k(u)$가 평가 지표로서 사용될 것이다.&lt;/p&gt;
+&lt;p&gt;테스트 유저 $u$의 항목 $X_ {u}^{t}$와 모델의 (내림차순) 결과 $R_ {u}^{(n)}$에 대해서 $\text{Recall@}k(u)$와 $\text{NDCG@}k(u)$가 평가 지표로서 사용될 것이다.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;$\text{Recall@}k(u) = \frac{1}{\min(\vert R_ {u}^{(n)} \vert, \vert X_ {u}^{t} \vert)} \sum_{n=1}^{k} 1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]$ 
-$\text{DGG@}k(u) = \sum_{n=1}^{k}\frac{2^{1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]}-1}{\log(n+1)}$
-$\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert } \frac{1}{\log(n+1)} \right)$&lt;/p&gt;
+  &lt;p&gt;$\text{Recall@}k(u) = \frac{1}{\min(\vert R_ {u}^{(n)} \vert, \vert X_ {u}^{t} \vert)} \sum_{n=1}^{k} 1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]$&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$\text{DGG@}k(u) = \sum_{n=1}^{k}\frac{2^{1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]}-1}{\log(n+1)}$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$\text{NDCG@}k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert } \frac{1}{\log(n+1)} \right)$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;$\text{Recall@}k(u)$은 사용자 $u$에 대해서 관련있는 것들 중 모델이 추천해준 것에 대한 비율을 의미한다. 하지만 추천된 것들의 순서는 매우 중요하다. 이를 강조하기 위해서 $\text{DGG@}k(u)$가 도입됐고 이는 추천된 순서에 가중치를 부여하는 형태로 정의된다. 더불어, 이론적으로 가장 높은 값을 나눠줌으로서 0~1 사이의 값으로 만들어준 것이 $\text{NDCG@}k(u)$이다.&lt;/p&gt;
 
 &lt;h3 id=&quot;44-results&quot;&gt;&lt;strong&gt;4.4 Results&lt;/strong&gt;&lt;/h3&gt;
 
@@ -2093,7 +2363,7 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
 &lt;img src=&quot;https://i.ibb.co/yWsMDnT/2023-10-15-001902.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;인코더 설계, 복합 사전분포, $\beta$ 조정, 교대훈련, 노이즈 주입에 대한 제거 연구 (Ablation Study)에 대한 결과이다. 교대훈련이란 인코더와 디코더를 동시에 훈련하지 않고 각각 훈련하는 것을 의미한다. 위 표에 따르면 각각의 기능은 성능 향상에 도움이 된다. 일부 기능은 개별적으로 적용되는 것보다 함께 사용되는 것이 효과적이다. (예를 들어, $\beta$ 조정과 교대훈련)&lt;/p&gt;
+&lt;p&gt;Encoder 설계, 복합 사전분포, $\beta$ 조정, 교대훈련, 노이즈 주입에 대한 Ablation Study에 대한 결과이다. 교대훈련이란 인코더와 디코더를 동시에 훈련하지 않고 각각 훈련하는 것을 의미한다. 위 표에 따르면 각각의 기능은 성능 향상에 도움이 된다. 일부 기능은 개별적으로 적용되는 것보다 함께 사용되는 것이 효과적이다. (예를 들어, $\beta$ 조정과 교대훈련)&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://i.ibb.co/VJqBBFt/2023-10-15-002402.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
@@ -2103,7 +2373,7 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
 
 &lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;이 논문에서는 Mult-VAE의 개선된 버전인 RecVAE를 제안한다. 이는 새로운 인코더 구조, 복합 사전분포, 협업필터링에 알맞은 $\beta$ 조정 방식을 포함하고 있으며, 여러가지 데이터에서 다른 모델의 성능을 능가했다. 향후 연구 방향으로서 주목되는 점은 (1) 이 방법을 유저와 항목을 뒤바꾸어 실험하면 어떻게 될지, (2) 사전분포를 더욱 복잡하게 만들면 어떻게 될지, (3) 컨벡스 결합이 아닌 다른 방법의 정규화를 이용하여 forgetting problem을 해결할 수 있는지와 같은 것이 고려된다.&lt;/p&gt;
+&lt;p&gt;이 논문에서는 Mult-VAE의 개선된 버전인 RecVAE를 제안한다. 이는 새로운 Encoder 구조, 복합 사전분포, Collaborative Filtering에 알맞은 $\beta$ 조정 방식을 포함하고 있으며, 여러가지 데이터에서 다른 모델의 성능을 능가했다. 향후 연구 방향으로서 주목되는 점은 (1) 이 방법을 유저와 항목을 뒤바꾸어 실험하면 어떻게 될지, (2) 사전분포를 더욱 복잡하게 만들면 어떻게 될지, (3) 컨벡스 결합이 아닌 다른 방법의 정규화를 이용하여 forgetting problem을 해결할 수 있는지와 같은 것이 고려된다.&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;h2 id=&quot;additional-materials--references&quot;&gt;&lt;strong&gt;Additional materials &amp;amp; References&lt;/strong&gt;&lt;/h2&gt;
@@ -2190,7 +2460,7 @@ $\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert
   &lt;/ol&gt;
 &lt;/div&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
             
@@ -2289,13 +2559,14 @@ folder: introduction
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ROLAND는 dynamic graph의 snapshot-based representation을 바탕으로 위의 limitation들을 타개하여 static GNN의 state-of-the-art 아키텍쳐들을 활용할 수 있도록 만들어졌다.&lt;/p&gt;
+&lt;p&gt;ROLAND는 dynamic graph의 snapshot-based representation을 바탕으로 위의 limitation들을 타개하여 static GNN의 state-of-the-art 아키텍쳐들을 활용할 수 있도록 만들어졌다. Snapshot-based라는 용어를 간단히 이해해보기 위해 아래 Figure 1을 첨부하였다. Figure 1에서는 매일 다르게 발생하는 송금 내역을 표현한 dynamic graph가 주어졌을 때, 미래에 누군가가 다른 누군가에게 송금할지의 여부를 예측하는 link prediction을 하는 task를 가정하였다. 이 때, 각 timestep $t$의 graph snapshot이 있다고 생각하였을 때, $t+1$ 시점의 송금 내역을 예측하기 위해 직전 timestep인 $t$ 시점까지의 graph snapshot들을 이용할 수 있다. 이러한 방법을 snapshot-based 방법이라고 한다.&lt;/p&gt;
 
 &lt;!-- &lt;p align=&quot;center&quot;&gt;
   &lt;img src=&quot;[http://some_place.com/image.png](https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png)&quot; /&gt;
 &lt;/p&gt; --&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png&quot; alt=&quot;img_fig1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;img_fig1&quot;&gt;&lt;/a&gt;
+&lt;img src=&quot;https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png&quot; alt=&quot;img_fig1&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;tackling-the-limitations&quot;&gt;Tackling the Limitations&lt;/h4&gt;
 &lt;ul&gt;
@@ -2322,11 +2593,7 @@ folder: introduction
           &lt;li&gt;이로 인해 5600만개의 edge들을 가지는 큰 graph를 train 시킬 수 있었다.&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;Dynamic graph에서의 timestep $t$가 다른 prediction 문제들을 다른 task로 생각함으로써 문제를 meta-learning problem으로 formulation하였다.
-        &lt;ul&gt;
-          &lt;li&gt;위의 Figure 1 참고&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
+      &lt;li&gt;Dynamic graph에서의 timestep $t$가 다른 prediction 문제들을 다른 task로 생각함으로써 문제를 meta-learning problem으로 formulation하였다. (&lt;a href=&quot;#img_fig1&quot;&gt;Figure 1&lt;/a&gt;)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -2423,7 +2690,7 @@ Table 3에는 이 paper에서 제시한 live-update 방법을 활용하여 train
 &lt;h2 id=&quot;conclusion&quot;&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;이 논문은 기존 static GNN에서 사용하던 테크닉과 아키텍처들을 dynamic graph에 어떻게 적용할 수 있을지 제안하였다. Paper은 크게 model design, evaluation, training 3가지 부분으로 나누어 기존 연구들의 한계점과 ROLAND의 contribution을 정리하였다.
-새로운 dynamic GNN 모델을 scratch부터 만들지 않고 static GNN과 dynamic GNN을 연결하는 다리를 제안했다는 점, 그리고 live-update를 통해 scalability issue를 해결했다는 점에서 이 논문의 contribution이 큰 것 같다.&lt;/p&gt;
+논문을 읽으며 인상 깊다고 느낀 점들은 다음과 같다. 먼저, 새로운 dynamic GNN 모델을 scratch부터 만들지 않고 static GNN과 dynamic GNN을 연결하는 다리를 제안했다는 점이다. 어떻게 보면 성능이 near-optimal하게 발전하여 saturate 되었다고 볼 수 있는 static GNN 아키텍쳐들을 그대로 dynamic GNN에 활용할 수 있도록 가져온 해당 논문의 아이디어는 현명한 방법으로 느껴졌다. 더하여, 시간마다 변화하는 data의 분포를 고려하기 위해 기존에 사용하던 60:20:20과 같은 dataset 분리 방법을 그대로 사용하지 않고, dynamic graph 특성에 맞춘 분리 방법을 적용했다는 점에서 세심하다고 느꼈다. 마지막으로, live-update를 통해 scalability issue를 해결했다는 점이 인상 깊게 다가왔다.&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
@@ -2433,7 +2700,7 @@ Table 3에는 이 paper에서 제시한 live-update 방법을 활용하여 train
   &lt;ul&gt;
     &lt;li&gt;Contact: haeun39@kaist.ac.kr&lt;/li&gt;
     &lt;li&gt;Affiliation: Financial Engineering Lab., KAIST&lt;/li&gt;
-    &lt;li&gt;Research Topic: Stochastic Optimization, End-to-end learning, Portfolio Optimization&lt;/li&gt;
+    &lt;li&gt;Research Topic: Decision Focused Learning, Stochastic Optimization, Portfolio Optimization&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -2444,7 +2711,7 @@ Please write the reference. If paper provides the public code or other materials
 &gt; [Github Implementation](https://github.com/snap-stanford/roland)
 * Reference   --&gt;
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
             <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
             
@@ -2454,7 +2721,7 @@ Please write the reference. If paper provides the public code or other materials
         </item>
         
         <item>
-            <title>[TSRML 2022] Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning-based Recommendation Systems</title>
+            <title>Private_data_leakage_via_exploiting_access_patterns_of_sparse_features_in_deep_learning Based_recommendation_systems</title>
             <description>&lt;h1 id=&quot;private-data-leakage-via-exploiting-access-patterns-of-sparse-features-in-deep-learning-recommendation-systems&quot;&gt;Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning Recommendation Systems&lt;/h1&gt;
 &lt;h5 id=&quot;2022-trustworthy-and-socially-responsible-machine-learning-tsrml-2022-co-located-with-neurips-2022&quot;&gt;[2022 Trustworthy and socially responsible Machine learning (TSRML 2022) co-located with NeurIPS 2022]&lt;/h5&gt;
 
@@ -2485,12 +2752,18 @@ This is because sparse features have to be projected into the lower dimensional 
 
 &lt;h2 id=&quot;working-of-the-dlrm-model-and-threat-model&quot;&gt;Working of the DLRM Model and Threat Model&lt;/h2&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/30wHc1q&quot;&gt;&lt;img src=&quot;https://i.ibb.co/K9YHW6k/1.png&quot; alt=&quot;1&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;The figure above shows the operation of the representative recommendation model, DLRM. In DLRM, the dense features go through a bottom MLP (multi-layer perceptron) layer whereas the sparse features go through an embedding table layer and get converted into lower-dimensional dense features. Then, these two outputs go through a feature interaction layer and then through a top MLP layer to predict the likelihood of an interaction.
 Embedding tables play a pivotal role in transforming the sparse categorical feature into a dense numerical representation. Let’s consider an example to understand this. Consider a scenario where users and movies are represented by categorical features such as user IDs and movie genres, respectively. To effectively utilize these features within a deep learning model, embedding tables are employed. These tables act as large lookup tables, with each row corresponding to a unique category or ID. To convert sparse features into dense representations, a lookup operation is performed using the non-zero entries in the sparse feature as an index. For instance, to convert a specific user’s ID into a dense representation, the corresponding row in the user embedding table is accessed, and similarly, for movie genres, the relevant row in the genre embedding table is retrieved. The outcome of these operations is a dense vector, a numerical representation of the user or genre in a multi-dimensional space. These dense representations are subsequently utilized in the recommendation system’s deep learning model, enabling accurate and personalized movie recommendations based on user preferences and movie genres. This process highlights the critical role of embedding tables.&lt;/p&gt;
+
 &lt;h4 id=&quot;threat-model&quot;&gt;Threat Model&lt;/h4&gt;
 &lt;p&gt;Now, even when the entire dense and sparse features are fully encrypted and are processed under a secure environment, there is a possibility to learn which index holds a non-zero entry by looking at the table access patterns, resulting in compromising with the sensitive user data.
-To understand the threat model, let’s assume the scenario. Let’s say a user shared their sensitive information with the service provider to get accurate recommendations from the system. Now, this sensitive information is fully protected with the Intel SGX team, but the access pattern of the embedding table is revealed, more specifically revealing which entries of the table are non-zero. The figure below, demonstrates our threat model.
-Like this, even when the information is kept safe with the honest-but-curious service provider, the access pattern of the embedding table can help reveal that sensitive information.&lt;/p&gt;
+To understand the threat model, let’s assume the scenario. Let’s say a user shared their sensitive information with the service provider to get accurate recommendations from the system. Now, this sensitive information is fully protected with the Intel SGX team, but the access pattern of the embedding table is revealed, more specifically revealing which entries of the table are non-zero. The figure below, demonstrates our threat model.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/2nrjst4&quot;&gt;&lt;img src=&quot;https://i.ibb.co/LkyCJt7/2.png&quot; alt=&quot;2&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Like this, even when the information is kept safe with the honest-but-curious service provider, the access pattern of the embedding table can help reveal that sensitive information.&lt;/p&gt;
 
 &lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;As also mentioned earlier, we will test out our theory of being able to extract sensitive information with the help of embedding table access patterns, with the help of four different types of attacks.&lt;/p&gt;
@@ -2552,21 +2825,28 @@ Like this, even when the information is kept safe with the honest-but-curious se
 &lt;h4 id=&quot;attack-method&quot;&gt;Attack Method&lt;/h4&gt;
 &lt;p&gt;After removing all the identifiable features from the dataset, we will be left with 2.1M possible combinations of the unidentifiable features, which would make any user believe that their identity is anonymous or that revealing any of the remaining unidentifiable features, won’t reveal their identity. However, in contrast to the user’s belief, it is observed that in the real world only 1120 combinations of these static feature values are possible based on the real open-source data. We refer to these 1120 combinations as user buckets.&lt;/p&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;In simple words, user buckets are unique combinations of the feature values. The motto of the attacker can now be said to be able to recognize the users based on their unique combinations of features.&lt;/p&gt;
+  &lt;p&gt;User buckets are unique combinations of the feature values. The motto of the attacker can now be said to be able to recognize the users based on their unique combinations of features.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Taking the user bucket number as the x-axis and the percentage of the users per bucket as the y-axis, we plot the histogram to represent how the user distributions follow the long-tail pattern.
-I can be seen from the histogram that there are only a few users in the bucket 600-1120 and in fact there are only 989 users on average across all these buckets and the last 56 buckets have only 1 user. So, these seemingly unidentifiable features may give away the user’s identity by allowing the attacker to launch an identification attack to extract the unique userID and identify the user with a high certainty.&lt;/p&gt;
+&lt;p&gt;Taking the user bucket number as the x-axis and the percentage of the users per bucket as the y-axis, we plot the histogram to represent how the user distributions follow the long-tail pattern.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/hsKsKSM&quot;&gt;&lt;img src=&quot;https://i.ibb.co/XXzXzq4/3.png&quot; alt=&quot;3&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It can be seen from the histogram that there are only a few users in the bucket 600-1120 and in fact there are only 989 users on average across all these buckets and the last 56 buckets have only 1 user. So, these seemingly unidentifiable features may give away the user’s identity by allowing the attacker to launch an identification attack to extract the unique userID and identify the user with a high certainty.&lt;/p&gt;
 
 &lt;h4 id=&quot;evaluation-metric&quot;&gt;Evaluation Metric&lt;/h4&gt;
+
 &lt;p&gt;The evaluation metric we have used for this analysis is the &lt;em&gt;K-anonymity&lt;/em&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;K-anonymity is a privacy property that measure how well the user privacy is preserved.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;If a user’s bucket number is revealed and there are K users in the same bucket then the probability of finding the user is 1/K.
-The table given below summarizes the number of users with anonymity level below K in the identification attacks.
-1-anonymity user means that this is the only user having this particular set of feature values.&lt;/p&gt;
+The table given below summarizes the number of users with anonymity level below K in the identification attacks.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/xYMvgrc&quot;&gt;&lt;img src=&quot;https://i.ibb.co/MfRT1Jj/4-t1.jpg&quot; alt=&quot;4-t1&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;1-anonymity user means that this is the only user having this particular set of feature values.&lt;/p&gt;
 
 &lt;h4 id=&quot;evaluation-results&quot;&gt;Evaluation Results&lt;/h4&gt;
 &lt;p&gt;As shown in the above table, among 56 of the bucket users, there is only 1 user with the specific combination of static features which implies that an attacker can identify these users with 1-anonymity if they can observe this combination of feature values.&lt;/p&gt;
@@ -2579,8 +2859,11 @@ The table given below summarizes the number of users with anonymity level below 
 &lt;p&gt;For the purpose of evaluation, we have used the Alibaba Ads Display dataset, which contains user-item interactions. This dataset contains around 723,268,134 tuples and each tuple contains information about the userID, categoryID, brand and btag (browse, cart, favour, buy)&lt;/p&gt;
 
 &lt;h4 id=&quot;attack-method-1&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;Let’s understand the attack method with the help of an example, say in the data, there are 7 age groups and 5 different brands. The user-item interaction based on the age-group and the brand is given below in the connection graph.
-Now, from the above graph a basic idea of the people belonging to a particular age group can be made. The user may not want to reveal their age, but the adversary may deduce their age with a high probability based on the type of brand the user has interacted with.
+&lt;p&gt;Let’s understand the attack method with the help of an example, say in the data, there are 7 age groups and 5 different brands. The user-item interaction based on the age-group and the brand is given below in the connection graph.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/TmDcsjh&quot;&gt;&lt;img src=&quot;https://i.ibb.co/pJ62SVX/5.png&quot; alt=&quot;5&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, from the above graph a basic idea of the people belonging to a particular age group can be made. The user may not want to reveal their age, but the adversary may deduce their age with a high probability based on the type of brand the user has interacted with.
 In general, we can say that the attacker uses their prior knowledge o popularity of the items between different demographic groups. Then, based on this prior information, they link the query to the demographic who formed most of the accesses to that item. The task of knowing the prior information is not that big of a deal.&lt;/p&gt;
 
 &lt;h4 id=&quot;evaluation-metric-1&quot;&gt;Evaluation Metric&lt;/h4&gt;
@@ -2610,6 +2893,7 @@ Similarly, the age and gender group versus the ambiguity are shown by graph 5(B)
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;evaluation-setup-2&quot;&gt;Evaluation setup&lt;/h4&gt;
+
 &lt;p&gt;For the evaluation, we have used the Taobao dataset, and have separated about 9M purchase interactions among more than 723M user-item interactions. Then they have formatted the data into a time-series data structure, as shown below:
 &lt;em&gt;user1 = (time1,item1), (time4,item10), (time500,item20)&lt;/em&gt;
 &lt;em&gt;user2 = (time3,item100), (time20,item100)&lt;/em&gt; 
@@ -2636,6 +2920,8 @@ Now for each set of consecutive items purchased by an user, we create a list of 
   &lt;li&gt;the same is repeated for many random time stamps and users to obtain 200,000 samples.&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/PZTB6FV&quot;&gt;&lt;img src=&quot;https://i.ibb.co/1fsHm74/6.png&quot; alt=&quot;6&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;By plotting the data, we may notice that the 3, 4 and 5 most recent purchases uniquely identify users with 99% probability.&lt;/p&gt;
 
 &lt;h4 id=&quot;attack-method-2&quot;&gt;Attack Method&lt;/h4&gt;
@@ -2656,8 +2942,55 @@ FP = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;P&lt;/strong&gt;ositives
 FN = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;N&lt;/strong&gt;egetives&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;In simpler terms, precision is asking the question “Of all the items model has predicted positive, how many are truly positive?”  whereas recall is asking the question “Of all the truly positive items in the dataset, how many did the model correctly identify?”&lt;/p&gt;
+  &lt;p&gt;Precision is asking the question “Of all the items model has predicted positive, how many are truly positive?”  whereas recall is asking the question “Of all the truly positive items in the dataset, how many did the model correctly identify?”&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;h4 id=&quot;evaluation-result&quot;&gt;Evaluation Result&lt;/h4&gt;
+&lt;p&gt;In evaluating precision and recall tradeoffs, we start with a low time threshold, resulting in high precision but few false positives, and increase it gradually. As the threshold increases for greater recall, false positives also rise, reducing precision. This is due to instances where different users generate the same key over time. When the two most recent purchases were used, it was found that around 4.5 million keys occur approximately 8 million times, leading to false positives in the experiments. The choice of the optimal threshold depends on whether the attacker prioritizes higher recall or precision.
+The figure given few steps above illustrates this tradeoff from 1 second to 277 hours, showing that a threshold of 11 days achieves a recall of 1.0 with a 0.02 drop in precision. This allows the attacker to correctly link queries from the same users but results in a 2% misclassification rate for queries with identical keys at some point in their purchase history. The high precision and recall values, indicate how an attacker can track users who send queries to the recommendation model over time.&lt;/p&gt;
+
+&lt;h2 id=&quot;hash-inversion-with-frequency-based-attack&quot;&gt;Hash Inversion with Frequency-Based Attack&lt;/h2&gt;
+&lt;p&gt;Utilizing a hash function on indices before performing a table lookup for embeddings is a crucial performance optimization. In this context, we examine the influence of hashing on information leakage. Specifically, we investigate how an attacker could potentially reconstruct the original values of sparse features, even when hashing is applied to embedding indices. The process involves remapping users’ raw data to post-hash values for indexing the embedding tables, as illustrated in the figure below.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ibb.co/Qc6NtCj&quot;&gt;&lt;img src=&quot;https://i.ibb.co/Db7CT8g/Capture.jpg&quot; alt=&quot;Capture&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;evaluation-setup-3&quot;&gt;Evaluation Setup&lt;/h4&gt;
+&lt;p&gt;For the purpose of evaluation, Taobao, Kaggle and Criteo datasets have been used. The training and testing datasets have been selected for all 3 datasets. The training set samples forms the prior distribution ad the test sample are use for the evaluation.&lt;/p&gt;
+
+&lt;h4 id=&quot;attack-method-3&quot;&gt;Attack Method&lt;/h4&gt;
+&lt;p&gt;An adversary can initiate attacks by gathering observed index frequencies, utilizing prior knowledge about feature value distributions, and discerning the mapping between input and output of a hash. Here its illustrated how a system with hashed input values, where the hash function is expressed as $output = (input + mask_{add}) mod P$, where P is the hash size, can be compromised. We represent the frequency of potential inputs to the hash function as $x_1, x_2, …., x_N$ for N scenarios and its output frequency as $y_1, y_2, …., y_P$ for a hash size P. We construct the matrix $M ∈ R^{P X P}$, where each column signifies a distinct Mask value ([0, P − 1]). Essentially, for each mask value, we calculate the outcome frequencies and construct this matrix. As demonstrated, increasing the mask value by 1 shifts the column values, rendering the Matrix M a Toeplitz Matrix. Since a single column in this matrix is shifted and repeated, the order of forming this matrix is $O(P)$.
+Matrix M can be written as:
+ | $y_1$ | $y_{P-1}$ | … | $y_2$ |
+ |—|—|—|—–|—|
+ | $y_2$ | $y_1$ | 6 | … | $y_3$ |
+ |…|…|…| … | … | 
+ | $y_P$ | $y_{P-2}$ | … | $y_1$ |&lt;/p&gt;
+
+&lt;p&gt;The attacker’s objective is to reverse the hash using the input distribution and observations of the output distribution. It’s crucial to note that the input and output datasets should be independent. We define $a_t$ as the distribution of embedding table accesses (post-hash) at time t. To decipher the mask, the attacker must identify the mask used by the hash function. This involves solving the optimization problem outlined below:
+$min_i ||(m_i-a_t)||^2 = min_i(||m_i||^2 +||a_t||^2-2m_i^Ta_t)$
+In this equation, $m_i$ represents the vector containing the frequencies of the output values when mask i is used, resulting in its absolute value being constant. Doing similar for $||a_t||$, the optimization problem can be simplified to:&lt;/p&gt;
+
+&lt;p&gt;$P_{bar} = arg max_i (m_i^Ta_t) for i ∈ [0,P-1] $
+$P_{bar} = arg max_i(M^Ta_t)$&lt;/p&gt;
+
+&lt;p&gt;The matrix-vector product computation, typically $O(P^2)$, is optimized to O(P log P) due to the Toeplitz nature of matrix M (Strang, 1986). In executing the attack, two sets are established: one for extracting the known distribution and another for frequency matching. The attacker successfully reverses the hash function, deduces the key, and further reverses post-hash indices to reveal raw sparse feature values. This enables the attacker to reverse engineer the post-hash value, identifying the most frequent pre-hash values based on input distributions. The entire process involves key discovery, post-hash index reversal, and deciphering raw feature values, showcasing the vulnerability of the system to this frequency-based attack.&lt;/p&gt;
+
+&lt;h4 id=&quot;evaluation-metric-2&quot;&gt;Evaluation Metric&lt;/h4&gt;
+&lt;p&gt;Accuracy in this case would be the probability that the attacker correctly identifies an input raw value from the post-hash value. Let the function g(y) be the attacker’s estimate of the input, given the output query y, $g(y) = argmin_x Prob(x)$ such that h(x)&lt;em&gt;estimated is te attackers estimation of the hash function. Now, we can say that:
+$Accuracy = Prob&lt;/em&gt;{x~P_x} (x = g(h(x)))$
+Here, h(x) is the true hash function, and the probability is over the distribution of the input query.
+Introducing the concept of top K accuracy, a measure indicating the likelihood that the input query falls within the top K predictions of the attacker, we formally define this by using the notation  $S(y)&lt;em&gt;{hat} = [x | h(x)&lt;/em&gt;{hat} = y]$, representing the set of possible inputs given an output query y according to the attacker’s estimation of the hash function.
+We then define $g_K(y) = [x ∈ S(y)&lt;em&gt;{hat} | Prob(x)$  is in top K probabilities] as the top K members of $S(y)&lt;/em&gt;{hat}$ with the largest probability. In essence, $g_K(y)$ signifies the set of the attacker’s top K predictions for the input query, formalizing the notion of top K accuracy within the context of the attacker’s estimations.
+$Accuracy_{top K} = Prob_{x~P_x} (x ∈ g_K (h(x)))$&lt;/p&gt;
+
+&lt;h4 id=&quot;evaluation-result-1&quot;&gt;Evaluation Result&lt;/h4&gt;
+&lt;p&gt;The key observation for this attack can be stated that if an attacker observed the frequency of queries, they can reconstruct the values of raw features with high accuracy by knowing the distributions of the pre-hash values and type of the hash function.&lt;/p&gt;
+
+&lt;h2 id=&quot;potential-solutions&quot;&gt;Potential Solutions&lt;/h2&gt;
+&lt;p&gt;One approach to obfuscating the embedded table access pattern, mentioned by the authors, is to use Oblivious RAM (ORAM). In a way, ORAM succeeds in hiding the information about the real blocks from the attacker. However, the overhead of ORAM is unlikely to be acceptable for real-time application such as recommendation system inference due to Service Level Agreement (SLA). Moreover, it also relies on pre-determined sequence of accesses in training and is not applicable for inference.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In this paper, the authors shed light on the information leakage through sparse features in deep learning-based recommendation system and how even the access patterns can be a big threat to privacy. They did this under 5 different types of attacks.&lt;/p&gt;
 
 &lt;h2 id=&quot;author-information-section&quot;&gt;Author Information Section&lt;/h2&gt;
 &lt;h4 id=&quot;anurag-yadav&quot;&gt;Anurag Yadav&lt;/h4&gt;
@@ -2666,13 +2999,10 @@ FN = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;N&lt;/strong&gt;egetives&l
   &lt;li&gt;&lt;strong&gt;Department&lt;/strong&gt;: Data Science&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Contact&lt;/strong&gt;: anusim2003@kaist.ac.kr&lt;/li&gt;
 &lt;/ul&gt;
-
 </description>
-            <pubDate>Mon, 16 Oct 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
-            
-            <category>reviews</category>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
+            <link>http://dsailatkaist.github.io/2023/11/20/Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
             
             
         </item>

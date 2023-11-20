@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Multi_modal_knowledge_graphs_for_recommender_systems | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the Multi_modal_knowledge_graphs_for_recommender_systems page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Multi_modal_knowledge_graphs_for_recommender_systems">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Multi_modal_knowledge_graphs_for_recommender_systems</h1>
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="multi-modal-knowledge-graphs-for-recommender-systems">Multi-modal Knowledge Graphs for Recommender Systems</h1>
+
+<h2 id="0-preliminary">0. Preliminary</h2>
+
+<h4 id="1-knowledge-graph-kg">1) Knowledge Graph (KG)</h4>
+
+<p>directed graph G = (V,E) - V: 노드 집합, E: 엣지 집합</p>
+<ul>
+  <li>노드: entity<br />
+ex)Toy story, Tom Hanks, Walt Disney, …</li>
+  <li>엣지: relation<br />
+ex) director, actor, …</li>
+  <li>Triplet: head entity - relation - tail entity (h,r,t)<br />
+ex) Toy Story - producer - Walt Disney</li>
+</ul>
+
+<p><img src="https://i.ibb.co/sbNh7bB/figure1.png" alt="figure1" /></p>
+
+<h4 id="2-multi-modal-knowledge-graph-mkg">2) Multi-modal Knowledge Graph (MKG)</h4>
+<p>multi-modal entity(텍스트, 이미지)가 추가된 KG</p>
+
+<p><img src="https://i.ibb.co/3NXB0P7/figure2.png" alt="figure2" /></p>
+
+<h4 id="3-collaborative-knowledge-graph-ckg">3) Collaborative Knowledge Graph (CKG)</h4>
+
+<p><img src="https://i.ibb.co/zRLFT9G/figure3.png" alt="figure3" /></p>
+
+<ul>
+  <li>item에 대한 MKG와 user-item bipartite graph가 통합된 graph</li>
+  <li>기존 추천 시스템에서 사용되는 기본적인 user-item bipartite graph에서 item의 추가적인 정보를 사용하기 위해 item에 대한 MKG를 user-item graph에 통합</li>
+</ul>
+
+<p><img src="https://i.ibb.co/PjtV3BX/2023-11-18-113410.png" alt="figure7" /></p>
+
+<h2 id="1-problem-definition">1. Problem Definition</h2>
+
+<p>Task: Multi-modal knowledge graph(MKG) 기반 추천 시스템 구축</p>
+
+<ul>
+  <li>Input: user-item graph와 MKG가 통합된 CKG(collaborative knowledge graph)</li>
+  <li>Output: user가 item을 채택할 확률을 예측하는 모델</li>
+</ul>
+
+<h2 id="2-motivation">2. Motivation</h2>
+
+<p>KG 기반의 추천 시스템은 data sparsity 문제와 cold start 문제를 완화할 수 있어 최근에 많이 사용되고 있다. 하지만 기존 KG 기반 추천 시스템의 대부분은 다양한 multi-modal 정보를 무시한다.</p>
+
+<p>knowledge graph representation learning은 KG 기반 추천 시스템에서 매우 중요한 역할을 하는데, 이 중 multi-modal 정보를 활용한 multi-modal knowledge representation learning은 크게 feature 기반 방법과 entity 기반 방법으로 나뉜다.</p>
+
+<h3 id="feature-기반-방법">feature 기반 방법</h3>
+<ul>
+  <li>multi-modal 정보를 entity의 보조적인 feature로 사용</li>
+  <li>예시) Toy Story (item entity) 의 feature 중 하나로 Image에서 추출된 vector 사용</li>
+  <li>이 방법에서는 knowledge graph의 모든 entity가 multi-modal 속성을 가져야 하지만, 실제 그래프에서는 일부 entity들이 multi-modal 정보를 전혀 포함하지 않는다.</li>
+</ul>
+
+<h3 id="entity-기반-방법">entity 기반 방법</h3>
+<ul>
+  <li>다양한 유형의 multi-modal 정보를 각각 독립적인 tail entity로 두는 knowledge graph의 triple을 사용</li>
+  <li>예시) Toy Story (head entity) - has image (relation) - Image (tail entity)</li>
+  <li>앞서 본 MKG 그림 참조</li>
+  <li>이 방법을 사용하는 연구들에서는 해당 entity에 대한 multi-modal 정보의 융합을 무시하고 각 triple을 독립적으로 사용한다.</li>
+</ul>
+
+<p>본 논문에서 제안한 Multi-modal Knowledge Graph Attention Network (MKGAT)는 entity 기반 방법을 사용하며, 기존 feature 기반 방법론들의 한계점과 entity 기반 방법론들의 한계점을 개선한다. 즉, 데이터 소스에 대한 낮은 요구 사항과 multi-modal triple 정보의 융합을 만족하기 위해 entity 정보 aggregation과 entity 관계 추론을 통해 MKG(크게 보면 CKG)를 모델링하여 임베딩된 representation을 추천에 사용한다. 각 과정에서의 구체적인 방법은 method part에 정리하였다.</p>
+
+<h2 id="3-method">3. Method</h2>
+
+<p>모델의 전체 프레임워크 구조는 아래 그림과 같다. input graph는 CKG이다.
+임베딩 모듈과 추천 모듈로 나뉘며, 임베딩 모듈에서는 각 노드에 대한 임베딩을 위해 MKG를 모델링하고, 추천 모듈에서는 업데이트된 임베딩을 사용하여 user-item 간 score를 에측한다.</p>
+
+<p><img src="https://i.ibb.co/TvSwZsm/figure5.png" alt="figure4" /></p>
+
+<h3 id="31-multi-modal-knowledge-graph-embedding">3.1 Multi-modal Knowledge Graph Embedding</h3>
+
+<h4 id="1-multi-modal-knowledge-graph-entity-encoder">1) Multi-modal Knowledge Graph Entity Encoder</h4>
+
+<p>각각의 특정 데이터 유형을 독립적인 벡터로 임베딩하기 위해 서로 다른 인코더를 사용한다.</p>
+
+<p><img src="https://i.ibb.co/8NdBwwr/figure4.png" alt="figure5" /></p>
+
+<ul>
+  <li>head entity id, relation id, tail entity id: 독립적인 임베딩 layer</li>
+  <li>이미지 (tail entity): ResNet50</li>
+  <li>텍스트 (tail entity): Word2Vec</li>
+</ul>
+
+<p>dense layer를 사용하여 head, relation, tail 임베딩 벡터를 동일한 차원으로 통일</p>
+
+<h4 id="2-multi-modal-knowledge-graph-attention-layer">2) Multi-modal Knowledge Graph Attention Layer</h4>
+
+<p>GAT를 활용한 KG relation 임베딩</p>
+
+<p><img src="https://i.ibb.co/QHZRPWg/figure6.png" alt="figure6" /></p>
+
+<p>i) Propagation layer</p>
+
+<p>entity $h$에 triple 정보를 aggregate 한다. (GAT와 유사)</p>
+
+<p>$e_ {agg} = \sum_ {(h,r,t)\in N_ h} \pi(h,r,t) e(h,r,t)$</p>
+
+<ul>
+  <li>
+    <p>$N_ h$: h가 head entity인 triplet(h,r,t)들의 집합</p>
+  </li>
+  <li>$e(h,r,t)$: triplet (h,r,t)의 임베딩
+    <ul>
+      <li>head entity, relation, tail entity 임베딩의 연결에 대해 linear transformation으로 학습</li>
+      <li>$e(h,r,t) = W_ 1(e_ h \vert \vert e_ r \vert \vert e_ t)$</li>
+    </ul>
+  </li>
+  <li>$\pi(h,r,t)$: attention score
+    <ul>
+      <li>attention 이후 normalize</li>
+      <li>$ \pi(h,r,t)=LeakyReLU(W_ 2 e(h,r,t)) $</li>
+      <li>$ \pi(h,r,t)= \frac{exp(\pi(h,r,t))}{\sum_ {(h,r’,t’)\in N_ h} exp(\pi(h,r’,t’))} $</li>
+    </ul>
+  </li>
+</ul>
+
+<p>ii) Aggregation layer</p>
+
+<p>head entity representation $e_h$와 앞서 propagate 된 $e_ {agg}$ 를 aggregate 한다.</p>
+
+<ul>
+  <li>방법1: Add aggregation</li>
+</ul>
+
+<p>$ f_ {add} = W_ 3 e_ h + e_ {agg} $</p>
+
+<ul>
+  <li>방법2: Concatenation aggregation</li>
+</ul>
+
+<p>$ f_ {concat} = W_ 4 (e_ h \vert \vert e_ {agg})$</p>
+
+<p>두 방법은 각각 사용해보고 experiment에서 비교</p>
+
+<p>iii) High-order propagation</p>
+
+<p>propagation-aggregation layer를 n개 쌓음으로써 n-hop neighbor의 정보를 반영한다.</p>
+
+<h4 id="3-knowledge-graph-embedding">3) Knowledge Graph Embedding</h4>
+
+<p>triple (h,r,t)의 knowledge graph 임베딩이 translation principle $e_ h+e_ r \approx e_ t$를 만족하도록 translational scoring function을 이용해 학습을 진행한다.</p>
+
+<p>$ score(h,r,t)= \vert e_ h + e_ r - e_ t \vert _2^2 $</p>
+
+<p><img src="https://i.ibb.co/sHCrYpy/2023-11-18-141616.png" alt="figure8" /></p>
+
+<p>knowledge graph 임베딩에 대한 학습은 pairwise ranking loss를 통해 valid triplet(실제 존재하는 triplet)과 broken triplet(실제 존재하지 않는 triplet) 사이의 차별을 유도한다.</p>
+
+<p>$ L_ {KG}=\sum _{(h,r,t,t’)\in \tau} -ln \sigma(score(h,r,t’)-score(h,r,t)) $</p>
+
+<p>$ \tau = { (h,r,t,t’) \vert (h,r,t)\in G, (h,r,t’)\notin G }, \sigma: sigmoid $</p>
+<ul>
+  <li>broken tiplet (h,r,t’)는 valid triplet (h,r,t)의 tail entity를 랜덤으로 대체함으로써 구성됨</li>
+</ul>
+
+<h3 id="32-recommendation">3.2 Recommendation</h3>
+
+<p>MKG 임베딩을 통해 업데이트된 item과 user 간 bipartite graph 를 사용한다.
+MKG 임베딩 모듈과 마찬가지로, 추천 모듈 역시 MKGs attention layer를 사용해 item entity의 정보를 aggregate한다.</p>
+
+<p>추가적으로, layer-aggregation mechanism을 통해 각 layer의 representation을 concat하여 하나의 벡터로 만든다.</p>
+<ul>
+  <li>MKG 임베딩에서는 L 개의 layer를 쌓았을 때 최종 L번째 임베딩 벡터만 사용</li>
+  <li>여기서는 1번 layer, 2번 layer, …, l번 layer 벡터 concat</li>
+</ul>
+
+<p>$ e_ u^* = e_ u^0 \vert \vert ….. \vert \vert e_ u^L, \quad e_ i^* = e_ i^0 \vert \vert …..\vert \vert e_ i^L $</p>
+
+<ul>
+  <li>L: MDKs attention layer 수</li>
+  <li>L을 조정하여 propagation 강도를 조절</li>
+</ul>
+
+<p>최종적으로, user와 item representation의 inner product를 통해 스코어를 예측한다.</p>
+
+<p>$ \hat y(u,i) = {e^<em>_ u}^Te^</em>_ i  $</p>
+
+<p>BPR(Bayesian Personalized Ranking) loss를 통해 prediction loss를 최적화한다.</p>
+
+<p>$ L_ {recsys} = \sum_ {(u,i,j)\in O} -ln\sigma(\hat y(u,i)-\hat y(u,j))+\lambda \vert \vert \theta \vert \vert ^2_ 2 $</p>
+
+<p>$ O = { (u,i,j) \vert (u,i)\in R^+, (u,j)\in R^-} $</p>
+
+<ul>
+  <li>$R^+$: observed interactions between user $u$ and item $i$</li>
+  <li>$R^-$: unobserved interactions between user $u$ and item $j$</li>
+</ul>
+
+<p>전체 프레임워크가 실행될 때, MKGs 임베딩 모듈과 추천 모듈을 교대로 학습하여 파라미터 업데이트</p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+<h3 id="41-experiment-setup">4.1 Experiment setup</h3>
+
+<h4 id="1-datasets">1) Datasets</h4>
+
+<p>MovieLens <a href="https://grouplens.org/datasets/movielens/">https://grouplens.org/datasets/movielens/</a></p>
+
+<ul>
+  <li>영화에 대한 기존 rating을 implicit feedback 데이터로 변환</li>
+  <li>이에 대한 knowledge graph는 Microsoft Satori를 사용하여 구성: <a href="https://arxiv.org/pdf/1905.04413.pdf">https://arxiv.org/pdf/1905.04413.pdf</a></li>
+  <li>이미지는 FFmpeg를 사용해 트레일러의 주요 프레임 추출 <a href="http://ffmpeg.org/">http://ffmpeg.org/</a>, 텍스트는 TMDB에서 영화 설명 크롤링<a href="https://www.themoviedb.org/">https://www.themoviedb.org/</a></li>
+</ul>
+
+<p>Dianping</p>
+<ul>
+  <li>맛집을 검색하고 정보를 얻을 수 있는 중국 생활 정보 서비스 사이트</li>
+  <li>knowledge graph는 Meituan Brain에서 수집</li>
+  <li>인기 추천 요리의 이미지 수집,텍스트는 사용자 리뷰 크롤링</li>
+</ul>
+
+<p><img src="https://i.ibb.co/cx8pV0f/table1.png" alt="table1" /></p>
+
+<h4 id="2-baselines">2) Baselines</h4>
+<ul>
+  <li>
+    <p>NFM(Neural Factorization Machines): state-of-the-art Factorization Machines</p>
+  </li>
+  <li>
+    <p>CKE(Collaborative Knowledge Base Embedding): Collaborative Filtering(CF)에 structural knowledge, 텍스트, 이미지 등의 multi-modal 정보가 통합된 프레임워크로 추천</p>
+  </li>
+  <li>
+    <p>KGAT(Knowledge Graph Attention Network): TransR 모델을 적용하여 entity에 대한 representation을 얻은 다음 각 entity에서 외부 entity로 propagation을 실행</p>
+  </li>
+  <li>
+    <p>MMGCN(Multi-modal Graph Convolution Network): state-of-the-art multi-modal 모델; 각 modal에 대해 user-item bipartite graph를 구축한 다음 GCN을 사용하여 각 그래프를 훈련하고, 마지막으로 다른 modal의 노드 정보를 병합</p>
+  </li>
+</ul>
+
+<h4 id="3-evaluation-metric">3) Evaluation Metric</h4>
+
+<p>top-k 추천을 위한 평가 지표 (k = 20)</p>
+<ul>
+  <li>recall@k</li>
+  <li>ndcg@k</li>
+</ul>
+
+<h3 id="42-experimental-results">4.2 Experimental Results</h3>
+
+<p><img src="https://i.ibb.co/3T2cPTg/table2.png" alt="table2" /></p>
+
+<p>제안된 MKGAT 모델은 두 데이터셋에서 모든 베이스라인의 성능을 능가한다.</p>
+
+<p>i) Effects of Modalities</p>
+
+<p><img src="https://i.ibb.co/qdsdFJ5/table3.png" alt="table3" /></p>
+
+<ul>
+  <li>multi-modal feature를 사용한 경우 single-modal feaure만 사용했을 때에 비해 성능이 좋다.</li>
+  <li>이미지가 텍스트보다 추천에 중요한 역할을 한다.</li>
+  <li>MKGAT는 KGAT에 비해 multi-modal 정보를 item entity로 더 효과적으로 통합할 수 있다.</li>
+</ul>
+
+<p>ii) Effect of Model Depth</p>
+
+<p><img src="https://i.ibb.co/7zrJbBz/table4.png" alt="table4" /></p>
+
+<ul>
+  <li>최적의 layer 수는 데이터셋에 따라 다르고, knowledge graph embedding 모듈에서와 추천 모듈에서 각각 다르다.</li>
+</ul>
+
+<p>iii) Effect of Combination Layers</p>
+
+<p>Aggregation layer로 Concat layer를 사용한 방법이 Add layer를 사용한 방법보다 성능이 좋다.</p>
+
+<p><img src="https://i.ibb.co/bzpxckT/table5.png" alt="table5" /></p>
+
+<ul>
+  <li>Concat은 여러 feature 간 차원의 확장으로, 다양한 semantic space에서 feature를 상호 작용하는 데 더 적합하다.</li>
+</ul>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+
+<p>MKGAT는 multi-modal knowledge graph를 활용하여 entity 추론 및 이웃 정보 aggregation을 향상시킨 새로운 추천 모델이다. 본 논문은 추천 시스템에서 multi-modal knowledge graph와 user-item graph가 결합된 Colalborative Knowledge Graph의 사용을 탐구하려는 초기 시도의 연구이다. 기존 SOAT에 비해 높은 성능을 보이며, multi-modal 정보를 knowledge graph에 적용하는 것에 대한 효과성을 증명한다.</p>
+
+<p>이미지나 텍스트와 같은 사이드 정보가 추천 시스템에 사용되는 연구들이 많은데, 이를 knowledge graph에 적용해 user-item graph와 결합되어 모델링하는 것이 인상 깊었다. 본 연구에서는 knowledge graph와 user-item bipartite graph를 교대로 학습시키는데, 하나의 heterogeneous graph를 구성하여 end-to-end 프레임워크로 동시에 학습하는 방법도 고려해볼 수 있을 것 같다.</p>
+
+<h2 id="author-information">Author Information</h2>
+<ul>
+  <li>KAIST 산업및시스템공학과 석사과정 박형민 <a href="mailto:mike980409@kaist.ac.kr">mike980409@kaist.ac.kr</a></li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Nov 20, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

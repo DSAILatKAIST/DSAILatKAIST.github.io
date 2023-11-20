@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks</h1>
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="-gnndelete--a-general-strategy-for-unlearning-in-graph-neural-networks"># GNNDelete : A General Strategy for Unlearning in Graph Neural Networks</h1>
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>현실의 문제들을 해결하기 위해 AI 모델들을 적용하다보면, 데이터를 삭제하는 경우가 있습니다. 예를 들어, 프라이버시 문제나 권한 때문에, 또는 시간이 지남에 따라 데이터가 정확하지 않아서 삭제하게 됩니다. 이럴 경우, 삭제된 데이터에 맞추어 모델 또한 변화해야하는데, 이를 <code class="language-plaintext highlighter-rouge">unlearning</code>이라고 합니다. 하지만 그래프의 경우에는 이 문제가 특히 까다롭습니다. 그래프는 여러 entity들이 서로 연결되어있고, 이를 활용하여 학습되기 때문에 특정 정보가 삭제되어도 삭제된 정보의 영향이 이웃한 node들에 반영되어있습니다. 따라서 모델은 이웃에 대한 영향까지 고려하여 ‘마치 해당 데이터가 존재한적 없던것처럼’ 대응해야합니다. 이 논문에서는 <code class="language-plaintext highlighter-rouge">deleted edge consistency</code>와 <code class="language-plaintext highlighter-rouge">neighborhood influence</code>라는 두 가지 기준을 제시하며, 이에 맞추어 효과적인 Graph unlearning 방법을 제안합니다.</p>
+
+<p><br /> <br /></p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+<blockquote>
+  <p><strong>Notation</strong> <br />
+그래프는 $G = (\mathcal{V}, \mathcal{E}, X)$ 로 나타내며 각 구성요소는 node set, edge set, feature입니다. 삭제될 edge를 $\mathcal{E_ {d}}$로, 삭제될 node를 $\mathcal{V_ {d}}$로,  남아있는 그래프를 $G_ {r} = (\mathcal{V_ {r}}, \mathcal{E_ {r}}, X_ {r})$로 나타냅니다. 두 node의 k-hop 거리 이내에 있는 subgraph를 $\mathcal{S_ {uv}^ {k}} = (\mathcal{V_ {uv}^ {k}}, \mathcal{E_ {uv}^ {k}}, X_ {uv}^ {k})$로 나타냅니다. unlearning전 모델을 $m(G)$로, unlearning 후 모델을 $m’(G)$로 나타냅니다.</p>
+</blockquote>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Motivation</strong></p>
+</blockquote>
+
+<p>기존의 graph unlearning 방법들은 대부분 그래프를 부분적으로 나누어 재학습하거나, 여러개의 submodel들을 학습하여 inference시 같이 활용하는 방법들을 사용합니다. 이 경우에는 그래프의 connectivity에 대한 정보가 손상되기 때문에 성능이 좋지 않습니다. 또한 여러개로 나누어 학습하거나 재학습하는 방식은 여전히 시간을 많이 쓰기 때문에 scalable하다고 할 수 없습니다. 최근 graph unlearing의 방법론은 linear GNN에만 가능하거나 approximation방법을 사용하기에 한계가 있다고 할 수 있습니다. 따라서 저자들은 2가지 기준을 제시하며 이에 따라 모델을 효율적으로 설계합니다.</p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Graph Unlearning Property</strong></p>
+</blockquote>
+
+<p>Unlearning의 궁극적인 목표는 데이터 삭제전 모델 $m(G)$와 데이터 삭제후 모델 $m’(G)$의 결과를 최대한 비슷하게 유지하면서, 삭제된 데이터의 영향을 제거하여 삭제된 데이터가 존재하지 않았던것처럼 하는것이 목표입니다. 이를 통해 데이터의 프라이버시 등을 지킬 수 있습니다. 
+저자들은 다음 2가지 기준을 제시했습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Deleted Edge Consistency</code> : 만약 어떤 데이터가 삭제되었다면 $m’(G)$는 해당 데이터의 유무와 상관없이 일관된 output이 나와야합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Neighborhood Influence</code> : 데이터가 삭제되면, 이웃들이 영향을 받게 되는데, 이것이 최소화되어야합니다. 즉 $m(G)$와 $m’(G)$가 그래프의 다른 부분들에서도 거의 같아야합니다. 
+이에 대한 조금 더 구체적인 내용은 다음 section에서 다룹니다.</li>
+</ul>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Contribution</strong></p>
+  <ul>
+    <li>Graph unlearning분야에서 반드시 충족해야할 기준 2가지를 제시합니다.</li>
+    <li>기존의 방법론들과 다르게 그래프의 connectivity를 무시하거나, 다시 학습해야하는 비효율 없이, 효율적으로 학습 가능한 모델을 제시합니다.</li>
+  </ul>
+</blockquote>
+
+<p><br /> <br /></p>
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<blockquote>
+  <p>**Graph Unlearning Property in detail **</p>
+</blockquote>
+
+<p><br />
+<img src="https://i.ibb.co/GFRdPwq/main-fig.png" alt="image" />
+<br />
+전에 이야기한 2가지 기준을 수식으로 조금 더 명확하게 표현합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Deleted Edge Consistency</code> : $\phi$를 readout function이라고 할때, $l$번째 layer에서는 삭제된 edge (node u,v)에 대한 representation과 랜덤으로 고른 두 node pair (p,q)에 대한 representation이 차이가 작아야합니다.
+    <ul>
+      <li>$\underset{p,q \in \mathcal{V_ {r}}}{\mathbb{E}}[\phi(h_ {u}^ {l},h_ {v}^ {l}) - \phi(h_ {p}^ {l},h_ {q}^ {l})] = \delta$</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Neighborhood Influence</code> : $\psi$를 subset representation function이라고 했을때, 삭제된 데이터의 k-hop이내의 subset이 unlearning 전과 후가 비슷해야합니다. unlearning전의 node representation을 $h_ {w}^ {l}$, 후를 $h_ {w}^ {‘l}$로 나타내면 다음이 성립해야합니다.
+    <ul>
+      <li>$\psi({ h_ {w}^ {l} \vert w \in \mathcal{S_ {uv}} }) - \psi({ h_ {w}^ {‘l} \vert w \in \mathcal{S_ {uv/e_ {uv}}} }) = \delta$</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>layer-wise deletion operator</strong></p>
+</blockquote>
+
+<p>위의 그림을 보면 알 수 있듯이, 해당 모델은 재학습하거나 기존에 학습된 모델 파라미터를 변형시키기는 방법을 사용하지 않습니다. 대신 각 layer마다 추가적으로 학습가능한 deletion부분을 만들어 삭제된 데이터의 영향을 받는 node의 representation을 변형시키는 방법을 사용합니다. 
+<br />
+<img src="https://i.ibb.co/8dKSVVx/del-operator.png" alt="image" />
+<br />
+위 식의 del operator를 사용하는데, 만약 삭제된 데이터의 영향을 받는 node라면 (k-hop이내) 데이터 변형을 시키고($\phi$) 아니면 node의 representation을 바꾸지 않습니다($\mathbb{1}$). 여기서 $\phi$는 MLP로 구현됩니다. 결과적으로 삭제된 데이터 주변에서만 del operator가 작동하면 되기에 추가적인 training이 최소화되며, 모델을 처음부터 다시 학습하는 일이 없어 효율적입니다.</p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Loss function</strong></p>
+</blockquote>
+
+<p>앞서 이야기한 두가지 graph unlearning 특성을 loss function으로 구현합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Deleted Edge Consistency</code> : $\mathcal{L}_ {DEC}^ {l} = \mathcal{L}({ [h_ {u}^ {‘l}; h_ {u}^ {‘l}] \vert e_ {uv} \in \mathcal{E_ {d}} },{[h_ {u}^ {l}; h_ {u}^ {l}] \vert u,v \in \mathcal{V}_ {r}  })$</li>
+  <li><code class="language-plaintext highlighter-rouge">Neighborhood Influence</code> : $\mathcal{L}_ {NI}^ {l} = \mathcal{L}({CONCAT{  h_ {w}^ {‘l} \vert w \in \mathcal{S_ {uv/e_ {uv}}} }, CONCAT{ h_ {w}^ {l} \vert w \in \mathcal{S_ {uv}} }})$</li>
+</ul>
+
+<p>최종 loss function은 이 둘의 convex combination으로 구성됩니다.
+$\mathcal{L} = \lambda \mathcal{L}_ {DEC}^ {l} + (1-\lambda) \mathcal{L}_ {NI}^ {l}$</p>
+
+<p><br /> <br /></p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+<blockquote>
+  <p><strong>Task and Dataset</strong></p>
+</blockquote>
+
+<ul>
+  <li>Dataset : 5가지의 대표적인 homogeneous graph와 2가지 heterogeneous graph를 사용합니다 : Cora, PubMed, DBLP, CS, OGB-Collab / OGB-BioKG, WordNet18RR</li>
+  <li>Task : edge deletion / Node deletion / Node feature deletion</li>
+  <li>Setup : test-set과 멀리 떨어져있는 데이터 deletion(쉬움)과 test-set에 가까이 있는 데이터 deletion(어려움)으로 2가지 세팅이 가능합니다.</li>
+</ul>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Edge Deletion</strong><br />
+<br />
+<img src="https://i.ibb.co/PMky8sT/table1.png" alt="image" /></p>
+</blockquote>
+
+<p><br />
+table1 데이터 삭제 비율은 2.5%였으며 test-set과 가까이 있는 데이터들도 deletion이 가능하도록 한 어려운 세팅의 결과입니다. table 1은 DBLP와 wordnet18을 데이터셋으로 사용했습니다. link prediction task를 수행했으며 $\mathcal{E}_ {t}$는 testset에서의 AUROC 결과를,  $\mathcal{E}_ {d}$는 ‘삭제된 edge를 edge가 없는것으로 판단하고 남은 edge는 edge가 있는것으로 link prediction 했는지’에 대한 결과입니다. 다른 모델들과 비교했을때 압도적으로 좋은 점수를 보여줍니다.
+<br />
+아래는 다양한 데이터셋에 대하여 다른 edge deletion ratio에 대한 결과입니다. table 13,15,17,19는 test-set의 이웃과 관련없는 edge를 삭제한 경우이며, 14,16,18,20은 test-set의 이웃에 영향을 줄 수 있는 edge를 삭제한 어려운 경우입니다. 데이터셋이 무엇인지는 table 설명을 참고하시면 됩니다. 전반적으로 새로운 모델이 deletion의 영향을 잘 고려하여 설계되었기 때문에 좋은 성능을 보여주고 있습니다. 
+<br />
+<img src="https://i.ibb.co/dGXg41G/table1314.png" alt="image" />
+<br />
+Table 13, 14: Cora 데이터셋에 대한 실험 결과로 test set의 이웃에 영향이 없는 쉬운 경우(13)과 영향이 가는 경우(14)에 대한 결과입니다. 
+<br />
+<img src="https://i.ibb.co/tZZXjqx/table1516.png" alt="image" />
+ <br />
+ Table 15, 16: Pubmed 데이터셋에 대한 실험 결과로 test set의 이웃에 영향이 없는 쉬운 경우(15)과 영향이 가는 경우(16)에 대한 결과입니다. 
+ <br />
+<img src="https://i.ibb.co/M154XDH/table1718.png" alt="image" />
+<br />
+ Table 17,18: DBLP 데이터셋에 대한 실험 결과로 test set의 이웃에 영향이 없는 쉬운 경우(17)과 영향이 가는 경우(18)에 대한 결과입니다. 
+<br />
+<img src="https://i.ibb.co/SRSH3s2/table1920.png" alt="image" />
+<br />
+ Table 19,20: OGB-Collab 데이터셋에 대한 실험 결과로 test set의 이웃에 영향이 없는 쉬운 경우(19)과 영향이 가는 경우(20)에 대한 결과입니다. 
+ <br />
+ <br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Node Deletion</strong></p>
+</blockquote>
+
+<p>node 100개를 삭제하고 node classification(첫 3 column), linkprediction(마지막 column)을 DBLP 데이터셋에 적용한 결과입니다. 
+<br />
+<img src="https://i.ibb.co/1XM7RWH/table8.png" alt="image" /></p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Node feature Deletion</strong></p>
+</blockquote>
+
+<p>100개의 node의 feature를 바꾼후 node(DBLP)/link(DBLP)/graph classification(ogbg-molhiv)을 진행한 결과입니다.
+<br />
+<img src="https://i.ibb.co/BtH7PcC/table9.png" alt="image" /></p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Sequential Deletion</strong></p>
+</blockquote>
+
+<p>edge deletion 비율을 점진적으로 늘려나갔을때의 결과입니다. 기존의 모델들은 재학습등의 방식을 활용하기에 점진적으로 늘려나가는 상황에서 비효율적이지만, 이 논문에서 제안한 모델은 deletion operator만 삭제된 데이터 및 이웃에 적용하기에 효율적입니다. 
+<br />
+<img src="https://i.ibb.co/T24x341/table10.png" alt="image" /></p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Membership Inference(MI) attack</strong> ‘</p>
+</blockquote>
+
+<p>학습에 활용된 데이터는 학습에 활용되지 않은 데이터보다 일반적으로 잘 맞춥니다. 이를 활용하여 특정 데이터가 학습에 활용되었는지를 확인하는Membership inference attack이 있는데, 이는 데이터 프라이버시 문제가 있음을 의미합니다. 만약 데이터가 효과적으로 삭제되었다면, unlearning 모델은 삭제된 데이터에 대한 MI attack에도 잘 대응해야합니다. 측정 지표인 MI ratio는 edge가 존재한다고 판단할 확률에 대한 (edge deletion 전후) 비율로 클수록 삭제된 정보를 적게 담고 있으며, 작을수록 삭제된 정보를 많이 가지고 있음을 의미합니다. 아래 표에서 볼 수 있듯이 새 모델이 가장 큰 값을 가지며, 삭제된 정보를 가장 적게 가지고 있음을 알 수 있습니다. 
+<br />
+<img src="https://i.ibb.co/ZzYCyhK/table2.png" alt="image" /></p>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Result - Ablation study</strong></p>
+</blockquote>
+
+<p>두가지 기준에 대한 loss의 비율을 조절하였을때 결과를 보여줍니다. 둘다 필요함을 알 수 있습니다. 
+<br />
+<img src="https://i.ibb.co/2kmV8GN/table3.png" alt="image" />
+<br />
+기존 방법론들과 execution time 을 비교하여 새로운 모델이 상당히 scalable한 모델임을 보여줍니다. 
+<br />
+<img src="https://i.ibb.co/9nd2Yfz/fig2.png" alt="image" /></p>
+
+<p><br /> <br /></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+<blockquote>
+  <p><strong>Summary</strong>
+이 논문에서는 데이터가 삭제되어야하는 상황에서 데이터의 영향을 제거하며서 동시에 성능은 유지하는 unlearning task를 다룹니다. graph unlearning에서 지켜져야할 deleted edge consistency와 neighborhood influence라는 2가지 특성을 제시하고 이에 따라 효율적인 deletion operator를 만들어 좋은 모델을 설계하였습니다. 또한 이를 다양한 실험과 현실적인 세팅으로 검증하였습니다.</p>
+</blockquote>
+
+<p><br /> <br /></p>
+
+<blockquote>
+  <p><strong>Discussion &amp; Further Development</strong></p>
+</blockquote>
+
+<ul>
+  <li>간략한 평가 :  새로운 기준을 잘 정의하였고 이에 맞추어 간단한 방식이지만 효과적으로 만들었습니다.  evaluation을 다양한 task와 setting으로 했으며, 현실적인 문제들을 잘 고려하였습니다. MI attack과 같은 방식으로 장점을 잘 보여준 실험 설계도 인상적이었습니다.</li>
+  <li>발전 방향 : real world application을 찾아서 좀더 현실적인 데이터에서 적용 가능한지 확인해보았으면 좋겠습니다. multi-relational graph로 확장하는것도 가능해 보입니다. 이 경우에는 특정 종류의 edge만 삭제될수도 있기에 조금 더 신경써서 설계할 필요가 있을것으로 예상됩니다. 또한 edge attributed graph의 경우 edge attribute이 영향에 관여하게 될텐데 이에대한 연구도 가능해보입니다.</li>
+</ul>
+
+<p><br /> <br /></p>
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+<ul>
+  <li>Yoonho Lee
+    <ul>
+      <li>Affiliation: <a href="http://dsail.kaist.ac.kr">DSAIL@KAIST</a></li>
+      <li>Research Topic: Graph Nerual Network, Topological Deep Learning, Category Theory.</li>
+      <li>Contact: sml0399benbm@kaist.ac.kr
+        <h2 id="reference--additional-materials"><strong>Reference &amp; Additional materials</strong></h2>
+      </li>
+    </ul>
+  </li>
+  <li>Github Implementation
+    <ul>
+      <li><a href="https://github.com/mims-harvard/GNNDelete">Code for the paper</a></li>
+    </ul>
+  </li>
+  <li>Reference
+    <ul>
+      <li><a href="https://openreview.net/pdf?id=X9yCkmT5Qrl">[ICLR-23] GNNDelete: A General Strategy for Unlearning in Graph Neural Networks</a></li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Nov 20, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

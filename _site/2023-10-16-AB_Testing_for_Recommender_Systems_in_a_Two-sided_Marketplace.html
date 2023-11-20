@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace</h1>
-        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
             
             
             
@@ -419,9 +419,9 @@ $T_{0}$ = control model (or recommender system)
 $T_{K}$ = treatment model
 $P_{K}$ = ramp fraction (i.e., treatment assignment probability) of the corresponding models
 $S$ = Set of all sessions
-$\Gamma$ = Set of all items
-$\Gamma_{s}$ = subset of $\Gamma$ = a set of items under consideration in each session $s$
-$R_{D}(i, \Gamma_{s})$ = the rank of item $i$ in the experimental design $D$
+$I$ = Set of all items
+$I_{s}$ = subset of $I$ = a set of items under consideration in each session $s$
+$R_{D}(i, I_{s})$ = the rank of item $i$ in the experimental design $D$
 $i \in P_{k}$ = item $i$ belongs to a producer in $P_{k}$. 
 $k, i, s$ = index for treatment variant, item, and session</p>
 
@@ -449,6 +449,38 @@ $Inaccuracy(D) := \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}))^2$, whe
     </ul>
 
     <p>The $\alpha$ value was used in the design to control the balance between accuracy and cost, with $\alpha = 0$ incurs the highest inaccuracy but has the lowest cost, while $\alpha = 1$ is the most accurate and computationally expensive.</p>
+
+    <p><strong>Analogy - LinkedIn scenario:</strong></p>
+
+    <p>To allow easier understanding, the algorithm will be explained using this analogy: consider LinkedIn company wants to test whether a new modification in the recommendation algorithm can improve the visibility of job listings for certain companies on the LinkedIn job provider website.</p>
+
+    <p><strong>Experiment Setup:</strong></p>
+
+    <ol>
+      <li><strong>Control Group (A):</strong> Job listings from companies in the control group receive the standard visibility on the platform (using existing algorithm without any modification).</li>
+      <li><strong>Treatment Group (B):</strong> Job listings from companies in the treatment group that are given new algorithm to enhance visibility.</li>
+      <li><strong>Producer Sets:</strong> The producer sets $P_{0}​$ and $P_{1}$​ consist of companies in the control and treatment groups, respectively.</li>
+      <li><strong>Scoring Models:</strong> $T_{0}$​ and $T_{1​}$ represent the scoring models used to rank job listings for visibility in the control and treatment groups.</li>
+      <li><strong>Tuning Parameter ($\alpha$):</strong> The tuning parameter $\alpha$ determines the proportion of companies in $P_{0}​$ that will be included in the modified producer set $P_{0}^{*}$​ for the treatment.</li>
+    </ol>
+
+    <p><strong>Algorithm Application:</strong></p>
+    <ol>
+      <li>Obtain a ranking of all job listings in the session according to the scoring model $T_{0}​$ (standard visibility).</li>
+      <li>Randomly select a subset of companies from the control group $P_{0}​$ with probability $\alpha$ to form $P_{0}^{<em>}$.3. Divide the job listings into sets $I_{s,0}$, $I_{s,1}$, and $I_{s,0}^{</em>}$ based on the producers in $P_{0}​$​, $P_{1}​$​, and $P_{0}^{*}​$.</li>
+      <li>Identify the rank positions $L$ of job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in the ranking obtained in step 1.</li>
+      <li>Get rankings for job listings in  $I_{s,1} \cup I_{s,0}^{*}$ using scoring models $T_{0}​$ and $T_{1}​$​.</li>
+      <li>Compute a rank-based score for each job listing based on the rankings obtained in step 5. The score considers whether the listing’s company is in $P_{0}​$ or $P_{1}​$​.</li>
+      <li>Rerank job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in positions $L$ based on the computed rank-based scores. The reranking is done in ascending order of rank scores, with ties broken randomly.</li>
+    </ol>
+
+    <p>This algorithm enables following evaluation of the new treatment (algorithm) given on the selected LinkedIn website page:</p>
+    <ul>
+      <li>Analyze the impact of the treatment on the visibility and engagement with job listings from companies in the treatment group compared to the control group.</li>
+      <li>Assess whether the modified treatment at the cluster level ($P_{0}^{*}$) mimics the potential impact of applying the treatment to the entire control group ($P_{0}​$).</li>
+    </ul>
+
+    <p>This analogy example illustrates how the UniCoRn approach could be applied to A/B testing on LinkedIn’s job provider website, considering the unique dynamics of a two-sided marketplace.</p>
   </li>
   <li>Handling multiple treatments
 In this section, simultaneous measurement of multiple treatments (against a control variant) was addressed with a simple extension to the mixing selection step. The effect of each treatment was observed by independently comparing the corresponding treatment population to the control population.
@@ -578,7 +610,7 @@ The graph on the right showed the cost and inaccuracy trade-off for a fixed valu
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 23, 2023 <br />
+ Site last generated: Nov 20, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

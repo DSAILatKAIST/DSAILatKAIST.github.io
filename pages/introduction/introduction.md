@@ -30,7 +30,7 @@ Please refer to the following link [How to contribute](/how_to_contribute.html) 
 
 ### Assistant
 
-**김원중(Wonjoong Kim)** : Master Student, Graduate School of AI, KAIST
+**김원중(Wonjoong Kim)** : Master student, Graduate School of AI, KAIST
 
 **최승윤(Seungyoon Choi)** : Master student, ISysE, KAIST  
 

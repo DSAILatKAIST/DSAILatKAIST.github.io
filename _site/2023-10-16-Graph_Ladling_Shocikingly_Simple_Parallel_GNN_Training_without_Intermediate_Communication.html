@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[ICML 2023] Graph Ladling: Shockingly Simple Parallel GNN Training without Intermediate Communication</h1>
-        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
             
             
             
@@ -401,7 +401,7 @@ Large pre-trained 모델을 fine-tuning 할 때, 기존의 2-step의 fine-tuning
 </blockquote>
 
 <h2 id="1-motivation">1. Motivation</h2>
-<p>Social netowork, knowledge graph, gene expression network까지 다양한 형태로 real-world의 다양한 domain에서 graph-structure를 찾아볼 수 있습니다.
+<p>Social network, knowledge graph, gene expression network까지 다양한 형태로 real-world의 다양한 domain에서 graph-structure를 찾아볼 수 있습니다.
 이러한 graph data에 topology structure를 message passing을 활용해 잡아내고자 하는 모델이 GNNs이 대표적인 모델입니다. GNNs 방식이 graph data에 효과적인 방식으로 자리잡았지만, 여전히 message passing의 본질적인 특성으로인해 industrial-grade graph application(아주 큰 size의 graph)에 적용이 어렵다는 한계점이 있습니다. 그리고 GNNs 핛습시킬 때 발생되는 여러 문제들 (unhealthy gradient, over-smoothing, over squashing)을 해결하기 위해 deepening(layer를 더 쌓는것) 또는 widening(neighborhood coverage를 늘리는 것)방식을 활용하여 model capacity를 늘려 performance를 높이고자 합니다. 그러나 여전히 이런 방식(deepening or widening)은 좋은 성능을 보이지 못할수 있습니다. 추가적으로 Vision, NLP와 달리, 큰 데이터셋을 사용하여 model capacity를 올리는 것은 적절하지 않습니다. 그래서 보통은 모델 architectual change, regulaization 그리고 normalization technique에 의존합니다. 이러한 GNNs training의 문제점에 출발하여 다음과 같은 질문을 떠올릴 수 있을 것입니다.</p>
 <ul>
   <li>“How to scale GNNs capacity without deepening or widening on small and large graphs”
@@ -428,13 +428,13 @@ GNN 보통 수식</p>
 <p><img src="https://i.ibb.co/v1Fkqqy/gl-1.png" alt="gl_1" /></p>
 
 <p>위 그림은 SOTA GNNs을 <code class="language-plaintext highlighter-rouge">deepening</code> 과 <code class="language-plaintext highlighter-rouge">widening</code> 관점에서의 <code class="language-plaintext highlighter-rouge">scaling</code> 효과를 확인해본 그림입니다. (왼쪽) 그림은 GCN, GCN2 그리고 GPRGNN을 ogbn-arxiv에 대해서 layer 수를 늘려가며 실험한 결과입니다. 3개의 GNNs 모델 모두 Model capacity를 늘렸을 때 성능이 drop되는 것을 확인할 수 있스빈다. GCN2와 GPRGNN 모두 architecture modification, regularization, 그리고 normalization 을 사용하는 모델들이지만 이러한 결과를 보여줍니다. (오른쪽) 그림에서는 message passing의 breadth를 늘렸을때 GraphSAGE의 성능 변화를 나타내고 있습니다. 더 많은 neighborhood를 sampling 한다고 해서 성능에 도움을 주지 않는다는 결과를 알 수 있습니다.
-이러한 결과들로부터 GNN 모델 capacity를 크게 키우는 것이 high-quality generalizable GNNs을 만든다는 것을 의미하지 않음을 알 수 있습니다. 본 논문에서는 이러한 model capacity를 직접적으로 키우는 방향과 대비하여 새로운 방식인 model soup개념(distirbuted and paralle training)을 GNN에 활용하고자 합니다. 즉, 어떠한 intermediate communication 없이 다수의 weaker 모델을 통해 강한 GNN 모델을 만들고자 합니다.</p>
+이러한 결과들로부터 GNN 모델 capacity를 크게 키우는 것이 high-quality generalizable GNNs을 만든다는 것을 의미하지 않음을 알 수 있습니다. 본 논문에서는 이러한 model capacity를 직접적으로 키우는 방향과 대비하여 새로운 방식인 model soup개념(distirbuted and parallel training)을 GNN에 활용하고자 합니다. 즉, 어떠한 intermediate communication 없이 다수의 weaker 모델을 통해 강한 GNN 모델을 만들고자 합니다.</p>
 
 <h3 id="23-model-soups-and-current-state-of-the-art-gnns">2.3. Model Soups and current state-of-the-art GNNs</h3>
-<p>이번 section에서는 0.background에서 소개했던 <code class="language-plaintext highlighter-rouge">model soup</code>의 개념이 <code class="language-plaintext highlighter-rouge">graph ladling</code>에 어떻게 녹아들었는지 살펴보겠습니다. <code class="language-plaintext highlighter-rouge">Model spoup</code>은 large language pre-trained model(e.g, CLIP, ALGINN)의 parallel training에 대한 intuition을 제공하였지만, 그보다 훨씬 작은 GNNs을 scratch부터 training 시킬 때 적용시킬 수 있을지는 분명하지 않습니다. <code class="language-plaintext highlighter-rouge">Model soup</code>에서는 fine-tuned된 모델의 pre-trained weight를 intitialization point로 사용하고, 같은 initialization point로부터 만들어진 여러 모델(다른 configuration으로 fine-tuning 시킨 모델)들을 적절히 averaging시켜서 좋은 성능을 보여줍니다. 그렇지만 GNNs에서는 pre-trained된 모델을 사용하지 않기 때문에, <code class="language-plaintext highlighter-rouge">same random initialization</code>으로부터 학습된 여러 GNNs 모델을 사용합니다. <code class="language-plaintext highlighter-rouge">same random initialization</code>로 부터 학습된 independent 모델들은 same basin of error landscape을 가집니다. <code class="language-plaintext highlighter-rouge">Model soup</code>과 마찬가지로, same basin of error landscape가지기 때문에 weight의 linear interpolation 하였을 때 좋은 성능을 기대해볼 수 있습니다. 이 부분에 대한 자세한 설명은 <code class="language-plaintext highlighter-rouge">Model Soup</code>논문을 참고하신다면, 좀 더 자세한 설명을 보실 수 있습니다. Reference에 <code class="language-plaintext highlighter-rouge">model soup</code> 논문을 참고해주세요.
+<p>이번 section에서는 0.background에서 소개했던 <code class="language-plaintext highlighter-rouge">model soup</code>의 개념이 <code class="language-plaintext highlighter-rouge">graph ladling</code>에 어떻게 녹아들었는지 살펴보겠습니다. <code class="language-plaintext highlighter-rouge">Model soup</code>은 large language pre-trained model(e.g, CLIP, ALGINN)의 parallel training에 대한 intuition을 제공하였지만, 그보다 훨씬 작은 GNNs을 scratch부터 training 시킬 때 적용시킬 수 있을지는 분명하지 않습니다. <code class="language-plaintext highlighter-rouge">Model soup</code>에서는 fine-tuned된 모델의 pre-trained weight를 intitialization point로 사용하고, 같은 initialization point로부터 만들어진 여러 모델(다른 configuration으로 fine-tuning 시킨 모델)들을 적절히 averaging시켜서 좋은 성능을 보여줍니다. 그렇지만 GNNs에서는 pre-trained된 모델을 사용하지 않기 때문에, <code class="language-plaintext highlighter-rouge">same random initialization</code>으로부터 학습된 여러 GNNs 모델을 사용합니다. <code class="language-plaintext highlighter-rouge">same random initialization</code>로 부터 학습된 independent 모델들은 same basin of error landscape을 가집니다. <code class="language-plaintext highlighter-rouge">Model soup</code>과 마찬가지로, same basin of error landscape가지기 때문에 weight의 linear interpolation 하였을 때 좋은 성능을 기대해볼 수 있습니다. 이 부분에 대한 자세한 설명은 <code class="language-plaintext highlighter-rouge">Model Soup</code>논문을 참고하신다면, 좀 더 자세한 설명을 보실 수 있습니다. Reference에 <code class="language-plaintext highlighter-rouge">model soup</code> 논문을 참고해주세요.
 예를 들어서, K개의 GNNs가 있다고 했을 때, 이들은 같은 모델구조, same random intialization를 가지지만, 세부적인 configuration(learning rate, weight decay 등) 차이를 갖습니다. K개가 바로 <code class="language-plaintext highlighter-rouge">soup ingredients</code>가 됩니다. 이런 K개의 모델을 각각 single gpu에서 학습을 시켜 준비하고, <code class="language-plaintext highlighter-rouge">Algorithm 1</code>을 적용합니다.
 <code class="language-plaintext highlighter-rouge">Algorithm 1</code>은 아래와 같습니다.
-<img src="https://i.ibb.co/DYRTLRt/gl-2.png" alt="gl_2" />
+<img src="https://i.ibb.co/DYRTLRt/gl-2.png" alt="gl_2" /><br />
 위 <code class="language-plaintext highlighter-rouge">Algorithm 1</code>은 <code class="language-plaintext highlighter-rouge">graph ladling</code>의 가장 기본이 되는 방식입니다. 준비해놓은 K개의 모델들은 validation dataset에 대한 성능 순으로 정렬을 시킨 후, 성능이 제일 좋은 모델부터 soup에 포함시키고, $\alpha$ 를 0.01 으로 하여 soup에 있던 모델의 weight parameter와 새롭게 들어올 후보 모델의 weight paramter간의 linear interpolation을 진행합니다. 이때 후보 모델과 interpolation 시킨 모델의 성능이 기존보다 나이질때만 soup에 넣습니다. 즉, greedy하게 interpolation시켰을 때, validation set에 대해서 좋은 성능을 보이는 모델의 weight만 취하겠다는 방식입니다. 
 이러한 간단한 방식으로, 여러 데이터셋에 대해서 좋은 성능을 보여주었습니다. 실험 결과에 대한 자세한 설명은 <code class="language-plaintext highlighter-rouge">3. Section</code>에서 말씀드리겠습니다.</p>
 
@@ -447,7 +447,7 @@ GNN 보통 수식</p>
   <p><strong>$X_ {B_ {0}}^{(K)}[M_ {i}]=\tilde{A}_ {B_ {1}}^{(K-1)}\sigma (\tilde{A}_ {B_{2}}^{(K-2)}\sigma(\cdots \sigma(\tilde{A}_ {B_ {K}}^{(0)}X_ {B_{ K}}^{(0)}[M_ {i}]W^{(0)}[M_ {i}]))\cdots W^{K-2}[M_ {i}])W^{K-1}[M_ {i}]$</strong></p>
 </blockquote>
 
-<p>$\tilde{A}^{l}$은 전체 batch $B_{l}$ 에서 sampled 된 graph의 $l$ 번째 layer에 대한 adjacency matrix이며, $M_ {i}$와 $W^{(l)}[M_ {i}]$는 $i$ th ingredient model과 해당하는 weight를 나타냅니다.</p>
+<p>$\tilde{A}^{l}$은 전체 batch $B_{l}$ 에서 sampled 된 graph의 $l$ 번째 layer에 대한 adjacency matrix이며, $M_ {i}$와 $W^{(l)}[M_ {i}]$는 $i$ th ingredient model과 해당하는 weight를 나타냅니다. $\sigma$ 는 Relu 함수와 같은 activation function을 의미합니다.</p>
 
 <p>이렇게 mini-batch 방식과 sampling 및 partitioning방식이 결합된다면, time consumption과 memory usage를 줄일수 있을 것입니다.</p>
 
@@ -463,8 +463,9 @@ Edge sampling은 mini-batch training시에 node sampling처럼 uniform distirubi
 이러한 neighborhood explosion은 GNNs 여전히 memory bottleneck을 가질 수 있습니다. 그래서 sampling방식에서 나아가서 graph partitioning 방식을 사용하는 model soup을 제안합니다.
 전체 Algorithm은 아래와 같습니다.</p>
 
-<p><img src="https://i.ibb.co/ggGrvst/gl-4.png" alt="gl_4" />
-Graph Clustering방식 혹은 Metis Algorithm만을 통해서 전체 그래프 $G$ 를 $K$개의 cluster를 만들어 줍니다. Graph sampling 방식을 사용하여 model soup을 적용했던 <code class="language-plaintext highlighter-rouge">Algorithm 2</code>와 같은 방식으로 진행하지만, 추가적으로 $E$ 번의 iteration동안 $K$개의 partioned된(clustered) graph 중에서 $q$개를 뽑아줍니다. 이렇게 뽑힌 graph로 subgraph를 다시 만들어서 $M_{i}$를 학습신 후 model soup을 적용해줍니다.</p>
+<p><img src="https://i.ibb.co/ggGrvst/gl-4.png" alt="gl_4" /></p>
+
+<p>Graph Clustering방식 혹은 Metis Algorithm만을 통해서 전체 그래프 $G$ 를 $K$개의 cluster를 만들어 줍니다. Graph sampling 방식을 사용하여 model soup을 적용했던 <code class="language-plaintext highlighter-rouge">Algorithm 2</code>와 같은 방식으로 진행하지만, 추가적으로 $E$ 번의 iteration동안 $K$개의 partioned된(clustered) graph 중에서 $q$개를 뽑아줍니다. 이렇게 뽑힌 graph로 subgraph를 다시 만들어서 $M_{i}$를 학습신 후 model soup을 적용해줍니다.</p>
 
 <p>여기까지 <code class="language-plaintext highlighter-rouge">Greedy Interpolation Soup Procedure</code>, <code class="language-plaintext highlighter-rouge">Model Soup with Graph Sampling</code>, <code class="language-plaintext highlighter-rouge">Model Soup with Graph Partitioning</code> 까지 모든 <code class="language-plaintext highlighter-rouge">Algorithms</code>를 살펴봤습니다.</p>
 
@@ -479,14 +480,23 @@ Graph Clustering방식 혹은 Metis Algorithm만을 통해서 전체 그래프 $
 
 <p>위의 표는 50개의 indepedent하게 학습된 candidate ingredients에 대한 model soup 결과입니다. SOTA GNNs와 모두 같은 모델 구성을 가졌습니다. <code class="language-plaintext highlighter-rouge">GCN</code>에 대해서 Cora의 경우 1.13%, <code class="language-plaintext highlighter-rouge">GCN2</code>의 경우 Pubmed에서 1.38%, <code class="language-plaintext highlighter-rouge">JKNet</code>,<code class="language-plaintext highlighter-rouge">DAGNN</code>,<code class="language-plaintext highlighter-rouge">SGC</code> 모델들 모두 OGBN-arxiv에서 성능이 올라간 결과를 볼 수 있습니다. 이러한 independent하게 학습된 모델을 적절히 model soup한다면 GNNs에서 또한 단일 모델을 능가하는 성능을 보여줄 수 있음을 실험적으로 확인하였습니다.</p>
 
-<p><img src="https://i.ibb.co/y0vF7VX/gl-7.png" alt="gl_7" />
-위의 표는 여러가지 fancy architectual and regularization modification 방식을 적용했을 때와의 비교를 나타낸 성능표입니다. Vanilla-GCN과 50개의 모델들(ingredients)을 model soup한 결과가 여러 technique을 적용했을 때 보다 더 좋은 결과를 도출하는 것을 알 수 있습니다. Skip connection, Normalization 그리고 Random Dropping 3개의 category에서 여러 setting에 다양하게 실험을 진행하였고 model soup의 효과성을 또한 입증하였습니다.</p>
+<p><img src="https://i.ibb.co/y0vF7VX/gl-7.png" alt="gl_7" /></p>
+
+<p>위의 표는 여러가지 fancy architectual and regularization modification 방식을 적용했을 때와의 비교를 나타낸 성능표입니다. Vanilla-GCN과 50개의 모델들(ingredients)을 model soup한 결과가 여러 technique을 적용했을 때 보다 더 좋은 결과를 도출하는 것을 알 수 있습니다. Skip connection, Normalization 그리고 Random Dropping 3개의 category에서 여러 setting에 다양하게 실험을 진행하였고 model soup의 효과성을 또한 입증하였습니다.</p>
 
 <h3 id="33-data-centric-model-soup-with-graph-sampling-and-graph-partitioning">3.3. Data-Centric Model Soup with Graph Sampling and Graph Partitioning</h3>
-<p><img src="https://i.ibb.co/f8WTFpr/gl-8.png" alt="gl_8" />
-위의 결과는 Model soup with graph sampling의 결과입니다. Flicklr, Reddit, OGBN-arxiv, OGBN-products 에서 모두 GraphSAGE, FastGCN, LADIES 그리고 GraphSAGE Ensemble방식들 보다도 model soup의 결과가 좋음을 확인할 수 있습니다. Graph Sampling 방식 중에서는 <code class="language-plaintext highlighter-rouge">Node sampling</code> 방식이 제일 좋은 성능을 보임을 알 수 있습니다. 다음으로는 Model soup with graph partitioning 일 때, Cluster GCN, GraphSAINT 그리고 ClusterGCN Ensembling 방식과의 비교를 한 결과입니다. 
-<img src="https://i.ibb.co/YZYFHdr/gl-9.png" alt="gl_9" />
-모든 데이터셋에 대해서 model soup 결과가 나음을 확인할 수 있습니다. 또한 ensembling방식보다도 더 나은 성능을 보이기 때문에, 추가적인 inference cost없이 좋은 성능을 보여줄 수 있는 방식이라는 것을 입증하였습니다.</p>
+<p><img src="https://i.ibb.co/f8WTFpr/gl-8.png" alt="gl_8" /></p>
+
+<p>위의 결과는 Model soup with graph sampling의 결과입니다. Flicklr, Reddit, OGBN-arxiv, OGBN-products 에서 모두 GraphSAGE, FastGCN, LADIES 그리고 GraphSAGE Ensemble방식들 보다도 model soup의 결과가 좋음을 확인할 수 있습니다. Graph Sampling 방식 중에서는 <code class="language-plaintext highlighter-rouge">Node sampling</code> 방식이 제일 좋은 성능을 보임을 알 수 있습니다. 다음으로는 Model soup with graph partitioning 일 때, Cluster GCN, GraphSAINT 그리고 ClusterGCN Ensembling 방식과의 비교를 한 결과입니다. 
+<img src="https://i.ibb.co/YZYFHdr/gl-9.png" alt="gl_9" /></p>
+
+<p>모든 데이터셋에 대해서 model soup 결과가 나음을 확인할 수 있습니다. 또한 ensembling방식보다도 더 나은 성능을 보이기 때문에, 추가적인 inference cost없이 좋은 성능을 보여줄 수 있는 방식이라는 것을 입증하였습니다.</p>
+
+<h2 id="4-background-work">4. Background Work</h2>
+<p>이번 section에서는 논문이 제시한 related work에 대해서 다루겠습니다. <code class="language-plaintext highlighter-rouge">Model Soup</code>논문으로부터 inspiration을 받았기 때문에, <code class="language-plaintext highlighter-rouge">Model Soup</code>논문은 중요한 background 논문입니다.(model soup에 대한 설명은 0.background와 논문 본문을 참고하시면 좋을 것 같습니다.) 또 다른 관련 work로는 (Li et al., 2022)가 제시한 branch-train-merge 방식입니다. 이 방식은 model combination과 distributed training을 모두 고려하였습니다. training data가 다른 domain으로 나눠질때, 각 domain 별로 expert model을 만들어서 후에 merging하는 방식을 채택합니다. merging 시에 weight averaging을 하거나 ensembling을 하는데, 이런 merging을 통해서 하나의 큰 단일 모델의 성능을 넘습니다. 이러한 여러 work들이 NLP, Vision 분야에서 다뤄졌지만, GNNs에 관해서는 underexplored 되었습니다. 이렇게 다른 data domain에 비해서 underexplored된 graph data에 대해서 논문은 graph data에 적합한 distributed training과 parallel training 방식을 접목시킨 <code class="language-plaintext highlighter-rouge">Graph Ladling</code> 방법을 제시하였습니다.</p>
+
+<h3 id="41-comparison-to-related-work-and-concurrent-ideas-in-distributed-gnn-training">4.1. Comparison to Related Work and Concurrent Ideas in Distributed GNN Training</h3>
+<p>GNN ensembling 관점에서 <code class="language-plaintext highlighter-rouge">Graph Ladling</code>은 개별적으로 학습된 GNN들의 weight를 interpolationg 하여 accuracy를 올립니다. 이와 관련하여 몇가지의 관련 work가 존재합니다. (Ramezani et al., 2021)은 communication-efficient distributed GNN training technique (LLCG)를 제시합니다. 첫번째로 GNN을 local machine에서 학습을 시키고, server에서 Global Server Correction module을 통해서 locally trained 된 GNN을 periodic하게 averaging시켜줍니다. 하지만 server의 Global module에 많이 의존한다는 문제가 있습니다. 또 다른 work(Zhu et al., 2023)는 개별적으로 학습된 local 모델들을 time-based에 기반하여 aggregation하는 방식입니다. <code class="language-plaintext highlighter-rouge">Graph Ladling</code>은 개별 모델의 학습이 완료된 후에 merging한다는 점에서 다릅니다.</p>
 
 <h2 id="5-conclusion">5. Conclusion</h2>
 <p><code class="language-plaintext highlighter-rouge">Graph Ladling</code> 논문은 <code class="language-plaintext highlighter-rouge">Model Soup</code>을 GNNs에 이용하여, GNNs model을 deepening하거나 widening하는 방식 없이 여러 graph에서 scalability를 가져가면서 성능을 향상시킬 수 있는 방법을 제시한 논문입니다. Graph structrued data는 graph data만의 특성(topology structure, relation)이 있어서, NLP나 Vision에서 성공한 방식을 그대로 적용하기는 어렵습니다. 그러한 Data modality의 차이를 위해서 새로운 Design이 필요합니다. <code class="language-plaintext highlighter-rouge">Model Soup</code>을 적절히 graph data centric하게 응용해서, GNNs의 본질적인 문제점을 해결하려고 시도한점이 흥미로웠습니다. 기존 [ICML Model Soup]이 Model-centric 접근의 방식이라면, <code class="language-plaintext highlighter-rouge">Graph Ladling</code>은 data-centric하게 model soup을 활용한 것에서 새로운 관점을 확인할 수 있었습니다.</p>
@@ -537,7 +547,7 @@ Graph Clustering방식 혹은 Metis Algorithm만을 통해서 전체 그래프 $
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 23, 2023 <br />
+ Site last generated: Nov 20, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

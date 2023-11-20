@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[NIPS 2021] Robustness of Graph Neural Networks at Scale</h1>
-        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
             
             
             
@@ -382,180 +382,162 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="robustness-of-gnn-at-scale">Robustness of GNN at Scale</h1>
-
-<h1 id="0-background">0. Background</h1>
+        <h2 id="0-background"><strong>0. Background</strong></h2>
 
 <ul>
-  <li>
-    <p>Adversarial Attack on GNN?</p>
-
+  <li>Adversarial Attack on GNN : Adversarial Pertubation을 적용해 기존 분류기 또는 GNN 모델의 성능을 낮추는 것을 말한다.</li>
+  <li>Testing Phase Attack : 분류 모델에 대해서 간섭을 주진 않지만 모델이 정확하게 동작하지 않도록 오동작을 유발하는 공격이다. 공격을 수행할 시 사용 가능한 지식의 양에 따라 White Box, Black Box Attack으로 분류한다.
     <ul>
-      <li>
-        <p>Adversarial Pertubation을 적용해 기존 분류기 또는 GNN 모델의 성능을 낮추는 것을 말함.</p>
-      </li>
-      <li>
-        <p>이는 현실에 존재할 수 있는 이미지에 대해서는 정상적으로 동작하도록 설계되었지만 사람이 일부 변화를 취한 Adversarial Examples(Perturbed된 결과물들)에 대해서는 취약할 수 있음.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Testing Phase Attack : 분류 모델에 대해서 간섭을 주진 않지만 모델이 정확하게 동작하지 않도록 오동작을 유발하는 공격. 공격을 수행할 시 사용 가능한 지식의 양에 따라 공격을 분류</p>
-
-    <ul>
-      <li>
-        <p>White Box Attacks : 분류에 사용되는 model에 대한 모든 지식을 가지고 있는 공격</p>
-      </li>
-      <li>
-        <p>Black Box Attacks : model에 대한 정보 모르는 공격자가 행하는 공격. 조작된 input과 이것이 주는 output 관찰함으로써 이용될 수 있음.</p>
-      </li>
+      <li>White Box Attacks : 분류에 사용되는 model에 대한 모든 지식을 가지고 있는 공격이다.</li>
+      <li>Black Box Attacks : model에 대한 정보를 모르는 공격자가 행하는 공격으로 input과 이것이 주는 output을 관찰함으로써 수행될 수 있다.</li>
     </ul>
   </li>
 </ul>
 
-<h1 id="1-problem-definition"><strong>1. Problem Definition</strong></h1>
+<p>논문에서는 <code class="language-plaintext highlighter-rouge">testing phase</code> + <code class="language-plaintext highlighter-rouge">white box</code> 조건에서 <code class="language-plaintext highlighter-rouge">Adversarial Robustness</code>를 달성하고자 아래 방법론들을 제시한다.</p>
 
-<p>Graph Neural Networks가 Adversarial Perturbations에 Robust하지 않다는 점은 발견이 되나, 이를 실험하고 해결하고자 한 연구들은 거의 없다. 예를 들어 PubMed라는 GNN Dataset의 경우, 인접 행렬을 기반으로 한 공격에 있어서 20GB의 메모리가 필요하며 이러한 경우 공격을 실행하기 어렵다. 이는 GNN의 Robustness를 확인해보고자 하는 연구가 진전되는 것을 어렵게 한다.</p>
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
 
-<h1 id="2-motivation"><strong>2. Motivation</strong></h1>
+<p>Graph Neural Networks가 Adversarial Perturbations에 Robust하지 않다는 점은 발견이 되나, 이를 중점으로 한 연구들은 거의 없다. 예를 들어 PubMed Graph Dataset의 경우, 인접 행렬을 기반으로 한 공격을 위해선 약 20GB의 메모리가 필요하다. 이런 메모리 요구는 GNN의 Robustness를 확인해보고자 하는 실질적인 연구를 어렵게 한다.</p>
 
-<p>해당 논문은 GNN의 Adversarial robustness에 대한 기존 연구의 한계점들을 다음과 같이 명시했다.: (1) 기존의 Loss는 Global Attack에 적합하지 않다는 점과 (2) GNN Attack에 소요되는 비용이 $O(n^2)$이상으로 매우 큰 점 그리고 (3) 기존의 Robust GNN은 scalable하지 않다는 점이다.</p>
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>해당 논문은 GNN의 Adversarial robustness에 대한 기존 연구의 한계점들을 다음과 같이 명시했다 : 
+	(1) 기존의 Loss는 Global Attack에 적합하지 않음
+	(2) GNN Attack에 소요되는 비용이 $O(n^2)$이상으로 매우 큼
+	(3) 기존의 Robust GNN은 scalable하지 않음.</p>
 
 <p>따라서, 위의 한계점들을 (1) <strong>Surrogate loss</strong>를 제시함으로써, (2) R-BCD를 기반으로 하여 <strong>시간복잡도를 $O(\Delta)$로 줄이는 방법을 제시함</strong>으로써, 마지막으로 (3) <strong>Soft Median으로 효과적으로 GNN을 방어하는 방법을 관찰함</strong>으로써 해결하고자 했다.</p>
 
-<h1 id="3-method-and-experiment"><strong>3. Method and Experiment</strong></h1>
+<h2 id="3-method-and-experiment"><strong>3. Method and Experiment</strong></h2>
 
-<h2 id="31-surrogate-losses">3.1 Surrogate Losses</h2>
+<h3 id="31-surrogate-losses-for-global-attacks">3.1 Surrogate Losses for global attacks</h3>
 
-<p><strong>Why previous loss invalid?</strong></p>
+<p>GNN의 Global Attacks들은 평균 Cross Entropy Loss(CE)를 증가시킨다. 그러나 Node가 많은 Large Graph들의 경우 CE loss는 효율적이지 않다. Accuracy가 낮아질 때, CE loss 는 증가할 것이다. 그러나 CE의 경우, Accuracy가 감소하지 않아도 증가할 때가 있다.</p>
 
-<p>많은 GNN의 Global Attacks들은 평균 Cross Entropy Loss를 증가시킨다. 그러나 node가 많은 Large Graph들의 경우 위의 loss는 효율적이지 않다.</p>
+<p><img src="https://i.ibb.co/w7fSMqc/Untitled.png" alt="Untitled.png" />
+$\psi$는 Classification Margin으로 값이 클수록 Classification을 Confident하게 수행하는 것을, 값이 작을수록 Confident하지 않게 수행하는 것을 의미한다. 즉, 이 값이 작을 수록 misclassified될 가능성이 크다.
+ 위의 그림은 1% of nodes를 가지고 feature perturbation을 준 모습이다. CE Loss는 Tanh margin에 비해서 Classification margin이 낮은 node들에 대해 Attack을 가하며 Budget $\Delta$를 사용하는 모습을 볼 수 있다. ($\Delta$ : Perturbed된 인접행렬의 변경된 Entry의 수)
+ <img src="https://i.ibb.co/TLW11Mw/Untitled-99.png" alt="Untitled-99.png" />
+위 그래프는 각 데이터셋에 대한 CE, CW, Tanh margin loss에 대한 실험결과이다. CE, CW는 tanh margin loss에 비해서 loss, accuracy의 그래프의 결과가 안정적이지 못하고 그 성능이 덜한 것을 확인할 수 있다.</p>
 
-<h3 id="surrogate-loss">Surrogate loss</h3>
+<p>그래서 이들은 <code class="language-plaintext highlighter-rouge">Surrogate loss</code>를 새롭게 정의한다.</p>
 
-<p><strong>(정의 1)</strong> Global Attack에 대한 Surrogate Loss $L^\prime$은</p>
+<p><strong>Definition of Surrogate Loss:</strong> Global Attack에 대한 Surrogate Loss $L^\prime$는</p>
 
-<p>(1) 옳게 분류된 pertubing node들에 대해서만 incentive를 주고,</p>
-
-<p>$\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$</p>
+<p>(1) 옳게 분류된 perturbed node들에 대해서만 incentive를 주고, $\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$</p>
 
 <p>(2) Decision Boundary 근처에 있는 node들을 선호하는 방식으로 Loss를 구성한다.</p>
 
-<p>$\frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 1 &lt; \frac{\partial L^\prime}{\partial z_ c^{*}} \vert \psi_ 2 \; for \, any \,0&lt;\psi_ 1&lt;\psi_ 2$</p>
+<p>$\frac{\partial L^\prime}{\partial z_ c^{_}} \vert \psi_ 1 &lt; \frac{\partial L^\prime}{\partial z_ c^{_}} \vert \psi_ 2 \;\; for \;  any \;\;  0&lt;\psi_ 1&lt;\psi_ 2$</p>
 
-<p>위 정의에서 도출된 명제에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.</p>
+<p>위 정의에서 도출된 정의에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.</p>
 
-<p>논문은 Surrogate loss에 맞는 loss로써 Masked Cross Entropy(MCE)를 제안한다.</p>
+<p>논문은 Surrogate loss에 맞는 loss로써 <code class="language-plaintext highlighter-rouge">Masked Cross Entropy(MCE)</code>를 제안한다.</p>
 
-<p>$MCE = \frac{1}{\vert V^+ \vert}  \sum_{i \in V^+}  -\log(p^{(i)}_ {c^*})$</p>
+<p>$MCE = \frac{1}{\vert V^+ \vert} \sum_{i \in V^+} -\log(p^{(i)}_ {c^*})$</p>
 
-<p>MCE는 Projected Gradient Descent attack(PR-BCD)에 대해서는 Cross Entropy와 큰 차이를 보이지 않지만, Greedy Gradient-Based attack에 있어서는 강점을 보이는 것을 확인할 수 있다.</p>
+<p>MCE는 Projected Gradient Descent attack(PR-BCD)에 대해서는 Cross Entropy와 큰 차이를 보이지 않지만, Greedy Gradient-Based attack에 있어서는 강점을 보이는 것을 확인할 수 있다. 따라서, 이후 실험에서는 Greedy Attack에선 MCE를 사용하고 다른 경우는 Tanh margin loss를 사용한다.</p>
 
-<p><img src="https://i.ibb.co/gJFYDfd/2023-10-15-17-52-14.png" alt="2023-10-15-17-52-14.png" /></p>
+<h3 id="32-scalable-attacks">3.2 Scalable Attacks</h3>
 
-<p><strong>(정의 2)</strong> 정의 1을 더 확장하여 Surrogate Loss $L^\prime$는</p>
-
-<p>(1) 확실하게 잘못 분류된 노드($\psi$가 -1에 가까운 노드)들에 대해서 확실하게 구분하고,</p>
-
-<p>$\lim_{\psi  \to  -1^+} L^\prime &lt; \infty$</p>
-
-<p>(2) 정의 1과 마찬가지로 Decision Boundary 근처에 있는 point들을 선호하는 방식으로 Loss를 구성한다.</p>
-
-<p>$\frac{\partial L^\prime} {\partial z_ c^{*}} $
-$ \vert \psi_ 1 &lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_ 2 &lt; 0 \; \ for \, any \; 0 &lt; \psi_ 1 &lt; \psi_ 2 &lt; 1 \; \ or \; -1 &lt; \psi_ 2 &lt; \psi_ 1 &lt; 0$</p>
-
-<h2 id="32-scalable-attacks">3.2 Scalable Attacks</h2>
-
-<p>Gradient-based attacks들은 인접행렬 $A$에 대해서 모두 최적화하기에 $\Theta(n^2)$의 시간 복잡도를 보여 Large Graph에 대한 robustness는 대개 측정하기 어려웠다.</p>
+<p>Gradient-based attacks들은 인접행렬 $A$에 대해서 모두 최적화하기에 $\Theta(n^2)$의 공간 복잡도를 보여 Large Graph에 대한 robustness는 대개 측정하기 어려웠다.</p>
 
 <p>Large-scale Optimization을 위해 R-BCD(Randomized Block Coordinate Descent)를 사용함으로써 변수들의 부분집합에 대해서만 gradients를 구하기 때문에 사용되는 메모리와 수행 시간을 줄일 수 있다.</p>
 
 <p>Perturbation $P\in{0,1}^{n*n}$ 는 아래와 같이 모델되었다.</p>
 
-<p>$\max_{P\; \text{s.t.}\; P \in {0, 1}^{n \times n},\; \sum P \leq  \Delta} L(f_\theta(A \otimes P, X)) \ \Delta = \text{edge budget}$</p>
+<p>$\max_{P\; \text{s.t.}\; P \in {0, 1}^{n \times n},\; \sum P \leq \Delta} L(f_\theta(A \oplus P, X))$
+여기서 $\oplus$는 element-wise XOR을 나타내고 $\Delta$는 Edge budget을 의미한다.</p>
 
-<p>그러나 $O(n^2)$ 만큼의 공간복잡도이기에 논문은 Projected Randomized Block Coordinate Descent(PR-BCD)를 제안한다.</p>
+<p>그러나 $n^2$만큼의 parameter를 위 식에서 저장해야 하기때문에$O(n^2)$ 만큼의 공간 복잡도를 가진다. 이에 논문은 <code class="language-plaintext highlighter-rouge">Projected Randomized Block Coordinate Descent(PR-BCD)</code>를 제안한다.</p>
 
-<p><img src="https://i.ibb.co/fC7NNv7/2023-10-15-18-08-22.png" alt="img2.png" /></p>
+<p><img src="https://i.ibb.co/Qb9hygL/Untitled-1.png" alt="Untitled-1" /></p>
 
-<p>P는 이산 Edge 행렬로, 각 element(p)는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 그리고 논문은 PR-BCD에 대한 또 다른 대안으로 <strong>GR-BCD</strong>를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 <strong>greedy</strong>하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다. 그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.</p>
+<p><strong>Explanation of PR-BCD :</strong> P는 이산 Edge 행렬로 element p는 edge를 뒤집을 확률을 나타낸다. 우선, epoch마다 P에서 무작위로 추출된 Block을 바탕으로 특정 부분의 edge들만을 변경한다. 업데이트 후 p에 대한 확률 질량함수를 수정하여 베르누이 분포에 대한 기댓값이 Budget을 넘지 않도록 한다. 
+ PR-BCD에서는 block size로 공간 복잡도를 줄이고 효율적인 공격을 가능하게한다. 효율적인 공격을 위해서 전체 가능한 edge들을 탐색할 필요가 없다고 생각했다. Figure 3-(a)를 보면 상대적으로 작은 Dataset인 Cora ML에서는 작은 block size($b$)로도 낮은 Accuracy를 달성할 수 있었다. 그리고 Figure 3-(b)를 통해 여러 block size에 대해서 실험해본 결과 향상된 Attack을 위해서는 Epoch의 수를 늘리는 것이 중요한 것을 확인할 수 있었다. 
+ 이로써 PR-BCD로 이전에는 $\mathcal{O}(n^2)$가 필요했던 것을 $\mathcal{O}(b)$로 줄일 수 있어 효과적인 Attack을 시행할 수 있었다.</p>
 
-<p>위 방법론에서 확장하여 더 큰 그래프들을 사용하기 위해, PPRGo를 사용했다. 이는 Personalized Page Rank(PPR) Matrix($\Pi$)를 사용함으로써 explicit message passing steps 수를 1로 줄여 constant complexity를 가질 수 있게 한다.</p>
+<p><img src="https://i.ibb.co/P5hzD8b/Utitled-98.png" alt="Utitled-98.png" /></p>
 
-<p>$p = softmax \big[\text{AGG}{\Pi_{uv}(A_{uv}, f_\text{enc}(x_u)\big), \;  \forall u \in  \mathbb{N}^\prime(v)}\big]$</p>
+<p>그리고 논문은 PR-BCD에 대한 또 다른 대안으로 위와 같이 <code class="language-plaintext highlighter-rouge">GR-BCD</code>를 함께 제안한다. PR-BCD에서 Block 추출 시 가장 큰 gradient를 가진 entry만 <strong>greedy</strong>하게 변경하는 것으로 E번의 epoch 후에 budget이 충족되도록 하는 방법이다.</p>
 
-<p><img src="https://i.ibb.co/s6chCC0/img3.png" alt="img3.png" /></p>
+<p>그러나 위 방법들은 실제 최적화 문제를 얼마나 효과적으로 근사하는지에 대한 보장은 제공하지 않고, 공격의 효과의 Upper bound만 보여준다는 점에서 한계가 있다.</p>
 
-<h2 id="33-scalable-defense">3.3 Scalable Defense</h2>
+<p>위 방법론에서 확장하여 더 큰 그래프들을 사용하기 위해, <code class="language-plaintext highlighter-rouge">PPRGo</code>를 사용했다. 이는 Personalized Page Rank(PPR) Matrix($\Pi$)를 사용함으로써 explicit message passing steps 수를 1로 줄여 constant complexity를 가질 수 있게 한다.</p>
+
+<p>$p = softmax \big[\text{AGG}{\Pi_{uv}(A_{uv}, f_\text{enc}(x_u)\big), \; \forall u \in \mathbb{N}^\prime(v)}\big]$</p>
+
+<h3 id="33-scalable-defense">3.3 Scalable Defense</h3>
 
 <p>GNN의 메세지 패싱 프레임워크를 다음과 같이 표현할 수 있다.</p>
 
-<p>$h^{(l)}_ v = \phi^{(l)}  \big[(  \text{AGG}^{(l)}{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad  \forall u \in  \mathbb{N}^\prime(v)}\big] \ \ \text{where} \; \text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v)  \cup v \\\text{and} \; AGG = \text{l-th layer message passing aggregation} \ \text{and} \; h^{(l)}_ v = \text{embedding}, \sigma^{(l)}  \text{activation function}$</p>
+<p>$h^{(l)}_ v = \phi^{(l)} \big[( \text{AGG}^{(l)}{\big(A_ {uv}, h^{(l-1)}_ u W^{(l)}\big), \quad \forall u \in \mathbb{N}^\prime(v)}\big]$  where $\text{neighborhood} \; \mathbb{N}^\prime(v) = \mathbb{N}(v) \cup v$ 
+and $AGG = \text{l-th layer message passing aggregation}$ 
+and $h^{(l)}_ v = \text{embedding},\; \sigma^{(l)} \text{activation function}$</p>
 
-<p>Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 제안했다. Soft Medoid는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다.</p>
+<p>이전 논문인 Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 다음과 같이 제안했다 : $\tilde{f}<em>{\text{WSM}}(X, a) = c(s \circ a)X \quad where  \quad s_i = \frac{\exp \left( -\frac{1}{T} \sum</em>{j=1}^{n} a_j ||x_j - x_i|| \right)}{\sum_{q=1}^{n} \exp \left( -\frac{1}{T} \sum_{j=1}^{n} a_j ||x_j - x_q|| \right)}$
+ Soft Medoid는 $s_i$로 표현되는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다.</p>
 
-<p>이를 개선하기 위해 논문은 Soft Median을 제시한다.</p>
+<p>이를 개선하기 위해 논문은 <code class="language-plaintext highlighter-rouge">Soft Median</code>을 제시한다.</p>
 
-<p>$\mu_\text{SoftMedian}(X) = \text{softmax}(\frac{-c}{T\sqrt{d}}  )^\intercal  \cdot  \mathbf{X} = \mathbf{s}^\intercal  \cdot  \mathbf{X}  \approx  \arg  \min_{x^\prime  \in  \mathbf{X}} |x_{\bar{}}  - x^\prime|$</p>
+<p>$\mu_\text{SoftMedian}(X) \= \text{softmax}(\frac{-c}{T\sqrt{d}} )^\intercal \cdot \mathbf{X} = \mathbf{s}^\intercal \cdot \mathbf{X} \approx \arg \min_{x^\prime \in \mathbf{X}} |x_{\bar{}} - x^\prime|$</p>
 
 <p>이로써 Dimension($d$)에만 의존함으로써 계산을 효율적으로 할 수 있다. $d$를 충분히 작게 한다면 Soft Median 스케일은 $\mathbb{N}$에 linear한 scale을 보인다.</p>
 
-<p><img src="https://i.ibb.co/5vY3Fdk/img4.png" alt="img4.png" /></p>
+<p><img src="https://i.ibb.co/g6v6dk2/Untitled-97.png" alt="Untitled-97.png" /></p>
 
-<p>위 왼편의 그래프는 원본 그래프와 Pertubed된 그래프를 첫 번째 message passing을 한 후의 latent space의 $L_2$ Distance를 나타낸 그래프이다. Soft Median이 Weighted Sum보다 20% 가까이 낮은 error를 보인다. 반면, 그래프에는 Soft Medoid가 Soft Median보다 Robust한 결과를 가지는 것으로 보인다. 그러나 오른쪽 표가 나타내듯 Adversarial accuracy에서는 Soft Medoid가 Soft Median보다 좋은 성능을 보이지 못했다.</p>
+<p>위의 그래프는 원본 그래프와 Pertubed된 그래프를 첫 번째 message passing을 한 후의 latent space의 $L_2$ Distance를 나타낸 그래프이다. Soft Median이 Weighted Sum보다 20% 가까이 낮은 error를 보인다. 반면, 그래프에는 Soft Medoid가 Soft Median보다 Robust한 결과를 가지는 것으로 보인다. 그러나 오른쪽 표가 나타내듯 Adversarial accuracy에서는 Soft Medoid가 Soft Median보다 좋은 성능을 보이지 못했다.</p>
 
-<p>이처럼 Soft Median은 (1)차원에 대한 고려 없이 단순히 Summation 한다면 computation 비용이 많이 든다는 점과 (2)Soft Median에 비해 robust하지 않은 결과와 마찬가지로 잘못된 robustness의 결과를 가져올 수 있다는 점을 한계점으로 삼을 수 있다. 그러나 PPRGo와 결합하여 사용한다면 위 한계를 완화할 수 있다고 설명한다.</p>
+<p>이처럼 Soft Median은 (1) 차원에 대한 고려 없이 단순히 Summation 한다면 computation 비용이 많이 든다는 점과 (2) Soft Median에 비해 robust하지 않은 결과와 마찬가지로 잘못된 robustness의 결과를 가져올 수 있다는 점을 한계점으로 삼을 수 있다. 그러나 PPRGo와 결합하여 사용한다면 위 한계를 완화할 수 있다고 설명한다.</p>
 
-<h2 id="34-empirical-evaluation">3.4 Empirical Evaluation</h2>
+<h3 id="34-empirical-evaluation">3.4 Empirical Evaluation</h3>
 
-<h3 id="robustness-wrt-global-attacks">Robustness w.r.t global attacks.</h3>
+<h4 id="surrogate-loss">Surrogate Loss</h4>
 
-<p>아래 실험 결과는 Pubmed, arXiv, Products Dataset 각각에 대해 $\text{budget} = \Delta$만큼의 공격 후에 adversarial accuracy를 측정한 결과이다. 약 2%가량 Pertubation을 가했을 때, 대략 60%의 정확도로 떨어지는 모습을 확인할 수 있었다고 밝혔다. 각 경우에서 Soft Median GDC, Soft Median PPRGo, PPRGo Defense가 타 모델보다 비교적 좋은 결과가 보임을 확인할 수 있다.</p>
+<p><img src="https://i.ibb.co/Tr2CFsN/Untitled-2.png" alt="Untitled-2" />
+Figure 5는 logit의 classification margin을 가지고 loss들을 분류한 결과이다. CE, margin이 low margin에 Incentive를 주는 경향을 보이고, CW, NCE, elu margin들은 high confidence nodes들에 집중하는 경향을 보인다. 그리고 Surrogate loss에서 강조했듯 Decision boundary에 있는 node들에 집중하는 MCE, Tanh margin을 확인할 수 있다.
+Figure 6는 Pubmed Dataset에 Loss들을 달리하여 Attack 후 Accuracy를 측정한 결과이다. 위에서 살펴본 바와 같이 MCE와 Tanh margin의 경우 Adversarial accuracy를 낮추는데 효과적이었고, 특히 MCE는 Greedy attack을 시행했을 때 더욱 효과적임을 볼 수 있다.</p>
 
-<p><img src="https://i.ibb.co/x18qbsH/img5.png" alt="img5.png" /></p>
+<h4 id="robustness-wrt-global-attacks">Robustness w.r.t global attacks.</h4>
 
-<h3 id="robustness-wrt-local-attacks">Robustness w.r.t local attacks.</h3>
+<p><img src="https://i.ibb.co/bFrdktP/Untitled-3.png" alt="Untitled-3" /></p>
 
-<p><img src="https://i.ibb.co/Y2pV6Lp/img6.png" alt="img6.png" /></p>
+<p><img src="https://i.ibb.co/b6P7Xwd/Untitled-4.png" alt="Untitled-4" /></p>
+
+<p>위 실험 결과는 Pubmed, arXiv, Products Dataset 각각에 대해 $\text{budget} = \Delta$만큼의 공격 후에 adversarial accuracy를 측정한 결과이다. 약 2%가량 Pertubation을 가했을 때, 대략 60%의 정확도로 떨어지는 모습을 확인할 수 있었다고 밝혔다. 각 경우에서 Soft Median GDC, Soft Median PPRGo, PPRGo Defense가 타 모델보다 비교적 좋은 결과가 보임을 확인할 수 있다.</p>
+
+<h4 id="robustness-wrt-local-attacks">Robustness w.r.t local attacks.</h4>
 
 <p>Cora ML, Citeseer, arXiv에서 PR-BCD가 SGA보다 효과적으로 공격을 하는 것을 볼 수 있었다. 그리고 아래 그래프가 보이듯 Soft Median PPRGo가 위 공격에 대해서 Vanila PPRGo와 Vanila GCN보다 대체로 잘 견디는 것을 확인할 수 있었다. (b)의 Papers100M에서 $\Delta_i = 0.25$일 때, Soft Median PPRGo는 공격자의 성공률을 90%에서 30%로 줄인 것을 그래프에서 볼 수 있다.</p>
 
-<h1 id="4-conclusion">4. Conclusion</h1>
+<p><img src="https://i.ibb.co/m0cRXCv/Untitled-5.png" alt="Untitled-5" /></p>
+
+<p><img src="https://i.ibb.co/b5xBzvx/Untitled-6.png" alt="Untitled-6" /></p>
+
+<h2 id="4-conclusion">4. Conclusion</h2>
 
 <p>규모가 있는 GNN에서의 Adversarial Robustness를 살펴보았다. 논문은 이전까지 데이터셋의 규모로 인해 잘 다뤄지지 않았던 문제를 확인하기 위해 Attack과 Defense에 대해 직접 방법을 제시하고 실험한 결과를 보였다.</p>
 
-<p>따라서, Complexity를 줄이기 위해 PPRGo와 Soft Median이라는 방법을 도입하고 Attack과 Defense에 반영하여 실제로 큰 데이터셋에 대한 실험결과를 낸 것을 보며 문제상황에 대한 해결 의지를 느낄 수 있었다. 공격자가 Model을 다 안다는 가정(White-box attack)을 하고 Budget($\Delta$)를 중점으로 Complexity를 해결했던 것이 현실에서 어떻게 적용이 될 수 있을지를 찾아보고 싶어졌다.</p>
+<p>따라서, Complexity를 줄이기 위해 PPRGo와 Soft Median이라는 방법을 도입하고 Attack과 Defense에 반영하여 실제로 큰 데이터셋에 대한 실험결과를 낸 것을 보며 문제상황에 대해 여러 모델을 활용하여 다각도로 실험해본 것을 확인할 수 있었다. 그러나, 그들이 강조한 PPRGo에 대한 모델 설명이 타 모델에 비해서 부족한 점과 white box과 attack budget에 대한 가정이 실제 적용될 수 있는 부분인지에 대한 의문이 남아있다.</p>
 
 <hr />
 
 <p><strong>Author Information</strong></p>
 
 <ul>
-  <li>
-    <p>Sumin Lee</p>
-
-    <ul>
-      <li>
-        <p>Affiliation: Dept. of Data Science, KAIST</p>
-      </li>
-      <li>
-        <p>Research Topic: Machine learning, Differential Equation Approximation</p>
-      </li>
-      <li>
-        <p>Contact : sumlee@kaist.ac.kr</p>
-      </li>
-    </ul>
-  </li>
+  <li>Sumin Lee</li>
+  <li>Affiliation: Dept. of Data Science, KAIST</li>
+  <li>Research Topic: Machine learning</li>
+  <li>Contact : <a href="mailto:sumlee@kaist.ac.kr">sumlee@kaist.ac.kr</a></li>
 </ul>
 
 <p><strong>Reference</strong></p>
+
 <ul>
-  <li>
-    <p>Geisler, Simon, et al. “Robustness of graph neural networks at scale.” <em>Advances in Neural Information Processing Systems</em> 34 (2021): 7637-7649.</p>
-  </li>
-  <li>
-    <p>Bojchevski, Aleksandar, et al. “Scaling graph neural networks with approximate pagerank.” <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>. 2020.</p>
-  </li>
+  <li>Geisler, Simon, et al. “Robustness of graph neural networks at scale.” <em>Advances in Neural Information Processing Systems</em> 34 (2021): 7637-7649.</li>
+  <li>Bojchevski, Aleksandar, et al. “Scaling graph neural networks with approximate pagerank.” <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>. 2020.</li>
+  <li>Geisler, Simon, et al. “Reliable graph neural networks via robust aggregation” <em>In Proceedings of the 34th International Conference on Neural Information Processing Systems (NIPS’20)</em></li>
 </ul>
 
     </div>
@@ -577,7 +559,7 @@ $ \vert \psi_ 1 &lt; \frac{\partial L^\prime} {\partial z_c^{*}} \vert \psi_ 2 &
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 23, 2023 <br />
+ Site last generated: Nov 20, 2023 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
