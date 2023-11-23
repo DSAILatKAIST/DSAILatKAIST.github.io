@@ -1,6 +1,6 @@
 ---
 title:  "[AAAI 2023] Simple and Efficient Heterogeneous Graph Neural Network"
-permalink: 2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html
+permalink: 2023-11-20-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html
 tags: [reviews]
 use_math: true
 usemathjax: true

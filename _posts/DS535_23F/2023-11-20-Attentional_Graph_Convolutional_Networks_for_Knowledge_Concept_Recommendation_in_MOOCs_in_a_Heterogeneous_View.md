@@ -1,3 +1,12 @@
+---
+title:  "[SIGIR 2020] Attentional Graph Convolutional Networks for Knowledge Concept Recommendation in MOOCs in a Heterogeneous View"
+permalink: 2023-11-20-Attentional_Graph_Convolutional_Networks_for_Knowledge_Concept_Recommendation_in_MOOCs_in_a_Heterogeneous_View.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+
 ## What is heterogeneous graph?
 
 이질적 그래프는 그래프 내에서 두 가지 이상의 유형의 노드 또는 엣지가 있는 그래프를 말합니다. 일반적인 그래프는 모든 노드와 엣지가 동일한 유형을 가질 때 반면, 이질적 그래프는 다양한 유형의 노드와 엣지를 가질 수 있습니다. 예를 들어, 사회 네트워크에서 노드는 '사람', '장소', '이벤트' 등 다양한 유형을 나타낼 수 있고, 엣지는 '친구 관계', '방문', '참석' 등 다양한 유형의 관계를 나타낼 수 있습니다. 이질적그래프는 다음과 같은 특징을 지닙니다. 

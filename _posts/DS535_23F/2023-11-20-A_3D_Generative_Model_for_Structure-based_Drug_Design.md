@@ -1,6 +1,6 @@
 ---
 title:  "[NIPS 2021] A 3D Generative Model for Structure-based Drug Design"
-permalink: 2023-10-16-A_3D_Generative_Model_for_Structure-based_Drug_Design.html
+permalink: 2023-11-20-A_3D_Generative_Model_for_Structure-based_Drug_Design.html
 tags: [reviews]
 use_math: true
 usemathjax: true

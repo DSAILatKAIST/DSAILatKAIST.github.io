@@ -1,6 +1,6 @@
 ﻿---
 title:  "[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace"
-permalink: 2023-10-16-AB_Testing_for_Recommender_Systems_in_a_Two-sided_Marketplace.html
+permalink: 2023-11-20-AB_Testing_for_Recommender_Systems_in_a_Two-sided_Marketplace.html
 tags: [reviews]
 use_math: true
 usemathjax: true

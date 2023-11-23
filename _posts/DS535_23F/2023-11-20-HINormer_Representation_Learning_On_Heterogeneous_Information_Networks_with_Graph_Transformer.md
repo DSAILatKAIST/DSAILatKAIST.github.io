@@ -1,6 +1,6 @@
 ---
 title:  "[WWW 2023] HINormer: Representation Learning On Heterogeneous Information Networks with Graph Transformer"
-permalink: 2023-10-16-HINormer_Representation_Learning_On_Heterogeneous_Information_Networks_with_Graph_Transformer.html
+permalink: 2023-11-20-HINormer_Representation_Learning_On_Heterogeneous_Information_Networks_with_Graph_Transformer.html
 tags: [reviews]
 use_math: true
 usemathjax: true

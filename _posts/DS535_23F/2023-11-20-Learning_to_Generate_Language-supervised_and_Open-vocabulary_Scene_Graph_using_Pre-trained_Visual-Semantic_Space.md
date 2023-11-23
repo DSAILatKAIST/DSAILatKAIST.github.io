@@ -1,6 +1,6 @@
 ---
 title:  "[CVPR 2023] Learning to Generte Language-supervised and Open-vocabulary Scene Graph using Pre-trained Visual-Semantic Space"
-permalink: 2023-10-16-Learning_to_Generate_Language-supervised_and_Open-vocabulary_Scene_Graph_using_Pre-trained_Visual-Semantic_Space.html
+permalink: 2023-11-20-Learning_to_Generate_Language-supervised_and_Open-vocabulary_Scene_Graph_using_Pre-trained_Visual-Semantic_Space.html
 tags: [reviews]
 use_math: true
 usemathjax: true

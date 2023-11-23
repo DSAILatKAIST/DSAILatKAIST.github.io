@@ -1,6 +1,6 @@
 ---
 title:  "[SIGIR 2021] ConsisRec: Enhancing GNN for Social Recommendation via Consistent Neighbor Aggregation"
-permalink: 2023-10-16-ConsisRec_ Enhancing_ GNN_ for_ Social_ Recommendation_ via_ Consistent_ Neighbor_ Aggregation.html
+permalink: 2023-11-20-ConsisRec_Enhancing_GNN_for_Social_Recommendation_via_Consistent_Neighbor_Aggregation.html
 tags: [reviews]
 use_ math: true
 usemathjax: true

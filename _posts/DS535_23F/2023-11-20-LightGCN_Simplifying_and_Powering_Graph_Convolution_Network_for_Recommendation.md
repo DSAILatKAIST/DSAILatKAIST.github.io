@@ -1,4 +1,12 @@
-﻿
+﻿---
+title:  "[SIGIR 2020] LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation"
+permalink: 2023-11-20-LightGCN_Simplifying_and_Powering_Graph_Convolution_Network_for_Recommendation.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
+
 # LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation
 
 

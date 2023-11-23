@@ -1,6 +1,6 @@
 ---
 title:  "[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection"
-permalink: 2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html
+permalink: 2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html
 tags: [reviews]
 use_math: true
 usemathjax: true

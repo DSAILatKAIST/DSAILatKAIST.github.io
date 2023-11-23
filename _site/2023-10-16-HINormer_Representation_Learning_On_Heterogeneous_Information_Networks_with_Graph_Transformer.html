@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[WWW 2023] HINormer: Representation Learning On Heterogeneous Information Networks with Graph Transformer</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -390,7 +390,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
 
-<p>    본 연구는 현실에 존재하는 그래프 구조의 데이터는 노드(node)와 엣지(edge)의 타입이 다양하게 분포하는 heterogeneity를 띄고 있기 때문에 GNN 분야에서 주로 연구되던 homogeneous graph 기반의 신경망으로는 데이터의 특징(feature)과 구조(structure) 등의 정보를 충분히 학습하기 어려운 점을 기존 연구의 문제점으로 지적하였다. 또한, Transformer 구조는 자연어 처리(NLP)와 컴퓨터 비전(CV) 등 다양한 딥러닝 분야에서 모델의 성능을 향상시키는데 큰 역할을 하고 있지만, 노드 간의 연결성이 복잡한 그래프 구조의 특성을 고려하였을 때 이를 적용하는 과정에 많은 한계점이 존재하는 것을 문제로 제시하였다. 이에 따라, 본 연구가 정의한 문제는 다음과 같다.</p>
+<p>본 연구는 현실에 존재하는 그래프 구조의 데이터는 노드(node)와 엣지(edge)의 타입이 다양하게 분포하는 heterogeneity를 띄고 있기 때문에 GNN 분야에서 주로 연구되던 homogeneous graph 기반의 신경망으로는 데이터의 특징(feature)과 구조(structure) 등의 정보를 충분히 학습하기 어려운 점을 기존 연구의 문제점으로 지적하였다. 또한, Transformer 구조는 자연어 처리(NLP)와 컴퓨터 비전(CV) 등 다양한 딥러닝 분야에서 모델의 성능을 향상시키는데 큰 역할을 하고 있지만, 노드 간의 연결성이 복잡한 그래프 구조의 특성을 고려하였을 때 이를 적용하는 과정에 많은 한계점이 존재하는 것을 문제로 제시하였다. 이에 따라, 본 연구가 정의한 문제는 다음과 같다.</p>
 <ol>
   <li>Local-view structure 정보를 활용하여 효율적인 node-level Transformer encoder를 어떻게 구성할 수 있는가?</li>
   <li>Heterogeneous Information Networks(HINs)에서 graph Transformer를 활용하여 노드 간의 heterogeneous semantic relation을 어떻게 효과적으로 학습할 수 있는가?</li>
@@ -398,7 +398,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="2-motivation"><strong>2. Motivation</strong></h2>
 
-<p>    이 연구는 기존의 HINs에서의 표현 학습 방법의 한계를 해결하고자 새로운 형태의 Transformer Mechanism를 활용하였다. HINs는 복잡한 heterogeneous semantic relation을 가진 노드와 엣지의 다양한 유형을 연결하는 heterogeneous 구조로, 웹 데이터와 같은 많은 실제 데이터는 heterogeneous networks 형태를 띄고 있다. &lt;Fig 1&gt;은 academic graph와 review graph에 대해 heterogeneous networks 예시를 보여주고 있다.</p>
+<p>이 연구는 기존의 HINs에서의 표현 학습 방법의 한계를 해결하고자 새로운 형태의 Transformer Mechanism를 활용하였다. HINs는 복잡한 heterogeneous semantic relation을 가진 노드와 엣지의 다양한 유형을 연결하는 heterogeneous 구조로, 웹 데이터와 같은 많은 실제 데이터는 heterogeneous networks 형태를 띄고 있다. &lt;Fig 1&gt;은 academic graph와 review graph에 대해 heterogeneous networks 예시를 보여주고 있다.</p>
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/5ab0fd1a-6c16-4472-b378-f6b6500786d9" alt="heterogeneous_graph" />
 </div>
@@ -406,206 +406,194 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 **Fig 1. Heterogeneous Networks Examples[12]**
 </center>
-<p>    Heterogeneous graph를 활용한 GNN은 구조와 heterogeneity을 동시에 학습함으로써 한 가지 타입의 노드와 엣지로 구성된 homogeneous graph 기반 GNN에 비해 downstream task에서 더욱 높은 성능을 달성함에 따라 관련 연구가 점차 증가하고 있다. 관련 연구는 크게 metapath-based approach[1,2,3]와 metapath-free approach[4,5,6]가 있다. 먼저 metapath-based approach는 두 노드의 연결 경로가 되는 노드 타입 기반의 metapath를 사용하여 노드간 관계성을 고려하여 학습하는 방식이고, metapath-free approach는 서로 다른 타입의 노드와 엣지의 정보를 타입별로 학습함으로써 metapath 없이 그래프의 heterogeneity를 학습하는 것이다. 그러나, 기본적으로 meassage passing을 기반으로 하는 GNN은 다음과 같이 몇 가지 한계점이 존재한다.</p>
+<p>Heterogeneous graph를 활용한 GNN은 구조와 heterogeneity을 동시에 학습함으로써 한 가지 타입의 노드와 엣지로 구성된 homogeneous graph 기반 GNN에 비해 downstream task에서 더욱 높은 성능을 달성함에 따라 관련 연구가 점차 증가하고 있다. 관련 연구는 크게 metapath-based approach[1,2,3]와 metapath-free approach[4,5,6]가 있는데, 먼저 metapath-based approach는 두 노드의 연결 경로가 되는 노드 타입 기반의 metapath를 사용하여 노드간 관계성을 고려하여 학습하는 방식이고, metapath-free approach는 서로 다른 타입의 노드와 엣지의 정보를 타입별로 학습함으로써 metapath 없이 그래프의 heterogeneity를 학습하는 것이다. 그러나, 기본적으로 meassage passing을 기반으로 하는 GNN은 다음과 같이 몇 가지 한계점이 존재한다.</p>
 
-<p>    먼저, GNN의 표현력은 Weisfeiler-Lehman isomorphism에 의해 더 미세한 그래프 구조를 학습하는 데 취약할 수 있다. 다음으로, over-smoothing 문제가 발생하여 서로 다른 노드가 유사한 표현을 가지게 되어 노드 간의 구별력이 감소하고, 그래프의 복잡한 패턴과 구조를 정확하게 학습하고 표현하는 능력이 저하된다. 세번째로, over-squashing이 발생하여 노드의 정보가 너무 많이 압축되어 모델이 먼 거리의 노드로 메시지를 효과적으로 전파하지 못하고 주로 단거리 신호만을 캡처한다.<br />
-    이러한 문제를 해결하기 위해 그동안 Transformer를 GNN에 활용하고자 하는 시도가 많이 있어 왔다. 대표적인 연구가 Graph Transformer Networks (GTN) [13] 이다. GTN은 복수의 Channel을 출력하는 1 $\times$ 1 CNN을 활용하여 하나의 그래프에서 다양한 인접행렬 (adjacency matrix) 후보군을 추출한다. 그중 2개의 인접행렬을 활용하여 새로운 형태의 인접행렬을 생성하여 기존 그래프로부터 재구성된 새로운 그래프를 생성한다. 이때, 새로운 인접행렬은 두 개의 후보 인접행렬의 행렬곱을 통해 생성되기에 multi-hop을 기반으로 한 새로운 meta-path가 형성된다. 이렇게 재구성된 그래프는 기존의 그래프에서는 포착하기 어려웠던 관계에 있는 노드의 연결성을 고려하여 node representation을 할 수 있게 된다. GTN의 구체적인 Architecture는 &lt;Fig 2&gt;와 같다. 그러나 Graph Transformer는 graph representation에 매우 긍정적으로 기여함에도 불구하고, 몇 가지 한계점이 존재한다.  Global attention mechanism은 그래프의 노드 수에 대해 제곱에 비례하는 복잡성을 초래하므로, 대규모 네트워크에 대한 확장성이 떨어진다. 이 문제로 인해 소규모 그래프 레벨 Transformer는 활발히 연구된 반면, 대규모 노드 레벨 Transformer는 그렇지 않다. 따라서, 본 연구에서 저자는 그러한 한계를 극복하며 large heterogeneous information networks에 transformer mechanism을 적용할 수 있는 모델을 소개한다.</p>
-<div align="center">
-  <img src="https://github.com/BBeeChu/-KAIST-data_science_and_machine_learning/assets/8716868/385b99dc-fe23-4a97-bba0-e247df5099a4" alt="graph_transformer" />
-</div>
-<center>
-
-**Fig 2. Graph Transformer Networks Architecture[13]**
-</center>
-<p>연구의 contribution은 다음과 같이 세 가지로 구성된다.</p>
-
-<p>1) HINs에 대한 노드 embedding을 위해 기존과 다른 형태의 graph transformer를 적용한 새로운 표현 학습 패러다임 HINormer를 설계했다. 
-2) local structure encoder와 hetero-relation encoding을 포함하는 새로운 모델 HINormer는 HINs의 graph structure와 heterogeneity를 모두 포착하여 노드를 효과적으로 학습한다. 
-3) 네 가지 benchmark dataset에서의 실험을 통해 기존의 SOTA 모델을 능가하는 성능을 보여준다.</p>
+<p>먼저, GNNs의 표현력은 Weisfeiler-Lehman isomorphism에 의해 더 미세한 그래프 구조를 학습하는 데 취약할 수 있다. 다음으로, over-smoothing 문제가 발생하여 서로 다른 노드가 유사한 표현을 가지게 되어 노드 간의 구별력이 감소하고, 그래프의 복잡한 패턴과 구조를 정확하게 학습하고 표현하는 능력이 저하되는 현상이다. 세번째로, over-squashing이 발생하여 노드의 정보가 너무 많이 압축되어 모델이 먼 거리의 노드로 메시지를 효과적으로 전파하지 못하고 주로 단거리 신호만을 캡처한다. 이러한 문제를 해결하기 위해 그동안 Transformer를 GNN에 활용하고자 하는 시도가 많이 있어 왔다. Graph Transformer는 graph representation에 매우 긍정적으로 기여함에도 불구하고, 몇 가지 한계점이 존재한다.  Global attention mechanism은 그래프의 노드 수에 대해 제곱에 비례하는 복잡성을 초래하므로, 대규모 네트워크에 대한 확장성이 떨어진다. 이 문제로 인해 소규모 그래프 레벨 Transformer는 활발히 연구된 반면, 대규모 노드 레벨 Transformer는 그렇지 않다. 따라서, 본 연구에서 저자는 그러한 한계를 극복하며 large heterogeneous information networks에 transformer mechanism을 적용할 수 있는 모델을 소개한다.<br />
+연구의 contribution은 세 가지로 구성된다. 첫째, HINs에 대한 노드 embedding을 위해 기존과 다른 형태의 graph transformer를 적용한 새로운 표현 학습 패러다임 HINormer를 설계했다. 둘째, local structure encoder와 hetero-relation encoding을 포함하는 새로운 모델 HINormer는 HINs의 graph structure와 heterogeneity를 모두 포착하여 노드를 효과적으로 학습한다. 셋째, 네 가지 benchmark dataset에서의 실험을 통해 기존의 SOTA 모델을 능가하는 성능을 보여준다.</p>
 
 <h2 id="3-method"><strong>3. Method</strong></h2>
 
 <h2 id="31-preliminaries"><em>3.1. Preliminaries</em></h2>
-<p>    본 연구에서는 기존의 HINs의 효과적인 학습을 위해 선행 연구된 GNN 모델과 Transformer 모델을 기반으로 전체적인 model architecture를 구성한다. 먼저, 앞으로 사용될 notation을 정리하면 &lt;Table 1&gt;과 같다.</p>
+<p>본 연구에서는 기존의 HINs의 효과적인 학습을 위해 선행 연구된 GNN 모델과 Transformer 모델을 기반으로 전체적인 model architecture를 구성한다. 먼저, 앞으로 사용될 notation을 정리하면 &lt;Table 1&gt;과 같다.</p>
 
-<center>
+<table>
+  <thead>
+    <tr>
+      <th>Notations</th>
+      <th>Descriptions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>G = {<em>V</em>, <em>E</em>, <strong>X</strong>, $\phi$, $\psi$}</td>
+      <td>Heterogeneous Information Network</td>
+    </tr>
+    <tr>
+      <td><em>V</em></td>
+      <td>노드 집합</td>
+    </tr>
+    <tr>
+      <td><em>E</em></td>
+      <td>엣지 집합</td>
+    </tr>
+    <tr>
+      <td><strong>X</strong> $\in R^{\vert V \vert \times d_{x}}$</td>
+      <td>노드 feature 행렬</td>
+    </tr>
+    <tr>
+      <td><strong>x</strong>$_{v} \in R^{d_x}$</td>
+      <td>노드 feature 벡터</td>
+    </tr>
+    <tr>
+      <td>$\phi$</td>
+      <td>노드 타입 mapping 함수</td>
+    </tr>
+    <tr>
+      <td>$\psi$</td>
+      <td>엣지 타입 mapping 함수</td>
+    </tr>
+    <tr>
+      <td>$\phi(v)$</td>
+      <td>특정 노드 타입</td>
+    </tr>
+    <tr>
+      <td>$\psi(e)$</td>
+      <td>특정 엣지 타입</td>
+    </tr>
+    <tr>
+      <td>$T_{v}$ = {$\phi(v): \forall_{v} \in V$}</td>
+      <td>노드 타입 집합</td>
+    </tr>
+    <tr>
+      <td>$T_{e}$ = {$\psi(e): \forall_{e} \in E$}</td>
+      <td>엣지 타입 집합</td>
+    </tr>
+  </tbody>
+</table>
 
-| Notations   | Descriptions    |
-| ------- | ------- | 
-| G = {*V*, *E*, **X**, $\phi$, $\psi$}    | Heterogeneous Information Network  | 
-| *V* | 노드 집합  | 
-| *E*    | 엣지 집합  |
-| **X** $\in R^{\vert V \vert \times d_{x}}$    | 노드 feature 행렬  |
-| **x**$_{v} \in R^{d_x}$    | 노드 feature 벡터  |
-| $\phi$    | 노드 타입 mapping 함수  |
-| $\psi$    | 엣지 타입 mapping 함수  |
-| $\phi(v)$    | 특정 노드 타입  |
-| $\psi(e)$    | 특정 엣지 타입  |
-| $T_{v}$ = {$\phi(v): \forall_{v} \in V$}    | 노드 타입 집합  |
-| $T_{e}$ = {$\psi(e): \forall_{e} \in E$}    | 엣지 타입 집합  |
-</center>
-
-<center>
-
-**&lt;Table 1&gt; Notations**
-</center>
+<p><strong>&lt;Table 1&gt; Notations</strong></p>
 
 <p>GNN은 layer에 따른 이웃 노드 aggregation을 통해 주변 노드의 feature를 학습하며 graph representation을 업데이트하는 모델이다. GNN의 학습 과정은 아래의 &lt;Eq 1&gt;식으로 표현된다.</p>
 
 <center>
-
 $\boldsymbol{h_ {v}^{l}} = AGGR(\boldsymbol{h}_ {v}^{l-1}, \{\boldsymbol{h}_ {i}^{l-1} : i \in N_ {v} \};\theta_{g}^{l})$,  
-
 $N_ {v}$ : v노드의 이웃 노드 집합,  
-
 $AGGR(\cdot ; \theta_{g}^{l})$ : 이웃 노드 aggregation function.  
 </center>
+<p><strong>&lt;Eq 1&gt; Aggregation of GNN</strong></p>
 
-<center>
-
-**&lt;Eq 1&gt; Aggregation of GNN**
-</center>
-
-<p>    GNN은 위 식으로 표현되는 aggregation의 방법에 따라 mean-pooling을 활용하는 GCN[7], attention을 활용하는 GAT[8] 등의 다양한 방법이 있다. Transformer mechanism은 self-attention과 feed-forward로 구성되는데, multi-head self-attention을 통해 특정 벡터의 요소별 중요도를 계산한 후 feed-forward를 통해 그 중요도를 반영한 새로운 형태의 벡터를 추출하는 방법이다. 설명의 간략화를 위해 multi-head과정을 생략하고 &lt;Eq 2&gt;와 &lt;Eq 3&gt;으로 표현할 수 있으며 architecture에 대한 자세한 내용은 [9]에서 확인할 수 있다.</p>
+<p>GNN은 위 식으로 표현되는 aggregation의 방법에 따라 mean-pooling을 활용하는 GCN[7], attention을 활용하는 GAT[8] 등의 다양한 방법이 있다.<br />
+Transformer mechanism은 self-attention과 feed-forward로 구성되는데, multi-head self-attention을 통해 특정 벡터의 요소별 중요도를 계산한 후 feed-forward를 통해 그 중요도를 반영한 새로운 형태의 벡터를 추출하는 방법이다. 설명의 간략화를 위해 multi-head과정을 생략하고 &lt;Eq 2&gt;과 &lt;Eq 3&gt;로 표현할 수 있으며 architecture에 대한 자세한 내용은 [9]에서 확인할 수 있다.</p>
 <center>
 
 $Q = HW_{Q}, K = HW_{K}, V = HW_{V}$,  
-
 $W_{Q} \in R^{d \times d_{Q}}, W_{K} \in R^{d \times d_{K}}, W_{V} \in R^{d \times d_{V}}$  
-
 $MSA(H) = Softmax(\frac{\boldsymbol{QK}^{\top}}{\sqrt{d_{K}}}\boldsymbol{V})$  
+**&lt;Eq 2&gt; Multi-head Self-Attention Mechanism**
 
-**&lt;Eq 2&gt; Multi-head Self-Attention Mechanism**  
-  
-$\boldsymbol{\widetilde{H}^{l}} = Norm(MSA(\boldsymbol{H^{l-1}}) + \boldsymbol{H^{l-1}})$  
-
-$\boldsymbol{H^{l}} = Norm(FFN(\widetilde{\boldsymbol{H^{l}}})+\boldsymbol{\widetilde{H}^{l}})$  
-
-$Norm: Layer\ Normalization$  
-  
-**&lt;Eq 3&gt; Feed Forward Network**
+$\boldsymbol{\widetilde{H}^{l}} = Layer Normalization(MSA(\boldsymbol{H^{l-1}}) + \boldsymbol{H^{l-1}})$  
+$\boldsymbol{H^{l}} = Layer Normalization(FFN(\widetilde{\boldsymbol{H^{l}}})+\boldsymbol{\widetilde{H}^{l}})$  
 </center>
+<p><strong>&lt;Eq 3&gt; Feed Forward Network</strong></p>
 
 <h2 id="32-overall-architecture"><em>3.2. Overall Architecture</em></h2>
-<p>    HINormer는 HINs의 정보를 학습하기 위한 새로운 방법으로, Graph Transformer를 사용하였다. 헷갈리지 말아야 할 것은 본 논문에서 언급하는 “Graph Transformer”라는 이름은 Multi-head Attention Mechanism을 활용하여 저자가 새롭게 제시하는 모델의 이름으로, 앞서 Motivation에서 언급한 GTN과는 다른 개념이다. HINormer는 local-structure encoder와 hetero-relation encoder로 구성이 되는데, local-structure encoder는 주변 노드의 feature를 aggregate하여 노드의 local structure을 학습하고, hetero-relation encoder는 주변 노드의 타입 정보를 aggregate하여 heterogeneity를 학습에 반영한다. 그리고, Graph Transformer는 두 encoder에서 얻은 정보를 aggregate하여 종합적인 노드 정보를 생성하는데 사용된다. 모델의 전체적인 architecture는 &lt;Fig 3&gt;과 같다.</p>
+<p>HINormer는 HINs의 정보를 학습하기 위한 새로운 방법으로, Graph Transformer를 사용하였다. HINormer는 local-structure encoder와 hetero-relation encoder 로 구성이 되는데, local-structure encoder는 주변 노드의 feature를 aggregate하여 노드의 local structure을 학습하고, hetero-relation encoder는 주변 노드의 타입 정보를 aggregate하여 heterogeneity를 학습에 반영한다. 그리고, Graph Transformer는 두 encoder에서 얻은 정보를 aggregate하여 종합적인 노드 정보를 생성하는데 사용된다. 모델의 전체적인 architecture는 &lt;Fig 2&gt;와 같다.</p>
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/1753c58d-9f32-4d48-b812-53dd4268a6d5" alt="hinormer" />
 </div>
 <center>
 
-**Fig 3. Overall Framework of HINormer**
+**Fig 2. Overall Framework of HINormer**
 
 </center>
 
 <h2 id="33-node-level-heterogeneous-graph-transformer-architecture"><em>3.3. Node-level Heterogeneous Graph Transformer Architecture</em></h2>
-<p>    본 연구는 노드 embedding 과정에 Transformer Mechanism을 효율적으로 적용하고자 새로운 방안을 제안한다. 특히, Transformer를 GNN에 적용함에 따라 불가피하게 증가하는 parameter의 수로 인한 확장성 저하 및 과적합 문제를 해결하는 것에 집중하였다. 먼저, self-attention을 수행하기 위해서 target node를 중심으로 정해진 길이($S$) 만큼의 이웃 노드를 정해진 깊이($D$)만큼 탐색하며 추출한다. 이때 사용되는 $S$와 $D$는 하이퍼파라미터이다. 구체적인 예를 들어 설명하자면, 임의의 타겟 노드 $v$와 관련하여 추출된 이웃노드 집합을 $s(v) = {v, v_{1}, …, v_{S-1}}$로 정의한다. 이들을 다시 Transformer 모델에 입력할 수 있는 embedding 형태의 집합으로 표현하면 $\boldsymbol{H}_ {v}^{s} = [\boldsymbol{h}_ {v}^{s}, \boldsymbol{h}_ {v_ {1}}^{s},…,\boldsymbol{h}_ {v_ {S-1}}^{s}]^{\top} \in R^{S\times d}$와 같다. 여기서, $d$는 노드 embedding 차원을 의미하고, $\boldsymbol{h}_ {v_ {i}}^{S}$는 3.4장에서 설명할 local structure encoder를 통해 학습되는 주변 노드 기반의 노드 feature이다. 유념해야 할 것은 본 장에서 설명하는 Transformer는 앞으로 설명할 local-structure encoder를 통해 학습한 노드 feature와 hetero-relation encoder를 통해 학습한 관계성 정보를 aggregate하는 방법이다.<br />
-    해당 연구에서는 Graph Transformer와 관련하여 앞서 설명한 문제들을 해결하기 위해서 Graph Attention Network 모델[8]에서 제안된 attention 기반의 aggregation 방식을 변형한 GATv2[10]를 Transformer model의 multi-head self-attention 방법으로 활용하였다. GATv2은 벡터간의 관계성 추출을 위해 내적(dot-product)이 아닌 concatenation을 활용함으로써 learnable parameter의 개수를 줄였다. 또한, 본 연구의 저자는 각 Transformer layer의 feed-forward network를 삭제함으로써 parameter의 개수를 현저히 줄였다. 먼저, 본 연구에서 활용된 Transformer의 작동 과정을 이해하기 위해서는 [8]에서 소개된 GAT의 attention mechanism을 이해할 필요가 있다. 본 페이퍼에서는 GAT의 과정에 대해 자세하게 설명되지 않았지만 앞으로 설명할 내용의 이해를 돕기 위해 [8]의 내용을 일부 활용하여 GAT를 설명하면 &lt;Eq 4&gt;와 같다.</p>
+<p>본 연구는 노드 embedding 과정에 Transformer Mechanism을 효율적으로 적용하고자 새로운 방안을 제안한다. 특히, Transformer를 GNN에 적용함에 따라 불가피하게 증가하는 parameter의 수로 인한 확장성 저하 및 과적합 문제를 해결하는 것에 집중하였다. 먼저, self-attention을 수행하기 위해서 target node를 중심으로 정해진 길이($S$) 만큼의 이웃 노드를 정해진 깊이($D$)만큼 탐색하며 추출한다. 이때 사용되는 $S$와 $D$는 하이퍼파라미터이다. 구체적인 예를 들어 설명하자면, 임의의 타겟 노드 $v$와 관련하여 추출된 이웃노드 집합을 $s(v) = {v, v_{1}, …, v_{S-1}}$로 정의한다. 이들을 다시 Transformer 모델에 입력할 수 있는 embedding 형태의 집합으로 표현하면 $\boldsymbol{H}_ {v}^{s} = [\boldsymbol{h}_ {v}^{s}, \boldsymbol{h}_ {v_ {1}}^{s},…,\boldsymbol{h}_ {v_ {S-1}}^{s}]^{\top} \in R^{S\times d}$와 같다. 여기서, $d$는 노드 embedding 차원을 의미하고, $\boldsymbol{h}_ {v_ {i}}^{S}$는 3.4장에서 설명할 local structure encoder를 통해 학습되는 주변 노드 기반의 노드 feature이다. 유념해야 할 것은 본 장에서 설명하는 Transformer는 앞으로 설명할 local-structure encoder를 통해 학습한 노드 feature와 hetero-relation encoder를 통해 학습한 관계성 정보를 aggregate하는 방법이다.<br />
+해당 연구에서는 Graph Transformer와 관련하여 앞서 설명한 문제들을 해결하기 위해서 Graph Attention Network 모델[8]에서 제안된 attention 기반의 aggregation 방식을 변형한 GATv2[10]를 Transformer model의 multi-head self-attention 방법으로 활용하였다. GATv2은 벡터간의 관계성 추출을 위해 내적(dot-product)이 아닌 concatenation을 활용함으로써 learnable parameter의 개수를 줄였다. 또한, 본 연구의 저자는 각 Transformer layer의 feed-forward network를 삭제함으로써 parameter의 개수를 현저히 줄였다. 먼저, 본 연구에서 활용된 Transformer의 작동 과정을 이해하기 위해서는 [8]에서 소개된 GAT의 attention mechanism을 이해할 필요가 있다. 본 페이퍼에서는 GAT의 과정에 자세하게 설명되지 않았지만 앞으로 설명할 내용의 이해를 돕기 위해 [8]의 내용을 일부 활용하여 GAT를 설명하면 &lt;Eq 4&gt;와 같다.</p>
 <center>
 
 $s_{i}^{(k)} = \alpha_{i,i}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k-1)} + \sum_{j \in N_{i}}\alpha_{i,j}^{(k)}\boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k-1)}$,  
-
 $\boldsymbol{h}_{i}^{(k)} = f_{k}(s_{i}^{(k)})$  
-
-**&lt;Eq 4&gt; Graph Attention Networks Mechanism**
 </center>
+<p>&lt;Eq 4&gt;</p>
 
 <p>&lt;Eq 4&gt;에서 $N_{i}$는 $i$번째 노드에 대한 인접 노드들의 index이며, $\boldsymbol{W^{(k)}}$와 $f_{k}$는 각각 k번째 GAT의 가중치 행렬과 활성화 함수이다. attention score $\alpha_{i,j}^{(k)}$는 &lt;Eq 5&gt;에 의해 계산된다.</p>
 <center>
 
 $\alpha_{i,j}^{(k)} = \frac{exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{j}^{(k)}))}{\sum_{r \in N_{i}}exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_{i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_{r}^{(k)}))}$  
-
-**&lt;Eq 5&gt; Attention Score**
 </center>
+<p>&lt;Eq 5&gt;</p>
 
 <p>GATv2은 $exp(\phi^{(k)}(\boldsymbol{W}^{(k)}\boldsymbol{h}_ {i}^{(k)}, \boldsymbol{W}^{(k)}\boldsymbol{h}_ {j}^{(k)}))$ 함수에서 GAT과 차이가 있다. 두 방식을 나타내면 &lt;Eq 6&gt;과 같다.</p>
 <center>
 
-$GAT : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) =  \sigma(\boldsymbol{a}^{\top}\cdot[\boldsymbol{Wh_{i}||Wh_{j}}])$   
+$GAT : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) =  LEAKYRELU(\boldsymbol{a}^{\top}\cdot[\boldsymbol{Wh_{i}||Wh_{j}}])$   
 <br />
 
-$GATv2 : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) = \boldsymbol{a}^{\top}\cdot \sigma(\boldsymbol{W}\cdot[\boldsymbol{h_{i}}||\boldsymbol{h_{j}}])$  
-
-$\sigma: Leaky\ ReLU\ Activation\ Function$
-
-**&lt;Eq 6&gt; GAT &amp; GATv2**
+$GATv2 : \alpha(\boldsymbol{h_{i}}, \boldsymbol{h_{j}}) = \boldsymbol{a}^{\top}\cdot LEAKYRELU(\boldsymbol{W}\cdot[\boldsymbol{h_{i}}||\boldsymbol{h_{j}}])$  
 </center>
+<p>&lt;Eq 6&gt;</p>
 
 <p>앞서 설명한 바와 같이 본 연구에서는 GATv2방식을 활용하였다.</p>
 
 <h2 id="34-local-structure-encoder"><em>3.4. Local Structure Encoder</em></h2>
-<p>    먼저 local structure encoder는 노드와 엣지의 타입을 무시하고, GCN이나 GAT와 같은 모델을 활용하여 homogeneous graph 정보를 학습하는 encoder이다. 따라서, 서로 다른 타입의 노드 feature를 &lt;Eq 7&gt;과 같이 linear transformation을 통해서 동일한 공간에 projection해주는 것이 필요하다.</p>
+<p>먼저 local structure encoder는 노드와 엣지의 타입을 무시하고, GCN이나 GAT와 같은 모델을 활용하여 homogeneous graph 정보를 학습하는 encoder이다. 따라서, 서로 다른 타입의 노드 feature를 &lt;Eq 7&gt;와 같이 linear transformation을 통해서 동일한 공간에 project해주는 것이 필요하다.</p>
 <center>
 
 $\boldsymbol{h}_{v} = \boldsymbol{W}_{\phi(v)}\boldsymbol{x}_{v} + \boldsymbol{b}_{\phi(v)}$  
-
-**&lt;Eq 7&gt; Node Features Projection**
 </center>
+<p>&lt;<strong>Eq 7</strong>&gt;</p>
 
-<p>    다음으로, 사전에 정의된 $K_{s}$-hop만큼 기존의 GNN 모델(GCN, GAT, etc)을 활용하여 이웃 노드의 feature을 학습한다. 해당 부분의 작동 과정은 앞서 설명한 &lt;Eq 1&gt;과 동일하다. 다만, 본 연구에서는 모델의 성능을 세밀하게 분석하기 위해서 이웃 노드의 feature를 aggregate하는 과정에서 weight parameter가 곱해져서 학습되던 vanilla GNN과 달리 weight을 제거한 aggregation(&lt;Eq 8&gt;) 또한 실험을 진행하였다.</p>
+<p>다음으로, 사전에 정의된 $K_{s}$-hop만큼 기존의 GNN 모델(GCN, GAT, etc)을 활용하여 이웃 노드의 feature을 학습한다. 해당 부분의 작동 과정은 앞서 설명한 &lt;Eq 1&gt;과 동일하다. 다만, 본 연구에서는 모델의 성능을 세밀하게 분석하기 위해서 이웃 노드의 feature를 aggregate하는 과정에서 weight parameter가 곱해져서 학습되던 vanilla GNN과 달리 weight을 제거한 aggregation(&lt;Eq 8&gt;) 또한 실험을 진행하였다.</p>
 
 <center>
 
 $\boldsymbol{h}_{v}^{K_{s}} =(\boldsymbol{\hat{A}}^{K_{s}}\boldsymbol{H})[v,:]$  
 $\boldsymbol{\hat{A}} = \boldsymbol{D}^{-1/2}\boldsymbol{A}\boldsymbol{D}^{-1/2} \rightarrow$ *Normalized Adjacency Matrix*  
-
-**&lt;Eq 8&gt; Aggregation without Weight Parameters**
 </center>
+<p>&lt;<strong>Eq 8</strong>&gt;</p>
 
 <h2 id="35-heterogeneous-relation-encoder"><em>3.5. Heterogeneous Relation Encoder</em></h2>
-<p>    해당 encoder는 각 노드와 엣지의 타입을 고려한 정보인 heterogeneous semantic proximity를 학습하기 위한 encoder로서 각 노드를 타입별로 mapping하여 학습한다. 타입별 정보의 초기화를 위해서 one-hot vector를 각 노드의 초기 정보로 활용하였다. 즉, 노드 타입 행렬 $T \in R^{\vert T \vert \times \vert T \vert}$에서 노드 v의 타입 벡터 초깃값$(r^{0}_ {v})$은 $T[\phi(v), :]$이다. 타겟 노드의 이웃 노드 타입에 대한 정보를 aggregate 하기 위한 과정 또한 기존의 GNN layer(GCN, GAT, etc)를 활용한다. 단, 기존의 방식과 다른 점은 GNN aggregation 이후에 타입별 learnable parameter $w^{t-1}_ {\phi(u)}$를 가중합(weighted sum)함으로써 추가적인 aggregation을 진행하는 것이다. 이에 대한 수식은 &lt;Eq 9&gt;와 같다.</p>
+<p>해당 encoder는 각 노드와 엣지의 타입을 고려한 정보인 heterogeneous semantic proximity를 학습하기 위한 encoder로서 각 노드를 타입별로 mapping하여 학습한다. 타입별 정보의 초기화를 위해서 one-hot vector를 각 노드의 초기 정보로 활용하였다. 즉, 노드 타입 행렬 $T \in R^{\vert T \vert \times \vert T \vert}$에서 노드 v의 타입 벡터 초깃값$(r^{0}_ {v})$은 $T[\phi(v), :]$이다. 타겟 노드의 이웃 노드 타입에 대한 정보를 aggregate 하기 위한 과정 또한 기존의 GNN layer(GCN, GAT, etc)를 활용한다. 단, 기존의 방식과 다른 점은 GNN aggregation 이후에 타입별 learnable parameter $w^{t-1}_ {\phi(u)}$를 가중합(weighted sum)함으로써 추가적인 aggregation을 진행하는 것이다. 이에 대한 수식은 &lt;Eq 9&gt;와 같다.</p>
 <center>
 
 $\boldsymbol{r}^{t}_{v} = \sum_{u \in N(v)}w^{t-1}_{\phi(u)}f(\boldsymbol{r}_{u}^{t-1};\theta_{h}^{t}),$  
-
 $f(\cdot ; \theta^{t}_{h})=$Aggregation function of GNN layers  
 
-
-**&lt;Eq 9&gt; Aggregation of Neighbor Node Types**
 </center>
+<p>&lt;<strong>Eq 9</strong>&gt;</p>
 
-<p>    Relation encoder에서 헷갈리지 말아야 할 것은 &lt;Eq 9&gt;에서 진행한 것은 하나의 노드를 기준으로 했을 때 이웃 노드의 타입 정보를 aggregate함으로써 노드 embedding을 하는 것이다. 본 연구에서는 여기에서 머무는 것이 아니라, 주변 노드와의 self-attention을 기반으로 한 Graph Transformer를 통해서 효과적인 학습을 기대한다. 따라서, 임의의 노드쌍 간의 관계성 또한 반영된 정보를 최종적으로 추출해야 한다. 해당 과정은 &lt;Eq 10&gt;에 자세히 나타나 있다.</p>
+<p>Relation encoder에서 헷갈리지 말아야 할 것은 &lt;Eq 9&gt;에서 진행한 것은 하나의 노드를 기준으로 했을 때 이웃 노드의 타입 정보를 aggregate함으로써 노드 embedding을 하는 것이다. 본 연구에서는 여기에서 머무는 것이 아니라, 주변 노드와의 self-attention을 기반으로 한 Graph Transformer를 통해서 효과적인 학습을 기대한다. 따라서, 임의의 노드쌍 간의 관계성 또한 반영된 정보를 최종적으로 추출해야 한다. 해당 과정은 &lt;Eq 10&gt;에 자세히 나타나 있다.</p>
 
 <center>
 
 $\boldsymbol{q}_{i}^{R} = \boldsymbol{W_{Q_R}}\boldsymbol{r}_{i}, \ \boldsymbol{k}_{j}^{R} = \boldsymbol{W}_{K_{R}}\boldsymbol{r_{j}}$,  
-
 $\hat{\alpha}_{i,j} = \alpha_{i,j} + \beta\cdot\boldsymbol{q}_{i}^{R}\boldsymbol{k}_{j}^{R}$  
-
-**&lt;Eq 10&gt; Consideration of Relations of Node Pairs**
 </center>
+<p>&lt;<strong>Eq 10</strong>&gt;</p>
 
 <p>&lt;Eq 10&gt;을 구체적으로 살펴보면 먼저 각 노드에 learnable parameter를 활용해서 각각 한번 더 projection을 해주고, 그 결과를 내적(inner-product)함으로써 두 노드간의 유사도를 계산한다. 다음으로, 하이퍼파라미터 $\beta$만큼 해당 유사도를 반영하여 이전 layer의 Transformer 과정에서 추출된 attention score와 합하여 positional encoding인 $\hat{\alpha}_{i,j}$를 추출한다. 최종적으로 local-structure encoder의 결과 벡터와 hetero-relation encoder의 결과 벡터에 multi-head self-attention을 적용하여 &lt;Eq 11&gt;과 같이 Transformer layer에 태워 최종 output을 출력한다.</p>
 
 <center> 
 
-$\boldsymbol{H^{l}} = Norm(\boldsymbol{H^{l-1}} + MSA(\boldsymbol{H^{l-1}}, 
-\boldsymbol{R})),$  
-
-$Norm: Layer\ Normalization,$  
-$MSA: Multi-head\ Self\ Attention$
-
-
-**&lt;Eq 11&gt; Transformer Layer**
+$\boldsymbol{H^{l}} = LayerNormalization(\boldsymbol{H^{l-1}} + HETEROMSA(\boldsymbol{H^{l-1}}, \boldsymbol{R}))$
 </center>
+<p>&lt;<strong>Eq 11</strong>&gt;</p>
 
 <h2 id="36-training-objective"><em>3.6. Training Objective</em></h2>
-<p>    본 연구에서는 대표적인 downstream task로 node classification을 진행하였다. Transformer를 통해 출력된 output값에 linear layer를 통해 1차원의 벡터를 추출한 후, 크로스 엔트로피(cross-entropy)를 통해 loss값을 계산하였다. 구체적인 과정은 &lt;Eq 12&gt;와 같다.</p>
+<p>본 연구에서는 대표적인 downstream task로 node classification을 진행하였다. Transformer를 통해 출력된 output값에 linear layer를 통해 1차원의 벡터를 추출한 후, 크로스 엔트로피(cross-entropy)를 통해 loss값을 계산하였다. 구체적인 과정은 &lt;Eq 12&gt;와 같다.</p>
 
 <center>
 
 $\tilde{y}_{v} \in R^{C} = \phi_{Linear}(\boldsymbol{h_{v}};\theta_{pre})$  
-
-$L = \sum_{v\in V_{tr}}CE(\tilde{y}_{v}, y_{v})$,  
-
-$V_{tr}=training\ nodes$  
-$CE: Cross\ Entropy\ Loss$
-
-**&lt;Eq 12&gt; Objective Function**
+$L = \sum_{v\in V_{tr}}CROSSENTROPY(\tilde{y}_{v}, y_{v})$,  
+$V_{tr}=$training nodes  
 </center>
+<p>&lt;<strong>Eq 12</strong>&gt;</p>
 
 <h2 id="4-experiment"><strong>4. Experiment</strong></h2>
 
-<p>    본 연구에서는 HINormer의 성능을 알아보기 위해 4가지 데이터셋에 대해 node classification을 수행하고, 다양한 baseline model과 비교하였다. 또한, transformer방법 및 하이퍼파라미터에 따른 ablation study를 추가적으로 진행하였다. 데이터셋은 $24:6:70$으로 random split을 진행하였다.</p>
+<p>본 연구에서는 HINormer의 성능을 알아보기 위해 4가지 데이터셋에 대해 node classification을 수행하고, 다양한 baseline model과 비교하였다. 또한, transformer방법 및 하이퍼파라미터에 따른 ablation study를 추가적으로 진행하였다. 데이터셋은 $24:6:70$으로 random split을 진행하였다.</p>
 
 <h3 id="41-experiment-setup"><strong><em>4.1. Experiment setup</em></strong></h3>
 <ul>
@@ -646,19 +634,42 @@ $CE: Cross\ Entropy\ Loss$
 본 연구에서는 baseline 하이퍼파라미터 설정을 위해 각 논문의 실험셋팅을 최대한 유지하였다. 또한, 제안하는 HINormer의 실험 셋팅을 &lt;Table 2&gt;와 같이 설정하여 진행하였다.</li>
 </ul>
 
-<center>
+<table>
+  <thead>
+    <tr>
+      <th>Settings</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Optimizer</td>
+      <td>Adam</td>
+    </tr>
+    <tr>
+      <td>Learning Rate</td>
+      <td>0.0001</td>
+    </tr>
+    <tr>
+      <td>Dropout Rate</td>
+      <td>Freebase: 0, Others: 0.5</td>
+    </tr>
+    <tr>
+      <td>Sequence Length (S)</td>
+      <td>[10, 200]</td>
+    </tr>
+    <tr>
+      <td>Hidden Dimension</td>
+      <td>256</td>
+    </tr>
+    <tr>
+      <td>Num of Head for MSA</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
 
-| Settings   | Value    |
-| ------- | ------- | 
-| Optimizer    | Adam  | 
-| Learning Rate | 0.0001  | 
-| Dropout Rate    | Freebase: 0, Others: 0.5  |
-| Sequence Length (S)   | [10, 200]  |
-| Hidden Dimension    | 256  |
-| Num of Head for MSA    | 2  |
-
-**\&lt;Table 2\&gt; Hyperparameter Settings**
-</center>
+<p>&lt;Table 2&gt; Hyperparameter Settings</p>
 
 <ul>
   <li><strong>Evaluation Metric</strong><br />
@@ -667,70 +678,69 @@ $CE: Cross\ Entropy\ Loss$
 
 <h3 id="42-result"><strong><em>4.2. Result</em></strong></h3>
 <p><strong>Performance Evaluation</strong><br />
-    HINormer는 GCN으로 local structure encoder를 구성하였고, 다른 backbone 모델과의 성능을 함께 비교하였다. 그 결과는 &lt;Fig 4&gt;와 같다.</p>
+HINormer는 GCN으로 local structure encoder를 구성하였고, 다른 backbone 모델과의 성능을 함께 비교하였다. 그 결과는 &lt;Fig 3&gt;과 같다.</p>
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/ec4ebd70-4e03-472f-97fb-cf0f3f3eadcb" alt="performance_1" />
 </div>
 <center>
 
-**Fig 4. Performance Evaluation**
+**Fig 3. Performance Evaluation**
 
 </center>
 
 <p>성능 비교의 내용은 다음과 같다. 먼저, standard Transformer 모델의 성능이 HGNNs 관련 모델을 대부분의 경우 능가함으로써, HINs의 representation learning에 context-based global attention mechanism의 높은 효과를 확인할 수 있었다. 다음으로, HINormer가 standard Transformer와 GAT의 성능을 높은 차이로 능가하였다. 이것은 단순한 형태의 standard Transformer는 그래프의 context structure와 heterogeneity를 충분히 학습하지 못하고, GAT은 Homogenous 기반 모델이기에 heterogeneity를 충분히 학습하지 못한다는 것을 보여준다. 세번째로, meta-path based HGNNs 모델들과 meta-path free HGNNs 모델들의 성능에 큰 차이가 없었으나 HINormer는 이들의 성능을 모두 능가하였다. 이것을 통해서, 현실적인 관점에서 깊은 도메인 지식을 접목하여 meta-path를 고려하는 것보다 meta-path를 고려하지 않고 heterogeneity를 반영하는 것이 HGNNs에서 경제적임을 알 수 있었고, HINormer는 heterogeneous 그래프에서 각 노드의 정보와 관계성을 동시에 학습하여 2-hop 이상의 노드 정보를 담는 high-order relational information을 효과적으로 파악하는 모델임을 확인할 수 있었다. 끝으로, GCN이나 GAT와 같은 homogeneous GNN 모델이 여전히 높은 성능을 보인 점을 고려하였을 때 high-order semantics 보다 주변 노드의 정보를 효과적으로 aggregate하는 것이 중요함을 확인할 수 있었다.<br />
-    다음으로, HINormer의 유연성을 확인하고자 learnable parameter weight을 적용하지 않는 GNN layer를 포함하여 다양한 backbone을 적용하여 비교하였다. 그 결과는 &lt;Fig 5&gt;와 같다.</p>
+다음으로, HINormer의 유연성을 확인하고자 learnable parameter weight을 적용하지 않는 GNN layer를 포함하여 다양한 backbone을 적용하여 비교하였다. 그 결과는 &lt;Fig 4&gt;와 같다.</p>
 
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/096cbdbe-a322-488d-9b63-5c5bf0423d29" alt="performance_2" />
 </div>
 <center>
 
-**Fig 5. Performance of HINormer with Different Backbones**
+**Fig 4. Performance of HINormer with Different Backbones**
 
 </center>
 
-<p>&lt;Fig 5&gt;에서 나타나는 것과 같이 HINormer는 다양한 GNNs backbone을 사용해도 standard Transformer 모델을 능가하였다. 또한, learnable parameter를 사용하지 않는 'HINormer-Adj'가 다른 backbone을 기반으로 한 HINormer와 성능 면에서 큰 차이를 보이지 않은 것으로 보아 local-structure encoder와 hetero-relation encoder 구조의 효과성을 다시 확인하였다.</p>
+<p>&lt;Fig 4&gt;에서 나타나는 것과 같이 HINormer는 다양한 GNNs backbone을 사용해도 standard Transformer 모델을 능가하였다. 또한, learnable parameter를 사용하지 않는 'HINormer-Adj'가 다른 backbone을 기반으로 한 HINormer와 성능면에서 큰 차이를 보이지 않은 것으로 보아 local-structure encoder와 hetero-relation encoder 구조의 효과성을 다시 확인하였다.</p>
 
 <p><strong>Ablation Study</strong><br />
-    HINormer의 각 구성요소가 모델의 성능에 미치는 역할을 알아보고자 몇 가지 ablation study를 진행하였다. 결과는 &lt;Fig 6&gt;과 같다.</p>
+  HINormer의 각 구성요소가 모델의 성능에 미치는 역할을 알아보고자 몇 가지 ablation study를 진행하였다. 결과는 &lt;Fig 5&gt;와 같다.</p>
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/09a289d9-948f-4ce3-8acd-c8d54817a4a2" alt="ablation_1" />
 </div>
 <center>
 
-**Fig 6. Impact of Different Global Attention Mechanisms**
+**Fig 5. Impact of different global attention mechanisms**
 
 </center>
 
 <p>먼저, 세 가지 유형의 attention을 활용한 HINormer 모두가 일반적으로 GAT를 능가하는 것을 관찰하였으며, 이는 neighborhood-level attenion 보다 global attention mechanism이 뛰어난 성능을 달성하는 데 도움이 될 수 있음을 보여준다. 둘째로, 세 가지 유형의 attention을 활용한 HINormer 모두 유사한 성능을 달성할 수 있지만, HINormer-GATv2가 더 높은 안정성을 보이며 더 적은 수의 parameter로 네 가지 데이터셋에서 가장 높은 성능을 보였다.<br />
-    다음으로, HINormer를 구성하는 다양한 모듈의 영향력을 확인하고자 각 모듈에 대한 ablation study를 진행하였고, 그 결과는 &lt;Fig 7&gt;과 같다.</p>
+다음으로, HINormer를 구성하는 다양한 모듈의 영향력을 확인하고자 각 모듈에 대한 ablation study를 진행하였고, 그 결과는 &lt;Fig 6&gt;와 같다.</p>
 
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/eb63e32b-b56e-49f5-8860-c456d7b62ab3" alt="ablation_2" />
 </div>
 <center>
 
-**Fig 7. Ablation Study &amp; Scalability Study**
+**Fig 6. Ablation Study &amp; Scalability Study**
 </center>
 
-<p>먼저, local structure encoder를 제외한 상황(no LSE)과 heterogeneous relation encoder를 제외한 상황(no HRE), 그리고 두 모듈을 모두 제외한 상황 (no LSE &amp; HRE) 모두 성능이 감소하였다. 눈에 띄는 것은 'no LSE'인 경우가 'no HRE'인 경우에 비해 성능이 비교적 더 크게 감소하였다. 이것은 HINormer의 node representation 과정에서 local structural information이 더욱 의미있게 반영된다는 것을 나타낸다. 따라서, 노드 간 관계성의 효과적인 학습전략에 대한 후속연구가 필요해 보인다. 또한, GATv2 방식의 attention을 사용한 HINormer가 standard Transformer(회색)에 비해 더 높은 성능을 보이는 것으로 보아 parameter의 수를 줄이는 것이 모델로 하여금 과적합의 가능성을 낮추도록 함을 확인할 수 있었다. 추가적으로, 몇 가지 모델과 training time을 비교하며 scalability를 분석하였는데, HINormer가 다른 모델에 비해 큰 차이가 없는 training time이 소요되며 심지어 HGT보다 높은 폭으로 감소됨을 관찰하였다. 이로써, global attention을 적용하더라도 parameter의 수를 최소화 함으로써 HINormer가 높은 scalability를 가짐을 확인할 수 있었다.<br />
-    끝으로, parameter의 수치에 따른 모델의 성능을 확인하였고, 결과는 &lt;Fig 8&gt;과 같다.</p>
+<p>먼저, local structure encoder를 제외한 상황(no LSE)과 heterogeneous relation encoder를 제외한 상황(no HRE), 그리고 두 모듈을 모두 제외한 상황 (no LSE &amp; HRE) 모두 성능이 감소하였다. 눈에 띄는 것은 'no LSE'인 경우가 'no HRE'인 경우에 성능이 비교적 더 크게 감소하였다. 이것은 HINormer의 node representation 과정에서 local structural information이 더욱 의미있게 반영된다는 것을 나타낸다. 따라서, 노드 간 관계성의 효과적인 학습전략에 대한 후속연구가 필요해보인다. 또한, GATv2 방식의 attention을 사용한 HINormer가 standard Transformer(회색)에 비해 더 높은 성능을 보이는 것으로 보아 parameter의 수를 줄이는 것이 모델로 하여금 과적합의 가능성을 낮추도록 함을 확인할 수 있었다. 추가적으로, 몇 가지 모델과 training time을 비교하며 scalability를 분석하였는데, HINormer가 다른 모델에 비해 큰 차이가 없는 training time이 소요되며 심지어 HGT보다 높은 폭으로 감소됨을 관찰하였다. 이로써, global attention을 적용하더라도 parameter의 수를 최소화 함으로써 HINormer가 높은 scalability를 가짐을 확인할 수 있었다.<br />
+끝으로, parameter의 수치에 따른 모델의 성능을 확인하였고, 결과는 &lt;Fig 7&gt;과 같다.</p>
 
 <div align="center">
   <img src="https://github.com/ChuSeongYeub/-KAIST-data_science_and_machine_learning/assets/8716868/1511d17f-14f3-42b5-8ece-4373c6af72f3" alt="hyperparameter" />
 </div>
 <center>
 
-**Fig 8. Parameters Sensitivity**
+**Fig 7. Parameters Sensitivity**
 </center>
 
 <p>HINormer의 Transformer 레이어의 수($L$)는 더 작은 경우 전반적으로 더욱 높은 성능을 보였고, context의 사이즈를 나타내는 sequence 길이($S$)의 변화는 성능에 크게 영향을 주지 않았다. Transformer 레이어의 hidden dimension은 그래프의 heterogeneity로부터 더욱 다양한 의미정보를 학습할 수 있기 때문에 그 크기가 클수록 일반적으로 더 좋은 성능을 보였다.</p>
 
 <h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
 
-<p>    본 논문에서는 node representation learning을 위해 HINs에 Graph Transformer를 효과적으로 활용할 수 있는 방안을 제시하였다. 기존에 Graph Transformer가 가지고 있던 문제를 해결하며 이를 달성하기 위해, local structure encoder와 heterogeneous relation encoder를 활용하여 target node의 neighborhood information과 high-order relation information을 추출하고 이를 GATv2를 활용한 multi-head self-attention 기반의 Transformer를 통해 학습하여 효과적인 node representation을 수행하는 HINormer 모델을 제안하였다. 이 모델은 heterogeneous graph의 structural information과 heterogeneity를 모두 포착함으로써 네 가지 벤치마크 데이터셋에서 기존의 SOTA를 능가하는 성능을 보임을 extensive experiment를 통해 확인하였다.<br />
-    개인적으로 현재 meta-path based GNNs을 활용한 온라인 학습 플랫폼 MOOC 콘텐츠를 추천하는 시스템을 연구하고 있기에 본 논문은 많은 insight를 주었다. 특히, 필자는 그동안 meta-path를 활용할 때 단순히 관계성만을 고려하는 것에서 나아가 그 관계의 경로가 되는 노드의 내용이 함께 활용될 수 있는 방안을 고민했는데, 본 논문에서 local-structure encoder를 통해서 그 문제를 해결하였고 심지어 모델의 성능에서 중요한 역할을 함을 ablation study를 통해서 입증하였다. 필자 또한 해당 structure를 활용할 수 있는 방안을 모색해야겠다. 다만, 한 가지 아쉬운 것은 heterogeneous relation encoder의 역할이 기대보다 크지 않았고, &lt;Fig 4&gt;의 성능지표에서 homogeneous 기반의 GNN 모델의 성능과 큰 차이가 없는 것을 보이며 meta-path의 효용성이 크지 않다고 언급한 점이다. 왜냐하면, 데이터셋의 성격과 그 데이터셋이 어떠한 도메인에서 수집된 것이냐에 따라 매우 다양한 특성을 보이기 때문이다. 대표적인 예로, MOOC dataset은 학생이 특정 교육콘텐츠를 선택함에 있어서 explicit factor와 implicit factor에 의해 영향을 받는다. 학생이 개인적으로 특정 강사를 좋아해서 그 강사가 가르치는 콘텐츠를 선택하는 경우(explicit factor)도 있지만, 강사를 인지하지 못한 채 내용 혹은 주제가 좋아서 몇 개의 콘텐츠를 선택했는데 공교롭게도 그 콘텐츠가 모두 동일한 강사에 의해 지도되는 경우(implicit factor)도 있기 때문이다.<br />
-    이러한 점을 고려하였을 때, graph 구조의 데이터에서 meta-path 기반의 heterogeneity가 큰 의미를 갖는 경우도 있기 때문에 long-length range에 있는 노드의 정보를 aggregate하여 효과적으로 high-order information을 학습할 수 있는 모델에 대한 고민이 필요해보인다. 시각을 달리해보면, 그만큼 본 연구의 후속연구로 수행할 수 있는 내용이 풍부하다는 것을 시사하기 때문에 다양한 측면에서 본 논문은 필자에게 매우 의미있는 연구였다.</p>
+<p>본 논문에서는 node representation learning을 위해 HINs에 Graph Transformer를 효과적으로 활용할 수 있는 방안을 제시하였다. 기존에 Graph Transformer가 가지고 있던 문제를 해결하며 이를 달성하기 위해, local structure encoder와 heterogeneous relation encoder를 활용하여 target node의 neighborhood information과 high-order relation information을 추출하고 이를 GATv2를 활용한 multi-head self-attention 기반의 Transformer를 통해 학습하여 효과적인 node representation을 수행하는 HINormer 모델을 제안하였다. 이 모델은 heterogeneous graph의 structural information과 heterogeneity를 모두 포착함으로써 네 가지 벤치마크 데이터셋에서 기존의 SOTA를 능가하는 성능을 보임을 extensive experiment를 통해 확인하였다.<br />
+개인적으로 현재 meta-path based GNNs을 활용한 온라인 학습 플랫폼 MOOC 콘텐츠를 추천하는 시스템을 연구하고 있기에 본 논문은 많은 insight를 주었다. 특히, 필자는 그동안 meta-path를 활용할 때 단순히 관계성만을 고려하는 것에서 나아가 그 관계의 경로가 되는 노드의 내용이 함께 활용될 수 있는 방안을 고민했는데, 본 논문에서 local-structure encoder를 통해서 그 문제를 해결하였고 심지어 모델의 성능에서 중요한 역할을 함을 ablation study를 통해서 입증하였다. 필자 또한 해당 structure를 활용할 수 있는 방안을 모색해야겠다. 다만, 한 가지 아쉬운 것은 heterogeneous relation encoder의 역할이 기대보다 크지 않았고, &lt;Fig 3&gt;의 성능지표에서 homogeneous 기반의 GNN 모델의 성능과 큰 차이가 없는 것을 보이며 meta-path의 효용성이 크지 않다고 언급한 점이다. 왜냐하면, 데이터셋의 성격과 그 데이터셋이 어떠한 도메인에서 수집된 것이냐에 따라 매우 다양한 특성을 보이기 때문이다. 대표적인 예로, MOOC dataset은 학생이 특정 교육콘텐츠를 선택함에 있어서 explicit factor와 implicit factor에 의해 영향을 받는다. 학생이 개인적으로 특정 강사를 좋아해서 그 강사가 가르치는 콘텐츠를 선택하는 경우(explicit factor)도 있지만, 강사를 인지하지 못한 채 내용 혹은 주제가 좋아서 몇 개의 콘텐츠를 선택했는데 공교롭게도 그 콘텐츠가 모두 동일한 강사에 의해 지도되는 경우(implicit factor)도 있기 때문이다. 이러한 점을 고려하였을 때, graph 구조의 데이터에서 meta-path 기반의 heterogeneity가 큰 의미를 갖는 경우도 있기 때문에 long-length range에 있는 노드의 정보를 aggregate하여 효과적으로 high-order information을 학습할 수 있는 모델에 대한 고민이 필요해보인다. 시각을 달리해보면, 그만큼 본 연구의 후속연구로 수행할 수 있는 내용이 풍부하다는 것을 시사하기 때문에 다양한 측면에서 본 논문은 필자에게 매우 의미있는 연구였다.</p>
 
 <hr />
 <h2 id="author-information"><strong>Author Information</strong></h2>
@@ -739,7 +749,7 @@ $CE: Cross\ Entropy\ Loss$
   <li>추성엽 (SeongYeub Chu)
     <ul>
       <li>Graduate School of Data Science, KAIST.</li>
-      <li>AIED, Graph Neural Networks, Automated Essay Scoring, LLM Prompt Engineering</li>
+      <li>AIED, Graph Neural Networks, Automated Essay Scoring, Prompt Engineering</li>
     </ul>
   </li>
 </ul>

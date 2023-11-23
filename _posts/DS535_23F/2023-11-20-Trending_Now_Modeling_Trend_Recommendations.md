@@ -1,3 +1,11 @@
+---
+title:  "[RecSys 2023] Trending Now: Modeling Trend Recommendations"
+permalink: 2023-11-20-Trending_Now_Modeling_Trend_Recommendations.html
+tags: [reviews]
+use_math: true
+usemathjax: true
+---
+
 **[Recsys 2023] Trending Now: Modeling Trend Recommendations**
 
 <br> 

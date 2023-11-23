@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[WSDM 2020] RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -386,21 +386,21 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="1-introduction"><strong>1. Introduction</strong></h2>
 
-<p>Matrix Factorization은 Collaborative Filtering을 기반으로 한 추천시스템의 기본적인 방법 중 하나이다. 하지만 이는 다음과 같은 문제점을 가지고 있다.</p>
+<p>행렬 분해 (Matrix Factorization)은 협업 필터링 (Collaborative Filtering)을 기반으로 한 추천시스템의 기본적인 방법 중 하나이다. 하지만 이는 다음과 같은 문제점을 가지고 있다.</p>
 
 <ul>
-  <li>행렬의 크기가 사용자 (User)와 항목 (item)에 선형적으로 비례하기 때문에 매우 많은 파라미터를 필요로 한다.</li>
-  <li>Cold Start 문제가 발생한다. 즉, 새로운 사용자나 항목이 추가될 때, 정확한 추천을 하기가 어렵다.</li>
+  <li>행렬의 크기가 사용자 (User)와 항목 (Item)의 수에 선형적으로 비례하기 때문에 매우 많은 파라미터를 필요로 한다.</li>
+  <li>콜드 스타트 (Cold Start) 문제가 발생한다. 즉, 새로운 사용자나 항목이 추가될 때, 정확한 추천을 하기가 어렵다.</li>
   <li>몇몇 사용자나 항목에 대해서 주어진 데이터가 매우 적을 수 있다. 이는 과적합을 초래할 수 있으며 일반적으로 강력한 정규화가 필요하다.</li>
 </ul>
 
-<p>최근에 이러한 극복하기 위해 Autoencoder 기반의 접근이 지속적으로 연구되고 있다. Collaborative Denoising Autoencoder (CDAE)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>는 사용자 피드백을 임베딩 하여 Cold Start 문제를 해결하였다. Variational Autoencoder (Mult-VAE)<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>는 Likelihood를 도입하여 향상된 결과를 보여주었다. 이 연구에서는 Mult-VAE의 확장으로서 Implicit Feedback을 활용하는 Recommender VAE (RecVAE) 를 제안하고 이것의 기여는 아래와 같다.</p>
+<p>최근에 이러한 극복하기 위해 오토인코더 기반의 접근이 지속적으로 연구되고 있다. Collaborative Denoising Autoencoder (CDAE)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>는 사용자 피드백을 임베딩 (Embedding)하여 콜드 스타트 문제를 해결하였다. Variational Autoencoder (Mult-VAE)<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>는 적절한 우도 (Likelihood)를 도입하여 향상된 결과를 보여주었다. 이 연구에서는 Mult-VAE의 확장으로서 암시적 피드백 (Implicit Feedback)을 활용하는 Recommender VAE (RecVAE) 를 제안하고 이것의 기여는 아래와 같다.</p>
 
 <blockquote>
   <ul>
     <li>사용자 임베딩을 향상시키는 인코더 네트워크 설계 제안</li>
     <li>추천 시스템에 알맞는 적절한 사전분포 제안</li>
-    <li>Implicit Feedback으로 인한 새로운 $\beta$-VAE 제안</li>
+    <li>암시적 피드백으로 인한 새로운 $\beta$-VAE 제안</li>
   </ul>
 </blockquote>
 
@@ -408,7 +408,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="21-variational-autoencoders-and-their-extensions"><strong>2.1 Variational autoencoders and their extensions</strong></h3>
 
-<p>Variational Autoencoder (VAE)는 복잡한 분포를 학습할 수 있는 잠재 변수 모델이다. 이에 대한 간략한 요약으로 시작하자. 주어진 데이터가 $p_ {true}(x)$를 따르고 모델을 $p_ {\theta}(x)$라고 하자. 잠재변수 $z$를 통해서 모델을 다시 표현 할 수 있다.</p>
+<p>변분 오토인코더는 복잡한 분포를 학습할 수 있는 잠재 변수 모델이다. 이에 대한 간략한 요약으로 시작하자. 주어진 데이터가 $p_ {true}(x)$를 따르고 모델을 $p_ {\theta}(x)$라고 하자. 잠재변수 $z$를 통해서 모델을 다시 표현 할 수 있다.</p>
 
 <blockquote>
   <p>$p_ {\theta}(x) = \int p_ {\theta}(x \vert z)p(z)dz$</p>
@@ -420,7 +420,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p>$p_ {\theta}(x) \geq \mathcal{L}_ {\text{VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right],$</p>
 </blockquote>
 
-<p>여기서 $\text{KL}$은 KL-divergence를 의미하고 $p(z), q_ {\phi}(z \vert x)$는 각각 사전분포와 변분 분포를 의미한다. $p_ {\theta}(z,x)$를 학습함으로써 VAE는 생성모델로서 활용될 수 있다. 또한, $q_ {\phi}(z \vert x)$를 이용한다면 임베딩을 통한 재표현 (Representation)을 얻을 수 있다. $\beta$-VAE<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>는 더욱 향상된 재표현을 얻기 위해 다음과 같이 변형된 손실 함수를 제안 하였다.</p>
+<p>여기서 $\text{KL}$은 KL-divergence를 의미하고 $p(z), q_ {\phi}(z \vert x)$는 각각 사전분포와 변분 분포를 의미한다. $p_ {\theta}(z,x)$를 학습함으로써 변분 오토인코더는 생성모델로서 활용될 수 있다. 또한, $q_ {\phi}(z \vert x)$를 이용한다면 임베딩을 통한 재표현 (Representation)을 얻을 수 있다. $\beta$-VAE<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>는 더욱 향상된 재표현을 얻기 위해 다음과 같이 변형된 손실 함수를 제안 하였다.</p>
 
 <blockquote>
   <p>$\mathcal{L}_ {\beta\text{-VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \beta \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right]$</p>
@@ -432,7 +432,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p>$\mathcal{L}_ {\text{DVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z) )\right]$,</p>
 </blockquote>
 
-<p>그 결과로서 노이즈가 있는 데이터에 대해서도 의미있는 재표현을 얻을 수 있다. Conditional Variational Autoencoder (CVAE)<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>는 VAE의 또 다른 확장이다. 주어진 데이터가 $x$ 뿐만 아니라 $y$라는 레이블이 있다면 이것에 따른 조건부 확률 분포를 학습 할 수 있다.</p>
+<p>그 결과로서 노이즈가 있는 데이터에 대해서도 의미있는 재표현을 얻을 수 있다. Conditional Variational Autoencoder (CVAE)<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>는 변분 오토인코더의 또 다른 확장이다. 주어진 데이터가 $x$ 뿐만 아니라 $y$라는 레이블이 있다면 이것에 따른 조건부 확률 분포를 학습 할 수 있다.</p>
 
 <blockquote>
   <p>$\mathcal{L}_ {\text{CVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x, y)}\left[ \log p_ {\theta}(x \vert z, y) - \text{KL}({q_ {\phi}(z \vert x, y)} \parallel p(z \vert y) )\right]$</p>
@@ -444,19 +444,13 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p>$\mathcal{L}_ {\text{VAEAC}} = \mathbb{E}_ {q_ {\phi}(z \vert x, b)}\left[ \log p_ {\theta}(x_ {b} \vert z, x_ {1-b}, b) - \text{KL}({q_ {\phi}(z \vert x, b)} \parallel p(z \vert x_ {1-b}, b) )\right],$</p>
 </blockquote>
 
-<p>여기서 $b$는 Binary Masking을 의미한다.</p>
+<p>여기서 $b$는 이진 마스킹 (Binary Masking)을 의미한다.</p>
 
 <h3 id="22-autoencoders-and-regularization-for-collaborative-filtering"><strong>2.2 Autoencoders and Regularization for Collaborative Filtering</strong></h3>
 
-<p>$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 Implicit Feedback 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE<sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>는 $x_ {u}$에 베르누이 노이즈를 적용해서 복구하는 모델이므로 2.1 섹션의 Denosing 방법을 Autoencoder에 적용한 것과 같다. 즉, 손실 함수는 다음과 같다.</p>
+<p>$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 암시적 피드백 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE<sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>는 $x_ {u}$에 마스킹을 적용해서 복구하는 모델이므로 2.1 섹션의 DVAE를 협업 필터링에 적용한 것으로 볼 수 있다.</p>
 
-<blockquote>
-  <p>$\frac{1}{U}\sum_{u=1}^{U}\mathbb{E}<em>{p(\tilde{y</em>{u}} \vert y_{u})}\ell(\tilde{y_{u}},\hat{y_{u}})$,</p>
-</blockquote>
-
-<p>여기서 $p$는 베르누이 노이즈, $\hat{y_{u}}$는 모델 추정값, $\ell$은 적절한 손실함수이다. (e.g. MSE)</p>
-
-<p>Mult-VAE<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>는 Collaborative Filtering에 적용하기 위해서 Likelihhod를 다항 분포로 가정한 VAE이다. $n_ {u}:= \sum_{j} (x_ {u})_ {j}$ 라고 하면 모델은 다음과 같이 정의된다.</p>
+<p>Mult-VAE<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>는 협업 필터링에 적용하기 위해서 우도를 다항 분포로 가정한 변분 오토인코더 모델이다. $n_ {u}:= \sum_{j} (x_ {u})_ {j}$ 라고 하면 모델은 다음과 같이 정의된다.</p>
 
 <blockquote>
   <ul>
@@ -470,7 +464,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="3-method"><strong>3. Method</strong></h2>
 
-<p>기본적으로, 제안된 모델 RecVAE는 Mult-VAE의 확장이다. DVAE 방법을 추가하여 생성모델을 정의한다.</p>
+<p>기본적으로, 제안된 모델 RecVAE는 Mult-VAE의 확장이다. DAE 방법을 추가하여 생성모델을 정의한다.</p>
 
 <blockquote>
   <ul>
@@ -488,7 +482,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <img src="https://i.ibb.co/xJQrsLz/2023-10-14-164239.png" width="50%" height="50%" />
 </p>
 
-<p>첫째 변화는 dense CNNs<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup>, swish activation functions<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup>, layer normalization<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>과 같은 아이디어를 결합해 Collaborative Filtering에 알맞는 Inference Network를 제안하며 위 그림과 같은 구조를 가지고 있다.</p>
+<p>첫번째 변화는 dense CNNs<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup>, swish activation functions<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup>, layer normalization<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>과 같은 아이디어를 결합해 협업 필터링에 알맞는 추론 네트워크를 제안하며 위 그림과 같은 구조를 가지고 있다.</p>
 
 <h3 id="32-composite-prior"><strong>3.2 Composite prior</strong></h3>
 
@@ -496,9 +490,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <img src="https://i.ibb.co/tJDwC9P/2023-10-14-205240.png" width="50%" height="50%" />
 </p>
 
-<p>Mult-VAE 구조에서 데이터의 Sparsity 때문에 변분 분포의 파라미터 최적화가 어려움을 겪을 수 있다. 이는 강화학습에서 forgetting 효과라고 알려져 있으며 Policy 기반 강화학습 논문에 많은 논의가 있었다<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>. 이를 해결 하기 위한 방법중 하나는 학습된 파라미터를 기억해두는 방법이다. 즉, 새로운 파라미터를 찾는 학습은 좋은 결과를 주는 파라미터로 부터 크게 벗어나지 않게 정규화를 주어야 한다.</p>
+<p>Mult-VAE 구조에서 데이터의 희소성 (Sparsity) 때문에 변분 분포의 파라미터 최적화가 어려움을 겪을 수 있다. 이는 강화학습에서 forgetting 효과라고 알려져 있으며 정책 기반 강화학습 논문에 많은 논의가 있었다<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>. 이를 해결 하기 위한 방법중 하나는 학습된 파라미터를 기억해두는 방법이다. 즉, 새로운 파라미터를 찾는 학습은 좋은 결과를 주는 파라미터로 부터 크게 벗어나지 않게 정규화를 주어야 한다.</p>
 
-<p>이는 Autoencoder 구조에서 $q_ {\phi}(z \vert x)$를 업데이트 할 때, 이전에 얻었던 $q_ {\phi_ {\text{old}}}(z \vert x)$을 적당히 유지하고 싶은 것과 같다 . 이를 수행할 수 있는 한 방법은 본래의 사전분포와 $q_ {\phi_ {\text{old}}}(z \vert x)$의 Convex Combination을 새로운 사전분포로 사용하는 것이다. 즉,</p>
+<p>이는 오토인코더에 구조에서 $q_ {\phi}(z \vert x)$를 업데이트 할 때, 이전에 얻었던 $q_ {\phi_ {\text{old}}}(z \vert x)$을 적당히 유지하고 싶은 것과 같다 . 이를 수행할 수 있는 한 방법은 본래의 사전분포와 $q_ {\phi_ {\text{old}}}(z \vert x)$의 컨벡스 결합을 새로운 사전분포로 사용하는 것이다. 즉,</p>
 
 <blockquote>
   <p>$p(z \vert \phi_ {\text{old}},x) = \alpha N(z \vert 0,I) + (1-\alpha)q_ {\phi_ \text{old}}(z \vert x)$</p>
@@ -508,9 +502,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="33-rescaling-kl-divergence"><strong>3.3 Rescaling KL divergence</strong></h3>
 
-<p>$\beta$-VAE<sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>은 재표현을 학습하기 위한 좋은 방법이지만 파라미터를 선택하는 방법이 학습에 큰 영향을 미친다. 기존의 연구<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>와는 다르게 Collaborative Filtering VAE에 알맞는 $\beta$ 선택 방법에 대한 연구가 필요하다.</p>
+<p>$\beta$-VAE<sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>은 재표현을 학습하기 위한 좋은 방법이지만 파라미터를 선택하는 방법이 학습에 큰 영향을 미친다. 기존의 연구<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>와는 다르게 협업 필터링 변분 오토인코더 모델에 알맞는 $\beta$ 선택 방법에 대한 연구가 필요하다.</p>
 
-<p>유저 피드백이 부분적으로 주어졌다고 하자. 부분적인 데이터에 대해서 $X_ {u}^{0}$를 유저 $u$가 긍정적으로 평가한 항목의 집합이라 하고 $X_ {u}^{f}$ 긍정적으로 평가한 모든 항목의 집합이라고 하자. 항목들이 One-hot Encoded Vecotr로 주어졌다고 하고, 다음과 같이 기호를 적자.</p>
+<p>유저 피드백이 부분적으로 주어졌다고 하자. 부분적인 데이터에 대해서 $X_ {u}^{0}$를 유저 $u$가 긍정적으로 평가한 항목의 집합이라 하고 $X_ {u}^{f}$ 긍정적으로 평가한 모든 항목의 집합이라고 하자. 항목들이 원 핫 인코딩으로 주어졌다고 하고, 다음과 같이 기호를 적자.</p>
 
 <ul>
   <li>$x_ {u} = \sum_ {a \in X_ {u}^{0}}1_ {a}$</li>
@@ -519,7 +513,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>$\text{KL}_ {u}^{f} = \text{KL}(q_ {\phi}(z_ {u} \vert x_ {u}^{f}) \parallel p(z_ {u}))$</li>
 </ul>
 
-<p>여기서 $1_ {a}$는 항목 $a$에 대응되는 One-hot Encoded Vector이다. 기존의 ELBO를 다음과 같이 정리 할 수 있다.</p>
+<p>여기서 $1_ {a}$는 항목 $a$에 대응되는 원 핫 인코딩된 벡터이다. 기존의 ELBO를 다음과 같이 정리 할 수 있다.</p>
 
 <blockquote>
   <p>$\mathcal{L} = \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})}\left[ \log \text{Multinomial}(x_ {u}^{f} \vert \pi(z_ {u})) - \text{KL}_ {u}^{f}\right]$
@@ -542,7 +536,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
   <p>$\mathcal{L} \approx \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[  \log \text{Multinomial}(x_ {u} \vert \pi(z_ {u})) - \gamma \vert X_ {u}^{0}\vert \text{KL}_ {u}\right]$</p>
 </blockquote>
 
-<p>이와 같은 방법으로 Implicit Feedback이 주어졌을 때 $\beta = \beta(x)$를 $\gamma \vert X_ {u}^{0}\vert$로 선택 할 수 있다.</p>
+<p>이와 같은 방법으로 암시적인 피드백이 주어졌을 때 $\beta = \beta(x)$를 $\gamma \vert X_ {u}^{0}\vert$로 선택 할 수 있다.</p>
 
 <h3 id="34-summary"><strong>3.4 Summary</strong></h3>
 
@@ -556,7 +550,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 
 <h2 id="4-experiment"><strong>4. Experiment</strong></h2>
 
-<p>RecVAE는 Adam<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup> Optimizer로 최적화 됐으며 $\text{lr} = 5*10^{-4}$와 $500$의 배치 크기가 사용되었다. 노이즈는 평균이 $0.5$인 베르누이 분포로 주입됐고 성능을 향상시키위해 $N(0,10I)$을 복합 사전분포에 추가했다. 즉, $p(z)$, $q_ {\phi_ {\text{old}}}$, $N(0,10I)$가 복합 사전분포로 사용됐고 각각의 비율은 3:15:2가 적합했다. $\gamma$는 Cross-validation을 통해 데이터마다 다른 값을 선택했다.</p>
+<p>RecVAE는 Adam<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup>옵티마이저로 최적화 됐으며 $\text{lr} = 5*10^{-4}$와 $500$의 배치 크기가 사용되었다. 노이즈는 평균이 $0.5$인 베르누이 분포로 주입됐고 성능을 향상시키위해 $N(0,10I)$을 복합 사전분포에 추가했다. 즉, $p(z)$, $q_ {\phi_ {\text{old}}}$, $N(0,10I)$가 복합 사전분포로 사용됐고 각각의 비율은 3:15:2가 적합했다. $\gamma$는 교차검증 (Cross-validation)을 통해 데이터마다 다른 값을 선택했다.</p>
 
 <h3 id="41-datasets"><strong>4.1 Datasets</strong></h3>
 
@@ -600,75 +594,35 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 <ul>
   <li>Linear models from classical collaborative filtering
     <ul>
-      <li>Weighted Matrix Factorization (WMF)<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">16</a></sup>
-        <ul>
-          <li>기존의 NMF 방법에서 각 성분에 신뢰도 계수를 결합한 방법</li>
-        </ul>
-      </li>
-      <li>Sparse LInear Method (SLIM)<sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote" rel="footnote">17</a></sup>
-        <ul>
-          <li>NMF의 또 다른 변형으로서 Lasso 정규화를 사용하는 방법</li>
-        </ul>
-      </li>
-      <li>Embarrassingly Shallow Autoencoder (EASE)<sup id="fnref:18" role="doc-noteref"><a href="#fn:18" class="footnote" rel="footnote">18</a></sup>
-        <ul>
-          <li>Linear autoencoder를 가정한 뒤, closed form solution을 구하는 방법</li>
-        </ul>
-      </li>
+      <li>Weighted Matrix Factorization (WMF)<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">16</a></sup></li>
+      <li>Sparse LInear Method (SLIM)<sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote" rel="footnote">17</a></sup></li>
+      <li>Embarrassingly Shallow Autoencoder (EASE)<sup id="fnref:18" role="doc-noteref"><a href="#fn:18" class="footnote" rel="footnote">18</a></sup></li>
     </ul>
   </li>
   <li>Rank method
     <ul>
-      <li>WARP<sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote" rel="footnote">19</a></sup>
-        <ul>
-          <li>각 유저와 항목의 쌍에 대해서 score를 추정하는 방법</li>
-        </ul>
-      </li>
-      <li>LambdaNet<sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote" rel="footnote">20</a></sup>
-        <ul>
-          <li>이산적인 rank의 gradient를 제시함으서 rank에 SGD를 적용한 방법</li>
-        </ul>
-      </li>
+      <li>WARP<sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote" rel="footnote">19</a></sup></li>
+      <li>LambdaNet<sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote" rel="footnote">20</a></sup></li>
     </ul>
   </li>
   <li>Autoencoder-based method
     <ul>
-      <li>CDAE<sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>
-        <ul>
-          <li>2.2절 참고</li>
-        </ul>
-      </li>
-      <li>Mult-DAE &amp; Mult-VAE<sup id="fnref:2:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>
-        <ul>
-          <li>2.2절 참고</li>
-        </ul>
-      </li>
-      <li>Ranking-Critical Training (RaCT)<sup id="fnref:21" role="doc-noteref"><a href="#fn:21" class="footnote" rel="footnote">21</a></sup>
-        <ul>
-          <li>확률적 모델을 강화학습 아이디어와 결합한 방법</li>
-        </ul>
-      </li>
+      <li>CDAE<sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></li>
+      <li>Mult-DAE &amp; Mult-VAE<sup id="fnref:2:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></li>
+      <li>Ranking-Critical Training (RaCT)<sup id="fnref:21" role="doc-noteref"><a href="#fn:21" class="footnote" rel="footnote">21</a></sup></li>
     </ul>
   </li>
 </ul>
 
 <h3 id="43-evaluation-metrics"><strong>4.3 Evaluation Metrics</strong></h3>
 
-<p>테스트 유저 $u$의 항목 $X_ {u}^{t}$와 모델의 (내림차순) 결과 $R_ {u}^{(n)}$에 대해서 $\text{Recall@}k(u)$와 $\text{NDCG@}k(u)$가 평가 지표로서 사용될 것이다.</p>
+<p>테스트 유저 $u$의 항목 $X_ {u}^{t}$와 모델의 (내림차순) 결과 $R_ {u}^{(n)}$에 대해서 $\text{Recall@}k(u)$와 $\text{NDCG@}(k(u)$가 평가 지표로서 사용될 것이다.</p>
 
 <blockquote>
-  <p>$\text{Recall@}k(u) = \frac{1}{\min(\vert R_ {u}^{(n)} \vert, \vert X_ {u}^{t} \vert)} \sum_{n=1}^{k} 1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]$</p>
+  <p>$\text{Recall@}k(u) = \frac{1}{\min(\vert R_ {u}^{(n)} \vert, \vert X_ {u}^{t} \vert)} \sum_{n=1}^{k} 1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]$ 
+$\text{DGG@}k(u) = \sum_{n=1}^{k}\frac{2^{1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]}-1}{\log(n+1)}$
+$\text{NDCG@}(k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert } \frac{1}{\log(n+1)} \right)$</p>
 </blockquote>
-
-<blockquote>
-  <p>$\text{DGG@}k(u) = \sum_{n=1}^{k}\frac{2^{1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]}-1}{\log(n+1)}$</p>
-</blockquote>
-
-<blockquote>
-  <p>$\text{NDCG@}k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert } \frac{1}{\log(n+1)} \right)$</p>
-</blockquote>
-
-<p>$\text{Recall@}k(u)$은 사용자 $u$에 대해서 관련있는 것들 중 모델이 추천해준 것에 대한 비율을 의미한다. 하지만 추천된 것들의 순서는 매우 중요하다. 이를 강조하기 위해서 $\text{DGG@}k(u)$가 도입됐고 이는 추천된 순서에 가중치를 부여하는 형태로 정의된다. 더불어, 이론적으로 가장 높은 값을 나눠줌으로서 0~1 사이의 값으로 만들어준 것이 $\text{NDCG@}k(u)$이다.</p>
 
 <h3 id="44-results"><strong>4.4 Results</strong></h3>
 
@@ -682,7 +636,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 <img src="https://i.ibb.co/yWsMDnT/2023-10-15-001902.png" width="50%" height="50%" />
 </p>
 
-<p>Encoder 설계, 복합 사전분포, $\beta$ 조정, 교대훈련, 노이즈 주입에 대한 Ablation Study에 대한 결과이다. 교대훈련이란 인코더와 디코더를 동시에 훈련하지 않고 각각 훈련하는 것을 의미한다. 위 표에 따르면 각각의 기능은 성능 향상에 도움이 된다. 일부 기능은 개별적으로 적용되는 것보다 함께 사용되는 것이 효과적이다. (예를 들어, $\beta$ 조정과 교대훈련)</p>
+<p>인코더 설계, 복합 사전분포, $\beta$ 조정, 교대훈련, 노이즈 주입에 대한 제거 연구 (Ablation Study)에 대한 결과이다. 교대훈련이란 인코더와 디코더를 동시에 훈련하지 않고 각각 훈련하는 것을 의미한다. 위 표에 따르면 각각의 기능은 성능 향상에 도움이 된다. 일부 기능은 개별적으로 적용되는 것보다 함께 사용되는 것이 효과적이다. (예를 들어, $\beta$ 조정과 교대훈련)</p>
 
 <p align="center">
 <img src="https://i.ibb.co/VJqBBFt/2023-10-15-002402.png" width="80%" height="80%" />
@@ -692,7 +646,7 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 
 <h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
 
-<p>이 논문에서는 Mult-VAE의 개선된 버전인 RecVAE를 제안한다. 이는 새로운 Encoder 구조, 복합 사전분포, Collaborative Filtering에 알맞은 $\beta$ 조정 방식을 포함하고 있으며, 여러가지 데이터에서 다른 모델의 성능을 능가했다. 향후 연구 방향으로서 주목되는 점은 (1) 이 방법을 유저와 항목을 뒤바꾸어 실험하면 어떻게 될지, (2) 사전분포를 더욱 복잡하게 만들면 어떻게 될지, (3) 컨벡스 결합이 아닌 다른 방법의 정규화를 이용하여 forgetting problem을 해결할 수 있는지와 같은 것이 고려된다.</p>
+<p>이 논문에서는 Mult-VAE의 개선된 버전인 RecVAE를 제안한다. 이는 새로운 인코더 구조, 복합 사전분포, 협업필터링에 알맞은 $\beta$ 조정 방식을 포함하고 있으며, 여러가지 데이터에서 다른 모델의 성능을 능가했다. 향후 연구 방향으로서 주목되는 점은 (1) 이 방법을 유저와 항목을 뒤바꾸어 실험하면 어떻게 될지, (2) 사전분포를 더욱 복잡하게 만들면 어떻게 될지, (3) 컨벡스 결합이 아닌 다른 방법의 정규화를 이용하여 forgetting problem을 해결할 수 있는지와 같은 것이 고려된다.</p>
 
 <hr />
 <h2 id="additional-materials--references"><strong>Additional materials &amp; References</strong></h2>

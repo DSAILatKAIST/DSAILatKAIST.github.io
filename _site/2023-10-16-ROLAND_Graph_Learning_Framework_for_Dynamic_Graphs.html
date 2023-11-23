@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[KDD 2022] ROLAND: Graph Learning Framework for Dynamic Graphs</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -470,14 +470,13 @@ folder: introduction
   </li>
 </ul>
 
-<p>ROLAND는 dynamic graph의 snapshot-based representation을 바탕으로 위의 limitation들을 타개하여 static GNN의 state-of-the-art 아키텍쳐들을 활용할 수 있도록 만들어졌다. Snapshot-based라는 용어를 간단히 이해해보기 위해 아래 Figure 1을 첨부하였다. Figure 1에서는 매일 다르게 발생하는 송금 내역을 표현한 dynamic graph가 주어졌을 때, 미래에 누군가가 다른 누군가에게 송금할지의 여부를 예측하는 link prediction을 하는 task를 가정하였다. 이 때, 각 timestep $t$의 graph snapshot이 있다고 생각하였을 때, $t+1$ 시점의 송금 내역을 예측하기 위해 직전 timestep인 $t$ 시점까지의 graph snapshot들을 이용할 수 있다. 이러한 방법을 snapshot-based 방법이라고 한다.</p>
+<p>ROLAND는 dynamic graph의 snapshot-based representation을 바탕으로 위의 limitation들을 타개하여 static GNN의 state-of-the-art 아키텍쳐들을 활용할 수 있도록 만들어졌다.</p>
 
 <!-- <p align="center">
   <img src="[http://some_place.com/image.png](https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png)" />
 </p> -->
 
-<p><a name="img_fig1"></a>
-<img src="https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png" alt="img_fig1" /></p>
+<p><img src="https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png" alt="img_fig1" /></p>
 
 <h4 id="tackling-the-limitations">Tackling the Limitations</h4>
 <ul>
@@ -504,7 +503,11 @@ folder: introduction
           <li>이로 인해 5600만개의 edge들을 가지는 큰 graph를 train 시킬 수 있었다.</li>
         </ul>
       </li>
-      <li>Dynamic graph에서의 timestep $t$가 다른 prediction 문제들을 다른 task로 생각함으로써 문제를 meta-learning problem으로 formulation하였다. (<a href="#img_fig1">Figure 1</a>)</li>
+      <li>Dynamic graph에서의 timestep $t$가 다른 prediction 문제들을 다른 task로 생각함으로써 문제를 meta-learning problem으로 formulation하였다.
+        <ul>
+          <li>위의 Figure 1 참고</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -601,7 +604,7 @@ Table 3에는 이 paper에서 제시한 live-update 방법을 활용하여 train
 <h2 id="conclusion"><strong>Conclusion</strong></h2>
 
 <p>이 논문은 기존 static GNN에서 사용하던 테크닉과 아키텍처들을 dynamic graph에 어떻게 적용할 수 있을지 제안하였다. Paper은 크게 model design, evaluation, training 3가지 부분으로 나누어 기존 연구들의 한계점과 ROLAND의 contribution을 정리하였다.
-논문을 읽으며 인상 깊다고 느낀 점들은 다음과 같다. 먼저, 새로운 dynamic GNN 모델을 scratch부터 만들지 않고 static GNN과 dynamic GNN을 연결하는 다리를 제안했다는 점이다. 어떻게 보면 성능이 near-optimal하게 발전하여 saturate 되었다고 볼 수 있는 static GNN 아키텍쳐들을 그대로 dynamic GNN에 활용할 수 있도록 가져온 해당 논문의 아이디어는 현명한 방법으로 느껴졌다. 더하여, 시간마다 변화하는 data의 분포를 고려하기 위해 기존에 사용하던 60:20:20과 같은 dataset 분리 방법을 그대로 사용하지 않고, dynamic graph 특성에 맞춘 분리 방법을 적용했다는 점에서 세심하다고 느꼈다. 마지막으로, live-update를 통해 scalability issue를 해결했다는 점이 인상 깊게 다가왔다.</p>
+새로운 dynamic GNN 모델을 scratch부터 만들지 않고 static GNN과 dynamic GNN을 연결하는 다리를 제안했다는 점, 그리고 live-update를 통해 scalability issue를 해결했다는 점에서 이 논문의 contribution이 큰 것 같다.</p>
 
 <hr />
 <h2 id="author-information"><strong>Author Information</strong></h2>
@@ -611,7 +614,7 @@ Table 3에는 이 paper에서 제시한 live-update 방법을 활용하여 train
   <ul>
     <li>Contact: haeun39@kaist.ac.kr</li>
     <li>Affiliation: Financial Engineering Lab., KAIST</li>
-    <li>Research Topic: Decision Focused Learning, Stochastic Optimization, Portfolio Optimization</li>
+    <li>Research Topic: Stochastic Optimization, End-to-end learning, Portfolio Optimization</li>
   </ul>
 </blockquote>
 

@@ -1,6 +1,6 @@
 ---
 title:  "[ICML 2023] Graph Ladling: Shockingly Simple Parallel GNN Training without Intermediate Communication"
-permalink: 2023-10-16-Graph_Ladling_Shocikingly_Simple_Parallel_GNN_Training_without_Intermediate_Communication.html
+permalink: 2023-11-20-Graph_Ladling_Shocikingly_Simple_Parallel_GNN_Training_without_Intermediate_Communication.html
 tags: [reviews]
 use_math: true
 usemathjax: true

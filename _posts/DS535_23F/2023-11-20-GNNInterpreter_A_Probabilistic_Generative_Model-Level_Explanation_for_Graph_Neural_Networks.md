@@ -1,6 +1,6 @@
 ---
 title:  "[ICLR 2023] GNNInterpreter: A Probabilistic Generative Model-Level Explanation for Graph Neural Networks"
-permalink: 2023-10-16-GNNInterpreter_A_Probabilistic_Generative_Model-Level_Explanation_for_Graph_Neural_Networks.html
+permalink: 2023-11-20-GNNInterpreter_A_Probabilistic_Generative_Model-Level_Explanation_for_Graph_Neural_Networks.html
 tags: [reviews]
 use_math: true
 usemathjax: true

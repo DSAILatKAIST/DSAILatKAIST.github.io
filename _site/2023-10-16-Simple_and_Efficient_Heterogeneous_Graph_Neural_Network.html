@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[AAAI 2023] Simple and Efficient Heterogeneous Graph Neural Network</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -384,11 +384,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         <h1 id="simple-and-efficient-heterogeneous-graph-neural-network">Simple and Efficient Heterogeneous Graph Neural Network</h1>
 
-<h2 id="problem-definition">Problem Definition</h2>
+<h2 id="1-problem-definition">1. Problem Definition</h2>
 
 <p>Heterogeneous Graph Neural Networks(HGNN)은 기존 Graph Neural Network(GNN)에서 사용하는 attention이나 multi-layer 구조 등의 매커니즘을 그대로 사용해왔다. 하지만 homogeneous graph를 위해 디자인된 GNN에서 사용하는 매커니즘을 Heterogeneous graph에 적용했을 때, 정말 효과가 있는지에 대한 분석은 이루어지지 않았다. 본 논문에서는 이러한 매커니즘들의 효과성에 대한 분석을 바탕으로, Heterogeneous graph를 효율적으로 모델링할 수 있는 Simple and Efficient Heterogeneous Graph Neural Networks(SeHGNN)을 제안한다.</p>
 
-<h2 id="motivation">Motivation</h2>
+<h2 id="2-motivation">2. Motivation</h2>
 
 <p>이전의 Heterogeneous Graph Neural Network(HGNN)은 GNN에서 사용하는 메커니즘이 heterogeneous 그래프에 효과가 있는지에 대한 분석은 거의 하지 않은 채, 이를 그대로 사용하면서 heterogeneous 그래프의 representation learning을 수행해왔다. 본 논문에서는 attention이나 multi-layer 구조가 heterogeneous 그래프를 모델링하는데 효과적인지에 대해 분석하는 과정에서 중요한 두 가지 발견을 하였고, 이를 바탕으로 SeHGNN 아키텍처를 설계하였다. Heterogeneous 그래프에 대한 기존 매커니즘의 효과성에 대한 분석 과정과 그에 따른 발견은 아래와 같다.</p>
 
@@ -430,12 +430,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>일반적으로 각 노드 $v_i$에 대해, 각 주어진 metapath로부터 metapath 기반 이웃의 feature를 aggregate하기 위해 mean aggregation을 사용하며 semantic feature vector들의 list를 다음과 같이 출력하는데,</p>
 
-<p>$m_i = {z_i^P = \frac{1}{\vert\vert S^P \vert\vert} \sum_{p(i,j)\in S_P} x_j : P \in \Phi_X}$</p>
+<p>$mi = {z_P^i = \frac{1}{\vert\vert SP \vert\vert} \sum_{p(i,j)\in SP} x_j : P \in \Phi_X}$</p>
 
-<p>여기서 $S^P$는 메타패스 $P$에 상응하는 모든 메타패스 인스턴스들의 집합을 나타내고,
-$p(i,j)$는 target 노드 $i$와 source 노드 $j$를 갖는 하나의 매타패스 인스턴스를 나타낸다.</p>
-
-<p>본 논문에서는 이러한 metapath 기반 neighbor collection을 간소화하기 위해 새로운 방법을 제안한다. HAN과 같은 기존의 metapath 기반 방법은 각 metapath에 대해 모든 metapath 기반 이웃을 enumerate하는 metapath neighbor 그래프를 구축하며, 이는 metapath의 길이에 따라 metapath 인스턴스의 수가 기하급수적으로 증가하므로 높은 부하를 초래했다. 본 논문에서는 GCN의 레이어별 전파에서 영감을 얻어 각 노드의 최종 기여 가중치를 인접 행렬의 곱셈을 사용하여 계산한다.</p>
+<p>본 논문에서는 metapath 기반 neighbor collection을 간소화하기 위해 새로운 방법을 제안한다. HAN과 같은 기존의 metapath 기반 방법은 각 metapath에 대해 모든 metapath 기반 이웃을 열거하는 metapath neighbor 그래프를 구축하며, 이는 metapath의 길이에 따라 metapath 인스턴스의 수가 기하급수적으로 증가하므로 높은 부하를 초래했다. 본 논문에서는 GCN의 레이어별 전파에서 영감을 얻어 각 노드의 최종 기여 가중치를 인접 행렬의 곱셈을 사용하여 계산한다.</p>
 
 <p>$X_c = {x_0^{cT}; x_1^{cT}; \ldots; x_{\vert\vert V_c \vert\vert-1}^{cT}} \in \mathbb{R}^{\vert\vert V_c \vert\vert \times d_c}$</p>
 

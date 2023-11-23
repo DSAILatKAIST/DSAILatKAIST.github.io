@@ -1,6 +1,6 @@
 ﻿---
 title:  "[SIGIR 2022] User-controllable Recommendation Against Filter Bubbles"
-permalink: 2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html
+permalink: 2023-11-20-User-controllable_Recommendation_Against_Filter_Bubbles.html
 tags: [reviews]
 use_math: true
 usemathjax: true

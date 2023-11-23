@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[RecSys 2023] STRec: Sparse Transformer for Sequential Recommendations</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -392,8 +392,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 이 논문에서 user-item interaction history는 다음과 같이 정의된다. <br />
  $\begin{align}S = {(v_ 1, t_ 1), \ldots, (v_ n, t_ n ), \ldots, (v_ N, t_ N )} \end{align}$</p>
 
-<p>여기서 $v_ n \in V$는 timestamp $t_ n$에서 sequence $S$의 $n$번째 interacted item이고 $N$은 sequence의 최대 길이이다. 
- 단순화를 위해 user 및 실제 길이에 대한 표기는 생략되었고 interacted timestamp $t_ n$을 고려한다. <br />
+<p>여기서 $v_ n \in V$는 timestamp $t_ n$에서 sequence $S$의 $n$번째 interacted item이고 $N$은 sequence의 최대 길이이다. 단순화를 위해 user 및 실제 길이에 대한 표기는 생략되었고 interacted timestamp $t_ n$을 고려한다. <br />
 SRS는 제공된 길이가 $N$인 interaction sequence ${(v_ 1, t_ 1), \ldots, (v_ N, t_ N )}$를 활용해서 다음 interacted item $v_ {N+1}$을 예측해야 하는 문제이다. <br />
 그러나 대부분의 기존 transformer 기반 SRS model들은 모든 item-item pair 간의 attention score를 계산하는 vanilla attention mechanism을 사용하고 있다.
 이 경우 중복되는 item interaction으로 인해 model 성능이 저하되고 많은 계산 시간과 메모리를 필요로 할 수 있다는 문제점이 발생한다.</p>
@@ -436,7 +435,7 @@ x축은 eigenvalue, y축은 value의 비율이다.
 
 <p align="center"><img src="https://velog.velcdn.com/images/yst3147/post/18dfd67a-8704-4238-b825-762bff970ac5/image.png" /></p>
 
-<p>Model은 Embedding layer, 여러 Transformer layer, Prediction layer로 구성되어 있다. <br />
+<p>Model은 Embedding layer, 여러 Transformer layer, Prediction layer로 구성되어 있다. 
 Backbone model과 비교했을 때 TransformerLayer에서 차이가 있는데, 논문에서는 cross-attention과 학습 가능한 parameter를 활용한 효율적인 sampling 전략을 기반으로 하는 sparse transformer를 활용한다. <br />
 Model의 각 layer를 설명하되 이 논문의 핵심인 Cross Attention Transformer Layer와 Sampling 전략 부분을 좀 더 자세히 설명할 예정이다.</p>
 
@@ -450,9 +449,8 @@ Model의 각 layer를 설명하되 이 논문의 핵심인 Cross Attention Trans
 <h3 id="32-sparse-transformer-in-strec">3.2 Sparse Transformer in STRec</h3>
 
 <h4 id="321-cross-attention-transformer-layer">3.2.1 Cross Attention Transformer Layer</h4>
-<p>Attention layer의 계산 비용을 줄이기 위해 vanilla self-attention을 cross-attention으로 대체하였다. <br />
-cross-attention은 input sequence를 key, value로 샘플링된 item sequence를 query로 사용한다.
-sampling된 query matrix는 기존 query matrix에 비해 크게 축소되기 때문에 계산이 더 효율적이다. <br />
+<p>Attention layer의 계산 비용을 줄이기 위해 vanilla self-attention을 cross-attention으로 대체하였다. cross-attention은 input sequence를 key, value로 샘플링된 item sequence를 query로 사용한다.
+sampling된 query matrix는 기존 query matrix에 비해 크게 축소되기 때문에 계산이 더 효율적이다.
 $H^ {l-1}$에 대해서 cross-attention은 다음과 같은 식으로 나타낼 수 있다. <br />
 $ \begin{align} \tilde{H}^ {l-1} = Add\&amp;Norm\left(Attention\left(H_{I}^ {l-1}, H^ {l-1}, H^ {l-1}\right) \right)  \end{align}$
 $\tilde{H}^ {l-1}$은 사전 정의된 $k_l$의 길이를 갖으며 sampling index $I_l$에 의해 $H_ {l-1}$에 있는 item representation이 sampling된 부분집합이다.
@@ -472,7 +470,7 @@ $t_ i, 1 \le i \le N$은 interaction $v_ i$에 대해 기록된 timestamp이다.
 첫번째 layer의 경우 MLP(Multi-layer Perceptron)을 활용해서 time interval $T$를 sampling density로 mapping한다. 무작위 샘플링을 위해 uniform distribution을 갖는 random matrix $R$ 을 추가한다. sampling index $I$는 다음과 같이 생성된다.</p>
 
 <p>$ \begin{align} I_ {1} = Top_k\left(MLP(T) + R, k_ 1\right)  \end{align}$
-$ \begin{gather} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{gather}$</p>
+$ \begin{align} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{align}$</p>
 
 <p>$Top_k\left(\cdot \right)$는 내림차순으로 정렬된 index들의 set을 생성한다.
 $k_ 1$은 hyperparameter로서 첫번째 layer의 pre-define된 sample size이다.</p>
@@ -489,11 +487,8 @@ $I$는 미분 가능한 방식으로 근사된(하지만 미분 가능한 방식
 
 <p>$ \begin{align} S_ {l} = Sigmoid\left(MLP\left(T\right) + R + \alpha _ l\right)  ∀ 1 \le l \le L  \end{align}$
 $ \begin{align} S_ {0} = \left[ 1, 1, \ldots, 1\right] \end{align}$
-$ \begin{align} M_ {l} = S_ {l-1} \otimes S_ {l}  ∀ 1 \le l \le L  \end{align}$</p>
-
-<p>$\begin{gather}
- r_ {i} \sim Uniform\left(0, 1\right) \nonumber 
-\end{gather}$</p>
+$ \begin{align} M_ {l} = S_ {l-1} \otimes S_ {l}  ∀ 1 \le l \le L  \end{align}$
+$ \begin{align} r_ {i} \sim Uniform\left(0, 1\right) \nonumber \end{align}$</p>
 
 <p>$MLP\left(\cdot\right)$는 normalization이 포함된 multi-layer perceptron이다. <br />
 $\alpha$는 sampling될 interaction 수(mask matrix $S_l$의 1 개수)를 제어하는데 사용된다.
@@ -564,7 +559,7 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
   <li>식 $(2)$ 활용 각 interaction의 초기 representation을 만들고 $H^ 0$과 연결</li>
   <li>식 $(5)$ 활용 visiting time interval $T$ 계산</li>
   <li>식 $(6)$ 활용 첫 layer에 대한 index $I_ 1$ 생성</li>
-  <li>$H^ 0$가 $L$개의 transformer layer에 의해 식 $(3)$, $(4)$와 같이 변환됨</li>
+  <li>$H^ 0$가 $L$개의 transformer layer에 의해 식 $(3, 4)$와 같이 변환됨</li>
   <li>식 $(7)$ 활용 각 layer $l$의 index $I_ l$이 포함된 sampling query 직접 생성</li>
   <li>모든 candidate item과 sparse transformer의 output을 내적</li>
 </ul>
@@ -608,8 +603,8 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
   </li>
   <li>Evaluation Metric
     <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Mean_reciprocal_rank">mean reciprocal rank(MRR)</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/Discounted_cumulative_gain">normalized discounted cumulative gain(NDCG)</a></li>
+      <li>mean reciprocal rank(MRR)</li>
+      <li>normalized discounted cumulative gain(NDCG)</li>
       <li>hit ratio(HR)</li>
     </ul>
   </li>
@@ -658,7 +653,7 @@ item embedding과 마지막 transformer layer의 output vector 사이의 내적�
 
 <p>x축은 모든 layer애서의 sample size $k_ l$에 의해 계산된 sparsity를 의미한다.<br />
 e.g. sequence 길이가 50이고 $k_ l$이 5일 때 sparsity는 (50 - 5) / 50 = 90% <br />
-y축은 accuracy performance와 efficiency performance(backbone model과의 inference time과 memory cost의 percentage 비교)를 나타낸다.</p>
+y축은 accuracy performance와 efficiency performance(backbone model과의 inference time과 memory cost의 persentage 비교)를 나타낸다.</p>
 
 <p>Figure 4와 5에 대한 분석 결과는 다음과 같다.</p>
 <ul>
@@ -666,10 +661,10 @@ y축은 accuracy performance와 efficiency performance(backbone model과의 infe
   <li>sparsity가 42%보다 낮을 때 sparsity와 model 성능은 비례한다. 그 이유는 중요하지 않은 period의 interaction에 대한 영향을 제거하여 transformer가 sequential user preference를 잘 학습할 수 있도록 중복되는 interaction 계산을 생략하기 때문이다.</li>
   <li>너무 높은 sparsity는 성능을 감소시킨다. 77%보다 sparsity가 커질 때 모델 성능은 점점 감소된다. 그 이유는 sparsity가 너무 심하면 많은 key information을 잃어버리고 prediction을 충분히 학습할 수 없기 때문이다.</li>
   <li>(42%-77%)의 sparsity 범위에서 STRec은 SASRec(가장 성능이 좋은 baseline)의 성능을 능가한다. 그 이유는 sequence에서 representative interaction을 선택하는 성공적인 sampling 전략 덕분이다.(denoising과 비슷)</li>
-  <li>100%에 가까운 sparsity에서도 inference을 위한 backbone model의 cost으로 인해 I/O 및 embedding layer에도 약 15%의 시간이 소요된다. Memory cost은 주로 transformer layer에 의해 발생하므로 sparsity이 100%에 가까워지면 memory cost가 거의 0%가 될 수 있다.</li>
+  <li>100%에 가까운 sparsity에서도 inference을 위한 backbone model의 cost으로 인해 I/O 및 embedding layer에도 약 15%의 시간이 소요된다. Memory cost은 주로 transformer layer에 의해 발생하므로 sparsity이 100%에 가까워지면 memory cost가 거의 0%가 될 수 있다.
+    <h4 id="training-pipeline-analysis">Training Pipeline Analysis</h4>
+  </li>
 </ul>
-
-<h4 id="training-pipeline-analysis">Training Pipeline Analysis</h4>
 
 <p>Figure 6는 pretrain epoch $C$를 변화시켜 가며 실험을 진행한 결과이다.</p>
 
@@ -728,22 +723,12 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 <strong>STRec</
 그 결과 <strong>STRec</strong>은 inference time을 54% 단축하고 GPU memory 비용을 70%를 줄이면서도 다른 state-of-the-art 방법들보다 더 나은 accuracy 성능을 보인다. <br />
 추천시스템에서 발생하는 sparsity 특성을 활용하여 더 빠르고 memory를 적게 차지하면서도 성능이 좋은 transformer 기반 추천 모델을 제시하였다는 점이 인상깊었다.</p>
 
-<h2 id="author-information"><strong>Author Information</strong></h2>
-
-<ul>
-  <li>SeungTai Yoo
-    <ul>
-      <li>Contact : styoo@kaist.ac.kr</li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
 
 <ul>
   <li>Github Implementation
     <ul>
-      <li><a href="https://github.com/ChengxiLi5/STRec">https://github.com/ChengxiLi5/STRec</a></li>
+      <li>https://github.com/ChengxiLi5/STRec</li>
     </ul>
   </li>
   <li>Reference

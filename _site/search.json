@@ -80,27 +80,27 @@
 "title": "[SIGIR 2022] User-controllable Recommendation Against Filter Bubbles",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html",
+"url": "2023-11-20-User-controllable_Recommendation_Against_Filter_Bubbles.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Uncertainty Aware_consistency_learning_for_cold Start_item_recommendation",
-"tags": "",
+"title": "[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html",
+"url": "2023-11-20-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Trending_now_modeling_trend_recommendations",
-"tags": "",
+"title": "[RecSys 2023] Trending Now: Modeling Trend Recommendations",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Trending_Now_Modeling_Trend_Recommendations.html",
+"url": "2023-11-20-Trending_Now_Modeling_Trend_Recommendations.html",
 "summary": ""
 }
 ,
@@ -110,7 +110,7 @@
 "title": "[AAAI 2023] Simple and Efficient Heterogeneous Graph Neural Network",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html",
+"url": "2023-11-20-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html",
 "summary": ""
 }
 ,
@@ -120,7 +120,7 @@
 "title": "[RecSys 2023] STRec: Sparse Transformer for Sequential Recommendations",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html",
+"url": "2023-11-20-STRec_Sparse_Transformer_for_Sequential_Recommendations.html",
 "summary": ""
 }
 ,
@@ -130,7 +130,7 @@
 "title": "[NIPS 2021] Robustness of Graph Neural Networks at Scale",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html",
+"url": "2023-11-20-Robustness_of_Graph_Neural_Networks_at_Scale.html",
 "summary": ""
 }
 ,
@@ -140,7 +140,7 @@
 "title": "[ICML 2022] Rethinking Graph Neural Networks for Anomaly Detection",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html",
+"url": "2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html",
 "summary": ""
 }
 ,
@@ -150,7 +150,7 @@
 "title": "[WSDM 2020] RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html",
+"url": "2023-11-20-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html",
 "summary": ""
 }
 ,
@@ -160,17 +160,17 @@
 "title": "[KDD 2022] ROLAND: Graph Learning Framework for Dynamic Graphs",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html",
+"url": "2023-11-20-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Private_data_leakage_via_exploiting_access_patterns_of_sparse_features_in_deep_learning Based_recommendation_systems",
-"tags": "",
+"title": "[TSRML 2022] Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning-based Recommendation Systems",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html",
+"url": "2023-11-20-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html",
 "summary": ""
 }
 ,
@@ -180,27 +180,27 @@
 "title": "[SIGIR 2020] Neural Interactive Collaborative Filtering",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Neural_Interactive_Collaborative_Filtering.html",
+"url": "2023-11-20-Neural_Interactive_Collaborative_Filtering.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Multi_modal_knowledge_graphs_for_recommender_systems",
-"tags": "",
+"title": "[CIKM 2020] Multi-modal Knowledge Graphs for Recommender Systems",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Multi_modal_Knowledge_Graphs_for_Recommender_Systems.html",
+"url": "2023-11-20-Multi_modal_Knowledge_Graphs_for_Recommender_Systems.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Lightgcn_simplifying_and_powering_graph_convolution_network_for_recommendation",
-"tags": "",
+"title": "[SIGIR 2020] LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120LightGCN_Simplifying_and_Powering_Graph_Convolution_Network_for_Recommendation.html",
+"url": "2023-11-20-LightGCN_Simplifying_and_Powering_Graph_Convolution_Network_for_Recommendation.html",
 "summary": ""
 }
 ,
@@ -210,7 +210,7 @@
 "title": "[CVPR 2023] Learning to Generte Language-supervised and Open-vocabulary Scene Graph using Pre-trained Visual-Semantic Space",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Learning_to_Generate_Language-supervised_and_Open-vocabulary_Scene_Graph_using_Pre-trained_Visual-Semantic_Space.html",
+"url": "2023-11-20-Learning_to_Generate_Language-supervised_and_Open-vocabulary_Scene_Graph_using_Pre-trained_Visual-Semantic_Space.html",
 "summary": ""
 }
 ,
@@ -220,7 +220,7 @@
 "title": "[RecSys 2023] Is ChatGPT Fair for Recommendation? Evaluating Fairness in Large Language Model Recommendation",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html",
+"url": "2023-11-20-Is_ChatGPT_Fair_For_Recommendation_Evaluating_Fairness_in_Large_Language_Model_Recommendation.html",
 "summary": ""
 }
 ,
@@ -230,7 +230,7 @@
 "title": "[WWW 2023] HINormer: Representation Learning On Heterogeneous Information Networks with Graph Transformer",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-HINormer_Representation_Learning_On_Heterogeneous_Information_Networks_with_Graph_Transformer.html",
+"url": "2023-11-20-HINormer_Representation_Learning_On_Heterogeneous_Information_Networks_with_Graph_Transformer.html",
 "summary": ""
 }
 ,
@@ -240,7 +240,7 @@
 "title": "[ICML 2023] Graph Ladling: Shockingly Simple Parallel GNN Training without Intermediate Communication",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Graph_Ladling_Shocikingly_Simple_Parallel_GNN_Training_without_Intermediate_Communication.html",
+"url": "2023-11-20-Graph_Ladling_Shocikingly_Simple_Parallel_GNN_Training_without_Intermediate_Communication.html",
 "summary": ""
 }
 ,
@@ -250,7 +250,7 @@
 "title": "[ICLR 2023] GNNInterpreter: A Probabilistic Generative Model-Level Explanation for Graph Neural Networks",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-GNNInterpreter_A_Probabilistic_Generative_Model-Level_Explanation_for_Graph_Neural_Networks.html",
+"url": "2023-11-20-GNNInterpreter_A_Probabilistic_Generative_Model-Level_Explanation_for_Graph_Neural_Networks.html",
 "summary": ""
 }
 ,
@@ -260,7 +260,7 @@
 "title": "[ICLR 23] GNNDelete : A General Strategy for Unlearning in Graph Neural Networks",
 "tags": "reviews",
 "keywords": "",
-"url": "GNNDelete_A_General_Strategy_for_Unlearning_in_Graph_Neural_Networks.html",
+"url": "2023-11-20-GNNDelete_A_General_Strategy_for_Unlearning_in_Graph_Neural_Networks.html",
 "summary": ""
 }
 ,
@@ -270,27 +270,27 @@
 "title": "[RecSys 2020] Fit to Run: Personalised Recommendations for Marathon Training",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Fit_to_Run_Personalised_Recommendations_for_Marathon_Training.html",
+"url": "2023-11-20-Fit_to_Run_Personalised_Recommendations_for_Marathon_Training.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Exploiting_negative_preference_in_content Based_music_recommendation_with_contrastive_learning",
-"tags": "",
+"title": "[RecSys 2022] Exploiting Negative Preference in Content-based Music Recommendation with Contrastive Learning",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Exploiting_Negative_Preference_in_Content-based_Music_Recommendation_with_Contrastive_Learning.html",
+"url": "2023-11-20-Exploiting_Negative_Preference_in_Content-based_Music_Recommendation_with_Contrastive_Learning.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Dont_recommend_the_obvious_estimate_probability_ratios",
-"tags": "",
+"title": "[RecSys 2022] Don&#39;t recommend the obvious: estimate probability ratios",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Dont_Recommend_the_Obvious_Estimate_Probability_Ratios.html",
+"url": "2023-11-20-Dont_Recommend_the_Obvious_Estimate_Probability_Ratios.html",
 "summary": ""
 }
 ,
@@ -300,7 +300,7 @@
 "title": "[ICLR 2021] Directed Acyclic Graph Neural Networks",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Directed_Acyclic_Graph_Neural_Networks.html",
+"url": "2023-11-20-Directed_Acyclic_Graph_Neural_Networks.html",
 "summary": ""
 }
 ,
@@ -310,7 +310,7 @@
 "title": "[SIGIR 2023] Diffusion Recommender Model",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Diffusion_Recommender_Model.html",
+"url": "2023-11-20-Diffusion_Recommender_Model.html",
 "summary": ""
 }
 ,
@@ -320,7 +320,7 @@
 "title": "[KDD 2023] DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.html",
+"url": "2023-11-20-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.html",
 "summary": ""
 }
 ,
@@ -330,7 +330,7 @@
 "title": "[SIGIR 2021] ConsisRec: Enhancing GNN for Social Recommendation via Consistent Neighbor Aggregation",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-ConsisRec_ Enhancing_ GNN_ for_ Social_ Recommendation_ via_ Consistent_ Neighbor_ Aggregation.html",
+"url": "2023-11-20-ConsisRec_Enhancing_GNN_for_Social_Recommendation_via_Consistent_Neighbor_Aggregation.html",
 "summary": ""
 }
 ,
@@ -340,17 +340,17 @@
 "title": "[RecSys 2021] Cold Start Similar Artists Ranking with Gravity-Inspired Graph Autoencoders",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Cold_Start_Similar_Artists_Ranking_with_Gravity-Inspired_Graph_Autoencoders.html",
+"url": "2023-11-20-Cold_Start_Similar_Artists_Ranking_with_Gravity-Inspired_Graph_Autoencoders.html",
 "summary": ""
 }
 ,
 
 
 {
-"title": "Attentional_graph_convolutional_networks_for_knowledge_concept_recommendation_in_moocs_in_a_heterogeneous_view",
-"tags": "",
+"title": "[SIGIR 2020] Attentional Graph Convolutional Networks for Knowledge Concept Recommendation in MOOCs in a Heterogeneous View",
+"tags": "reviews",
 "keywords": "",
-"url": "20231120Attentional_Graph_Convolutional_Networks_for_Knowledge_Concept_Recommendation_in_MOOCs_in_a_Heterogeneous_View.html",
+"url": "2023-11-20-Attentional_Graph_Convolutional_Networks_for_Knowledge_Concept_Recommendation_in_MOOCs_in_a_Heterogeneous_View.html",
 "summary": ""
 }
 ,
@@ -360,7 +360,7 @@
 "title": "[KDD 2022] Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-Addressing_Unmeasured_Confounder_for_Recommendation_with_Sensitivity_Analysis.html",
+"url": "2023-11-20-Addressing_Unmeasured_Confounder_for_Recommendation_with_Sensitivity_Analysis.html",
 "summary": ""
 }
 ,
@@ -370,7 +370,7 @@
 "title": "[NIPS 2021] A 3D Generative Model for Structure-based Drug Design",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-A_3D_Generative_Model_for_Structure-based_Drug_Design.html",
+"url": "2023-11-20-A_3D_Generative_Model_for_Structure-based_Drug_Design.html",
 "summary": ""
 }
 ,
@@ -380,7 +380,7 @@
 "title": "[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace",
 "tags": "reviews",
 "keywords": "",
-"url": "2023-10-16-AB_Testing_for_Recommender_Systems_in_a_Two-sided_Marketplace.html",
+"url": "2023-11-20-AB_Testing_for_Recommender_Systems_in_a_Two-sided_Marketplace.html",
 "summary": ""
 }
 ,

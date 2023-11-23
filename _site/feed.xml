@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://dsailatkaist.github.io/</link>
         <atom:link href="http://dsailatkaist.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 23 Nov 2023 17:46:59 +0900</pubDate>
-        <lastBuildDate>Thu, 23 Nov 2023 17:46:59 +0900</lastBuildDate>
+        <pubDate>Thu, 23 Nov 2023 18:23:11 +0900</pubDate>
+        <lastBuildDate>Thu, 23 Nov 2023 18:23:11 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -319,8 +319,8 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-User-controllable_Recommendation_Against_Filter_Bubbles.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-User-controllable_Recommendation_Against_Filter_Bubbles.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-User-controllable_Recommendation_Against_Filter_Bubbles.html</guid>
             
             <category>reviews</category>
             
@@ -328,23 +328,8 @@ Wang, W., Feng, F., Nie, L., &amp;amp; Chua, T. S. (2022, July). User-controllab
         </item>
         
         <item>
-            <title>Uncertainty Aware_consistency_learning_for_cold Start_item_recommendation</title>
-            <description>
-&lt;hr /&gt;
-
-&lt;p&gt;title: “[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation”&lt;/p&gt;
-
-&lt;p&gt;permalink: 2023-10-16-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html&lt;/p&gt;
-
-&lt;p&gt;tags: [reviews]&lt;/p&gt;
-
-&lt;p&gt;use_math: true&lt;/p&gt;
-
-&lt;p&gt;usemathjax: true&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;uncertainty-aware-consistency-learning-for-cold-start-item-recommendation&quot;&gt;&lt;strong&gt;Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation&lt;/strong&gt;&lt;/h1&gt;
+            <title>[SIGIR 2023] Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation</title>
+            <description>&lt;h1 id=&quot;uncertainty-aware-consistency-learning-for-cold-start-item-recommendation&quot;&gt;&lt;strong&gt;Uncertainty-aware Consistency Learning for Cold-Start Item Recommendation&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;h2 id=&quot;1-problem-definition-and-motivation&quot;&gt;&lt;strong&gt;1. Problem Definition and Motivation&lt;/strong&gt;&lt;/h2&gt;
 
@@ -535,14 +520,16 @@ To address seesaw phenomena, and to achieve better recommendations for both warm
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023/11/20/Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Uncertainty-aware_Consistency_Learning_for_Cold-Start_Item_Recommendation.html</guid>
+            
+            <category>reviews</category>
             
             
         </item>
         
         <item>
-            <title>Trending_now_modeling_trend_recommendations</title>
+            <title>[RecSys 2023] Trending Now: Modeling Trend Recommendations</title>
             <description>&lt;p&gt;&lt;strong&gt;[Recsys 2023] Trending Now: Modeling Trend Recommendations&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1149,8 +1136,10 @@ To address seesaw phenomena, and to achieve better recommendations for both warm
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023/11/20/Trending_Now_Modeling_Trend_Recommendations.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Trending_Now_Modeling_Trend_Recommendations.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Trending_Now_Modeling_Trend_Recommendations.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Trending_Now_Modeling_Trend_Recommendations.html</guid>
+            
+            <category>reviews</category>
             
             
         </item>
@@ -1294,8 +1283,8 @@ Table 3은 네 가지 데이터셋에서 SeHGNN의 성능을 HGB 벤치마크의
 
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Simple_and_Efficient_Heterogeneous_Graph_Neural_Network.html</guid>
             
             <category>reviews</category>
             
@@ -1693,8 +1682,8 @@ Sampling 전략을 최적화하고 정확도를 높이기 위해 &lt;strong&gt;S
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-STRec_Sparse_Transformer_for_Sequential_Recommendations.html</guid>
             
             <category>reviews</category>
             
@@ -1862,8 +1851,8 @@ Figure 6는 Pubmed Dataset에 Loss들을 달리하여 Attack 후 Accuracy를 측
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Robustness_of_Graph_Neural_Networks_at_Scale.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Robustness_of_Graph_Neural_Networks_at_Scale.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Robustness_of_Graph_Neural_Networks_at_Scale.html</guid>
             
             <category>reviews</category>
             
@@ -2053,8 +2042,8 @@ Beta Wavelet 은 $L$의 $C$-order 다항식이고 각 노드의 $C$-hops에 국�
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
             
             <category>reviews</category>
             
@@ -2461,8 +2450,8 @@ $= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \l
 &lt;/div&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
             
             <category>reviews</category>
             
@@ -2712,8 +2701,8 @@ Please write the reference. If paper provides the public code or other materials
 * Reference   --&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-10-16-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
             
             <category>reviews</category>
             
@@ -2721,7 +2710,7 @@ Please write the reference. If paper provides the public code or other materials
         </item>
         
         <item>
-            <title>Private_data_leakage_via_exploiting_access_patterns_of_sparse_features_in_deep_learning Based_recommendation_systems</title>
+            <title>[TSRML 2022] Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning-based Recommendation Systems</title>
             <description>&lt;h1 id=&quot;private-data-leakage-via-exploiting-access-patterns-of-sparse-features-in-deep-learning-recommendation-systems&quot;&gt;Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning Recommendation Systems&lt;/h1&gt;
 &lt;h5 id=&quot;2022-trustworthy-and-socially-responsible-machine-learning-tsrml-2022-co-located-with-neurips-2022&quot;&gt;[2022 Trustworthy and socially responsible Machine learning (TSRML 2022) co-located with NeurIPS 2022]&lt;/h5&gt;
 
@@ -3001,8 +2990,10 @@ $Accuracy_{top K} = Prob_{x~P_x} (x ∈ g_K (h(x)))$&lt;/p&gt;
 &lt;/ul&gt;
 </description>
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://dsailatkaist.github.io/2023/11/20/Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
-            <guid isPermaLink="true">http://dsailatkaist.github.io/2023/11/20/Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
+            <link>http://dsailatkaist.github.io/2023-11-20-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
+            <guid isPermaLink="true">http://dsailatkaist.github.io/2023-11-20-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
+            
+            <category>reviews</category>
             
             
         </item>

@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[KDD 2023] DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -435,7 +435,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <p><strong>Empirical Observations</strong></p>
 </blockquote>
 
-<p>저자들은 두 dataset PolitiFact와 GossipCop에서 만든 news engagement graph를 분석한 결과, <strong>weighted node degree</strong>의 관점에서 가짜 뉴스와 진짜 뉴스가 다른 패턴을 보임을 밝힙니다. Weighted node degree란 각각의 node에 대해서 <strong>그 node와 이어진 모든 edge의 weight의 총합</strong>입니다.</p>
+<p>저자들은 두 dataset PolitiFact와 GossipCop에서 만든 news engagement graph를 분석한 결과, <strong>weighted node degree</strong>의 관점에서 가짜 뉴스와 진짜 뉴스가 다른 패턴을 보임을 밝힙니다. Weighted node degree란 각각의 node에 대해서 그 node와 이어진 모든 edge의 weight의 총합입니다.</p>
 
 <p><strong>1. Degree-Veracity Correlations</strong></p>
 
@@ -463,16 +463,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="4-proposed-framework---decor"><strong>4. Proposed Framework - DECOR</strong></h2>
 <blockquote>
-  <p><strong>Framework</strong></p>
-</blockquote>
-
-<p>우선 더 자세한 설명에 앞서 DECOR의 학습 과정을 하나의 figure로 나타내면 다음과 같습니다.</p>
-
-<p><img src="https://i.ibb.co/Y3ZS3nv/image.png" alt="image" /></p>
-
-<p><br /> <br /></p>
-
-<blockquote>
   <p><strong>Connection with the DCSBM Model</strong></p>
 </blockquote>
 
@@ -482,9 +472,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p><img src="https://i.ibb.co/59nFPbX/image.png" alt="image" /></p>
 
-<p>여기서 <strong>likelihood ratio가 클수록 edge가 same-class일 가능성이 더 높다는 것을 의미</strong>하고, 이에 따라 그러한 edge에는 더 큰 weight를 주게 됩니다.</p>
+<p>여기서 likelihood ratio가 클수록 edge가 same-class일 가능성이 더 높다는 것을 의미하고, 이에 따라 그러한 edge에는 더 큰 weight를 주게 됩니다.</p>
 
-<p>이때 DCSBM 모델에서 정의된 $LR_ {ij}$의 <strong>maximum likelihood estimate (MLE)</strong>를 다음과 같이 구할 수 있는데,</p>
+<p>이때 DCSBM 모델에서 정의된 $LR_ {ij}$의 maximum likelihood estimate를 다음과 같이 구할 수 있는데,</p>
 
 <p><img src="https://i.ibb.co/CKMQ2t6/image.png" alt="image" /></p>
 
@@ -539,10 +529,10 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p><br /> <br /></p>
 
 <blockquote>
-  <p><strong>Framework Recap</strong></p>
+  <p><strong>Framework</strong></p>
 </blockquote>
 
-<p>이해를 돕기 위해 앞서 설명한 DECOR의 학습 과정을 나타낸 figure 다시 한 번 보여드립니다. 정리하자면 <strong>(1) news engagement graph $\mathcal{G}$를 만든 후</strong>, <strong>(2) 각 edge에 대해 co-engagement score $C_ {ij}$를 구합니다.</strong> 이후 $C_ {ij}$와 각 node의 degree $d_ i, d_ j$를 기반으로 <strong>(3) noisy edge에 더 작은 weight가 부여된 degree-corrected adjacency matrix $\mathrm{A}_ c$를 만들고</strong> GNN 학습을 통해 <strong>(4) 각 뉴스 기사에 대해 가짜인지 진짜인지 여부를 판별</strong>합니다.</p>
+<p>지금까지 설명한 DECOR의 학습 과정을 하나의 figure로 나타내면 다음과 같습니다.</p>
 
 <p><img src="https://i.ibb.co/Y3ZS3nv/image.png" alt="image" /></p>
 

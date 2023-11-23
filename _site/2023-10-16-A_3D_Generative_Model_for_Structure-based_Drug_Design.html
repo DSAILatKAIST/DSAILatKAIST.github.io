@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[NIPS 2021] A 3D Generative Model for Structure-based Drug Design</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -398,7 +398,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p><img src="https://i.ibb.co/zbgGmz6/Fig1-Protein-Binding-Site.jpg" alt="Fig_1_Protein_Binding_Site" style="zoom:67%;" /></p>
 
-<center>Fig1. Protein Binding Site [1]</center>
+<center>Fig1. Protein Binding Site</center>
 
 <p>이 때 binding site의 구조적, 화학적 특성으로 인해 특정한 ligand하고만 반응할 수 있고, 이를 specificity라고 부릅니다. 이런 단백질의 양이 너무 많이 혹은 적게 발현되거나, 돌연변이로 인해 정상적인 작동을 하지 않을 때 여러가지 질병이 생기게 됩니다. 현재 많은 약들은 protein의 binding site에 결합하여 구조를 바꾸거나, 기존의 ligand의 역할을 모방하여 정상적인 단백질 활성을 통해 질병을 치료합니다.</p>
 
@@ -661,41 +661,11 @@ $\mathcal{F}$는 $\mathcal{C}$에 포함된 frontier atom 집합이며, $\sigma$
   </li>
   <li><strong><u>Metric</u></strong>
     <ol>
-      <li>
-        <p><strong>Binding affinity</strong> : <em>Vina</em> score [2]</p>
-
-        <blockquote>
-          <p>Vina score is used in molecular docking simulations to estimate the binding affinity between a protein receptor and a small molecule ligand. It uses various energetic terms, such as van der Waals interactions, electrostatic interactions, hydrogen bonding, and others.</p>
-        </blockquote>
-      </li>
-      <li>
-        <p><strong>Drug likeness</strong> : <em>QED</em> score [3]</p>
-
-        <blockquote>
-          <p>QED score is used to assess the drug-likeness of a chemical compound. It uses various molecular descriptors and properties associated with drug-likeness, such as lipophilicity, molecular weight, number of hydrogen bond donors and acceptors, and other factors. The idea is to provide a quantitative measure that reflects the likelihood of a compound possessing drug-like properties.</p>
-        </blockquote>
-      </li>
-      <li>
-        <p><strong>Synthesizability</strong> : <em>SA</em> score [4]</p>
-
-        <blockquote>
-          <p>SA score is a metric used to assess the ease or difficulty of synthesizing a chemical compound. It is commonly employed in the field of drug discovery and design to prioritize compounds that are more likely to be chemically accessible for synthesis.</p>
-
-          <p>It takes into account various factors related to the synthetic feasibility of a compound. These factors may include the complexity of the chemical structure, the availability of starting materials, and the number of synthetic steps required for the overall synthesis.</p>
-        </blockquote>
-      </li>
-      <li>
-        <p><strong>Percentage of samples with high affinity</strong> : wheather it is higher or lower than reference molecule</p>
-      </li>
-      <li>
-        <p><strong>Diversity</strong> : average pairwise Tanimoto similarities over Morgan fingerprints among moleucles</p>
-
-        <blockquote>
-          <p>$Tanimoto(A,B) = \frac{\text{Number of unique features in A or B}}{\text{Number of common features in A and B}}$</p>
-
-          <p>Tanimoto similarity is often used with molecular fingerprints, and it measures similarity between two sets of molecular fingerprints. In the context of chemical compounds, molecular fingerprints represent the presence or absence of certain molecular features.</p>
-        </blockquote>
-      </li>
+      <li><strong>Binding affinity</strong> : <em>Vina</em> score</li>
+      <li><strong>Drug likeness</strong> : <em>QED</em> score</li>
+      <li><strong>Synthesizability</strong> : <em>SA</em> score</li>
+      <li><strong>Percentage of samples with high affinity</strong> : wheather it is higher or lower than reference molecule</li>
+      <li><strong>Diversity</strong> : average pairwise Tanimoto similarities over Morgan fingerprints among moleucles</li>
     </ol>
   </li>
 </ul>
@@ -758,10 +728,6 @@ $\mathcal{F}$는 $\mathcal{C}$에 포함된 frontier atom 집합이며, $\sigma$
 
 <p>추후 graph representation통해 valency check(원자가 형성할 수 있는 화학 결합의 수를 초과하는지 확인)이나 property optimization에도 활용하는 연구를 진행할 수 있을 것 입니다.</p>
 
-<p>하지만 해당 논문에서 context로 어떠한 feature를 사용했는지 알 수 없다. lingand가 단백질에 결합하는 binding site prediction task에서 단백질을 modeling할 때 사용하는 feature가 달라지면 model의 성능 차이가 크게 나오는데, 이 논문의 model에서도 context의 정보가 중요하게 작용하기 때문에 어떤 feature를 사용하는지가 중요하다고 생각한다.</p>
-
-<p>또한 SA, QED, vina score등의 점수가 잘 나오긴 하지만, 실제로 합성을 해보면 그대로 나오지 않는 경우가 많이 있는데, 결과가 좋은 만큼 다른 랩실과 협업하여 <em>in silico</em>에서 끝나는게 아니라 <em>in vitro</em>에서의 결과도 볼 수 있었으면 좋았을 것 같다.</p>
-
 <hr />
 
 <h2 id="7-author-informantion-and-reference">7. Author informantion and Reference</h2>
@@ -780,13 +746,7 @@ $\mathcal{F}$는 $\mathcal{C}$에 포함된 frontier atom 집합이며, $\sigma$
 
 <h3 id="reference">Reference</h3>
 
-<p>[1] Niklas WA Gebauer, Michael Gastegger, and Kristof T Schütt. Symmetry-adapted generation of 3d point sets for the targeted discovery of molecules. arXiv preprint arXiv:1906.00957, 2019</p>
-
-<p>[2] Trott O, Olson AJ. AutoDock Vina: improving the speed and accuracy of docking with a new scoring function, efficient optimization, and multithreading. J Comput Chem. 2010 Jan 30;31(2):455-61. doi: 10.1002/jcc.21334.</p>
-
-<p>[3] Bickerton GR, Paolini GV, Besnard J, Muresan S, Hopkins AL. Quantifying the chemical beauty of drugs. Nat Chem. 2012 Jan 24;4(2):90-8. doi: 10.1038/nchem.1243.</p>
-
-<p>[4] Ertl, P., Schuffenhauer, A. Estimation of synthetic accessibility score of drug-like molecules based on molecular complexity and fragment contributions. <em>J Cheminform</em> <strong>1</strong>, 8 (2009).</p>
+<p>Niklas WA Gebauer, Michael Gastegger, and Kristof T Schütt. Symmetry-adapted generation of 3d point sets for the targeted discovery of molecules. arXiv preprint arXiv:1906.00957, 2019</p>
 
     </div>
 

@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[SIGIR 2020] Neural Interactive Collaborative Filtering</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -409,54 +409,23 @@ exploitation으로 인해 발생하는 사용자의 좋지 않은 경험을 완�
 
 <h2 id="3-background"><strong>3. Background</strong></h2>
 
-<p>일반적인 추천시스템에서 우리는</p>
+<p>일반적인 추천시스템에서 우리는 $N$ users set, $U={1,…,N}$ 과 $M$ items set, $I={1,…,M}$을 가지고 있습니다. user의 피드백은 $N \times M$ preference matrix $R$로 나타납니다. 여기서 $r_ {u,i}$는 item $i$에 대한 user $u$의 선호도를 나타냅니다.</p>
 
-<p>$N$ users set, $U={1,…,N}$ 과 $M$ items set, $I={1,…,M}$</p>
+<p>일반성을 잃지 않고, discrete 한 timestep에 대해서 생각해보자면, 각 timestep $t \in [0,1,2,…,T]$에 대해 system이 target user $u$에게 item $i_ {t}$를 추천하면, user은 그에 대한 피드백 $r_ {u,i_ {t}}$을 시스템에 주게 됩니다. 즉, $r_ {u,i_ {t}}$는 target user에 대한 reward라고 생각할 수 있습니다. 피드백을 받은 이후, system은 reward를 기반으로 model을 update하고 다음 item으로 어떤 것을 추천할 지 결정하게 됩니다. 여기서, $s_ {t}={i_ {1}, r_ {u,i_ {1}},…,i_ {t-1}, r_ {u,i_ {t-1}}}$를 system이 time $t$에서 확인할 수 있는 information (support set)이라고 하겠습니다. 그럼, item은 policy $\pi : s_ {t}\to I$에 의해 선택되게 됩니다. 여기서 policy $\pi$는 현재 support set에서 selected item $i_ {t}\sim\pi(s_ {t})$으로 mapping 되는 function입니다.</p>
 
-<p>을 가지고 있습니다. user의 피드백은 $N \times M$ preference matrix $R$로 나타납니다. 여기서 $r_ {u,i}$는 item $i$에 대한 user $u$의 선호도를 나타냅니다.</p>
-
-<p>일반성을 잃지 않고, discrete 한 timestep에 대해서 생각해보자면, 각 timestep $t \in [0,1,2,…,T]$에 대해 system이 target user $u$에게 item $i_ {t}$를 추천하면, user은 그에 대한 피드백 $r_ {u,i_ {t}}$을 시스템에 주게 됩니다. 즉, $r_ {u,i_ {t}}$는 target user에 대한 reward라고 생각할 수 있습니다. 피드백을 받은 이후, system은 reward를 기반으로 model을 update하고 다음 item으로 어떤 것을 추천할 지 결정하게 됩니다. 여기서,</p>
-
-<p>$s_ {t}={i_ {1}, r_ {u,i_ {1}},…,i_ {t-1}, r_ {u,i_ {t-1}}}$</p>
-
-<p>를 system이 time $t$에서 확인할 수 있는 information (support set)이라고 하겠습니다. 그럼, item은 policy $\pi : s_ {t}\to I$에 의해 선택되게 됩니다. 여기서 policy $\pi$는 현재 support set에서 selected item $i_ {t}\sim\pi(s_ {t})$으로 mapping 되는 function입니다.</p>
-
-<p>Interactive recommendation process에서 $\pi$의 전체 T-trial의 payoff는 $\sum_ {i=1}^{T} r_ {u,i_ {t}}$ 로 정의됩니다. 임의의 user $u$에 대해, 우리의 목표는 expected total payoff $G_ {\pi}(T)$를 maximize하는 policy를 만드는 것입니다. 여기서</p>
-
-<p>$G_ {\pi}(T)=\mathbb{E}_ {i_ {t}\sim\pi(s_ {t})} [\sum_ {i=1}^{T} r_ {u,i_ {t}}]$</p>
-
-<p>로 정의됩니다. 비슷하게 우리는 optimal expected T-trial payoff를</p>
-
-<p>$G^ {<em>}_ {\pi}(T) = \mathbb{E}[\sum_ {i=1}^{T} r_ {u,i^{</em>}_ {t}}]$</p>
-
-<p>과 같이 정의할 수 있습니다. 여기서 $i^{*}_ {t}$는 timestep $t$에서 expected reward를 최대화시키는 최적의 item입니다.</p>
+<p>Interactive recommendation process에서 $\pi$의 전체 T-trial의 payoff는 $\sum_ {i=1}^{T} r_ {u,i_ {t}}$ 로 정의됩니다. 임의의 user $u$에 대해, 우리의 목표는 expected total payoff $G_ {\pi}(T)$를 maximize하는 policy를 만드는 것입니다. 여기서 $G_ {\pi}(T)=\mathbb{E}_ {i_ {t}\sim\pi(s_ {t})} [\sum_ {i=1}^{T} r_ {u,i_ {t}}]$ 로 정의됩니다. 비슷하게 우리는 optimal expected T-trial payoff를 $G^ {*}_ {\pi}(T) = \mathbb{E}[\sum_ {i=1}^{T} r_ {u,i^{*}_ {t}}]$ 과 같이 정의할 수 있습니다. 여기서 $i^{*}_ {t}$는 timestep $t$에서 expected reward를 최대화시키는 최적의 item입니다.</p>
 
 <h3 id="31-multi-armed-bandit-based-approaches"><strong>3.1 Multi-Armed Bandit Based Approaches</strong></h3>
 
 <p><img src="https://i.ibb.co/YWg6Qds/1.png" alt="MAB" /></p>
 
-<p>위 그림은 MAB Based approach 방법을 나타냅니다. 현재, interactive follaborative filtering에서의 exploration은 probabilistic matrix factorization (PMF)을 기반으로 합니다. PMF는 rating의 conditional probability가 gaussian, 즉</p>
+<p>위 그림은 MAB Based approach 방법을 나타냅니다. 현재, interactive follaborative filtering에서의 exploration은 probabilistic matrix factorization (PMF)을 기반으로 합니다. PMF는 rating의 conditional probability가 gaussian, 즉 $Pr(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2}) = {N}(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2})$ 을 가정합니다. 여기서 $\mathbf{p}_ {u}$와 $\mathbf{q}_ {i}$는 각각 zero mean Gaussian prior인 user, item feature vector이고, $\sigma$는 prior variance입니다.</p>
 
-<p>$Pr(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2}) = {N}(r_ {u,i} \vert \mathbf{p}_ {u}^{\top}\mathbf{q}_ {i}, \sigma ^{2})$</p>
+<p>기존의 MAB 접근에서 learning procedure은 위의 그림과 같이 1) $t-1$ 번의 interaction이 끝나고 $Pr(\mathbf{p}_ {u})={N}(\mathbf{p}_ {u,t}\vert \mathbf{\mu}_ {u,t}, \Sigma_ {u,t})$과, $Pr(\mathbf{q}_ {i})={N}(\mathbf{q}_ {i,t}\vert \mathbf{\nu}_ {i,t}, \Psi_ {u,t})$로 정의되는 posterior distribution 을 얻습니다. 각각의 mean, variance term은 MCMC-Gibbs 등으로 얻을 수 있습니다. 2) cumulative reward를 최대화시키는 $t$ 번째 추천을 휴리스틱하게 선택합니다. 선택하는 방법으로는 대표적으로 2가지가 있는데, 각각 Thomson Sampling, Upper Confidence Bound 방법입니다.</p>
 
-<p>을 가정합니다. 여기서 $\mathbf{p}_ {u}$와 $\mathbf{q}_ {i}$는 각각 zero mean Gaussian prior인 user, item feature vector이고, $\sigma$는 prior variance입니다.</p>
+<p>각각 간단하게 소개하자면, Thomson Sampling은 $i_ {t} = \underset{i}{\text{arg max}} \,\tilde{\mathbf{p}}^{\top}_ {u,t}\tilde{\mathbf{q}}_ {i,t}$인 item을 선택하는 방법입니다. 여기서 $\tilde{\mathbf{p}}_ {u,t}\sim {N}(\mathbf{\mu}_ {u,t}, \Sigma_ {u,t})$과, $\tilde{\mathbf{q}}_ {i,t}\sim {N}(\mathbf{\nu}_ {i,t}, \Psi_ {u,t})$은 user, item feature vectors의 posterior distribution에서 sampling 됩니다.</p>
 
-<p>기존의 MAB 접근에서 learning procedure은 위의 그림과 같이</p>
-
-<p>1) $t-1$ 번의 interaction이 끝나고 $Pr(\mathbf{p}_ {u})={N}(\mathbf{p}_ {u,t}\vert \mathbf{\mu}_ {u,t}, \Sigma_ {u,t})$과, $Pr(\mathbf{q}_ {i})={N}(\mathbf{q}_ {i,t}\vert \mathbf{\nu}_ {i,t}, \Psi_ {u,t})$
-로 정의되는 posterior distribution 을 얻습니다. 각각의 mean, variance term은 MCMC-Gibbs 등으로 얻을 수 있습니다.</p>
-
-<p>2) cumulative reward를 최대화시키는 $t$ 번째 추천을 휴리스틱하게 선택합니다.</p>
-
-<p>선택하는 방법으로는 대표적으로 2가지가 있는데, 각각 Thomson Sampling, Upper Confidence Bound 방법입니다.</p>
-
-<p>Thomson Sampling은 $i_ {t} = \underset{i}{\text{arg max}} \,\tilde{\mathbf{p}}^{\top}_ {u,t}\tilde{\mathbf{q}}_ {i,t}$인 item을 선택하는 방법입니다. 여기서 $\tilde{\mathbf{p}}_ {u,t}\sim {N}(\mathbf{\mu}_ {u,t}, \Sigma_ {u,t})$과, $\tilde{\mathbf{q}}_ {i,t}\sim {N}(\mathbf{\nu}_ {i,t}, \Psi_ {u,t})$은 user, item feature vectors의 posterior distribution에서 sampling 됩니다.</p>
-
-<p>Upper Confidence Bound은 사용자가 신뢰할 수 있을 정도로 좋아하는 item을 선택하는 것으로,  upper confindence bound와 PMF를 합친 Generalized Linear Model Bandit-Upper Confidence Bound(GLM-UCB) 방법이 주로 사용됩니다. 자세한 식은 다음과 같습니다.</p>
-
-<p>$i_ {t} = \underset{i}{\text{arg max}} \,(\rho(\mathbf{\mu}^{\top}_ {u,t}\mathbf{\nu}_ {i,t}) + c\sqrt{\log t}\vert\vert \mathbf{\nu}_ {i,t} \vert\vert_ {2, \Sigma_ {u,t}})$</p>
-
-<p>여기서 $\rho$는 sigmoid function이고, c는 상수입니다. $\vert\vert \mathbf{\nu}_ {i,t} \vert\vert_ {2, \Sigma_ {u,t}}$는 $\sqrt{\mathbf{\nu}_ {i,t}^{\top} \Sigma_ {u,t} \mathbf{\nu}_ {i,t}}$로 정의됩니다. 이는 $r_ {u,i}$의 $t$ 번째 interaction의 불확실성을 의미합니다.</p>
+<p>Upper Confidence Bound은 사용자가 신뢰할 수 있을 정도로 좋아하는 item을 선택하는 것으로,  upper confindence bound와 PMF를 합친 Generalized Linear Model Bandit-Upper Confidence Bound(GLM-UCB) 방법이 주로 사용됩니다. 식은 $i_ {t} = \underset{i}{\text{arg max}} \,(\rho(\mathbf{\mu}^{\top}_ {u,t}\mathbf{\nu}_ {i,t}) + c\sqrt{\log t}\vert\vert \mathbf{\nu}_ {i,t} \vert\vert_ {2, \Sigma_ {u,t}})$ 입니다. 여기서 $\rho$는 sigmoid function이고, c는 상수입니다. $\vert\vert \mathbf{\nu}_ {i,t} \vert\vert_ {2, \Sigma_ {u,t}}$는 $\sqrt{\mathbf{\nu}_ {i,t}^{\top} \Sigma_ {u,t} \mathbf{\nu}_ {i,t}}$로 정의됩니다. 이는 $r_ {u,i}$의 $t$ 번째 interaction의 불확실성을 의미합니다.</p>
 
 <p>위와 같은 접근방식들로 인해 MAB 기반 방법은 몇 가지 한계를 가지게 됩니다. 1) 비선형 모델에 대한 posterior distribution 업데이트의 어려움으로 인해 linear user-item interaction model에만 적용되며, 이는 neural network 기반 모델에서의 사용을 크게 제한합니다. 2) 많은 중요한 hyperparameter(ex. prior distribution의 variance 및 exploration hyperparameter c)가 사용되기 때문에 최적의 추천을 찾는 데 어려움이 생깁니다. 3) Thomson Sampling과 GLM-UCB은 보통 최악의 추천 상황을 최적화하기 때문에 잠재적으로 지나치게 비관적입니다.</p>
 
@@ -466,15 +435,7 @@ exploitation으로 인해 발생하는 사용자의 좋지 않은 경험을 완�
 
 <p>위 그림은 Meta-Learning Based Approach 방법을 나타냅니다. 이 방법은 적은 support set을 관측한 후 user들의 관심사를 빠르게 알아내는 방법을 배우는 것을 목적으로 합니다. 위의 그림은 대표적인 방법 중 하나인 MELU입니다. MELU는 Model-Agnostic Meta-Learning (MAML)을 기반으로 해 cold start user들에 대한 빠른 model 학습을 가능하도록 합니다.</p>
 
-<p>위 방법은 우선 recommender agent가 parameter로 $\theta$를 가지는 neural network로 modeling되어있다 가정합니다. MELU는 작은 support set $D$로 user의 관심사를 반영한 $\theta_ {1}$을 얻을 수 있는 initialization $\theta_ {0}$을 알아내는 것을 목적으로 합니다. $\theta_ {0}$는 $\theta_ {1}$이 update 된 후, support set $D$에 대한 특정한 loss $l$을 minimizing하는 방향으로 학습되어 갑니다. 구체적으로는</p>
-
-<p>$\theta_ {1}=\theta_ {0}-\alpha l(\pi_ {\theta_ {0}},D)$</p>
-
-<p>로 update 되고,</p>
-
-<p>$\theta_ {0}\leftarrow\theta_ {0}-\alpha l(\pi_ {\theta_ {1}},D)$</p>
-
-<p>로 loss를 minimize하는 방향으로 학습됩니다. 여기서 $\pi_ {\theta}$는 $\theta$로 parametrize 되어있는recommendation policy 입니다. $l$은 accuracy measure인데, 보통 MSE나 Cross entropy를 사용합니다.</p>
+<p>위 방법은 우선 recommender agent가 parameter로 $\theta$를 가지는 neural network로 modeling되어있다 가정합니다. MELU는 작은 support set $D$로 user의 관심사를 반영한 $\theta_ {1}$을 얻을 수 있는 initialization $\theta_ {0}$을 알아내는 것을 목적으로 합니다. $\theta_ {0}$는 $\theta_ {1}$이 update 된 후, support set $D$에 대한 특정한 loss $l$을 minimizing하는 방향으로 학습되어 갑니다. 구체적으로는 $\theta_ {1}=\theta_ {0}-\alpha l(\pi_ {\theta_ {0}},D)$로 update 되고, $\theta_ {0}\leftarrow\theta_ {0}-\alpha l(\pi_ {\theta_ {1}},D)$로 loss를 minimize하는 방향으로 학습됩니다. 여기서 $\pi_ {\theta}$는 $\theta$로 parametrize 되어있는recommendation policy 입니다. $l$은 accuracy measure인데, 보통 MSE나 Cross entropy를 사용합니다.</p>
 
 <p>Meta-Learning approachs는 exploration policy을 수작업으로 만들지 않아도 되고, deep neural network의 이점을 활용할 수 있다는 장점이 있습니다. 하지만 기존 Meta-Learning approachs 에서는 사용자에게 안좋은 경험을 발생시키지 않고 support set을 선택하는 방법에 대한 부분은 고려되지 않았습니다. 그래서 몇 가지 단점이 있는데, 위에서도 언급했듯 1) support set을 구성하는 단계에서 관련성이 매우 낮은 아이템의 추천으로 인한 사용자 경험 품질 저하, 2) 이 방법들은 완전히 exploitation의 전략이기 때문에 사용자의 관심사를 exploration 하는 데 부족하고, 이로 인해 사용자의 취향이 바뀌거나 품질이 떨어지는 support set이 주어지게 되면 성능이 좋지 않다는 단점이 있습니다.</p>
 
@@ -492,57 +453,19 @@ exploitation으로 인해 발생하는 사용자의 좋지 않은 경험을 완�
 
 <p>각 부분에 대한 설명은 다음과 같습니다.</p>
 
-<p><strong>Embedding layer</strong></p>
+<p>Emvedding layer : $s_ {t}={i_ {1}, r_ {u,i_ {1}} , . . . , i_ {t−1}, r_ {u,i_ {t−1}}}$ 이 주어진 상황에서 전체 ${i_ {t}}$ 를 item embedding vectors ${\mathbf{i}_ {t}}$ 로 변환시킵니다.</p>
 
-<p>$s_ {t}={i_ {1}, r_ {u,i_ {1}} , . . . , i_ {t−1}, r_ {u,i_ {t−1}}}$ 이 주어진 상황에서 전체 ${i_ {t}}$ 를 item embedding vectors ${\mathbf{i}_ {t}}$ 로 변환시킵니다.</p>
+<p>Self-Attntion Layer : observation $s_ {t}$를 잘 나타내기 위해 다르게 rated된 item은 구분해 multi-channel stacked self-attentive neural network에 넣습니다. score $z$로 rated 된 아이템을 embedding matrix $E_ {t}^{z}=[…,\mathbf{i}_ {m},…]^{\top}(\forall r_ {u,i_ {m}}=z, m&lt;t)$ 로 나타냅니다. self-attention operation은 embedding $E_ {t}$를 input으로 받고, linear projection을 통해 3개의 matrix로 변환시킨 후 attention layer에 넣습니다 : $S_ {t}^{z}=SA(E_ {t}^{z})=Attention(E_ {t}^{z}W^{z,c},E_ {t}^{z}W^{z,k},E_ {t}^{z}W^{z,v})$. Recommendation은 sequential하게 들어오기 때문에, attention layer은 $t$-th policy를 만들 때 첫 $t-1$개의 item만 고려해야 합니다.</p>
 
-<p><strong>Self-Attntion Layer</strong></p>
+<p>Point-Wise Feed-Forward Layer : 모델에 비선형성을 부여하고, 서로 다른 latent dimension간의 상호작용을 고려하기 위해 $S_ {t\,\,m}^z$에 (self-attention layer $S_ {t}^z$의 $m$-th row) point-wise two-layer feed-forward network를 적용했습니다 : $F_ {t\,\,m}^{z}=\text{FFN}(S_ {t\,\,m}^{z})=\text{ReLU}(S_ {t\,\,m}^{z}W^{(1)}+b^{(1)})W^{(2)}+b^{(2)}$</p>
 
-<p>observation $s_ {t}$를 잘 나타내기 위해 다르게 rated된 item은 구분해 multi-channel stacked self-attentive neural network에 넣습니다. score $z$로 rated 된 아이템을 embedding matrix</p>
+<p>Stacking Self-Attention Block : Self-attention layer, point-wise feed-forward layer은 더 복잡한 item transition을 학습하기 위해 더 쌓을 수 있습니다. 구체적으로 $b$-th ($b&gt;1$) block은 다음과 같이 정의됩니다 : $S_ {t}^{z,b}=SA(F_ {t}^{z,b-1}),\; F_ {t\quad m}^{z,b}=\text{FFN}(S_ {t\quad m}^{z,b})$</p>
 
-<p>$E_ {t}^{z}=[…,\mathbf{i}_ {m},…]^{\top}(\forall r_ {u,i_ {m}}=z, m&lt;t)$</p>
-
-<p>로 나타냅니다. self-attention operation은 embedding $E_ {t}$를 input으로 받고, linear projection을 통해 3개의 matrix로 변환시킨 후 attention layer에 넣습니다.</p>
-
-<p>$S_ {t}^{z}=SA(E_ {t}^{z})=Attention(E_ {t}^{z}W^{z,c},E_ {t}^{z}W^{z,k},E_ {t}^{z}W^{z,v})$</p>
-
-<p>Recommendation은 sequential하게 들어오기 때문에, attention layer은 $t$-th policy를 만들 때 첫 $t-1$개의 item만 고려해야 합니다.</p>
-
-<p><strong>Point-Wise Feed-Forward Layer</strong></p>
-
-<p>모델에 비선형성을 부여하고, 서로 다른 latent dimension간의 상호작용을 고려하기 위해 $S_ {t\,\,m}^z$에 (self-attention layer $S_ {t}^z$의 $m$-th row) point-wise two-layer feed-forward network를 적용했습니다.</p>
-
-<p>$F_ {t\,\,m}^{z}=\text{FFN}(S_ {t\,\,m}^{z})=\text{ReLU}(S_ {t\,\,m}^{z}W^{(1)}+b^{(1)})W^{(2)}+b^{(2)}$</p>
-
-<p><strong>Stacking Self-Attention Block</strong></p>
-
-<p>Self-attention layer, point-wise feed-forward layer은 더 복잡한 item transition을 학습하기 위해 더 쌓을 수 있습니다. 구체적으로 $b$-th ($b&gt;1$) block은 다음과 같이 정의됩니다.</p>
-
-<p>$S_ {t}^{z,b}=SA(F_ {t}^{z,b-1}),\; F_ {t\quad m}^{z,b}=\text{FFN}(S_ {t\quad m}^{z,b})$</p>
-
-<p><strong>Policy Layer</strong></p>
-
-<p>$b$ self-attention block이 쌓여서 계층적으로 정보를 추출할 수 있도록 만들어지면 next item의 score을 ${ F_ {t}^{z,b}}_ {z=1}^{R_ {max}}$를 기반으로 예측합니다. 여기서 $R_ {max}$는 maximum reward 입니다. 추천된 item들의 예측된 cumulative reward을</p>
-
-<p>$\mathbf{Q}_ {\theta}(s_ {t}, \cdot)=[Q_ {\theta}(s_ {t},i_ {1}),…, Q_ {\theta}(s_ {t},i_ {N})]^{\top}$</p>
-
-<p>이라고 하겠습니다. Policy layer은 다음과 같은 두개의 feed-forwad layer들에 의해 계산됩니다 :</p>
-
-<p>$u_ {t}=\text{concat}\left[  F_ {t}^{1,b^{\top}},F_ {t}^{2,b^{\top}},…,F_ {t}^{R_ {max},b^{\top}} \right]^{\top}$</p>
-
-<p>$\mathbf{Q}_ {\theta}(s_ {t}, \cdot)=\text{ReLU}(u_ {t}W^{(1)}+b^{(1)})W^{(2)}+b^{(2)}$</p>
-
-<p>추정된 $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)$으로 maximal Q-value 를 가지는 item으로 recommendation이 다음과 같이 생성됩니다.</p>
-
-<p>$\pi_ {\theta}(s_ {t})=\underset{i}{\text{arg max}} \,\mathbf{Q}_ {\theta}(s_ {t}, i)$</p>
+<p>Policy Layer : $b$ self-attention block이 쌓여서 계층적으로 정보를 추출할 수 있도록 만들어지면 next item의 score을 ${ F_ {t}^{z,b}}_ {z=1}^{R_ {max}}$를 기반으로 예측합니다. 여기서 $R_ {max}$는 maximum reward 입니다. 추천된 item들의 예측된 cumulative reward을 $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)=[Q_ {\theta}(s_ {t},i_ {1}),…, Q_ {\theta}(s_ {t},i_ {N})]^{\top}$ 이라고 하겠습니다. Policy layer은 다음과 같은 두개의 feed-forwad layer들에 의해 계산됩니다 : $u_ {t}=\text{concat}\left[  F_ {t}^{1,b^{\top}},F_ {t}^{2,b^{\top}},…,F_ {t}^{R_ {max},b^{\top}} \right]^{\top}$, $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)=\text{ReLU}(u_ {t}W^{(1)}+b^{(1)})W^{(2)}+b^{(2)}$. 추정된 $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)$으로 maximal Q-value 를 가지는 item으로 recommendation이 생성됩니다. $\pi_ {\theta}(s_ {t})=\underset{i}{\text{arg max}} \,\mathbf{Q}_ {\theta}(s_ {t}, i)$</p>
 
 <h3 id="42-policy-learning">4.2. Policy Learning</h3>
 
-<p>exploration policy parameter $\theta$를 update하기 위해 본 논문에서는 Q-Learning을 사용했습니다. $t$-th 시도에서 recommender agent는 support set $s_ {t}$를 관찰하고, $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)$를 사용해 $\epsilon$-greedy policy로 item $i_ {t}$를 선택합니다. 이는 $1-\epsilon$의 확률로 max Q-value action을 선택하고, $\epsilon$의 확률로 random action을 선택합니다. agent는 user로 부터 response $r_ {u, i_ {t}}$를 받고 observed set을 $s_ {t+1}$로 update 합니다. 최종적으로 experience $(s_ {t}, a_ {t}, r_ {u, i_ {t}}, s_ {t+1})$을 large replay buffer $M$ 에 저장합니다. Value function $\mathbf{Q}_ {\theta}(s_ {t}, i_ {t})$는 다음과 같이 정의되는 loss-function을 최소화하는 방향으로 update됩니다.</p>
-
-<p>${l}(\theta)=\mathbb{E}_ {(s_ {t}, i_ {t}, r_ {i, i_ {t}}, s_ {t+1})} \sim {M}[(y_ {t}-Q_ {\theta}(s_ {t},i_ {t}))^{2}]$, $y_ {t}=r_ {u, i_ {t}}+\gamma \,\underset{i_ {t+1} \in {I}}{\text{max}}Q_ {\theta}(s_ {t+1}, i_ {t+1})$.</p>
-
-<p>여기서 $y_ {t}$는 optimal Bellman Equation을 기반으로 한 target value입니다.</p>
+<p>exploration policy parameter $\theta$를 update하기 위해 본 논문에서는 Q-Learning을 사용했습니다. $t$-th 시도에서 recommender agent는 support set $s_ {t}$를 관찰하고, $\mathbf{Q}_ {\theta}(s_ {t}, \cdot)$를 사용해 $\epsilon$-greedy policy로 item $i_ {t}$를 선택합니다. 이는 $1-\epsilon$의 확률로 max Q-value action을 선택하고, $\epsilon$의 확률로 random action을 선택합니다. agent는 user로 부터 response $r_ {u, i_ {t}}$를 받고 observed set을 $s_ {t+1}$로 update 합니다. 최종적으로 experience $(s_ {t}, a_ {t}, r_ {u, i_ {t}}, s_ {t+1})$을 large replay buffer $M$ 에 저장합니다. Value function $\mathbf{Q}_ {\theta}(s_ {t}, i_ {t})$는 다음과 같이 정의되는 loss-function을 최소화하는 방향으로 update됩니다 :  ${l}(\theta)=\mathbb{E}_ {(s_ {t}, i_ {t}, r_ {i, i_ {t}}, s_ {t+1})} \sim {M}[(y_ {t}-Q_ {\theta}(s_ {t},i_ {t}))^{2}]$, $y_ {t}=r_ {u, i_ {t}}+\gamma \,\underset{i_ {t+1} \in {I}}{\text{max}}Q_ {\theta}(s_ {t+1}, i_ {t+1})$. 여기서 $y_ {t}$는 optimal Bellman Equation을 기반으로 한 target value입니다.</p>
 
 <h2 id="5-experiment"><strong>5. Experiment</strong></h2>
 

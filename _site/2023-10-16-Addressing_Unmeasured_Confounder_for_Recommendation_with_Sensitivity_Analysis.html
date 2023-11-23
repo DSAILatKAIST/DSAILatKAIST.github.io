@@ -366,7 +366,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">[KDD 2022] Addressing Unmeasured Confounder for Recommendation with Sensitivity Analysis</h1>
-        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+        <p class="post-meta"><time datetime="2023-10-16T00:00:00+09:00" itemprop="datePublished">Oct 16, 2023</time> /
             
             
             
@@ -445,30 +445,8 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="31-motivation"><strong>3.1 Motivation</strong></h3>
 
-<p>Propensity based model인 IPS와 doubly robust (DR) learning의 경우 confounding bias를 완화하는 방법론은 맞지만, unmeasured confounders가 존재할 때는 이야기가 달라진다.</p>
-
-<p>일단 IPS 방법론과 DR이 어떤 방법론인지 간단히 살펴보자.</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>IPS의 경우 Causal Inference에서 Confounding effect를 조정하기 위해 Propensity score의 역수를 곱해 주는 방법론이다. ( 좀 더 자세한 설명을 원하는 독자는 https://www.youtube.com/watch?v=YQDMlNIQSA8 를 참고하기를 바란다 ) 자세히 알아보기 위해 우선 nominal propensity score $p_ {u,i}=P(o_ {u,i}=1</td>
-      <td>x_ {u,i} )$ 를 정의하자. 이는 given feature에 대하여, user $u$에게 item $i$가 expose될 확률이다. 이때 $p_ {u,i}$는 정확히 알 수 없으므로 예측이 되어야 하기에 이를 $\hat{p}_ {u,i}$라 하고이때 IPS estimator $\hat{p}_ {u,i}$를 학습하기 위한 Loss는</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>$ L_{IPS}(\phi) = \frac{1}{\vert D \vert }\sum_{(u,i) \in D} \frac{o_ {u,i}e_ {u,i}}{\hat{p}_ {u,i}}  $
-이다.</p>
-
-<p>DR의 경우 IPS와 마찬가지로, Causal Inference에서 Causal effect를 잘 추론하기 위해 쓰이는 방법 이다. 여기서 Doubly라는 단어가 붙은 이유는 바로, IPS 모델과 같은 Propensity Score Model과 Potential Outcome Model를 동시에 사용하기 때문에 붙여진 것이다. 따라서 IPS에서 일부 요소가 추가된 학습 방식으로 볼 수 이다. ( 좀 더 자세한 설명을 원하는 독자는 https://www.youtube.com/watch?v=zQk13PVYMUs 를 참고하기를 바란다.)
-하지만 IPS와 다른 점은 prediction error $e_ {u,i}$를 추정하기 위한 estimator $ \hat{e}_ {u,i} = g_ {\theta}(x_ {u,i} ) $를 이처럼 $\theta$를 통하여 paremeterization을 한다는 것이다. 이를 바탕으로 DR estimator $\hat{p}_ {u,i}$를 학습하기 위한 Loss는</p>
-
-<p>$ L_{DR}(\phi, \theta) = \frac{1}{\vert D \vert }\sum_{(u,i) \in D} \left[ \hat{e}_ {u,i} + \frac{o_ {u,i}(e_ {u,i} - \hat{e}_ {u,i} )}{\hat{p}_ {u,i}}  \right] $ 이다.</p>
-
-<p>두 방법론은 전부 measured confounders만 존재한다고 가정하고 unmeasured confounders는 무시하는 형태로 학습을 진행하기 때문에 문제가 발생하게 된다. 따라서 unmeasured confounders가 존재할 때, 여전히 두 방법론이 bias되어 있음을 다음의 Theorem을 증명함으로써 보일 것이다.</p>
-
-<p>앞서 정의한 $\hat{p}_ {u,i}$와 $\hat{e}_ {u,i}$를 기반으로, IPS와 DR의 estimator를 구하는 상황에서, ( 좀 더 자세한 설명과 증명은 논문을 참고하기를 바란다. )</p>
+<p>Propensity based model인 IPS와 doubly robust (DR) learning의 경우 confounding bias를 완화하는 방법론은 맞지만, unmeasured confounders가 존재할 때는 이야기가 달라진다.
+우선 nominal propensity score $p_ {u,i}=P(o_ {u,i}=1| x_ {u,i} )$ 를 정의하자. 이는 given feature에 대하여, user $u$에게 item $i$가 expose될 확률이다. 이때 $p_ {u,i}$는 정확히 알 수 없으므로 예측이 되어야 하기에 이를 $\hat{p}_ {u,i}$라 하고, prediction error $e_{u,i}$ 또한 마찬가지로 이에 대한 estimator $\hat{e}_ {u,i}$라고 하자. 그러면 IPS와 DR의 estimator를 구하는 상황에서, ( 좀 더 자세한 설명과 증명은 논문을 참고하기를 바란다. )</p>
 
 <blockquote>
   <p><strong>Theorem 3.1</strong>

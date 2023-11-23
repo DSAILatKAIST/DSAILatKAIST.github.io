@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://dsailatkaist.github.io/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NIPS 2021] A/B Testing for Recommender Systems in a Two-sided Marketplace</h1>
+        <p class="post-meta"><time datetime="2023-11-20T00:00:00+09:00" itemprop="datePublished">Nov 20, 2023</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="ab-testing-for-recommender-systems-in-a-two-sided-marketplace"><strong>A/B Testing for Recommender Systems in a Two-sided Marketplace</strong></h1>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>A/B Testing in the context of website or application development stands for testing some new feature(s) to users (both consumers or content producers) by randomly assigning different feature to a group of users.</p>
+
+<p>The principle commonly used in A/B testing is SUTVA (Stable Unit Treatment Value Assumption). It ensures that the feature changes made to one group will not have unintended effects on other groups. This rule is made so that the impacts generated only come from the changes being tested.</p>
+
+<p>Two-sided marketplaces can be defined as platforms that connect two groups of users; e.g. buyers and sellers, producers and consumers, content creators and viewers. E-commerce, freelance or job search sites, advertising, social media networks, and so on are examples of two-sided marketplaces.</p>
+
+<p>In two-sided marketplace environment, SUTVA is often violated due to the unique dynamics and interdependencies between the two user groups; the actions and behavior of one user group can directly affect the experience and outcomes of the other user group. Consider this case example. Instagram wants to try a new algorithm so that video contents with popular audio will be given more exposures. That way, viewers will have higher satisfaction to the videos suggested to them.  The new algorithm should only change the experience of users as viewers, but it indirectly affects the users who are also content creators, e.g. change the influencers’ views and engagement. Consider the same example from the content creator’s point of view. Such algorithm changes will encourage content creators to focus more on the audio used instead of the content’s quality. In the end, this behavior can influence users’ (viewers) experience due to decreasing relevance, content quality, and so on.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>In two-sided marketplaces, changes happen very quickly and often. Developers need to choose the changes that will bring best output to the business, such as the highest user-click, purchase, dwell time, etc. Hence, it is very important to make sure that the A/B testing done brings an accurate result. Some popular approaches in experiment design for two-sided marketplaces are:</p>
+<ul>
+  <li>Partitioning the graph into near separable clusters. 
+This method works well in a sparse graph in which each cluster contains several nodes and they are given the same treatment. It is, however, difficult to apply in an ecosystem where the clusters are highly complex.</li>
+  <li>Creating multiple copies of the universe by splitting the limited resources, e.g. daily budget of the entities one side of the graph. This method only works well in an ecosystem that has a periodic rest, such as advertising.</li>
+  <li>Identifying a treatment allocated to a proportion of a node’s network to mimic the effect to the node’s entire network. This could work well on a denser graph but since the method assumes the propagation of an already known graph, it is not suitable for dynamic graphs</li>
+</ul>
+
+<p>This paper overcome the limitations of previous approaches, proposing an experiment design that is not limited to the density of the graph, does not assume the propagation, and works without having to know the graph’s structure <em>a priori</em>. 
+Specifically, this paper focuses on the producer’s or content creator’s side,  unifying the different counterfactual rankings (hence “UniCoRn”) based on treatment allocation on the producer side, and careful handling of conflicts.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<h3 id="problem-setup">Problem Setup</h3>
+<p><img src="https://i.ibb.co/H7x68KR/problem-setup.png" alt="Problem setup" />
+Consider a bipartite graph linking two types of entities - producers and consumers. The traditional A/B testing could not satisfy the ideal condition for measuring he producer side impact as it depends on the consumers’ treatment assignment and requires allocating the same treatment to all the consumers related to the producer being measured.</p>
+
+<p><strong>Notation and terminology</strong>
+Consider an experimental design $D$ with mutually exclusive sets
+of producers $P_{0}, . . . ,P_{K}$ corresponding to treatments $T_{0}, . . . ,T_{K}$ respectively.
+$T_{0}$ = control model (or recommender system)
+$T_{K}$ = treatment model
+$P_{K}$ = ramp fraction (i.e., treatment assignment probability) of the corresponding models
+$S$ = Set of all sessions
+$I$ = Set of all items
+$I_{s}$ = subset of $I$ = a set of items under consideration in each session $s$
+$R_{D}(i, I_{s})$ = the rank of item $i$ in the experimental design $D$
+$i \in P_{k}$ = item $i$ belongs to a producer in $P_{k}$. 
+$k, i, s$ = index for treatment variant, item, and session</p>
+
+<p><strong>Design accuracy and cost</strong>
+Accuracy and cost are trade-off in the experimental design. Accuracy is defined by comparing the design rankings $R_{D}(i, \Gamma_{s})$ with the ideal ranking $R^*(i, \Gamma_{s})$ that equals $R_{k}(i, \Gamma_{s})$ if $i \in P_{k}$.</p>
+
+<p>Definition 1. The inaccuracy of the experimental design $D$ is given by
+$Inaccuracy(D) := \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}))^2$, where $R^2(i,\Gamma_ {s}) = \sum^K_ {k=0} R_ {k}(i, \Gamma_ {s}) 1_ {{i\in P_ {k}}}$.</p>
+
+<p>Definition 2. Let $N_{D}(i, \Gamma_{s})$ denote the total number of times a scoring function (i.e. one of $T_{k}$’s) needs to be applied to to obtain a ranking of the items in $I_{s}$ according to $D$. The cost of an experimental design $D$ is given by $Cost(D) := \mathbb{E} (N_{D}(i, \Gamma_{s}))$</p>
+
+<h3 id="unicorn-unifying-counterfactual-rankings">UniCoRn: Unifying Counterfactual Rankings</h3>
+<ol>
+  <li>
+    <p>The $UniCoRn$ algorithm
+ A class of experimental designs $UniCoRn(P_{0}, P_{1},\alpha)$ paramerized by the tuning parameter $\alpha \in [0, 1]$ controlling the cost of the experiment. ${R_{k}(i, \Gamma’)}$ denotes a ranking of the items in $\Gamma’$ according to $T_{k}$ in descending order. $R_{k}(i, \Gamma’) \le R_{k}(j, \Gamma’)$ for $k = 0, 1$.
+ Algorithm 1:
+<img src="https://i.ibb.co/SxgXWwD/algorith.png" alt="Algorithm" /></p>
+
+    <p>The key components are:</p>
+    <ul>
+      <li>Initial slot allocation (Step 2)</li>
+      <li>Obtain mixing positions (Steps 3 - 5)</li>
+      <li>Perform mixing</li>
+    </ul>
+
+    <p>The $\alpha$ value was used in the design to control the balance between accuracy and cost, with $\alpha = 0$ incurs the highest inaccuracy but has the lowest cost, while $\alpha = 1$ is the most accurate and computationally expensive.</p>
+
+    <p><strong>Analogy - LinkedIn scenario:</strong></p>
+
+    <p>To allow easier understanding, the algorithm will be explained using this analogy: consider LinkedIn company wants to test whether a new modification in the recommendation algorithm can improve the visibility of job listings for certain companies on the LinkedIn job provider website.</p>
+
+    <p><strong>Experiment Setup:</strong></p>
+
+    <ol>
+      <li><strong>Control Group (A):</strong> Job listings from companies in the control group receive the standard visibility on the platform (using existing algorithm without any modification).</li>
+      <li><strong>Treatment Group (B):</strong> Job listings from companies in the treatment group that are given new algorithm to enhance visibility.</li>
+      <li><strong>Producer Sets:</strong> The producer sets $P_{0}​$ and $P_{1}$​ consist of companies in the control and treatment groups, respectively.</li>
+      <li><strong>Scoring Models:</strong> $T_{0}$​ and $T_{1​}$ represent the scoring models used to rank job listings for visibility in the control and treatment groups.</li>
+      <li><strong>Tuning Parameter ($\alpha$):</strong> The tuning parameter $\alpha$ determines the proportion of companies in $P_{0}​$ that will be included in the modified producer set $P_{0}^{*}$​ for the treatment.</li>
+    </ol>
+
+    <p><strong>Algorithm Application:</strong></p>
+    <ol>
+      <li>Obtain a ranking of all job listings in the session according to the scoring model $T_{0}​$ (standard visibility).</li>
+      <li>Randomly select a subset of companies from the control group $P_{0}​$ with probability $\alpha$ to form $P_{0}^{<em>}$.3. Divide the job listings into sets $I_{s,0}$, $I_{s,1}$, and $I_{s,0}^{</em>}$ based on the producers in $P_{0}​$​, $P_{1}​$​, and $P_{0}^{*}​$.</li>
+      <li>Identify the rank positions $L$ of job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in the ranking obtained in step 1.</li>
+      <li>Get rankings for job listings in  $I_{s,1} \cup I_{s,0}^{*}$ using scoring models $T_{0}​$ and $T_{1}​$​.</li>
+      <li>Compute a rank-based score for each job listing based on the rankings obtained in step 5. The score considers whether the listing’s company is in $P_{0}​$ or $P_{1}​$​.</li>
+      <li>Rerank job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in positions $L$ based on the computed rank-based scores. The reranking is done in ascending order of rank scores, with ties broken randomly.</li>
+    </ol>
+
+    <p>This algorithm enables following evaluation of the new treatment (algorithm) given on the selected LinkedIn website page:</p>
+    <ul>
+      <li>Analyze the impact of the treatment on the visibility and engagement with job listings from companies in the treatment group compared to the control group.</li>
+      <li>Assess whether the modified treatment at the cluster level ($P_{0}^{*}$) mimics the potential impact of applying the treatment to the entire control group ($P_{0}​$).</li>
+    </ul>
+
+    <p>This analogy example illustrates how the UniCoRn approach could be applied to A/B testing on LinkedIn’s job provider website, considering the unique dynamics of a two-sided marketplace.</p>
+  </li>
+  <li>Handling multiple treatments
+In this section, simultaneous measurement of multiple treatments (against a control variant) was addressed with a simple extension to the mixing selection step. The effect of each treatment was observed by independently comparing the corresponding treatment population to the control population.
+Notations:
+    <ul>
+      <li>$T_{0}$ : control model with $K$ treatments in total</li>
+      <li>$p_{k}$ : the ramp fraction of $T_{k}$, $\sum_{k = 0}^{K} p_{k} = 1$</li>
+    </ul>
+
+    <p>The extensions of Algorithm 1 are as follow:
+ a. Greater mixing: all items from each $P_{k}$
+It is suitable for applications without strict scoring latency constraints due to its costly yet higher accurate family of designs. 
+The total computation cost = $c_{0} + (1 - (1 - \alpha)p_{0}) \sum_{k \ge 1} c_{k}$.</p>
+
+    <p>b. Limited mixing: fractions of items from each $P_{k}$
+ For applications with stricter latency requirement, this method has lower cost with higher inaccuracy compared to greater mixing. The total computation cost = $c_{0} + \alpha \sum_{k \ge 1} c_{k} + (1 - \alpha) \sum_{k \ge 1} p_{k}c_{k}$.</p>
+  </li>
+  <li>
+    <p>Theoretical results
+<strong>Theorem 1 Optimality of $UniCoRn(P_{0}, P_{1}, 1)$</strong> 
+Let $D_{U}$ be a design based on Algorithm 1 with randomly chosen $P_{0}$ and $P_{1}$, and with $\alpha = 1$. Then, for any other design $D$,
+$\mathbb{E}(R_{D_{u}}(i, \Gamma_{s}) - R^* (i, \Gamma_{s}) \mid \Gamma_{s})^2 \le \mathbb{E} (R_{D}(i, \Gamma_{s}) - R^*(i, \Gamma_{s}) \mid \Gamma_{s})^2$   (Equation 1)
+where $ \kappa = 1 $. Equation (1) implies the optimality of $D_{U}$ with respect to the $Inaccuracy(D_{U}, T_{0}, T_{1}) \le Inaccuracy(D, T_{0}, T_{1})$ for all $T_{0}, T_{1}$, and for all design $D$</p>
+
+    <p><strong>Theorem 2 Bias and Variance Bounds</strong></p>
+
+    <p>Let $D_{U}$ be a design based on Algorithm 1 with randomly chosen $P_{0}$ and $P_{1}$ and with $\alpha = 1$. Then, for  $k \in {0, 1}$, the conditional bias and the conditional variance of the observed rank $R_{D_{u}}(i, \Gamma_{s})$ given $A_ {s,k,i,r} = (\Gamma_ {s}, R^{*} {i, \Gamma_ {s} = r, i \in P_ {k}})$ is given by 
+         1. $\mid\mathbb{E} (R_{D_{U}} (i, \Gamma_{s}) - R^*(i, \Gamma_{s}) \mid A_{s,k,i,r}) \mid  \le c(k, p_{1})$, and
+         2. $Var (R_{D_{U}} (i, \Gamma_{s}) \mid A_{s,k,i,r}) \le 2 min(r - 1, \mid \gamma_{s} \mid - r)   p_{1} (1 - p_{1}) + c(k, p_{1}) (1 - c(k, p_{1}))$.</p>
+  </li>
+</ol>
+
+<h2 id="4-experiment-and-result"><strong>4. Experiment and Result</strong></h2>
+<p>In this paper, three empirical evaluations were done. For the first and second evaluations, a simulated environment was created with L = 100 positions to generate data for the empirical evaluation of $UniCoRn(P_{0}, P_{1},\alpha$) (in short, $UniCoRn(\alpha)$).</p>
+
+<ol>
+  <li>
+    <p>Impact of $\alpha$
+For a fixed treatment proportion $TP = |P1|/(|P0| + |P1|)$, the <strong>inaccuracy and cost</strong> results for different values of $TP$ were presented, while taking the average over random choices $P_{0}$ and $P_{1}.$ Four different simulation settings corresponding to different levels of correlation $p \in {−1,−0.4, 0.2, 0.8}$ between treatment and control scores were used for comparing the design accuracy, where scores were generated from a bivariate Gaussian distribution.</p>
+
+    <p><img src="https://i.ibb.co/t8BsmHG/result-1.png" alt="img1" /></p>
+
+    <p>Two parameters were used to measure the design inaccuracy: i) mean absolute error (MAE) and (ii) root mean squared error (RMSE).</p>
+
+    <p>Since $R_{D}(i, \Gamma_{s})−R^{*} (i, \Gamma_{s}) = 0$ for all items in $P_{0}$ for $UniCoRn(0)$, $UniCoRn(0)$ has slightly better than $UniCoRn(1)$  with respect to MAE but was outperformed with respect to RMSE. In addition, a smaller value of $p$ (where -1 is the smallest value) corresponds to a more challenging design problem due to the increasing number of conflicts in the counterfactual rankings. 
+The graph on the right showed the cost and inaccuracy trade-off for a fixed value of $p = 0.8$. It can be concluded that designing an experiment with a higher $T P$ is more challenging than one with a lower $TP$ due to the increasing number of conflicts in the counterfactual rankings. Meanwhile, experiments with a lower TP are more sensitive to the choice of $\alpha$.</p>
+  </li>
+  <li>
+    <p>Analysis of the treatment effect estimation error
+<img src="https://i.ibb.co/D1p11CC/result-2.png" alt="img2" /></p>
+
+    <p>The proposed method was compared with previously existing methods with following parameters:</p>
+    <ul>
+      <li>$HaThucEtAl$ where 10% of the population is in control and 10% of the population is in treatment.</li>
+      <li>$UniCoRn(\alpha)$ for $\alpha  \in {0,0.2,1}$ and $OASIS$
+        <ul>
+          <li>(i) 10% treatment and 90% control and</li>
+          <li>(ii) 50% treatment and 50% control.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>The result showed that both $UniCoRn(\alpha)$ outperformed $OASIS$ (even for $\alpha = 0$) in terms of the treatment effect estimation error. $UniCoRn(1)$ and $UniCoRn(0.2)$ outperformed $HaThucEtAl$ with significantly lower variance due to $HaThucEtAl$ limitation to a 10% treatment and 10% control ramp. In terms of the computational cost (see graph on the right), $UniCoRn(0)$ was the cheapest method with $UniCoRn(0.2)$ slightly more expensive but ensure a good quality of estimation as $UniCoRn(1)$.</p>
+  </li>
+  <li>
+    <p>Scalability of UniCoRn
+ Edge recommendations in social media platforms bring two sides of a marketplace together, consisting of “viewers” as the consumers and “viewees” as the candidates (i.e., items) recommended. To measure the viewee side effect, $UniCoRn(0)$ was applied to minimize the online scoring latency increase. Two experiments covering candidate generation and scoring stage experiments were conducted. Key metrics include (i) Weekly Active Unique (WAU) users, i.e., number of unique users visiting in a week; and (ii) Sessions, i.e., number of user visits.</p>
+    <ul>
+      <li>Candidate generation experiment
+  In large-scale recommender systems, $UniCoRn$ extends its capabilities to handle a two-phase ranking mechanism. In the edge recommendation, a common heuristic involves the <strong>number of shared edges</strong>, which benefits candidates with extensive networks. To mitigate this bias, the study tested the impact of a variant that employs a <strong>normalized version of shared edges</strong> using $UniCoRn(0)$, with $C_{0}$ using the number of shared edges and $C_{1}$ using the normalized version for candidate generation, while keeping the second phase ranking model consistent ($M = T_{0} = T_{1}$).</li>
+      <li>Ranking model experiment
+  In the ranking stage, candidates are scored based on viewer model assignments, with ranking models that can optimize for both viewer and viewee side outcomes; for instance, in one experiment, treatment model $T_{1}$ aimed to enhance viewee side retention. $UniCoRn(0)$ and candidate set $I_{s}$ allowed for cost-efficient rescoring of a subset of candidates belonging to the specific positions $L$, where $L = {R_{0}(i, \Gamma_{s}) : i \in \Gamma_{s,1}}$.</li>
+      <li>UniCoRn(0)’s implementation
+  To generate the ranked list of viewees for a viewer, given the viewer is not allocated to UniCoRn, we score all items using the allocated model (i.e., viewer treatment). If the viewer is allocated to UniCoRn, we then obtain the viewee treatment allocations for all viewees. Obtaining the final ranking thus starts by scoring all items using a control model and then obtaining the viewee side treatment assignment for all viewees, and finally scoring each viewee with the necessary treatments and blend using the scores. No notable increase in serving latency is observed.</li>
+      <li>
+        <p>Results
+  The table below shows the result on the viewee side where 40% of the viewers are allocated to $UniCoRn(0)$
+      <img src="https://i.ibb.co/h9QbBD3/table-1.png" alt="Table 1" /></p>
+
+        <p>For each viewee, the response Yi is computed as the total count of the metric of interest in the experiment window, and the “Delta %” in Table 1 represents the relative percentage difference in average responses between the treatment and control viewee groups under the UniCoRn(0) design. The experiments indicated a positive change in weekly active users (WAUs) and sessions, aligning with the observation that viewers sent more invitations under the treatment model in a source-side experiment, suggesting a positive impact on viewees; however, the exact measurement fidelity couldn’t be validated without a ground truth and is more accurately obtained through a traditional A/B testing setup on the viewer-side.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+<p>This paper proposed a new experimentation design mechanism $UniCoRn$ that went beyond the traditional A/B testing method for producer side measurement in two-sided marketplaces. In addition, it provides specific parameter to control the cost of experiment with regards to the accuracy in the measurement. $UniCoRn$ is superior than previous studies as it is implementable to any graph density, makes no assumption on the effect propagation nor needs knowing the graph structure a priori, and lowers the variance of measurement. It is inspiring to understand $UniCoRn$ addressing the difficulty in recommendations in the two-sided marketplace, which could have been easily under explored.</p>
+
+<p>This paper was implemented only on a case where user and producer are two unique entities. In cases where two sides of a marketplace are the same set of users just with different roles, the application might be different. For example, on social media like Instagram, an account operates as a viewer or audience and content creator at the same time. Future direction could address this application. Another suggestion would be to apply this method to more than two sides of marketplace, for example food delivery services that have seller, driver, and buyer as the entities.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Karin Rizky Irminanda
+    <ul>
+      <li>Affiliation: <a href="http://hfel.kaist.ac.kr/">Human Factors and Ergonomics Lab</a></li>
+      <li>Research Topic: VR/AR, ergonomics</li>
+      <li>Contact: karinirminanda@kaist.ac.kr</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>Reference<br />
+<a href="https://proceedings.neurips.cc/paper_files/paper/2021/hash/32e19424b63cc63077a4031b87fb1010-Abstract.html">Nandy, P., Venugopalan, D., Lo, C., &amp; Chatterjee, S. (2021). A/b testing for recommender systems in a two-sided marketplace. <em>Advances in Neural Information Processing Systems</em>, <em>34</em>, 6466-6477.</a></li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2023 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Nov 23, 2023 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

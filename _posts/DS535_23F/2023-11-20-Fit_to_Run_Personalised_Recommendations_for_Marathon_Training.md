@@ -1,6 +1,6 @@
 ﻿---
 title:  "[RecSys 2020] Fit to Run: Personalised Recommendations for Marathon Training"
-permalink: 2023-10-16-Fit_to_Run_Personalised_Recommendations_for_Marathon_Training.html
+permalink: 2023-11-20-Fit_to_Run_Personalised_Recommendations_for_Marathon_Training.html
 tags: [reviews]
 use_math: true
 usemathjax: true

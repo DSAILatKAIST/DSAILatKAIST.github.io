@@ -1,6 +1,6 @@
 ﻿---
 title:  "[KDD 2023] DECOR: Degree-Corrected Social Graph Refinement for Fake News Detection"
-permalink: 2023-10-16-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.html
+permalink: 2023-11-20-DECOR_Degree-Corrected_Social_Graph_Refinement_for_Fake_News_Detection.html
 tags: [reviews]
 use_math: true
 usemathjax: true

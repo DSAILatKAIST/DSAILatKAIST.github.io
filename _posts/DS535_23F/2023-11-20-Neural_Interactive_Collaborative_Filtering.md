@@ -1,6 +1,6 @@
 ---
 title:  "[SIGIR 2020] Neural Interactive Collaborative Filtering"
-permalink: 2023-10-16-Neural_Interactive_Collaborative_Filtering.html
+permalink: 2023-11-20-Neural_Interactive_Collaborative_Filtering.html
 tags: [reviews]
 use_math: true
 usemathjax: true
