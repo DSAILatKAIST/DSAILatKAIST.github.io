@@ -471,14 +471,14 @@ Cold Start 문제를 해결함으로써, Music Streaming 외의 Video 등의 Col
   <li>
     <p>Node Similar Estimation</p>
 
-    <p>Encoder를 거친 Embedding vectors $z_i$ , $z_j$ 의 유사도를 계산하여 $\hat{A_{ij}}$를 구할 수 있다. 하지만, 현재까지의 대부분의 방식은 $\vert \vert z_i - z_j\vert \vert <em>2$ 혹은 $z_i^T z_j$ 를 사용한다. 하지만 이는 두 node의 유사도가 symettric 하다는 가정이 전제되어있고, 일반적으로 $A</em>{ij} \ne A_{ji}$ 인 상황을 고려할 수 없다. 이에 따라, 이 논문에서는 중력에서 영감을 받은 방식을 도입하여 이를 해결한다.</p>
+    <p>Encoder를 거친 Embedding vectors $z_i$ , $z_j$ 의 유사도를 계산하여 $\hat{A_{ij}}$를 구할 수 있다. 하지만, 현재까지의 대부분의 방식은 $\vert \vert z_ i - z_ j\vert \vert_ 2$ 혹은 $z_ i^T z_ j$ 를 사용한다. 하지만 이는 두 node의 유사도가 symettric 하다는 가정이 전제되어있고, 일반적으로 $A_ {ij} \ne A_ {ji}$ 인 상황을 고려할 수 없다. 이에 따라, 이 논문에서는 중력에서 영감을 받은 방식을 도입하여 이를 해결한다.</p>
   </li>
   <li>
     <p>Gravity-inspired Graph Autoencoder</p>
 
     <p>중력은 두 객체가 있을 때, 그것들의 질량과 거리에 의존한다. 이에 대한 식은 흔히 알고 있듯이 $a_{1\rightarrow2}=\frac{Gm_2}{r^2}$, 있듯이 $a_{2\rightarrow1}=\frac{Gm_1}{r^2}$이다. 이 논문에서 질량 $m_1$이 의미하는 바는 인기가 많은 아티스트라고 생각할 수 있다. 예를 들어, 인기 남자 아이돌인 방탄소년단(BTS)는 그 질량이 매우 커서, 다른 노드들을 훨씬 더 쉽게 끌어당길 수 있다. 반면, 신인 남자 아이돌 그룹은 다른 아티스트들을 끌어당기기에는 그 힘이 상대적으로 부족하다. 또한, 거리는 두 아티스트의 유사도와 관련이 있다. 위의 상황에서 남자 아이돌 방탄소년단과, 신인 남자 아이돌 그룹은 꽤나 비슷한 벡터로 표현이 될 수 있고, 이 때문에 둘의 유사도(본 논문에서는 유사도를 위해 $\vert \vert z_i - z_j\vert \vert _2$를 활용)는 매우 높다고 할 수 있다. 결국 이 둘을 모두 고려하여 연관성을 고려한다면, 서로의 질량에 의해 Symmetry 문제를 해결할 수 있고, 인기도(질량)과 유사도(거리)를 모두 반영하여 계산할 수 있다. $Gm_j$는 $\hat{m}_j$로 denoted 될 수 있다. 또한 $\sigma(x) = 1/(1+e^{-x}) \in (0,1)$인 sigmoid function에 해당한다. 이에 대한 식은 다음과 같다.</p>
 
-    <p>$\hat{A}<em>{ij} = \sigma(log(a</em>{ij})) = \sigma(log\frac{Gm_j}{\vert  \vert z_i-z_j\vert  \vert _2^2}) = \sigma(logGm_j - log\vert  \vert z_i-z_j\vert  \vert _2^2)$</p>
+    <p>$\hat{A}_ {ij} = \sigma(log(a_ {ij})) = \sigma(log\frac{Gm_ j}{\vert  \vert z_ i-z_ j\vert  \vert_ 2^2}) = \sigma(logGm_ j - log\vert  \vert z_ i-z_ j\vert  \vert_ 2^2)$</p>
 
     <p>log에 대한 이유는 중력(인기도)에 대한 가속도를 어느정도 제한해주기 위함이다. 또한, 이 네트워크를 설계할 때, GCN encoder 부분에서는 64-dim을 가진 2개의 hidden layer를 활용했고, 33-dim(32-dim $z_i$ + 1-dim for a mass)의 output layer를 갖는다. 또한 loss는 train session동안 Cross Entropy Loss를 활용했고, 300 epoch를 반복하며 훈련을 진행했다. Optimizer는 Adam, Learning rate는 0.05, 그리고 full-batch GD를 활용했다.</p>
   </li>
@@ -487,7 +487,7 @@ Cold Start 문제를 해결함으로써, Music Streaming 외의 Video 등의 Col
 
     <p>Variational Autoencoder가 Autoencoder와 다른 부분은 결과값들을 고정된 값이 아닌 확률 분포로서 해석을 한다는 것이다. 본 논문에서는 Gaussian 분포를 가정하고 문제를 해결했다. 이에 따른 encoder 식은 다음과 같다. $q(\tilde{Z}\vert A,X) = \prod_{i=1}^{n}{\prod_{j=1}^{n}{p(A_{ij}\vert  \tilde{z}_i, \tilde{z}_j)}}$, with $q(\tilde{z}_i\vert A,X)$ = $\mathcal{N}(\tilde{z}_i\vert  \mu_i, diag(\sigma_i^2))$. 이러한 식으로 인코더 부분을 학습하고, 디코더 부분인 Acceleration Formula(Edge Prediction)은 다음 수식과 같다. 또한, 훈련 중에는 두 GNN 인코더에서는 가중치가 Gradient Descent를 사용하여 모델의 liklihood의 variational lower bound(ELBO)을 최대화함으로써 조정된다.</p>
 
-    <p>$p(A\vert  \tilde{Z}) = \prod_{i=1}^{n}{\prod_{j=1}^{n}{p(A_{ij}\vert  \tilde{z}<em>i, \tilde{z}_j)}}$, with $p(A</em>{ij} \vert  \tilde{z}<em>i, \tilde{z}_j) = \hat{A}</em>{ij} = \sigma(\tilde{m}_j - log\vert  \vert z_i - z_j\vert  \vert _2^2)$</p>
+    <p>$p(A\vert  \tilde{Z}) = \prod_ {i=1}^{n}{\prod_ {j=1}^{n}{p(A_ {ij}\vert  \tilde{z}_ i, \tilde{z}_ j)}}$, with $p(A_ {ij} \vert  \tilde{z}_ i, \tilde{z}_ j) = \hat{A}_ {ij} = \sigma(\tilde{m}_ j - log\vert  \vert z_ i - z_ j\vert  \vert_ 2^2)$</p>
   </li>
 </ol>
 
@@ -534,7 +534,7 @@ Cold Start 문제를 해결함으로써, Music Streaming 외의 Video 등의 Col
           <li>Standard AE/VAE Model. (Not Gravity-inspired).
   Gravity-inspired decoder 대신, Symmetric inner-product decoder 구조를 사용한다. 그 식은 따라서 $\hat{A}_{ij} = \sigma(z_i^T z_j)$이 되고, 이 때문에 이 그래프는 방향성을 잃고 Symmetric 해진다.</li>
           <li>Source-target graph VE/VAE.
-  본 연구에서 사용한 model과 비슷하지만, 이 모델은 32-dim vector $z_i$를 source vector $z_i^{(s)}=z_{i[1:16]}$ 과 target vector $z_i^{(t)}=z_{i[17:32]}$로 나눈 후, $\hat{A}<em>{ij} = \sigma(z_i^{(S)T} z_j^{(t)})$와 $\hat{A}</em>{ji} = \sigma(z_j^{(S)T} z_i^{(t)})$로 유사도를 예측한다. 따라서, 이는 방향성을 띄는 그래프를 나타낸다. 하지만 그 방식에서 gravity-inspired와는 다른 경향을 띈다.</li>
+  본 연구에서 사용한 model과 비슷하지만, 이 모델은 32-dim vector $z_i$를 source vector $z_i^{(s)}=z_{i[1:16]}$ 과 target vector $z_i^{(t)}=z_{i[17:32]}$로 나눈 후, $\hat{A}_ {ij} = \sigma(z_ i^{(S)T} z_ j^{(t)})$와 $\hat{A}_ {ji} = \sigma(z_ j^{(S)T} z_ i^{(t)})$로 유사도를 예측한다. 따라서, 이는 방향성을 띄는 그래프를 나타낸다. 하지만 그 방식에서 gravity-inspired와는 다른 경향을 띈다.</li>
           <li>DEAL Model
   본 연구에서 Base가 된 Model이다. 그래프에서 아직 연결되지 않은, 새로운 노드 간의 연결관계나 링크를 예측하기 위해 설계되었다. 이는 새로운 node의 특성을 반영하여 아직 연결되지 않는 새로운 edge를 예측하기 위해 설계되었다.</li>
         </ol>

@@ -85,8 +85,9 @@ Definition 2. Let $N_{D}(i, \Gamma_{s})$ denote the total number of times a scor
     
 	**Algorithm Application:**
 	1. Obtain a ranking of all job listings in the session according to the scoring model $T_{0}​$ (standard visibility).
-	2. Randomly select a subset of companies from the control group $P_{0}​$ with probability $\alpha$ to form $P_{0}^{*}$.3. Divide the job listings into sets $I_{s,0}$, $I_{s,1}$, and $I_{s,0}^{*}$ based on the producers in $P_{0}​$​, $P_{1}​$​, and $P_{0}^{*}​$.
-	3. Identify the rank positions $L$ of job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in the ranking obtained in step 1.
+	2. Randomly select a subset of companies from the control group $P_{0}​$ with probability $\alpha$ to form $P_ {0}^{\*}$.
+	3. Divide the job listings into sets $I_ {s,0}$, $I_{s,1}$, and $I_ {s,0}^{\*}$ based on the producers in $P_{0}​$​, $P_{1}​$​, and $P_{0}^{\*}​$.
+	3. Identify the rank positions $L$ of job listings in $I_ {s,1} \cup I_ {s,0}^{*}$​ in the ranking obtained in step 1.
 	4. Get rankings for job listings in  $I_{s,1} \cup I_{s,0}^{*}$ using scoring models $T_{0}​$ and $T_{1}​$​.
 	5. Compute a rank-based score for each job listing based on the rankings obtained in step 5. The score considers whether the listing's company is in $P_{0}​$ or $P_{1}​$​.
 	6. Rerank job listings in $I_{s,1} \cup I_{s,0}^{*}$​ in positions $L$ based on the computed rank-based scores. The reranking is done in ascending order of rank scores, with ties broken randomly.

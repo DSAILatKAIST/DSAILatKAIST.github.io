@@ -54,6 +54,14 @@ $N_{subscript}$ (X)
 $N_ {subscript}$ (O)
 ```
 
+- 수식에서 별표(\*)를 표기할 때 \*이 아닌 \\* 로 작성해주시길 바랍니다.  
+When indicating a asterisk in an equation, please write it as \\* instead of the \* on the keyboard.
+
+```
+$A^*$ (X)
+$A^{\*}$ (O)
+```
+
 - 수식 안에 바(bar)를 표기할 때 키보드에 있는 \|가 아니라 \vert로 작성해주시길 바랍니다.  
 When indicating a bar in an equation, please write it as \vert instead of the | on the keyboard.  
 

@@ -488,9 +488,7 @@ recommendation lists. It can be considered as a weighted option of the Jaccard m
 ranking. The relative item ranking in this metric is nevertheless neglected.  For the computation, $\mathbb{I}(v \in R^a_ m)$ is 1, if $v$ representing an item in the recommendation list $R^a_ m$ and $r^a_ {m,v} \in {1, …, K}$ denotes the rank of that item $v$, is also included in the neutral recommendation list $R_ m$, else the value is 0.</li>
 </ol>
 
-<p>$SERP^*@K = \frac1{M} \sum_ m \sum_ {v \in R^a_ m }$</p>
-
-<p>$\frac{\mathbb{I}(v \in R^a_ m)*(K - r^a_ {m,v} + 1)}{K * (K+1)/2}$</p>
+<p>$SERP^{*}@K = \frac1{M} \sum_ m \sum_ {v \in R^a_ m }\frac{\mathbb{I}(v \in R^a_ m)*(K - r^a_ {m,v} + 1)}{K * (K+1)/2}$</p>
 
 <ol>
   <li><strong>PRAG</strong>*    <br />

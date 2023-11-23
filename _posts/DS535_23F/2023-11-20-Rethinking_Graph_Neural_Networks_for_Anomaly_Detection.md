@@ -61,9 +61,13 @@ $G$ 에서 $x= (x_1, x_2, … , x_N)^T \in R^N$ 을 signal, $\hat{x}= (\hat{x}_ 
 
 ## **3. Method**
 
- 대부분의 해당 논문 이전의 GNN은 low-pass filter 또는 adaptive filter을 사용하였으며 이는 band-pass 와 spectral-localized 를 보장하지 못합니다. 이러한 단점을 극복하기 위하여 해당 논문에서는 Hammond’s graph wavelet theory를 기반으로 한 새로운 GNN architecture인 BWGNN를 제안합니다. Hammond’s Graph Wavelet 은 graph signal $x \in R^N$ 에 wavelets $W = (W_ {\psi_1}, W_ {\psi_2},…)$ 를 적용하여 변형시키는 것이며 이때, $\psi$ 는 “mother” wavelet 입니다. graph signal $x$ 에 $W_ {\psi_i}$를 적용하는 것은 다음과 같이 쓸 수 있습니다 : $W_ {\psi_i}(x) = Ug_i(\Lambda)U^Tx$. 이때, $g_i(\cdot)$ 은 $[0, \lambda_N]$ 에서 정의된 spectral domain의 kernal function이며, $g_i(\Lambda) = diag(g_i(\lambda))$ 입니다. 
+ 대부분의 해당 논문 이전의 GNN은 low-pass filter 또는 adaptive filter을 사용하였으며 이는 band-pass 와 spectral-localized 를 보장하지 못합니다. 이러한 단점을 극복하기 위하여 해당 논문에서는 Hammond’s graph wavelet theory를 기반으로 한 새로운 GNN architecture인 BWGNN를 제안합니다. Hammond’s Graph Wavelet 은 graph signal $x \in R^N$ 에 wavelets $W = (W_ {\psi_1}, W_ {\psi_2},…)$ 를 적용하여 변형시키는 것이며 이때, $\psi$ 는 “mother” wavelet 입니다. graph signal $x$ 에 $W_ {\psi_i}$를 적용하는 것은 다음과 같이 쓸 수 있습니다 : $W_ {\psi_ i}(x) = Ug_ i(\Lambda)U^Tx$. 이때, $g_i(\cdot)$ 은 $[0, \lambda_N]$ 에서 정의된 spectral domain의 kernal function이며, $g_i(\Lambda) = diag(g_i(\lambda))$ 입니다. 
 
- Beta distribution은 몇몇 논문에서 wavelet basis의 역할을 하였습니다. 하지만 이전에 Beta distribution을 그래프 데이터에 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. 해당 논문에서 제안하는 Beta wavelet transform $W_ {p,q}$ 는 다음과 같이 작성할 수 있습니다: $W_ {p,q} = U\beta^*_ {p,q}(\Lambda)U^T = \beta^*_ {p,q}(L) = \frac{(L/2)^p(I-L/2)^q}{2B(p+1,q+1)}$. 이때, $p+q = C$ 는 상수이며 Beta wavelet transform $W$ 는 $W = (W_ {0,C}, W_ {1,C-1}, ..., W_ {C,0})$ 로 총 $C+1$ 개의 Beta wavelets 으로 구성될 수 있습니다. $C$ 가 클수록 더 안좋은 공간적 집약성을 희생하여 더 나은 스펙트럼 집약성을 제공할 수 있습니다.
+ Beta distribution은 몇몇 논문에서 wavelet basis의 역할을 하였습니다. 하지만 이전에 Beta distribution을 그래프 데이터에 사용한 기록이 없어 해당 논문에서는 Graph kernal function로 Beta distribution을 선택하여 Beta graph wavelet를 만들었고 특징을 분석하였습니다. 해당 논문에서 제안하는 Beta wavelet transform $W_ {p,q}$ 는 다음과 같이 작성할 수 있습니다:  
+
+ $W_ {p,q} = U\beta^{\*}_ {p,q}(\Lambda)U^T = \beta^{\*}_ {p,q}(L) = \frac{(L/2)^p(I-L/2)^q}{2B(p+1,q+1)}$   
+ 
+ 이때, $p+q = C$ 는 상수이며 Beta wavelet transform $W$ 는 $W = (W_ {0,C}, W_ {1,C-1}, ..., W_ {C,0})$ 로 총 $C+1$ 개의 Beta wavelets 으로 구성될 수 있습니다. $C$ 가 클수록 더 안좋은 공간적 집약성을 희생하여 더 나은 스펙트럼 집약성을 제공할 수 있습니다.
  Heat Wavelet과 Beta Wavelet 를 비교해보면, Figure 4의 왼쪽에서 볼 수 있듯이 Beta Wavelet은 low-pass filter만 있는 Heat Wavelet 과 달리 low-pass 와 band-pass를 포함한 다양한 filter type을 포함합니다. Figure 4의 오른쪽에서는 Beta Wavelet은 긍정의 반응만 보이는 Heat Wavelet 과 달리 서로 다른 채널에 대해 긍정과 부정의 효과를 둘다 보임을 확인할 수 있습니다.
 
 ![Figure4.png](https://i.ibb.co/S0FG2Nc/Figure4.png)

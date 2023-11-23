@@ -43,7 +43,7 @@ $\mathcal{D} = (\mathcal{P}, \mathcal{U}, \mathcal{R})$는 $N$개의 sample을 �
 
 GNN을 활용하기 위해서는 위의 $\mathcal{D}$를 graph 형태의 data로 변환해야 합니다. 우선 활동적인 유저에 대해서만 보기 위해 3개 이상의 뉴스 기사 공유를 한 유저의 집합 $\mathcal{U}_ A \in \mathcal{U}$로 범위를 줄입니다. 여기서 **user engagement matrix** $\mathrm{E} \in \mathbb{R}^ {\vert \mathcal{U}_ A \vert \times N}$를 만드는데, 이때 $\mathrm{E}_ {ij}$에 해당하는 값은 유저 $u_ i$가 뉴스 기사 $p_ j$ 를 공유한 횟수, 즉 $(u_ i, p_ j, k_ {ij}) \in \mathcal{R}$에서 $k_ {ij}$입니다.
 
-활동적인 유저들의 뉴스 소비 패턴에 대한 정보를 바탕으로 비슷한 유저의 흥미를 끄는 뉴스 기사를 서로 이어줄 수 있습니다. 이를 **news engagement graph** $\mathcal{G} = \{\mathcal{P}, \mathcal{E}\}$라 부르는데, weighted undirected graph입니다. 여기서 각 뉴스 기사가 node이고, $\mathcal{G}$의 adjacency matrix $\mathrm{A} \in \mathbb{R}^ {N \times N}$는 $\mathrm{A} = \mathrm{E}^ \top\mathrm{E}$입니다. 즉 $\mathrm{A}_ {nk}$는 두 뉴스 기사 $p_ n, p_ k$를 여러 유저가 공유한 횟수의 총합이고, 따라서 $\mathrm{A} _{nk}$를 edge $e_ {nk} \in \mathcal{E}$의 weight로 두면 이 값이 클수록 두 뉴스 기사 모두를 공유한 유저 집단의 관심사가 더 비슷하다고 볼 수 있습니다.
+활동적인 유저들의 뉴스 소비 패턴에 대한 정보를 바탕으로 비슷한 유저의 흥미를 끄는 뉴스 기사를 서로 이어줄 수 있습니다. 이를 **news engagement graph** $\mathcal{G} = \{\mathcal{P}, \mathcal{E}\}$라 부르는데, weighted undirected graph입니다. 여기서 각 뉴스 기사가 node이고, $\mathcal{G}$의 adjacency matrix $\mathrm{A} \in \mathbb{R}^ {N \times N}$는 $\mathrm{A} = \mathrm{E}^ \top\mathrm{E}$입니다. 즉 $\mathrm{A}_ {nk}$는 두 뉴스 기사 $p_ n, p_ k$를 여러 유저가 공유한 횟수의 총합이고, 따라서 $\mathrm{A}_ {nk}$를 edge $e_ {nk} \in \mathcal{E}$의 weight로 두면 이 값이 클수록 두 뉴스 기사 모두를 공유한 유저 집단의 관심사가 더 비슷하다고 볼 수 있습니다.
 
 <br/> <br/>  
 

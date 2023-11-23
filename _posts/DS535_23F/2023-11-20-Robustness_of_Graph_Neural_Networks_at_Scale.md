@@ -46,11 +46,11 @@ $\psi$는 Classification Margin으로 값이 클수록 Classification을 Confide
 
 **Definition of Surrogate Loss:** Global Attack에 대한 Surrogate Loss $L^\prime$는
 
-(1) 옳게 분류된 perturbed node들에 대해서만 incentive를 주고, $\frac{\partial L^\prime}{\partial z_c^*} \vert \psi_ 0 = 0$
+(1) 옳게 분류된 perturbed node들에 대해서만 incentive를 주고, $\frac{\partial L^\prime}{\partial z_ c^*} \vert \psi_ 0 = 0$
 
 (2) Decision Boundary 근처에 있는 node들을 선호하는 방식으로 Loss를 구성한다.
 
-$\frac{\partial L^\prime}{\partial z_ c^{\_}} \vert \psi_ 1 < \frac{\partial L^\prime}{\partial z_ c^{\_}} \vert \psi_ 2 \;\; for \;  any \;\;  0<\psi_ 1<\psi_ 2$
+$\frac{\partial L^\prime}{\partial z_ c^{\*}} \vert \psi_ 1 < \frac{\partial L^\prime}{\partial z_ c^{\*}} \vert \psi_ 2 \; for \, any \,0<\psi_ 1<\psi_ 2$
 
 위 정의에서 도출된 정의에 따르면, Cross Entropy Loss는 (1)을 위반하여 Global Optimum을 가질 수 없기에 Surrogate loss가 될 수 없다. 또한, Carlini-Wagner(CW) Loss는 Decision boundary에 있는 node들을 고려하지 못하기에 (2)을 위반한다.
 
@@ -101,7 +101,7 @@ and $AGG = \text{l-th layer message passing aggregation}$
 and $h^{(l)}_ v = \text{embedding},\; \sigma^{(l)} \text{activation function}$
 
 
-이전 논문인 Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 다음과 같이 제안했다 : $\tilde{f}_{\text{WSM}}(X, a) = c(s \circ a)X \quad where  \quad s_i = \frac{\exp \left( -\frac{1}{T} \sum_{j=1}^{n} a_j ||x_j - x_i|| \right)}{\sum_{q=1}^{n} \exp \left( -\frac{1}{T} \sum_{j=1}^{n} a_j ||x_j - x_q|| \right)}$
+이전 논문인 Geisler et al. (2020)에서는 Aggregate Function으로 Soft Medoid를 다음과 같이 제안했다 : $\tilde{f}_ {\text{WSM}}(X, a) = c(s \circ a)X \quad where  \quad s_ i = \frac{\exp \left( -\frac{1}{T} \sum_ {j=1}^{n} a_ j ||x_ j - x_ i|| \right)}{\sum_ {q=1}^{n} \exp \left( -\frac{1}{T} \sum_ {j=1}^{n} a_ j ||x_ j - x_ q|| \right)}$
  Soft Medoid는 $s_i$로 표현되는 이웃 노드들의 embedding에 대한 distance matrix에 대해 행/열 summation을 요구하기에 neighborhood size에 대해 이차 복잡도를 지닌다. 
 
 이를 개선하기 위해 논문은 `Soft Median`을 제시한다.
