@@ -53,7 +53,7 @@ $G_ {\pi}(T)=\mathbb{E}_ {i_ {t}\sim\pi(s_ {t})} [\sum_ {i=1}^{T} r_ {u,i_ {t}}]
 
 로 정의됩니다. 비슷하게 우리는 optimal expected T-trial payoff를 
 
-$G^ {*}_ {\pi}(T) = \mathbb{E}[\sum_ {i=1}^{T} r_ {u,i^{*}_ {t}}]$ 
+$G^{\*}_ {\pi}(T) = \mathbb{E}[\sum_ {i=1}^{T} r_ {u,i^{\*}_ {t}}]$ 
 
 과 같이 정의할 수 있습니다. 여기서 $i^{*}_ {t}$는 timestep $t$에서 expected reward를 최대화시키는 최적의 item입니다.
 

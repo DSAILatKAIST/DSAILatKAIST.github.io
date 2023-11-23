@@ -451,7 +451,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 Implicit Feedback 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE<sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>는 $x_ {u}$에 베르누이 노이즈를 적용해서 복구하는 모델이므로 2.1 섹션의 Denosing 방법을 Autoencoder에 적용한 것과 같다. 즉, 손실 함수는 다음과 같다.</p>
 
 <blockquote>
-  <p>$\frac{1}{U}\sum_{u=1}^{U}\mathbb{E}<em>{p(\tilde{y</em>{u}} \vert y_{u})}\ell(\tilde{y_{u}},\hat{y_{u}})$,</p>
+  <p>$\frac{1}{U}\sum_ {u=1}^{U}\mathbb{E}_ {p(\tilde{y_ {u}} \vert y_ {u})}\ell(\tilde{y_ {u}},\hat{y_ {u}})$,</p>
 </blockquote>
 
 <p>여기서 $p$는 베르누이 노이즈, $\hat{y_{u}}$는 모델 추정값, $\ell$은 적절한 손실함수이다. (e.g. MSE)</p>

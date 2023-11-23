@@ -53,7 +53,7 @@ MOOCs 플랫폼에서 다양한 엔터티 간의 복잡한 상호 작용을 포�
 
 ### 2.1 Problem Statement
  
-MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: "c++", "binary tree", "linked list" 등)를 생성하는 데 사용되며, $f : u \rightarrow \{ki |ki \in K, i < N\}$.
+MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌을 때, 사용자와 일련의 지식 개념에 대한 관심 점수를 계산하고 지식 개념의 상위 N 목록을 추천하는 것이 목표입니다. 보다 형식적으로, 사용자 $u$의 상호 작용 데이터가 주어졌을 때, 예측 함수 $f$는 추천 지식 개념 목록 $K$ (예: "c++", "binary tree", "linked list" 등)를 생성하는 데 사용되며, $f : u \rightarrow {ki \vert ki \in K, i < N}$.
 
 ### 2.2 System Architecture
 ![image_sample](https://i.ibb.co/CsczfFr/Figure2.png)  
@@ -97,7 +97,7 @@ MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌�
 - **정의 3. Meta-path**:
   - 메타 경로는 네트워크 스키마 $ S = (N, R) $에서 정의되며, $ N_1 R_1 \rightarrow N_2 R_2 \rightarrow \ldots R_l \rightarrow N_{l+1} $의 형태의 경로로 나타냅니다.
   - 이것은 객체 $ N_1 $과 $ N_{l+1} $ 사이의 복합 관계 $ R $를 설명하는 경로입니다.
-  - Meta-path는 동일한 타입의 객체들사이의 연결 관계를 나타내고 있으며, 본 연구의 경우 user-course-user와 같이 user사이의 연결이 course에 의해 연결된 경우를 MP_{|course|}와 같이 표현하고 있습니다.
+  - Meta-path는 동일한 타입의 객체들사이의 연결 관계를 나타내고 있으며, 본 연구의 경우 user-course-user와 같이 user사이의 연결이 course에 의해 연결된 경우를 $MP_ {\vert course \vert}$와 같이 표현하고 있습니다.
 
 이러한 정의와 구조를 통해 HIN의 중요성과 그것이 어떻게 다양한 엔터티 간의 관계를 모델링하는 데 사용되는지 이해할 수 있습니다.
 ### 3.3 Attention-based Graph Convolutional Networks for HIN Representation Learning
@@ -106,10 +106,10 @@ MOOCs에서 대상 사용자와 관련된 상호 작용 데이터가 주어졌�
 
 - **네트워크 및 메타 경로 정의**:
   - 다양한 정보 네트워크 $G = (V, E)$
-  - 메타 경로 집합 $ MP = \{MP_1, MP_2, ... MP_{|MP|}\} $
-  - 인접 행렬 $ A = \{A_1, A_2, ... A_{|MP|}\} $
+  - 메타 경로 집합 $ MP = {MP_ 1, MP_ 2, ... MP_ {\vert MP \vert}} $
+  - 인접 행렬 $ A = {A_ 1, A_ 2, ... A_ {\vert MP \vert}} $
 
-메타 경로의 수는 $ |MP| $로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 graph neural network (GCN)를 채택합니다:
+메타 경로의 수는 $\vert MP \vert$로 표시됩니다. 본 연구는 다음의 계층별 전파 규칙을 가진 여러 계층의 graph neural network (GCN)를 채택합니다:
 
 $ h^{(l+1)} = \sigma(P h^l W^l) $
 여기서, $ h^{(l+1)} $는 엔터티의 새로운 표현을 나타냅니다. 특히, $ h^0 $는 첫 번째 단계에서 추출한 콘텐츠 특징입니다.
@@ -123,9 +123,9 @@ $ h^{(l+1)} = \sigma(P h^l W^l) $
 세 개의 전파 계층을 거쳐 각 메타 경로에 대한 표현을 학습합니다. 그러나 다른 메타 경로들은 동등하게 고려되어서는 안됩니다. 이 문제를 해결하기 위해, 본 연구는 attention mechanism을 활용하여 다른 메타 경로의 안내 아래에서 학습된 엔터티의 표현을 aggregate하고 general representation을 생성합니다.
 
 - **attention mechanism**:
-  - $ e = \sum_{i=1}^{|MP|} \text{att}(e^{MP_i} \otimes e^{MP_i}) $
-  - $ \alpha^{MP_i} = \frac{\exp(\sigma(a e^{MP_i}))}{\sum_{j \in |MP|} \exp(\sigma(a e^{MP_j}))} $
-  - 최종 표현: $ e = \sum_{i=1}^{|MP|} \alpha^{MP_i} e^{MP_i} $
+  - $ e = \sum_ {i=1}^{\vert MP \vert} \text{att}(e^{MP_ i} \otimes e^{MP_ i}) $
+  - $ \alpha^{MP_ i} = \frac{\exp(\sigma(a e^{MP_ i}))}{\sum_ {j \in \vert MP \vert} \exp(\sigma(a e^{MP_ j}))} $
+  - 최종 표현: $ e = \sum_ {i=1}^{\vert MP \vert} \alpha^{MP_ i} e^{MP_ i} $
 
 이 알고리즘은 다양한 메타 경로의 상관 관계를 활용하여 엔터티 표현을 학습하도록 허용합니다.
 ### 3.4 Matrix Factorization for Knowledge Concept Recommendation
@@ -134,19 +134,18 @@ $ h^{(l+1)} = \sigma(P h^l W^l) $
 지금까지 사용자와 지식 개념의 콘텐츠 특징 및 컨텍스트 특징을 추출하는 방법을 학습했습니다. Attention mechanism GCN을 사용한 표현 학습을 통해 지식 개념의 표현 $ e_k $와 사용자의 표현 $ e_u $를 얻을 수 있습니다. 이 부분에서는 확장된 행렬 인수분해 (MF) 기반 방법을 사용하여 사용자에게 지식 개념 추천을 수행하려고 합니다.
 
 - 사용자가 지식 개념을 클릭하는 횟수를 평가 행렬로 간주합니다.
-- 사용자가 지식 개념에 대한 평가는 다음과 같이 정의됩니다:
-$ ^r_{u,k}^ = x_u^T y_k $
-  - 여기서 $ x_u $는 사용자의 잠재 요인을 나타내고, $ y_k $는 지식 개념의 잠재 요인을 나타냅니다. $ D $는 잠재 요인의 수입니다. $^r_{u,k}^$는 사용자와 지식 개념사이의 predict rating을 나타내주고 있습니다.
+- 사용자가 지식 개념에 대한 평가는 다음과 같이 정의됩니다: $r_ {u,k} = x_ u^T y_ k$
+  - 여기서 $ x_ u $는 사용자의 잠재 요인을 나타내고, $ y_ k $는 지식 개념의 잠재 요인을 나타냅니다. $ D $는 잠재 요인의 수입니다. $r_ {u,k}$는 사용자와 지식 개념사이의 predict rating을 나타내주고 있습니다.
 
 - 사용자 $ u $와 지식 개념 $ k $에 대한 표현을 얻었으므로, 다음과 같이 classifier의 input으로 넣습니다.:
-$ ^r_{u,k}^ = x_u^T y_k + \beta_u \cdot e_u^T t_k + \beta_k \cdot t_u^T e_k $
-  - $ e_u $와 $ e_k $는 사용자와 지식 개념의 표현입니다. $ t_k, t_u $는 학습 가능한 파라미터 이며, $ e_k, e_u $ 는 사용자와 지식 개념을 표현하는 vector입니다.
+$ r_ {u,k} = x_ u^T y_ k + \beta_u \cdot e_ u^T t_ k + \beta_ k \cdot t_ u^T e_ k $
+  - $ e_ u $와 $ e_ k $는 사용자와 지식 개념의 표현입니다. $ t_ k, t_ u $는 학습 가능한 파라미터 이며, $ e_ k, e_ u $ 는 사용자와 지식 개념을 표현하는 vector입니다.
 
 - MF의 목적 함수는 다음과 같이 정의됩니다:
-$ \min_{U,K} \frac{1}{m \times n} \sum_{u=1}^n \sum_{k=1}^m (r_{u,k} - ^r_{u,k}^)^2 $
+$ \min_ {U,K} \frac{1}{m \times n} \sum_ {u=1}^n \sum_ {k=1}^m (r_ {u,k} - r_ {u,k})^2 $
 
 - regularization term 을 추가하여 함수를 다시 정의하면, 최종 목적 함수는 다음과 같이 표현됩니다:
-$ \min_{U,K} \frac{1}{m \times n} \sum_{u=1}^n \sum_{k=1}^m (r_{u,k} -^r_{u,k}^)^2 + \lambda (||x_u||^2 + ||y_k||^2 + ||t_u||^2 + ||t_k||^2) $
+$ \min_ {U,K} \frac{1}{m \times n} \sum_ {u=1}^n \sum_ {k=1}^m (r_ {u,k} -r_ {u,k})^2 + \lambda (||x_u||^2 + ||y_k||^2 + ||t_u||^2 + ||t_k||^2) $
 
 이 최적화 문제는 probability gradienct desecnt을 사용하여 최적화됩니다.
 
@@ -236,3 +235,10 @@ $ \min_{U,K} \frac{1}{m \times n} \sum_{u=1}^n \sum_{k=1}^m (r_{u,k} -^r_{u,k}^)
 1. meta-path를 생성할 때, 타겟이 되는 노드의 유형을 제외한 다양한 노드 유형이 중간 노드에 위치하게 됩니다. 하지만, 해당 노드 유형을 가지고 meta-path를 분류하는데 이떄 해당 중간 노드의 feature는 전혀고려하지 못한채 노드의 유형으로 path가 연결이 결정 됩니다. 이 연구은 detail한 중간 노드를 놓치며, 타켓 노드 사이의 연결성을 제대로 표현 할 수 없다는 한계점이 존재합니다.
 
 2. 모든 meta-path들은 사전에 노드 사이의 연결성을 알고 있어야하며, 어떤 노드들이 연결될 수 있는지에 대한 도메인 지식이 필요하게 됩니다. 이는 매우 휴리스틱한 방법이며, 실제 이런 중간 노드들의 역할이 타당한지는 밝혀지지 않았습니다. 또한, 특정 데이터에만 적용이 가능하며 매우 비효울적인 방법입니다. 따라서 meta-path를 automatic하게 추출하는 방법을 연구한다면, 이질적 그래프를 일반화된 방법으로 해결 할 수 있을 것입니다. 
+
+
+### Author Information
+
+- 김종우(20224386)
+- Graduate School of Data Science
+- Graph mining, Recommendation system

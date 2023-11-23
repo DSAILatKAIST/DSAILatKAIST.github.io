@@ -11,9 +11,6 @@ usemathjax: true
 description : Qiheng Mao et al. / HINormer Representation Learning On Heterogeneous Information Networks with Graph Transformer / WWW-2023 (description)  
 ---
 
-# **HINormer Representation Learning On Heterogeneous Information Networks with Graph Transformer (WWW-2023)** 
-
-
 ## **1. Problem Definition**  
 
 &nbsp;&nbsp;&nbsp;&nbsp;본 연구는 현실에 존재하는 그래프 구조의 데이터는 노드(node)와 엣지(edge)의 타입이 다양하게 분포하는 heterogeneity를 띄고 있기 때문에 GNN 분야에서 주로 연구되던 homogeneous graph 기반의 신경망으로는 데이터의 특징(feature)과 구조(structure) 등의 정보를 충분히 학습하기 어려운 점을 기존 연구의 문제점으로 지적하였다. 또한, Transformer 구조는 자연어 처리(NLP)와 컴퓨터 비전(CV) 등 다양한 딥러닝 분야에서 모델의 성능을 향상시키는데 큰 역할을 하고 있지만, 노드 간의 연결성이 복잡한 그래프 구조의 특성을 고려하였을 때 이를 적용하는 과정에 많은 한계점이 존재하는 것을 문제로 제시하였다. 이에 따라, 본 연구가 정의한 문제는 다음과 같다.  
@@ -55,27 +52,23 @@ description : Qiheng Mao et al. / HINormer Representation Learning On Heterogene
 &nbsp;&nbsp;&nbsp;&nbsp;본 연구에서는 기존의 HINs의 효과적인 학습을 위해 선행 연구된 GNN 모델과 Transformer 모델을 기반으로 전체적인 model architecture를 구성한다. 먼저, 앞으로 사용될 notation을 정리하면 <Table 1>과 같다.  
 
 
-<center>
-
 | Notations   | Descriptions    |
 | ------- | ------- | 
 | G = {*V*, *E*, **X**, $\phi$, $\psi$}    | Heterogeneous Information Network  | 
 | *V* | 노드 집합  | 
 | *E*    | 엣지 집합  |
-| **X** $\in R^{\vert V \vert \times d_{x}}$    | 노드 feature 행렬  |
-| **x**$_{v} \in R^{d_x}$    | 노드 feature 벡터  |
+| **X** $\in R^{\vert V \vert \times d_ {x}}$    | 노드 feature 행렬  |
+| **x**$_ {v} \in R^{d_ x}$    | 노드 feature 벡터  |
 | $\phi$    | 노드 타입 mapping 함수  |
 | $\psi$    | 엣지 타입 mapping 함수  |
 | $\phi(v)$    | 특정 노드 타입  |
 | $\psi(e)$    | 특정 엣지 타입  |
-| $T_{v}$ = {$\phi(v): \forall_{v} \in V$}    | 노드 타입 집합  |
-| $T_{e}$ = {$\psi(e): \forall_{e} \in E$}    | 엣지 타입 집합  |
-</center>
+| $T_ {v}$ = {$\phi(v): \forall_ {v} \in V$}    | 노드 타입 집합  |
+| $T_ {e}$ = {$\psi(e): \forall_ {e} \in E$}    | 엣지 타입 집합  |
 
-<center>
+
 
 **<Table 1> Notations**
-</center>
 
 
 GNN은 layer에 따른 이웃 노드 aggregation을 통해 주변 노드의 feature를 학습하며 graph representation을 업데이트하는 모델이다. GNN의 학습 과정은 아래의 <Eq 1>식으로 표현된다.  
@@ -88,31 +81,24 @@ $N_ {v}$ : v노드의 이웃 노드 집합,
 
 $AGGR(\cdot ; \theta_{g}^{l})$ : 이웃 노드 aggregation function.  
 </center>
-
-<center>
-
 **<Eq 1> Aggregation of GNN**
-</center>
 
 &nbsp;&nbsp;&nbsp;&nbsp;GNN은 위 식으로 표현되는 aggregation의 방법에 따라 mean-pooling을 활용하는 GCN[7], attention을 활용하는 GAT[8] 등의 다양한 방법이 있다. Transformer mechanism은 self-attention과 feed-forward로 구성되는데, multi-head self-attention을 통해 특정 벡터의 요소별 중요도를 계산한 후 feed-forward를 통해 그 중요도를 반영한 새로운 형태의 벡터를 추출하는 방법이다. 설명의 간략화를 위해 multi-head과정을 생략하고 <Eq 2>와 <Eq 3>으로 표현할 수 있으며 architecture에 대한 자세한 내용은 [9]에서 확인할 수 있다.
-<center>
 
 $Q = HW_{Q}, K = HW_{K}, V = HW_{V}$,  
-
 $W_{Q} \in R^{d \times d_{Q}}, W_{K} \in R^{d \times d_{K}}, W_{V} \in R^{d \times d_{V}}$  
-
 $MSA(H) = Softmax(\frac{\boldsymbol{QK}^{\top}}{\sqrt{d_{K}}}\boldsymbol{V})$  
 
+
 **<Eq 2> Multi-head Self-Attention Mechanism**  
-  
-$\boldsymbol{\widetilde{H}^{l}} = Norm(MSA(\boldsymbol{H^{l-1}}) + \boldsymbol{H^{l-1}})$  
 
-$\boldsymbol{H^{l}} = Norm(FFN(\widetilde{\boldsymbol{H^{l}}})+\boldsymbol{\widetilde{H}^{l}})$  
 
+
+$\boldsymbol{\widetilde{H}^{l}} = Layer Normalization(MSA(\boldsymbol{H^{l-1}}) + \boldsymbol{H^{l-1}})$  
+$\boldsymbol{H^{l}} = Layer Normalization(FFN(\widetilde{\boldsymbol{H^{l}}})+\boldsymbol{\widetilde{H}^{l}})$  
 $Norm: Layer\ Normalization$  
-  
+
 **<Eq 3> Feed Forward Network**
-</center>
 
 
 
@@ -271,7 +257,6 @@ $CE: Cross\ Entropy\ Loss$
 * **Hyperparameters Settings**   
 본 연구에서는 baseline 하이퍼파라미터 설정을 위해 각 논문의 실험셋팅을 최대한 유지하였다. 또한, 제안하는 HINormer의 실험 셋팅을 <Table 2>와 같이 설정하여 진행하였다.  
 
-<center>
 
 | Settings   | Value    |
 | ------- | ------- | 
@@ -283,7 +268,6 @@ $CE: Cross\ Entropy\ Loss$
 | Num of Head for MSA    | 2  |
 
 **\<Table 2\> Hyperparameter Settings**
-</center>
 
 * **Evaluation Metric**  
 모델의 분류 성능을 평가하기 위해 Micro-F1과 Macro-F1이 지표로 사용되었고, 모든 실험은 5번 반복되어, 표준 편차와 함께 평균 결과를 각 모델의 성능으로 설정하였다.
