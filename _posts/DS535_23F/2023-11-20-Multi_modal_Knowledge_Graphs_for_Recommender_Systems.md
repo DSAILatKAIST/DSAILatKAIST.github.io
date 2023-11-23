@@ -190,10 +190,10 @@ $ e_ u^* = e_ u^0 \vert \vert ..... \vert \vert e_ u^L, \quad e_ i^* = e_ i^0 \v
 - L: MDKs attention layer 수
 - L을 조정하여 propagation 강도를 조절
 
-최종적으로, user와 item representation의 inner product를 통해 스코어를 예측한다.
+최종적으로, user와 item representation의 inner product를 통해 스코어를 예측한다.  
 
 
-$ \hat y(u,i) = {e^*_ u}^Te^*_ i  $
+$\hat{y}(u,i) = {e^*_ u}^{T} e^{*}_ i$
 
 
 BPR(Bayesian Personalized Ranking) loss를 통해 prediction loss를 최적화한다.

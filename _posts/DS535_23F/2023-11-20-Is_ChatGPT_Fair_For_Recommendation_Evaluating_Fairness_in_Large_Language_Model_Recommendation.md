@@ -102,7 +102,9 @@ $Jaccard@K = \frac1{M} \sum_ m{\frac{\vert R_ m \cap R^a_ m \vert }{\vert  R_ m 
    recommendation lists. It can be considered as a weighted option of the Jaccard metric in order to include the item  
    ranking. The relative item ranking in this metric is nevertheless neglected.  For the computation, $\mathbb{I}(v \in R^a_ m)$ is 1, if $v$ representing an item in the recommendation list $R^a_ m$ and $r^a_ {m,v} \in \{1, ..., K\}$ denotes the rank of that item $v$, is also included in the neutral recommendation list $R_ m$, else the value is 0.
 
-$SERP^*@K = \frac1{M} \sum_ m \sum_ {v \in R^a_ m}\frac{\mathbb{I}(v \in R^a_ m)*(K - r^a_ {m,v} + 1)}{K * (K+1)/2}$
+$SERP^*@K = \frac1{M} \sum_ m \sum_ {v \in R^a_ m }$
+
+$\frac{\mathbb{I}(v \in R^a_ m)*(K - r^a_ {m,v} + 1)}{K * (K+1)/2}$
 
 3. **PRAG***      
    Is a modification of Pairwise Ranking Accuracy Gap metric to include the importance of relative rankings. The metric does it by measuring the pairwise ranking of $v_ 1$ and $v_ 2$ (with $v_ 1 ≠ v_ 2$) between recommendation results for the natural and sensitive instructions. $\mathbb{I}(\cdot)$ is applied the same as before, with the change though that for $r^a_ {m,v} = +\infty$ if $v$ is not in $R_ m$.
