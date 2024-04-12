@@ -81,19 +81,19 @@ You can insert your image file using the converted image url as follows :
 
 1. 구글에 image to URL을 검색하여 변환 사이트에 접속합니다.  
 Search the website for converting image to URL.  
-![img](https://drive.google.com/file/d/1J-Zh6WFXzfufKB37yYpfQY1ugyIkxxoU/view?usp=sharing)  
+![img](https://drive.google.com/uc?id=1J-Zh6WFXzfufKB37yYpfQY1ugyIkxxoU)  
 <br/>
 <br/>
 
 2. 변환할 이미지를 업로드합니다.  
 Upload the image to convert.  
-![img](https://drive.google.com/file/d/1hlPkemR890vSW6D2qBMXDadYAAW29J5M/view?usp=sharing)  
+![img](https://drive.google.com/uc?id=1hlPkemR890vSW6D2qBMXDadYAAW29J5M)  
 <br/>
 <br/>
 
 3. 'HTML 원본 이미지 링크'를 선택하고, 아래에 생성되는 링크 중 빨간 박스 부분을 사용합니다.  
 Select 'HTML full linked' and use the link in the red box below.  
-![img](https://drive.google.com/file/d/1e2a_QzlMnKtuUPrJMcICRSSWisraEWQa/view?usp=sharing)  
+![img](https://drive.google.com/uc?id=1e2a_QzlMnKtuUPrJMcICRSSWisraEWQa)  
 <br/>
 <br/>
 
