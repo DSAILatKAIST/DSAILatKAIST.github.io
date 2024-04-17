@@ -17,7 +17,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[CVPR 2023] DARE-GRAM : Unsupervised Domain Adaptation Regression by Aligning Inverse Gram Matrices](/_posts/DS501_24S/2024-04-17-)
 - [[NeurIPS 2023] Winner Takes It All: Training Performant RL Populations for Combinatorial Optimization](/_posts/DS501_24S/2024-04-17-)
 - [[ICLR 2023] Crossformer: Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting](/_posts/DS501_24S/2024-04-17-)
-- [[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUS- SIAN PROCESSES](/_posts/DS501_24S/2024-04-17-)
+- [[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES](/_posts/DS501_24S/2024-04-17-)
 - [[CVPR 2022] Text to Image Generation with Semantic-Spatial Aware GAN](/_posts/DS501_24S/2024-04-17-)
 - [[ICML 2022] DSTAGNN: Dynamic Spatial-Temporal Aware Graph Neural Network for Traffic Flow Forecasting](/_posts/DS501_24S/2024-04-17-)
 - [[ICLR 2023] Learning Multimodal Data Augmentation in Feature Space](/_posts/DS501_24S/2024-04-17-)
