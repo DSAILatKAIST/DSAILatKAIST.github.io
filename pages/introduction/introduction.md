@@ -26,22 +26,24 @@ Please refer to the following link [How to contribute](/how_to_contribute.html) 
 
 ### Instructor
 
-**박찬영(Chanyoung Park)** : Assistant Professor, ISysE, KAIST [Page](http://dsail.kaist.ac.kr/professor/)
-
-### Assistant
-
-**김원중(Wonjoong Kim)** : Master student, Graduate School of AI, KAIST
-
-**최승윤(Seungyoon Choi)** : Master student, ISysE, KAIST  
+**박찬영 (Chanyoung Park)** : Assistant Professor, ISysE, KAIST [Page](http://dsail.kaist.ac.kr/professor/)
 
 ### Contributors
 
-**인연준(Yeonjun In)** : Ph.D. student, ISysE, KAIST
+**인연준 (Yeonjun In)** : Ph.D. student, ISysE, KAIST
 
-**김기범(Kibum Kim)** : Ph.D. student, ISysE, KAIST
+**김기범 (Kibum Kim)** : Ph.D. student, ISysE, KAIST
 
-**이준석(Junseok Lee)** : Ph.D. student, ISysE, KAIST
+**이준석 (Junseok Lee)** : Ph.D. student, ISysE, KAIST
 
 **서상우 (Sangwoo Seo)** : Ph.D. Student, ISysE, KAIST
 
-**김성원 (Sungwon Kim)** : Master student, GSDS, KAIST
+**김성원 (Sungwon Kim)** : Ph.D. student, GSDS, KAIST
+
+**김원중 (Wonjoong Kim)** : Ph.D. student, GSDS, KAIST
+
+**최승윤 (Seungyoon Choi)** : Ph.D. student, ISysE, KAIST
+
+**김세인 (Sein Kim)** : Ph.D. student, ISysE, KAIST
+
+**전재형 (Sein Kim)** : Master student, ISysE, KAIST
