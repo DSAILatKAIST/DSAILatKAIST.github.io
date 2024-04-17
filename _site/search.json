@@ -29,6 +29,15 @@
 ,
 
 {
+"title": "Paper reviews on DS501 (2024)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_DS501_2024.html",
+"summary": "Archive to save the reviews from DS501 (2024S)"
+}
+,
+
+{
 "title": "Paper reviews on DS503 (2023)",
 "tags": "",
 "keywords": "reviews",
@@ -74,6 +83,36 @@
 ,
 
 
+
+
+{
+"title": "[ICLR 2024] Training Diffusion Models With Reinforcement Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Training_Diffusion_Models_With_Reinforcement_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] Time-LLM: Time Series Forecasting by Reprogramming Large Language Models",
+"tags": "reviews",
+"keywords": "",
+"url": "Time-LLM_Time_Series_Forecasting_by_Reprogramming_Large_Language_Models.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors",
+"tags": "reviews",
+"keywords": "",
+"url": "Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors.html",
+"summary": ""
+}
+,
 
 
 {

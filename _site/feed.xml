@@ -5,9 +5,538 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 12 Apr 2024 09:53:09 +0900</pubDate>
-        <lastBuildDate>Fri, 12 Apr 2024 09:53:09 +0900</lastBuildDate>
+        <pubDate>Wed, 17 Apr 2024 23:53:33 +0900</pubDate>
+        <lastBuildDate>Wed, 17 Apr 2024 23:53:33 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
+        
+        <item>
+            <title>[ICLR 2024] Training Diffusion Models With Reinforcement Learning</title>
+            <description>&lt;h1 id=&quot;ddpotraining-diffusion-models-with-reinforcement-learning&quot;&gt;&lt;strong&gt;[DDPO]Training Diffusion Models with Reinforcement Learning&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-problem-definition--motivation&quot;&gt;&lt;strong&gt;1. Problem Definition &amp;amp; Motivation&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Diffusion probabilistic models, 일반적으로 Diffusion model라 칭하는 모델이 최근 Image, Video, Audio, Drug/Material Design, Continuous Control 등 다양한 분야에서 두각을 보이고 있다.&lt;/p&gt;
+
+&lt;p&gt;Diffusion model은 노이즈를 점진적으로 추가하는 forward process 와 이를 역으로 되돌리는 reverse process, 즉 sequential denoising process를 적용함으로서, 간단한 prior distribution을 target distribution으로 변환시킨다.
+이를 학습하는 데에는, Maximum likelihood estimation에 기반해 Evidence Lower Bound(ELBO*)등의 Trick을 이용해 Variational Lower Bound를 Maximize하는 방식을 사용한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ELBO*:&lt;br /&gt;
+$\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \theta(\mathbf{z},\mathbf{x})}{\log q_ \phi(\mathbf{z}|\mathbf{x})}\right]$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Limitations:&lt;/strong&gt;
+하지만 이러한 Likelihood 기반의 학습 방식이 가지고 있는 여러 한계가 존재했다. 
+먼저, Likelihood를 직접 최적화 하는 것이 생성된 샘플의 품질 향상과는 직결되지 않는다는 단점이 존재했고(Nichol &amp;amp; Dhariwal, 2021; Kingma et al., 2021), 이를 계산하기 위해 많은 양의 sampling과 복잡한 계산이 필요했다. 이에, 하기 논문 (Ho et al., 2020; Denoising Diffusion Probabilistic Models[DDPM])의 등장으로 부터, 대부분의 Diffusion-based 모델들은 직접적으로 likelihood를 maximize하는 것이 아닌 아래와 같은 Approximation(Denoising Objective)을 minimize하는 방식으로 학습하였다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Modified Objective Function of Diffusion Models[DDPM]&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$L_ {\text {simple }}(\theta):=\mathbb{E}_ {t, \mathbf{x}_ 0, \boldsymbol{\epsilon}}\left[\left\vert\boldsymbol{\epsilon}-\boldsymbol{\epsilon}_ \theta\left(\sqrt{\bar{\alpha}_ t} \mathbf{x}_ 0+\sqrt{1-\bar{\alpha}_ t} \boldsymbol{\epsilon}, t\right)\right\vert^2\right]$&lt;/p&gt;
+
+&lt;p&gt;직접적으로 Diffusion model구조의 data distribution matching에서 Likelihood 연산을 진행하는 것은 계산량이 너무 크기 때문에 (Intractable), 이 논문에서는 denoising process를 &lt;strong&gt;multi-step decision-making task&lt;/strong&gt;로 바라보고, 강화학습의  &lt;strong&gt;Policy gradient&lt;/strong&gt; 방법을 적용하는 방식 DDPO(Denoising Diffusion Policy Optimization)을 제안한다. 이 모델은  &lt;strong&gt;black-box reward function&lt;/strong&gt;과 함께, &lt;strong&gt;Downstream task&lt;/strong&gt;에 대한 Likelihood 최적화가 가능함을 보였다.&lt;/p&gt;
+
+&lt;p&gt;정리하자면, RL algorithm으로 Diffusion Network를 학습시키는 방식을 제안한 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-preliminaries&quot;&gt;&lt;strong&gt;2. Preliminaries&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-diffusion-models&quot;&gt;2.1 Diffusion Models&lt;/h3&gt;
+&lt;p&gt;(Ho et al., 2020)등의 이전 논문에서, conditional diffusion probabilistic model 은 아래와 같이 정의되며,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$p(x_ {0}\vert c)$: sample $x_ 0$의 분포, corresponding context $c$&lt;/li&gt;
+  &lt;li&gt;$q(x_ t\vert x_ {t-1})$: Markovian forward process (점진적 노이즈 추가)&lt;/li&gt;
+  &lt;li&gt;$\mu_ \theta(x_ t, c, t)$: Reversing forward process (노이즈 제거)에 사용되는 neural net&lt;/li&gt;
+  &lt;li&gt;$\tilde {\mu}$: Posterial mean of forward process. $x_ 0, x_ t$의 가중평균.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Training은 Log-likelihood 의 Variational lower bound를 maximize함으로서 유도된, 아래 목적식을 최적화 함으로써 진행된다.&lt;/p&gt;
+
+&lt;p&gt;$\mathcal{L}_ {\mathrm{DDPM}}(\theta)=\mathbb{E}_ {\left(\mathbf{x}_ 0, \mathbf{c}\right) \sim p\left(\mathbf{x}_ 0, \mathbf{c}\right), t \sim  \mathcal{U}{0, T}, \mathbf{x}_ t \sim q\left(\mathbf{x}_ t \mid  \mathbf{x}_ 0\right)}\left[\left\vert\tilde{\boldsymbol{\mu}}\left(\mathbf{x}_ 0, t\right)-\boldsymbol{\mu}_ \theta\left(\mathbf{x}_ t, \mathbf{c}, t\right)\right\vert^2\right]$&lt;/p&gt;
+
+&lt;p&gt;Sampling은 random $x_ T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 로 부터, Reverse process $p_ \theta(x_ {t-1} \vert x_ t, c)$를 거쳐 sample $x_ 0$를 얻어내는 방식으로 진행된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;22-markov-decision-process-and-reinforcement-learning&quot;&gt;2.2 Markov Decision Process and Reinforcement Learning&lt;/h3&gt;
+
+&lt;p&gt;마르코프 결정 과정(Markov Decision Process, MDP)은 순차적 의사 결정 문제(sequential decision-making problem)를 수학적으로 정형화한 모델로,  다음과 같은 요소들로 정의된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathcal{S}:$ 상태 공간(state space)&lt;/li&gt;
+  &lt;li&gt;$\mathcal{A}:$ 행동 공간(action space)&lt;/li&gt;
+  &lt;li&gt;$\mathcal{\rho_ 0}:$ 초기 상태 분포(initial state distribution)&lt;/li&gt;
+  &lt;li&gt;$\mathcal{P}:$ 전이 커널(transition kernel)&lt;/li&gt;
+  &lt;li&gt;$\mathcal{R}:$ 보상 함수(reward function)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MDP에서 에이전트(agent)는 각 타임스텝(timestep) $t$ 마다 현재 상태(state) $s_ t \in \mathcal{S}$를 관측하고, 정책(policy) $\pi(a\vert s)$에 따라 행동(action) $a_ t \in \mathcal{A}$를 선택한다.&lt;/p&gt;
+
+&lt;p&gt;그 후 환경으로부터 보상(reward) $R(s_ t, a_ t)$을 받고, 전이 커널 $P(s_ {t+1}\vert s_ t, a_ t)$에 따라 다음 상태 $s_{t+1}$로 전이한다. 이런 식으로 에이전트가 환경과 상호작용하며 생성되는 상태-행동의 시퀀스 $\tau = (s_ 0, a_ 0, s_ 1, a_ 1, …, s_ T, a_ T)$를 트래젝토리(trajectory)라고 한다.&lt;/p&gt;
+
+&lt;p&gt;강화학습(Reinforcement Learning, RL)의 목표는 에이전트가 정책 $\pi$를 따라 행동할 때 얻게 되는 기대 누적 보상(expected cumulative reward)을 최대화 하는 것이다. 이는 아래와 같은 수식을 Maximize 함으로서 이루어진다.&lt;/p&gt;
+
+\[J_ {RL}(\pi) = \mathbb{E}_ {\tau \sim p(\tau\vert\pi)}\left[\sum_ {t=0}^T R(s_ t, a_ t)\right]\]
+
+&lt;h2 id=&quot;3-methods&quot;&gt;&lt;strong&gt;3. Methods&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;denoising-diffusion-policy-optimization&quot;&gt;Denoising Diffusion Policy Optimization&lt;/h3&gt;
+
+&lt;p&gt;먼저, pre-trained or random initialize된 Diffusion model이 존재한다고 가정하자. Diffusion model은 sample distribution $p_ \theta (x_ 0 \vert c)$ (context-conditional distribution)을 유도하며, Denoising diffusion RL의 목적식은 아래와 같은 reward signal $r$을 정의된 sample과 context 하에서 maximize하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;$\mathcal{J}_ {\text  {DDRL }}(\theta)=\mathbb{E}_ {\mathbf{c}  \sim p(\mathbf{c}), \mathbf{x}_ 0 \sim p_ \theta\left(\mathbf{x}_ 0 \mid  \mathbf{c}\right)}\left[r\left(\mathbf{x}_ 0, \mathbf{c}\right)\right]$&lt;/p&gt;
+
+&lt;p&gt;기본적인 diffusion training에서 크게 벗어나지 않으면서, $\mathcal{J}_ {\text {DDRL}}$을 maximize 하는 방법론으로는 online RL 방식에서 sampling과 training을 반복하는 One-step MDP인 reward-weighted regression (Peters &amp;amp; Schaal, 2007)이라는 방법론이 존재하나, $\pi$에 대한 KL Divergence term이 존재해서, 명확히 말하자면 이는 Optimality에 도달하지 못한다.&lt;/p&gt;
+
+&lt;p&gt;DDPO에서는 DPOK(Diffusion policy optimiation with KL regularization, 유사한 다른 논문)와 같은 Multi-step MDP formulation을 적용한다.&lt;/p&gt;
+
+&lt;p&gt;$\begin{array}{lrr}\mathbf{s}_ t \triangleq\left(\mathbf{c}, t, \mathbf{x}_ t\right) &amp;amp;  \pi\left(\mathbf{a}_ t \mid  \mathbf{s}_ t\right) \triangleq p_ \theta\left(\mathbf{x}_ {t-1}  \mid  \mathbf{x}_ t, \mathbf{c}\right) &amp;amp; P\left(\mathbf{s}_ {t+1}  \mid  \mathbf{s}_ t, \mathbf{a}_ t\right) \triangleq\left(\delta_ {\mathbf{c}}, \delta_ {t-1}, \delta_ {\mathbf{x}_ {t-1}}\right) \\mathbf{a}_ t \triangleq  \mathbf{x}_ {t-1}  &amp;amp;  \rho_ 0\left(\mathbf{s}_ 0\right) \triangleq\left(p(\mathbf{c}), \delta_ T, \mathcal{N}(\mathbf{0}, \mathbf{I})\right) &amp;amp; R\left(\mathbf{s}_ t, \mathbf{a}_ t\right) \triangleq  \begin{cases}r\left(\mathbf{x}_ 0, \mathbf{c}\right) &amp;amp;  \text  { if } t=0 \0 &amp;amp;  \text  { otherwise }\end{cases}\end{array}$&lt;/p&gt;
+
+&lt;p&gt;식에 대해 차례로 설명하자면,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;context $c$, diffusion index $t$, $t$ 번째 step의 noised sample $x_ t$의 tuple -&amp;gt; state $s_ t$ ; Denoising Network가 받게되는 현재 상태.&lt;/li&gt;
+  &lt;li&gt;denoising 을 진행하는 context conditioned reverse process를 -&amp;gt; policy $\pi(a_ t \vert s_ t)$ ; Denoising을 하는 주체(reverse process)이자, 학습 대상이므로 이를 Policy로 설정한다.&lt;/li&gt;
+  &lt;li&gt;Dirac Delta distribution $\delta_ c, \delta_ {t-1}, \delta_ {x_ {t-1}}$의 튜플 -&amp;gt; Transition probability ; 여기서 Dirac Delta는 MDP transition을 Deterministic 하게 (동일한 state, action이 주어질 시 다음 state가 동일하게 정해지게) 유도하기 위한 트릭이라고 이해하면 된다. (이를 통해 최종 state에서 termination 되게 된다.)&lt;/li&gt;
+  &lt;li&gt;$x_ {t-1}$ -&amp;gt; action $a_ t$ ; Policy인 reverse process에서 뽑아내는 $x_ {t-1}$이 action과 같은 역할이 된다.&lt;/li&gt;
+  &lt;li&gt;context probability $p(c)$, $\delta_T$, Multivariate standard normal distribution 의 tuple -&amp;gt; initial state distribution; 이는 시작지점에 대한 확률분포로 Diffusion Process 시작지점으로서 생각할 수 있다.&lt;/li&gt;
+  &lt;li&gt;보상함수 $R(s_ t, a_ t)$는 denoised 된 step $t$에 도달하는 경우에만 주는 것으로 정의한다. 원본 데이터에 얼마나 가까운지로 보상을 준다고 생각하면 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;복잡해 보이나, 핵심은 Diffusion model에서 사용되는 component들을 Multi-step MDP의 형태로 formulate 했다는 점이다. 즉 Diffusion Model 의 큰 틀은 변하지 않지만 보는 방식을 다르게 했다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;이런 방식으로 Diffusion component들을 MDP로 변환하면, log-likelihood (여기서는 Policy)를 구할 수 있음과 더불어, diffusion model 파라미터에 대한 gradient(여기서는 Policy Gradient)도 구할 수 있게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Policy gradient estimation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Likelihood, 그리고 likelihood의 gradient에 대해 직접적으로 access가 가능하게 되면서, $\nabla_ \theta \mathcal{J}_ {\text{DDRL}}$에 대한 Monte Carlo estimation을 진행할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Sampling과 parameter update를 통해 trajectories ${x_ T, x_ {T-1}, … , x_ 0}$ 를 수집하고 Policy gradient 의 대표적인 알고리즘 REINFORCE(Williams, 1992; Mohamed et al., 2020)을 사용함으로서 아래와 같은 estimation을 얻을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;$\nabla_ \theta  \mathcal{J}_ {\mathrm{DDRL}}=\mathbb{E}\left[\sum_ {t=0}^T \nabla_ \theta  \log p_ \theta\left(\mathbf{x}_ {t-1}  \mid  \mathbf{x}_ t, \mathbf{c}\right) r\left(\mathbf{x}_ 0, \mathbf{c}\right)\right]$&lt;/p&gt;
+
+&lt;p&gt;위 식은 REINFORCE algorithm에서 context condition이 추가된 형태다. 논문에서는 이를 DDPO-SF로 명시한다. (Score function Policy gradient estimator)&lt;/p&gt;
+
+&lt;p&gt;하지만 MC approach의 특성상 data collection마다 한 step의 optimization만 가능하기 때문에, 여러번의 optimization을 사용하기 위해서는 importance sampling estimator를 적용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;$\nabla_ \theta  \mathcal{J}_ {\mathrm{DDRL}}=\mathbb{E}\left[\sum_ {t=0}^T \frac{p_ \theta\left(\mathbf{x}_ {t-1}  \mid  \mathbf{x}_ t, \mathbf{c}\right)}{p_ {\theta_ {\text  {old }}}\left(\mathbf{x}_ {t-1}  \mid  \mathbf{x}_ t, \mathbf{c}\right)}  \nabla_ \theta  \log p_ \theta\left(\mathbf{x}_ {t-1}  \mid  \mathbf{x}_ t, \mathbf{c}\right) r\left(\mathbf{x}_ 0, \mathbf{c}\right)\right]$&lt;/p&gt;
+
+&lt;p&gt;이를 논문에서는 DDPO-IS (Importance sampling Policy gradient estimator) 라고 명시한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Importance sampling 방식은, offline policy  혹은 offline-RL등에서 주로 사용하는 방법으로, update시에 변화하는 policy에 대해, 다른 policy에서 얻은 정보를 사용하면서도 optimality를 유지하기 위한 방법이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;다만 이 방법을 사용했을 때, policy 가 너무 많이 Update 되어 버리면(old policy와 current policy의 차이가 많이 나면) estimation에 문제가 생길 수 있기 때문에 (Importance sampling weight가 explode 혹은 vanish), Implementation에서는 TRPO에서의 Trust region이나 PPO의 clipping등의 방식을 적용해야 한다. 논문에서는 clipping method를 사용하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;reward-functions-for-text-to-image-diffusion&quot;&gt;Reward functions for text-to-image diffusion&lt;/h3&gt;
+&lt;p&gt;DDPO Equation을 살펴보면, 대부분의 component들은 Diffusion component들에서 명시되어 있으나, 구체적으로 어떤 방식으로 Reward를 줄 지에 대해서는 결정이 필요하다. 논문에서는 세 가지 방식의 reward를 사용했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Compressibility and Incompressibility&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Text-to-image diffusion model은 학습시, text-image의 co-occurence로 학습을 진행하기 때문에, prompt를 이용해 file size를 명시하는 것이 어렵다. 주로 image에 대한 caption에 file size(kb, mb, gb)를 명시하지 않으므로 (EX: “고양이가 생선을 먹고있는 사진” 으로 파일 사이즈 없이 captioning이 달리므로)모델이 파일크기에 대한 정보를 수급하지 못한다. 이에 논문에서는 diffusion model의 sample들을 512x512로 고정하고, Reward로 file-size를 조정함으로서 얼마나 원본이미지의 중요한 성질을 유지하며 잘 압축시켰는지(compressibility)혹은 그 반대로 얼마나 원본 이미지 보다 더 세밀하게 구현했는지(Incompressibility)등을 하나의 지표로 사용하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Aesthetic Quality&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;두 번째로 사용한 방식은, LAION aesthetics predictor를 reward function으로 사용해, 모델에서 생성해낸 이미지의 예술성 척도를 Reward로 사용해, 더 aesthetic 한 이미지를 생성하는 objective로 적용하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Automated Prompt Alignment with Vision-Language Models&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로, 인간이 직접 reward를 labeling하는 방식을 적용하면 RLHF(Reinforcement Learning with human feedback)방식이 되나, 논문에서는 이러한 Labeling 과정을 vision-language model(VLM)에서의 feedback으로 대체하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 figure가 논문에서 사용한 VLM의 예시인데, 먼저 prompt(“a monkey washing dishes”)를 Diffusion model에 입력해 이미지를 생성한다. 그 다음 LLaVA(Liu et al., 2023)모델에 이미지와  이미지에 대한 짧은 설명을 달라는 prompt를 함께 제공함으로서, short description을 얻는다. 처음에 입력했던 prompt와 요약된 설명의 bert similarity를 계산해 이를 reward로 사용한다.&lt;/p&gt;
+
+&lt;p&gt;직관적으로 생각해 보면, prompt를 통해 생성한 이미지가 과연 그 prompt 에 맞춰 제대로 이미지를 생성해 냈는지를 확인할 수 있는 지표가 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;논문에서 Experiment 의 목적은, User-specified objective들 (reward 세팅으로 정해짐) 에 대해서 RL algorithm으로 Diffusion model을 fine-tuning 하는 방식이 과연 효과적인가를 판단함에 있다. 특히 아래 세 가지 질문들에 답할 수 있는가에 집중하였다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;DDPO와, 기존 방식 RWR(Reward-weighted Regression) 간의 비교&lt;/li&gt;
+  &lt;li&gt;VLM 방식이 인간이 수동으로 Labeling하기 힘든 부분들에 대한 대안책이 될 수 있는가?&lt;/li&gt;
+  &lt;li&gt;RL fine-tuning이 fine-tuning 과정에서 보지 못했던 prompt 들에 대해서도 generalization이 가능한가? (overfit이 일어나지 않는가?)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Experiment Settings&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;모든 Experiments들에 대한 Base model로는 Stable Diffusion v1.4(Rombach et al., 2022)를 사용하였다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;학습에 사용된 이미지들은 ImageNet-1000 category의 398개의 동물이미지를 Uniform하게 sampling한 이미지로, Compressibility, Incompressibility에서는 이를 모두 이용해 Fine-tuning을 진행했다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Aesthetic quality prompt의 경우에만 조금 더 작은 45 categories의 동물이미지를 사용하였다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각 실험별 상세한 Setting들은 내용 설명과 함께 진행하겠다.&lt;/p&gt;
+
+&lt;h3 id=&quot;algorithm-comparisons&quot;&gt;Algorithm Comparisons&lt;/h3&gt;
+&lt;p&gt;논문에서는 먼저 전반적 성능 확인을 위해 Reward Setting 1, 2번에 대한 결과를 이전 알고리즘(RWR)과 대비해 분석한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 서로 다른 reward function에 대한 RL Fine-tuned Result이다. 정성적 관점에서, Aesthetic Quality에서는 기본 pre-trained 이미지에 비해 훨씬 예술적인(빛의 구도 등) 이미지를 연출하며, compressibility에서는 이미지 내에서 가장 중요한 부분들을 살리고 나머지는 간소화 한 것을 확인 할 수 있다. 반대로 Incompressibility에서는 file 크기를 늘리기 위해 이미지 내의 세세한 부분들을 선명하게 구현하였음을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Reward 지표를 바탕으로한 정량적 분석에서는 DDPO 방식이 기존의 방법론 RWR에 비해 훨씬 지표상으로 많은 Reward를 얻었음을 확인할 수 있다. 또한 Importance sampling 기법을 사용한 것이 Monte Carlo based approach(REINFORCE)에 비해 약간 더 나은 성능을 보였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;automated-prompt-alignment&quot;&gt;Automated Prompt Alignment&lt;/h3&gt;
+&lt;p&gt;다음으로, VLM 방식의 효과성을 확인하기 위해, 이전 task들에서 가장 성능이 좋았던 DDPO-IS를 바탕으로, 실험을 진행했다.&lt;/p&gt;
+
+&lt;p&gt;Prompt Setting은 “a(n) [animal] [activity]”를 베이스로, animal의 경우 Aesthetic에서 사용된 45개의 동물 카테고리를 사용였고, activity의 경우 “riding a bike”, “playing chess”, 그리고 “washing dishes” 세 가지만 사용하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 pretrained 된 stable diffusion으로부터, fine-tuning이 진행될수록 변하는 이미지를 나타내고 있다. 가장 위 “a dolphin riding a bike”를 먼저 살펴보면, pretrained된 상태에서는 이와 유사한 이미지를 생성하지도 못하지만, fine-tuning을 진행하면서 점점 faithful한 이미지를 생성해 냄을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;그림 우측의 Prompt Alignment Score 에서도 역시 Training Sequence들이 진행되면서 Bert Score 향상의 유의미한 지표를 보여주고 있다.&lt;/p&gt;
+
+&lt;p&gt;논문에서 Fine-tuning이 이루어지며 점점 Cartoon 풍의 이미지로 변한다는 사실을 짚었는데, 이에 대한 해석으로 저자들은 “동물이 사람이 하는 행동을 하는 Image들 자체가 주로 만화에서 등장해서” 라고 이를 분석하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;generalization&quot;&gt;Generalization&lt;/h3&gt;
+&lt;p&gt;RL Finetuning이 Generalization Property를 띈다는 다른 논문 (English instruction이 다른 언어에 대한 capability  역시 상승시켰다는 내용; Ouyang et al., 2022) 의 결과와 마찬가지로, 동물 이미지로 학습한 DDPO에 대해 보지 못했던 새로운 동물, 동물이 아닌 사물, 그리고 새로운 시나리오(앞서 언급한 3가지 행동 prompt가 아닌)에 대해서도 일반적으로 좋은 성능을 냄을 확인할 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림에서는 학습 때 사용하지 않았던 홍학, 불가사리, 그리고 사물인 자전거와 냉장고 이미지에서도 Aesthetic fine-tuned 상황에서 이러한 특징을 잘 살리고 있음을 확인할 수 있다. 또한, “a capybara washing dishes” 나 “a duck taking an exam”과 같은 새로운 동물 + 시나리오에 대해서도 그럴듯한 이미지를 생성해 냄을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;이 논문에서는 DDPO(Denoising Diffusion Policy Optimization)를 제시해, 기존의 Diffusion model components들을 Multi-step MDP로 재정의하고, 이전 방법론(RWR)의 Suboptimality 한계를 강화학습의 Policy gradient update를 적용함으로서 극복해 Downstream task fine-tuning 성능을 향상시켰다.&lt;/p&gt;
+
+&lt;p&gt;더 나아가 논문은 Stable Diffusion과 같은 text-to-image 모델에 대해, Policy gradient 에 필요한 Reward function을 다양하게 설정하는 방식으로 User-specific objective를 정의하는 방법을 제시하였다. 실제 실험 결과를 통해 이러한 RL-based fine-tuning이 미리 설정된 Reward function 에 따라 효과적으로 목적을 달성함을 확인하였으며, Data-specific 하지 않고 generalization이 가능함을 증명해 보였다. 특히 LLM등에서 사용되어 파장을 일으켰던 RLHF 방법론을  VLM(Vision Language Model)등을 이용해 유저 라벨링 없이도 이용이 가능하게 설계했다는 점에서 상당한 의의가 있다.&lt;/p&gt;
+
+&lt;p&gt;논문에서는 Text-to-image에 한정하여 실험을 진행하였으나, Diffusion 기반 모델들의 Fine-tuning에 RL방법론을 사용할 수 있다는 점은 이 논문이 훨씬 다양한 분야로 확장이 가능함을 의미한다.&lt;/p&gt;
+
+&lt;p&gt;또한, Likelihood Maximization 에 대해, Policy gradient 방법론을 적용함으로서, 조금 더 Optimality에 다다르게 밀어넣을 수 있다는 점은, MDP formulation이 가능한 MLE base의 다양한 모델에 적용해 볼 만하다는 점에서 여러 색다른 접근이 가능하다고 해석할 수 있겠다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kiyoung Om
+    &lt;ul&gt;
+      &lt;li&gt;Affiliation: &lt;a href=&quot;http://silab.kaist.ac.kr/&quot;&gt;SILAB@Kaist&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Research Topic: Offline-RL, Reinforcement Learning&lt;/li&gt;
+      &lt;li&gt;Contact: se99an@kaist.ac.kr&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;6-reference--additional-materials&quot;&gt;&lt;strong&gt;6. Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Github Implementation
+    &lt;ul&gt;
+      &lt;li&gt;Official codes : &lt;a href=&quot;https://github.com/jannerm/ddpo&quot;&gt;DDPO&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Website: &lt;a href=&quot;https://rl-diffusion.github.io/&quot;&gt;DDPO official explanation&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Reference
+    &lt;ul&gt;
+      &lt;li&gt;Paper: &lt;a href=&quot;https://arxiv.org/abs/2305.13301&quot;&gt;Training Diffusion Models with Reinforcement Learning&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Other References
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2006.11239&quot;&gt;Denoising Diffusion Probabilistic Models&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2305.16381&quot;&gt;DPOK: Reinforcement Learning for Fine-tuning Text-to-Image Diffusion Models&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://proceedings.neurips.cc/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf&quot;&gt;Policy Gradient Methods for Reinforcement Learning with Function Approximation&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://is.mpg.de/fileadmin/user_upload/files/publications/ICML2007-Peters_4493%5B0%5D.pdf&quot;&gt;Reinforcement Learning by Reward-weighted Regression for Operational Space Control&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            <pubDate>Wed, 17 Apr 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/Training_Diffusion_Models_With_Reinforcement_Learning.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Training_Diffusion_Models_With_Reinforcement_Learning.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>[ICLR 2024] Time-LLM: Time Series Forecasting by Reprogramming Large Language Models</title>
+            <description>&lt;p&gt;Hello Worlds&lt;/p&gt;
+</description>
+            <pubDate>Wed, 17 Apr 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/Time-LLM_Time_Series_Forecasting_by_Reprogramming_Large_Language_Models.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Time-LLM_Time_Series_Forecasting_by_Reprogramming_Large_Language_Models.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors</title>
+            <description>&lt;!-- &lt;div markdown=&quot;span&quot; class=&quot;alert alert-info&quot; role=&quot;alert&quot;&gt;&lt;i class=&quot;fa fa-info-circle&quot;&gt;&lt;/i&gt; &lt;b&gt;Note:&lt;/b&gt; This template is an example, so you don&apos;t have to follow this templates!&lt;/div&gt;
+
+
+ --&gt;
+
+&lt;h1 id=&quot;large-language-models-are-not-robust-multiple-choice-selectors&quot;&gt;&lt;strong&gt;Large Language Models Are Not Robust Multiple Choice Selectors&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-preliminary&quot;&gt;&lt;strong&gt;1. Preliminary&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;The paper investigates a performance issue in large language models (LLMs) when answering multiple-choice questions (MCQs). While MCQs are a common way to test LLMs, the models are susceptible to the order of the answer choices. The authors call this bias towards specific answer positions “&lt;strong&gt;selection bias&lt;/strong&gt;”.&lt;/p&gt;
+
+&lt;h3 id=&quot;11-measurement-of-selection-bias&quot;&gt;1.1 Measurement of Selection Bias&lt;/h3&gt;
+
+&lt;p&gt;To measure selection bias in LLMs answering multiple-choice questions, a simple way is to count how often the model picks each answer choice. However, this can be misleading if some answer choices are much more common than others, i.e., label imbalance.&lt;/p&gt;
+
+&lt;p&gt;Alternatively, the proposed way is to&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;first, calculate &lt;strong&gt;the balance of recalls&lt;/strong&gt; for each answer choice. This measures how often the model picks each choice when it is the correct answer, and&lt;/li&gt;
+  &lt;li&gt;next, compute &lt;strong&gt;the standard deviation of those recalls (RStd)&lt;/strong&gt; as a quantitative metric. A higher standard deviation of recalls, implying more variation, indicates a stronger bias towards certain answer IDs. Formally, the mathematical expression of this metric is $\textrm{RStd} = \textrm{Std} { \textrm{Recall}(d_i)_ {i=1}^ {n} } = \sqrt{\frac{\sum_ {i=1}^ {n} (\textrm{Recall}(d_ i) - \mu)^ 2}{n}}$, where $\mu = \frac{1}{n} \sum_ {i=1}^ {n} \textrm{Recall}(d_ i)$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_i) = \frac{\(d_i)}{1}$ --&gt;
+
+&lt;p&gt;and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_ i) = \frac{\textrm{#}(\textrm{correct answer is }d_ i \, \&amp;amp; \, \textrm{prediction is }d_ i)}{\textrm{#}(\textrm{correct answer is }d_ i)} \times 100\%$&lt;/p&gt;
+
+&lt;!-- and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_ i) = \frac{\#(\textrm{correct answer is }d_ i \, \&amp; \, \textrm{prediction is }d_ i)}{\#(\textrm{correct answer is }d_ i)} \times 100\%$ --&gt;
+
+&lt;p&gt;This method is more reliable because it is not affected by how common each answer choice is overall. Also, this method reflects how well the model will perform when the order of the answer choice is changed, because it focuses on how likely the model is to pick each option regardless of its position.&lt;/p&gt;
+
+&lt;h3 id=&quot;12-observations&quot;&gt;1.2 Observations&lt;/h3&gt;
+
+&lt;p&gt;The paper studied how selection bias affects different LLM models. The major insights are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Selection bias is common but inconsistent&lt;/strong&gt;: While most models show bias, it varies between models and sizes. Interestingly, even models trained on the same data (e.g., llama family) can exhibit different biases. This suggests a complex interrelation between training data, model capacity, and other factors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Selection bias shows some consistency within a model&lt;/strong&gt;: While not perfect, a model might favor certain answer choices (like A or B) across different MCQ tests. This suggests bias leans more towards inherent model behavior than the specific task or domain.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;In-context examples can be a double-edged sword&lt;/strong&gt;: Providing additional context (like a few examples) can reduce the original bias, but it might also introduce new ones. These new biases seem unpredictable even within the same model family, making selection bias even more intricate.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are two main hypotheses of selection bias in LLMs when dealing with MCQs:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Token Bias&lt;/strong&gt;: This hypothesis suggests that in the standard MCQ prompt, LLMs might inherently favor certain option IDs (e.g., A or C) when selecting answers, assigning them higher probabilities.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Position Bias&lt;/strong&gt;: Alternatively, models may exhibit a bias towards options presented at specific ordering positions, such as favoring options presented first or last.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To differentiate between two potential causes, two ablation experiments are conducted:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Shuffling option IDs: This experiment involves randomly shuffling the default ID ordering, effectively eliminating the impact of position bias and focusing solely on token bias. However, this approach may affect the naturalness and quality of the MCQ prompt, potentially leading to degraded model performance.&lt;/li&gt;
+  &lt;li&gt;Removing option IDs: The option IDs are removed, and the model is asked to directly select option contents. This experiment helps gauge the impact of token bias, as any change in selection bias indicates the influence of token bias, while the remaining bias corresponds to position bias.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The results indicate that the removal of option IDs notably reduces selection bias, &lt;strong&gt;primarily indicating the influence of token bias&lt;/strong&gt;. However, the remaining selection bias, corresponding to position bias, varies across models and tasks, suggesting its presence but irregularity. Some models exhibit marginal remaining bias, while others still demonstrate pronounced bias even after reducing it significantly. This variability suggests that &lt;strong&gt;position bias exists but is highly model- and task-dependent&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Further, removing option IDs is evidently not a promising solution to selection bias in LLMs for MCQs. The first reason is regarding performance drop. While removing IDs reduces bias, it generally hurts how well the model answers the questions. This is because we have to estimate the answer by comparing the likelihood of each option, which is less effective than using the original option IDs. The second reason is due to implementation difficulty. Using likelihood is cumbersome compared to the simpler method of having the model predict the answer ID directly. In conclusion, removing option IDs is not a practical solution for mitigating selection bias.&lt;/p&gt;
+
+&lt;p&gt;Besides, the paper explores two ways to potentially reduce selection bias in LLMs with MCQs. One attempt is to involve explicit debiasing instruction. Adding a message telling the model to consider all options fairly shows no improvement. Another trial is to apply chain-of-thought (CoT) prompting. This technique involves prompting the LLM to explain its though process before giving the answer. Even with this prompt, the bias remains, thus the CoT prompting is inefficient. The two results suggest that selection bias is a deep-rooted issue within the LLM itself and cannot be easily fixed with basic changes to how the question is presented.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-method&quot;&gt;&lt;strong&gt;2. Method&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;To address the problem of selection bias, a new method called &lt;strong&gt;PriDe&lt;/strong&gt; is proposed. It can remove this bias without needing any additional training data by estimating the bias based on a small number of samples and then corrects for it during the normal operation of the LLM.&lt;/p&gt;
+
+&lt;h3 id=&quot;21-permutation-based-debiasing-baseline-and-formulation&quot;&gt;2.1 Permutation-based Debiasing Baseline and Formulation&lt;/h3&gt;
+
+&lt;p&gt;First, we need to define a baseline to compared with the newly proposed debiasing method. Here, the baseline averages the model’s prediction distribution across various permutations of options, countervailing both the model’s token bias and position bias.&lt;/p&gt;
+
+&lt;p&gt;Formally, let $q$ denote the MCQ question. Suppose the $n$ default-ordered option IDs (e.g., A/B/C/D) are $d_ i$ and the default-ordered option contents are $o_ i$, $i\in {1,2,…,n}$. Denote $I$ a permutation of ${1,2,…,n}$, $\mathcal{I}$ a set of possible permutations, $g_ I (i)$ the index of $i$ in $I$, and $x^ I$ the concatenation of the default-ordered option IDs and the $I$-permuted option contents, so that $o_ i$ is tied with $d_ {g_ I (i)}$ in $x^ I$. The permutation-based debiasing baseline can be formulated as&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation} 
+    \tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x) = \frac{1}{\vert \mathcal{I} \vert} \sum_ {I \in \mathcal{I}} P_ {\textrm{observed}} (d_ {g_ I (i)} \vert q, x^ I), \quad i \in {1,2,…,n},
+\end{equation}$&lt;/p&gt;
+
+&lt;p&gt;where $x$ is the default input of option IDs and option contents, $P_ {\textrm{observed}} (d_ {g_ I (i)} \vert q, x^ I)$ is the observed prediction probability for the option ID $d_ {g_ I (i)}$ (meaning $o_ i$ being correct) under the option permutation $I$, and $\tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x)$ denotes the debiased prediction probability for the option content $o_ i$. However, due to expensive computation, &lt;em&gt;cyclic permutation&lt;/em&gt;, where $\mathcal{I} = { (i, i+1, …, n, 1, …, i-1) }_ {i=1}^ n$, is alternatively considered to reduce the computational cost. In the case of the baseline, the overhead of Cyclic Permutation is still somewhat high, hence required more efficient debiasing methods.&lt;/p&gt;
+
+&lt;h3 id=&quot;22-prediction-probability-decomposition&quot;&gt;2.2 Prediction Probability Decomposition&lt;/h3&gt;
+
+&lt;p&gt;The core idea is to obtain a debiased prediction distribution by separating the model’s prior bias for option IDs from the overall prediction distribution. In other words, the observed prediction distribution $P_ {\textrm{observed}}$ over $d_ i$ can be decomposed as a prior distribution $P_ {\textrm{prior}}$ over $d_ i$ and a debiased distribution $P_ {\textrm{debiased}}$ over $d_ i$:&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation}
+    P_ {\textrm{observed}} (d_ i \vert q, x^ I) = Z_ {q, x^ I}^ {-1} P_ {\textrm{prior}} (d_ i \vert q, x^ I) P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x^ I), \forall I \in \mathcal{I}, \quad i \in {1, 2, …, n},
+\end{equation}$&lt;/p&gt;
+
+&lt;p&gt;where $f_ I (i)$ denotes $i$-th element in $I$. Note that the form of $P_ {\textrm{observed}}$ can be rewritten as a joint probability $P(d_ i , o_ j \vert q, x^ I)$ for $d_ i$ and $o_ j$, which equals to $P_ {\textrm{observed}} (d_ i \vert q, x^ I)$ if $j = f_ I (i)$ and $0$ otherwise. Thus, the above prediction probability decomposition can be interpreted as the conditional independent assumption (ignore the normalization $Z_ {q, x^ I}^ {-1}$), where the model holds independent beliefs about $d_ i$ and $o_ j$. Specifically, $P_ {\textrm{debiased}} (o_ j \vert q, x^ I)$ reflects the model’s &lt;strong&gt;true belief about the option content&lt;/strong&gt; $o_ j$, which is not influenced by the option ID $d_ i$. In constrast, $P_ {\textrm{prior}} (d_ i \vert q, x^ I)$ indicates the model’s &lt;strong&gt;prior bias for the option ID&lt;/strong&gt; $d_ i$, which actually involves not only the model’s token bias but also position bias, due to the natural binding between option IDs and options’ ordering positions. Thus, instead of strictly distinguishing the two biases, we can address them together by eliminating $P_ {\textrm{prior}}$.&lt;/p&gt;
+
+&lt;p&gt;For tractable derivation, assuming that $P_ {\textrm{debiased}}$ is not affected by option ordering, implying its invariance to option permutation $I$, allows $x_ I$ to be replaced with the default input $x$. Moreover, we assume $P_ {\textrm{prior}}$ to be independent of $x_ I$, meaning that the prior for option IDs depends on only the question $q$. Then, $(2)$ can be simplified to&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation}
+    P_ {\textrm{observed}} (d_ i \vert q, x^ I) = Z_ {q, x^ I}^ {-1} P_ {\textrm{prior}} (d_ i \vert q) P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x), \quad \forall I \in \mathcal{I}, i \in {1, 2, …, n}.
+\end{equation}$&lt;/p&gt;
+
+&lt;h3 id=&quot;23-debiasing-with-prior-estimation&quot;&gt;2.3 Debiasing With Prior Estimation&lt;/h3&gt;
+
+&lt;p&gt;Taking the logarithm of both sides of $(3)$ and summing over all $I \in \mathcal{I}$ gives&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation}
+    \sum_ {I \in \mathcal{I}} \log P_ {\textrm{observed}} (d_ i \vert q, x^ I) = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + \left( \sum_ {I \in \mathcal{I}} \log P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x) \right) + C
+\end{equation}$
+$\begin{equation}
+    = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + \left( \frac{\vert \mathcal{I} \vert}{n} \sum_ {j = 1}^ {n} \log P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x) \right) + C
+\end{equation}$
+$\begin{equation}
+    = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + C’, \quad i \in {1, 2, …, n}.
+\end{equation}$&lt;/p&gt;
+
+&lt;p&gt;Without any sample labels, we get&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation}
+    P_ {\textrm{prior}} (d_ i \vert q) = \textrm{softmax} \left( \frac{1}{\vert \mathcal{I} \vert} \sum_ {I \in \mathcal{I}} \log P_ {\textrm{observed}} (d_ i \vert q, x^ I) \right), \quad i \in {1, 2, … , n}.
+\end{equation}$&lt;/p&gt;
+
+&lt;p&gt;According to the observation that selection bias within the same model shows a moderate cross-domain similarity, it infers that the prior for option IDs is likely to transfer across different samples and domains, suggesting the computation for the priors of partial test samples and utilize them as an approximation for the remaining samples. This can tremendously enhance debiasing efficiency since no more computational overhead is required for the remaining samples upon the estimated prior.&lt;/p&gt;
+
+&lt;p&gt;Based on the mentioned motivation, PriDe at the beginning takes $K$ test samples $\mathcal{D}_ {\textrm{e}}$ from the test set $\mathcal{D}$, where $K$ can be adjusted depending on the esimation budget. Each sample in $\mathcal{D}_ {\textrm{e}}$ undergoes the standard permutation-based debiasing in $(1)$, during which we estimate each sample-specific prior $P_ {\textrm{prior}} (d_ i \vert q)$ using $(7)$. For the remaining samples $\mathcal{D}_ {\textrm{r}} = \mathcal{D} \setminus \mathcal{D}_ {\textrm{e}}$, the “global prior” $\tilde{P}_ {\textrm{prior}} (d_ i)$ is computed by averaging the previously computed priors as an approximation to the new sample’s $P_ {\textrm{prior}} (d_ i \vert q)$ in $(3)$. Thus, the approximated $\tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x)$ can be computed, resulting in the debiased prediction as follows:&lt;/p&gt;
+
+&lt;p&gt;$\begin{equation}
+    \tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x) \propto P_ {\textrm{observed}} (d_ i \vert q, x) / \tilde{P}_ {\textrm{prior}} (d_ i), \quad i \in {1, 2, …, n}.
+\end{equation}$&lt;/p&gt;
+
+&lt;p&gt;When $K \ll \vert \mathcal{D} \vert$, the overhead for prior estimation will become negligible compared to the whole inference cost. Figure 1 summarizes PriDe:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/algo_pride.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 1: PriDe Algorithm&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-experiment&quot;&gt;&lt;strong&gt;3. Experiment&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-experiment-setup&quot;&gt;&lt;strong&gt;3.1 Experiment setup&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Models:
+    &lt;ul&gt;
+      &lt;li&gt;Causal, decoder-only LLMs are used due to prevalent uses of this kind of architecture.&lt;/li&gt;
+      &lt;li&gt;20 LLMs from various families and sizes are included:
+        &lt;ul&gt;
+          &lt;li&gt;llama-7/13/65B (Touvron et al., 2023a)&lt;/li&gt;
+          &lt;li&gt;llama-2(-chat)-7/13/70B (Touvron et al., 2023b)&lt;/li&gt;
+          &lt;li&gt;vicuna-v1.3-7/13/33B, vicuna-v1.5-7/13B (Chiang et al., 2023)&lt;/li&gt;
+          &lt;li&gt;falcon(-inst)-7/40B (Almazrouei et al., 2023)&lt;/li&gt;
+          &lt;li&gt;gpt-3.5-turbo-0613 (OpenAI, 2022)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;All models except gpt-3.5-turbo are open-source on HuggingFace and allow access to output probabilities.&lt;/li&gt;
+      &lt;li&gt;gpt-3.5-turbo is a commercial API that only provides generated text, not output probabilities.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Benchmarks:
+    &lt;ul&gt;
+      &lt;li&gt;3 MCQ benchmarks are utilized:
+        &lt;ul&gt;
+          &lt;li&gt;MMLU (Hendrycks et al., 2020): 4-option MCQs; domains across 57 subjects&lt;/li&gt;
+          &lt;li&gt;ARC-Challenge (Clark et al., 2018): 4-option MCQs&lt;/li&gt;
+          &lt;li&gt;CommonsenseQA (CSQA) (Talmor et al., 2019): 5-option MCQs&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Evaluation:
+    &lt;ul&gt;
+      &lt;li&gt;The evaluation follows established LLM evaluation frameworks:
+        &lt;ul&gt;
+          &lt;li&gt;HuggingFace LLM Leaderboard&lt;/li&gt;
+          &lt;li&gt;EleutherAI lm-harness&lt;/li&gt;
+          &lt;li&gt;Original MMLU implementation&lt;/li&gt;
+          &lt;li&gt;OpenAI Evals&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Open-source models: output probabilities of option IDs (A/B/C/D/E) are used, with the highest probability indicating the prediction.&lt;/li&gt;
+      &lt;li&gt;gpt-3.5-turbo: the first generated token is compared to the golder answer (decoding temperature set to 0).&lt;/li&gt;
+      &lt;li&gt;The primary evaluation focuses on the 0-shot setting to avoid bias from additional information.&lt;/li&gt;
+      &lt;li&gt;5-shot experiments are also conducted, where in-context examples are provided from development sets and shared across all test samples within the same task.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;32-results&quot;&gt;&lt;strong&gt;3.2 Results&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;By comparing a new debiasing method called PriDe with two existing methods (Cyclic Permutation and Full Permutation) for reducing selection bias in LLMs answering MCQs, some key findings are, according to Figure 2, that&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;PriDe achieves better debiasing and improves performance compared to the other two methods, especially when considering the computational cost. This holds true even when additional context (in-context examples) is provided to the LLM.&lt;/li&gt;
+  &lt;li&gt;The estimated bias using PriDe correlates well with the actual selection bias observed in the model, suggesting PriDe effectively identifies the underlying cause of the bias.&lt;/li&gt;
+  &lt;li&gt;PriDe can achieve reliable bias estimation even with a limited amount of data (by sampling $K=\alpha \vert \mathcal{D} \vert$ test samples), indicating that the model’s bias for answer choices is consistent across different samples.&lt;/li&gt;
+  &lt;li&gt;PriDe can be combined with simpler debiasing methods (using fewer random permutations) to further improve efficiency while maintaining effectiveness.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/result_1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 2: Debiasing results&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Nonetheless, there are some limitations:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Full Permutation was not evaluated on the 5-option MCQ benchmark due to its high computational cost.&lt;/li&gt;
+  &lt;li&gt;For gpt-3.5-turbo, the debiasing process relies on an approximation because it does not provide the necessary output probabilities.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Furthermore, an analysis on transferability across different domains is performed. In reality, questions might come from various domains, so it is crucial to ensure that the debiasing method works even if it was not trained on that specific domain. The result, according to Figure 3, shows that the bias estimated from one domain with a small number of samples can be used to debias questions from other domains as well. Also, there might be a slight performance drop for LLMs when the domain shift is significant (e.g., STEM to NON-STEM). While PriDe aims to reduce bias, not boost performance, the authors suggest updating the estimated bias with a few new samples from the new domain if a large domain shift is expected. This update would have negligible extra cost compared to the overall process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/result_2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 3: Cross-domain debiasing results&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, the consequence of model predictions by debiasing methods is also taken into consideration. While the main goal was to reduce bias, the debiasing often leads to improved performance as well. There are 3 insights from the experiment:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Both methods (PriDe and Cyclic Permutation) improve more predictions than they worsen. This means debiasing generally helps the model make better choices.&lt;/li&gt;
+  &lt;li&gt;PriDe seems to mostly affect predictions where the model itself was not very confident at first. The new, debiased predictions tend to be among the top two choices the model considered before debiasing, especially for larger models. This suggests PriDe corrects the model’s bias for certain answer IDs when it is unsure and pushes the model towards a more likely answer.&lt;/li&gt;
+  &lt;li&gt;Cyclic Permutation changes even high-confidence predictions more frequently and can lead to more dramatic shifts in the answer choice. Also, it is inclined to pick the originally lowest-ranked option more often as the debiased answer. Additionally, it flattens the model’s confidence distribution across all answer choices. This is due to the nature of the permutation-based debiasing which is a sort of mixture of experts, where each expert considers the options in a different order. This leads to more neutral, i.e., less certain, predictions yet requires more computation compared to PriDe.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;4-conclusion&quot;&gt;&lt;strong&gt;4. Conclusion&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;!-- Please summarize the paper.  
+It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc. --&gt;
+
+&lt;p&gt;The study investigates a common issue in LLMs where their answers to MCQs can be influenced by the way the answer choices are presented. This presence is called selection bias, encompassing two main reasons: token bias and position bias. A new method called PriDe is then proposed to fix this bias. The mechanism of this approach is to estimate the model’s preference for certain answer IDs and corrects for it without needing any additional information about the questions themselves. This method is efficient, interpretable, and applicable for different domains, leading to the enhancement in the overall reliability of LLMs in answering MCQs.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author name: Rawat Padungkiettiwong
+    &lt;ul&gt;
+      &lt;li&gt;Affiliation: KAIST School of Computing&lt;/li&gt;
+      &lt;li&gt;Research Topic: Natural Language Processing, Trustworthy LLMs&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;6-reference--additional-materials&quot;&gt;&lt;strong&gt;6. Reference &amp;amp; Additional materials&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/chujiezheng/LLM-MCQ-Bias&quot;&gt;Github Implementation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;References&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Zheng, Chujie, Hao Zhou, Fandong Meng, Jie Zhou, and Minlie Huang. “Large language models are not robust multiple choice selectors.” In The Twelfth International Conference on Learning Representations. 2023.&lt;/p&gt;
+
+&lt;p&gt;Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothe ́e Lacroix, Baptiste Rozie`re, Naman Goyal, Eric Hambro, Faisal Azhar, et al. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023a.&lt;/p&gt;
+
+&lt;p&gt;Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Niko- lay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et al. Llama 2: Open founda- tion and fine-tuned chat models. arXiv preprint arXiv:2307.09288, 2023b.&lt;/p&gt;
+
+&lt;p&gt;Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https: //lmsys.org/blog/2023-03-30-vicuna/.&lt;/p&gt;
+
+&lt;p&gt;Ebtesam Almazrouei, Hamza Alobeidli, Abdulaziz Alshamsi, Alessandro Cappelli, Ruxandra Co- jocaru, Merouane Debbah, Etienne Goffinet, Daniel Heslow, Julien Launay, Quentin Malartic, Badreddine Noune, Baptiste Pannier, and Guilherme Penedo. Falcon-40B: an open large lan- guage model with state-of-the-art performance, 2023.&lt;/p&gt;
+
+&lt;p&gt;OpenAI. https://chat.openai.com.chat, 2022.&lt;/p&gt;
+
+&lt;p&gt;Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. Measuring massive multitask language understanding. In International Conference on Learning Representations, 2020.&lt;/p&gt;
+
+&lt;p&gt;Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord. Think you have solved question answering? try arc, the ai2 reasoning challenge. arXiv preprint arXiv:1803.05457, 2018.&lt;/p&gt;
+
+&lt;p&gt;Alon Talmor, Jonathan Herzig, Nicholas Lourie, and Jonathan Berant. CommonsenseQA: A ques- tion answering challenge targeting commonsense knowledge. In Proceedings of the 2019 Con- ference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), pp. 4149–4158, Minneapolis, Min- nesota, June 2019. Association for Computational Linguistics. doi: 10.18653/v1/N19-1421. URL https://aclanthology.org/N19-1421.&lt;/p&gt;
+</description>
+            <pubDate>Wed, 17 Apr 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors.html</link>
+            <guid isPermaLink="true">http://localhost:4000/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors.html</guid>
+            
+            <category>reviews</category>
+            
+            
+        </item>
         
         <item>
             <title>[SIGIR 2022] User-controllable Recommendation Against Filter Bubbles</title>
@@ -2034,981 +2563,6 @@ Beta Wavelet 은 $L$의 $C$-order 다항식이고 각 노드의 $C$-hops에 국�
             <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</link>
             <guid isPermaLink="true">http://localhost:4000/2023-11-20-Rethinking_Graph_Neural_Networks_for_Anomaly_Detection.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[WSDM 2020] RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback</title>
-            <description>&lt;h1 id=&quot;recvae-a-new-variational-autoencoder-for-top-n-recommendations-with-implicit-feedback&quot;&gt;&lt;strong&gt;RecVAE: a New Variational Autoencoder for Top-N Recommendations with Implicit Feedback&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-introduction&quot;&gt;&lt;strong&gt;1. Introduction&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;Matrix Factorization은 Collaborative Filtering을 기반으로 한 추천시스템의 기본적인 방법 중 하나이다. 하지만 이는 다음과 같은 문제점을 가지고 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;행렬의 크기가 사용자 (User)와 항목 (item)에 선형적으로 비례하기 때문에 매우 많은 파라미터를 필요로 한다.&lt;/li&gt;
-  &lt;li&gt;Cold Start 문제가 발생한다. 즉, 새로운 사용자나 항목이 추가될 때, 정확한 추천을 하기가 어렵다.&lt;/li&gt;
-  &lt;li&gt;몇몇 사용자나 항목에 대해서 주어진 데이터가 매우 적을 수 있다. 이는 과적합을 초래할 수 있으며 일반적으로 강력한 정규화가 필요하다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;최근에 이러한 극복하기 위해 Autoencoder 기반의 접근이 지속적으로 연구되고 있다. Collaborative Denoising Autoencoder (CDAE)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 사용자 피드백을 임베딩 하여 Cold Start 문제를 해결하였다. Variational Autoencoder (Mult-VAE)&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 Likelihood를 도입하여 향상된 결과를 보여주었다. 이 연구에서는 Mult-VAE의 확장으로서 Implicit Feedback을 활용하는 Recommender VAE (RecVAE) 를 제안하고 이것의 기여는 아래와 같다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;사용자 임베딩을 향상시키는 인코더 네트워크 설계 제안&lt;/li&gt;
-    &lt;li&gt;추천 시스템에 알맞는 적절한 사전분포 제안&lt;/li&gt;
-    &lt;li&gt;Implicit Feedback으로 인한 새로운 $\beta$-VAE 제안&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;2-preliminary&quot;&gt;&lt;strong&gt;2. Preliminary&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;21-variational-autoencoders-and-their-extensions&quot;&gt;&lt;strong&gt;2.1 Variational autoencoders and their extensions&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;Variational Autoencoder (VAE)는 복잡한 분포를 학습할 수 있는 잠재 변수 모델이다. 이에 대한 간략한 요약으로 시작하자. 주어진 데이터가 $p_ {true}(x)$를 따르고 모델을 $p_ {\theta}(x)$라고 하자. 잠재변수 $z$를 통해서 모델을 다시 표현 할 수 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$p_ {\theta}(x) = \int p_ {\theta}(x \vert z)p(z)dz$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 적분을 계산하는 것은 어려우므로 이것의 하계 (Lower Bound)를 최대화 하는 방법으로 모델이 훈련된다. 이를 ELBO (Evidence Lower Bound)라고 부르며 다음과 같다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$p_ {\theta}(x) \geq \mathcal{L}_ {\text{VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right],$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;여기서 $\text{KL}$은 KL-divergence를 의미하고 $p(z), q_ {\phi}(z \vert x)$는 각각 사전분포와 변분 분포를 의미한다. $p_ {\theta}(z,x)$를 학습함으로써 VAE는 생성모델로서 활용될 수 있다. 또한, $q_ {\phi}(z \vert x)$를 이용한다면 임베딩을 통한 재표현 (Representation)을 얻을 수 있다. $\beta$-VAE&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;는 더욱 향상된 재표현을 얻기 위해 다음과 같이 변형된 손실 함수를 제안 하였다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L}_ {\beta\text{-VAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \left[ \log p_ {\theta}(x \vert z) - \beta \text{KL}({q_ {\phi}(z \vert x)} \parallel p(z) )\right]$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Denoising variational autoencoders (DVAE)&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;는 데이터에 노이즈를 강제로 주입하여 재표현을 학습하기 위한 방법이다. 노이즈 분포 $p(\tilde{x} \vert x)$에 대하여 (예를 들어, 가우시안 혹은 베르누이 분포) 변형된 손실 함수를 정의한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L}_ {\text{DVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)} \left[ \log p_ {\theta}(x \vert z) - \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z) )\right]$,&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;그 결과로서 노이즈가 있는 데이터에 대해서도 의미있는 재표현을 얻을 수 있다. Conditional Variational Autoencoder (CVAE)&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;는 VAE의 또 다른 확장이다. 주어진 데이터가 $x$ 뿐만 아니라 $y$라는 레이블이 있다면 이것에 따른 조건부 확률 분포를 학습 할 수 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L}_ {\text{CVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x, y)}\left[ \log p_ {\theta}(x \vert z, y) - \text{KL}({q_ {\phi}(z \vert x, y)} \parallel p(z \vert y) )\right]$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;마지막으로, VAE with Arbitrary Conditioning (VAEAC)&lt;sup id=&quot;fnref:6&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:6&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;는 결측값 예측을 위해 사용하는 모델이며 협업 필터링 문제와 상당히 비슷하다. 주어진 데이터 $x$에 대해서 결측된 특성을 $x_ {b}$ 나머지를 $x_ {1-b}$ 라고 하자. CVAE에서 $y$ 대신 $(x_ {1-b}, b)$를 사용하면 VAEAC의 손실 함수를 정의할 수 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L}_ {\text{VAEAC}} = \mathbb{E}_ {q_ {\phi}(z \vert x, b)}\left[ \log p_ {\theta}(x_ {b} \vert z, x_ {1-b}, b) - \text{KL}({q_ {\phi}(z \vert x, b)} \parallel p(z \vert x_ {1-b}, b) )\right],$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;여기서 $b$는 Binary Masking을 의미한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;22-autoencoders-and-regularization-for-collaborative-filtering&quot;&gt;&lt;strong&gt;2.2 Autoencoders and Regularization for Collaborative Filtering&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;$U$, $I$를 유저와 항목의 집합으로 표기하고 $X$를 Implicit Feedback 행렬이라고 하자. 즉, $x_ {ui} = 1$ 인 필요충분조건은 유저 $u$가 항목 $i$를 긍정적으로 작용했다는 것이다. $x_ {u}$를 피드백 벡터라고 하자. CDAE&lt;sup id=&quot;fnref:1:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;는 $x_ {u}$에 베르누이 노이즈를 적용해서 복구하는 모델이므로 2.1 섹션의 Denosing 방법을 Autoencoder에 적용한 것과 같다. 즉, 손실 함수는 다음과 같다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\frac{1}{U}\sum_ {u=1}^{U}\mathbb{E}_ {p(\tilde{y_ {u}} \vert y_ {u})}\ell(\tilde{y_ {u}},\hat{y_ {u}})$,&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;여기서 $p$는 베르누이 노이즈, $\hat{y_{u}}$는 모델 추정값, $\ell$은 적절한 손실함수이다. (e.g. MSE)&lt;/p&gt;
-
-&lt;p&gt;Mult-VAE&lt;sup id=&quot;fnref:2:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;는 Collaborative Filtering에 적용하기 위해서 Likelihhod를 다항 분포로 가정한 VAE이다. $n_ {u}:= \sum_{j} (x_ {u})_ {j}$ 라고 하면 모델은 다음과 같이 정의된다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;$z_ {u} \sim N(0,I_ {k \times k})$&lt;/li&gt;
-    &lt;li&gt;$f_ {\theta}: \mathbb{R}^{k} \rightarrow \mathbb{R}^{\vert I \vert}$ is a neural network.&lt;/li&gt;
-    &lt;li&gt;$\pi(z_ {u}) \sim \text{softmax}(f_ {\theta}(z_{u}))$&lt;/li&gt;
-    &lt;li&gt;$x_ {u} \sim \text{Multinomial}(n_ {u}, \pi(z_ {u}))$&lt;/li&gt;
-    &lt;li&gt;(Objective) $\mathcal{L}_ {\text{Mult-VAE}} = \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[ \log p_ {\theta}(x_ {u} \vert z_ {u}) - \beta \text{KL}({q_ {\phi}(z_{u} \vert x_ {u})} \parallel p(z_ {u}) )\right]$&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;기본적으로, 제안된 모델 RecVAE는 Mult-VAE의 확장이다. DVAE 방법을 추가하여 생성모델을 정의한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;$p_ {\theta}(x_ {u} \vert z_ {u}) = \text{Multinomial}(x \vert n_ {u}, \pi(z_ {u}))$&lt;/li&gt;
-    &lt;li&gt;$\pi(z_ {u}) = \text{softmax}(f_ {\theta}(z_ {u}))$&lt;/li&gt;
-    &lt;li&gt;$f_{\theta}(z_ {u})$ is a neural network.&lt;/li&gt;
-    &lt;li&gt;$q_ {\phi}(z_ {u} \vert x_ {u}) = N(z_ {u} \vert \psi_ {\phi}(x_ {u}))$&lt;/li&gt;
-    &lt;li&gt;(Objective) $\mathcal{L} = \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \mathbb{E}_ {p(\tilde{x}_ {u} \vert x_ {u})}\left[ \log p_ {\theta}(x_ {u} \vert z_ {u}) - \beta \text{KL}({q_ {\phi}(z_ {u} \vert \tilde{x}_ {u})} \parallel p(z_ {u}) )\right]$&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;31-model-architecture&quot;&gt;&lt;strong&gt;3.1 Model Architecture&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;https://i.ibb.co/xJQrsLz/2023-10-14-164239.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;첫째 변화는 dense CNNs&lt;sup id=&quot;fnref:7&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;, swish activation functions&lt;sup id=&quot;fnref:8&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:8&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;, layer normalization&lt;sup id=&quot;fnref:9&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:9&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt;과 같은 아이디어를 결합해 Collaborative Filtering에 알맞는 Inference Network를 제안하며 위 그림과 같은 구조를 가지고 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;32-composite-prior&quot;&gt;&lt;strong&gt;3.2 Composite prior&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;https://i.ibb.co/tJDwC9P/2023-10-14-205240.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Mult-VAE 구조에서 데이터의 Sparsity 때문에 변분 분포의 파라미터 최적화가 어려움을 겪을 수 있다. 이는 강화학습에서 forgetting 효과라고 알려져 있으며 Policy 기반 강화학습 논문에 많은 논의가 있었다&lt;sup id=&quot;fnref:10&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:10&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt;. 이를 해결 하기 위한 방법중 하나는 학습된 파라미터를 기억해두는 방법이다. 즉, 새로운 파라미터를 찾는 학습은 좋은 결과를 주는 파라미터로 부터 크게 벗어나지 않게 정규화를 주어야 한다.&lt;/p&gt;
-
-&lt;p&gt;이는 Autoencoder 구조에서 $q_ {\phi}(z \vert x)$를 업데이트 할 때, 이전에 얻었던 $q_ {\phi_ {\text{old}}}(z \vert x)$을 적당히 유지하고 싶은 것과 같다 . 이를 수행할 수 있는 한 방법은 본래의 사전분포와 $q_ {\phi_ {\text{old}}}(z \vert x)$의 Convex Combination을 새로운 사전분포로 사용하는 것이다. 즉,&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$p(z \vert \phi_ {\text{old}},x) = \alpha N(z \vert 0,I) + (1-\alpha)q_ {\phi_ \text{old}}(z \vert x)$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;최종적인 모델 설계는 위 사진과 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;33-rescaling-kl-divergence&quot;&gt;&lt;strong&gt;3.3 Rescaling KL divergence&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;$\beta$-VAE&lt;sup id=&quot;fnref:3:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;은 재표현을 학습하기 위한 좋은 방법이지만 파라미터를 선택하는 방법이 학습에 큰 영향을 미친다. 기존의 연구&lt;sup id=&quot;fnref:11&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:11&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;와는 다르게 Collaborative Filtering VAE에 알맞는 $\beta$ 선택 방법에 대한 연구가 필요하다.&lt;/p&gt;
-
-&lt;p&gt;유저 피드백이 부분적으로 주어졌다고 하자. 부분적인 데이터에 대해서 $X_ {u}^{0}$를 유저 $u$가 긍정적으로 평가한 항목의 집합이라 하고 $X_ {u}^{f}$ 긍정적으로 평가한 모든 항목의 집합이라고 하자. 항목들이 One-hot Encoded Vecotr로 주어졌다고 하고, 다음과 같이 기호를 적자.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$x_ {u} = \sum_ {a \in X_ {u}^{0}}1_ {a}$&lt;/li&gt;
-  &lt;li&gt;$x_ {u}^{f} = \sum_ {a \in X_ {u}^{f}}1_ {a}$&lt;/li&gt;
-  &lt;li&gt;$\text{KL}_ {u} = \text{KL}(q_ {\phi}(z_ {u} \vert x_ {u}) \parallel p(z_ {u}))$&lt;/li&gt;
-  &lt;li&gt;$\text{KL}_ {u}^{f} = \text{KL}(q_ {\phi}(z_ {u} \vert x_ {u}^{f}) \parallel p(z_ {u}))$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;여기서 $1_ {a}$는 항목 $a$에 대응되는 One-hot Encoded Vector이다. 기존의 ELBO를 다음과 같이 정리 할 수 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L} = \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})}\left[ \log \text{Multinomial}(x_ {u}^{f} \vert \pi(z_ {u})) - \text{KL}_ {u}^{f}\right]$
-$= \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})} \left[ \sum_ {a \in X_ {u}^{f}} \log \text{Cat}(1_ {a} \vert \pi(z_ {u})) - \text{KL}_ {u}^{f}\right] + C$
-$= \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})}  \sum_ {a \in X_ {u}^{f}} \left[  \log \text{Cat}(1_ {a} \vert \pi(z_ {u})) - \frac{1}{\vert X_ {u}^{f}\vert} \text{KL}_ {u}^{f}\right] + C$,&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;여기서 $\text{Cat}$는 카테고리 분포이고 $C$는 최적화에 영향을 주지 않는 상수이다. (실제로 $\text{Multinomial}$의 정규화 상수이다.) 부분적 피드백에 대해 주어진 ELBO를 근사시키기 위해서 $q_ {\phi}(z_ {u} \vert x_{u}) \approx q_ {\phi}(z_ {u} \vert x_ {u}^{f})$ 그리고 $\text{KL}_ {u} \approx \text{KL}_ {u}^{f}$를 가정하자. 위 마지막 식에서 급수의 범위 $X_ {u}^{f}$를 $X_ {u}^{0}$로 대체하고 추가적인 가정을 이용하면,&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\approx \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u}^{f})}  \sum_ {a \in X_ {u}^{0}} \left[  \log \text{Cat}(1_ {a} \vert \pi(z_ {u})) - \frac{1}{\vert X_ {u}^{f}\vert} \text{KL}_ {u}^{f}\right] + C$
-$\approx \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})}  \sum_ {a \in X_ {u}^{0}} \left[  \log \text{Cat}(1_ {a} \vert \pi(z_ {u})) - \frac{1}{\vert X_ {u}^{f}\vert} \text{KL}_ {u}\right] + C$
-$= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[  \sum_ {a \in X_ {u}^{0}} \log \text{Cat}(1_ {a} \vert \pi(z_ {u})) - \frac{\vert X_ {u}^{0}\vert}{\vert X_ {u}^{f}\vert} \text{KL}_ {u}\right] + C$
-$= \frac{X_ {u}^{f}}{X_ {u}^{o}} \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[  \log \text{Multinomial}(x_ {u} \vert \pi(z_ {u})) - \frac{\vert X_ {u}^{0}\vert}{\vert X_ {u}^{f}\vert} \text{KL}_ {u}\right] + C$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;만약 $u$ 마다 $\vert X_ {u}^{f} \vert$가 일정하다면 새로운 상수 $\gamma = \frac{1}{\vert X_ {u}^{f} \vert}$를 정의하여 최종적으로 다음을 얻는다. (기댓값의 계수는 제거 할 수 있다.)&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L} \approx \mathbb{E}_ {q_ {\phi}(z_ {u} \vert x_ {u})} \left[  \log \text{Multinomial}(x_ {u} \vert \pi(z_ {u})) - \gamma \vert X_ {u}^{0}\vert \text{KL}_ {u}\right]$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이와 같은 방법으로 Implicit Feedback이 주어졌을 때 $\beta = \beta(x)$를 $\gamma \vert X_ {u}^{0}\vert$로 선택 할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;34-summary&quot;&gt;&lt;strong&gt;3.4 Summary&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;섹션 3.1, 3.2, 3.3의 결과를 종합하여 개선 손실 함수를 제안한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\mathcal{L}_ {\text{RecVAE}} = \mathbb{E}_ {q_ {\phi}(z \vert x)} \mathbb{E}_ {p(\tilde{x} \vert x)}\left[ \log p_ {\theta}(x \vert z) - \beta(x) \text{KL}({q_ {\phi}(z \vert \tilde{x})} \parallel p(z \vert \phi_ {\text{old}}, x) )\right]$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;모델 훈련을 마친 뒤, 새로운 사용자에 $x$에 대해서 $p_ {\theta}( x \vert q_ {\phi}(z \vert x))$은 항목 별 긍정적으로 평가할 확률을 준다. 이를 이용하여 상위 항목을 추천 해줄 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;RecVAE는 Adam&lt;sup id=&quot;fnref:12&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:12&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;12&lt;/a&gt;&lt;/sup&gt; Optimizer로 최적화 됐으며 $\text{lr} = 5*10^{-4}$와 $500$의 배치 크기가 사용되었다. 노이즈는 평균이 $0.5$인 베르누이 분포로 주입됐고 성능을 향상시키위해 $N(0,10I)$을 복합 사전분포에 추가했다. 즉, $p(z)$, $q_ {\phi_ {\text{old}}}$, $N(0,10I)$가 복합 사전분포로 사용됐고 각각의 비율은 3:15:2가 적합했다. $\gamma$는 Cross-validation을 통해 데이터마다 다른 값을 선택했다.&lt;/p&gt;
-
-&lt;h3 id=&quot;41-datasets&quot;&gt;&lt;strong&gt;4.1 Datasets&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;데이터 차원&lt;/th&gt;
-      &lt;th&gt;평가된 항목 수&lt;/th&gt;
-      &lt;th&gt;$\gamma$&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;MovieLens-20M&lt;/td&gt;
-      &lt;td&gt;(136677, 20720)&lt;/td&gt;
-      &lt;td&gt;9,990,682&lt;/td&gt;
-      &lt;td&gt;0.005&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Netflix Prize Dataset&lt;/td&gt;
-      &lt;td&gt;(463435, 17769)&lt;/td&gt;
-      &lt;td&gt;56,880,037&lt;/td&gt;
-      &lt;td&gt;0.0035&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Million Songs Dataset&lt;/td&gt;
-      &lt;td&gt;(571355, 41140)&lt;/td&gt;
-      &lt;td&gt;33,633,450&lt;/td&gt;
-      &lt;td&gt;0.01&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;RecVAE는 MovieLens-20M&lt;sup id=&quot;fnref:13&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:13&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;13&lt;/a&gt;&lt;/sup&gt;, Netflix Prize Dataset&lt;sup id=&quot;fnref:14&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:14&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;14&lt;/a&gt;&lt;/sup&gt;, Million Songs Dataset&lt;sup id=&quot;fnref:15&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:15&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;15&lt;/a&gt;&lt;/sup&gt;에서 평가되었으며 위 표는 각 데이터의 정보와 사용된 $\gamma$를 나타낸다. 각 데이터는 8:2의 비율로 훈련데이터와 평가데이터로 분리됐다.&lt;/p&gt;
-
-&lt;h3 id=&quot;42-baselines&quot;&gt;&lt;strong&gt;4.2 Baselines&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;모델을 비교하기 위해서 3가지 유형의 모델들을 비교할 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Linear models from classical collaborative filtering
-    &lt;ul&gt;
-      &lt;li&gt;Weighted Matrix Factorization (WMF)&lt;sup id=&quot;fnref:16&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:16&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;16&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;기존의 NMF 방법에서 각 성분에 신뢰도 계수를 결합한 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Sparse LInear Method (SLIM)&lt;sup id=&quot;fnref:17&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:17&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;17&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;NMF의 또 다른 변형으로서 Lasso 정규화를 사용하는 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Embarrassingly Shallow Autoencoder (EASE)&lt;sup id=&quot;fnref:18&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:18&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;18&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;Linear autoencoder를 가정한 뒤, closed form solution을 구하는 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Rank method
-    &lt;ul&gt;
-      &lt;li&gt;WARP&lt;sup id=&quot;fnref:19&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;19&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;각 유저와 항목의 쌍에 대해서 score를 추정하는 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;LambdaNet&lt;sup id=&quot;fnref:20&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:20&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;20&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;이산적인 rank의 gradient를 제시함으서 rank에 SGD를 적용한 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Autoencoder-based method
-    &lt;ul&gt;
-      &lt;li&gt;CDAE&lt;sup id=&quot;fnref:1:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;2.2절 참고&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Mult-DAE &amp;amp; Mult-VAE&lt;sup id=&quot;fnref:2:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;2.2절 참고&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Ranking-Critical Training (RaCT)&lt;sup id=&quot;fnref:21&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:21&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;21&lt;/a&gt;&lt;/sup&gt;
-        &lt;ul&gt;
-          &lt;li&gt;확률적 모델을 강화학습 아이디어와 결합한 방법&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;43-evaluation-metrics&quot;&gt;&lt;strong&gt;4.3 Evaluation Metrics&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;테스트 유저 $u$의 항목 $X_ {u}^{t}$와 모델의 (내림차순) 결과 $R_ {u}^{(n)}$에 대해서 $\text{Recall@}k(u)$와 $\text{NDCG@}k(u)$가 평가 지표로서 사용될 것이다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\text{Recall@}k(u) = \frac{1}{\min(\vert R_ {u}^{(n)} \vert, \vert X_ {u}^{t} \vert)} \sum_{n=1}^{k} 1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\text{DGG@}k(u) = \sum_{n=1}^{k}\frac{2^{1\left[R_ {u}^{(n)} \in  X_ {u}^{t} \right]}-1}{\log(n+1)}$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;$\text{NDCG@}k(u) = \text{DCG@}k(u) / \left( \sum_{n=1}^{\vert X_ {u}^{t} \vert } \frac{1}{\log(n+1)} \right)$&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;$\text{Recall@}k(u)$은 사용자 $u$에 대해서 관련있는 것들 중 모델이 추천해준 것에 대한 비율을 의미한다. 하지만 추천된 것들의 순서는 매우 중요하다. 이를 강조하기 위해서 $\text{DGG@}k(u)$가 도입됐고 이는 추천된 순서에 가중치를 부여하는 형태로 정의된다. 더불어, 이론적으로 가장 높은 값을 나눠줌으로서 0~1 사이의 값으로 만들어준 것이 $\text{NDCG@}k(u)$이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;44-results&quot;&gt;&lt;strong&gt;4.4 Results&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;https://i.ibb.co/ZdpKqMG/2023-10-15-001248.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;RecVAE을 각 경쟁 모델과 비교한 결과이다. 볼드체는 가장 좋은 결과이며 밑줄은 두번째로 좋은 결과이다. Million Songs Dataset에서는 EASE가 좋은 성능을 보이지만 나머지 결과에선 RecVAE가 좋은 모습을 보여준다.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;https://i.ibb.co/yWsMDnT/2023-10-15-001902.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Encoder 설계, 복합 사전분포, $\beta$ 조정, 교대훈련, 노이즈 주입에 대한 Ablation Study에 대한 결과이다. 교대훈련이란 인코더와 디코더를 동시에 훈련하지 않고 각각 훈련하는 것을 의미한다. 위 표에 따르면 각각의 기능은 성능 향상에 도움이 된다. 일부 기능은 개별적으로 적용되는 것보다 함께 사용되는 것이 효과적이다. (예를 들어, $\beta$ 조정과 교대훈련)&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;https://i.ibb.co/VJqBBFt/2023-10-15-002402.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;위 그래프는 복합 사전분포의 용이함을 증명하기 위해 임의로 선택된 사용자의 에폭 (epoch)에 따른 NDCG@100의 변화량을 그린 것이다. 기존의 가우시안 사전분포 보다 복합 사전분포의 변동량이 더욱 안정적인 것을 확인 할 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;이 논문에서는 Mult-VAE의 개선된 버전인 RecVAE를 제안한다. 이는 새로운 Encoder 구조, 복합 사전분포, Collaborative Filtering에 알맞은 $\beta$ 조정 방식을 포함하고 있으며, 여러가지 데이터에서 다른 모델의 성능을 능가했다. 향후 연구 방향으로서 주목되는 점은 (1) 이 방법을 유저와 항목을 뒤바꾸어 실험하면 어떻게 될지, (2) 사전분포를 더욱 복잡하게 만들면 어떻게 될지, (3) 컨벡스 결합이 아닌 다른 방법의 정규화를 이용하여 forgetting problem을 해결할 수 있는지와 같은 것이 고려된다.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;additional-materials--references&quot;&gt;&lt;strong&gt;Additional materials &amp;amp; References&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Official Code Availability&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;https://github.com/ilya-shenbin/RecVAE&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;(Review) Author information&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Gwangwoo Kim
-    &lt;ul&gt;
-      &lt;li&gt;Korea Advanced Institute of Science and Technology (KAIST), Graduate School of Data Science (GSDS)&lt;/li&gt;
-      &lt;li&gt;urikokp@kaist.ac.kr&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Yao Wu, Christopher DuBois, Alice X Zheng, and Martin Ester. 2016. Collaborative denoising auto-encoders for top-n recommender systems. In Proceedings of the Ninth ACM International Conference on Web Search and Data Mining. ACM, 153–162. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:1:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:1:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Dawen Liang, Rahul G Krishnan, Matthew D Hoffman, and Tony Jebara. 2018. Variational autoencoders for collaborative filtering. In Proceedings of the 2018 World Wide Web Conference on World Wide Web. International World Wide Web Conferences Steering Committee, 689–698. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:2:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:2:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Irina Higgins, Loic Matthey, Arka Pal, Christopher Burgess, Xavier Glorot, Matthew Botvinick, Shakir Mohamed, and Alexander Lerchner. 2017. BetaVAE: Learning basic visual concepts with a constrained variational framework. In International Conference on Learning Representations, Vol. 3. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:3:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Daniel Im Jiwoong Im, Sungjin Ahn, Roland Memisevic, and Yoshua Bengio. 2017. Denoising criterion for variational auto-encoding framework. In Thirty-First AAAI Conference on Artificial Intelligence. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:5&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Kihyuk Sohn, Honglak Lee, and Xinchen Yan. 2015. Learning structured output representation using deep conditional generative models. In Advances in neural information processing systems. 3483–3491. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:6&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Oleg Ivanov, Michael Figurnov, and Dmitry P. Vetrov. 2019. Variational Autoencoder with Arbitrary Conditioning. In 7th International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6-9, 2019. OpenReview.net. https://openreview.net/forum?id=SyxtJh0qYm. &lt;a href=&quot;#fnref:6&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:7&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Gao Huang, Zhuang Liu, and Kilian Q. Weinberger. 2016. Densely Connected Convolutional Networks. CoRR abs/1608.06993 (2016). arXiv:1608.06993 http: //arxiv.org/abs/1608.06993. &lt;a href=&quot;#fnref:7&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:8&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Prajit Ramachandran, Barret Zoph, and Quoc V. Le. 2018. Searching for Activation Functions. In 6th International Conference on Learning Representations, ICLR 2018, Vancouver, BC, Canada, April 30 - May 3, 2018, Workshop Track Proceedings. OpenReview.net. https://openreview.net/forum?id=Hkuq2EkPf. &lt;a href=&quot;#fnref:8&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:9&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E. Hinton. 2016. Layer Normalization. arXiv e-prints, Article arXiv:1607.06450 (Jul 2016), arXiv:1607.06450 pages. arXiv:stat.ML/1607.06450. &lt;a href=&quot;#fnref:9&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:10&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Rein Houthooft, Xi Chen, Yan Duan, John Schulman, Filip De Turck, and Pieter Abbeel. 2016. Vime: Variational information maximizing exploration. In Advances in Neural Information Processing Systems. 1109–1117. &lt;a href=&quot;#fnref:10&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:11&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Samuel R Bowman, Luke Vilnis, Oriol Vinyals, Andrew Dai, Rafal Jozefowicz, and Samy Bengio. 2016. Generating Sentences from a Continuous Space. In Proceedings of The 20th SIGNLL Conference on Computational Natural Language Learning. 10–21. &lt;a href=&quot;#fnref:11&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:12&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Diederik P. Kingma and Jimmy Ba. 2015. Adam: A Method for Stochastic Optimization. In 3rd International Conference on Learning Representations, ICLR 2015, San Diego, CA, USA, May 7-9, 2015, Conference Track Proceedings, Yoshua Bengio and Yann LeCun (Eds.). http://arxiv.org/abs/1412.6980 &lt;a href=&quot;#fnref:12&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:13&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;F. Maxwell Harper and Joseph A. Konstan. 2015. The MovieLens Datasets: History and Context. ACM Trans. Interact. Intell. Syst. 5, 4, Article 19 (Dec. 2015), 19 pages. https://doi.org/10.1145/2827872. &lt;a href=&quot;#fnref:13&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:14&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;James Bennett, Stan Lanning, et al. 2007. The netflix prize. In Proceedings of KDD cup and workshop, Vol. 2007. New York, NY, USA., 35. &lt;a href=&quot;#fnref:14&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:15&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Thierry Bertin-Mahieux, Daniel P.W. Ellis, Brian Whitman, and Paul Lamere. 2011. The Million Song Dataset. In Proceedings of the 12th International Conference on Music Information Retrieval (ISMIR 2011). &lt;a href=&quot;#fnref:15&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:16&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Yifan Hu, Yehuda Koren, and Chris Volinsky. 2008. Collaborative filtering for implicit feedback datasets. In 2008 Eighth IEEE International Conference on Data Mining. Ieee, 263–272. &lt;a href=&quot;#fnref:16&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:17&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Xia Ning and George Karypis. 2011. Slim: Sparse linear methods for top-n recommender systems. In 2011 IEEE 11th International Conference on Data Mining. IEEE, 497–506. &lt;a href=&quot;#fnref:17&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:18&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Harald Steck. 2019. Embarrassingly Shallow Autoencoders for Sparse Data. In The World Wide Web Conference. ACM, 3251–3257. &lt;a href=&quot;#fnref:18&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:19&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Jason Weston, Samy Bengio, and Nicolas Usunier. 2011. Wsabie: Scaling up to large vocabulary image annotation. In Twenty-Second International Joint Conference on Artificial Intelligence. &lt;a href=&quot;#fnref:19&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:20&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Christopher J Burges, Robert Ragno, and Quoc V Le. 2007. Learning to rank with nonsmooth cost functions. In Advances in neural information processing systems. 193–200. &lt;a href=&quot;#fnref:20&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:21&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Sam Lobel, Chunyuan Li, Jianfeng Gao, and Lawrence Carin. 2019. Towards Amortized Ranking-Critical Training for Collaborative Filtering. arXiv preprint arXiv:1906.04281 (2019). &lt;a href=&quot;#fnref:21&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-11-20-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-11-20-RecVAE_a_New_Variational_Autoencoder_for_Top-N_Recommendations_with_Implicit_Feedback.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[KDD 2022] ROLAND: Graph Learning Framework for Dynamic Graphs</title>
-            <description>&lt;!-- ---
-title: ROLAND Reivew
-sidebar: Introduction_sidebar
-keywords: introduction
-permalink: template.html
-toc: true
-folder: introduction
---- --&gt;
-
-&lt;h1 id=&quot;roland-graph-learning-framework-for-dynamic-graphs&quot;&gt;&lt;strong&gt;ROLAND: Graph Learning Framework for Dynamic Graphs&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2208.07239&quot;&gt;Paper Link&lt;/a&gt;
-&lt;a href=&quot;https://github.com/snap-stanford/roland&quot;&gt;Github Implementation&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 논문은 기존 연구들에서 제시한 dynamic graph에서의 graph representation learning의 한계점을 제시하고, static GNN에서 사용하던 테크닉들을 dynamic graph에서 활용할 수 있는 새로운 방법론인 ROLAND를 제시하였다.&lt;/p&gt;
-
-&lt;h3 id=&quot;before-we-start&quot;&gt;&lt;strong&gt;Before We Start&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Static Graph&lt;/strong&gt;: 시간에 따라 변하지 않는 graph를 의미한다.
-    &lt;ul&gt;
-      &lt;li&gt;$G = {V, E, X}$
-        &lt;ul&gt;
-          &lt;li&gt;$V$: node set&lt;/li&gt;
-          &lt;li&gt;$E$: edge set&lt;/li&gt;
-          &lt;li&gt;$X$: attribute matrix&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Dynamic Graph&lt;/strong&gt;: 시간에 따라 node, edge, attribute 등이 변화하는 graph를 의미한다.
-    &lt;ul&gt;
-      &lt;li&gt;$G(t) = {V(t), E(t), X_ {v}(t), X_ {e}(t)}$
-        &lt;ul&gt;
-          &lt;li&gt;$V(t)$: node set in timestep $t$&lt;/li&gt;
-          &lt;li&gt;$E(t)$: edge set in timestep $t$&lt;/li&gt;
-          &lt;li&gt;$X_v(t)$: node attribute matrix in timestep $t$&lt;/li&gt;
-          &lt;li&gt;$X_e(t)$: edge attribute matrix in timestep $t$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Graph Nerual Network (GNN)&lt;/strong&gt;: GNN의 목적은 local network neighborhood로 부터 반복적인 message aggregation을 통해 node embedding을 learn하는 것이다.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;img src=&quot;https://i.ibb.co/vV6W0th/2023-10-15-03-43-26.png&quot; alt=&quot;img_gnn&quot; /&gt;
-        &lt;ul&gt;
-          &lt;li&gt;$h^{(l)}$: $l$-th layer GNN을 apply 한 모든 node들의 embedding&lt;/li&gt;
-          &lt;li&gt;$m^{(l)}$: $l$-th layer에서의 message embedding&lt;/li&gt;
-          &lt;li&gt;$MSG^{(l)}()$: $l$-th layer message-passing function, 다양한 종류의 function이 있음&lt;/li&gt;
-          &lt;li&gt;
-            &lt;h2 id=&quot;aggl-l-th-layer-aggregation-function-다양한-종류의-function이-있음&quot;&gt;$AGG^{(l)}()$: $l$-th layer aggregation function, 다양한 종류의 function이 있음&lt;/h2&gt;
-            &lt;h2 id=&quot;introduction&quot;&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/h2&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Dynamic graph를 training 하는 것은 fraud detection, anti-money laundering, recommender systems 등 다양한 도메인에서 활용될 수 있다. 그렇기에 다양한 연구들을 통해 dynamic graph를 위한 GNN들이 개발되었지만 크게 다음과 같은 한계점들이 존재했다.&lt;/p&gt;
-
-&lt;h4 id=&quot;limitations&quot;&gt;Limitations&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;span style=&quot;color:red&quot;&gt; Model Design &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;기존 dynamic graph 모델들은 성능이 좋은 static GNN 아키텍쳐를 응용하는 것에 실패했다.
-        &lt;ul&gt;
-          &lt;li&gt;GNN을 feature encoder로 사용한 후 sequence 모델 얹기&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Skip-connection, batch normalization, edge embedding과 같은 테크닉들은 static graph GNN message passing에 효과적인 성능을 보여줬지만, dynamic graph에서는 응용되지 못하고 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;span style=&quot;color:green&quot;&gt; Evaluation &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;기존 연구들에서는 dynamic graph를 training 시키기 위해 dataset을 training, validation, test dataset으로 나눌 때 단순히 앞에서 부터 6:2:2로 자르는 등의 방법을 사용하였다.&lt;/li&gt;
-      &lt;li&gt;이는 dynamic graph가 가지는 시간에 따른 dataset distribution이 변화할 수 있다는 특성을 고려하지 않은 dataset 분리 방법이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;span style=&quot;color:blue&quot;&gt; Training &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;대부분의 dynamic GNN에서는 모든 timestep $t$에 대한 그래프 정보 $G(t)$를 GPU 메모리에 저장해야 하기 때문에 scalability issue가 있다.&lt;/li&gt;
-      &lt;li&gt;그렇기에 edge 개수 200만개 이하의 작은 graph들로 실험을 진행하는 등의 문제가 있었다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;ROLAND는 dynamic graph의 snapshot-based representation을 바탕으로 위의 limitation들을 타개하여 static GNN의 state-of-the-art 아키텍쳐들을 활용할 수 있도록 만들어졌다. Snapshot-based라는 용어를 간단히 이해해보기 위해 아래 Figure 1을 첨부하였다. Figure 1에서는 매일 다르게 발생하는 송금 내역을 표현한 dynamic graph가 주어졌을 때, 미래에 누군가가 다른 누군가에게 송금할지의 여부를 예측하는 link prediction을 하는 task를 가정하였다. 이 때, 각 timestep $t$의 graph snapshot이 있다고 생각하였을 때, $t+1$ 시점의 송금 내역을 예측하기 위해 직전 timestep인 $t$ 시점까지의 graph snapshot들을 이용할 수 있다. 이러한 방법을 snapshot-based 방법이라고 한다.&lt;/p&gt;
-
-&lt;!-- &lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;[http://some_place.com/image.png](https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png)&quot; /&gt;
-&lt;/p&gt; --&gt;
-
-&lt;p&gt;&lt;a name=&quot;img_fig1&quot;&gt;&lt;/a&gt;
-&lt;img src=&quot;https://i.ibb.co/RbLYk5J/2023-10-15-03-18-58.png&quot; alt=&quot;img_fig1&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;tackling-the-limitations&quot;&gt;Tackling the Limitations&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;span style=&quot;color:red&quot;&gt; Model Design &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Static GNN에서 다른 GNN layer에 있는 node embedding들을 &lt;em&gt;hierarchical node state&lt;/em&gt;들로 보는 새로운 관점을 제시하였다.&lt;/li&gt;
-      &lt;li&gt;Static GNN을 dynamic하게 generalize하기 위해서는 &lt;em&gt;hierarchical node state&lt;/em&gt;들을 새롭게 관찰되는 node와 edge들을 어떻게 이용하여 update할 지 정해야 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;span style=&quot;color:green&quot;&gt; Evaluation &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Dynamic graph에서 live-update를 할 수 있는 evaluation setting을 제시하였다.
-        &lt;ul&gt;
-          &lt;li&gt;일별이나 주별로 batch를 만들어 evaluation을 진행하고 update를 할 수 있도록 하였다.&lt;/li&gt;
-          &lt;li&gt;Data distribution이 timestep $t$에 따라 변화하는 dynamic graph의 특성을 고려하여 model update를 할 수 있다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;span style=&quot;color:blue&quot;&gt; Training &lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;시간에 따른 모든 graph를 저장하는 것이 아닌 training 할 때 새로운 graph snapshot과 과거의 node state 정보들만 GPU 메모리에 저장하였다.
-        &lt;ul&gt;
-          &lt;li&gt;이로 인해 5600만개의 edge들을 가지는 큰 graph를 train 시킬 수 있었다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Dynamic graph에서의 timestep $t$가 다른 prediction 문제들을 다른 task로 생각함으로써 문제를 meta-learning problem으로 formulation하였다. (&lt;a href=&quot;#img_fig1&quot;&gt;Figure 1&lt;/a&gt;)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;proposed-roland-framework&quot;&gt;&lt;strong&gt;Proposed ROLAND Framework&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;이제 위의 Tackling the Limitations를 조금 더 자세히 살펴보고자 한다. 해당 논문에서 다루는 자세한 notation들은 &lt;a href=&quot;https://arxiv.org/abs/2208.07239&quot;&gt;paper&lt;/a&gt;을 직접 참고하면 된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a name=&quot;model_design&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;-model-design-&quot;&gt;&lt;span style=&quot;color:red&quot;&gt; Model Design &lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;먼저 작가들은 Figure 2에 기존의 static GNN과 이를 어떻게 dynamic GNN에 응용할지를 그림으로 나타내었다. 아래 Figure 2-(b)에서 볼 수 있듯이, embedding update 라는 블록을 통해 &lt;em&gt;hierarchical node state&lt;/em&gt; $H$를 update 시켜줌으로써 static GNN을 쉽게 dynamic GNN으로 확장시켰다. 이 방법론대로라면 skip connection, batch normalization 등 static GNN에서 사용되던 효과적인 테크닉들을 dynamic GNN에서도 그대로 활용할 수 있다는 장점이 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/C6cjxnN/2023-10-15-13-39-08.png&quot; alt=&quot;img_fig2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;결국 이 모델의 핵심은 &lt;em&gt;hierarchical node state&lt;/em&gt; $H$를 어떻게 update할 지인데, 이는 algorithm 1에 자세히 소개되어 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/t4VbsPV/2023-10-15-13-40-33.png&quot; alt=&quot;img_algo1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이 논문에서 $GNN^ {(l)}$ 내부에 message embedding의 정보를 합치는 $AGG$ 함수로 sum, max, mean을 제안하였고, node embedding을 update하는 $UPDATE^ {(l)}$ 함수로 기존에 사용되던 간단하지만 효과적인 Moving Average, MLP, GRU를 제안하였다. 이는 기존 static GNN에서 사용하던 테크닉을 그대로 가져온 것으로 보인다.
-모든 update가 끝나면 node $u$에서 $v$로 edge가 생길 확률을 $y_ {t}$를 MLP prediction head 블록을 통해 예측한다. 여기서 예측한 값은 다음에 설명될 live-update evaluation에 사용되어 모델을 update하는 것에 사용된다.&lt;/p&gt;
-
-&lt;h4 id=&quot;-evaluation-&quot;&gt;&lt;span style=&quot;color:green&quot;&gt; Evaluation &lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;기존 GNN 연구들에서는 통상적으로 train, test, validation dataset을 단순히 timestep 앞에서부터 6:2:2로 나누는 방식을 사용해왔다. 하지만, 이는 앞서 언급했듯이 변화하는 data distribution을 고려하지 못하게 되는 치명적인 단점이 있다. 이 paper에서는 해당 문제를 live-update evaluation을 제안함으로써 해결한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/c8B4z0C/2023-10-15-15-03-03.png&quot; alt=&quot;img_fig3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 Figure 3에서 볼 수 있듯이, 이전 시점의 node embedding과 현재 시점의 새로운 graph snapshot을 input으로 GNN에 넣어 prediction $\hat{y}_ {t}$를 얻은 후, 실제  $y_ {t}$와 비교하여 mean reciprocal rank (MRR)을 통해 평가하게 된다. 자세한 training 과정은 아래 algorithm 2에 소개되어 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/jrSF50V/2023-10-15-15-02-46.png&quot; alt=&quot;img_algo2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Update에 앞서서 먼저 live-update를 위한 link predicion label들을 각 timestep에 모아준 후, training set과 validation set으로 나누어준다. Training set $y^ {(train)}$은 GNN을 fine-tuning하는 것에 사용되고, validation set $y^ {(val)}$은 early stopping criterion으로써 활용된다 (Algorithm 2의 3, 5 ,6번째 줄). 이는 $y^ {(val)}$으로 계산된 $MRR^ {(val)}$이 증가하는 것이 멈출 때까지 반복된다 (Algorithm 2의 4, 7번째 줄).
-$MRR$은 propose 된 결과들 중 실제 값이 몇 번째 rank에 있는지에 관련된 metric이다. 예를 들어, 단수형 단어가 주어졌을 때 복수형 단어를 맞춰야하는 task가 있다고 생각해보자. 이 때, apple을 input으로 주고 모델이 appl, apples, applet 를 뱉었다면 Rank는 $2$, Reciprocal Rank ($RR$)는 그의 역수인 $\frac{1}{2}$로 정의된다. $MRR$은 모든 $RR$의 평균으로 input query를 $Q$라 할 때 다음과 같이 정의된다.&lt;/p&gt;
-
-&lt;p&gt;$ MRR=\frac{1}{\vert Q \vert} \sum_ {i=1}^ {\vert Q \vert} \frac{1}{rank_ {i}} $&lt;/p&gt;
-
-&lt;p&gt;Training이 모두 끝나면 각 timestep $t$에 계산된 $MRR_ {t}$의 평균을 performance metric으로 사용하여 모델을 평가한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;-training-&quot;&gt;&lt;span style=&quot;color:blue&quot;&gt; Training &lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;위 Figure 3에 제시된 ROLAND의 아키텍처를 살펴보면, 각 시점에서 GNN을 update하는 것에 필요한 input은 이전 시점 node embedding $H_ {t-1}$과 새롭게 들어오는 graph snapshot $G_ {t}$임을 알 수 있다. 때문에, ROLAND의 memory complexity는 graph snapshot의 개수에 agnostic하고 scalable함을 알 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/42gtLdr/2023-10-15-16-19-14.png&quot; alt=&quot;img_algo3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ROLAND에서 제안된 또 다른 방법론 한 가지는 dynamic graph에서의 prediction task를 meta-learning 문제로 formulation하는 것이다. 예를 들어, daily graph snapshot이 input이라고 생각했을 때, 금요일의 모델과 토요일의 모델은 크게 다를 것이다. 때문에 금요일 모델을 단순히 fine-tuning 후 토요일 모델이라고 하는 것은 모델 성능에 좋지 않은 영향을 끼칠 수 있다. 이에 대해 작가들은 meta-model $GNN^ {(meta)}$를 찾는 Algorithm 3을 위와 같이 제시하였다.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;experiments&quot;&gt;&lt;strong&gt;Experiments&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;h4 id=&quot;experiment-setup&quot;&gt;&lt;strong&gt;Experiment setup&lt;/strong&gt;&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Datasets&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;아래 표는 이 paper에서 사용된 dataset의 종류와 각 dataset의 특성을 정리해 둔 표이다.&lt;/li&gt;
-      &lt;li&gt;&lt;img src=&quot;https://i.ibb.co/3hZv9MX/2023-10-15-17-18-24.png&quot; alt=&quot;img_table1&quot; /&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Baselines&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;EvolveGCN-H&lt;/li&gt;
-      &lt;li&gt;EvolveGCN-O&lt;/li&gt;
-      &lt;li&gt;T-GCN&lt;/li&gt;
-      &lt;li&gt;GCRN-GRU&lt;/li&gt;
-      &lt;li&gt;GCRN-LSTM&lt;/li&gt;
-      &lt;li&gt;GCRN-Baseline&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Evaluation Metric&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Mean Reciprocal Rank (MRR)
-        &lt;ul&gt;
-          &lt;li&gt;$ MRR=\frac{1}{\vert Q \vert} \sum_ {i=1}^ {\vert Q \vert} \frac{1}{rank_ {i}} $&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;results&quot;&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;실험은 크게 기존 dataset splitting 방법과 논문에서 제시한 live-update를 적용한 방법 두 가지로 진행되었다. 먼저 아래 Table 2는 기존의 dataset splitting 방법을 사용하여 dataset을 나눴을 때 각 baseline들과 ROLAND의 결과이다. ROALND는 앞에 &lt;a href=&quot;#model_design&quot;&gt;Model Design&lt;/a&gt;에서 제시한 것과 같이 $UPDATE$ 함수를 Moving Average, MLP, GRU 3가지를 사용하여 결과를 비교했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/8b3P8q6/2023-10-15-17-19-54.png&quot; alt=&quot;img_table2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;모든 dataset에서 ROLAND GRU가 가장 좋은 baseline 대비 $MRR$이 적게는 43.33%에서 많게는 73.74% 향상된 결과를 보여주었다.
-Table 3에는 이 paper에서 제시한 live-update 방법을 활용하여 train 시켰을 때의 결과를 기재하였다. 마찬가지로, 한가지 dataset을 제외한 모든 dataset에서 baseline들 대비 큰 $MRR$ 향상을 보여주었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/nPTtyWx/2023-10-15-17-53-45.png&quot; alt=&quot;img_table3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ROLAND에서 제시한 meta-model $GNN^ {(meta)}$를 사용하면 평균 performance가 적게는 2.84%에서 많게는 13.19% 증가하는 결과를 보여주었다. 더하여, $GNN^ {(meta)}$를 사용했을 때 $MRR$의 standard deviation이 줄어듦으로써 stability가 높아짐을 보였다.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;이 논문은 기존 static GNN에서 사용하던 테크닉과 아키텍처들을 dynamic graph에 어떻게 적용할 수 있을지 제안하였다. Paper은 크게 model design, evaluation, training 3가지 부분으로 나누어 기존 연구들의 한계점과 ROLAND의 contribution을 정리하였다.
-논문을 읽으며 인상 깊다고 느낀 점들은 다음과 같다. 먼저, 새로운 dynamic GNN 모델을 scratch부터 만들지 않고 static GNN과 dynamic GNN을 연결하는 다리를 제안했다는 점이다. 어떻게 보면 성능이 near-optimal하게 발전하여 saturate 되었다고 볼 수 있는 static GNN 아키텍쳐들을 그대로 dynamic GNN에 활용할 수 있도록 가져온 해당 논문의 아이디어는 현명한 방법으로 느껴졌다. 더하여, 시간마다 변화하는 data의 분포를 고려하기 위해 기존에 사용하던 60:20:20과 같은 dataset 분리 방법을 그대로 사용하지 않고, dynamic graph 특성에 맞춘 분리 방법을 적용했다는 점에서 세심하다고 느꼈다. 마지막으로, live-update를 통해 scalability issue를 해결했다는 점이 인상 깊게 다가왔다.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Author name: Haeun Jeon&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Contact: haeun39@kaist.ac.kr&lt;/li&gt;
-    &lt;li&gt;Affiliation: Financial Engineering Lab., KAIST&lt;/li&gt;
-    &lt;li&gt;Research Topic: Decision Focused Learning, Stochastic Optimization, Portfolio Optimization&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- ## **6. Reference &amp; Additional materials**  
-
-Please write the reference. If paper provides the public code or other materials, refer them.  
-
-&gt; [Github Implementation](https://github.com/snap-stanford/roland)
-* Reference   --&gt;
-</description>
-            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-11-20-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-11-20-ROLAND_Graph_Learning_Framework_for_Dynamic_Graphs.html</guid>
-            
-            <category>reviews</category>
-            
-            
-        </item>
-        
-        <item>
-            <title>[TSRML 2022] Private Data Leakage via Exploiting Access Patterns of Sparse Features in Deep Learning-based Recommendation Systems</title>
-            <description>&lt;h2 id=&quot;abstract&quot;&gt;Abstract&lt;/h2&gt;
-
-&lt;p&gt;Sparse and dense features are used in the deep learning-based recommendation models to carry user’s private information and this private data is often protected by the service providers using methods like memory encryption or hashing. In this paper, it is shown that irrespective of the protection used, the attacker would still be able to &lt;em&gt;learn information about which entry of the sparse feature is non-zero through the concept of embedding table access pattern&lt;/em&gt; posing a big threat to the security of customer’s sensitive data.&lt;/p&gt;
-
-&lt;h2 id=&quot;problem-definition&quot;&gt;Problem Definition&lt;/h2&gt;
-
-&lt;p&gt;Deep learning-based recommendation system models exploit different types of information related to the user including user attributes, user preferences, user behavior, social interaction and other contextual information to help the customers with better recommendations and companies with increased revenues. Now, there are two types of features as inputs to a deep neural network to make predictions of items a user may like, namely sparse and dense features.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;The sparse sparce features contain only a few non-zero features whereas the dense features contain a large number of non-zero attributes.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;These features store the information of a user as well the items in different forms. Sparse features are the discrete and categorical attributes associated with users and items whereas the dense features are the continuous and numerical ones. These features contain information which is personal to the user and is protected by the service provider with the help of memory encryption with hardware such as Intel’s SGX. However, we will look into some of the attacks an attacker may proceed with, with the purpose of stealing user’s personal information where methods like encryption or hash functions may not be useful and information like &lt;em&gt;which entries of the sparse features may be non-zero&lt;/em&gt; can be leaked.
-This is because sparse features have to be projected into the lower dimensional space through an embedding table where the index of the non-zero entries are used as an index for an embedding table lookup. It is shown in this paper, how this leakage could be enough threat to the sensitive information of the users.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Embedding table is a data structure used to represent and store embeddings of these sparse features, and access patterns means to study how the users interact with the items. So, embedding table access patterns means accessing the patterns of the sparse features embedded into an embedding table.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;It is demonstrated in the paper how it is possible to identify or extract sensitive information of a user with the help of embedding table access patterns under 4 different types of attacks:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Identification Attack&lt;/strong&gt;: identifying a user by with the help of combinations of unidentifiable features&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Sensitive Attribute Attack&lt;/strong&gt;: identifying a user by analyzing the user-item interaction behavior&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Re-Identification Attack&lt;/strong&gt;: identifying a user by tracking the same user by analyzing their interaction history.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hash Inversion with Frequency-based Attack&lt;/strong&gt;: showing how hashing the sensitive information may not be able to protect it against the attacks, by demonstrating a hash inversion attack based on access frequency.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;working-of-the-dlrm-model-and-threat-model&quot;&gt;Working of the DLRM Model and Threat Model&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/30wHc1q&quot;&gt;&lt;img src=&quot;https://i.ibb.co/K9YHW6k/1.png&quot; alt=&quot;1&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The figure above shows the operation of the representative recommendation model, DLRM. In DLRM, the dense features go through a bottom MLP (multi-layer perceptron) layer whereas the sparse features go through an embedding table layer and get converted into lower-dimensional dense features. Then, these two outputs go through a feature interaction layer and then through a top MLP layer to predict the likelihood of an interaction.
-Embedding tables play a pivotal role in transforming the sparse categorical feature into a dense numerical representation. Let’s consider an example to understand this. Consider a scenario where users and movies are represented by categorical features such as user IDs and movie genres, respectively. To effectively utilize these features within a deep learning model, embedding tables are employed. These tables act as large lookup tables, with each row corresponding to a unique category or ID. To convert sparse features into dense representations, a lookup operation is performed using the non-zero entries in the sparse feature as an index. For instance, to convert a specific user’s ID into a dense representation, the corresponding row in the user embedding table is accessed, and similarly, for movie genres, the relevant row in the genre embedding table is retrieved. The outcome of these operations is a dense vector, a numerical representation of the user or genre in a multi-dimensional space. These dense representations are subsequently utilized in the recommendation system’s deep learning model, enabling accurate and personalized movie recommendations based on user preferences and movie genres. This process highlights the critical role of embedding tables.&lt;/p&gt;
-
-&lt;h4 id=&quot;threat-model&quot;&gt;Threat Model&lt;/h4&gt;
-&lt;p&gt;Now, even when the entire dense and sparse features are fully encrypted and are processed under a secure environment, there is a possibility to learn which index holds a non-zero entry by looking at the table access patterns, resulting in compromising with the sensitive user data.
-To understand the threat model, let’s assume the scenario. Let’s say a user shared their sensitive information with the service provider to get accurate recommendations from the system. Now, this sensitive information is fully protected with the Intel SGX team, but the access pattern of the embedding table is revealed, more specifically revealing which entries of the table are non-zero. The figure below, demonstrates our threat model.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/2nrjst4&quot;&gt;&lt;img src=&quot;https://i.ibb.co/LkyCJt7/2.png&quot; alt=&quot;2&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Like this, even when the information is kept safe with the honest-but-curious service provider, the access pattern of the embedding table can help reveal that sensitive information.&lt;/p&gt;
-
-&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;As also mentioned earlier, we will test out our theory of being able to extract sensitive information with the help of embedding table access patterns, with the help of four different types of attacks.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Attack&lt;/th&gt;
-      &lt;th&gt;Goal&lt;/th&gt;
-      &lt;th&gt;Assumptions&lt;/th&gt;
-      &lt;th&gt;Evaluation Metric&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Identification&lt;/td&gt;
-      &lt;td&gt;Finding the identity of the users&lt;/td&gt;
-      &lt;td&gt;Attacker observes accesses, Has prior knowledge about distribution of accesses&lt;/td&gt;
-      &lt;td&gt;K-anonymity&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Sensitive Attribute&lt;/td&gt;
-      &lt;td&gt;Extracting the sensitive user attributes&lt;/td&gt;
-      &lt;td&gt;Attacker observes accesses, Has prior knowledge about distribution of accesses&lt;/td&gt;
-      &lt;td&gt;Ambiguity&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Re-Identification&lt;/td&gt;
-      &lt;td&gt;Tracking users over time based on interaction history&lt;/td&gt;
-      &lt;td&gt;Attacker observes accesses&lt;/td&gt;
-      &lt;td&gt;Precision and Recall&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Hash Inversion with Frequency-based Attack&lt;/td&gt;
-      &lt;td&gt;Finding users raw feature values&lt;/td&gt;
-      &lt;td&gt;Attacker observes accesses, Has prior knowledge about distribution of accesses&lt;/td&gt;
-      &lt;td&gt;Inversion Accuracy&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;This table shows a summary of all the attacks, their goals and basic assumptions which have been used to prove the point of the sensitive information not being safe. Each of these attacks are discussed in detail.&lt;/p&gt;
-
-&lt;h2 id=&quot;identification-attack-with-static-user-feature&quot;&gt;Identification Attack with Static User Feature&lt;/h2&gt;
-
-&lt;p&gt;User profile attributes, such as gender, city, etc. are usually static in nature i.e., they don’t change with time. or the frequency of change is very low. We can categorize such features into two parts - identifiable and unidentifiable features.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Identifiable features are the features that are capable of directly or indirectly revealing the identity if the user. For example, name, city of residence, userID, etc.&lt;/li&gt;
-    &lt;li&gt;Unidentifiable features are the features that can’t directly expose the identity of the user but can still provide valuable information. For example, gender, education level, search keywords, etc.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Now due to strict regulations, most of the recommendation systems don’t usually collect and use the identifiable features. So, the question arises that are the unidentifiable features enough to make an accurate assumption of who the user might be?&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-setup&quot;&gt;Evaluation setup&lt;/h4&gt;
-&lt;p&gt;To find out whether the unidentifiable features are enough to find out about the user, an open-source dataset by Alibaba has been used, containing static user features, such as userID, groupID, gender, age group, shopping depth, occupation, city level, etc. of around 11.4M users.&lt;/p&gt;
-
-&lt;h4 id=&quot;attack-method&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;After removing all the identifiable features from the dataset, we will be left with 2.1M possible combinations of the unidentifiable features, which would make any user believe that their identity is anonymous or that revealing any of the remaining unidentifiable features, won’t reveal their identity. However, in contrast to the user’s belief, it is observed that in the real world only 1120 combinations of these static feature values are possible based on the real open-source data. We refer to these 1120 combinations as user buckets.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;User buckets are unique combinations of the feature values. The motto of the attacker can now be said to be able to recognize the users based on their unique combinations of features.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Taking the user bucket number as the x-axis and the percentage of the users per bucket as the y-axis, we plot the histogram to represent how the user distributions follow the long-tail pattern.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/hsKsKSM&quot;&gt;&lt;img src=&quot;https://i.ibb.co/XXzXzq4/3.png&quot; alt=&quot;3&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It can be seen from the histogram that there are only a few users in the bucket 600-1120 and in fact there are only 989 users on average across all these buckets and the last 56 buckets have only 1 user. So, these seemingly unidentifiable features may give away the user’s identity by allowing the attacker to launch an identification attack to extract the unique userID and identify the user with a high certainty.&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-metric&quot;&gt;Evaluation Metric&lt;/h4&gt;
-
-&lt;p&gt;The evaluation metric we have used for this analysis is the &lt;em&gt;K-anonymity&lt;/em&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;K-anonymity is a privacy property that measure how well the user privacy is preserved.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;If a user’s bucket number is revealed and there are K users in the same bucket then the probability of finding the user is 1/K.
-The table given below summarizes the number of users with anonymity level below K in the identification attacks.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/xYMvgrc&quot;&gt;&lt;img src=&quot;https://i.ibb.co/MfRT1Jj/4-t1.jpg&quot; alt=&quot;4-t1&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;1-anonymity user means that this is the only user having this particular set of feature values.&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-results&quot;&gt;Evaluation Results&lt;/h4&gt;
-&lt;p&gt;As shown in the above table, among 56 of the bucket users, there is only 1 user with the specific combination of static features which implies that an attacker can identify these users with 1-anonymity if they can observe this combination of feature values.&lt;/p&gt;
-
-&lt;h2 id=&quot;sensitive-attribute-attack-by-dynamic-user-features&quot;&gt;Sensitive Attribute attack by Dynamic User Features&lt;/h2&gt;
-
-&lt;p&gt;In this type of attack, we would see that even when the user’s hide, how the sensitive attributes such as age, gender, interest, etc. can be inferred by analyzing their user-item interaction behavior and how these sensitive features leak through other non-sensitive features through the concept of cross-correlations.&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-setup-1&quot;&gt;Evaluation setup&lt;/h4&gt;
-&lt;p&gt;For the purpose of evaluation, we have used the Alibaba Ads Display dataset, which contains user-item interactions. This dataset contains around 723,268,134 tuples and each tuple contains information about the userID, categoryID, brand and btag (browse, cart, favour, buy)&lt;/p&gt;
-
-&lt;h4 id=&quot;attack-method-1&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;Let’s understand the attack method with the help of an example, say in the data, there are 7 age groups and 5 different brands. The user-item interaction based on the age-group and the brand is given below in the connection graph.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/TmDcsjh&quot;&gt;&lt;img src=&quot;https://i.ibb.co/pJ62SVX/5.png&quot; alt=&quot;5&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, from the above graph a basic idea of the people belonging to a particular age group can be made. The user may not want to reveal their age, but the adversary may deduce their age with a high probability based on the type of brand the user has interacted with.
-In general, we can say that the attacker uses their prior knowledge o popularity of the items between different demographic groups. Then, based on this prior information, they link the query to the demographic who formed most of the accesses to that item. The task of knowing the prior information is not that big of a deal.&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-metric-1&quot;&gt;Evaluation Metric&lt;/h4&gt;
-&lt;p&gt;The evaluation metric we have used for this analysis is called &lt;em&gt;ambiguity&lt;/em&gt;. It helps in determining the likelihood with which an adversary fails to predict a user’s static sparse feature by just viewing their interactions with items. The ambiguity for each item is defined as follows:
-&lt;em&gt;ambiguity(i) = 100% - max(frequency(i))&lt;/em&gt;
-where, frequency = distribution vector of all accesses to brand i by different user groups.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;An ambiguity(i) = 0 indicates if a user has interacted with item i, the attacker can successfully determine the user’s sparse features.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;evaluation-results-1&quot;&gt;Evaluation Results&lt;/h4&gt;
-&lt;p&gt;In the graphs shown below, the x-axis shows the percentage of ambiguity where a value of 0 indicates that there is no ambiguity and this brand is always accessed by only one user bucket, whereas a higher ambiguity value depicts that brands are more popular across multiple user buckets.
-In figure 5(A), it ca be seen that the more than 17% of brands are only accessed by 1 user bucket represented by the leftmost tall bar of PDF, meaning that the attacker can determine the user bucket using those brand interactions. On the other hand, in the CDF curve, for 38% of the brands, the attacker can predict the user bucket with a success rate of greater than 50%.
-Similarly, the age and gender group versus the ambiguity are shown by graph 5(B) and 5(&lt;em&gt;C&lt;/em&gt;) respectively.&lt;/p&gt;
-
-&lt;h2 id=&quot;re-identification-attack&quot;&gt;Re-Identification Attack&lt;/h2&gt;
-
-&lt;p&gt;In the re-identification attack, the attacker focuses on tracking the same user over time by just analyzing their interaction history.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Re-identification attack is different from the identity resolution attack, as in the identity resolution attack the aim is to link the users across different system, potentially involving cross-referencing user’s information.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Under this attack, we study two important things:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;if the history of the purchases of a user can be used as a tracking identifier for the user.&lt;/li&gt;
-  &lt;li&gt;if an attacker can re-identify the same user who sent queries over time by only tracking the history of their purchases, with no access to the static sparse features.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;evaluation-setup-2&quot;&gt;Evaluation setup&lt;/h4&gt;
-
-&lt;p&gt;For the evaluation, we have used the Taobao dataset, and have separated about 9M purchase interactions among more than 723M user-item interactions. Then they have formatted the data into a time-series data structure, as shown below:
-&lt;em&gt;user1 = (time1,item1), (time4,item10), (time500,item20)&lt;/em&gt;
-&lt;em&gt;user2 = (time3,item100), (time20,item100)&lt;/em&gt; 
-.
-.
-.
-.
-&lt;em&gt;user_X = (time5,item75), (time20,item50), (time100,item75), (time400,item1), (time420,item10)&lt;/em&gt;
-Now for each set of consecutive items purchased by an user, we create a list of users who have the same set of consecutive purchases in exactly that order. We refer to these sets of consecutive recent purchases as &lt;em&gt;keys&lt;/em&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Multiple users may have the same key.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The goal of this attack is to use &lt;em&gt;m&lt;/em&gt; most recent purchases mad by a user to track them across different interactions sessions. To evaluation setup of this attack can be carried out as follows:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;randomly select a timestamp and a user&lt;/li&gt;
-  &lt;li&gt;for that selected user, we check &lt;em&gt;m&lt;/em&gt; most recent purchases at that selected timestamp and form a key&lt;/li&gt;
-  &lt;li&gt;we then look up this key in the recent item purchase history dataset
-    &lt;ul&gt;
-      &lt;li&gt;if the same sequence of m most recent items appear on another user at the same timestamp, this means those recent purchases are not unique or that specific user at that time and hence, doesn’t represent a single user.&lt;/li&gt;
-      &lt;li&gt;if the m items purchase history only belongs to that specific user, the duration of the time in which this key forms the most recent purchases of the user is extracted.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;the same is repeated for many random time stamps and users to obtain 200,000 samples.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/PZTB6FV&quot;&gt;&lt;img src=&quot;https://i.ibb.co/1fsHm74/6.png&quot; alt=&quot;6&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;By plotting the data, we may notice that the 3, 4 and 5 most recent purchases uniquely identify users with 99% probability.&lt;/p&gt;
-
-&lt;h4 id=&quot;attack-method-2&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;For the period of time the recent purchases remain the same, every query sent by the user has the same list of recent purchases, i.e., most recent items purchased by a user usually do not change with a very high frequency. The attacker uses this knowledge to launch the attack. So, the attacker first selects a time threshold. This time threshold is chosen to help the attacker to decide if the queries come from the same user or not.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;It helps in the way that if the time difference between receiving them is less than the time threshold and two distinct queries received by the cloud have the same most recent purchases, the attacker will predict that they come from the same user. Otherwise, it is assumed that queries come from two different users.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;evaluation-metrics&quot;&gt;Evaluation Metrics&lt;/h4&gt;
-&lt;p&gt;We use the concept of precision and recall to measure the accuracy of this attack:&lt;/p&gt;
-
-&lt;p&gt;Precision = $\frac{TP}{(TP+FP)}$&lt;/p&gt;
-
-&lt;p&gt;Recall = $\frac{TP}{(TP+FN)}$&lt;/p&gt;
-
-&lt;p&gt;where, TP = &lt;strong&gt;T&lt;/strong&gt;rue &lt;strong&gt;P&lt;/strong&gt;ositives
-FP = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;P&lt;/strong&gt;ositives
-FN = &lt;strong&gt;F&lt;/strong&gt;alse &lt;strong&gt;N&lt;/strong&gt;egetives&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Precision is asking the question “Of all the items model has predicted positive, how many are truly positive?”  whereas recall is asking the question “Of all the truly positive items in the dataset, how many did the model correctly identify?”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;evaluation-result&quot;&gt;Evaluation Result&lt;/h4&gt;
-&lt;p&gt;In evaluating precision and recall tradeoffs, we start with a low time threshold, resulting in high precision but few false positives, and increase it gradually. As the threshold increases for greater recall, false positives also rise, reducing precision. This is due to instances where different users generate the same key over time. When the two most recent purchases were used, it was found that around 4.5 million keys occur approximately 8 million times, leading to false positives in the experiments. The choice of the optimal threshold depends on whether the attacker prioritizes higher recall or precision.
-The figure given few steps above illustrates this tradeoff from 1 second to 277 hours, showing that a threshold of 11 days achieves a recall of 1.0 with a 0.02 drop in precision. This allows the attacker to correctly link queries from the same users but results in a 2% misclassification rate for queries with identical keys at some point in their purchase history. The high precision and recall values, indicate how an attacker can track users who send queries to the recommendation model over time.&lt;/p&gt;
-
-&lt;h2 id=&quot;hash-inversion-with-frequency-based-attack&quot;&gt;Hash Inversion with Frequency-Based Attack&lt;/h2&gt;
-&lt;p&gt;Utilizing a hash function on indices before performing a table lookup for embeddings is a crucial performance optimization. In this context, we examine the influence of hashing on information leakage. Specifically, we investigate how an attacker could potentially reconstruct the original values of sparse features, even when hashing is applied to embedding indices. The process involves remapping users’ raw data to post-hash values for indexing the embedding tables, as illustrated in the figure below.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ibb.co/Qc6NtCj&quot;&gt;&lt;img src=&quot;https://i.ibb.co/Db7CT8g/Capture.jpg&quot; alt=&quot;Capture&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-setup-3&quot;&gt;Evaluation Setup&lt;/h4&gt;
-&lt;p&gt;For the purpose of evaluation, Taobao, Kaggle and Criteo datasets have been used. The training and testing datasets have been selected for all 3 datasets. The training set samples forms the prior distribution ad the test sample are use for the evaluation.&lt;/p&gt;
-
-&lt;h4 id=&quot;attack-method-3&quot;&gt;Attack Method&lt;/h4&gt;
-&lt;p&gt;An adversary can initiate attacks by gathering observed index frequencies, utilizing prior knowledge about feature value distributions, and discerning the mapping between input and output of a hash. Here its illustrated how a system with hashed input values, where the hash function is expressed as $output = (input + mask_{add}) mod P$, where P is the hash size, can be compromised. We represent the frequency of potential inputs to the hash function as $x_1, x_2, …., x_N$ for N scenarios and its output frequency as $y_1, y_2, …., y_P$ for a hash size P. We construct the matrix $M ∈ R^{P X P}$, where each column signifies a distinct Mask value ([0, P − 1]). Essentially, for each mask value, we calculate the outcome frequencies and construct this matrix. As demonstrated, increasing the mask value by 1 shifts the column values, rendering the Matrix M a Toeplitz Matrix. Since a single column in this matrix is shifted and repeated, the order of forming this matrix is $O(P)$.
-Matrix M can be written as:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;$y_ 1$&lt;/th&gt;
-      &lt;th&gt;$y_ {P-1}$&lt;/th&gt;
-      &lt;th&gt;…&lt;/th&gt;
-      &lt;th&gt;$y_ 2$&lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$y_ 2$&lt;/td&gt;
-      &lt;td&gt;$y_ 1$&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;$y_ 3$&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$y_ P$&lt;/td&gt;
-      &lt;td&gt;$y_ {P-2}$&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;$y_ 1$&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;The attacker’s objective is to reverse the hash using the input distribution and observations of the output distribution. It’s crucial to note that the input and output datasets should be independent. We define $a_t$ as the distribution of embedding table accesses (post-hash) at time t. To decipher the mask, the attacker must identify the mask used by the hash function. This involves solving the optimization problem outlined below:
-$min_i ||(m_i-a_t)||^2 = min_i(||m_i||^2 +||a_t||^2-2m_i^Ta_t)$
-In this equation, $m_i$ represents the vector containing the frequencies of the output values when mask i is used, resulting in its absolute value being constant. Doing similar for $||a_t||$, the optimization problem can be simplified to:&lt;/p&gt;
-
-&lt;p&gt;$P_{bar} = arg max_i (m_i^Ta_t) for i ∈ [0,P-1] $
-$P_{bar} = arg max_i(M^Ta_t)$&lt;/p&gt;
-
-&lt;p&gt;The matrix-vector product computation, typically $O(P^2)$, is optimized to O(P log P) due to the Toeplitz nature of matrix M (Strang, 1986). In executing the attack, two sets are established: one for extracting the known distribution and another for frequency matching. The attacker successfully reverses the hash function, deduces the key, and further reverses post-hash indices to reveal raw sparse feature values. This enables the attacker to reverse engineer the post-hash value, identifying the most frequent pre-hash values based on input distributions. The entire process involves key discovery, post-hash index reversal, and deciphering raw feature values, showcasing the vulnerability of the system to this frequency-based attack.&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-metric-2&quot;&gt;Evaluation Metric&lt;/h4&gt;
-&lt;p&gt;Accuracy in this case would be the probability that the attacker correctly identifies an input raw value from the post-hash value. Let the function g(y) be the attacker’s estimate of the input, given the output query y, $g(y) = argmin_ x Prob(x)$ such that $h(x)_ {estimated}$ is te attackers estimation of the hash function. Now, we can say that:
-$Accuracy = Prob_ {x~P_ x} (x = g(h(x)))$
-Here, h(x) is the true hash function, and the probability is over the distribution of the input query.
-Introducing the concept of top K accuracy, a measure indicating the likelihood that the input query falls within the top K predictions of the attacker, we formally define this by using the notation  $S(y)_ {hat} = [x \vert h(x)_ {hat} = y]$, representing the set of possible inputs given an output query y according to the attacker’s estimation of the hash function.
-We then define $g_K(y) = [x ∈ S(y)_ {hat} | Prob(x)$  is in top K probabilities] as the top K members of $S(y)_ {hat}$ with the largest probability. In essence, $g_ K(y)$ signifies the set of the attacker’s top K predictions for the input query, formalizing the notion of top K accuracy within the context of the attacker’s estimations.
-$Accuracy_ {top K} = Prob_{x~P_ x} (x ∈ g_ K (h(x)))$&lt;/p&gt;
-
-&lt;h4 id=&quot;evaluation-result-1&quot;&gt;Evaluation Result&lt;/h4&gt;
-&lt;p&gt;The key observation for this attack can be stated that if an attacker observed the frequency of queries, they can reconstruct the values of raw features with high accuracy by knowing the distributions of the pre-hash values and type of the hash function.&lt;/p&gt;
-
-&lt;h2 id=&quot;potential-solutions&quot;&gt;Potential Solutions&lt;/h2&gt;
-&lt;p&gt;One approach to obfuscating the embedded table access pattern, mentioned by the authors, is to use Oblivious RAM (ORAM). In a way, ORAM succeeds in hiding the information about the real blocks from the attacker. However, the overhead of ORAM is unlikely to be acceptable for real-time application such as recommendation system inference due to Service Level Agreement (SLA). Moreover, it also relies on pre-determined sequence of accesses in training and is not applicable for inference.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;In this paper, the authors shed light on the information leakage through sparse features in deep learning-based recommendation system and how even the access patterns can be a big threat to privacy. They did this under 5 different types of attacks.&lt;/p&gt;
-
-&lt;h2 id=&quot;author-information-section&quot;&gt;Author Information Section&lt;/h2&gt;
-&lt;h4 id=&quot;anurag-yadav&quot;&gt;Anurag Yadav&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Affiliation&lt;/strong&gt;: &lt;a href=&quot;https://csdlab-kaist.github.io/&quot;&gt;Complex System Design Laboratory (csdlab-kaist.github.io)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Department&lt;/strong&gt;: Data Science&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Contact&lt;/strong&gt;: anusim2003@kaist.ac.kr&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-            <pubDate>Mon, 20 Nov 2023 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2023-11-20-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2023-11-20-Private_Data_Leakage_via_Exploiting_Access_Patterns_of_Sparse_Features_in_Deep_Learning-based_Recommendation_Systems.html</guid>
             
             <category>reviews</category>
             

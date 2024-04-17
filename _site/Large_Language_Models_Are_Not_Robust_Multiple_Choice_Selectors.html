@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <!-- <div markdown="span" class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note:</b> This template is an example, so you don't have to follow this templates!</div>
+
+
+ -->
+
+<h1 id="large-language-models-are-not-robust-multiple-choice-selectors"><strong>Large Language Models Are Not Robust Multiple Choice Selectors</strong></h1>
+
+<h2 id="1-preliminary"><strong>1. Preliminary</strong></h2>
+
+<p>The paper investigates a performance issue in large language models (LLMs) when answering multiple-choice questions (MCQs). While MCQs are a common way to test LLMs, the models are susceptible to the order of the answer choices. The authors call this bias towards specific answer positions “<strong>selection bias</strong>”.</p>
+
+<h3 id="11-measurement-of-selection-bias">1.1 Measurement of Selection Bias</h3>
+
+<p>To measure selection bias in LLMs answering multiple-choice questions, a simple way is to count how often the model picks each answer choice. However, this can be misleading if some answer choices are much more common than others, i.e., label imbalance.</p>
+
+<p>Alternatively, the proposed way is to</p>
+
+<ul>
+  <li>first, calculate <strong>the balance of recalls</strong> for each answer choice. This measures how often the model picks each choice when it is the correct answer, and</li>
+  <li>next, compute <strong>the standard deviation of those recalls (RStd)</strong> as a quantitative metric. A higher standard deviation of recalls, implying more variation, indicates a stronger bias towards certain answer IDs. Formally, the mathematical expression of this metric is $\textrm{RStd} = \textrm{Std} { \textrm{Recall}(d_i)_ {i=1}^ {n} } = \sqrt{\frac{\sum_ {i=1}^ {n} (\textrm{Recall}(d_ i) - \mu)^ 2}{n}}$, where $\mu = \frac{1}{n} \sum_ {i=1}^ {n} \textrm{Recall}(d_ i)$</li>
+</ul>
+
+<!-- and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_i) = \frac{\(d_i)}{1}$ -->
+
+<p>and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_ i) = \frac{\textrm{#}(\textrm{correct answer is }d_ i \, \&amp; \, \textrm{prediction is }d_ i)}{\textrm{#}(\textrm{correct answer is }d_ i)} \times 100\%$</p>
+
+<!-- and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_ i) = \frac{\#(\textrm{correct answer is }d_ i \, \& \, \textrm{prediction is }d_ i)}{\#(\textrm{correct answer is }d_ i)} \times 100\%$ -->
+
+<p>This method is more reliable because it is not affected by how common each answer choice is overall. Also, this method reflects how well the model will perform when the order of the answer choice is changed, because it focuses on how likely the model is to pick each option regardless of its position.</p>
+
+<h3 id="12-observations">1.2 Observations</h3>
+
+<p>The paper studied how selection bias affects different LLM models. The major insights are as follows:</p>
+
+<ul>
+  <li>
+    <p><strong>Selection bias is common but inconsistent</strong>: While most models show bias, it varies between models and sizes. Interestingly, even models trained on the same data (e.g., llama family) can exhibit different biases. This suggests a complex interrelation between training data, model capacity, and other factors.</p>
+  </li>
+  <li>
+    <p><strong>Selection bias shows some consistency within a model</strong>: While not perfect, a model might favor certain answer choices (like A or B) across different MCQ tests. This suggests bias leans more towards inherent model behavior than the specific task or domain.</p>
+  </li>
+  <li>
+    <p><strong>In-context examples can be a double-edged sword</strong>: Providing additional context (like a few examples) can reduce the original bias, but it might also introduce new ones. These new biases seem unpredictable even within the same model family, making selection bias even more intricate.</p>
+  </li>
+</ul>
+
+<p>There are two main hypotheses of selection bias in LLMs when dealing with MCQs:</p>
+
+<ol>
+  <li><strong>Token Bias</strong>: This hypothesis suggests that in the standard MCQ prompt, LLMs might inherently favor certain option IDs (e.g., A or C) when selecting answers, assigning them higher probabilities.</li>
+  <li><strong>Position Bias</strong>: Alternatively, models may exhibit a bias towards options presented at specific ordering positions, such as favoring options presented first or last.</li>
+</ol>
+
+<p>To differentiate between two potential causes, two ablation experiments are conducted:</p>
+
+<ul>
+  <li>Shuffling option IDs: This experiment involves randomly shuffling the default ID ordering, effectively eliminating the impact of position bias and focusing solely on token bias. However, this approach may affect the naturalness and quality of the MCQ prompt, potentially leading to degraded model performance.</li>
+  <li>Removing option IDs: The option IDs are removed, and the model is asked to directly select option contents. This experiment helps gauge the impact of token bias, as any change in selection bias indicates the influence of token bias, while the remaining bias corresponds to position bias.</li>
+</ul>
+
+<p>The results indicate that the removal of option IDs notably reduces selection bias, <strong>primarily indicating the influence of token bias</strong>. However, the remaining selection bias, corresponding to position bias, varies across models and tasks, suggesting its presence but irregularity. Some models exhibit marginal remaining bias, while others still demonstrate pronounced bias even after reducing it significantly. This variability suggests that <strong>position bias exists but is highly model- and task-dependent</strong>.</p>
+
+<p>Further, removing option IDs is evidently not a promising solution to selection bias in LLMs for MCQs. The first reason is regarding performance drop. While removing IDs reduces bias, it generally hurts how well the model answers the questions. This is because we have to estimate the answer by comparing the likelihood of each option, which is less effective than using the original option IDs. The second reason is due to implementation difficulty. Using likelihood is cumbersome compared to the simpler method of having the model predict the answer ID directly. In conclusion, removing option IDs is not a practical solution for mitigating selection bias.</p>
+
+<p>Besides, the paper explores two ways to potentially reduce selection bias in LLMs with MCQs. One attempt is to involve explicit debiasing instruction. Adding a message telling the model to consider all options fairly shows no improvement. Another trial is to apply chain-of-thought (CoT) prompting. This technique involves prompting the LLM to explain its though process before giving the answer. Even with this prompt, the bias remains, thus the CoT prompting is inefficient. The two results suggest that selection bias is a deep-rooted issue within the LLM itself and cannot be easily fixed with basic changes to how the question is presented.</p>
+
+<h2 id="2-method"><strong>2. Method</strong></h2>
+
+<p>To address the problem of selection bias, a new method called <strong>PriDe</strong> is proposed. It can remove this bias without needing any additional training data by estimating the bias based on a small number of samples and then corrects for it during the normal operation of the LLM.</p>
+
+<h3 id="21-permutation-based-debiasing-baseline-and-formulation">2.1 Permutation-based Debiasing Baseline and Formulation</h3>
+
+<p>First, we need to define a baseline to compared with the newly proposed debiasing method. Here, the baseline averages the model’s prediction distribution across various permutations of options, countervailing both the model’s token bias and position bias.</p>
+
+<p>Formally, let $q$ denote the MCQ question. Suppose the $n$ default-ordered option IDs (e.g., A/B/C/D) are $d_ i$ and the default-ordered option contents are $o_ i$, $i\in {1,2,…,n}$. Denote $I$ a permutation of ${1,2,…,n}$, $\mathcal{I}$ a set of possible permutations, $g_ I (i)$ the index of $i$ in $I$, and $x^ I$ the concatenation of the default-ordered option IDs and the $I$-permuted option contents, so that $o_ i$ is tied with $d_ {g_ I (i)}$ in $x^ I$. The permutation-based debiasing baseline can be formulated as</p>
+
+<p>$\begin{equation} 
+    \tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x) = \frac{1}{\vert \mathcal{I} \vert} \sum_ {I \in \mathcal{I}} P_ {\textrm{observed}} (d_ {g_ I (i)} \vert q, x^ I), \quad i \in {1,2,…,n},
+\end{equation}$</p>
+
+<p>where $x$ is the default input of option IDs and option contents, $P_ {\textrm{observed}} (d_ {g_ I (i)} \vert q, x^ I)$ is the observed prediction probability for the option ID $d_ {g_ I (i)}$ (meaning $o_ i$ being correct) under the option permutation $I$, and $\tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x)$ denotes the debiased prediction probability for the option content $o_ i$. However, due to expensive computation, <em>cyclic permutation</em>, where $\mathcal{I} = { (i, i+1, …, n, 1, …, i-1) }_ {i=1}^ n$, is alternatively considered to reduce the computational cost. In the case of the baseline, the overhead of Cyclic Permutation is still somewhat high, hence required more efficient debiasing methods.</p>
+
+<h3 id="22-prediction-probability-decomposition">2.2 Prediction Probability Decomposition</h3>
+
+<p>The core idea is to obtain a debiased prediction distribution by separating the model’s prior bias for option IDs from the overall prediction distribution. In other words, the observed prediction distribution $P_ {\textrm{observed}}$ over $d_ i$ can be decomposed as a prior distribution $P_ {\textrm{prior}}$ over $d_ i$ and a debiased distribution $P_ {\textrm{debiased}}$ over $d_ i$:</p>
+
+<p>$\begin{equation}
+    P_ {\textrm{observed}} (d_ i \vert q, x^ I) = Z_ {q, x^ I}^ {-1} P_ {\textrm{prior}} (d_ i \vert q, x^ I) P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x^ I), \forall I \in \mathcal{I}, \quad i \in {1, 2, …, n},
+\end{equation}$</p>
+
+<p>where $f_ I (i)$ denotes $i$-th element in $I$. Note that the form of $P_ {\textrm{observed}}$ can be rewritten as a joint probability $P(d_ i , o_ j \vert q, x^ I)$ for $d_ i$ and $o_ j$, which equals to $P_ {\textrm{observed}} (d_ i \vert q, x^ I)$ if $j = f_ I (i)$ and $0$ otherwise. Thus, the above prediction probability decomposition can be interpreted as the conditional independent assumption (ignore the normalization $Z_ {q, x^ I}^ {-1}$), where the model holds independent beliefs about $d_ i$ and $o_ j$. Specifically, $P_ {\textrm{debiased}} (o_ j \vert q, x^ I)$ reflects the model’s <strong>true belief about the option content</strong> $o_ j$, which is not influenced by the option ID $d_ i$. In constrast, $P_ {\textrm{prior}} (d_ i \vert q, x^ I)$ indicates the model’s <strong>prior bias for the option ID</strong> $d_ i$, which actually involves not only the model’s token bias but also position bias, due to the natural binding between option IDs and options’ ordering positions. Thus, instead of strictly distinguishing the two biases, we can address them together by eliminating $P_ {\textrm{prior}}$.</p>
+
+<p>For tractable derivation, assuming that $P_ {\textrm{debiased}}$ is not affected by option ordering, implying its invariance to option permutation $I$, allows $x_ I$ to be replaced with the default input $x$. Moreover, we assume $P_ {\textrm{prior}}$ to be independent of $x_ I$, meaning that the prior for option IDs depends on only the question $q$. Then, $(2)$ can be simplified to</p>
+
+<p>$\begin{equation}
+    P_ {\textrm{observed}} (d_ i \vert q, x^ I) = Z_ {q, x^ I}^ {-1} P_ {\textrm{prior}} (d_ i \vert q) P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x), \quad \forall I \in \mathcal{I}, i \in {1, 2, …, n}.
+\end{equation}$</p>
+
+<h3 id="23-debiasing-with-prior-estimation">2.3 Debiasing With Prior Estimation</h3>
+
+<p>Taking the logarithm of both sides of $(3)$ and summing over all $I \in \mathcal{I}$ gives</p>
+
+<p>$\begin{equation}
+    \sum_ {I \in \mathcal{I}} \log P_ {\textrm{observed}} (d_ i \vert q, x^ I) = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + \left( \sum_ {I \in \mathcal{I}} \log P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x) \right) + C
+\end{equation}$
+$\begin{equation}
+    = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + \left( \frac{\vert \mathcal{I} \vert}{n} \sum_ {j = 1}^ {n} \log P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x) \right) + C
+\end{equation}$
+$\begin{equation}
+    = \vert \mathcal{I} \vert \log P_ {\textrm{prior}} (d_ i \vert q) + C’, \quad i \in {1, 2, …, n}.
+\end{equation}$</p>
+
+<p>Without any sample labels, we get</p>
+
+<p>$\begin{equation}
+    P_ {\textrm{prior}} (d_ i \vert q) = \textrm{softmax} \left( \frac{1}{\vert \mathcal{I} \vert} \sum_ {I \in \mathcal{I}} \log P_ {\textrm{observed}} (d_ i \vert q, x^ I) \right), \quad i \in {1, 2, … , n}.
+\end{equation}$</p>
+
+<p>According to the observation that selection bias within the same model shows a moderate cross-domain similarity, it infers that the prior for option IDs is likely to transfer across different samples and domains, suggesting the computation for the priors of partial test samples and utilize them as an approximation for the remaining samples. This can tremendously enhance debiasing efficiency since no more computational overhead is required for the remaining samples upon the estimated prior.</p>
+
+<p>Based on the mentioned motivation, PriDe at the beginning takes $K$ test samples $\mathcal{D}_ {\textrm{e}}$ from the test set $\mathcal{D}$, where $K$ can be adjusted depending on the esimation budget. Each sample in $\mathcal{D}_ {\textrm{e}}$ undergoes the standard permutation-based debiasing in $(1)$, during which we estimate each sample-specific prior $P_ {\textrm{prior}} (d_ i \vert q)$ using $(7)$. For the remaining samples $\mathcal{D}_ {\textrm{r}} = \mathcal{D} \setminus \mathcal{D}_ {\textrm{e}}$, the “global prior” $\tilde{P}_ {\textrm{prior}} (d_ i)$ is computed by averaging the previously computed priors as an approximation to the new sample’s $P_ {\textrm{prior}} (d_ i \vert q)$ in $(3)$. Thus, the approximated $\tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x)$ can be computed, resulting in the debiased prediction as follows:</p>
+
+<p>$\begin{equation}
+    \tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x) \propto P_ {\textrm{observed}} (d_ i \vert q, x) / \tilde{P}_ {\textrm{prior}} (d_ i), \quad i \in {1, 2, …, n}.
+\end{equation}$</p>
+
+<p>When $K \ll \vert \mathcal{D} \vert$, the overhead for prior estimation will become negligible compared to the whole inference cost. Figure 1 summarizes PriDe:</p>
+
+<p><img src="../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/algo_pride.png" alt="" /></p>
+
+<p><em>Figure 1: PriDe Algorithm</em></p>
+
+<h2 id="3-experiment"><strong>3. Experiment</strong></h2>
+
+<h3 id="31-experiment-setup"><strong>3.1 Experiment setup</strong></h3>
+
+<ul>
+  <li>Models:
+    <ul>
+      <li>Causal, decoder-only LLMs are used due to prevalent uses of this kind of architecture.</li>
+      <li>20 LLMs from various families and sizes are included:
+        <ul>
+          <li>llama-7/13/65B (Touvron et al., 2023a)</li>
+          <li>llama-2(-chat)-7/13/70B (Touvron et al., 2023b)</li>
+          <li>vicuna-v1.3-7/13/33B, vicuna-v1.5-7/13B (Chiang et al., 2023)</li>
+          <li>falcon(-inst)-7/40B (Almazrouei et al., 2023)</li>
+          <li>gpt-3.5-turbo-0613 (OpenAI, 2022)</li>
+        </ul>
+      </li>
+      <li>All models except gpt-3.5-turbo are open-source on HuggingFace and allow access to output probabilities.</li>
+      <li>gpt-3.5-turbo is a commercial API that only provides generated text, not output probabilities.</li>
+    </ul>
+  </li>
+  <li>Benchmarks:
+    <ul>
+      <li>3 MCQ benchmarks are utilized:
+        <ul>
+          <li>MMLU (Hendrycks et al., 2020): 4-option MCQs; domains across 57 subjects</li>
+          <li>ARC-Challenge (Clark et al., 2018): 4-option MCQs</li>
+          <li>CommonsenseQA (CSQA) (Talmor et al., 2019): 5-option MCQs</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Evaluation:
+    <ul>
+      <li>The evaluation follows established LLM evaluation frameworks:
+        <ul>
+          <li>HuggingFace LLM Leaderboard</li>
+          <li>EleutherAI lm-harness</li>
+          <li>Original MMLU implementation</li>
+          <li>OpenAI Evals</li>
+        </ul>
+      </li>
+      <li>Open-source models: output probabilities of option IDs (A/B/C/D/E) are used, with the highest probability indicating the prediction.</li>
+      <li>gpt-3.5-turbo: the first generated token is compared to the golder answer (decoding temperature set to 0).</li>
+      <li>The primary evaluation focuses on the 0-shot setting to avoid bias from additional information.</li>
+      <li>5-shot experiments are also conducted, where in-context examples are provided from development sets and shared across all test samples within the same task.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="32-results"><strong>3.2 Results</strong></h3>
+
+<p>By comparing a new debiasing method called PriDe with two existing methods (Cyclic Permutation and Full Permutation) for reducing selection bias in LLMs answering MCQs, some key findings are, according to Figure 2, that</p>
+<ul>
+  <li>PriDe achieves better debiasing and improves performance compared to the other two methods, especially when considering the computational cost. This holds true even when additional context (in-context examples) is provided to the LLM.</li>
+  <li>The estimated bias using PriDe correlates well with the actual selection bias observed in the model, suggesting PriDe effectively identifies the underlying cause of the bias.</li>
+  <li>PriDe can achieve reliable bias estimation even with a limited amount of data (by sampling $K=\alpha \vert \mathcal{D} \vert$ test samples), indicating that the model’s bias for answer choices is consistent across different samples.</li>
+  <li>PriDe can be combined with simpler debiasing methods (using fewer random permutations) to further improve efficiency while maintaining effectiveness.</li>
+</ul>
+
+<p><img src="../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/result_1.png" alt="" /></p>
+
+<p><em>Figure 2: Debiasing results</em></p>
+
+<p>Nonetheless, there are some limitations:</p>
+<ul>
+  <li>Full Permutation was not evaluated on the 5-option MCQ benchmark due to its high computational cost.</li>
+  <li>For gpt-3.5-turbo, the debiasing process relies on an approximation because it does not provide the necessary output probabilities.</li>
+</ul>
+
+<p>Furthermore, an analysis on transferability across different domains is performed. In reality, questions might come from various domains, so it is crucial to ensure that the debiasing method works even if it was not trained on that specific domain. The result, according to Figure 3, shows that the bias estimated from one domain with a small number of samples can be used to debias questions from other domains as well. Also, there might be a slight performance drop for LLMs when the domain shift is significant (e.g., STEM to NON-STEM). While PriDe aims to reduce bias, not boost performance, the authors suggest updating the estimated bias with a few new samples from the new domain if a large domain shift is expected. This update would have negligible extra cost compared to the overall process.</p>
+
+<p><img src="../../images/DS501_24S/Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors/result_2.png" alt="" /></p>
+
+<p><em>Figure 3: Cross-domain debiasing results</em></p>
+
+<p>In addition, the consequence of model predictions by debiasing methods is also taken into consideration. While the main goal was to reduce bias, the debiasing often leads to improved performance as well. There are 3 insights from the experiment:</p>
+<ul>
+  <li>Both methods (PriDe and Cyclic Permutation) improve more predictions than they worsen. This means debiasing generally helps the model make better choices.</li>
+  <li>PriDe seems to mostly affect predictions where the model itself was not very confident at first. The new, debiased predictions tend to be among the top two choices the model considered before debiasing, especially for larger models. This suggests PriDe corrects the model’s bias for certain answer IDs when it is unsure and pushes the model towards a more likely answer.</li>
+  <li>Cyclic Permutation changes even high-confidence predictions more frequently and can lead to more dramatic shifts in the answer choice. Also, it is inclined to pick the originally lowest-ranked option more often as the debiased answer. Additionally, it flattens the model’s confidence distribution across all answer choices. This is due to the nature of the permutation-based debiasing which is a sort of mixture of experts, where each expert considers the options in a different order. This leads to more neutral, i.e., less certain, predictions yet requires more computation compared to PriDe.</li>
+</ul>
+
+<h2 id="4-conclusion"><strong>4. Conclusion</strong></h2>
+
+<!-- Please summarize the paper.  
+It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc. -->
+
+<p>The study investigates a common issue in LLMs where their answers to MCQs can be influenced by the way the answer choices are presented. This presence is called selection bias, encompassing two main reasons: token bias and position bias. A new method called PriDe is then proposed to fix this bias. The mechanism of this approach is to estimate the model’s preference for certain answer IDs and corrects for it without needing any additional information about the questions themselves. This method is efficient, interpretable, and applicable for different domains, leading to the enhancement in the overall reliability of LLMs in answering MCQs.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Author name: Rawat Padungkiettiwong
+    <ul>
+      <li>Affiliation: KAIST School of Computing</li>
+      <li>Research Topic: Natural Language Processing, Trustworthy LLMs</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li><a href="https://github.com/chujiezheng/LLM-MCQ-Bias">Github Implementation</a></li>
+  <li>References</li>
+</ul>
+
+<p>Zheng, Chujie, Hao Zhou, Fandong Meng, Jie Zhou, and Minlie Huang. “Large language models are not robust multiple choice selectors.” In The Twelfth International Conference on Learning Representations. 2023.</p>
+
+<p>Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothe ́e Lacroix, Baptiste Rozie`re, Naman Goyal, Eric Hambro, Faisal Azhar, et al. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023a.</p>
+
+<p>Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Niko- lay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et al. Llama 2: Open founda- tion and fine-tuned chat models. arXiv preprint arXiv:2307.09288, 2023b.</p>
+
+<p>Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https: //lmsys.org/blog/2023-03-30-vicuna/.</p>
+
+<p>Ebtesam Almazrouei, Hamza Alobeidli, Abdulaziz Alshamsi, Alessandro Cappelli, Ruxandra Co- jocaru, Merouane Debbah, Etienne Goffinet, Daniel Heslow, Julien Launay, Quentin Malartic, Badreddine Noune, Baptiste Pannier, and Guilherme Penedo. Falcon-40B: an open large lan- guage model with state-of-the-art performance, 2023.</p>
+
+<p>OpenAI. https://chat.openai.com.chat, 2022.</p>
+
+<p>Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. Measuring massive multitask language understanding. In International Conference on Learning Representations, 2020.</p>
+
+<p>Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord. Think you have solved question answering? try arc, the ai2 reasoning challenge. arXiv preprint arXiv:1803.05457, 2018.</p>
+
+<p>Alon Talmor, Jonathan Herzig, Nicholas Lourie, and Jonathan Berant. CommonsenseQA: A ques- tion answering challenge targeting commonsense knowledge. In Proceedings of the 2019 Con- ference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), pp. 4149–4158, Minneapolis, Min- nesota, June 2019. Association for Computational Linguistics. doi: 10.18653/v1/N19-1421. URL https://aclanthology.org/N19-1421.</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 17, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
