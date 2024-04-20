@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2023] CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2023] CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2023] CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2023] CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h3 id="title">Title</h3>
+<p>CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition</p>
+
+<h3 id="1-motivation">1. Motivation</h3>
+<p><strong>Imbalance Dataset</strong>은 Real World 에서 자주 나타나는 문제 중 하나로, Conventional Deep Learning Models 이 Imbalance Dataset 으로 학습할 경우 상당한 성능 저하가 나타나게 된다.<br />
+이로 인해 발생하는 <strong>Long-Tail Problem</strong> 은 Computer Vision 뿐 아니라, NLP 및 Recommender System 등 다양한 도메인에서 중요하게 다뤄지고 있다.<br /></p>
+
+<p>Data Imbalance 는 크게 다음과 같은 문제를 야기한다.</p>
+<ul>
+  <li><strong>Major Class 에 대한 Over Confidence 로 인한 Popularity Bias</strong></li>
+  <li><strong>Minor Class 에 대한 상당한 성능 저하</strong></li>
+</ul>
+
+<p>이를 해소하기 위해서는 모델이 Minor Class 에 대해 학습하도록 강제하도록 아래와 같이 연구가 진행되었다.</p>
+<ul>
+  <li><strong>ReWeighting</strong> 방식 : Loss 에서 Minor Class 에 가중치를 주는 방식</li>
+  <li><strong>ReSampling</strong> 방식 : 학습 과정에서 Major/Minor 의 Data 균형을 맞추는 방식</li>
+</ul>
+
+<p>그러나 위 두 방법으로는 근본적으로 Minor Class 의 Few Sample 로 인한 Rich Information을 얻을 수 없다는 문제가 존재하고, 이를 해결하기 위해 <strong>Data Augmentation</strong> 분야가 연구되었다.<br /></p>
+
+<p>Data Augmentation 의 경우 <strong>Class Data Augmentation</strong> 이 해당 Class 를 학습하는 데 있어서 좋은 영향을 줄 것이라는 직관적 가정을 가지고 진행된다.<br />
+하지만 실제로 Augmentation 이 Class 별로 <strong>어떤 영향을 주는지</strong>, 그리고 <strong>어느 정도로 영향을 주는 지</strong>에 대해 연구가 진행되지 않았다고 논문에서는 말한다.<br /></p>
+
+<p>본 연구에서는 최종적으로 <strong>Data Augmentation 이 Representation Part 와 Classification Part 에 어떤 방향으로 영향을 미치는 지</strong> 를 실험을 통해 파악을 하고, 이를 토대로</p>
+<ul>
+  <li><strong>Class 별로 어느 정도로 Data Augmentation 을 진행해야 하는 지를 찾아내고</strong></li>
+  <li><strong>Curriculum Learning 방식으로 Simple 부터 Hard Training 을 학습</strong>
+하는 방식을 제안한다.<br /></li>
+</ul>
+
+<p>이러한 방식은 Model Agnostic하고, 다른 Long-Tail 과 결합가능하며 논문에서는 이를 <strong>CUDA : Curriculum of Data Augmentation</strong> 라고 부른다.<br /></p>
+
+<h3 id="2-preliminary">2. Preliminary</h3>
+<h4 id="21-data-imbalance---data-augmentation">2.1 Data Imbalance &amp;  Data Augmentation</h4>
+<p>Imbalance Dataset 으로 학습된 모델은 Dataset 에 있는 Bias 를 학습하게 된다. 이러한 경우 모델의 Robustness 를 위해서는 <strong>1. ReWeighting</strong> 방식과 <strong>2. ReSampling</strong> 방식을 사용하게 된다.<br />
+하지만 두 방식 모두 Major Class 에 대한 성능과 Minor Class 에 대한 성능을 Trade-Off 하는 것이라는 문제가 있다.<br />
+이를 해결하기 위해, 새롭게 제안된 방식이 <strong>Data Augmentation</strong> 분야이다.<br />
+Data Augmentaion 은 Few Data Sample 로 인해 Deep Model 이 Overfitting 되는 것을 방지하기 위해 다양한 방식으로 변화를 준 데이터를 학습시키는 것을 의미한다.<br />
+이러한 Augmentaion 은 크게 1. Intra-Class Augmentation 과 2. Inter-Class Augmentation 으로 나뉘게 된다.<br /></p>
+<ul>
+  <li>Intra-Class Augmentation의 경우 하나의 데이터에 변화를 주는(i.e., Cropping in CV) 방식</li>
+  <li>Inter-Class Augmentation의 경우 한 Class 와 다른 Class 를 이용해서 새로운 정보의 데이터를 만드는 방식으로 Mix-Up Variation 방식이 주로 연구되고 있다.</li>
+</ul>
+
+<h4 id="22-representation--classification-at-imbalance-data">2.2 Representation &amp; Classification at Imbalance Data</h4>
+<p>이전 많은 Long-Tail Problem 연구에서는 Imbalance Dataset 으로 학습한 후에도, Classifier Retraining 만으로도 기존 Long-Tail Method 보다 높은 성능을 달성할 수 있음을 확인하면서 모델 학습에서 Representation Part 와 Classification Part 를 분리해서 접근해야 한다는 것이 밝혀졌다.<br /></p>
+
+<p><strong>Representation Part</strong> : 모델이 얼마나 Representation 를 잘 학습했는지 확인하기 위해서는 <strong>Class-wise Feature Alignment</strong> 를 확인하게 된다.<br />
+Class-wise Feature Alignment 는 Class 내의 데이터들이 얼마나 잘 뭉쳐있는지에 대해 측정하는 것으로, 일반적으로 이는 Feature Vector 의 <strong>Cosine Similarity</strong> 를 통해서 계산하게 된다.<br />
+<strong>모델이 학습이 잘 되었다면, 같은 Class 간 Alignment가 잘 되어 Cosine Similarity 가 높게 나오게 되며, 상대적으로 특정 Class 의 Cosine Similarity 가 낮다는 것은 해당 Class 에 대해 모델이 잘 학습하지 못했다는 것을 의미한다.</strong></p>
+
+<p><strong>Classification Part</strong> : 반면, 모델이 얼마나 Classification 을 잘 하는지 확인하기 위해서는 마지막 Classifier Layer 의 <strong>Class-wise(Column-wise) Norm</strong> 을 확인하게 된다.<br />
+특정 Class 에 대해 Bias 된 채로 학습된 Classifier Layer의 경우 해당 Class의 Weight Norm 이 상대적으로 높게 된다.<br />
+이렇게 될 경우 Classifier Layer 에서 Cross Entropy 계산 과정에서 해당 Class 로 예측할 확률이 높아지게 된다.<br />
+따라서 <strong>모델의 Classifier 가 잘 학습되었다면, 모든 Class 간의 Weight Norm 이 상대적으로 균형을 이루어야 한다.</strong></p>
+
+<h3 id="3-main-idea">3. Main Idea</h3>
+<h4 id="31-key-finding">3.1 Key Finding</h4>
+<p>논문의 Motivaion 의 시작인 Key Finding 은 다음과 같다.<br />
+<img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/3_1_Key_Finding.jpg" alt="image_name" /><br />
+위 사진에서 첫 번째 줄은 Major Class 의 Accuracy, 두 번째 줄은 Minor Class 의 Accuracy를 나타낸다.<br />
+또한 x축 방향은 Minor Class Augmentation을, y축 방향은 Major Class Augmentation을 나타낸다.<br />
+여기서 인상적인 발견점은 다음과 같다.</p>
+<ul>
+  <li>x축이 커질수록(Minor Class Augmentation) Major Class 성능 증가 (첫 번째 줄에서 Acc 증가) 및 Minor Class 성능 감소 (두 번째 줄에서 Acc 감소)</li>
+  <li>y축이 커질수록(Major Class Augmentation) Major Class 성능 감소 (첫 번째 줄에서 Acc 감소) 및 Minor Class 성능 증가 (두 번째 줄에서 Acc 증가)</li>
+</ul>
+
+<p>이러한 발견점은 지금까지 Data Augmentation 연구에서의 기본적인 가정이었던, <strong>Augmenation 이 해당 Class의 성능 향상에 도움이 될것이다</strong> 와 완전히 상반되는 점에서 특히 주목할만한 점이었다.<br />
+더욱이 이러한 현상은 Balance / Imbalance Data 에 상관없이 공통적으로 발견된 현상으로, 이러한 현상이 나타나는 원인에 대해 심층적인 분석을 하는 것이 본 논문의 Main Idea 이자 논문에서 후에 제시하는 Method 의 근거가 된다.<br /></p>
+
+<h4 id="32-representation-part">3.2 Representation Part</h4>
+<p>첫 번째 분석으로는 <strong>Data Augmentation 이 Representation 에 어떤 영향을 주는가?</strong> 를 알아보기 위해,</p>
+<ol>
+  <li>Balance (CIFAR-100) 및 Imbalance (CIFAR-100-LT) 데이터에 대해서 Without / Partial / All Augmentation 학습을 한다. 이 중, Partial 의 경우 Head Class 50% 에 대해서만 Augmentation 을 진행한 것을 의미한다.<br /></li>
+  <li>이후 Class 별 Feature Alignment 인 Cosine Similarity 를 측정하여 Representation 능력을 확인한다.<br /></li>
+</ol>
+
+<p><img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/3_2_Representation.jpg" alt="image_name" /><br /></p>
+
+<p>해당 실험을 통해 아래와 같은 점을 확인할 수 있다.</p>
+<ul>
+  <li><strong>Train Data</strong> 에서 Dataset 의 종류에 상관없이 Augmentation을 하게 될 경우 공통적으로 Augmented Class 의 Feature Alignment(Cosine Similarity) 는 (상대적으로) 낮아지게 된다.<br />
+이는 Augmented Data 의 Feature Vector 가 Feature Space 상에서 넓은 Diversification하게 되면서 발생하는 것으로 <strong>Test Data</strong> 에서는 나타나지 않는다. <br /></li>
+  <li><strong>Test Data</strong> 에서 Without Augmentation 의 결과가 유사한 것은 이전 연구들에서 밝혀진 것처럼 Long-Tail Data 자체는 Model의 Representation 학습에 부정적인 영향을 주지 않는 것과 일치한다.<br />
+추가적으로 Partial / All Augmenation 에서도 Class 간 Feature Alignment의 상대적 분포가 균형을 이루는 것 역시 Augmentation 이 Model의 Representation 학습에 부정적인 영향을 주지 않았음을 의미한다.<br /></li>
+</ul>
+
+<h4 id="33-classification-part">3.3 Classification Part</h4>
+<p>다음으로는 <strong>Data Augmentation 이 Classification 에 어떤 영향을 주는가?</strong> 를 알아보기 위해,</p>
+<ol>
+  <li>Balance (CIFAR-100) 및 Imbalance (CIFAR-100-LT) 데이터에 대해서 Without / Partial / All Augmentation 학습을 한다. 이 중, Partial 의 경우 Head Class 50% 에 대해서만 Augmentation 을 진행한 것을 의미한다.<br /></li>
+  <li>이후 Classifier Layer 에서 Class-wise(Columns-wise) Weight Norm 을 측정하여 Representation 능력을 확인한다.<br />
+<img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/3_2_Classifier.jpg" alt="image_name" /><br /></li>
+</ol>
+
+<p>이번 실험을 통해서는 아래와 같은 점을 확인할 수 있다.</p>
+<ul>
+  <li>Classification 능력을 확인하는 Layer Weight Norm 의 경우 CIFAR-100 과 CIFAR-100-LT 간의 차이가 나타나게 된다.<br />
+Without Augmentation 에서 CIFAR-100 에서는 Weight Norm 이 Class 별로 균형을 이룬 반면, CIFAR-100-LT 에서 불균형을 이룬 것이 Class Imbalance 로 인해 모델이 학습하게 된 Bias 가 된다.<br />
+논문에서 주된 발견점은 Data 에 상관없이 Augmentation 을 하게 될 경우 Augmented Class 의 Weight Norm 이 감소하게 된다는 것이다. <br /></li>
+  <li>이러한 원인은 Representation Part 에서 낮은 Feature Alignment 로 인해 $\mathcal{\vert\vert \Delta w\vert\vert}$ 이 작아지게 되고 학습 동안 이 차이가 누적되면서 Class 간 Weight Norm 의 Imbalance 가 발생하게 되는 것이다.</li>
+</ul>
+
+<h3 id="4-main-method---curriculum-of-data-augmentation">4. Main Method - Curriculum of Data Augmentation</h3>
+<h4 id="41-overall-archtecture-preview">4.1 Overall Archtecture Preview</h4>
+<p>앞선 Key Finding 과 이에 대한 실험을 통해서 논문은 다음을 주장한다.<br /></p>
+<ul>
+  <li>Augmented Class 의 성능이 오히려 감소했던 것은, <strong>Representation 능력에서는 문제가 없으나 Classifier 의 Weight Norm의 불균형으로 인한 Bias 때문이다.</strong><br /></li>
+  <li>Data Augmentation 은 일반적인 관념과 동일하게 Representation Learning 에 여전히 도움이 된다. 하지만 그 과정에서 <strong>Classifier Layer 의 Weight Norm 이 불균형하게 될 경우 오히려 전체적인 성능이 부정적인 영향을 줄 수 있다.</strong><br /></li>
+  <li>따라서 Data Augmentation 을 할 경우 <strong>Classifier Layer 가 불균형하게 되지 않도록 Data Augmentation 의 정도를 Class-wise 하게 세밀하게 조절해줄 필요가 있다.</strong><br /></li>
+</ul>
+
+<p>이를 위해서 논문에서 제시하는 방법론인 CUDA : Curriculum of Data Augmentation 를 제안한다.<br />
+CUDA의 전체적인 Overview는 다음과 같다.<br />
+<img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/4_1_Main_Architecture.jpg" alt="image_name" /></p>
+
+<p>이러한 CUDA 는 크게 2 부분으로 구성되어 있다.<br /></p>
+<ul>
+  <li>Strength Based Augmentation : 주어진 Strength Parameter 를 기반으로 Augmented Data 를 Generation 하는 부분 (빨간색)</li>
+  <li>Level-of-Learning (LoL) Score :모델이 현재 얼마나 학습이 잘 되었는 지 Level-of-Learning 을 측정하는 부분 (파란색)</li>
+</ul>
+
+<h4 id="42-strength-based-augmentation">4.2 Strength Based Augmentation<br /></h4>
+<p><img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/4_2_Strength.jpg" alt="image_name" /><br /></p>
+
+<p>해당 파트에서는 주어진 Strength Parameter 에 대해서 Augmented Data 를 만드는 방법을 정의한다.<br />
+$ O_ {k_ {s}}^{ m_ {k_ {s}}(s) }$ 는 Strength가 $\mathcal{s}$ 일 때, 미리 정의된 Augmentation 방법 $k_ {s}$ 및 강도 $m_ {k_ {s}}(s)$ 를 적용하는 함수를 의미한다.<br />
+실제로 Augmentation을 할 때에는, 여러 Augmentation 을 동시에 적용하여 아래와 같은 식으로 Augmentation을 진행하게 된다.<br />
+$\mathcal{ O(x;s) = O_ {k_ {s}}^{m_ {k_ {s}}(s)}\circ O_ {k_ {s-1}}^{m_ {k_ {s-1}}(s)} \circ \cdots \circ O_ {k_ {1}}(x)^{m_ {k_ {1}}(s)}, k_ {i}\sim Cat(K, U(K))}$<br />
+이러한 방식의 장점으로는, Augmentation 의 종류와 순서가 랜덤하게 바뀌게 되면서 훨씬 다양한 종류의 데이터가 만들어 질 수 있다.<br />
+이를 통해, Augmentation Strength 가 높아질 수록, <strong>가능한 Augmented Sample 의 경우가 Exponential 하게 증가하여 모델이 점점 어려운 Augmented Sample 을 학습하도록 한다.</strong></p>
+
+<h4 id="43-level-of-learning-lol-score">4.3 Level-of-Learning (LoL) Score</h4>
+<p><img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/4_3_LoL.jpg" alt="image_name" /><br />
+다음으로는 학습 과정에서 모델이 해당 Class 를 얼마나 잘 학습했는지 측정하는 Level-of-Learning(LoL) Score 를 구하는 부분을 설명한다.<br />
+해당 부분에서는 각 Class 에 대해서 현재 모델이 해당 Class 를 얼마나 잘 학습했는지 확인하기 위해서 아래의 식을 계산한다. 해당 식은 Augmented Data 를 얼마나 맞췄는지를 계산하는 단순한 식이다.<br />
+$V_ {Correct}(\mathcal{D}_ {c},l,f_ {\theta},\gamma,T)=\sum_ {x\in D_ {c}}\mathcal{I}_ {f_ {\theta}(O(x;l)=c)}$<br />
+이를 통해 현재 모델이 해당 Class 를 충분히 잘 학습되었다고 판단이 되면 Score 를 높여서 다음 학습에서 더 어려운 학습을 진행하게 한다.<br />
+$V_ {LOL}(\mathcal{D}_ {c},L^{e-1}_ {c},f_ {\theta},\gamma,T) = L^{e-1}_ {c}+1$ if $V_ {Correct}(\mathcal{D}_ {c},l,f_ {\theta},\gamma,T)\geq\gamma T(l+1)$ $\forall l\in{0,\cdots L^{e-1}_ {c}}$<br />
+반면, 충분히 학습하지 못했다고 판단이 될 경우 Score 를 낮춰서 쉬운 학습을 다시 재 진행하도록 한다.
+$V_ {LOL}(\mathcal{D}_ {c},L^{e-1}_ {c},f_ {\theta},\gamma,T) = L^{e-1}_ {c}-1$ Otherwise<br />
+이러한 방식의 기준을 통해 <strong>Class $\mathcal{c}$ 에 대해서 모델이 현재 Augmentation Strength $L^{e}_ {c}$ 에서 충분히 잘 학습했다면, Augmentation Strength 를 높인다.</strong><br /></p>
+
+<h3 id="5-experiments">5. Experiments</h3>
+<h4 id="51-main-results">5.1 Main Results</h4>
+<p>실험은 두 Synthetic Long-Tail Data 인 CIFAR-100-LT, ImageNet-LT 와 Real-world Data 인 iNaturalist2018 를 이용해서 진행되었다.<br /></p>
+
+<p>Backbone Architecture는  Resnet-32를 사용하였으며, Baseline 으로는 Cross Entropy 방식 뿐 아니라 다양한 Long-Tail Algorithm 에 CUDA 를 적용한 것을 하였다.<br /></p>
+<ul>
+  <li>Two-stage Method : CE-DRW(Defered ReWeightinh), cRT(classifier ReTraining)</li>
+  <li>Balanced Loss(ReWeighting) : LDAM-DRW, Balanced-Softmax</li>
+  <li>Ensemble Method : RIDE</li>
+  <li>ReSampling Method : Remix, CMO</li>
+  <li>Contrastive Method : BCL(Balanced Contrastive Learning)
+<img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/5_1_Main_Result.jpg" alt="image_name" /></li>
+</ul>
+
+<p>실험 결과에서 알 수 있듯이, Baseline 에 단순히 CUDA 적용했을 때도 General Performance 뿐 아니라 Med, Few Class 에 대한 성능이 상당히 향상된 것을 확인할 수 있다. 뿐만 아니라 다른 Algorithm 들과 결합하였을 때에도 추가적인 성능 향상을 달성하는 것을 통해, CUDA 방식이 기존의 Long-Tail Algorithm 과 다른 방식으로 Long-Tail 문제를 접근하여 해결한다는 것을 확인할 수 있다.<br /></p>
+
+<p>또한 단순히 Long-Tail Algorithm + Data Augmentation 의 조합이 성능 향상에 얼마나 영향을 주는 지 확인하기 위해, 다른 Augmentation 방법의 경우 실험을 진행하였다. <br />
+아래에서 AA는 AutoAugmentation, FAA는 Fast AutoAugmentation, DADA는 Differentiable Automatic Data Augmentation, 마지막으로 RA 는 Random Augmentation을 의미한다.<br /></p>
+
+<p><img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/5_2_Aug.jpg" alt="image_name" /></p>
+
+<p>해당 실험을 통해 다른 Long-Tail Algorithm 에 다른 종류의 Augmentation을 적용했을 때에도 성능 향상이 나타나긴 하지만, CUDA 를 적용했을 때 가장 크게 성능이 향상되는 것을 볼 수 있다. 이를 통해 Curriculum 방식으로 쉬운 데이터 학습부터 어려운 데이터를 학습하는 것이 학습하는 데 있어서 추가적인 성과를 가져오는데 유효하다는 것을 확인할 수 있다.</p>
+
+<p>마지막으로, Curriculum 방식이 얼마나 잘 동작하는지 확인하기 위해 Level-of-Learning(LoL) Score 를 추적한 실험을 진행하였다.<br />
+아래 결과에서 낮은 Index 는 Major Class (Easy Class), 높은 Index 는 Minor Class (Hard Class) 를 의미한다.<br />
+<img src="../../images/DS503_24S/CUDA_Curriculum_of_Data_Augmentation_for_Long_Tailed_Recognition/5_3_LoL_Score.jpg" alt="image_name" /></p>
+
+<p>각각의 Long-Tail 방법에 대해서, 학습을 진행하는 과정에서 Easy Class 의 경우에는 Level-of-Learning Score 가 빠르게 높아지는 반면, Hard Class 의 경우 학습을 진행되어도 Score 가 빠르게 높아지지 않는 것을 확인할 수 있다. BS (Balanced SoftMax) 의 경우 Algorithm 내부에서 자체적으로 균형을 조절하는 부분이 있어서 Hard Class 의 경우에도 Score 가 높아지는 것으로 분석되었다.</p>
+
+<h3 id="6-conclusion">6. Conclusion</h3>
+<p>본 논문에서는 Major Class Augmentation 이 Major Class 에 대한 성능은 오히려 감소하는 반면, Minor Class 에 대한 성능이 향상된다는 발견을 기반으로 하여, Class-wise Augmentation 이 실제 학습과정에서 어떠한 형태로 모델 학습에 영향을 주는지를 구체적으로 분석하였다.<br />
+또한 이를 토대로, Class 별로 Augmenation 의 강도를 조절하여 Imbalance 한 Data 에서도 Robust하고 Generalized 한 모델 학습이 가능할 뿐 아니라 기존의 방식과도 결합가능한 새로운 방법론인 CUDA 를 제안하였다.<br /></p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

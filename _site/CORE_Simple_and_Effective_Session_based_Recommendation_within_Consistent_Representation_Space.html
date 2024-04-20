@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="sigir-2022-core-simple-and-effective-session-based-recommendation-within-consistent-representation-space">[SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space</h1>
+
+<p><em>Yupeng Hou, Binbin Hu, Zhiqiang Zhang, and Wayne Xin Zhao. 2022. CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space. In Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR ‘22). Association for Computing Machinery, New York, NY, USA, 1796–1801. https://doi.org/10.1145/3477495.3531955</em></p>
+
+<p>본 리뷰는 한국어로 작성되었으며, 영어 표현이 필요한 경우 괄호 안에 병기하였습니다.</p>
+
+<h2 id="0-preliminary-session-based-recommendation">0. Preliminary: Session Based Recommendation</h2>
+
+<p>추천 시스템(<em>Recommender System, RS</em>)은 과거의 모든 사용자-아이템 상호작용(<em>User-item interaction</em>) 정보를 활용하여 각 아이템에 대한 사용자의 선호도를 학습한다. 기존의 추천 시스템은 일반적으로 다음과 같은 가정을 기반으로 한다.</p>
+
+<ul>
+  <li>
+    <p>과거의 모든 상호작용은 현재의 선호도를 예측하는 데에 동등한 중요도를 가진다.</p>
+  </li>
+  <li>
+    <p>모든 사용자-아이템 상호작용에 대한 사용자와 행동 정보가 저장된다.</p>
+  </li>
+</ul>
+
+<p>하지만 실제 상황에서 이러한 가정들은 다음과 같은 이유로 인해 성립하지 않는다.</p>
+
+<ul>
+  <li>사용자의 다음 행동은 장기적인 선호도(<em>Long-term preference</em>) 뿐만 아니라 단기적인 선호도(<em>Short-term preference</em>)의 영향을 받는다.
+    <ul>
+      <li>이때 단기적인 선호도는 사용자의 최근 행동으로 추정할 수 있다.</li>
+    </ul>
+  </li>
+  <li>사용자의 선호도는 정적(<em>Static</em>)이기보다는 유동적(<em>Dynamic</em>)이다.
+    <ul>
+      <li>사용자의 선호도는 시간에 따라 변화하며, 이전의 선호도과 현재의 선호도가 다를 수 있다.</li>
+    </ul>
+  </li>
+  <li>모든 사용자-아이템 상호작용에 대해 유저 프로필과 행동 정보를 알 수 있는 것은 아니다.
+    <ul>
+      <li>예를 들어, 아마존의 사용자가 로그인을 하지 않은 채로 특정 제품을 검색했다면 이 사용자-아이템 상호작용에 대한 사용자 정보를 알 수 없다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>세션 기반 추천 시스템(<em>Session-Based Recommender System, SBRS</em>)은 기존 추천 시스템과 달리 세션 정보를 바탕으로 사용자의 선호도를 학습한다. 이때 세션을 다음과 같이 정의한다.</p>
+
+<blockquote>
+  <p>세션(<em>Session</em>)은 연속적인 과정에서 발생한 사용자-아이템 상호작용으로 구성된다. 
+이때 각 세션은 명확한 경계(<em>Boundary</em>)에 의해 구분된다.</p>
+</blockquote>
+
+<p>예를 들어, 최근 인터넷 검색 기록이나 음악 앱이 켜져있는 동안 들었던 음악의 목록 등은 각각 하나의 세션이다.</p>
+
+<p>일반적으로 세션 기반 추천 시스템은 세션으로 구분된 사용자의 행동 정보를 학습하여 사용자의 다음 행동을 예측하는 것을 목표로 한다.</p>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-motivation">1.1 Motivation</h3>
+<p>최근의 세션 기반 추천(<em>Session-Based Recommendation, SBR</em>) 연구는 주로 인코더-디코더(<em>Encoder-Decoder</em>) 구조를 활용하며, 효과적인 인코더를 설계하는 것을 목적으로 한다. 인코더로는 주로 순환 신경망(<em>Recurrent Neural Network, RNN</em>), 트랜스포머(<em>Transformer</em>), 그래프 신경망(<em>Graph Neural Network, GNN</em>) 등을 활용하며, 디코더로는 세션과 아이템 임베딩(<em>embedding</em>) 간의 내적(<em>dot product</em>)을 계산하여 상호작용 확률을 추정한다.</p>
+
+<p>세션 기반 추천에서 세션 임베딩은 사용자의 단기적인 선호도를 반영하며, 선호하는 아이템들의 임베딩과 유사해야 한다. 하지만, 기존 연구들과 같이 비선형 신경망(<em>Non-linear Neural Network</em>)을 활용하여 얻은 세션 임베딩의 표현공간(<em>Representation Space</em>)과 아이템 임베딩의 표현공간이 반드시 일치하는 것은 아니다. 예를 들어, Figure 1(b)은 같은 아이템 <em>a</em>를 여러 번 클릭해서 얻은 세션들의 임베딩을 나타낸다. 비선형 신경망인 GRU4Rec을 활용하여 얻은 세션 임베딩들과 아이템 <em>a</em>의 임베딩이 서로 다른 위치에 있음을 확인할 수 있다.</p>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/FIgure1.png" alt="Figure 1" /></p>
+
+<p>이러한 세션 임베딩과 아이템 임베딩 간의 불일치는 잘못된 추천(<em>Inconsistent Prediction</em>)으로 이어진다. Figure 1(b)의 예시에서 아이템 a를 4번 클릭한 세션의 임베딩은 아이템 a과 전혀 관계 없는 아이템 b의 임베딩에 더 가까이 위치한다. 이 경우 다음 아이템을 추천할 때 아이템 b를 추천하는 잘못된 추천이 생성된다.</p>
+
+<p>따라서 본 논문은 세션 임베딩과 아이템 임베딩 간의 불일치 문제를 해결하고자 두 임베딩 공간을 통일하는 방법을 제시한다.</p>
+
+<h3 id="12-key-challenges">1.2 Key Challenges</h3>
+
+<p>본 논문은 다음과 같은 두 가지 문제를 고려하였다.</p>
+
+<ol>
+  <li>세션과 아이템 임베딩을 같은 공간에 두면서 심층 비선형 신경망(<em>Deep non-linear neural network</em>)의 장점을 가져올 수 있는 인코더를 어떻게 설계할 것인가?</li>
+  <li>아이템 임베딩을 모델 최적화에 직접 사용할 때 과적합(<em>Overfitting</em>)을 방지하기 위한 거리 함수를 어떻게 설정할 것인가?</li>
+</ol>
+
+<h3 id="13-core-consistent-representation">1.3 CORE: COnsistent REpresentation</h3>
+
+<p>본 논문은 세션 기반 추천을 위해 세션 임베딩과 아이템 임베딩이 같은 공간에 존재하도록 하는 간단하고 효과적인 방법을 제시하였다. 주요 아이디어는 다음과 같다.</p>
+
+<ol>
+  <li>세션 임베딩을 아이템 임베딩의 선형 결합으로 인코딩하며, 가중치는 심층 비선형 신경망을 통해 학습한다. 이를 통해 아이템의 순서 및 중요도 등 귀납적 편향(<em>Inductive bias</em>)를 학습한다.</li>
+  <li>기존의 주로 사용된 내적 거리(<em>dot product distance</em>)가 튜플 손실(<em>tuplet loss</em>)을 최적화하는 것과 유사함을 보이고, 다양한 방식으로 거리 함수의 강건성(<em>Robustness</em>)을 향상시킨다.</li>
+</ol>
+
+<p>본 논문은 5개의 공개 데이터으로 실험을 진행하여 제시한 모델이 효과적임을 보이고, 기존의 세션 기반 추천 방법의 성능을 제시된 방법으로 향상시킬 수 있음을 보였다.</p>
+
+<h2 id="2-method">2. Method</h2>
+
+<p>모델의 전반적인 구조는 Figure 2와 같다.</p>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure2.png" alt="Figure 2" /></p>
+
+<h3 id="21-session-based-recommendation">2.1 Session-Based Recommendation</h3>
+
+<p>인코더-디코더 구조를 사용하는 일반적인 세션 기반 추천은 다음과 같은 과정으로 진행된다.</p>
+
+<ol>
+  <li>
+    <p>각 아이템은 통일된 공간으로 임베딩된다. 이 때 아이템 임베딩은 룩업 테이블(<em>look-up table</em>)을 통해 얻는다.</p>
+
+    <p>$h_ {i} = Emb(v_ {i}) \in \mathbb{R}^d$</p>
+  </li>
+  <li>
+    <p>다음으로 인코더를 통해 각 세션의 임베딩을 얻는다. 인코더로는 주로 비선형 신경망을 사용한다.</p>
+
+    <p>$h_ {s} = Encoder([h_ {s, 1}, \ldots , h_ {s, n}]) \in \mathbb{R}^d$</p>
+  </li>
+  <li>
+    <p>마지막으로 디코더를 통해 다음 아이템에 대한 확률 분포를 계산한다.</p>
+
+    <p>$\hat{y} = Decoder(h_ {s}) \in \mathbb{R}^m$</p>
+  </li>
+</ol>
+
+<h3 id="22-representation-consistent-encoding">2.2 Representation-Consistent Encoding</h3>
+
+<p>본 논문은 세션 임베딩을 아이템 임베딩의 선형 결합으로 표현하는 <em>Representation-Consistent Encoding(RCE)</em> 를 제시한다. 세션 임베딩은 아이템 임베딩에 가중치를 곱하여 더한 값으로 표현되며, 심층 신경망으로 가중치를 학습하여 귀납적 편향을 학습한다. 일반적인 심층 신경망으로 아이템 임베딩의 가중치를 학습할 때,  <em>RCE</em>는 다음과 같은 수식으로 표현할 수 있다.</p>
+
+<p>$\alpha = DNN([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \ \ h_ {s} = \sum^ n_ {i=1} \alpha_ {i} h_ {s, i}$</p>
+
+<h4 id="221-learning-weights-via-mean-pooling">2.2.1 Learning Weights via Mean Pooling</h4>
+<p>심층 신경망으로 평균 풀링 레이어(<em>Mean Pooling Layer</em>)을 사용한다.</p>
+
+<p>$\alpha_ {i} = 1 / n$</p>
+
+<h4 id="222-learning-weights-via-transformer">2.2.2 Learning Weights via Transformer</h4>
+<p>심층 신경망으로 SASRec과 같이 셀프 어텐션 레이어(<em>self-attention layer</em>)들로 이루어진 트랜스포머 구조를 사용한다. 트랜스포머의 위치 인코딩(<em>positional encoding</em>)을 활용하여 아이템들의 순서에 대한 정보를 포함한다. 다음과 같은 수식으로 표현할 수 있다.</p>
+
+<p>$F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \ \ \alpha = softmax(w \cdot F^\intercal)$</p>
+
+<h3 id="23-robust-distance-measuring-for-decoding">2.3 Robust Distance Measuring for Decoding</h3>
+
+<p>세션 임베딩을 아이템 임베딩의 선형결합으로 인코딩하고 아이템 임베딩과의 거리로 디코딩하기 때문에 아이템 임베딩이 거리 계산에 직접적으로 이용된다. 이 경우 과적합 문제가 발생할 확률이 높다.</p>
+
+<p>따라서 본 논문은 과적합 문제를 피하고자 기존의 거리 함수의 일반화된 형태를 제시한다.</p>
+
+<h3 id="231-reviewing-dot-product-distance">2.3.1 Reviewing dot product distance</h3>
+
+<blockquote>
+  <p>LEMMA 1. 세션 임베딩과 아이템 임베딩들에 대해 내적 거리를 계산할 때, 크로스 엔트로피 손실(<em>Cross Entropy Loss</em>)을 최적화하는 것은 고정된 마진(<em>margin</em>) 2를 가지는 (<em>N-1</em>)-튜플 손실(<em>(N-1)-tuplet loss</em>)을 최적화하는 것과 근사적으로 비례한다.</p>
+</blockquote>
+
+<p>위 Lemma는 다음과 같이 증명할 수 있다.</p>
+
+<blockquote>
+  <p>$l_ {ori} = -log ( {exp(h_ {s} \cdot h_ {v^+}) \over \sum	^n_ {i=1} exp(h_ {s} \cdot h_ {v_i})} ) \ 
+= log [1+(\vert {\mathcal{V}} \vert - 1) \sum_ {v^- \in  \mathcal{V}\backslash {v^+}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} )] <br />
+\simeq (\vert {\mathcal{V}} \vert - 1) \sum_{v^- \in  \mathcal{V}\backslash {v^+}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} ) <br />
+\simeq (\vert {\mathcal{V}} \vert - 1) \sum_{v^- \in  \mathcal{V}\backslash {v^+}}  (h_ {s} h_ {v^-} - h_ {s} h_ {v^+} +1) <br />
+\propto \sum_{v^- \in  \mathcal{V}\backslash {v^+}} (\vert \vert h_ {s} - h_ {v^+} \vert \vert ^2 - \vert \vert h_ {s} - h_ {v^-} \vert \vert ^2 + 2)$</p>
+</blockquote>
+
+<h3 id="232-robust-distance-measuring">2.3.2 Robust Distance Measuring</h3>
+
+<p>위 Lemma를 바탕으로 본 논문은 거리 함수의 강건성을 향상할 수 있는 세 가지 접근을 제시한다.</p>
+
+<ol>
+  <li>데이터의 분포가 다를 수 있으므로 마진을 고정하는 대신 조정 가능한 하이퍼파라미터로 대체한다.</li>
+  <li>드롭아웃(<em>Dropout</em>)을 도입한다.</li>
+  <li>내적 거리 대신 코사인 거리(<em>cosine distance</em>)를 사용한다.</li>
+</ol>
+
+<p>이러한 접근을 바탕으로 본 논문은 <em>Robust Distance Measuring(RDM)</em> 에 대한 손실함수를 다음과 같이 제시한다.</p>
+
+<ul>
+  <li>$l = -log {exp(cos(h_ {s}, h’_ {v^+})/\tau) \over \sum	^m_ {i=1} exp(cos(h_ {s}, h’_ {v_i})/\tau)}$</li>
+</ul>
+
+<h2 id="3-experiments">3. Experiments</h2>
+<h3 id="31-datasets-and-evaluation-metrics">3.1 Datasets and evaluation metrics</h3>
+
+<p>본 논문은 5가지 공개 데이터에 대해 실험을 진행하였다.</p>
+
+<ul>
+  <li><em>Diginetica</em>, <em>RetailRocket</em>, <em>Tmall</em>, <em>Yoochoose</em> : 이커머스 웹사이트에서 제공한 유저의 구매 정보 데이터셋</li>
+  <li><em>Nowplaying</em> : #Nowplaying 해시태그를 달고 트윗된 음악 리스트 데이터셋</li>
+</ul>
+
+<p>본 논문은 평가함수로 두 가지 방법을 사용하였다.</p>
+
+<ul>
+  <li>top-20 Recall (Recall@20): 20개를 추천할 때 사용자가 관심있는 모든 아이템 중 모델이 추천한 아이템의 비율</li>
+  <li>top-20 Mean Reciprocal Rank (MRR@20): 	20개를 추천했을 때 실제 다음 아이템 순위의 역수의 평균</li>
+</ul>
+
+<h3 id="32-baselines">3.2 Baselines</h3>
+
+<ul>
+  <li>Matrix Factorization 기반 모델: FPMC</li>
+  <li>RNN 기반 모델: GRU4Rec, NARM</li>
+  <li>GNN 기반 모델: SR-GNN, NISER+, LESSR, SGNN-HN</li>
+  <li>트랜스포머 기반 모델: SASRec, GC-SAN, CL4Rec</li>
+</ul>
+
+<h3 id="33-overall-comparison">3.3 Overall comparison</h3>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure3.png" alt="Figure 3" /></p>
+
+<ul>
+  <li>5개 데이터셋에 대한 전체 10개의 평가함수 중 8개에서 본 논문에서 제시한 CORE 모델이 가장 좋은 성능을 보였다.</li>
+  <li>CORE-ave는 아이템의 순서나 중요도를 전혀 고려하지 않는 모델임에도 3개의 평가함수에서 모든 baseline 모델보다 좋은 성능을 보였으며, 나머지 평가함수에서도 좋은 성능의 baseline 모델들과 유사한 성능을 보였다.</li>
+</ul>
+
+<h3 id="34-efficiency-analysis">3.4 Efficiency analysis</h3>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure4.png" alt="Figure 4" /></p>
+
+<p>위 그림은 한 에폭 당 소요되는 학습시간과 성능을 나타낸다. 트랜스포머를 사용한 CORE 모델이 짧은 학습시간에도 높은 성능을 보인다. 평균 풀링을 사용한 CORE 모델은 메모리 사용을 최소화하며 학습시간이 가장 짧다.</p>
+
+<h3 id="35-ablation-study">3.5 Ablation study</h3>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure5.png" alt="Figure 5" /></p>
+
+<p>위 표는 CORE 모델의 주요 구성 요소인 RCE와 RDM의 효과를 나타낸다. 같은 트랜스포머 구조를 사용하는 SASRec과 비교하였을 때, 성능은 CORE 모델, RCE만을 이용한 CORE 모델, RDM만을 이용한 CORE 모델, SASRec 순으로 나타난다.</p>
+
+<h3 id="36-improving-existing-methods">3.6 Improving existing methods</h3>
+
+<p><img src="../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure6.png" alt="Figure 6" /></p>
+
+<p>위 표는 기존 모델에 본 연구에서 제시한 RCE와 RDM을 적용하였을 때의 성능을 나타낸다. 기존 모델에서 RCE와 RDM을 적용한 경우 성능이 향상되는 것을 확인할 수 있다.</p>
+
+<h2 id="4-conclusion">4. Conclusion</h2>
+
+<h3 id="41-summary">4.1 Summary</h3>
+
+<ul>
+  <li>본 논문은 기존의 심층 신경망 기반 모델들로 얻은 세션 임베딩과 아이템 임베딩이 다른 공간으로 매핑된다는 문제를 제시하고, 이를 해결하기 위한 방법으로 세션 임베딩과 아이템 임베딩의 표현 공간을 통일하는 방법을 제시하였다.</li>
+  <li>본 논문에서 제시한 모델은 세션 임베딩을 세션을 구성하는 아이템 임베딩들의 선형 결합으로 나타내고, 가중치를 심층신경망을 활용하여 학습한다. 이때 손실함수로 코사인 거리와 마진 하이퍼파라미터로 정의되는 새로운 거리 함수를 활용한다.</li>
+  <li>본 논문의 모델은 세션 기반 추천에서 기존 모델들에 비해 높은 성능과 효율성을 보였으며, 기존 모델의 성능을 본 연구의 접근을 활용하여 향상시킬 수 있다.</li>
+</ul>
+
+<h3 id="42-review">4.2 Review</h3>
+
+<p>본 논문은 세션 임베딩을 아이템 임베딩의 선형 결합으로 표현한다는 매우 간단한 아이디어를 바탕으로 모델의 성능을 향상시킨 논문이다. 더 복잡한 모델을 구성하여 성능을 향상시킬 수도 있지만, 이와 같이 기존 모델들의 문제점을 파악하고 이를 해결할 수 있는 간단한 아이디어를 제시하는 것 역시 중요함을 알 수 있다.</p>
+
+<p>다만 실험을 통해 보인 성능 향상 외에도 Motivation을 뒷받침하는 실험의 부재가 아쉽다. Motivation에서 특정 아이템을 여러번 클릭하는 방법으로 만들어낸 데이터셋을 활용하여 기존 모델의 문제를 지적한 점은 인상적이나, 이러한 문제가 실제 데이터에서도 일어나는지에 대한 궁금증이 남는다. 이에 대해 실제 데이터에서 Motivation을 검증하기 위해 진행할 수 있는 실험을 다음과 같이 정리해볼 수 있다.</p>
+<ul>
+  <li>우선 가상의 데이터로 진행한 실험과 유사하게 실제로 같은 아이템이 연속되어 등장하는 세션이 존재하는지 여부를 확인해야 한다. 특정 아이템이 연속적으로 등장하는 세션을 찾고, 이때 다음 아이템의 임베딩이 연속된 아이템의 임베딩과 유사하다면 Motivation에서 가정하는 상황을 만족한다.</li>
+  <li>이렇게 찾은 세션에 대해 실제로 기존 모델을 활용하여 얻은 세션 임베딩이 다음 아이템의 임베딩보다 다른 아이템의 임베딩과 유사한지 확인한다. 위 조건을 만족하는 세션과 만족하지 않는 세션에서의 기존 모델들의 성능이 다르게 나타난다면, 즉 기존 모델이 이러한 세션들에 대해 잘못된 추천을 하는 경우가 많다면 Motivation에서 제시하는 문제가 실제로 존재함을 확인할 수 있다.</li>
+</ul>
+
+<p>또한, 본 논문에서 주장하듯 세션 임베딩을 아이템 임베딩들의 선형결합으로 나타내는 것이 모든 추천 문제에서 정당한지에 대한 의문이 존재한다. 예를 들어, 음악 추천에서 같은 노래가 여러 번 등장한 경우와 이커머스 클릭 데이터에서 같은 제품을 여러 번 클릭한 경우는 다른 의미를 가질 수 있다. 음악 추천의 경우 특정 노래를 반복재생하는 경우가 많으므로 같은 노래를 다시 추천해주는 것이 의미 있으나, 클릭 데이터의 경우 같은 제품을 다시 클릭할 확률이 음악 추천에 비해 떨어진다. 또한, 본 논문의 방법대로라면 특정 아이템을 1번 클릭한 것과 10번 클릭한 것이 같아야하는데, 실제로는 같은 아이템을 여러 번 클릭한 행위 자체가 특정한 맥락이나 의미를 가질 수 있다. 이렇듯 선형결합으로 표현할 때 정보의 손실이 큰 경우가 실제 추천 데이터에 존재한다면 본 논문에서 제시한 방법으로는 좋은 추천 결과를 만들기 어려울 것이다.</p>
+
+<p>이러한 부분을 보완하기 위해서 기존의 비선형 신경망을 사용하는 방법과 본 방법을 결합해볼 수 있다. 예를 들어, 기존의 비선형 신경망 기반 방법들을 사용하여 얻은 세션 임베딩과 본 연구의 선형 결합을 사용하여 얻은 세션 임베딩을 적당한 파라미터를 활용하여 다음과 같이 더할 수 있다.</p>
+
+<ul>
+  <li>$h_ {s} = \alpha  h_ {s, DNN} + (1-\alpha) h_ {s, CORE}$</li>
+</ul>
+
+<p>이렇게 구해진 세션 임베딩은 어느 정도 아이템 임베딩과 유사한 표현 공간을 가지면서도 심층 신경망 모델의 장점을 더 잘 가져간다고 추정해볼 수 있다. 두 임베딩을 위와 같이 선형결합하는 방법 외에도 두 세션 임베딩을 concatenate하여 새로운 세션 임베딩을 얻을 수도 있다.</p>
+
+<ul>
+  <li>$h_ {s} = [h_ {s, DNN} ; h_ {s, CORE}]$</li>
+</ul>
+
+<p>위와 같은 접근이 실제로 성능을 향상시킬 수 있는지는 알 수 없으나, 이와 같이 기존 모델과 본 논문의 모델을 잘 섞을 수 있다면 더욱 더 많은 정보를 포함하면서도 본 논문에서 제시한 문제를 완화하는 모델을 만들 수 있을 것이다.</p>
+
+<h2 id="5-references">5. References</h2>
+
+<ul>
+  <li>Paper: <a href="https://arxiv.org/abs/2204.11067">https://arxiv.org/abs/2204.11067</a></li>
+  <li>Github: <a href="https://github.com/RUCAIBox/CORE">https://github.com/RUCAIBox/CORE</a></li>
+</ul>
+
+<h2 id="reviewer-information">Reviewer Information</h2>
+
+<ul>
+  <li>Name: Hoyoung Choi(최호영)</li>
+  <li>Master student at DSAIL(Data Science and Artificial Intelligence Lab), KAIST</li>
+  <li>Research Topic: Graph Neural Networks, Recommender System, Sports Analytics</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICCV 2023] 3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICCV 2023] 3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICCV 2023] 3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICCV 2023] 3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="3d-aware-neural-body-fitting-for-occlusion-robust-3d-human-pose-estimation"><strong>3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation</strong></h1>
+
+<h2 id="1-problem-definition-and-motivation">1. Problem Definition and Motivation</h2>
+
+<p>Human pose estimation (HPE) generally refers to detecting and tracking human body’s posture and movements. Human pose estimation has been one of the most challenging subjects in recent years. Specifically, single-view 3D pose estimation using only one RGB camera is a research hotspot in computer vision. Human pose estimation is widely used in human-computer interaction, fall detection, ergonomic risk assessment, rehabilitation, sports, etc. Among different motion capture (MoCap) systems, marker-based MoCap systems have been utilized in research institutes and hospitals due to their precise and stable human pose detection. However, these systems demand a professional setup and a specific environment. Also, attaching sensors or markers to the subject’s body is time-consuming and potentially can limit participant movements. On the other hand, markless pose estimation systems have overcome some of the limitations mentioned for marker-based MoCap systems. While the Microsoft Kinect series devices, use an RGB-D camera to estimate human poses accurately, are used as a benchmark, they are sensitive to changes in light conditions and have limited range.</p>
+
+<p>Computer vision-based (CV-based) approaches have captured great attention due to their easy and cost-effective setup. Although computer vision algorithms have significantly improved the accuracy of single-view RGB 2D pose estimation, accurate 3D pose estimation using a single RGB camera faces challenges like lack of depth information and occlusion. Different machine learning methods have tried to overcome these challenges. Regression-based approaches directly predict 3D pose parameters and tackle 2D to 3D ambiguity using a learned model from training data. However, these methods perform less efficiently in occluded situations. Optimization-based methods fit a parametric body model to 2D observations in an iterative manner. These methods have better tolerance to occluded situations but have worse performance in 3D HPE because they suffer from 2D-3D ambiguity.</p>
+
+<p>3D human pose estimation is a computer vision task that involves estimating the 3D positions and orientations of body joints and bones from 2D images or videos. There are several approaches to estimating 3D human pose estimation. The regression-based approach is one of the traditional approaches that uses deep networks to predict the 3D pose estimation from 2D images or video. However, these approaches are not efficient in occluded situations.</p>
+
+<p>there are some optimization-based methods that employ an iterative process, refining a parametric model of the human body to correspond with the 2D image features, such as edges and contours. Although they have a potentially better performance in occlusion, they encounter challenges due to the inherent 2D-3D ambiguity—a scenario where multiple distinct 3D poses may yield indistinguishable 2D projections.</p>
+
+<p>A recent research that uses a generative model for 2D object detection in certain categories, has shown to be robust to occlusion with an innovative inverse graphics analysis-by-synthesis approach that tries to find model parameters that best explain the observed image and estimate occluded parts using an outlier process. Analysis-by-synthesis in RGB pixel space can be challenging because firstly, there are not many good generative models and secondly, there are no efficient algorithms to inverse these generative models. So they conducted an approximate analysis-by-synthesis in deep feature space.</p>
+
+<p>In this study, the 3D-aware Neural Body Fitting (3DNBF) framework was proposed that uses a volume-based parametric model called Neural Body Volumes (NBV) to analyze and synthesize features for 3D Human Pose Estimation (HPE). This model, comprised of Gaussian ellipsoidal kernels, excels in handling occlusions and differentiating body features analytically, offering smooth gradients for efficient optimization. In contrast to traditional optimization-based methods that may lose critical information, this framework has a contrastive learning approach to learn data-driven features that are robust to variations such as clothing color and adept at capturing essential local 3D pose information. The effectiveness of 3DNBF is validated on three existing 3D HPE datasets and a newly proposed adversarial protocol designed to assess occlusion robustness, showing superior performance over both state-of-the-art regression and optimization-based methods in occluded and non-occluded scenarios. Combining these innovative strategies addresses common errors in pose estimation, particularly in occluded body parts, demonstrating the framework’s advanced capability in resolving 2D-3D pose ambiguities.</p>
+
+<p><img src="../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Figure1.png" alt="Figure 1" /></p>
+
+<h2 id="2-method-3d-aware-neural-body-fitting">2. Method: 3D-Aware Neural Body Fitting</h2>
+
+<p><img src="../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Figure2.png" alt="Figure 2" /></p>
+
+<h3 id="21-formulation">2.1. Formulation</h3>
+
+<p>For input image $I \in \mathbb{R}^{H \times W \times 3}$, they defined 3D human pose parameters $\theta$ and with Bayes rule, they formulate the problem as follows:</p>
+
+<p>&amp;\theta^{*} = \underset{\theta}{\mathrm{argmax}} \ p(\theta | I) = \underset{\theta}{\mathrm{argmax}} \ p(I | \theta)p(\theta)&amp;</p>
+
+<p>where $p(\theta)$ is a prior distribution learned from data and $p(I|\theta)$ is the likelihood, that is typically derived from a generative forward model. The goal is to find the parameter $\theta^{*}$ that best describes the input image.</p>
+
+<h3 id="22-feature-level-analysis-by-synthesis">2.2. Feature-Level Analysis-by-Synthesis</h3>
+
+<p>In this method, they perform analysis-by-synthesis at the feature-level to make it invariant to the image’s unnecessary information, such as colors, background, clothing, etc, that are not useful in human pose estimation. if the put output</p>
+
+<p>of a deep convolutional neural network $\zeta$ is feature respresentation of an input image $\zeta(I) = F \in \mathbb{R}^{H \times W \times D}$ and $f_ i \in \mathbb{R}^D$ is a feature vector in $F$ at pixel $i$ on the feature map. They defined $G( \theta) = \hat{\Phi} \in \mathbb{R}^{H \times W \times D}$, a generative model in feature level which produces a feature map $\hat{\Phi}$ given the pose $\theta$.</p>
+
+<p>They defined the occlusion-robust likelihood as:</p>
+
+<p>$p(F|G(\theta), B, Z) = \prod_ {i \in \mathcal{FG}} p(f_ i|\hat{\phi}_ i, z_ i) \prod_ {i’ \in \mathcal{BG}} p(f_ {i’}|B)$</p>
+
+<p>$p(f_ i | \hat{\Phi}_ i, z_ i) = [p(f_ i | \hat{\Phi}_ i)]^{z_ i} [p(f_ i | \mathcal{B})]^{(1 - z_ i)}$</p>
+
+<p>following existing work on occlusion-robust analysis-by-synthesis where $z_ i \in{0,1}$ and $p(z_ i=1) = p(z_ i=0)= 0.5$ and $z_ i$ is for background model ($\mathcal{BG}$) that explains the information that cannot be explained by foreground model ($\mathcal{FG}$).</p>
+
+<h3 id="23-neural-body-volumes">2.3. Neural Body Volumes</h3>
+
+<p>Local information can be missed in the Feature-Level Analysis-by-Synthesis process (e.g., shading useful for 2D to 3D inference). So, in previous studies, implicit volume representation was used to reconstruct continuous surfaces of the body without necessarily focusing on the probabilistic distribution of points, also, this method needs multi-view or video that does not align with this paper’s purpose with a single RGB image in occluded situations. Therefore, they presented a novel model called Neural Body Volumes (NBV) that represents the volume density of a human body using a sum of Gaussian kernels, effectively a continuous function over space. At spatial location $X \in \mathbb{R}^3$ each kernel $\rho_ k(X) = \mathcal{N}(M_ k, \Sigma_ k)$ is parameterized by a mean vector $M_ k(\theta, \beta) \in \mathbb{R}^3$ and a covariance matrix $\Sigma_ k(\theta, \beta) \in \mathbb{R}^3$, which are conditioned on human pose and shape parameters. The overall volume density is defined as a sum of these individual kernel densities $\rho(X)=\sum_ {k=1}^K\rho_ k(X)$.</p>
+
+<p>A volume rendering model projects 3D Gaussian kernels and their associated feature vectors onto a 2D plane as follows</p>
+
+<p>$\hat{\phi}(r_ \Pi) = \int_ {t_ n}^{t_ f} T(t) \sum_ {k=1}^K \rho_ k (r_ \Pi(t)) \phi_ {k} dt,$</p>
+
+<p>, where $r_ \Pi(t)$ $t\in [t_ n,t_ f]$ is a ray, and the transmittance function is:</p>
+
+<p>$T(t) = \exp\left(-\int_ {t_ n}^{t} \rho(r_ \Pi(s)) \, ds\right)$</p>
+
+<p>$T(t)$ describes how the light’s intensity decreases as it travels through each kernel when the features, such as color or texture, are added. The final analytic form of integral is $\hat{\phi}(r) = \sum_ {k=1}^{K} \alpha_ k(\pi_ 1, \rho)\phi_ k$ where for $K$ Gaussian kernels, $\Phi = {\phi_ k}$ is corresponding features. For each input image, the model tries to optimize $\theta$ and shape $\beta$ parameters to change the position $M_ k(\theta, \beta)$ and the shape $\Sigma_ k(\theta, \beta)$ of the Gaussian ellipsoids. With a wise choice of $K$, the model can accurately capture a wide variety of human body shapes.</p>
+
+<p><strong>Conditioning on pose and shape.</strong> $J\in \mathbb{R}^{N\times3}$ is set of body joints and $\bar{J}$ is the template joints set. The pose is defined by corresponding rotation matrices $\Omega \in \mathbb{R}^{N\times3\times3}$. They articulated Gaussian kernels using Linear Blend Skinning (LBS) which uses $G(J,\Omega)$ transformation matrix to transform the center of these kernels and uses a linear combination of set of $L$ basis shape displacements $S \in \mathbb{R}^{L \times K \times 3}$ to estimate the body part shapes. The location $M_ k$ of each kernel is computed using a weighted sum of the joint transformations ($\sum_ {i=1}^{N} w_ {k,i}=1$) and shape displacements ($\sum_ {l=1}^{L} \beta_ {l}=1$), as shown below</p>
+
+<p>$M_ k = \sum_ {i=1}^{N} w_ {k,i} \cdot G_ i[\bar{M_ k} + \sum_ {l=1}^{L} \beta_ {l} \cdot S_ {l,k}][1]$</p>
+
+<p>where $\bar{M_ k}$ is the rest position kernal. The covariance matrices are similarly updated to match the rotations of the joints.</p>
+
+<p>$\Sigma_ k^{-1} = \sum_ {i=1}^{N} w_ {k,i} \cdot R_ {i}^T \cdot \bar{\sum}_ {k}^{-1}\cdot R_ i$</p>
+
+<p>where $R_ {i}$ is the product of rotations from the root to the joint $i$. ($R_ i=\prod_ {j\in A(i)} \Omega_ i$) and $\bar{\Sigma_ k}$ is the rest position kernal.</p>
+
+<p>The template joint locations $\bar{J}$ are adjusted to reflect individual body shapes by regressing the template joint locations from the deformed Gaussian kernels’ locations using the following formula:</p>
+
+<p>$\bar{J} = g\left(\bar{M} + \sum_ {l=1}^{L} \beta_ l S_ l\right)$</p>
+
+<p>Here, $\bar{M}$ is dedicated to the mean position of the kernels, $\beta_ l$ are the coefficients that control the influence of each of the $L$ basis shape displacements $S_ l$, and the linear function $g$ maps these adjusted positions to the joint locations in 3D space.</p>
+
+<p>In conclusion, through the volume rendering process, each pixel in the feature map is associated with a feature vector $\hat{\phi}$, which is an aggregation of the contributions from all the Gaussian kernels to ensure a realistic human body model output.</p>
+
+<h3 id="24-a-generative-model-of-3d-aware-features">2.4. A Generative Model of 3D-Aware Features</h3>
+
+<p>To overcome the 2D-3D ambiguity in human pose estimation, they made a 3D-aware generative model by introducing _ pose-dependent feature representations. The generative model, NBV, utilizes Gaussian ellipsoidal kernels positioned relative to the body joints, each kernel feature captures the 3D orientation of body limbs.</p>
+
+<p>The innovation is conditioning the kernel features on the orientation of body limbs. This is formulated as a distribution over the features, conditioned on human pose and shape:</p>
+
+<p>$p(\phi_ k = \phi_ {ko} | l_ k(\theta, \beta)) = \frac{p(l_ k | \hat{l}_ o)}{\sum_ {o=1}^O p(l_ k | \hat{l}_ o)}$</p>
+
+<p>The limb orientation $l_ k(\theta, \beta)$ influences the features $\phi_ k$, making them pose-dependent. The von Mises-Fisher distribution, $vMF(l_ k | \hat{l}_ o, \kappa_ o)$, models the probability of the limb’s orientation given a predefined orientation $\hat{l}_ o$.</p>
+
+<p>During inference, the expected feature $E(\phi_ k | \theta, \beta)$ of kernel $k$ is used for volume rendering, ensuring the process is differentiable.</p>
+
+<p>This method bridges the gap between 2D image features and their corresponding 3D human poses, significantly enhancing the robustness of pose estimation, particularly in cases of occlusion.</p>
+
+<h3 id="25-training">2.5. Training</h3>
+
+<p><strong>Formulation.</strong></p>
+
+<ul>
+  <li>
+    <p>Template Gaussian kernels and associated features $\bar{M}, \bar{\Sigma}, \Phi$,</p>
+  </li>
+  <li>
+    <p>Template joints $\bar{J}$,</p>
+  </li>
+  <li>
+    <p>Blend weights $W$,</p>
+  </li>
+  <li>
+    <p>Basis shape displacements $S$,</p>
+  </li>
+  <li>
+    <p>Joint regressor $g$,</p>
+  </li>
+  <li>
+    <p>UNet feature extractor $\zeta$.</p>
+  </li>
+</ul>
+
+<p><strong>Learning pose and shape parameters. in NBV</strong></p>
+
+<p>After initialization $\bar{M}$ and $\bar{\Sigma}$ from a downsampled version of a template body mesh, template joints $\bar{J}$, linear joint regressor, and blend weights are established through manual segmentation. Pose and shape parameters are learned by registering the NBV to the training set and minimizing the reconstruction error between Gaussian kernels and ground truth shape.</p>
+
+<p><strong>MLE learning of NBV kernel features</strong></p>
+
+<p>Maximum Likelihood Estimation (MLE) is used for NBV kernel features learning with a negative log-likelihood loss:</p>
+
+<p>$\begin{equation}
+    \mathcal{L}_ {\text{NLL}}(\hat{F}, \Phi) = - \sum_ {i \in \mathcal{F}_ G} \log p(f_ i|\Phi_ i)
+\end{equation}$</p>
+
+<p><strong>3D-aware contrastive learning of the UNet feature ex-tractor.</strong></p>
+
+<p>UNet feature extractor is trained through 3D-aware contrastive learning with three contrastive losses:</p>
+
+<ul>
+  <li>Feature contrastive loss ($\mathcal{L}_ {\mathcal{FG}}$) encourages features of different pixels to be distinct:</li>
+</ul>
+
+<p>$\mathcal{L}_ {\mathcal{FG}}(F, \mathcal{FG}) = - \sum_ {i \in \mathcal{F}_ G} \sum_ {i’ \in \mathcal{FG} \backslash {i}} \left| f_ i - f_ {i’} \right|^2$</p>
+
+<ul>
+  <li>3D contrastive loss $\mathcal{L}_ {3D}$ encourages features of the same kernel in different 3D poses to be distinct:</li>
+</ul>
+
+<p>$\mathcal{L}_ {3D}(F) = - \sum_ k \sum_ {o \in \mathcal{O}\backslash{{o}}} \sum_ {i \in \mathcal{K}_ o} \sum_ {i’ \in \mathcal{K}_ {o’}} \left| f_ {ik_ o} - f_ {ik_ {o’}} \right|^2$</p>
+
+<ul>
+  <li>Background contrastive loss $\mathcal{L}_ {\mathcal{BG}}$ encourages features on the human to be distinct from the background:</li>
+</ul>
+
+<p>$\mathcal{L}_ {\mathcal{BG}}(F, \mathcal{FG}, \mathcal{BG}) = - \sum_ {i \in \mathcal{F}_ G} \sum_ {j \in \mathcal{BG}} \left| f_ i - f_ j \right|^2$</p>
+
+<p>So the total contrastive loss is:</p>
+
+<p>$\mathcal{L}_ {\text{contrast}}=\mathcal{L}_ {\mathcal{FG}}+\mathcal{L}_ {3D}+\mathcal{L}_ {\mathcal{BG}}$</p>
+
+<p>The total loss for training $\zeta$ is:</p>
+
+<p>$\mathcal{L}_ {\text{train}} = \mathcal{L}_ {\text{NLL}} + \mathcal{L}_ {\text{contrast}}$</p>
+
+<p><strong>Bottom-up initialization with regression heads.</strong></p>
+
+<p>Lastly, for efficient inference, a regression head is added to the UNet to predict pose and shape parameters ${\theta,\beta}$ from observed feature maps. The regression head and the UNet are learned jointly.</p>
+
+<h3 id="26-implementation-details">2.6 Implementation Details</h3>
+
+<p>For the technical specifics:</p>
+
+<ul>
+  <li>
+    <p>The neutral SMPL model is converted to NBV with 858 kernels.</p>
+  </li>
+  <li>
+    <p>A U-Net-styled network with a ResNet-50 backbone and three upsampling blocks is used as a feature extractor.</p>
+  </li>
+  <li>
+    <p>The regression head design is based on reference [26].</p>
+  </li>
+  <li>
+    <p>A 320 x 320 crop around the subject forms the input image.</p>
+  </li>
+  <li>
+    <p>The feature map has a downsampled resolution of 64x64, improving performance and computation cost.</p>
+  </li>
+  <li>
+    <p>Adam optimizer with a learning rate of 0.00005 and a batch size of 64 is utilized.</p>
+  </li>
+  <li>
+    <p>Data augmentation includes random flipping, scaling, and rotation.</p>
+  </li>
+</ul>
+
+<p>The model accounts for limb orientation projected to the yz-plane and splits the body into 9 limbs, including the torso. The torso accounts for the head and orientation is determined from the mid-hip to the neck joint. For inference optimization, the Adam optimizer is again used with a rate of 0.02 and a maximum of 80 steps. VPoseur is the chosen 3D pose prior, and the NLL of the pose and its 180° y-axis rotated version is used for initialization. Inference speed achieves approximately 1.7fps on 32 NVIDIA Titan Xp GPUs.</p>
+
+<h2 id="3-experiments">3. Experiments</h2>
+
+<h3 id="31-training-setup-and-datasets">3.1 Training Setup and Datasets</h3>
+
+<p><strong>Training:</strong> The NBV is trained on Human3.6M and MPI-INF-3DHP datasets, and later fine-tuned with COCO dataset. The initial fitting of the EFT is used for COCO-labeled ground truth. A two-step training process is employed:</p>
+
+<ol>
+  <li>
+    <p>Train the feature extractor for 175K iterations.</p>
+  </li>
+  <li>
+    <p>Fine-tune on 50% Human3.6M, 20% MPI-INF-3DHP, and 30% COCO datasets.</p>
+  </li>
+</ol>
+
+<p><strong>Occlusion Robustness Evaluation:</strong> Evaluations are carried out on 3DPW-Occluded and 3DHP-Occluded datasets without prior training on them to test robustness against occlusion. The metrics used are Procrustes-aligned mean per joint position error (PA-MPJPE) and PCKh.</p>
+
+<p><strong>Adversarial Occlusion Robustness Evaluation:</strong> The robustness against occlusion is further evaluated using a tool called 3DPW-AdvOcclusion which applies adversarial patches to find the worst prediction. Two different square patch sizes are tested: Occlusion@40 and Occlusion@80.</p>
+
+<h3 id="32-performance-evaluation">3.2 Performance Evaluation</h3>
+
+<p><strong>Baselines:</strong> NBV is compared against state-of-the-art regression-based methods showing superior occlusion robustness and performance as shown in Table 1. For fair comparisons, they used the same ResNet-50 backbone for all the methods.</p>
+
+<p><img src="../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Table1.png" alt="Table 1" /></p>
+
+<p><strong>Comparison to SOTA:</strong> NBV shows significant improvements on standard 3DPW test set and 3DHP dataset. According to Table 1, As occlusion becomes more severe, their method, 3DNBF, significantly outperforms regression-based models, SPIN, HMRT-EFT, Mesh Graphormer, and PARE.</p>
+
+<p>Also, they compared their method with Other Optimization-Based Methods. They used HMR-EFT for initialization and all the methods used the same 2D keypoints detected by OpenPos. Although some optimization methods achieve a better performance compared to regression-based approaches, the proposed method had the best performance for both occluded and non-occluded cases.</p>
+
+<p><img src="../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Table2.png" alt="Table 2" /></p>
+
+<h3 id="33-ablation-studies">3.3 Ablation Studies</h3>
+
+<p><img src="../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Table3.png" alt="Table 3" /></p>
+
+<p>Ablation studies confirm the contribution of different components in 3DNBF including the NBV, pose-dependent kernels, and the contrastive loss learning framework.</p>
+
+<ul>
+  <li>
+    <p>Pose-dependent kernel features are validated to be more effective than pose-independent features.</p>
+  </li>
+  <li>
+    <p>The model trained without contrastive learning exhibits performance degradation.</p>
+  </li>
+  <li>
+    <p>Regression head demonstrates higher occlusion robustness compared to other regression-based methods.</p>
+  </li>
+</ul>
+
+<h3 id="4-conclusion">4. Conclusion</h3>
+
+<p>The paper introduces 3D Neural Body Fitting (3DNBF), an innovative analysis-by-synthesis method for three-dimensional Human Pose Estimation (3D HPE). The key contributions are:</p>
+
+<ul>
+  <li>
+    <p><strong>NBV (Neural Blendshape Vector):</strong> An explicit volume-based generative model tailored for pose-dependent feature representation of the human body.</p>
+  </li>
+  <li>
+    <p><strong>Contrastive Learning Framework:</strong> Developed to train feature extractors, this framework effectively captures 3D pose information, addressing the inherent 2D-3D ambiguity in monocular 3D HPE.</p>
+  </li>
+  <li>
+    <p><strong>Benchmark Performance:</strong> Demonstrated superiority of 3DNBF in challenging datasets over both state-of-the-art (SOTA) regression-based and optimization-based methods, especially regarding occlusion robustness.</p>
+  </li>
+</ul>
+
+<p>authors expect their method to be not only robust to occluded situations but also robust to other adversarial examinations.</p>
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>
+    <p>Mahsa Aghazadeh</p>
+  </li>
+  <li>
+    <p>Affiliation: <a href="http://hfel.kaist.ac.kr/">Human Factors and Ergonomics Lab</a></p>
+  </li>
+  <li>
+    <p>Research Topic: Computer Vision, Human Factors and Ergonomics</p>
+  </li>
+  <li>
+    <p>Contact: mahsa_ agz@kaist.ac.kr</p>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

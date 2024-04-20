@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2023] Crossformer-Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2023] Crossformer-Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2023] Crossformer-Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2023] Crossformer-Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="1-motivation">1. Motivation</h1>
+<p>다변량 시계열 (Multivariate Time Series, i.e. MTS)은 여러 차원을 갖는 시계열이다. 여기서 각 차원은 특정 단일변량 시계열을 나타낸다. 시간 간 종속성 (cross-time dependency)과 차원 간 종속성 (cross-dimension dependency) 모두 MTS 예측에서 중요한 역할을 한다. 트랜스포머 (Transformer) 기반 모델은 모든 차원의 데이터 포인트를 동시에 특징 벡터로 포함하여 시간 간 종속성을 캡처하는 데 성공적인 성능을 보였다. 그렇다면 차원 간 종속성은 어떨까? 이 논문에서는 CrossFormer라는 새로운 모델을 제안한다. 저자들은 Crossformer를 사용하면 차원 간 종속성도 포착함으로써 예측 능력을 높일 수 있다고 기대한다.</p>
+
+<p>CrossFormer에는 세가지 단계가 포함되어 있다: Dimension-Segment-Wise (DSW) embedding, Two-Stage-Attention (TSA) layer, 그리고 Hierarchical Encoder-Decoder (HED). 각 단계는 해당 주제에 대한 관련 작업에서 제기된 한계점을 보완하였다.</p>
+
+<h1 id="2-related-work">2. Related Work</h1>
+<p>이 논문에서 다루는 주요 개념들에 대한 선행 연구를 간단히 소개하고자 한다.</p>
+<h2 id="2-1-multivariate-time-series-forecasting-models">2-1. Multivariate Time Series Forecasting models</h2>
+
+<p>아래 표는 MTS 예측에 사용되는 모델 유형의 예를 요약하였다:
+| 유형      | 모델 예시 | 특징     |
+| :—        |    :—-:   |          —: |
+| 통계 기반 모델      | Vector augo-regressive models (VAR), Vector augo-regressive moving average (VARMA) | 차원 간 및 시간 간 종속성을 선형으로 가정함
+| 신경망 기반 모델   | TCN, DeepAR        | MTS 데이터를 벡터 시퀀스로 취급하고 CNN/RNN을 사용하여 시간적 종속성을 포착함      |
+| 신경망 기반 모델 |LSTnet| CNN을 사용하여 차원 간 종속성을 포착하고 RNN을 사용하여 시간 간 종속성을 포착함 
+| 신경망 기반 모델| MTGNN | 시간적 합성곱 층 (convolution layer) 및 그래프 합성곱 층 (convolution layer)를 사용하여 시간 간 및 차원 간 종속성을 포착함</p>
+
+<p>대부분의 신경망 모델은 시간 간 종속성을 포착하기 위해 CNN과 RNN을 사용하고 있다. 하지만 저자들은 장기 종속성을 모델링하는 데는 기존 모델들의 방법으로는 어려움이 있을 수 있다고 말한다.</p>
+
+<h2 id="2-2-transformers-for-mts-forecasting">2-2. Transformers for MTS Forecasting</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">모델 예시</th>
+      <th style="text-align: center">설명</th>
+      <th style="text-align: right">특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">LogTrans</td>
+      <td style="text-align: center">LogSparse attention</td>
+      <td style="text-align: right">트랜스포머의 시간복잡도를 O(L^2) 에서 O(L(log L)^2)로 감소시킴</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Informer</td>
+      <td style="text-align: center">ProbSparse self-attention</td>
+      <td style="text-align: right">KL 발산 추정을 통해 어텐션 점수의 희소성을 활용하여 O(L log L)을 달성함</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Autoformer</td>
+      <td style="text-align: center">decomposition architecture with an Augo-Correlation mechanism</td>
+      <td style="text-align: right">시간복잡도: O( L log L)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pyraformer</td>
+      <td style="text-align: center">pyramidal attention module</td>
+      <td style="text-align: right">다양한 해상도에서 특징을 요약하여 O(L)을 달성</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">FEDformer</td>
+      <td style="text-align: center">frequency enhanced Transformer</td>
+      <td style="text-align: right">시계열이 주파수 도메인에서 희소한 표현을 가지고 있다고 주장함; O(L) 달성</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Preformer</td>
+      <td style="text-align: center">segment-wise correlation-based attention</td>
+      <td style="text-align: right">임베딩된 특성 벡터 (feature vector) 시퀀스를 세그먼로 나눔</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이러한 트랜스포머 기반 모델은 시간 간 종속성 모델링의 시간 복잡도를 줄이는 데 초점을 맞추었지만, 차원 간 종속성의 시간 복잡도는 고려하지 않았다.</p>
+
+<h2 id="2-3-vision-transformers">2-3. Vision Transformers</h2>
+<p>저자들은 DSW 임베딩의 영감을 ViT에서 이미지를 패치로 분할하는 아이디어로부터 얻었다. ViT는 이미지를 중간 크기의 겹치지 않는 패치로 분할하고 이를 순서대로 재배열하여 트랜스포머의 입력이 되는데, Crossformer의 MTS는 차원별 세그먼트로 분할된다.</p>
+
+<h1 id="3-methods">3. Methods</h1>
+<p>이 논문에서 제안하는 Crossformer의 downstream task는 MTS forecasting이다. MTS forecasting은 과거의 기록을 고려하여 시계열의 미래 값을 예측하는 것을 목표로 한다:</p>
+
+<p>$x_ {(1:T)} \in \mathbb{R}^{T \times D} \text{  (history)}$</p>
+
+<p>$x_ {(T+1):(T+\tau)} \in \mathbb{R}^{\tau \times D} \text{  (future)}$</p>
+
+<h2 id="3-1-차원-세그먼트-단위-임베딩-dimension-segment-wise-embedding">3-1. 차원-세그먼트 단위 임베딩 (Dimension-Segment-Wise Embedding)</h2>
+
+<p>기존 방법은 동일한 시간 단계의 데이터 포인트를 벡터로 임베딩한다. 구체적으로, 다음과 같은 단계를 거친다:</p>
+
+<p>$x_t \text{ -&gt; } h_t,x_t \in \mathbb{R}^D, h_t \in \mathbb{R}^{d_ {model}}$</p>
+<ul>
+  <li>
+    <p>$x_t$: 시점 t에서 D 차원의 모든 데이터 포인트를 나타냄</p>
+  </li>
+  <li>인풋 $x_ {(1:T)}$ 은 T 벡터에 {$h_1$, $h_2$, … , $h_T$} 입력됨</li>
+  <li>결과적으로, T 벡터 간의 종속성이 예측을 위해 포착됨</li>
+</ul>
+
+<p>저자들은 차원 간 종속성을 명확하게 포착하기 위한 방법을 고안하게 된다.</p>
+
+<p>임베딩된 벡터는 단일 차원의 시계열 세그먼트를 나타내어야 한다. 이는 단일 단계에서 모든 차원의 값을 나타내는 것과는 대조된다. 아래 그림에서 (b)는 기존 방법으로 같은 시간 단계에서 데이터 포인트를 벡터로 임베딩하는 것을 보여주고, (c)는 이 논문에서 제안된 DSW 임베딩 방법을 보여준다. 여기서 시간에 따라 인접한 포인트가 각 차원에서 임베딩을 위한 세그먼트를 형성한다.</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/fig1.png" alt="Alt text" title="Figure1" /></p>
+
+<p>각 차원의 포인트는 길이에 따라 세그먼트, $L_ {seg}$,로 나누어진 다음 임베딩 된다. 이때, $x_ {i,d}^{(s)} \in \mathbb{R}^{L_ {seg}}$ 는 길이 $L_ {seg}$를 가진 $d$ 차원의 $i$번째 세그먼트이다. 이를 수식으로 표현하면 다음과 같다:</p>
+
+<p>$X_ {1:T} = X_ {i,d}^{(s)}\vert 1 \le i \le \frac{T}{L_ {seg}}, 1 \le d \le D$</p>
+
+<p>$X_ {i,d}^{(s)} = x_ {t,d}\vert (i-1) \times L_ {seg} &lt; t \le i \times L_ {seg}$</p>
+
+<p>각 세그먼트는 선형 투영과 위치 임베딩이 추가된 벡터에 임베딩된다. 이때, $E \in \mathbb{R}^{d_ {model} \times L_ {seg}}$은 학습 가능한 투영 행렬을 나타내고 
+$E_ {i,d}^{(pos)} \in \mathbb{R}^{d_ {model}}$는 position ($i$, $d$)에 대한 학습 가능한 위치 임베딩을 나타낸다. 수식으로 표현하면 다음과 같다:</p>
+
+<p>$h_ {i,d} = Ex_ {i,d}^{(s)} + E_ {i,d}^{(pos)}$</p>
+
+<p>DSW 임베딩의 최종 출력은 각 $h_ {i,d}$가 단변량 (univariate) 시계열 세그먼트를 나타내는 2차원 배열이다.</p>
+
+<p>$H = h_ {i,d}\vert 1 \le i \le \frac{T}{L_ {seg}}, 1 \le d \le D$</p>
+
+<h2 id="3-2-두단계-attention-층-two-stage-attention-layer">3-2. 두단계 Attention 층 (Two-Stage Attention Layer)</h2>
+
+<h3 id="3-2-a-시간상-교차-단계-cross-time-stage--odl2">3-2-a. 시간상 교차 단계 (Cross-Time Stage):  $O(DL^2)$</h3>
+
+<p>DSW 임베딩의 아웃풋인 2차원 배열, $Z \in \mathbb{R}^{L \times D \times d_ {model}}$, 은 TSA layer의 인풋이 된다. $Z_ {i.:}$ 은 시간 단계에서 모든 차원의 벡터를 나타내고 $i$ and $Z_ {:,d}$ 은 차원 d의 모든 시간 단계의 벡터이다. 시간상의 교차 단계에서는 각 차원에 대해 다중 헤드 셀프 어텐션(Multi-Head Self-Attention, i.e. MSA)이 적용된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">인풋</th>
+      <th style="text-align: center">적용 기법</th>
+      <th style="text-align: right">아웃풋</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$Z$</td>
+      <td style="text-align: center">MSA, LayerNorm</td>
+      <td style="text-align: right">$\hat{Z^{time}_ {:,d}}$ = LayerNorm($Z_ {:,d}+ MSA^{time}(Z_ {:,d},Z_ {:,d},Z_ {:,d}$))</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\hat{Z^{time}}$</td>
+      <td style="text-align: center">MLP, LayerNorm</td>
+      <td style="text-align: right">$Z^{time}$ = LayerNorm($\hat{Z}^{time}+ MLP({\hat{Z^{time}}}$))</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>같은 차원 내의 시간 세그먼트 간의 종속성은 in $Z^{time}$ 에 포착된다.</p>
+
+<h3 id="3-2-b-차원상-교차-단계-cross-dimension-stage---odl">3-2-b. 차원상 교차 단계 (Cross-Dimension Stage):   $O(DL)$</h3>
+
+<p>저자들은 잠재적으로 큰 D에 대해 라우터 메커니즘 (router mechanism)을 사용했고, 각 시간 단계 $i$에 대해 소수의 학습 가능한 벡터를 라우터로 설정했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">인풋</th>
+      <th style="text-align: center">적용 기법</th>
+      <th style="text-align: right">아웃풋</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$R_ {i,:}, Z_ {i,:}^{time}, Z_ {i,:}^{time}$</td>
+      <td style="text-align: center">MSA 1</td>
+      <td style="text-align: right">$B_ {i,:}$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$Z_ {i,:}^{time}, B_ {i,:}, B_ {i,:}$</td>
+      <td style="text-align: center">MSA 2</td>
+      <td style="text-align: right">$\bar{Z^{dim}_ {i,;}}$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$Z^{time} + \bar{Z}^{dim}$</td>
+      <td style="text-align: center">LayerNorm</td>
+      <td style="text-align: right">$\hat{Z}^{dim}$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\hat{Z}^{dim} + MLP(\hat{Z}^{dim})$</td>
+      <td style="text-align: center">LayerNorm</td>
+      <td style="text-align: right">$Z^{dim}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>시간상 교차 단계와 차원상 교차 단계를 종합하면, 두 단계는 다음과 같이 모델링된다:</p>
+
+<p>$Y = Z^{dim} = TSA(Z)$.</p>
+
+<p>이 때, $Z, Y \in \mathbb{R}^{L \times D \times d_ {model}}$ 
+는 각각 TSA 층의 입력과 출력 벡터 배열을 나타낸다. TSA 층의 최종 시간복잡도는 $O(DL^2+DL) = O(DL^2)$ 이다.</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/fig2.png" alt="Alt text" title="Figure 2" /></p>
+
+<p>정리하면, 위 그림의 (a)는 MTS를 표현하는 2차원 배열을 프로세싱하기 위한 TSA 층을 나타낸다. 여기서, 각 벡터는 기존 시계열의 세그먼트를 나타낸다. 전체 배열은 시간상 교차 단계와 차원상 교차 단계를 거쳐 각 종속성을 얻는다. 
+그림의 (b)는 차원상 교차 단계에서 직접적으로 MSA를 사용하여 D-to-D 연결을 구축하는 경우를 나타내고, 그림의 (c)는 차원상 교차단계의 라우터 메커니즘을 나타낸다. 구체적으로, 특정 갯수 (c개) 의 라우터는 전체 차원에서 정보를 얻고 그 정보를 전파한다. 이 과정을 통해 시간복잡도가 $O(2cD)$ 에서 $O(D)$로 줄어든다.</p>
+
+<h2 id="3-3-계층적-인코더-디코더-hierarchical-encoder-decoder">3-3. 계층적 인코더-디코더 (Hierarchical Encoder-Decoder)</h2>
+<p>마지막 단계로 저자들은 DSW 임베딩과 TSA 레이어를 사용하여 계층적 인코더-디코더를 구성했다. 트랜스포머 기반의 MTS 예측 모델은 다양한 척도의 정보를 포착하는 데 알려진 계층적 구조를 널리 활용한다. Zhou et al. 2021과 Liu et al. 2021a도 이러한 구조를 사용했다.</p>
+
+<h3 id="encoder---od-fract2l2_-seg">Encoder:   $O(D \frac{T^2}{L^2_ {seg}})$</h3>
+<p>시간 도메인의 두 인접한 벡터를 병합하여 보다 거친 수준의 표현을 얻는다. 이 과정은 첫번째 레이어를 제외한 각 인코더 레이어에 수행된다. 이 단계에서 종속성을 포착하기 위해 TSA 층이 적용된다. 수식으로 표현하면 다음과 같다:</p>
+
+<p>$Z^{enc, l} = Encoder(Z^{enc, l-1})$</p>
+
+<p>이때, $H$는 DSW 임베딩을 통해 얻어진 2차원 배열을 나타내고 $Z^{enc,l}$는 $TSA(\hat{Z}^{enc, l})$를 나타낸다.</p>
+
+<h3 id="decoder----od-fractauttaul2_-seg">Decoder:    $O(D \frac{\tau(T+\tau)}{L^2_ {seg}})$</h3>
+
+<p>예측을 위한 디코더에서는 N+1개의 층이 사용된다. 층 $l$은 $l$번째 인코딩된 배열을 입력으로 받고 층 $l$의 디코딩된 2차원 배열을 출력한다.</p>
+
+<p>세부적인 단계는 다음과 같다:</p>
+
+<p>$Z^{dec,l} = Decoder(Z^{dec, l-1}, Z^{enc, l})$</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">인풋</th>
+      <th style="text-align: center">적용 기법</th>
+      <th style="text-align: right">아웃풋</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$\tilde{Z^{dec,l}_ {:,d}}, Z^{enc,l}_ {:,d}, Z_ {:,d}^{enc,l}$</td>
+      <td style="text-align: center">MSA</td>
+      <td style="text-align: right">$\bar{Z^{dec,l}_ {:,d}}$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\tilde{Z^{dec,l}} + \bar{Z^{dec,l}}$</td>
+      <td style="text-align: center">LayerNorm</td>
+      <td style="text-align: right">$\hat{Z^{dec,l}}$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\tilde{Z^{dec,l}} + MLP(\hat{Z}^{dec,l})$</td>
+      <td style="text-align: center">LayerNorm</td>
+      <td style="text-align: right">$Z^{dec,l}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그런 다음, 각 층의 출력에 선형 투영이 적용되어 해당 층의 예측을 생성한다. 층의 예측은 합산되어 최종 예측을 만든다.</p>
+
+<h1 id="4-experiments">4. Experiments</h1>
+<h2 id="4-1-setttings">4-1. Setttings</h2>
+<p>저자들은 6개의 실제 데이터셋을 사용하여 실험을 진행하였다.</p>
+
+<p>1) ETTh1 (Electricity Transformer Temperature-hourly)
+2) ETTm1 (electricity Transformer Temperature-minutely)
+3) WTH (Weather)
+4) ECL (Electricity Consuming Load)
+5) ILI (Influenza-Like Illness)
+6) Traffic</p>
+
+<p>데이터셋의 선택 및 train/validation/test 세트의 분할 비율(0.7:0.1:0.2)은 Zhou et al. (2021) 및 Wu et al. (2021a)의 연구에서 수행된 작업을 따랐다.</p>
+
+<p>저자들은 결과 비교를 위해 다음과 같은 모델들을 기준 모델 (baseline model)로 사용하였다:</p>
+
+<p>1) LSTMa (Bahdanau et al., 2015)
+2) LSTnet (Lai et al., 2018)
+3) MTGNN (We et al., 2020)
+4) Transformer (Vaswani et al., 2017)
+5) Informer (Zhou et al., 2021)
+6) Autoformer (We et al., 2021a)
+7) Pyraformer (Liu et al., 2021a)
+8) FEDformer (Zhou et al., 2022)</p>
+
+<p>실험의 설정은 다음과 같다:</p>
+
+<p>1) train/validation/test 세트는 train 세트의 평균과 표준 편차로 zero-mean 정규화했다.
+2) 미래 창 크기 (future window size) $\tau$가 변하는 것에 대한 성능을 평가했다.
+3) 각 $\tau$에 대해, 과거 창 크기 (past window size) $T$를 탐색할 하이퍼파라미터로 고려했다.
+4) 전체 세트를 스트라이드 (stride)=1로 롤하여 다양한 입력-출력 쌍을 생성했다.
+5) 평가 지표로서 MSE와 MAE를 사용했다.
+6) 모든 실험은 5회 반복했으며 평균만 보고했다.</p>
+
+<h2 id="4-2-results">4-2. Results</h2>
+
+<p>아래 Table 1에서 볼 수 있듯이, Crossformer는 대부분의 데이터셋에서 선도적인 성능을 보였다. Crossformer는 ILI 데이터셋에서 FEDformer 및 Autoformer에 뒤진 성능을 보였는데, 저자들은 이는 데이터셋 크기가 작고 이 두 모델이 네트워크 구조에 일련의 분해에 대한 사전 지식을 도입했기 때문일 것으로 추측했다. MTGNN은 명시적으로 차원 간 종속성을 사용하기 때문에 Transformer 기반의 많은 기준선보다 우수한 성능을 보였다.</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/table1.png" alt="Alt text" title="table1" /></p>
+
+<h2 id="ablation-study">Ablation study</h2>
+
+<p>Crossformer은 세 가지 방법으로 구성되었다: DSW 임베딩, TSA 레이어, 그리고 계층적 인코더-디코더. 저자들은 ETTh1 데이터셋과 Transformer를 기준선으로하여 ablation 연구를 수행했다. 세 가지 ablation 버전을 비교했다: 1) DSW, 2) DSW+TSA, 3) DSW+HED. 결과는 아래 그래프와 같았다:</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/table2.png" alt="Alt text" title="table2" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ablation 버전</th>
+      <th style="text-align: center">결과</th>
+      <th style="text-align: right">저자의 해석</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">DSW</td>
+      <td style="text-align: center">Crossformer가 대부분의 설정에서 Transformer보다 더 나은 성능을 보임</td>
+      <td style="text-align: right">DSW 임베딩의 유용성과 차원 간 종속성의 중요성을 시사</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DSW+TSA</td>
+      <td style="text-align: center">TSA가 예측 정확도를 지속적으로 향상시킴</td>
+      <td style="text-align: right">시간과 차원을 다르게 처리하는 것은 합리적이고 TSA는 고차원 데이터에서 Crossformer의 사용을 가능하게 함</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DSW+HED</td>
+      <td style="text-align: center">단기 예측 길이에서는 정확도가 감소하지만, 장기 예측에서는 증가함</td>
+      <td style="text-align: right">다양한 척도의 정보는 장기 예측에 도움이됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DSW+TSA+HED</td>
+      <td style="text-align: center">모든 설정에서 최상의 결과를 보임</td>
+      <td style="text-align: right"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="하이퍼파라미터의-유용성-평가">하이퍼파라미터의 유용성 평가</h2>
+<p>저자들은 ETTH1 데이터셋에서 세그먼트 길이 ($L_ {seg}$)와 TSA의 라우터 수 ($c$)의 효과를 평가했다. 결과는 아래와 같았다:</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/fig4_ab.png" alt="Alt text" title="fig4_ab" />
+1) 세그먼트 길이</p>
+<ul>
+  <li>단기 예측 ($\tau$=24, 48)에서는 더 작은 세그먼트가 상대적으로 더 나은 결과를 가져오지만, 예측 정확도는 안정적임</li>
+  <li>장기 예측 ($\tau \ge 168$)에서는 세그먼트 길이를 4에서 24로 연장하면 MSE가 감소함</li>
+  <li>따라서 장기 예측에는 장기 세그먼트를 사용해야함
+2) TSA층의 라우터 수</li>
+  <li>$\tau$ $\le$ 336에 대해 $c$에 대한 Crossformer의 성능은 안정적임</li>
+  <li>라우터의 수는 모든 차원 간의 정보 대역폭 (bandwidth)을 제어함</li>
+</ul>
+
+<h2 id="계산-효율성-computational-efficiency-분석">계산 효율성 (computational efficiency) 분석</h2>
+
+<p>기존의 트랜스포머 기반 모델들의 시간복잡도와 비교했을 때, Crossformer는 큰 값의 $L_ {seq}$가 사용되는 장기 예측의 경우 실제 복잡도를 크게 줄일 수 있다는 장점을 갖고 있다. 저자들은 여러 모델간의 메모리 점유량 (memory occupation)을 ETTh1 데이터셋을 사용하여 평가하였다. 예측 창의 크기 $\tau$를 336으로 설정하고 입력 길이 $T$를 연장하였다. 결과는 아래와 같았다:</p>
+
+<p><img src="../../images/DS503_24S/Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting/fig4_cd.png" alt="Alt text" title="fig4_cd" /></p>
+
+<p>그래프 (c)에 나타났듯이 $T$가 무한대에 가까워질수록 Informer, Autoformer, 그리고 FEDformer가 더 효율적이다. Crossformer는 $T$가 극단적으로 크지 않을 때 최상의 성능을 보인다.</p>
+
+<p>추가로 저자들은 차원 수 D에 대한 메모리 점유량도 분석하였다. Crossformer의 abalation 버전들간의 분석을 진행하였는데, 그래프 (d)에 나타났듯이 TSA 층은 복잡도를 줄이는데에 도움이 되고 더 나아가 라우터 메커니즘은 복잡도를 선형으로 만들어주어 Crossformer가 30차원 (D=30) 데이터 처리를 가능케 했다. 또한, 결과에 따르면 계층적 인코더-디코더 (HED)는 메모리 비용을 약간 줄일 수 있으며, 이는 세그먼트 병합 후 상위 레이어에 더 적은 벡터가 있기 때문이라고 분석하였다.</p>
+
+<h1 id="5-conclusion">5. Conclusion</h1>
+<p>이 논문에서 저자들은 다차원 시계열 (MTS) 예측을 위해 차원 간 종속성 (cross-dimension dependency)를 활용하는 트랜스포머 기반 모델인 Crossformer를 제안한다. 구체적으로, 차원-세그먼트 단위 (DSW) 임베딩은 입력 데이터를 2차원 배열로 임베딩하여 시간과 차원의 정보의 보존을 가능케 한다. 그 후 TSA층을 통해 DSW 임베딩의 출력 배열의 시간 및 차원 간 종속성을 포착하였고, 마지막으로 계층적 인코더-디코더를 활용하여 다양한 척도의 정보를 활용하였다. 새롭게 고안된 Crossformer 모델은 6가지의 실제 데이터셋에 대해 기존 state-of-the-arts 결과에 견주는, 혹은 더 뛰어난 성능을 보였다.</p>
+
+<h1 id="6-future-direction">6. Future direction</h1>
+<ul>
+  <li>
+    <p>TSA 층의 차원상 교차 단계 (Cross-Dimension Stage)에서는 차원 간에 simple full connection을 구축하였는데, 이는 고차원 데이터셋에서 노이즈를 도입할 수 있다. Crossformer TSA층의 이러한 문제점은 최근에 연구된 sparse and efficient Graph Transformers (Wu et al., 2022)가 도움을 줄 수 있을것으로 보인다.</p>
+  </li>
+  <li>
+    <p>최근 연구인 Zeng et al., 2023는 MTS 예측에 대한 트랜스포머의 효과에 대한 의문을 바탕으로 일부 데이터셋에 대해 Crossformer을 포함한 모든 트랜스포머 기반 모델들을 능가하는 성능을 보이는 DLinear을 제안하였다. 이는 트랜스포머의 MSA (Multi-headed Self Attention)가 permutation-invariant (뜻: 입력 벡터 요소의 순서와 상관없이 같은 출력을 생성함)하기 때문이라고 주장하였다. 저자들은 트랜스포머의 순서 보존 능력을 강화하는것은 이러한 결점을 보완하기 위한 유망한 방법이라고 해석하였다.</p>
+  </li>
+  <li>
+    <p>MTS 연구에 사용된 데이터셋은 시각 및 텍스트에 사용되는 데이터셋들 보다 훨씬 작고 간단하기 때문에 새로운 모델을 넘어서 다양한 패턴의 대규모 데이터셋을 사용한 연구도 필요하다.</p>
+  </li>
+</ul>
+
+<h1 id="7-references">7. References</h1>
+<p>Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. In International Conference on Learning Representations (ICLR), 2015.</p>
+
+<p>Guokun Lai, Wei-Cheng Chang, Yiming Yang, and Hanxiao Liu. Modeling long- and short-term temporal patterns with deep neural networks. In International ACM SIGIR Conference on Research &amp; Development in Information Retrieval (SIGIR), 2018.</p>
+
+<p>Shizhan Liu, Hang Yu, Cong Liao, Jianguo Li, Weiyao Lin, Alex X Liu, and Schahram Dustdar. Pyraformer: Low-complexity pyramidal attention for long-range time series modeling and
+forecasting. In International Conference on Learning Representations (ICLR), 2021a.</p>
+
+<p>Ashish Vaswani, Noam M. Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. In Advances in Neural Information Processing Systems (NeurIPS), 2017.</p>
+
+<p>Haixu Wu, Jiehui Xu, Jianmin Wang, and Mingsheng Long. Autoformer: Decomposition transformers with auto-correlation for long-term series forecasting. In Advances in Neural Information Processing Systems (NeurIPS), 2021a</p>
+
+<p>Haoyi Zhou, Shanghang Zhang, Jieqi Peng, Shuai Zhang, Jianxin Li, Hui Xiong, and Wan Zhang. Informer: Beyond efficient transformer for long sequence time-series forecasting. In AAAI Conference on Artificial Intelligence (AAAI), 2021.</p>
+
+<h1 id="8-author-information">8. Author information</h1>
+<ul>
+  <li>Juneyoung Ro (노준영)</li>
+  <li>Graduate School of Data Science (M.S. student)</li>
+  <li>contact: juneyoung.ro@kaist.ac.kr</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2024] AnomalyCLIP:Object-agnostic Prompt Learning for Zero-shot Anomaly Detection | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2024] AnomalyCLIP:Object-agnostic Prompt Learning for Zero-shot Anomaly Detection page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2024] AnomalyCLIP:Object-agnostic Prompt Learning for Zero-shot Anomaly Detection">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2024] AnomalyCLIP:Object-agnostic Prompt Learning for Zero-shot Anomaly Detection</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="iclr-24-anomalyclip-object-agnostic-prompt-learning-for-zero-shot-anomaly-detection"><strong>[ICLR 24] <a href="https://arxiv.org/pdf/2310.18961.pdf">AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly Detection</a></strong></h1>
+
+<h2 id="1-introduction"><strong>1. Introduction</strong></h2>
+<p>Zero-shot Anomaly Detection(ZSAD)이란 target dataset에 대한 어떠한 training sample도 사용하지 않고 anomalies를 감지하는 task를 일컫는다.
+다음과 같은 상황일 때, ZSAD를 필요로 한다.</p>
+<ol>
+  <li>Training dataset에 대한 접근이 데이터 보호 정책 위반인 경우</li>
+  <li>Target domain에 관련된 training sample이 없는 경우</li>
+</ol>
+
+<p>시나리오에 따라 Anomalies의 형태가 다양하기 때문에, ZSAD는 강력한 generalization 능력이 필요하다. 최근에는 CLIP과 같은 pre-trained Vision-Language Model(VLM)이 다양한 task에서 강력한 generalization 능력을 보여주고 있다.</p>
+
+<p>CLIP와 같은 VLM은 주로 이미지의 foreground object의 의미론적 정보와 일치하도록 훈련되어 있어 이상/정상을 구분하는 능력이 부족하다. 게다가 현재의 ZSAD 방식은 text prompt를 수동으로 정의하거나 학습 가능한 prompt를 사용하는 데, 종종 전역적인 특징을 위한 prompt embedding이 사용되어 미세한 지역적인 특징에서 나타나는 이상치를 효과적으로 포착하지 못한다. Fig.1d와 Fig.1e를 통해, 이를 확인할 수 있다.
+<img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/1.png" alt="" />
+<!-- ![Figure.1](https://i.postimg.cc/28g8Vrpk/figure.png) --></p>
+
+<p>Fig.1a와 Fig.1b를 보면, 전경 object의 의미론적 정보는 다르지만, 이상 패턴은 비슷하다는 것을 알 수 있다. Fig. 1c와 Fig. 1d를 비교했을 때, CLIP 모델의 text prompt embedding은 다른 domain에 일반화 되어있지 않지만 AnomalyCLIP의 object-agnostic text prompt embedding은 다른 domain에서 이상을 감지하는 데에 일반화 되어있음을 알 수 있다.</p>
+
+<h2 id="2-preliminary-clip"><strong>2. Preliminary: CLIP</strong></h2>
+<p>CLIP 모델은 Text Encoder와 Visual Encoder로 구성된다. 두 Encoder는 ViT와 같은 mainstream multi-layer network이다. 일반적으로 Zero-shot recognition을 위해 다른 class의 Embedding을 얻는 방법으로 text prompt를 사용한다. 
+class name $c$와 함께 text prompt template $G$가 text encoder $T(\cdot)$을 통과하면 그에 상응하는 text embedding $g_c$을 얻을 수 있다. CLIP에서 흔히 사용되는 text prompt template은 “<em>A photo of a</em> [cls]” 이다. 여기서 [cls]는 target class의 이름을 의미한다.
+image $x_i$가 image encoder $F(\cdot)$을 통과하면 global visual embedding $f_i$와 local visual embedding $f_i^m$을 얻을 수 있다.</p>
+
+<p>CLIP은 textual embedding과 visual embedding 사이 cosine similarity를 측정함으로써 Zero-shot recognition을 수행한다.
+$p(y=c \mid x_i) =P(g_c,f_i)=\frac{exp(&lt;g_c,f_i&gt;/\tau)}{\sum_{c \in \mathcal{C}}exp(&lt;g_c,f_i&gt;/\tau)}$</p>
+<blockquote>
+  <p>$\tau$ = temperature hyperparameter</p>
+</blockquote>
+
+<blockquote>
+  <p>$&lt;\cdot,\cdot&gt;$ = cosine similarity</p>
+</blockquote>
+
+<p>ZSAD를 수행할 때, 정상 text prompt $g_n$, 이상 text prompt $g_a$를 설계하고, 위 식에 따라 두 class의 가능성을 계산한다. 
+Anomaly Score로는 $P(g_a,f_i)$를 사용한다.</p>
+
+<p>각 entry $(j,k)$에서 정상 및 이상 segmentation map $S_n,S_a$은 다음과 같이 구한다.
+$S_n = P(g_n, f_i^{m(j,k)}),  S_a = P(g_a, f_i^{m(j,k)})$</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<h3 id="overview">Overview</h3>
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/2.png" alt="" />
+<!-- ![Figure.2](https://i.postimg.cc/QtN8KqXs/7.png) -->
+AnomalyCLIP은 object-agnostic prompt learning을 통해 CLIP을 ZSAD에 adaptation 합니다.
+먼저 일반화된 embedding을 학습하기 위해 정상(normality)과 이상(abnormality) text prompt를 설계하는 object-agnostic text prompt template을 도입한다.
+이러한 text prompt template의 학습하기 위해, global and local anomaly sementics를 포함하는 global and local context optimization을 사용한다.
+Text prompt tuning과 DPAM이 CLIP의 textual space와 local visual space에서 학습을 돕기 위해 사용된다.
+Text encoder와 visual encoder의 여러 중간 layer를 통합하여 생성한 similarity map을 통해 local visual detail을 제공한다.
+훈련 중에는 모든 module이 global context와 local context의 조합에 의해 공동으로 최적화 된다.
+추론 중에는 text와 global/local visual embedding의 불일치를 양적으로 측정하여 anomaly score와 anomaly map을 각각 얻는다.</p>
+
+<h3 id="object-agnostic-text-prompt-design">Object-agnostic text prompt design</h3>
+<p>CLIP에서 보통 “<em>A photo of a</em> [cls]”의 형태로 text prompt template을 사용하며 주로 object의 의미론적 정보에 초점을 둔다. 그 결과, visual embedding에 상응하는 정상 및 이상 의미론적 정보를 포착한 textual embedding을 생성하지 못한다.
+해결책으로 특정한 이상 종류를 포함하여 “<em>A photo of a</em> [cls] <em>with scratches</em>”처럼 template을 설계 할 수 있다.</p>
+
+<p>[Example] MVTec dataset의 metal nut class
+<!-- ![example](https://i.postimg.cc/bY1Tkbsk/example.png) -->
+<img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/example.png" alt="" /></p>
+
+<p>다양한 결함을 감지하고 종합적인 이상 의미론적 정보를 다루도록  “<em>damaged</em> [cls]”로 template을 설계했다. 그럼에도 pre-trained CLIP이 정상 및 이상 대신에 object 의미론적 정보의 정렬에 집중해서 문제를 해결 할 수 없었다. 이러한 한계를 극복하기 위해, learnable text prompt template과 AD와 관련 있는 보조 데이터를 활용한 prompt tuning을 도입했다.
+ 이러한 과정에서 learnable template은 정상과 이상을 잘 구분하는 text embedding을 초래하며, 넓고 자세한 이상 의미론적 정보를 포함할 수 있다. 이 template을 object-aware text prompt templates로 정의한다.</p>
+<h4 id="object-aware-text-prompt-templates"><em>object-aware text prompt templates</em></h4>
+<p>$g_n = [V_1][V_2] \ldots |V_E|[\text{cls}]$</p>
+
+<p>$g_a =  [W_1][W_2] \ldots |W_E|[\text{damaged}][\text{cls}]$</p>
+<blockquote>
+  <p>$[V]_i,[W]_i (i \in 1, \ldots , E)$ = learnable word embedding</p>
+</blockquote>
+
+<p>ZSAD에는 학습에 방해되는 object 의미론적 정보가 필요 없다. 따라서 object 의미론적 정보를 object-aware text prompt templates에 포함시키는 것은 불필요하다. 
+object-agnostic prompt templates은 object-aware prompt templates의 $g_n$과 $g_a$의 class name을 “<em>object</em>“로 교체하여 object의 class 의미론적 정보를 차단한다.</p>
+
+<h4 id="object-agnostic-text-prompt-templates"><em>object-agnostic text prompt templates</em></h4>
+<p>$g_n = [V_1][V_2] \ldots |V_E|[\text{object}]$</p>
+
+<p>$g_a =  [W_1][W_2] \ldots |W_E|[\text{damaged}][\text{object}]$</p>
+<blockquote>
+  <p>$[V]_i,[W]_i (i \in 1, \ldots , E)$ = learnable word embedding</p>
+</blockquote>
+
+<p>object-agnostic prompt learning은 object 의미론적 정보와 관계없이 이미지의 일반적인 정상 및 이상을 포착하는 것을 목표로 한다.</p>
+
+<h3 id="learning-generic-abnormality-and-normality-prompt">Learning Generic abnormality and normality prompt</h3>
+<h4 id="1-glocal-context-optimization"><em>1) Glocal context optimization</em></h4>
+<p>지역 및 전역적인 관점에서 정상 및 이상 prompt를 학습하는 공동 optimization 전략이다.</p>
+
+<h4 id="global-context-optimization"><em>Global context optimization</em></h4>
+<ul>
+  <li>$L_{global}$  = 보조 데이터에서 정상 및 이상 이미지의 object-agnostic textual embedding과 visual embedding 간의 cosine similarity를 일치시키는 cross-entropy 손실</li>
+</ul>
+
+<p>textual embedding이 이미지의 전역 visual embedding과 일치되어 전역 feature 관점에서 정상 및 이상 의미론적 정보를 포착하는 것을 돕는다.</p>
+
+<h4 id="local-context-optimization"><em>local context optimization</em></h4>
+<ul>
+  <li>$L_ {local}=Focal([S_n, S_a],S) + Dice(S_n, I -S)+Dice(S_a,S)$</li>
+</ul>
+
+<p>object-agnostic text prompt가 visual encoder의 중간 layer M으로부터 미세한 지역 이상치 부분을 포착하도록 돕는다.</p>
+
+<p>최종적으론 두 손실 함수를 함께 사용하여 최적화 한다.</p>
+<ul>
+  <li>$L_{total}  = L_{global} + \lambda \sum_{M_k \in \mathcal{M}} L_\mathrm{local}^{M_k}$
+    <blockquote>
+      <p>$\lambda$ = hyperparameter</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="2-refinement-of-the-textual-space"><em>2) Refinement of the textual space</em></h4>
+<p>더 구별적인 text space의 학습을 용이하게 하기 위해, text prompt tuning을 도입해 CLIP의 text space를 개선한다.
+text space를 정제하는 정도를 제어하기 위해서 learnable token embedding을 CLIP text encoder의 하단에서 상단 layer로 삽입한다.</p>
+
+<p>$T_ m ([t_ m, {t’}_ m]) = [t_ {m+1} , {r’} _{m+1}]$</p>
+
+<p>$T_ {m+1} ([t_ {m+1}, {t’}_ {m+1}]) = [t_ {m+2} , {r’}_ {m+2}]$
+<!-- $T_{m+1}([t_{m+1},t'_{m+1}])=[t_{m+2},r'_{m+2}]$ -->
+$\ldots$
+$T_{M}(t_{M})=[t_{M+1}]$</p>
+<blockquote>
+  <p>$[\cdot,\cdot]$ = concatenation</p>
+</blockquote>
+
+<p>CLIP text encoder의 m번째 layer인 Tm에 랜덤 초기화된 learnable token embedding ${t’}_ m$ 과 원래 token embedding $t_m$ 을 연결하여 전달한다. 그 결과로 $t_ {m+1}$ 과 ${r’}_ {m+1}$ 을 얻는다.
+적절한 보정을 위해서 ${r’}_ {m+1}$ 을 버리고 새로운 learnable token embedding $t_ {m+1}$ 을 초기화한다. 이를 통해 ${t’}_ {m+1}$ 은 $m+1$ 번째 layer의 text representation을 더욱 정제합니다. 이 작업을 지정된 M번째 layer에 도달할 때 까지 반복한다.  ${r’}_ {m+1}$ 이 버려지더라도  self-attention 메커니즘으로 인해 $t_ {m+1}$ 의 출력에는 ${t’}_ {m}$ 의 정보가 포함된다.</p>
+
+<p>이처럼 fine-tuning 과정 중에 CLIP text encoder에 랜덤으로 초기화된 learnable token embedding이 원래의 text space을 정제하여 AD 작업에 최적화 된다.</p>
+
+<h4 id="3-refinement-of-the-local-visual-space"><em>3) Refinement of the local visual space</em></h4>
+<h4 id="dpamdiagonally-prominent-attention-map"><em>DPAM(Diagonally Prominent Attention Map)</em></h4>
+<p>visual encoder의 Q-K attention을 Q-Q, K-K 및 V-V attention와 같이 대각선으로 두드러지는 attention으로 대체하여 지역 visual space을 정제한다. Fig.3c , Fig.3d, Fig.3e를 통해 정제된 DPAM attention map이 더욱 대각선으로 두드러지고 optimization을 위한 개선된 segmentation map을 얻을 수 있음을 확인할 수 있다.  AnomalyCLIP은 V-V attention에서 우수한 성능을 보인다. 
+<!-- ![Figure.3](https://i.postimg.cc/2SWbmmjW/11.png) -->
+<img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/3.png" alt="" /></p>
+
+<h4 id="4-training-and-inference"><em>4) Training and inference</em></h4>
+<p>훈련 단계에서 AnomalyCLIP은 AD와 관련된 보조 dataset을 사용하여 glocal 손실 함수를 최소화 한다.</p>
+
+<p>추론 단계에서 image-level anomaly score로 similarity score $P(g_a, f_i)$를 사용한다. 
+pixel-level anomaly score를 구하기 위해  모든 선택된 중간 layer의 segmentation Sn과 Sa을 병합하여 anomaly score map을 얻는다.</p>
+
+<p>$Map = G_\sigma( \sum_{M_k \in \mathcal{M}}(\frac{1}{2}(I - Up(S_n,M_k)) + \frac {1}{2}(Up(S_a,M_k)))$</p>
+<blockquote>
+  <p>$G_\sigma$ = Gaussian filter, $\sigma$는 smoothing을 조절한다.</p>
+</blockquote>
+
+<h2 id="5-experiment"><strong>5. Experiment</strong></h2>
+<h3 id="experiment-setup"><strong>Experiment setup</strong></h3>
+<ul>
+  <li>Dataset – 17 Publicly available datasets
+    <ul>
+      <li>Industrial inspection scenarios
+        <ul>
+          <li>MVTec</li>
+          <li>VisA</li>
+          <li>MPDD</li>
+          <li>BTAD</li>
+          <li>SDD</li>
+          <li>DAGM</li>
+          <li>DTD-Synthetic</li>
+        </ul>
+      </li>
+      <li>Medical imaging
+        <ul>
+          <li>ISBI</li>
+          <li>CVC-ClinicDB</li>
+          <li>CVC-ColonDB</li>
+          <li>Kvasir</li>
+          <li>Endo</li>
+          <li>TN3k</li>
+          <li>HeadCT</li>
+          <li>BrainMRI</li>
+          <li>Br35H</li>
+          <li>COVID-19</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Evaluation Metric
+    <ul>
+      <li>AUROC</li>
+      <li>AP</li>
+      <li>AUPRO</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="result"><strong>Result</strong></h3>
+<h4 id="zsad-performance-comparison-on-industrial-domain-and-medical-domain"><em>ZSAD performance Comparison on industrial domain and medical domain</em></h4>
+<!-- ![Table.1,2](https://i.postimg.cc/C5CcyFVF/figure1.png) -->
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/4.png" alt="" /></p>
+
+<p>다른 datasets에서 ZSAD 성능을 평가할 때는 AnomalyCLIP을 MVTec AD의 test data를 사용하여 fine-tuning 했고, MVTec AD를 평가 할 때는 VisA의 test data를 사용하여 AnomalyCLIP을 fine-tuning 했다.
+AnomalyCLIP이 대부분 dataset에서 대체로 뛰어난 ZSAD 성능을 보여주며 다양한 domain의 다른 dataset에 일반화 할 수 있다.</p>
+
+<h4 id="segmentation-visualization"><em>Segmentation Visualization</em></h4>
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/5.png" alt="" />
+<!-- ![Figure.4](https://i.postimg.cc/RVRgXVRd/figure4.png) --></p>
+
+<p>다른  method보다 AnomalyCLIP이 더욱 정확한 segmentation을 수행함을 알 수 있다.</p>
+
+<h4 id="zsad-performance-on-medical-images-when-fine-tuned-by-medical-images-datasets"><em>ZSAD performance on medical images when fine-tuned by medical images datasets</em></h4>
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/6.png" alt="" />
+<!-- ![Table.3](https://i.postimg.cc/bN86x2Qd/table3.png) --></p>
+
+<p>이전 결과로부터 Industrial dataset과 medical dataset에서의 성능을 비교 했을 때, medical dataset의 성능이 상대적으로 낮은 것을 알 수 있다. 이는 prompt learning에 사용된 보조 data가 산업적이기 때문이다. Prompt learning에 Medical dataset을 사용하여 AnomalyCLIP을 fine-tuning하면 medical domain에서의 성능을 개선할 수 있다.</p>
+
+<h4 id="performance-gain-of-using-object-agnostic-prompts-compared-to-object-aware-prompts"><em>Performance gain of using object-agnostic prompts compared to object-aware prompts</em></h4>
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/7.png" alt="" />
+<!-- ![Figure.5](https://i.postimg.cc/gc3SLKLf/figure5.png) --></p>
+
+<p>Object-aware prompts template을 사용한 경우와 비교하면, Object-agnostic prompts template을 사용한 경우가 image-level, pixel-level에서 모두 더 좋은 성능을 보여준다. 이는 Object-agnostic prompt가 일반적인 이상과 정상을 효과적으로 학습하는데 도움이 될 수 있는 것을 나타낸다.</p>
+
+<h3 id="ablation-study"><strong>Ablation Study</strong></h3>
+<h4 id="impact-of-modules"><em>Impact of Modules</em></h4>
+<!-- ![Table.4](https://i.postimg.cc/KzkCp9Dm/8.png) -->
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/8.png" alt="" /></p>
+
+<ul>
+  <li>$T1$ - DPAM</li>
+  <li>$T2$ - Object-agnostic text prompt</li>
+  <li>$T3$ - text encoder에 learnable token 추가</li>
+  <li>$T4$ - Multi-layer visual encoder feature 사용</li>
+</ul>
+
+<p>Object-agnostic text prompt($T2$)가 AnomalyCLIP의 성능을 눈에 띄게 개선하였다.</p>
+
+<h4 id="impact-of-context-optimization"><em>Impact of Context optimization</em></h4>
+<!-- ![Table.5](https://i.postimg.cc/Y95Z51dY/9.png) -->
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/9.png" alt="" /></p>
+
+<p>Global context optimization는 global anomaly semantics을 포착하여 더욱 정확한 image 수준의 감지를 가능하게 한다.
+Local context optimization는 local anomaly semantics을 포함해 pixel 수준의 성능을 향상시키고 image 수준의 성능을 보완한다.
+두 optimization을 통합함으로써, AnomalyCLIP은 일반적으로 optimization을 개별적으로 사용하는 것보다 더 나은 성능을 보여준다.</p>
+
+<h4 id="impact-of-dpam-strategy"><em>Impact of DPAM strategy</em></h4>
+<p><img src="../../images/DS503_24S/AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection/10.png" alt="" />
+<!-- ![Figure.6](https://i.postimg.cc/wxNShGBV/10.png) --></p>
+
+<p>일반적으로 AnomalyCLIP은 V-V attention을 사용한다. Q-Q attention을 사용한 경우는 기존 AnomalyCLIP과 유사한 segmentation 능력을 보여주지만 image 수준에서 이상치 감지 성능이 좋지 않다.
+K-K attention의 경우는 anomaly classification는 잘 수행하지만 segmentation 성능이 Q-Q나 V-V attention을 사용한 경우보다 나쁘다.</p>
+
+<h2 id="6-conclusion"><strong>6. Conclusion</strong></h2>
+
+<p>본 논문은 Zero-shot Anomaly Detection에 대한 CLIP 모델의 일반화 성능을 개선하였다. 다양한 foreground object image dataset에 일반화를 위해서 일반적인 이상 및 정상 text prompts를 학습하는 object-agnostic prompt learning을 제시한다. 또한, object-agnostic text prompts가 global, local한 의미를 동시에 최적화 할 수 있도록 global and local context optimization을 사용한다. 이러한 CLIP 모델의 Zero-shot Anomaly Detection 일반화 성능을 높이려는 노력으로 17개의 public datasets에 우수한 Zero-shot Anomaly Detection 성능을 달성한 것이 인상 깊다.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<p>Yongmin Seo</p>
+
+<ul>
+  <li>Affiliation: <a href="https://sites.google.com/view/tkkim/">KCVL@KAIST</a></li>
+  <li>Research Topic: Anomaly Detection</li>
+  <li>Contact: yongmin.seo@kaist.ac.kr</li>
+</ul>
+
+<h2 id="7-reference--additional-materials"><strong>7. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>Github Implementation
+    <ul>
+      <li><a href="https://github.com/zqhang/AnomalyCLIP">Official Code</a></li>
+    </ul>
+  </li>
+  <li>Reference
+    <ul>
+      <li><a href="https://arxiv.org/pdf/2310.18961.pdf">Zhou, Q., et al. “AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly Detection,” in <em>ICLR</em>, 2024.</a>
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTc4OTM0OTUzOCw5NTY0NzAyMjEsNTU2MD
+k4MTIsMTA1NDg5OTU2MywtOTQ3NzQxNzkxLC0yMDE2NjQ2OTAs
+LTkyOTIwMjY1NCwxNDU1NDgxMTYzLDE1OTY4Njk5MDAsLTI4MD
+cwMjYyNCwtMTYxNTA0NjI5NSwtMzI4NTEwNDYzLC0xMDkyMDE5
+MTE4LDM5NjQyMzY2LDEwMzE4NDYyMjYsMTk1MDE4NDg0MSwtMT
+Q1MDk4ODkyNCw1MTU3OTAzMTVdfQ==
+--></li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -29,20 +29,20 @@
 ,
 
 {
-"title": "Paper reviews on DS501 (2024)",
-"tags": "",
-"keywords": "reviews",
-"url": "reviews_DS501_2024.html",
-"summary": "Archive to save the reviews from DS501 (2024S)"
-}
-,
-
-{
 "title": "Paper reviews on DS503 (2023)",
 "tags": "",
 "keywords": "reviews",
 "url": "reviews_DS503_2023.html",
 "summary": "Archive to save the reviews from DS503 (2023S)"
+}
+,
+
+{
+"title": "Paper reviews on DS503 (2024)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_DS503_2024.html",
+"summary": "Archive to save the reviews from DS503 (2024S)"
 }
 ,
 
@@ -86,10 +86,60 @@
 
 
 {
+"title": "[NeurIPS 2023] Winner Takes It All: Training Performant RL Populations for Combinatorial Optimization",
+"tags": "reviews",
+"keywords": "",
+"url": "Winner_Takes_It_All_Training_Performant_RL_Populations_for_Combinatorial_Optimization.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Unsupervised Model Selection for Time-series Anomaly Detection",
+"tags": "reviews",
+"keywords": "",
+"url": "Unsupervised_Model_Selection_for_Time_series_Anomaly_Detection.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Universal Few-shot Learning of Dense Prediction Tasks with Visual Token Matching",
+"tags": "reviews",
+"keywords": "",
+"url": "Universal_Few-shot_Learning_of_Dense_Prediction_Tasks_with_Visual_Token_Matching.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2023] TryOnDiffusion: A Tale of Two UNets",
+"tags": "reviews",
+"keywords": "",
+"url": "Try_On_Diffusion_A_Tale_of_Two_UNets.html",
+"summary": ""
+}
+,
+
+
+{
 "title": "[ICLR 2024] Training Diffusion Models With Reinforcement Learning",
 "tags": "reviews",
 "keywords": "",
 "url": "Training_Diffusion_Models_With_Reinforcement_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CIKM 2023] Timestamps as prompts for geography-aware location",
+"tags": "reviews",
+"keywords": "",
+"url": "Timestamps_as_prompts_for_geography-aware_location.html",
 "summary": ""
 }
 ,
@@ -106,10 +156,370 @@
 
 
 {
+"title": "[CVPR 2022] Text to Image generation with Semantic-Spatial Aware GAN",
+"tags": "reviews",
+"keywords": "",
+"url": "Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NeurIPS 2022] Simulation-guided Beam search for Neural Combinatorial Optimization",
+"tags": "reviews",
+"keywords": "",
+"url": "Simulation-guided_Beam_Search_for_Neural_Combinatorial_Optimization.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICDM 2023] Reserve Price optimization in First-Price Auctions via Multi-Task Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICCV 2023] Removing Anomalies as Noises for Industrial Defect Localization",
+"tags": "reviews",
+"keywords": "",
+"url": "Removing_Anomalies_as_Noises_for_Industrial_Defect_Localization.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Relative Representations Enable Zero-Shot Latent Space Communication",
+"tags": "reviews",
+"keywords": "",
+"url": "Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ECCV 2022] Registration based Few-Shot Anomaly Detection",
+"tags": "reviews",
+"keywords": "",
+"url": "Registeration_based_Few-Shot_Anomaly_Detection.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CIKM 2023] Region Profile Enhanced Urban Spatio-Temporal Prediction via Adaptive Meta-Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Region_Profile_Enhanced_Urban_Spatio_Temporal_Prediction_via_Adaptive_Meta_Learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NeurIPS 2023] Quantification of Uncertainty with Adversarial Models",
+"tags": "reviews",
+"keywords": "",
+"url": "Quantification_of_Uncertainty_with_Adversarial_Models.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ESWA 2023] ProMIL: A weakly supervised multiple instance learning for whole slide image classification based on class proxy",
+"tags": "reviews",
+"keywords": "",
+"url": "ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2024] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems",
+"tags": "reviews",
+"keywords": "",
+"url": "Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] Navigating the Design Space of Equivariant Diffusion-Based Generative Models for De Novo 3D Molecule Generation",
+"tags": "reviews",
+"keywords": "",
+"url": "Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2022] M-SENA: An Integrated Platform for Multimodal Sentiment Analysis",
+"tags": "reviews",
+"keywords": "",
+"url": "M_SENA_An_Integrated_Platform_for_Multimodal_Sentiment_Analysis.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[WACV 2024] MIST: Medical Image Segmentation Transformer With Convolutional Attention Mixing (CAM) Decoder",
+"tags": "reviews",
+"keywords": "",
+"url": "MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2024] Learning to Optimize Permutation Flow Shop Scheduling via Graph-based Imitation Learning",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_to_Optimize_Permutation_Flow_shop_scheduling_via_graph_based_imitation_learning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2022] Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] LEARNING MULTIMODAL DATA AUGMENTATION IN FEATURE SPACE",
+"tags": "reviews",
+"keywords": "",
+"url": "Learning_Multimodal_Data_Augmentation_In_Feature_Space.html",
+"summary": ""
+}
+,
+
+
+{
 "title": "[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors",
 "tags": "reviews",
 "keywords": "",
 "url": "Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] Large Language Models Are Efficient Learners of Noise-robust Speech Recognition",
+"tags": "reviews",
+"keywords": "",
+"url": "Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] HiVT: Hierarchical Vector Transformer for Multi-Agent Motion Prediction",
+"tags": "reviews",
+"keywords": "",
+"url": "HiVT_Hierarchical_Vector_Transformer_for_Multi_Agent_Motion_Prediction.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2022] End-to-end Generative Pretraining for Multimodal Video Captioning",
+"tags": "reviews",
+"keywords": "",
+"url": "End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought",
+"tags": "reviews",
+"keywords": "",
+"url": "EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2021] Distilling Knowledge From Reader To Retriever For Question Answering",
+"tags": "reviews",
+"keywords": "",
+"url": "Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] Diffusion-TS: Interpretable Diffusion for General Time Series Generation",
+"tags": "reviews",
+"keywords": "",
+"url": "Diffusion_TS_Interpretable_Diffusion_for_General_Time_Series_Generation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[NeurIPS 2022] Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses",
+"tags": "reviews",
+"keywords": "",
+"url": "Decision-Focused_Learning_without_Differentiable_Optimization_Learning_Locally_Optimized_Decision_Losses.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2021] Dataset Condensation with Gradient Matching",
+"tags": "reviews",
+"keywords": "",
+"url": "Dataset_Condensation_with_Gradient_Matching.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2022] DSTAGNN Dynamic Spatial Temporal Aware Graph Neural Network for Traffic Forecasting",
+"tags": "reviews",
+"keywords": "",
+"url": "DSTAGNN_Dynamic_Spatial_Temporal_Aware_Graph_Neural_Network_for_Traffic_Forecasting.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[CVPR 2023] DARE-GRAM_Unsupervised Domain Adaptation Regression by Aligning Inverse Gram Matrices",
+"tags": "reviews",
+"keywords": "",
+"url": "DARE-GRAM_Unsupervised_Domain_Adaptation_Regression_by_Aligning_Inverse_Gram_Matrices.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] Crossformer-Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting",
+"tags": "reviews",
+"keywords": "",
+"url": "Crossformer-Transformer_Utilizing_Cross-Dimension_Dependency_for_Multivariate_Time_Series_Forecasting.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[IJCAI 2021] Contrastive Losses and Solution Caching for Predict-and-Optimize",
+"tags": "reviews",
+"keywords": "",
+"url": "Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI 2023] Contrastive Learning Reduces Hallucination in Conversations",
+"tags": "reviews",
+"keywords": "",
+"url": "Contrastive_Learning_Reduces_Hallucination_in_Conversations.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] CUDA: Curriculum of Data Augmentation for Long-Tailed Recognition",
+"tags": "reviews",
+"keywords": "",
+"url": "Cuda_Curriculum_Of_Data_Augmentation_For_Long-Tailed_Recognition.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space",
+"tags": "reviews",
+"keywords": "",
+"url": "CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES",
+"tags": "reviews",
+"keywords": "",
+"url": "CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICLR 2024] AnomalyCLIP:Object-agnostic Prompt Learning for Zero-shot Anomaly Detection",
+"tags": "reviews",
+"keywords": "",
+"url": "AnomalyCLIP_Object-agnostic_Prompt_Learning_for_Zero-shot_Anomaly_Detection.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICML 2023] A Watermark for Large Language Models",
+"tags": "reviews",
+"keywords": "",
+"url": "A_Watermark_for_Large_Language_Models.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICMLR 2022] A Psychological Theory of Explainability",
+"tags": "reviews",
+"keywords": "",
+"url": "A_Psychological_Theory_of_Explainability.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[ICCV 2023] 3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation",
+"tags": "reviews",
+"keywords": "",
+"url": "3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation.html",
 "summary": ""
 }
 ,

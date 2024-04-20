@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="neurips-2023-embodiedgpt-vision-language-pre-training-via-embodied-chain-of-thought">[NeurIPS 2023] EmbodiedGPT: Vision-Language Pre-Training via Embodied Chain of Thought</h1>
+
+<h2 id="1-introduction"><strong>1. Introduction</strong></h2>
+<p>Tasks involving embodied AI, like embodied planning, embodied visual question answering (VQA), and embodied control, aim to equip robots with the capacity to perceive, analyze, and act within their surroundings. This enables them to devise long-term plans and carry out actions independently based on real-time observations. Recent advancements in large language models (LLMs) such as GPT-4 and PaLM-E have demonstrated significant progress in language comprehension, reasoning, and the ability to maintain a coherent chain of thought. These developments could potentially lead to the creation of robots capable of understanding natural language instructions, engaging in multi-modal chain-of-thought processes, and strategizing actions in physical environments.</p>
+
+<h2 id="2-problem-definition"><strong>2. Problem Definition</strong></h2>
+<p>The core problem addressed by the paper is the challenge of integrating large language models (LLMs) with embodied AI, specifically aiming to improve robots’ understanding and execution of tasks within physical environments through natural language instructions and multi-modal inputs. The study seeks to address the gap in existing LLM applications, which often struggle with the complex requirements of embodied tasks that require egocentric vision and real-time interactive capabilities.</p>
+
+<h2 id="3-motivation"><strong>3. Motivation</strong></h2>
+<p>The motivation behind this paper is to enhance the ability of robots to understand and execute complex tasks in a physical environment by leveraging advancements in LLMs and multi-modal understanding. The traditional LLMs, while powerful in language processing, are not directly applicable to robotics due to the domain-specific nature and the need for real-time processing, environmental understanding, and task-specific action execution, areas where traditional LLMs falter due to their primary design for text and static image processing tasks.</p>
+
+<p>Current approaches to bridging the gap between language models and robotic execution involve either adapting general-purpose LLMs to specific tasks or developing narrowly focused models that can handle only a subset of interactions. For instance, models like R3M focus primarily on learning robust visual representations from video data without integrating language-based planning. BLIP-2 introduces improvements by integrating language understanding with visual input, but still lacks a mechanism for planning and executing complex, sequential tasks that involve interactions with multiple objects in dynamic environments.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<h3 id="framework">Framework</h3>
+
+<p><img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/4-Figure2-1.png" alt="" />
+<!-- ![Overall EmbodiedGPT framework](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/4-Figure2-1.png) --></p>
+
+<p>The EmbodiedGPT framework is designed to mimic human interaction with the environment by integrating advanced perception and task planning capabilities. It combines a pre-trained vision transformer with a LLaMA language model, facilitated by the embodied-former that serves as a connector between visual and linguistic information. This setup allows for the extraction and linguistic mapping of visual features for applications in visual captioning, visual QA, and embodied planning. The planning outputs are then used to select relevant features from the visual model, which are transformed into actionable control commands via a downstream policy network. A unique aspect of the EmbodiedGPT’s approach is its video-language pre-training method, which employs a cognitive chain of thought process with egocentric video inputs to generate embodied planning. This process is structured similarly to a Visual Question Answering (VQA) task, enhancing the model’s ability to engage with and execute tasks by focusing on task-specific features essential for control. This comprehensive framework, including its innovative pre-training strategy, is depicted in the overall framework figure of EmbodiedGPT, illustrating how it operationalizes visual and linguistic data for embodied task performance.</p>
+
+<p>The training of the EmbodiedGPT model unfolds in three stages:</p>
+<ol>
+  <li>The initial stage centers on aligning image-text conversations, focusing on the pre-training of the Embodied-former and language projection while maintaining frozen vision and language model parameters to conserve computational resources.</li>
+  <li>The second stage aims to refine the model’s understanding and generation of complex sentences and its reasoning abilities.</li>
+  <li>The final stage advances to embodied “chain-of-thought” training with EgoCOT, adapting the vision model for video encoding through Conv3D and keyframes, focusing on spatio-temporal understanding.</li>
+</ol>
+
+<p>For example, if the task is to open a door, EmbodiedGPT processes the visual input of the door, generates a language-based plan detailing steps like “approach door”, “grasp handle”, “turn handle”, and then executes these steps through the robotic control systems.</p>
+
+<h3 id="model-architecture">Model Architecture</h3>
+
+<p>The embodied former consists of two sub-modules,</p>
+<ul>
+  <li>extracting input from the image features is denoted as:
+$\varepsilon_ {vis}:x_ {vis} \overrightarrow{}y_ {vis}$</li>
+  <li>extracting from the text input is denoted as:
+$\varepsilon_ {txt}:x_ {txt} \overrightarrow{} y_ {txt}$
+then the output query is denoted as:
+$z\in R^{N \times D}$
+where $N$ is the learnable embodied query as the input of $\varepsilon$ to interact with $x_{vis}$ through cross-attention layers and with $x_{txt}$ and $D$ is the dimesionality of embeddings
+the output query are then transformed to $z’\in R^{N \times D^{‘}}$ which have the same dimesionality as the LLM’a text embedding in the language modality</li>
+</ul>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+<h3 id="dataset">Dataset</h3>
+<ul>
+  <li>
+    <p><strong>EgoCOT Dataset</strong>: Derived from the Ego4D dataset, which initially contained 9,645 unedited videos with durations between 5 seconds and 7 hours. After excluding videos with insufficient narrations, unclear labels, and lacking human-object interaction, the refined dataset includes 2,927 hours of video footage with 3.85 million narrations. Each video segment is paired with a relevant caption. A further data refinement step uses the CLIP model to assess the correlation between video content and textual descriptions. The CLIP model encodes the text $T$ and the image $I$, using the cosine similarity function to calculate the ensemble similarity score:
+$E(V,T)=\frac{1}{n}\sum_{i=1}^{n}S(yT_i,yI_i)$
+Here, $E(V,T)$ represents the ensemble similarity score, $S(yT_i, yI_i)$ is the similarity score between text and image for the $i$-th keyframe, and $n$ is the total number of keyframes.</p>
+  </li>
+  <li>
+    <p><strong>EgoVQA</strong>: Developed for video question answering tasks involving egocentric human-object interactions to enhance the dataset’s diversity. For each video caption, ChatGPT generates five question-answer pairs, utilizing a sampling method consistent with that of EgoCOT.</p>
+  </li>
+</ul>
+
+<h3 id="baseline">Baseline</h3>
+<p>The baselines for comparison include BLIP-2 and R3M. BLIP-2 is known for its capabilities in multi-modal (language and vision) processing but lacks specific optimizations for embodied tasks. R3M is focused on robust visual representation learning, making it a relevant baseline for evaluating the visual understanding capabilities of EmbodiedGPT.</p>
+<h3 id="evaluation-metrics">Evaluation Metrics</h3>
+<p>Success rates are measured by the percentage of tasks successfully completed by the robots. The qualitative analysis involves human evaluators rating the reasonableness and executability of the plans generated by the models.</p>
+<h3 id="result">Result</h3>
+<p><strong>Image input</strong></p>
+
+<p><img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/7-Table1-1.png" alt="" />
+<!-- ![](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/7-Table1-1.png) --></p>
+
+<p>Table 1 shows the average score of image input task for different models. The results indicate that EmbodiedGPT matches the performance of the LLaVA-13B model in terms of object recognition and understanding spatial relationships, even though it operates with a smaller language model that has only 7B parameters.</p>
+
+<p><img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/8-Figure3-1.png" alt="" />
+<!-- ![enter image description here](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/8-Figure3-1.png) --></p>
+
+<p>The above figure is a comparison they did between EmbodiedGPT and Visual ChatGPT, Visual ChatGPT was unable to locate a coat hanger because it depends only on the caption model to derive visual information. This method led to inferior performance compared to the more comprehensive end-to-end approach used by EmbodiedGPT.</p>
+
+<p><strong>Video input</strong></p>
+
+<p><img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/8-Figure4-1.png" alt="" />
+<!-- ![](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/8-Figure4-1.png) --></p>
+
+<p>The video recognition and task planning capabilities of EmbodiedGPT are assessed on established embodied AI benchmarks, Franka Kitchen and Meta-World. Meta-World involves complex tasks such as assembling objects and operating machinery, while Franka Kitchen focuses on everyday tasks like opening doors and cabinets, and using kitchen appliances. As demonstrated in the above figure, EmbodiedGPT effectively interprets and plans out steps for these tasks based on demonstration videos.</p>
+
+<p><strong>Embodied control tasks</strong></p>
+
+<p><img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/8-Figure5-1.png" alt="" />
+<img src="../../images/DS503_24S/EmbodiedGPT_Vision_Language_Pre_Training_via_Embodied_Chain_of_Thought/9-Figure6-1.png" alt="" />
+<!-- ![](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/8-Figure5-1.png)
+![](https://d3i71xaburhd42.cloudfront.net/00cb69a9f280317d1c59ac5827551ee9b10642b8/9-Figure6-1.png) --></p>
+
+<p>In embodied control tasks, EmbodiedGPT is benchmarked against R3M, the current leading method, and a variant known as ‘BLIP-2[Ego4D]’, which mirrors EmbodiedGPT in structure and parameter count. The evaluations are conducted in two scenarios: one using 10 demonstrations and another using 25. Success rates are calculated based on 100 random trials that focus solely on visual observations, spanning five tasks across each benchmark, with results from five different seeds and two camera angles. The performance of EmbodiedGPT in these setups is depicted in the two figures above.</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+<p>EmbodiedGPT showed a marked improvement in success rates. It achieved a 1.6 times increase in success rate on the Franka Kitchen benchmark and a 1.3 times increase on the Meta-World benchmark relative to the BLIP-2 model fine-tuned on the same datasets. EmbodiedGPT represents a significant step forward in the integration of language models with robotic systems, providing a robust framework for executing complex tasks in dynamic environments. The introduction of the EgoCOT dataset and efficient training approaches also offers scalable solutions for embodied AI challenges. Key takeaways include the successful application of ‘chain-of-thought’ processes in embodied AI and the effective loop from high-level planning to actionable control, which significantly enhances the robot’s interactive and execution capabilities in real-world scenarios. Future work could explore integrating more diverse data types and further reducing the computational demands of training such complex models.</p>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<p>Please write the reference. If paper provides the public code or other materials, refer them.</p>
+
+<ul>
+  <li><a href="https://github.com/EmbodiedGPT/EmbodiedGPT_Pytorch">Github Implementation</a></li>
+  <li>
+    <h2 id="paper-reference"><a href="https://arxiv.org/pdf/2305.15021.pdf">Paper Reference</a></h2>
+    <h2 id="paper-reviewer"><strong>Paper Reviewer</strong></h2>
+  </li>
+  <li>Fania Ardelia Devira
+    <ul>
+      <li>Department: Graduate School of Data Science, KAIST</li>
+      <li>Contact: faniadevira@kaist.ac.kr</li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CIKM 2023] Timestamps as prompts for geography-aware location | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CIKM 2023] Timestamps as prompts for geography-aware location page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CIKM 2023] Timestamps as prompts for geography-aware location">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CIKM 2023] Timestamps as prompts for geography-aware location</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="1-introduction">1. Introduction</h1>
+
+<blockquote>
+  <p>시간 정보를 명시적으로 통합하고 지리 정보 embedding 방법을 변경하여 다음 위치 추천(next location recommendation)을 개선 시키고 더 먼 미래의 위치 추천(interval location recommendation)도 잘 수행하는 모델을 만들었다.</p>
+</blockquote>
+
+<p>본 연구는 예측할 시간의 시간 정보를 명시적으로 통합하고 새로운 지리 정보 embedding 방법을 제공하여 기존의 위치 추천 시스템의 문제를 개선하고 interval prediction도 더 잘 예측하는 모델(TPG: Temporal Prompt-based and Geography-aware)을 개발했다. 또한 사용자의 real-world check-in data를(Foursquare, Gowalla, Brightkite) 이용해 TPG 모델의 성능을 확인했다.</p>
+
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled.png" alt="" />
+timestamp 정보를 추가 prompt로 활용해서 next , interval location prediction을 진행하는 과정</p>
+
+<h1 id="2-motivation">2. Motivation</h1>
+
+<p>위치 추천 문제는 사용자의 여행 경험을 향상 시켜 줄 수 있고 광고 등 상업적 사용에 있어 매우 중요한 요소이다. 정확한 위치 추천을 위해 기존에는 Markov chain, RNN, GNN 등의 모델들이 제안 되어왔고 최근에는 transformer 기반의 모델들이 social relationship, geography information[8] 등을 포착하고 활용하여 우수한 성능을 보여주고 있다. 하지만 기존의 모델들은 위치 추천 문제에 있어 두 가지 문제점이 존재한다.</p>
+
+<p>첫 번째는 시간 정보를 implictity하게 다른 데이터와 통합해 사용하는 것이다. 기존의 모델들은 check-in data의 시간 정보와 위치 정보 등 다른 정보를 통합하여 embedding vector를 생성한다. 하지만 시간 정보는 다른 정보에 비해 큰 영향을 가진다. 예를 들어 일반적인 사람은 아침에는 직장을 점심에는 식당을 저녁에는 집으로 가는 경향이 있는 것처럼 사람의 특성상 시간 정보는 위치 예측에 있어 중요한 특징이다. 따라서 시간 정보를 다른 특징들과 통합하여 사용하게 되면 모델이 다음 위치 뿐만 아니라 더 먼 미래의 위치를 예측할 때(특히 정확한 시간의 위치를 예측할 때) 유연성과 정확성이 떨어진다. 예를 들어 기존 모델은 이전 100개의 check-in정보를 이용해서 101, 102 번째 위치 예측을 동시에 진행한다면 input이 동일하다는 문제가 발생하고 102번째를 정확히 맞추고 싶다면 다시 101번째까지의 check-in을 학습해야 한다는 문제가 있다. 따라서 TPG 모델은 명시적으로 예측할 시간 정보를 따로 prompt의 형태로 decoder 부분에 제공함으로 시간 정보를 더 잘 반영할 수 있게 해준다. (Temporal Prompt-based Decoder)</p>
+
+<p>두 번째는 지리 정보를 표현함에 있어 hard-boundary 문제를 해결 하지 못했다는 것이다. Check-in 데이터의 sparcity 문제로(실제 방문한 check-in 정보만 존재) 인해 위치 간의 물리적 근접성과 의존성을 포착하기 어렵다. 최근 GeoSAN[6] 모델에서 제공한 hierarchical gridding(지리적 좌표를 multi gridding으로 mapping하여 처리) 방식으로 지리 정보를 표현하는 경우 인접한 grid에 위치하는 POI(Point Of Interest)들이 인위적으로 분리되는 hard boundary 문제가 발생한다. 따라서 TPG 모델은 shifted window 방식을 적용해 grid의 경계 위치에 있는 POI의 지리적 특성도 잘 확인 할 수 있도록 설계되었다. (Geography-aware Encoder)</p>
+
+<h1 id="3-method">3. Method</h1>
+
+<p>(TPG 구조)
+<img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-12.png" alt="" />
+E: transformer Encoder
+D: transformer Decoder</p>
+
+<h2 id="preliminaries"><strong>Preliminaries</strong></h2>
+
+<ol>
+  <li>
+    <p><strong>TPG모델 input</strong>: , $c^u_i = (u, t_i, p_i, geo_i)$</p>
+
+    <p>→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = {c^u_i}^n_{i=1}$</p>
+  </li>
+</ol>
+
+<ul>
+  <li>u: user</li>
+  <li>$t_i$: i번째 check-in 시간</li>
+  <li>$p_i$: i번째 check-in POI</li>
+  <li>$geo_i$: POI의 위도, 경도 정보 → $geo_i = (x_i, y_i)$</li>
+</ul>
+
+<p>💡 최종 목적은 $t_ {n+1}$의 $p_ {n+1}$을 맞추는 것</p>
+
+<ol>
+  <li><strong>tile map 방식</strong>(지리 정보를 hierarchical gridding으로 표현한 방식)</li>
+</ol>
+
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-2.png" alt="" />
+최초에 world-map을 512x512 pixel로 표현하고 level이 증가할 수록 가로, 세로 각각 2배씩 확대되는 방식이다.</p>
+<ul>
+  <li>각 tile은 고유한 quadkey를 가진다. (왼쪽 위를 시작으로 Z 방향으로 0~3값을 부여)
+  → cardinality = 4</li>
+  <li>level이 올라갈 수록 각 tile을 하위 4개의 tile들로 나누고 나눠진 tile에는 이전 level의 quadkey에 자신의 위치에 해당하는 고유 숫자를 추가해줘 quadkey를 생성한다.</li>
+</ul>
+
+<h2 id="31-geography-aware-encoder">3.1 Geography-aware Encoder</h2>
+
+<p>위치 embedding을 생성 $(e^{geo}_i)$한다. 중심 grid와 주변 grid의 공간적 연관성이 고려된 vector를 만들어낸다.</p>
+
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-3.png" alt="" /></p>
+
+<ol>
+  <li>지리 정보를 tile map 방식으로 gridding 진행</li>
+  <li>shifted window 적용
+    <ul>
+      <li>
+        <p>현재 grid를 기준으로 상, 하, 좌, 우, 대각 8개의 gird를 이용해 window를 생성한다.
+ (window size가 0.25일때 window의 모습)
+  <img src="https://i.postimg.cc/j5K43F07/Untitled-4.png" alt="window의 모습" /></p>
+      </li>
+      <li>
+        <p>quadkey의 cardinality가 4이므로(0~3까지의 값만 가짐) 다양성이 적어 직접 self-attention 적용해 주변 tile과의 correlation을 찾기는 어렵다. 따라서 quadkey를 n-gram방식으로 나눠서 self attention을 적용해 주변 tile과의 correlation을 파악한다.(어느 sequence가 중요한지 파악) self-attention 결과를 feed forward network로 학습 시킨 후 average pooling을 이용해 최종 embedding vector($e^{geo}_i$)를 생성한다.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>💡 이러한 방법을 통해 기존의 hierarchical gridding 방식으로는 해결할 수 없었던 hard-boundary 문제를 해결한다.</p>
+
+<h2 id="32-history-encoder">3.2 History Encoder</h2>
+
+<p>사용자의 과거 check-in 데이터에 있는 geo, POI, user, time 정보들을 결합해서 하나의 input으로 만들고 transformer encoder를 이용해 학습을 진행한다.</p>
+
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-5.png" alt="" />
+	$e^{time}$: 1주일을 시간으로 처리 24 x 7 = 168차원
+	$e^{user}$ : userID에 대한 embedding
+	$e^{POI}$ : 고유 POI에 대한 embedding
+	$e^{geo}$ : Geography-aware Encoder 결과</p>
+
+<p>모든 embedding vector들을 동일한 d차원으로 linear projected된다. 이후 모든 embedding을 결합해서 하나의 input ($e^c$)을 생성한다. 
+ $e^c = (e^{poi}, e^{user}, e^{time}, e^{geo})$ 이때 $e^c$는 element product or concatenate 2가지 옵션으로 통합 가능하다. 이후 과정은 transformer encoder 구조를 따른다.</p>
+
+<ul>
+  <li>$e^c_i = PositionalEmbedding(e^c_i)$</li>
+  <li>$\text{ATTENTION}(e^c_i) = w_z \sum_{j=1}^{N_o} \frac{\exp(w_q e^c_i \cdot w_k e^c_j)}{\sum_{m=1}^{N_o} \exp(w_q e^c_i \cdot w_k e^c_m)} w_v e^c_j + e^c_i$</li>
+  <li>$FFN(e^c_i) = max(0, e^c_iW_1 + b_1)W_2 + b_2$</li>
+</ul>
+
+<h2 id="33-temporal-prompt-based-decoder">3.3 Temporal Prompt-based Decoder</h2>
+
+<p>Encoder에 과거 check-in 기록에 대한 시간 정보가 통합되어 있긴 하지만 독립적으로 예측을 진행할 시간 정보를 명시적으로 입력해주면 더욱 우수한 성능을 보일 것으로 예상된다. 따라서 직접 시간 정보를 prompt형식으로 decoder에 query로 넘겨 predict에 고려하도록 설정한다. decoder는 input으로 예측 시간 embedding($e^{time}_ {n+1}$)과 encoder의 output($e^C$)을 입력 받고 $e^{time}_ {n+1}$을 query로, $e^C$를 key, value로 이용해서 Self-Attention, Encoder-Decoder Attention, Feed-Foward NN layer를 통과시키면서 최종 POI를 예측한다.</p>
+<ul>
+  <li>$\text{ATTENTION}(e^C, e^{time}_ {n+1}) = w_z \sum_{j=1}^{N_v} \frac{\exp(w_q e^{time}_ {n+1} \cdot w_k e^C)}{\sum_ {m=1}^{N_v} \exp(w_q e^{time}_ {n+1} \cdot w_k e^C} w_v e^C + e^C$</li>
+</ul>
+
+<h2 id="평가-함수">평가 함수</h2>
+
+<ul>
+  <li>$L_{rec}(\tilde{y}) = -\log(\frac{exp(\tilde{y}y^+)}{exp(\tilde{y}y^+)+\sum_{y^-}exp(\tilde{y}y^-)})$
+    <ul>
+      <li>$\tilde{y}$ : 예측 위치 embedding</li>
+      <li>$y^+$: 실제 방문 위치 embedding</li>
+      <li>$y^-$: 실제 방문하지 않은 위치 embedding</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="4-experiment">4. Experiment</h1>
+
+<h2 id="experiment-setup">Experiment setup</h2>
+
+<ul>
+  <li>Dataset
+    <ul>
+      <li>5가지 real-world Location-Based Social Network datasets(Gowalla, Brightkite, NYC, TKY, SIN)</li>
+      <li>사용자들 기준 이전 100번의 방문을 학습에 이용한다.(이전 100번 방문이 없는 사용자의 경우 padding 처리)
+<img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-11.png" alt="" />
+  -&gt; NYC, SIN: 모든 데이터 학습, 나머지: 첫 2000명의 데이터 학습</li>
+    </ul>
+  </li>
+  <li>baseline
+    <ul>
+      <li>HSTLSTM[1]: a LSTM based method which introduces spatio-temporal transfer factors and uses an encoder-decoder structure for prediction.</li>
+      <li>DeepMove[2]: an attentional recurrent network which capture the complicated sequential transitions and the multi-level periodicity.</li>
+      <li>LSTPM[3]: a long- and short-term preference modeling framework which consists of a nonlocal network for long-term preference modeling and a geo-dilated RNN for short-term preference learning.</li>
+      <li>CARA[4]: a novel contextual attention recurrent architecture that leverages both sequences of feedback and contextual information associated with the sequences to capture the users’ dynamic preferences.</li>
+      <li>TMCA[5]: a novel temporal and multi-level context attention LSTM-based encoder-decoder framework which is able to adaptively select relevant check-in activities and contextual factors for next POI preference prediction</li>
+      <li>GeoSAN[6]: a geography-aware sequential recommender based on the self-attention network that uses hierarchical gridding of GPS locations for spatial discretization and uses self-attention layers.</li>
+      <li>STAN[7]: a spatial-temporal attention network that explicitly aggregates all relevant check-ins in trajectories, not only just successive ones.</li>
+      <li>MobTCast[8]: a Transformer-based context-aware network combined with a location prediction branch as an auxiliary task. It which captures temporal, semantic, social and geographical contexts.</li>
+    </ul>
+  </li>
+  <li>Evaluation metric
+    <ul>
+      <li>k = 5, 10</li>
+      <li>Recall@k</li>
+      <li>NDCG@k : 예측 순위가 높은 걸 맞췄을 때 더 높은 점수를 주는 평가 지표</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="result">Result</h2>
+<p>기본적으로 baseline 모델에서는 user embedding은 추가하지 않고 TPG 모델을 학습했다.</p>
+
+<h3 id="next-location-prediction-결과"><strong>next location prediction 결과</strong></h3>
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-8.png" alt="" />
+(101번째 위치 추천), bold: 최고 성능 모델, 밑줄: 두 번째 최고 성능 모델</p>
+
+<ul>
+  <li>5가지 dataset에 대해서 TPG모델이 모두 baseline 모델보다 우수한 성능을 보인 것을 확인할 수 있다.</li>
+  <li>RNN 기반 모델(HSTLSTM, DeepMove, LSTPM, TMCA, CARA)보다 Attention기반 모델(MobTCast, STAN, GeoSAN, TPG)이 전반적으로 우수한 성능을 보이고 있다. 이는 Attention 기반 모델들이 check-in 데이터에서 시공간 맥락 정보를 더 잘 포착하기 떄문이다.</li>
+  <li>sparsities 지수가 높은 NYC, SIN dataset에서 특히 TPG 모델의 성능이 다른 모델들 보다 우수한 것으로 보아 TPG 모델이 희소한 데이터를 처리하는 능력이 우수하다는 것을 알 수 있다.
+  (Sparsities): Gowalla(0.001), Brightkite(0.007), NYC(0.027), TKY(0.009), SIN(0.12)
+  → sparsity = #check-in / (#user x #location)</li>
+</ul>
+
+<h3 id="masking-location-prediction-결과"><strong>Masking location prediction 결과</strong></h3>
+<p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-9.png" alt="" />
+int i : 100번째 기준 이전 i개의 방문을 masking한 데이터셋</p>
+
+<p>더 먼 미래의 상황을 잘 맞추는지 확인하기 위해 100번째, 99번째, 98번째를 masking하고 모델의 성능을 비교한 결과이다. STAN, GeoSAN 모델은 masking 후의 성능이 전반적으로 떨어지는 것에 비해 TPG 모델은 오히려 성능이 올라가는 경우도 있다. 따라서 TPG 모델이 더 먼 미래의 위치를 맞추는데 효과적임을 알 수 있다.</p>
+
+<h2 id="ablation-study">Ablation Study</h2>
+
+<ul>
+  <li>Remove TP (Temporal-based Prompt)</li>
+  <li>Remove TE (Time Embedding)</li>
+  <li>Remove SW (Shifted Window Mechanism)</li>
+  <li>Remove GE (Geography Encoder)</li>
+  <li>Add UE (User Embedding) → baseline에서는 user embeding을 사용하지 않는다. <img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-10.png" alt="" /></li>
+</ul>
+
+<p>모델에서 시간 정보를 제거하면(TP, TE) 전반적으로 성능이 나빠지는 것으로 보아 시간 정보가 위치 예측에서 큰 영향을 미치는 것을 확인할 수 있다. 특히 지역 dataset인 Gowalla, Foursquare dataset에서 TP보다 TE의 성능이 우수한 것으로 보아 예측 시간에 대한 정보가 더 중요하게 작용한다는 사실을 알 수 있다.
+위치 정보를 제거한 (SW, GE) 결과가 TPG baseline 보다 낮은 성능을 보이는 것으로 보아 shifted window 방식과 위치 정보 표현 방식이 다음 위치 예측에 있어 효과적으로 작용한다는 것을 알 수 있다.
+user embedding을 추가 했을떄 TPG 모델의 성능이 나빠진다. 이는 user embedding이 check-in 시퀀스와 위치 벡터의 불일치를 초래할 수 있기 때문이라고 판단된다. 이는 향후 사용자 정보를 효과적으로 사용해 성능을 향상시키는 방법을 고려해야 할 것이다.</p>
+
+<h2 id="parameter-sensitivity-analysis">Parameter Sensitivity Analysis</h2>
+<p>지리 embedding 차원과 shifted window의 크기가 중요한 파라미터라고 생각되어 두 파라미터에 대해 NYC, TKY dataset을 이용해 Parameter Sensitivity Analysis를 진행했다.</p>
+<ol>
+  <li>지리 embedding 차원 변화
+<img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/untitle13.jpg" alt="" />
+embedding 차원을 10부터 60까지 10단위로 변화시키면서 성능을 비교했다. 
+embedding 차원을 증가시킬 수록 성능이 좋아지지만 차원이 50을 넘어가면 성능이 떨저지는 것을 확인하였다. 이는 차원이 낮을때는 지리 정보를 다 표현하기에는 부족한 것으로 보이고 차원이 너무 커지면 반대로 너무 많은 차원으로 noise가 발생 할 수 있음을 보여준다. 최종 TPG모델의 차원은 50이다.</li>
+  <li>shifted window step size 변화
+<img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitle14.jpg" alt="" />
+window step size를 0.25 부터 1까지 0.25씩 증가시키면서 확인했다. 여기서 step size는 window의 길이와 grid 크기의 비율을 의미한다. 
+그래프를 확인해 봤을때 step size가 0.25일때 예측 성능이 우수했고 0.75까지 증가할 수록 성능이 떨어지는 것을 확인할 수 있다. 비교적 작은 window의 크기로 인해 중요한 지역의 정보를 집중적으로 분석하면서 주변의 중요한 정보를 충분히 포착 가능하기 때문이다. step size가 0.75로 커질때는 window의 크기 증가로 인해 불필요한 정보도 모델에 포함되면서 중요 정보가 희석된 것으로 볼 수 있다. step size가 1일때 성능이 다시 증가한 이유는 window가 각 레벨에서 주변 grid 전체를 포괄하여 집계하기 때문이다. 이는 각 위치에서 지리적 연속성과 인접 grid간의 상관관계를 직접적으로 고려하는 방식으로 전환되기 때문에 예측의 성능을 올린 것으로 보인다. 최종 TPG모델의 window step size는 0.25이다.</li>
+</ol>
+
+<h1 id="5-conclusion">5. Conclusion</h1>
+
+<p>종합해 보면 TPG모델의 강점은 두 가지가 있다. 첫 번째로 기존 위치 추천 모델들이 간과했던 예측 시간 정보를 직접 prompt를 이용해서 모델에 추가해줘 예측 성능을 높인점이다. 두 번째는 위치 정보를 표현하는 gridding 방식에 shifted window를 적용해서 위치 간 상관 관계를 추가적으로 확인한 점이다.</p>
+
+<p>하지만 개인적으로는 세 가지의 아쉬운 점 및 추가 연구 필요성을 느꼈다. 첫 번째는 어떻게 시간 정보를 prompting 했는지에 대한 설명이 부족하다는 점이다. 시간 정보를 prompting 방법에 따라서도 성능의 차이가 날 수 있을 것으로 예상되므로 추가 prompting에 대한 연구가 필요해 보인다. 두 번째로는 History Encoder 부분에서 geo embedding, POI embedding, time embedding을 결합하는 부분에서 두 가지 결합 방법(element product, concatenate)을 제시했는데 두 방법에 따른 결과를 비교하는 연구가 추가적으로 진행되어야 할 것으로 보인다. 마지막으로 위치, 시간 정보 말고도 baseline으로 제시된 모델에서 적용했던 것과 같이 social relationship[8] 등의 특성들을 embedding에 추가하면 더 우수한 모델을 만들 수 있을 것으로 예상되어 추가 연구가 필요해 보인다.</p>
+
+<h1 id="author-information">Author Information</h1>
+
+<ul>
+  <li>Author: Hongju Lee</li>
+  <li>Affiliation: CDSN Lab in KAIST</li>
+  <li>Research Topic: location recommendation system</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<p>[1] Dejiang Kong and Fei Wu. 2018. HST-LSTM: A Hierarchical Spatial-Temporal Long-Short Term Memory Network for Location Prediction. In Proceedings of the International Joint Conference on Artificial Intelligence (IJCAI). 2341–2347</p>
+
+<p>[2] Jie Feng, Yong Li, Chao Zhang, Funing Sun, Fanchao Meng, Ang Guo, and Depeng Jin. 2018. DeepMove: Predicting Human Mobility with Attentional Recurrent Networks. In Proceedings of the World Wide Web Conference (WWW). 1459–1468.</p>
+
+<p>[3] Ke Sun, Tieyun Qian, Tong Chen, Yile Liang, Quoc Viet Hung Nguyen, and Hongzhi Yin. 2020. Where to Go Next: Modeling Long- and Short-Term User Preferences for Point-of-Interest Recommendation. In Proceedings of the AAAI Conference on Artificial Intelligence (AAAI). 214–221</p>
+
+<p>[4] Jarana Manotumruksa, Craig Macdonald, and Iadh Ounis. 2018. A Contextual Attention Recurrent Architecture for Context-aware Venue Recommendation. In Proceedings of the ACM International Conference on Research and Development in Information Retrieval (SIGIR). 555–564.</p>
+
+<p>[5] Ranzhen Li, Yanyan Shen, and Yanmin Zhu. 2018. Next Point-of-Interest Recommendation with Temporal and Multi-level Context Attention. In Proceedings of the IEEE International Conference on Data Mining (ICDM). 1110–1115.</p>
+
+<p>[6] Defu Lian, Yongji Wu, Yong Ge, Xing Xie, and Enhong Chen. 2020. Geographyaware Sequential Location Recommendation. In Proceedings of the ACM International Conference on Knowledge Discovery and Data Mining (KDD). 2009–2019.</p>
+
+<p>[7] Yingtao Luo, Qiang Liu, and Zhaocheng Liu. 2021. STAN: Spatio-Temporal Attention Network for Next Location Recommendation. In Proceedings of the World Wide Web Conference (WWW). 2177–2185.</p>
+
+<p>[8] Hao Xue, Flora Salim, Yongli Ren, and Nuria Oliver. 2021. MobTCast: Leveraging Auxiliary Trajectory Forecasting for Human Mobility Prediction. In Advances in Neural Information Processing Systems (NeurIPS). 30380–30391.</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

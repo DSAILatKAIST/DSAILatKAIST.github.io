@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ESWA 2023] ProMIL: A weakly supervised multiple instance learning for whole slide image classification based on class proxy | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ESWA 2023] ProMIL: A weakly supervised multiple instance learning for whole slide image classification based on class proxy page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ESWA 2023] ProMIL: A weakly supervised multiple instance learning for whole slide image classification based on class proxy">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ESWA 2023] ProMIL: A weakly supervised multiple instance learning for whole slide image classification based on class proxy</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="bag-level-label-예측을-위한-새로운-방법론에-대하여">Bag level label 예측을 위한 새로운 방법론에 대하여</h1>
+
+<h2 id="1-problem-definition">1. Problem Definition</h2>
+<p> WSI(Whole Slide Image)는 질병 진단, 병리학 연구 등에서 조직의 시각화에 주로 사용되는 giga pixel 단위의 이미지이다. 해당 이미지를 모델이 학습하여 다양한 예측을 수행하기 위해서는 WSI를 작은 patch들로 나누는 patching 과정이 필요하다. 또한, 병리학자들에 의한 localized annoation이 필요하나, 이는 많은 시간과 비용을 소모한다. 따라서, patch level에서의 lable 없이 Slide(WSI) 단위의 label 만을 활용하여 WSI의 범주를 분류하는 weakly supervised learning의 필요성이 부각된다. 본 논문은 class proxy를 활용하여 WSI에 대한 weakly supervised learning을 보다 효과적으로 수행하는 방안을 제시한다.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+<p> Multiple Instance Learning(MIL)은 WSI와 같은 고해상도 이미지를 처리하는데 효과적인 모델이다. 해당 모델은 feature extractor, aggregator, classifier로 이루어져 작은 patch들로부터 feature를 추출하여 이를 기반으로 embedding을 수행하고, WSI의 범주를 분류할 수 있다. 그러나, 기존 conventional MIL은 1장에서 언급한 바와 같이 patch level label을 필요로 하며, 범주 불균형 문제를 해결하는데 어려움을 지닌다. 이러한 문제를 해결하기 위하여 다양한 시도가 이루어졌으나, 다음과 같은 한계점을 지닌다.</p>
+
+<p><a href="https://arxiv.org/abs/2011.08939">DS-MIL(CVPR 2021)</a>: Dual stream을 도입하여 중요한 patch를 중심으로 prediction은 수행한다. 1st stream은 max-pooling을 활용하여 informative patch를 식별하며, 2nd stream은 각 patch에 대한 attention score를 계산하여 prediction을 수행한다. 그러나, DS-MIL은 spatial feature를 반영하지 못한다는 한계점을 지닌다.</p>
+
+<p><a href="https://arxiv.org/abs/2203.12081">DTFD-MIL(CVPR 2022)</a>: WSI level에서의 정보만 존재할 뿐, patch level의 정보는 존재하지 않기에, pseudo-bag을 도입하여 # of bag를 늘리고, 결과적으로 동일한 데이터로부터 보다 많은 정보를 얻고자 시도한다. T1 단계에서 각 pseudo-bag의 representation을 예측하고, T2 단계에서는 T1 단계에서의 정보를 반영하여 WSI level의 prediction을 수행한다. 그러나, DTFD-MIL은 pseudo-bag의 수를 실험적으로 결정해야 하며, label noise에 민감하다는 한계점을 지닌다.</p>
+
+<h2 id="3-method">3. Method</h2>
+<p> 기존의 conventional MIL과 DS-MIL, DTFD-MIL 등을 보완하여 본 논문에서 제시하는 ProMIL은 patch level의 annotation 없이 class proxy를 통해 각 범주의 특성을 가장 잘 나타내는 representative한 vector를 찾고, 이를 활용하여 WSI의 class label을 예측하는 weakly supervised learning + metric learning 방법을 사용한다. Fig.1은 기존의 방법론과 ProMIL의 구조적인 차이를 간략하게 표현한다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig1.jpg" alt="alt text" />
+  <br />
+  <em>Fig.1. Illustration of the difference between ProMIL and conventional MIL models</em>
+</p>
+
+<h3 id="31-metric-learning">3.1 Metric Learning</h3>
+<p> Weakly supervised learning과는 달리 필자에게 metric learning은 다소 생소한 관계로 본 논문을 이해하기 위해서 metric learning에 대해 간략히 다루고자 한다. 기존의 feature로는 분류가 쉽지 않았던 데이터에 대해 데이터를 class label 별로 잘 구분할 수 있게 만드는 metric을 학습하는 과정을 의미한다. Fig.2는 이러한 관점에서 metric learning의 목적을 시각적으로 나타낸다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig2.png" alt="alt text" />
+  <br />
+  <em>Fig.2. Illustration of purpose for metric learning</em>
+</p>
+
+<p> 기존의 classification task와는 다르게 metric learning은 특히 imbalance dataset에서 높은 성능을 보인다. 분류 문제는 “$x$는 $y$이다.”라는 정보를 바탕으로 학습을 수행하는 반면, metric learning은 “$x_1$은 $x_2$와는 가깝고, $x_3$와는 멀다.”라는 정보를 바탕으로 하기에 보다 sparse한 label에 대해서도 다른 class label로부터 멀리 떨어지게끔 학습을 수행할 수 있기 때문이다. 즉, 같은 class끼리는 가깝게, 다른 class끼리는 멀게라는 소기 목적의 절반은 달성한 셈이다.</p>
+
+<p> Metric learning을 통해 학습된 새로운 거리 함수는 일반적으로 embedding function $𝑓: ℝ^𝑟→ℝ^𝑚$를 통해 변환된 새로운 데이터 표현에 대한 Euclidean distance로 정의된다. 예를 들어, metric learning을 통해 학습된 거리 함수를 𝑓(𝑥;𝜃)라고 할 때, 두 데이터 $𝒙_𝟏$과 $𝒙_2$에 대한 새로운 거리 함수 $d(𝒙_𝟏, 𝒙_2)$는 아래와 같이 정의된다. 따라서, metric learning 문제의 목적은 데이터를 각 목표값에 따라 잘 구분되도록 변환하는 embedding 함수 𝑓를 학습하는 것이 된다. 이떄, 𝑓가 단순한 선형 변환이 아니라, deep neural network일 경우에 앞에 deep을 붙여 deep metric learning이라고 한다.</p>
+
+<p>$d(𝒙_𝟏, 𝒙_2)=\vert\vert f(𝒙_𝟏)-f(𝒙_2)\vert\vert^2_2$</p>
+
+<p> Deep metric learning에는 contrastive loss, triplet loss 등 다양한 loss function에 기반한 방법이 있지만, 이는 sampling, calculation issue를 지니므로 본 논문에서는 class proxy, 즉 각 클래스를 가장 잘 대표하는 vector를 찾기 위한  NCA loss를 사용하였음을 밝힌다. 이때, NCA loss는 sample vector와 proxy vector를 최대한 가깝게 만드는데 목적을 두며, 모든 sample set $Z$와 sample vector $x$, proxy vector $y$에 대해서 아래와 같이 정의된다.</p>
+
+<p>$L_{NCA}(x, y, Z) = -\log \left( \frac{\exp(-d(x, y))}{\sum_{z \in Z} \exp(-d(x, z))} \right)$</p>
+
+<h3 id="32-overall-framework">3.2 Overall Framework</h3>
+<p> ProMIL 모델의 overall framework는 Fig.3.에 제시된다. Patching(preprocessing) 과정을 거친 WSI 데이터에 대하여 해당 모델의 주요 workflow는 2개 분기를 포함한다. 상위 분기에서는 각 WSI embedding 과정을, 하위 분기에서는 class proxy 학습 과정을 거치며, 결과적으로, embedding vector와 proxy vector 사이의 유사도를 기반으로 NCA loss function을 활용하여 모델 파라미터와 class proxy가 업데이트된다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig3.jpg" alt="alt text" />
+  <br />
+  <em>Fig.3. Illustration of ProMIL's overall framework</em>
+</p>
+
+<h3 id="33-preprocessing">3.3 Preprocessing</h3>
+<p> WSI에는 training과 inference에 의미없는 background area가 존재한다. 따라서, RGB로부터 HSV color space로 변환된 이미지의 포화도 값과 임계값을 비교하여 조직 영역의 binary mask를 생성한다. 이후, blurring과 morphological closing을 통해 tissue extraction을 수행한다. 그러나, 추출된 조직 영역 또한 컴퓨터가 처리하기에 매우 크기에 직접 훈련에 사용할 수 없어 patch로 분할하는 과정이 필요하다. 본 논문에서는 WSI를 224x224 크기의 일련의 패치로 자른다. 그 결과, Fig.4.의 (c)와 같은 Patching을 완료한 tissue region을 얻을 수 있다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig4.jpg" alt="alt text" />
+  <br />
+  <em>Fig.4. Illustration of preprocessing WSI</em>
+</p>
+
+<h3 id="34-wsi-embedding">3.4 WSI Embedding</h3>
+<p> 앞서 3.3장의 preprocessing을 마친 WSI는 multi-scale feature generator (MSFG)에 의해 개체별로 representation matrix $R$이 생성된다. 예를 들어, $i$번째 WSI의 $j$번째 patch $x_{i,j}$는 pretrained ResNet101의 stage3 ($S_3$) &amp; stage4 ($S_4$)를 거쳐 각자 다른 크기의 차원 $l_3, l_4$를 지니는 features $s_{i,j}^3, s_{i,j}^4$가 추출된다. <br />
+\(s_{i,j}^3=S_3(x_{i,j}), s_{i,j}^4=S_4(x_{i,j})\) <br />
+\(s_{i,j}^3 \in \mathbb{R}^{1 \times l_3}, s_{i,j}^4 \in \mathbb{R}^{1 \times l_4}\)</p>
+
+<p> \(s^3_{i,j},s^4_{i,j}\) 는 concatenate되어 $i$th WSI’s $j$th patch $x_{i,j}$에 대한 representation vector $r_{i,j}$가 생성되고 $i$th WSI에 대하여 $n_i$개의 patch representation vector를 토대로 representation matrix $R_i$ 가 생성된다. 이때 $z$는 concat feature의 차원을 의미한다.
+\(r_{i,j}=concat([s^3_{i,j},s^4_{i,j}]), \quad r_{i,j} \in \mathbb{R}^{1 \times z}\) <br />
+\(R_i = \{ r_{i,1}, r_{i,2}, \ldots, r_{i,n_i} \}, \quad R_i \in \mathbb{R}^{n_i \times z}\)</p>
+
+<p> $i$th WSI’s representation matrix $R_i$에 대하여 batch normalization, projection, activation, regularization을 거쳐 WSI별로 matrix \(H'_i\)와 patch별로 vector \(h'_{i,j}\)가 생성된다. 이때, \(W_p\)는 projection matrix를 의미한다.
+\(R'_i=BatchNormald(R_i)\)
+\(H^T_i=Relu(W_pR'^T_i), \quad W_p \in \mathbb{R}^{d \times z}\)
+\(H'_i=L2-Norm(H_i), \quad H'_i \in \mathbb{R}^{n_i \times d}\)
+\(H_i' = \{ h_{i,1}', \ldots, h_{i,n_i}' \}, \quad h_{i,j}' \in \mathbb{R}^{1 \times d}\)</p>
+
+<p> patch별 vector $h’_{i,j}$는 <a href="https://proceedings.mlr.press/v80/ilse18a.html?ref=https://githubhelp.com">Gated-Attention (Ilse et al., 2018)</a>을 통해 attention score 계산, dropout, weighted aggregation을 거쳐 $i$th WSI embedding $G_i$를 output으로 도출하게 된다.</p>
+
+<p>\(a_{i,j} = \frac{\exp{ \left( W_a \left( \tanh \left( V_a h_{i,j}' \right)^T \right) \odot \sigma \left( U_a h_{i,j}' \right)^T \right) }}{\sum_{p=1}^{n_i} \exp{ \left( W_a \left( \tanh \left( V_a h_{i,p}' \right)^T \right) \odot \sigma \left( U_a h_{i,p}' \right)^T \right) }}\)
+\(\{ a_{i,1}', \ldots, a_{i,n_i}' \} = \text{dropout}(a_{i,1}, \ldots, a_{i,n_i})\)
+\(G_i = \sum_{j=1}^{n_i} a_{i,j}' h_{i,j}'\)
+Fig.5는 preprocessing부터 feature extraction, projection, gated attention 등 WSI Embedding의 전체적인 과정을 보여준다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig5.jpg" alt="alt text" />
+  <br />
+  <em>Fig.5. Illustration of WSI embedding overflow</em>
+</p>
+
+<h3 id="35-class-proxy-construction">3.5 Class Proxy Construction</h3>
+<p> 각 class를 가장 잘 나타내는 vector, class proxy는 random하게 initialized 되어, 3.4장에서 도출한 WSI embedding $G_i$와의 차이를 minimize하는 방향으로 $T$ epoch 동안 학습 과정에서 update 된다. 이때, cosine simliarity $\cos \theta_c$를 바탕으로 embedding vector와 proxy vector의 거리를 계산한다. 즉, ProMIL 모델은 $distance=-\cos \theta_c$라고 정의하며 $\cos \theta_c$는 아래와 같이 계산할 수 있다.</p>
+
+<p>\(p_c^1 \in \mathbb{R}^{1 \times d}, \quad c \in \{0, \ldots, C-1\}\)
+\(\cos \theta_c = \left&lt; \frac{G_i}{\| G_i \|_2}, \frac{p_c^t}{\| p_c^t \|_2} \right&gt;, \quad t=1, \ldots, T\)</p>
+
+<h3 id="36-loss-function">3.6 Loss Function</h3>
+<p> 앞서 3.1장에서 class proxy를 잘 학습하기 위한 NCA loss에 대해 간략히 다루었다. 본 논문, ProMIL의 loss function $Loss’$은 NCA loss에 margin을 추가하여 보다 informative한 instances(pathces)에 더 많은 가중치를 주도록 하였다. 또한, {𝝐, 𝒎, 𝒔} 하이퍼파라미터를 추가하여 각각 모델의 overfitting 방지, cosine margin의 크기 통제, 모델 수렴 속도 향상의 목적을 달성하고자 시도하였다.
+\(Loss' = (1 - \alpha + \frac{\alpha}{C})Loss - \frac{\alpha}{C} \sum_{c=0, c \neq Y_i}^{C-1} \log \left( \frac{e^{s \cdot \cos \theta_c}}{e^{s \cdot (\cos \theta_{Y_i} - m)} + \sum_{c=0, c \neq Y_i}^{C-1} e^{s \cdot \cos \theta_c}} \right)\)
+\(Loss = -\log \left( \frac{e^{s \cdot (\cos \theta_{Y_i} - m)}}{e^{s \cdot (\cos \theta_{Y_i} - m)} + \sum_{c=0, c \neq Y_i}^{C-1} e^{s \cdot \cos \theta_c}} \right), \quad \alpha (0 &lt; \alpha &lt; 1), m \geq 0, s \geq 0\)</p>
+
+<h3 id="37-algorithm">3.7 Algorithm</h3>
+<p>  Fig.6는 ProMIL 모델의 pseudo code를 제시한다. 해당 코드는 WSI embedding, simliarity measure, bag prediction, gradient calculation, parameter update 과정 등을 포함한다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig6.jpg" alt="alt text" />
+  <br />
+  <em>Fig.6. Model Algorithm</em>
+</p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+<p> 본 장에서는 ProMIL 모델의 성능을 평가하기 위해 6개의 (CAMELYON16, TCGA-NSCLC, TCGA-RCC, HER2-Status, Trastuzumab response, Breakhis-2 (binary), Breakhis-8 (multi-class)) open-source dataset에 대해 실험을 진행하였다. 그 결과, ProMIL 모델이 기존 모델 DS-MIL, Trans-MIL, DTFD-MIL 등에 비해 우수한 성능을 보임을 확인할 수 있다. 실험 결과는 Table.1, Table.2, Table.3에서 확인할 수 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Method</th>
+      <th style="text-align: center">CAMELYON16 Accuracy</th>
+      <th style="text-align: center">CAMELYON16 AUC</th>
+      <th style="text-align: center">TCGA-NSCLC Accuracy</th>
+      <th style="text-align: center">TCGA-NSCLC AUC</th>
+      <th style="text-align: center">TCGA-RCC Accuracy</th>
+      <th style="text-align: center">TCGA-RCC AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">ABMIL</td>
+      <td style="text-align: center">0.845</td>
+      <td style="text-align: center">0.854</td>
+      <td style="text-align: center">0.869</td>
+      <td style="text-align: center">0.941</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MIL-RNN</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.930</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">DSMIL</td>
+      <td style="text-align: center">0.8682</td>
+      <td style="text-align: center">0.894</td>
+      <td style="text-align: center">0.9190</td>
+      <td style="text-align: center">0.9633</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CLAM</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.936</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.963</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.991</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">TransMIL</td>
+      <td style="text-align: center">0.8837</td>
+      <td style="text-align: center">0.9309</td>
+      <td style="text-align: center">0.8835</td>
+      <td style="text-align: center">0.9603</td>
+      <td style="text-align: center">0.9466</td>
+      <td style="text-align: center">0.9882</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">DTFD-MIL</td>
+      <td style="text-align: center">0.908</td>
+      <td style="text-align: center">0.946</td>
+      <td style="text-align: center">0.894</td>
+      <td style="text-align: center">0.961</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ProMIL</td>
+      <td style="text-align: center">0.9132</td>
+      <td style="text-align: center">0.8991</td>
+      <td style="text-align: center">0.9814</td>
+      <td style="text-align: center">0.9942</td>
+      <td style="text-align: center">0.9938</td>
+      <td style="text-align: center">0.9968</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table.1. Experimental results on CAMELYON16, TCGA-NSCLC and TCGA-RCC</p>
+
+<p> </p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Status</th>
+      <th style="text-align: center">HER2-Status Accuracy</th>
+      <th style="text-align: center">HER2-Status AUC</th>
+      <th style="text-align: center">Trastuzumab response Accuracy</th>
+      <th style="text-align: center">Trastuzumab response AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Unannotated</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.82</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.68</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Annotated</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.90</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.80</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ProMIL</td>
+      <td style="text-align: center">0.9489</td>
+      <td style="text-align: center">0.9614</td>
+      <td style="text-align: center">0.9176</td>
+      <td style="text-align: center">0.9210</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table.2. Experimental results on HER2-Status and Trastuzumab response</p>
+
+<p> </p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Model</th>
+      <th style="text-align: center">Binary Accuracy</th>
+      <th style="text-align: center">Binary AUC</th>
+      <th style="text-align: center">Multi-class Accuracy</th>
+      <th style="text-align: center">Multi-class AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CSDCNN-Raw</td>
+      <td style="text-align: center">0.9580</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.894</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">INV3-Raw</td>
+      <td style="text-align: center">0.9684</td>
+      <td style="text-align: center">0.9947</td>
+      <td style="text-align: center">0.928</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IRV2-Raw</td>
+      <td style="text-align: center">0.9790</td>
+      <td style="text-align: center">0.9957</td>
+      <td style="text-align: center">0.9207</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IRV2-Aug</td>
+      <td style="text-align: center">0.9716</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0.9763</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IRRCNN-Raw</td>
+      <td style="text-align: center">0.9795</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.9569</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IRRCNN-Aug</td>
+      <td style="text-align: center">0.9799</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">0.9709</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Sharma et al.</td>
+      <td style="text-align: center">0.974</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">C-Net</td>
+      <td style="text-align: center">0.9933</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+      <td style="text-align: center">/</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ProMIL</td>
+      <td style="text-align: center">0.9954</td>
+      <td style="text-align: center">0.9993</td>
+      <td style="text-align: center">0.9640</td>
+      <td style="text-align: center">0.9771</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table.3. Experimental results on BreakHis</p>
+
+<p> 추가적으로, 본 논문에서 활용한 다양한 technique의 유의성을 확인하기 위하여 visualization 또한 수행하였다. 그 결과는 아래 Fig.7, Fig.8, Fig.9와 같다. 본 모델은 class proxy를 활용하여 WSI의 class label을 예측한다. Fig.7을 통해 diagonal, 즉 같은 class끼리는 cosine 유사도가 높은 반면, 다른 class끼리는 유사도가 낮은 것을 확인할 수 있다. 이는 update를 마친 class proxy가 각 class에 대해 representative한 특성을 지닌다는 것을 반영한다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig7.jpg" alt="alt text" />
+  <br />
+  <em>Fig.7. Illustration of cosine similarity between class proxies</em>
+</p>
+
+<p>또한, 본 모델은 기존 conventional MIL에서 주로 사용하는 cross entropy loss fucntion 대신, NCA-loss를 사용한다. Fig.8은 해당 loss function의 유의성을 검증하는 지표이다. 그래프를 통해 다양한 종류의 6개 open-source dataset에서 유의미한 성능 향상을 보이는 것을 확인할 수 있다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig8.jpg" alt="alt text" />
+  <br />
+  <em>Fig. 8. Illustration of the effectiveness of our loss function</em>
+</p>
+
+<p>Fig.9은 WSI의 각 patch들이 본 모델의 Gated-Attention 과정을 거쳤을 때, attention score의 heatmap을 시각화한다. 실제 병리학자들의 patch annotation과 attention heatmap의 유사한 양상으로 보아 ProMIL 모델이 model interpretability를 갖춘 것을 확인할 수 있다.</p>
+
+<p align="center">
+  <img src="../../images/DS503_24S/ProMIL_A_weakly_supervised_multiple_instance_learning_for_whole_slide_image_classification_based_on_class_proxy/Fig9.jpg" alt="alt text" />
+  <br />
+  <em>Fig.9. Visualization of the attention scores on TCGA-NSCLC, TCGA-RCC and HER2-Status</em>
+</p>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+<p> 4장의 실험 결과에 따르면, 본 논문에서 제시하는 모델 ProMIL은 최소한의 annotation (WSI level annotation)만을 바탕으로 기존 모델 대비 나은 성능을 이끌어낸다. 특히, balanced, imbalanced dataset에서, binary, multi-class classification과 같은 다양한 상황에서 적용 가능한 stability가 모델의 장점으로 보인다. 본 모델의 활용이 실제 병리학 분야에서의 workload 감소에 영향을 줄 수 있기를 희망한다.</p>
+
+<h2 id="6-reference">6. Reference</h2>
+<p>[1] Ilse, Maximilian, Jakub Tomczak, and Max Welling. “Attention-based deep multiple instance learning.” International conference on machine learning. PMLR, 2018. <br />
+[2] Li, Bin, Yin Li, and Kevin W. Eliceiri. “Dual-stream multiple instance learning network for whole slide image classification with self-supervised contrastive learning.” Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021.  <br />
+[3] Movshovitz-Attias, Yair, et al. “No fuss distance metric learning using proxies.” Proceedings of the IEEE international conference on computer vision. 2017. <br />
+[4] Zhang, Hongrun, et al. “Dtfd-mil: Double-tier feature distillation multiple instance learning for histopathology whole slide image classification.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.</p>
+
+<h2 id="author">Author</h2>
+<p>Name: 송 찬재 (ChanJae Song) <br />
+Affiliation: KAIST ISE <br />
+Contact: chan4535@kaist.ac.kr <br />
+Research Topic: Weakly Supervised Learning, Metric Learning</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

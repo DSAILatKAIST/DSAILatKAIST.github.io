@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[WACV 2024] MIST: Medical Image Segmentation Transformer With Convolutional Attention Mixing (CAM) Decoder | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [WACV 2024] MIST: Medical Image Segmentation Transformer With Convolutional Attention Mixing (CAM) Decoder page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[WACV 2024] MIST: Medical Image Segmentation Transformer With Convolutional Attention Mixing (CAM) Decoder">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[WACV 2024] MIST: Medical Image Segmentation Transformer With Convolutional Attention Mixing (CAM) Decoder</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition">1. Problem Definition</h2>
+<p>Medical image segmentation is a critical and fundamental task in medical image analysis where the goal is to label specific regions or structures in medical images. It involves classifying each pixel into one or more categories based on what anatomical structure it belongs to. For instance, in a heart MRI, segmentation would involve classifying pixels as part of the myocardium, ventricles, or background. Segmentation helps in numerous healthcare applications, including:</p>
+
+<ul>
+  <li><strong>Diagnosis:</strong> Helps in identifying diseases by clearly delineating abnormal tissue structures from normal ones.</li>
+  <li><strong>Treatment Planning:</strong> Accurate segmentation allows for better planning of surgical interventions and therapies.</li>
+  <li><strong>Monitoring:</strong> Enables doctors to track the progress of disease or effectiveness of treatment over time by observing changes in the shape and size of anatomical structures.</li>
+</ul>
+
+<p>Medical image segmentation poses several challenges that the paper aims to address:</p>
+
+<ol>
+  <li><strong>Variability in Image Quality:</strong> Medical images can vary greatly due to different scanning protocols, machine settings, and patient movement. This variability makes it difficult to design a robust segmentation model.</li>
+  <li><strong>Complexity of Anatomical Structures:</strong> Many organs and tissues have complex and irregular shapes which are hard to delineate accurately.</li>
+  <li><strong>Similarity in Tissue Appearance:</strong> Different tissues can appear similar in medical images, making it difficult to distinguish between them.</li>
+  <li><strong>Scale Variance:</strong> Structures of interest can vary in size, which complicates the segmentation process.</li>
+</ol>
+
+<p>The specific issue this research addresses is how current deep learning models in particular, CNNs and Vision Transformers, are not up to standard when it comes to managing the intricate details of medical image segmentation. The study emphasizes that these limitations can hinder the performance of medical image segmentation tasks, particularly when both local details and global contexts are crucial for accurate delineation of medical structures.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+<p>The motivation for this study stems from the limitations in current deep learning models:</p>
+
+<ul>
+  <li><strong>CNNs</strong> are limited by their local receptive fields, which means they can miss broader context unless specifically designed with mechanisms like dilated convolutions or large receptive fields that can become computationally expensive.</li>
+  <li><strong>Transformers</strong>, adapted from NLP to handle long sequences, offer excellent capability in grasping global interactions in data but can be inefficient in processing high-resolution images due to their computational cost and can overlook local specifics crucial for high-resolution tasks like image segmentation.</li>
+</ul>
+
+<p>Thus, the motivation is to harness the deep, hierarchical feature-processing capability of CNNs and the global contextual awareness of transformers to create a hybrid model that excels at both local detail and global context understanding.</p>
+
+<h2 id="3-method">3. Method</h2>
+
+<p><img src="../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/model.png" alt="" />
+<!-- ![model.png](https://i.ibb.co/34zG6y9/model.png) --></p>
+
+<h3 id="encoder-multi-axis-vision-transformer-maxvit">Encoder: Multi-Axis Vision Transformer (MaxViT)</h3>
+<p>The encoder utilizes a vision transformer architecture, designed to handle different stages of feature complexity in an image. Each stage consists of blocks that transform input features into increasingly abstract representations:</p>
+
+<ul>
+  <li><strong>Hierarchical Processing</strong>: Each stage processes features at a different scale, enabling the model to capture both fine and coarse details.</li>
+  <li><strong>Efficient Scaling</strong>: Lower stages have more blocks to handle finer details, while higher stages with fewer blocks focus on abstracting global features.</li>
+</ul>
+
+<h3 id="decoder-convolutional-attention-mixing-cam">Decoder: Convolutional Attention Mixing (CAM)</h3>
+<p>The CAM decoder integrates several advanced mechanisms:</p>
+
+<ul>
+  <li><strong>Multi-Head Self-Attention (MSA)</strong>:
+The MSA mechanism in MIST employs convolutional layers to generate the queries, keys, and values, enhancing the model’s ability to capture local spatial features.</li>
+</ul>
+
+<ol>
+  <li>
+    <p><strong>Convolutional Projections:</strong></p>
+
+    <ul>
+      <li>Instead of typical linear transformations, convolutional layers are used:
+        <ul>
+          <li>$Q = \text{Conv}(X)$</li>
+          <li>$K = \text{Conv}(X)$</li>
+          <li>$V = \text{Conv}(X)$</li>
+        </ul>
+      </li>
+      <li>Here, $X$ is the input feature map to the attention module.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Scaled Dot-Product Attention:</strong></p>
+
+    <ul>
+      <li>The attention weights are computed using the standard scaled dot-product formula, but applied to features transformed by convolutional layers:
+        <ul>
+          <li>$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$</li>
+        </ul>
+      </li>
+      <li>$d_k$ represents the dimensionality of the key vectors, which helps in stabilizing the gradients during training.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Multi-Head Configuration:</strong></p>
+
+    <ul>
+      <li>MIST processes the attention mechanism across multiple heads, allowing the model to capture various aspects of the input data in parallel:
+        <ul>
+          <li>$\text{Head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$</li>
+        </ul>
+      </li>
+      <li>After processing through individual heads, the outputs are combined:
+        <ul>
+          <li>$\text{MSA}(Q, K, V) = \text{Concat}(\text{Head}_1, …, \text{Head}_h)W^O$</li>
+        </ul>
+      </li>
+      <li>$W^O$ here denotes the output projection matrix that integrates information across all heads.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Utilizing convolutional projections in the self-attention mechanism allows the MIST model to retain more local spatial information than would be possible with linear projections. This is particularly beneficial for tasks like medical image segmentation, where the precise localization of features within an image is critical. The convolutional approach also helps in reducing the overall computational cost by decreasing the number of parameters needed for the projection phases, making the model both efficient and effective in handling high-resolution medical images.</p>
+
+<ul>
+  <li>
+    <p><strong>Spatial and Squeeze-and-Excitation Attention</strong>:
+These mechanisms refine focus and recalibrate channel-wise features dynamically, enhancing the model’s responsiveness to salient features.</p>
+  </li>
+  <li>
+    <p><strong>Convolutional Projections</strong>:
+Instead of projecting inputs linearly, using convolutions retains spatial hierarchies and reduces parameters, enhancing computational efficiency.</p>
+  </li>
+  <li>
+    <p><strong>Skip Connections</strong>:
+$X_{\text{out}} = \text{Concat}(X_{\text{up}}, X_{\text{enc}})$ ,where $X_{\text{up}}$ is upsampled output, and $X_{\text{enc}}$ is the encoder feature at the corresponding level. These connections enhance information flow by integrating detailed features from initial layers with the abstracted features from deeper layers, crucial for preserving edge details in segmentation.</p>
+  </li>
+</ul>
+
+<h3 id="loss-function">Loss Function:</h3>
+<p>The loss function used in the study is a weighted combination of the DICE loss and the Cross-Entropy loss.</p>
+
+<h3 id="loss-function-components">Loss Function Components</h3>
+
+<ol>
+  <li>
+    <p><strong>DICE Loss ($L_{\text{DICE}}$):</strong></p>
+
+    <ul>
+      <li>The DICE coefficient, also known as the Sørensen–Dice index, is widely used in image segmentation to measure the similarity between two samples. It is especially useful for datasets where the class distribution is imbalanced.</li>
+      <li>Mathematically, it is defined as: $L_{\text{DICE}} = 1 - \frac{2 \times \vert Y \cap \hat{Y} \vert}{\vert Y \vert + \vert \hat{Y} \vert}$ Where $Y$ represents the ground truth mask, and $\hat{Y}$ is the predicted mask. $\vert Y \cap \hat{Y} \vert$ denotes the common elements (or pixel overlap) between the predicted and the truth masks, and $\vert Y \vert + \vert \hat{Y} \vert$ is the total number of elements in both masks.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Cross-Entropy Loss ($L_{\text{CE}}$):</strong></p>
+
+    <ul>
+      <li>This is a standard loss function for classification tasks, measuring the performance of a classification model whose output is a probability value between 0 and 1.</li>
+      <li>Cross-entropy loss increases as the predicted probability diverges from the actual label. It is defined as: $L_{\text{CE}} = -\sum_{c=1}^M y_{o,c} \log(p_{o,c})$ Where $M$ is the number of classes, $y_{o,c}$ is a binary indicator of whether class label $c$ is the correct classification for observation $o$, and $p_{o,c}$ is the predicted probability of observation $o$ being of class $c$.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="combined-loss-function">Combined Loss Function</h3>
+
+<p>The total loss ($L_{\text{total}}$) used in the model is a weighted sum of the DICE loss and the Cross-Entropy loss. This approach combines the strengths of both loss functions, addressing the class imbalance problem (via DICE) and focusing on the probabilities (via Cross-Entropy), which is crucial for training segmentation models effectively. The weighted sum is defined as: $L_{\text{total}} = \gamma L_{\text{DICE}} + (1 - \gamma) L_{\text{CE}}$ Where $\gamma$ is a weight factor that balances the two losses. In their configuration, they have set $\gamma = 0.3$, giving more emphasis to the Cross-Entropy loss. This configuration helps in fine-tuning the model by focusing not only on the overlap between the segmented and ground truth areas but also on enhancing the predictive certainty across all classes.</p>
+
+<p>This loss function ensures that the model is not only accurate in terms of pixel overlap (as measured by DICE) but also confident in its predictions, reducing the likelihood of misclassification across the diverse features within medical images.</p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+
+<h3 id="41-experiment-setup">4.1 Experiment Setup</h3>
+<h3 id="411--datasets">4.1.1  Datasets:</h3>
+
+<p>In the study two primary datasets are used to train and evaluate the model.</p>
+
+<h3 id="1-automatic-cardiac-diagnosis-challenge-acdc-dataset">1. <strong>Automatic Cardiac Diagnosis Challenge (ACDC) Dataset</strong></h3>
+
+<p>The ACDC dataset is publicly available and was originally part of a challenge aimed at cardiac image analysis. This dataset consists of cardiac MRI scans from 100 different patients, collected under varying conditions but consistent imaging protocols. It includes segmentation masks for the right ventricle, myocardium, and left ventricle, which are key structures for many cardiac studies and diagnostics. The ACDC dataset is used to assess how well the MIST model performs in segmenting relatively small, complex structures within cardiac MRI scans.</p>
+<ul>
+  <li><strong>Training and Testing Split:</strong>
+    <ul>
+      <li><strong>Training Set:</strong> Includes 70 cases, resulting in 1,304 slices.</li>
+      <li><strong>Validation Set:</strong> Comprises 10 cases, resulting in 182 slices.</li>
+      <li><strong>Testing Set:</strong> Contains 20 cases, providing 370 slices.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-synapse-multi-organ-dataset">2. <strong>Synapse Multi-Organ Dataset</strong></h3>
+<p>This dataset is also publicly available and is used primarily for evaluating segmentation algorithms across multiple abdominal organs. It includes abdominal CT scans from 30 patients. Each CT scan encompasses 85 to 198 2D slices, amounting to a total of 3,779 axial contrast-enhanced abdominal slices.  The scans include detailed annotations for eight organs: the aorta, gallbladder, left kidney, right kidney, liver, pancreas, spleen, and stomach. The Synapse dataset is employed to validate the MIST model’s ability to handle segmentation tasks across a range of organs within a single imaging modality, addressing both large and small structures with varying contrasts and complexities.</p>
+<ul>
+  <li><strong>Training and Testing Split:</strong>
+    <ul>
+      <li><strong>Training Set:</strong> Comprises 18 CT scans.</li>
+      <li><strong>Testing Set:</strong> Includes the remaining 12 CT scans.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="preprocessing">Preprocessing:</h3>
+<p>Both datasets undergo standard preprocessing steps to ensure the images are suitable for input into the deep learning model. This typically includes resizing images to a uniform dimension (256x256 pixels in this case), normalizing the pixel values, and possibly augmenting the data with techniques like rotation, zooming, and flipping to improve model robustness.</p>
+
+<h3 id="412-metrics">4.1.2 Metrics:</h3>
+
+<ul>
+  <li><strong>DICE Coefficient</strong>: Measures the overlap, ideal for evaluating segmentation quality.</li>
+  <li><strong>Hausdorff Distance</strong>: Assesses the maximum discrepancy between predicted and actual boundaries, critical for surgical precision.</li>
+</ul>
+
+<h3 id="413-baseline">4.1.3 Baseline:</h3>
+
+<p>The authors compare their proposed model against several state-of-the-art (SOTA) models that serve as baselines in medical image segmentation. These baselines include both recent CNN-based models and transformer-based architectures.</p>
+
+<h3 id="1-transunet">1. <strong>TransUNet</strong></h3>
+<p>TransUNet combines the strengths of CNNs and transformers, particularly leveraging the VGG network for feature extraction followed by a transformer to encode these features. It has shown strong performance in medical image segmentation tasks.</p>
+
+<h3 id="2-swinunet">2. <strong>SwinUNet</strong></h3>
+<p>This model adapts the Swin Transformer architecture into a U-Net-like structure. Swin Transformers use shifted windowing schemes to efficiently compute self-attention across different parts of the image, making them effective for tasks requiring detailed contextual understanding. SwinUNet is used for its efficiency in handling high-resolution medical images and its ability to model complex spatial hierarchies.</p>
+
+<h3 id="3-nnunet">3. <strong>nnUNet</strong></h3>
+<p>This is a robust CNN-based framework that automatically configures itself to optimally work across various segmentation tasks without manual intervention. It has been highly successful in many medical segmentation challenges. Known for its adaptability and strong performance across different datasets.</p>
+
+<h3 id="4-unet">4. <strong>UNet++</strong></h3>
+<p>An iterative improvement over the traditional U-Net, incorporating nested, dense skip pathways and deep supervision, allowing the network to be more precise in feature propagation across the encoder-decoder structure. It is particularly effective in medical imaging tasks where precise localization of structures is needed.</p>
+
+<h3 id="5-swin-transformer-and-variants">5. <strong>Swin Transformer and Variants</strong></h3>
+<p>Such as Pyramid Vision Transformer (PVT) and Convolutional Vision Transformer (CvT), which were also used for comparison. These models integrate pyramid-like structures or convolution operations to enhance the transformer’s capability to process images. These models are used to address the limitations of standard transformers by incorporating strategies to capture local features more effectively.</p>
+
+<h3 id="6-missformer-and-parallel-merit">6. <strong>MISSFormer and Parallel MERIT</strong></h3>
+<p>These are advanced transformer models with modifications to improve segmentation accuracy by enhancing the model’s ability to handle multi-scale features or by employing novel attention mechanisms. They are designed to provide better segmentation results by focusing on detailed and multi-scale understanding of medical images.</p>
+
+<h3 id="42-result">4.2 Result</h3>
+<p>MIST demonstrated superior segmentation accuracy across various organs and conditions, attributed to its hybrid approach which effectively combines detailed local processing with global contextual analysis..</p>
+
+<p><strong>Table 1:</strong>
+MIST achieves the highest Mean DICE scores across all organs compared to other models, marking superior segmentation accuracy with scores of 91.23 for the right ventricle (RV), 90.31 for the myocardium (Myo), and 96.14 for the left ventricle (LV). It outperforms well-known architectures like TransUNet, SwinUNet, and Parallel MERIT, particularly excelling in LV segmentation where it slightly surpasses even the advanced Parallel MERIT model. The consistent enhancement across all organs underscores the MIST model’s effective utilization of the CAM decoder and integrated attention mechanisms, highlighting its robust performance in medical image segmentation.</p>
+
+<p><img src="../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/table-1.png" alt="" />
+<!-- ![table-1.png](https://i.ibb.co/TmzXgsD/table-1.png) --></p>
+
+<p><strong>Table 2:</strong>
+MIST showcases top performance on the Synapse multi-organ dataset, achieving the highest Mean DICE score of 86.92 and a significantly low HD95 (Hausdorff Distance) of 11.07, demonstrating not only precise segmentation but also remarkable boundary delineation. It scores exceptionally well in complex organs such as the liver (93.28) and pancreas (92.54), which are typically challenging due to their close proximity to other structures and similar tissue densities.</p>
+
+<p><img src="../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/table-2.png" alt="" />
+<!-- ![table-2.png](https://i.ibb.co/xCfPKPJ/table-2.png) --></p>
+
+<p><strong>Ablation Study</strong>: The ablation studies focused on several aspects of the CAM decoder:</p>
+
+<ol>
+  <li><strong>Attention-mixing</strong>: Models with attention-mixing consistently outperformed those without, confirming that integrating multiple attention mechanisms (such as multi-head self-attention, spatial attention, and squeeze and excitation attention) effectively captures both local and global dependencies.</li>
+  <li><strong>Convolutional MSA Projection</strong>: Using convolutional projections in MSA was shown to be more effective than linear projections. This approach likely helped reduce computational complexity while retaining or even enhancing the model’s ability to capture relevant features in the image.</li>
+  <li><strong>Dilations</strong>: The choice of dilation rates significantly influenced the model’s ability to process spatial information. Optimal dilation rates helped the model better understand the spatial hierarchy and context within medical images.</li>
+  <li><strong>Attention-aggregation</strong>: Concatenation of features was generally more effective than summation, suggesting that preserving individual feature maps before integration helped maintain critical information necessary for accurate segmentation.</li>
+</ol>
+
+<p><img src="../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/table-3.png" alt="" />
+<!-- ![table-3.png](https://i.ibb.co/XjpvhNC/table-3.png) --></p>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+<p>The MIST model, combining the Multi-Axis Vision Transformer with the Convolutional Attention Mixing decoder, sets a new standard in medical image segmentation. This model effectively balances detailed local accuracy with overall context awareness, which is crucial for precise medical tasks such as identifying tumors and outlining organs. Its advancements not only push the field forward but also open up possibilities for applying this technology to a broader range of medical imaging data. The integration of convolutional and transformer architectures in the model shows great potential for developing effective and efficient tools for medical image analysis. Although the model demonstrates superior performance on specific datasets (ACDC and Synapse), its ability to generalize across varied medical imaging modalities, different diseases, or diverse demographic groups might still be a challenge. Performance on one or two datasets doesnot always guarantee similar results on others due to differences in image characteristics and labeling standards. While the integration of convolutional layers within the transformer’s attention mechanisms likely improves performance, it could also increase the computational complexity. This might lead to higher resource demands during training and inference, potentially limiting the model’s applicability in resource-constrained environments. Additionally, the authors did not provide a comparison study of trainable parameters and GFLOPS with other models, which could have helped in evaluating the model’s efficiency relative to its competitors. They also use a pretrained network but did not provide details of end-to-end training without the pretrained setup, which would be necessary to compare the performance of the decoder effectively.</p>
+
+<h2 id="author-information">Author Information</h2>
+
+<ul>
+  <li>Author name: Saad Wazir</li>
+  <li>Affiliation: KAIST</li>
+  <li>Research Topic: Medical Image Segmentation</li>
+</ul>
+
+<h2 id="reference--additional-materials">Reference &amp; Additional materials</h2>
+
+<p>Github Implementation: https://github.com/Rahman-Motiur/MIST</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

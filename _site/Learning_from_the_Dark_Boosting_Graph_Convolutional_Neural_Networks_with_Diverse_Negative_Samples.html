@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[AAAI 2022] Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [AAAI 2022] Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[AAAI 2022] Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[AAAI 2022] Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="learning-from-the-dark-boosting-graph-convolutional-neural-networks-with-diverse-negative-samples">Learning from the Dark: Boosting Graph Convolutional Neural Networks with Diverse Negative Samples</h1>
+<h1 id="1-problem-definition"><strong>1. Problem Definition</strong></h1>
+<p>Conventionally, Graph Convolutional Neural Networks (GCNs) have learned node representations in graphs by utilizing a message passing mechanism where nodes update their representations based on information from neighboring nodes, referred to as positive samples. Yet, the potential information from non-neighboring nodes, referred to as negative samples, remains largely unexplored and undervalued in the context of representation learning. This paper explores and leverages this untapped information to improve node representation learning. Furthermore, the process of selecting suitable negative samples for each node is also significant, so the criteria for identifying good negative samples is defined, and an efficient algorithm is proposed.
+Thus, the overarching objective of this paper is to enhance the performance of GCNs by integrating both positive and negative information during message passing, thereby improving representation learning quality and mitigating over-smoothing issues.</p>
+
+<h1 id="2-motivation"><strong>2. Motivation</strong></h1>
+<h2 id="graph-convolutional-neural-networks">Graph Convolutional Neural Networks</h2>
+<p>Graphs serve as effective models for diverse data types prevalent in modern society, such as molecules, social networks, and traffic networks. However, their compatibility with popular deep learning algorithms, which typically handle regular data structures, poses challenges. To bridge this gap, graph neural networks (GNNs) have emerged as suitable deep learning architectures. GNNs come in various forms tailored for specific tasks, including graph sequence neural networks, graph convolutional neural networks (GCNs), and spatio-temporal graph convolutional networks. Among these, GCN (Kipf and Welling 2017) is a notable and straightforward variant that employs a message-passing mechanism (Geerts, Mazowiecki, and Perez 2021), where nodes update their representations based on information from neighboring nodes (positive samples). While this approach is effective, a limitation is that it leads to over-smoothing, making node representations increasingly similar with more network layers. To address this, the paper suggests leveraging non-neighboring nodes (negative samples) to introduce diverse information and counter over-smoothing.</p>
+
+<h2 id="negative-samples">Negative Samples</h2>
+<p>Existing works on selecting negative samples in graphs have limitations that this paper aims to address. Kim and Oh (2021) suggested a simple approach of uniform random selection from non-neighboring nodes, but this method tends to favor larger clusters in graphs, neglecting valuable information from smaller clusters. Two other methods utilize Monte Carlo chains (Yang et al. 2020) and personalized PageRank (Ying et al. 2018), yet neither adequately captures diverse information or avoids redundancy in sample selection.
+In contrast, this paper introduces a Graph Convolutional Neural Network (GCN) enhanced by diverse negative samples selected via a determinant point process (DPP), a method that prioritizes diverse subsets. The proposed approach defines a DPP-based distribution on non-neighboring nodes to select diverse negative samples for each node. However, the computational complexity of this method can be high at O(N ^3^), where N is the number of non-neighboring nodes. To mitigate this, a depth-first search (DFS) based method is proposed to sequentially collect diverse negative samples along the search path for each node, significantly reducing computational costs to O(p · d^3^), where p is the path length and d is the average degree of the graph.</p>
+
+<h1 id="3-method"><strong>3. Method</strong></h1>
+<h2 id="definitions">Definitions</h2>
+
+<p>In GCNs, the representation of node $i$ and layer $l$ is defined as:</p>
+
+<p>$x_i^{(l)} = \Sigma_{j \in N_i \cup {{i}}} \frac{1}{\sqrt(d_i) \cdot \sqrt(d_j)} (\Theta^{(l)} \cdot x_j ^{(l-1)} )$ <em>(eq. 1)</em></p>
+
+<p>where $N_i$ is the neighbors of node $i$, $d_i$ is the degree of node $i$ and $\Theta^{(l)}$ is a feature transition matrix. The goal of this equation is to aggregate the weighted representation of all neighbors.</p>
+
+<p>Determinant Point Process (DPP) is a special point process for defining a probability distribution on a set where more diverse subset has a higher probability. The main idea of this paper is to define a DDP-based distribution on diverse subsets of all non-neighboring nodes of a certain node, then outputting a diverse subset from this distribution.</p>
+
+<p>First, $L$-ensemble for a given node i in graph G is defined as:</p>
+
+<p>$L_{G_n \backslash i} (j, j’) = exp(cos (x_j , x_{j’}) - 1)$ <em>(eq. 5)</em></p>
+
+<p>where $G_n \backslash i$ denotes the node set of $G_n$ excluding node $i$, $j$ and $j’$ are two nodes within $G_n \backslash i$ and $cos(\cdot , \cdot)$ is the cosine similarity between two node representations $x$.</p>
+
+<p>With this $L$-ensemble, distribution on all possible subsets of all nodes in the graph except for $i$ is defined as:</p>
+
+<p>$P_L (Y_{G_n \backslash i}) = \frac{\text{det}(L_{Y_{G_n \backslash i}})}{\text{det}(L_{Y_{G_n \backslash i}} + I)}$ <em>(eq. 6)</em></p>
+
+<p>where $Y_{G_n \backslash i}$ is a set of all subsets of $G_n \backslash i$ and det($\cdot$) is the matrix determinant operator. The reason why this paper uses this distribution is because it has a nice and unique property that the more diverse the subsets, the higher their probability values, and the easier it is to obtain a diverse set from this distribution by sampling.</p>
+
+<h2 id="dpp-based-negative-sampling">DPP-Based Negative Sampling</h2>
+
+<p><img src="../../images/DS503_24S/Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples/Figure1.png" alt="" />
+<!-- **[Figure1.png]** --></p>
+
+<p>Good negative samples have different semantics and have complete knowledge of the whole graph. For example, nodes 6, 11, and 18 would be a good negative sample in Figure 1. To collect this, a depth-first-search (DFS) method is employed to create a fixed-length path from a given node $i$ to other nodes, capturing the first-order neighbors along this path to form a candidate set. Diverse negative samples are then selected from this set using the determinant point process (DPP) approach, aiming to represent various clusters in the graph. This DFS-based method leverages local diverse negative samples to approximate global diversity by breaking through the clusters of the current node and accessing different semantics. While collecting higher-order neighbors could enhance approximation, it would also escalate computational costs. Optimal performance is achieved when the path length is around a quarter of the graph’s diameter. The entire procedure is detailed in Algorithm 2.</p>
+
+<p><img src="../../images/DS503_24S/Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples/Algorithm2.png" alt="" />
+<!-- **[Algorithm2.png]** --></p>
+
+<h2 id="graph-convolutional-operation">Graph Convolutional Operation</h2>
+<p>Finally, the paper proposes a new graph convolutional operation as:</p>
+
+<p>$x_i^{(l)} = \Sigma_{j \in N_i \cup {{i}}} \frac{1}{\sqrt(d_i) \cdot \sqrt(d_j)} (\Theta^{(l)} \cdot x_j ^{(l-1)}) - \omega \Sigma_{\overline{j} \in \overline{N_i}} \frac{1}{\sqrt(d_i) \cdot \sqrt(d_{\overline{j}})} (\Theta^{(l)} \cdot x_{\overline{j} ^{(l-1)}})$ <em>(eq. 9)</em></p>
+
+<p>where $\overline{N_i}$ is the negative samples of node $i$ and $\omega$ is a hyperparameter to balance the contribution of the negative samples. In essence, each node sends two types of messages: positive messages from neighboring nodes and negative messages from non-neighboring nodes. While positive messages encourage nodes with similar semantics to have similar representations, negative messages promote nodes with different semantics to have distinct representations. The paper posits that these negative messages, which are absent in traditional GCNs, are crucial for advancing their performance. The entire operation is proposed in Algorithm3.</p>
+
+<p><img src="../../images/DS503_24S/Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples/Algorithm3.png" alt="" />
+<!-- **[Algorithm3.png]** --></p>
+
+<h1 id="4-experiment"><strong>4. Experiment</strong></h1>
+
+<h2 id="experiment-setup">Experiment Setup</h2>
+
+<h3 id="datasets">Datasets</h3>
+
+<p>Benchmark graph datasets in the literature are used: Citeseer, Cora and Pubmed (Sen et al. 2008). The datasets include sparse bag-of-words feature vectors for each document, as well as a list of document-to-document citation connections. The experimental task is standard node classification.</p>
+
+<h3 id="baselines">Baselines</h3>
+
+<p>The base model is GCN. The sampling method is compared with the three other negative sampling methods available to date, then the selected samples are inputted into the convolution operation defined above. The three sampling methods are:</p>
+
+<ul>
+  <li>RGCN (Kim and Oh 2021), which selects negative samples in a purely random way.</li>
+  <li>MCGCN (Yang et al. 2020), which is based on Monte Carlo chains.</li>
+  <li>PGCN (Ying et al., 2018), which is based on personalised PageRank.</li>
+</ul>
+
+<h3 id="evaluation-metric">Evaluation Metric</h3>
+
+<p>Two metrics are used, one measuring the prediction performance and one measuring the extent to which the algorithm alleviates the over-smoothing problem.</p>
+
+<ul>
+  <li>Accuracy : cross-entropy loss for the node label prediction on test nodes</li>
+  <li>Mean Average Distance (MAD) (Chen et al. 2020) : smoothness of graph representation</li>
+</ul>
+
+<p>More specifically, MAD is:</p>
+
+<p>$\text{MAD} = \frac{\Sigma_i D_i}{\Sigma_i 1(D_i)}$ , $D_i = \frac{\Sigma_j D_{ij}}{\Sigma_j 1(D_{ij})}$</p>
+
+<h3 id="results"><strong>Results</strong></h3>
+<p><img src="../../images/DS503_24S/Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples/Result1.png" alt="" />
+<!-- **[Result1.png]** --></p>
+
+<p>Generally, as the depth of the models increased from 3 to 6 layers, there is a decrease in both accuracy and MAD due to over-smoothing, consistent with existing literature. PGCN shows slightly better results than RGCN and MCGCN on Cora and Citeseer, particularly at deeper layers. However, on Pubmed, GCN performs much worse than the others. The addition of negative samples to convolutional layers mitigates over-smoothing to some extent, but the selection of appropriate negative samples remains challenging. In contrast, the proposed D2GCN model consistently outperforms the other models in terms of accuracy across all datasets and exhibits outstanding MAD performance on Cora and Pubmed. While D2GCN also experiences a performance decrease with increasing depth, the rate is slower compared to other models, especially remaining nearly constant on Pubmed. These findings validate that incorporating diverse negative samples effectively alleviates over-smoothing, thereby improving prediction accuracy. Additionally, D2GCN demonstrates lower variance than the other models, possibly due to the diverse negative samples influencing node representations more dynamically compared to solely using positive samples.</p>
+
+<p><img src="../../images/DS503_24S/Learning_from_the_Dark_Boosting_Graph_Convolutional_Neural_Networks_with_Diverse_Negative_Samples/Result2.png" alt="" />
+<!-- **[Result2.png]** --></p>
+
+<p>Furthermore, the sensitivity of hyper-parameters (length of DFS and scale of negative rate) is analyzed on Citeseer dataset using 5-layer D2GCN. As the scale of negative rate or length of DFS increases, both accuracy and MAD increase initially, but decreases afterwards. For the length of DFS, outstanding results are obtained when it is equal to 5 or 6. For the scale of negative rate, it achieves the same performance as the trainable parameters when it was equal to {1, 2, 3}.</p>
+
+<h1 id="5-conclusion"><strong>5. Conclusion</strong></h1>
+
+<p>This paper emphasizes the significance of negative samples in Graph Convolutional Networks (GCNs) and establishes criteria for selecting good negative samples. The use of Determinantal Point Processes (DPP) for meaningful negative sample selection in GCNs is introduced, marking a novel approach in the field. Additionally, the paper is the first to integrate negative samples directly into graph convolution and proposes a Depth-First Search (DFS)-based heuristic to reduce computational costs effectively. Experimental results demonstrate that the proposed D2GCN method consistently outperforms other methods in predictive accuracy and mitigates over-smoothing issues.</p>
+
+<p>Personally, I found this paper insightful because it clearly identified a problem in the field of GCNs and utilized a fairly unique probabilistic idea of DPP to solve this problem. As someone who is not from a strictly AI background, I learned that research in this field is a combination of domain awareness, solid understanding of mathematical theory, and creative ideas to drive algorithm development.</p>
+
+<hr />
+
+<h1 id="author-information"><strong>Author Information</strong></h1>
+
+<ul>
+  <li>Joon Im
+    <ul>
+      <li>Department of Industrial and Systems Engineering, KAIST</li>
+      <li>Contact : <a href="mailto:joonim14@kaist.ac.kr">joonim14@kaist.ac.kr</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h1>
+
+<p><strong>Duan, W., Xuan, J., Qiao, M. and Lu, J., 2022, June. Learning from the dark: boosting graph convolutional neural networks with diverse negative samples. In <em>Proceedings of the AAAI Conference on Artificial Intelligence</em> (Vol. 36, No. 6, pp. 6550-6558).</strong></p>
+
+<p>Geerts,F.;Mazowiecki,F.;andPerez,G.A.2021. Let’s agree to degree: comparing graph convolutional networks in the message-passing framework. In <em>Proceedings of the 38th International Conference on Machine Learning (ICML), Virtual Event</em>, 3640–3649.</p>
+
+<p>Kim, D.; and Oh, A. H. 2021. How to find your friendly neighborhood: graph attention design with self-Supervision. In <em>Proceedings of the 9th International Conference on Learning Representations (ICLR), Virtual Event, Austria</em>.
+Kipf, T. N.; and Welling, M. 2017. Semi-supervised classification with graph convolutional networks. In <em>5th International Conference on Learning Representations (ICLR), Toulon, France</em>.</p>
+
+<p>Sen, P.; Namata, G.; Bilgic, M.; Getoor, L.; Gallagher, B.; and Eliassi-Rad, T. 2008. Collective classification in net- work data. AI Magazine, 29(3): 93–106.</p>
+
+<p>Yang, Z.; Ding, M.; Zhou, C.; Yang, H.; Zhou, J.; and Tang, J. 2020. Understanding negative sampling in graph representation learning. In <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining (KDD), Virtual Event, CA, USA</em>, 1666–1676.</p>
+
+<p>Ying, R.; He, R.; Chen, K.; Eksombatchai, P.; Hamilton, W. L.; and Leskovec, J. 2018. Graph convolutional neural networks for web-scale recommender systems. In <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining (KDD), London, UK</em>, 974–983.</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

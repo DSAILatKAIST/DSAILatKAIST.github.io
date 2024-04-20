@@ -225,6 +225,10 @@
                         <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
                         
                         
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
                     </ul>
                 </li>
                 
@@ -508,7 +512,7 @@ $\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \the
 
 <p>마지막으로, 인간이 직접 reward를 labeling하는 방식을 적용하면 RLHF(Reinforcement Learning with human feedback)방식이 되나, 논문에서는 이러한 Labeling 과정을 vision-language model(VLM)에서의 feedback으로 대체하였다.</p>
 
-<p><img src="../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/1.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/1.png" alt="" /></p>
 
 <p>위 figure가 논문에서 사용한 VLM의 예시인데, 먼저 prompt(“a monkey washing dishes”)를 Diffusion model에 입력해 이미지를 생성한다. 그 다음 LLaVA(Liu et al., 2023)모델에 이미지와  이미지에 대한 짧은 설명을 달라는 prompt를 함께 제공함으로서, short description을 얻는다. 처음에 입력했던 prompt와 요약된 설명의 bert similarity를 계산해 이를 reward로 사용한다.</p>
 
@@ -542,11 +546,11 @@ $\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \the
 <h3 id="algorithm-comparisons">Algorithm Comparisons</h3>
 <p>논문에서는 먼저 전반적 성능 확인을 위해 Reward Setting 1, 2번에 대한 결과를 이전 알고리즘(RWR)과 대비해 분석한다.</p>
 
-<p><img src="../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/2.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/2.png" alt="" /></p>
 
 <p>위 그림은 서로 다른 reward function에 대한 RL Fine-tuned Result이다. 정성적 관점에서, Aesthetic Quality에서는 기본 pre-trained 이미지에 비해 훨씬 예술적인(빛의 구도 등) 이미지를 연출하며, compressibility에서는 이미지 내에서 가장 중요한 부분들을 살리고 나머지는 간소화 한 것을 확인 할 수 있다. 반대로 Incompressibility에서는 file 크기를 늘리기 위해 이미지 내의 세세한 부분들을 선명하게 구현하였음을 확인할 수 있다.</p>
 
-<p><img src="../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/3.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/3.png" alt="" /></p>
 
 <p>Reward 지표를 바탕으로한 정량적 분석에서는 DDPO 방식이 기존의 방법론 RWR에 비해 훨씬 지표상으로 많은 Reward를 얻었음을 확인할 수 있다. 또한 Importance sampling 기법을 사용한 것이 Monte Carlo based approach(REINFORCE)에 비해 약간 더 나은 성능을 보였다.</p>
 
@@ -555,7 +559,7 @@ $\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \the
 
 <p>Prompt Setting은 “a(n) [animal] [activity]”를 베이스로, animal의 경우 Aesthetic에서 사용된 45개의 동물 카테고리를 사용였고, activity의 경우 “riding a bike”, “playing chess”, 그리고 “washing dishes” 세 가지만 사용하였다.</p>
 
-<p><img src="../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/4.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/4.png" alt="" /></p>
 
 <p>위 그림은 pretrained 된 stable diffusion으로부터, fine-tuning이 진행될수록 변하는 이미지를 나타내고 있다. 가장 위 “a dolphin riding a bike”를 먼저 살펴보면, pretrained된 상태에서는 이와 유사한 이미지를 생성하지도 못하지만, fine-tuning을 진행하면서 점점 faithful한 이미지를 생성해 냄을 확인할 수 있다.</p>
 
@@ -566,7 +570,7 @@ $\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \the
 <h3 id="generalization">Generalization</h3>
 <p>RL Finetuning이 Generalization Property를 띈다는 다른 논문 (English instruction이 다른 언어에 대한 capability  역시 상승시켰다는 내용; Ouyang et al., 2022) 의 결과와 마찬가지로, 동물 이미지로 학습한 DDPO에 대해 보지 못했던 새로운 동물, 동물이 아닌 사물, 그리고 새로운 시나리오(앞서 언급한 3가지 행동 prompt가 아닌)에 대해서도 일반적으로 좋은 성능을 냄을 확인할 수 있었다.</p>
 
-<p><img src="../../images/DS501_24S/Training_Diffusion_Models_With_Reinforcement_Learning/5.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/5.png" alt="" /></p>
 
 <p>위 그림에서는 학습 때 사용하지 않았던 홍학, 불가사리, 그리고 사물인 자전거와 냉장고 이미지에서도 Aesthetic fine-tuned 상황에서 이러한 특징을 잘 살리고 있음을 확인할 수 있다. 또한, “a capybara washing dishes” 나 “a duck taking an exam”과 같은 새로운 동물 + 시나리오에 대해서도 그럴듯한 이미지를 생성해 냄을 확인할 수 있다.</p>
 
@@ -636,7 +640,7 @@ $\log p_ \theta(\mathbf{x}) \geq  \mathbb{E}_ {q_\phi}  \left[\frac{\log p_ \the
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 17, 2024 <br />
+ Site last generated: Apr 20, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

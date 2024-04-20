@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[ICLR 2023] CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="calibrating-transformers-via-sparse-gaussian-processes"><strong>CALIBRATING TRANSFORMERS VIA SPARSE GAUSSIAN PROCESSES</strong></h1>
+
+<h2 id="0-summary"><strong>0. Summary</strong></h2>
+
+<p>Transformer에서 Multi-head attention blocks (MHAs)가 uncertainty calibration을 하지 못하는 점을 지적하며 이것의 output space에서 직접적으로 베이지안 추론을 할 수 있는 Sparse Gaussian Process Attention (SGPA) 라는 개념을 처음으로 제안하였음.</p>
+
+<h2 id="1-introduction"><strong>1. Introduction</strong></h2>
+<p>MHA의 구조를 가진 Transformers는 다양한 분야에서 성공적으로 사용되지만, calibrated uncertainty quantification(UQ)에 대해서는 많이 다루어 지지 않고 있었다. UQ에서는 베이지안 추론이 가장 강력한 방법론 중 하나이고, 다양한 뉴럴네트워크 모델에서 이미 UQ를 위해 사용 되어왔다. 그러한 베이지안 방법론 중 Gaussian Process (GP)는 reliable function-space uncertainty estiamtes에서는 가장 많이 쓰이는 방법론이기 때문에, 이 논문에서는 SGPA 방법론을 제안하는 것이다.</p>
+
+<p>이 논문의 핵심적인 contribution 은 (1) kernel-based attention 이 posterior mean of an sparse variational GP(SVGP)와 동치 관계에 있기 때문에, SGPA를 사용한 Transformer은 deep kernel 이 각각의 GP layer에 사용된 sparse deep GP라고 생각이 될 수 있고 (2) naive extension of SVGP 의 계산 비효율성을 해결하였고 (3) 실험적으로 in-distribution calibration, (out-of-distribution) OOD robustness, 그리고 OOD detection 에서 다른 모델보다 좋은 성능을 보였다.</p>
+
+<h2 id="2-preliminaries"><strong>2. Preliminaries</strong></h2>
+<h3 id="21-multi-head-self-attentionmhsa">2.1 Multi-Head Self-Attention(MHSA)</h3>
+<p>$T$ 개의 queries $\boldsymbol{q} \in \mathbb{R}^{T \times d_q}$, keys $\boldsymbol{k} \in \mathbb{R}^{T \times d_k}\left(d_k=d_q\right)$ 그리고 values $\mathbf{v} \in \mathbb{R}^{T \times d_v}$ 에 대해서, dot-product attention 은 nonlinear activation 함수 $\omega$에 대해 다음과 같이 계산이 된다.
+$\boldsymbol{F}=\omega\left(\boldsymbol{q} \boldsymbol{k}^{\top}\right) \mathbf{v}$.
+MHSA는 이러한 self-attention block 을 H개 합친 것이라 이해할 수 있다. Input 에 대해 key, queries, values 에 각각 projection matrix를 사용하여 값을 구해서 최종적으로 다음의 값을 구한다:</p>
+
+<p>$\boldsymbol{F}=\operatorname{concat}\left(\boldsymbol{F}_1, \cdots, \boldsymbol{F}_H\right) \boldsymbol{W}_F$.</p>
+
+<h3 id="22-sparse-variational-gaussian-processsvgp-with-deep-kernel">2.2 Sparse Variational Gaussian Process(SVGP) with Deep Kernel</h3>
+<p>GP는 infinite-dimensional index set $\mathcal{X}$의 함수 $f$에 대한 분포이다. 베이지안 추론의 관점에서, GP prior over $f$는 mean function(주로 0으로 set) 과 kernel function($K_\psi(\cdot, \cdot)$)으로 나타낸다.</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ3.png" alt="prior" /></p>
+
+<p>학습 데이터 $(\boldsymbol{X}, \boldsymbol{y})$와 Gaussian likelihood $p(\boldsymbol{y} \mid \boldsymbol{f})=\mathcal{N}\left(\boldsymbol{f}, \sigma^2 \boldsymbol{I}\right)$ 에 대해 새로운 데이터 $\boldsymbol{X}^*$ posterior predictive distribution 은 다음과 같이 표현된다:</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ4.png" alt="equ4" /></p>
+
+<p>하지만, Gaussian 이 아닌 다른 likelihood 를 사용하거나 데이터 개수 N 이 너무 클때 scalable 하지 않기 때문에 SVGP 방법론을 많이 쓴다. M 개의 inducing variables \((\boldsymbol{Z}, \boldsymbol{u})=\left\{\left(\boldsymbol{z}_m, u_m\right)\right\}_{m=1}^M\)을 사용하여 approximate posterior process 를 다음과 같이 표현할 수 있다:</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ5.png" alt="equ5" /></p>
+
+<!-- $$p\left(\boldsymbol{f}^*, \boldsymbol{f}, \boldsymbol{u} \mid \boldsymbol{Z}, \boldsymbol{X}^*, \boldsymbol{X}, \boldsymbol{y}\right) \propto p(\boldsymbol{y} \mid \boldsymbol{f}) p\left(\boldsymbol{f}^*, \boldsymbol{f} \mid \boldsymbol{u}, \boldsymbol{Z}, \boldsymbol{X}^*, \boldsymbol{X}\right) p(\boldsymbol{u} \mid \boldsymbol{Z})$$
+
+$\approx q\left(\boldsymbol{f}^*, \boldsymbol{f}, \boldsymbol{u} \mid \boldsymbol{Z}, \boldsymbol{X}^*, \boldsymbol{X}\right):=p\left(\boldsymbol{f}^*, \boldsymbol{f} \mid \boldsymbol{u}, \boldsymbol{Z}, \boldsymbol{X}^*, \boldsymbol{X}\right) q(\boldsymbol{u}), \quad q(\boldsymbol{u}):=\mathcal{N}\left(\boldsymbol{m}_{\boldsymbol{u}}, \boldsymbol{S}_{\boldsymbol{u}}\right)$. -->
+
+<p>variational parameters를 학습하기 위해서는 evidence lower-bound(ELBO)를 다음과 같이 구해서 계산한다:</p>
+
+<p>\(\mathcal{L}_{E L B O}=E_{q(\boldsymbol{f} \mid \boldsymbol{X}, \boldsymbol{Z})}[\log p(\boldsymbol{y} \mid \boldsymbol{f})]-K L(q(\boldsymbol{u}) \| p(\boldsymbol{u} \mid \boldsymbol{Z}))\).</p>
+
+<p>그리고 나서 approximate posterior predictive distribution 은 다음과 같이 구할 수 있다:</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ7.png" alt="equ7" /></p>
+
+<!-- $$q\left(\boldsymbol{f}^* \mid \boldsymbol{X}^*, \boldsymbol{Z}\right)=\int p\left(\boldsymbol{f}^*, \boldsymbol{f} \mid \boldsymbol{u}, \boldsymbol{Z}, \boldsymbol{X}^*, \boldsymbol{X}\right) q(\boldsymbol{u}) d \boldsymbol{u} d \boldsymbol{f}$$
+
+$$=\mathcal{N}\left(K_{X^* Z} K_{Z Z}^{-1} m_u, K_{X^* X^*}+K_{X^* Z Z} K_{Z Z}^{-1}\left(S_u-K_{Z Z}\right) K_{Z Z}^{-1} K_{Z X^*}\right)$$ -->
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+<p>Sparse Gaussian Process Attention(SGPA)의 메인 아이디어는 scaled dot-product attention 을 kernel 로 대체하면서 SGPA 의 평균과 attention 을 연결하는 것이다.</p>
+
+<h3 id="31-attention-as-the-mean-of-a-sparse-variational-gp">3.1 Attention as the mean of a sparse variational GP</h3>
+<p>통상적인 Transformers 의 attention block 은 scaled dot-product(SDP) attention 으로
+SDP-Attention:</p>
+
+<p>$\quad \boldsymbol{F}=\operatorname{softmax}\left(\frac{\boldsymbol{q} \boldsymbol{k}^{\top}}{\sqrt{d_k}}\right) \mathbf{v}$</p>
+
+<p>으로 표현된다. 이 과정에서 softmax 안은 사실 $\boldsymbol{q}, \boldsymbol{k}$ 사이의 유사성을 찾는 과정이기 때문에, kernel gram matrix \(\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}}\left(\left[\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}}\right]_{i, j}=K\left(\boldsymbol{q}_i, \boldsymbol{k}_j\right)\right)\) 으로 나타낼 수 있다. 즉, 이러한 kernel attention (K-Attention)은</p>
+
+<p>$K$-Attention: $\quad \boldsymbol{F}=\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}} \mathbf{v}$</p>
+
+<p>이렇게 표현이 된다. 이때, $\mathbf{v}$의 각각의 차원에 대 \([\mathbf{v}]_{:,d} :=\boldsymbol{K}_{Z Z}^{-1} \boldsymbol{m}_{\boldsymbol{u}}\)라 하고, $q:=X, k:=Z$로 두면, SVGP posterior mean과 each dimension of the output of a kernel attention block 이 같게 된다.</p>
+
+<h3 id="32-standard-sgpa--its-inefficiency-for-self-attention">3.2 Standard SGPA &amp; Its Inefficiency for Self-Attention</h3>
+
+<p>위의 동치 관계를 보고, approximate posterior variance computations 에 SVGP 를 사용해 볼 수 있다. 각각의 attention output 의 dimension 에 따라 서로 다른 variational parameters 를 주기 위해 $\boldsymbol{S} \in \mathbb{R}^{T \times T \times d_v}$ 를 a set of variational covariance parameters 라 정의하고 (T는 keys/inducing inputs의 개수), posterior attention output 의 평균과 분산을 다음과 같이 한다:</p>
+
+<p>\(\boldsymbol{m}_d=\boldsymbol{K}_{q k}[\mathbf{v}]_{:, d}, \quad \boldsymbol{\Sigma}_d=\boldsymbol{K}_{q \boldsymbol{q}}+\boldsymbol{K}_{q k}\left(\boldsymbol{K}_{k k}^{-1}[S]_{:,:, d} \boldsymbol{K}_{k \boldsymbol{k}}^{-\mathbf{1}}-\boldsymbol{K}_{k \boldsymbol{k}}^{-\mathbf{1}}\right) \boldsymbol{K}_{k q}\).</p>
+
+<p>이것을 <em>standard SGPA</em>라 부른다. <strong>즉, 각각의 dimension, $d$,들이 같은 kernel 을 공유하지만 서로 다른 variational parameters 를 사용한다는 것이 중요하다.</strong> 
+하지만, 이는 computationally inefficient 한 방법이다. 쉽게 생각해서, covariance parameter 이 input 과 inducing variable 에 dependent 해야한다.</p>
+
+<h3 id="31-improving-time--memory-efficiencies-via-decoupled-sgpa">3.1 Improving Time &amp; Memory Efficiencies via Decoupled SGPA</h3>
+<p>이러한 문제를 “orthogonally decoupled sparse Gaussian process approximation”을 통해서 해결하고자 한다. Input-dependent 한 (amortised) keys/inducing inputs, $\boldsymbol{k}^h_a=s \boldsymbol{W}_k^h$, 에 더해, $M_g$ 개의 “global” keys/inducing inputs, $\boldsymbol{k}^h_g$,를 모든 input sequences 들이 공유한다. 메인 아이디어는, 이 global keys 들만으로 variance of sparse GP 를 계산해 효율성을 개선하고자하는 것이다. 즉, 이렇게 하면 $\boldsymbol{S}^h$가 input-independent 해도 된다. 이것에 의하면, 각각의 head 에 대한 각각의 dimension 에 대한 mean, covariance 는 다음과 같다:</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ11.png" alt="equ11" /></p>
+
+<!-- $$\boldsymbol{m}_d=\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}_a}\left[\mathbf{v}_a\right]_{:, d}-\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}_g} \boldsymbol{K}_{\boldsymbol{k}_g \boldsymbol{k}_a}\left[\mathbf{v}_a\right]_{;, d}+\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}_g}\left[\mathbf{v}_g\right]_{:, d}$$
+
+$$\boldsymbol{\Sigma}_d=\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{q}}+\boldsymbol{K}_{\boldsymbol{q} \boldsymbol{k}_g} \boldsymbol{K}_{\boldsymbol{k}_g \boldsymbol{k}_g}^{-1}\left(\left[\boldsymbol{S}_g\right]_{:,:, d}-\boldsymbol{K}_{\boldsymbol{k}_g \boldsymbol{k}_g}\right) \boldsymbol{K}_{\boldsymbol{k}_g \boldsymbol{k}_g}^{-1} \boldsymbol{K}_{\boldsymbol{k}_g \boldsymbol{q}}$$, -->
+
+<p>\(\mathbf{v}_g \in \mathbb{R}^{M_g \times d_v}, \boldsymbol{S}_g \in \mathbb{R}^{M_g \times M_g \times d_v}$ 그리고 $\mathbf{v}_a=s \boldsymbol{W}_v \in \mathbb{R}^{T\times d_v}\). 이것을 <strong><em>decoupled SPGA</em></strong> 라 부른다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Time</th>
+      <th>Additional Memory</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MLE</td>
+      <td>$O\left(B T^2\right)$</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Standard SGPA</td>
+      <td>$O\left(B T^3\right)$</td>
+      <td>$O\left(T^2\right)$</td>
+    </tr>
+    <tr>
+      <td>Decoupled SGPA</td>
+      <td>$O\left(B T^2M_g + M_g^3\right)$</td>
+      <td>$O\left(M_g^2\right)$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="34-transformer-based-on-decoupled-sgpa">3.4 Transformer Based on Decoupled SGPA</h3>
+<p>SGPA 가 Sparse GP 랑 같기 때문에, <strong>Transformer model 을 각각의 layer 에 deep kernel 이 있는 deep GP 의 sparse approximation</strong> 이라 생각할 수 있다. 전체적인 구조는 우리가 잘 알고있는 Transformer 과 유사하다: $l$th SGPA layer 의 input 은 $l-1$th SGPA의 output, $\boldsymbol{F}^{l-1} \in \mathbb{R}^{T \times d^{l-1}}$, 이고 우선 non-linear mapping, $G_{\phi^l}: \mathbb{R}^{d^{l-1}} \rightarrow \mathbb{R}^{d^l}$,을 한 후 다음을 계산한다.</p>
+
+<p>\(\boldsymbol{q}^{l, h}=\boldsymbol{k}_a^{l, h}=G_{\phi^l}\left(\boldsymbol{F}^{l-1}\right) \boldsymbol{W}_{q k}^{l, h}, \quad \boldsymbol{k}_g^{l, h}=G_{\phi^l}\left(\boldsymbol{Z}_g^{l, h}\right) \boldsymbol{W}_{q k}^{l, h}, \quad \mathbf{v}_a^{l, h}=G_{\phi^l}\left(\boldsymbol{F}^{l-1}\right) \boldsymbol{W}_v^{l, h}\),</p>
+
+<p>$\boldsymbol{Z}_g^{l, h} \in \mathbb{R}^{M_g \times d^{l-1}}$ 은 global inducing locations of the $l$th layer이다. 그리고, variational parameters, $\left(\mathbf{v}_g^{l, h}, \boldsymbol{S}_g^{l, h}\right)$, 을 통해 posterior attention output 의 평균과 공분산을 구한 후, uncertainty propagation 을 위해 reparameterization trick 을 사용해</p>
+
+<p>\(\left[\boldsymbol{F}_h^l\right]_{:, d}=\boldsymbol{m}_d^{l, h}+\boldsymbol{\Sigma}_d^{l, h} \boldsymbol{\epsilon}_d^{l, h}, \quad \boldsymbol{\epsilon}_d^{l, h} \sim \mathcal{N}(\mathbf{0}, \boldsymbol{I})\).</p>
+
+<p>와 같이 전달 한다. 그리고 나서 최종적으로는 아래의 ELBO 를 학습시킨다:</p>
+
+<p><img src="../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/equ14.png" alt="equ14" /></p>
+
+<!-- $$\mathcal{L}_{E L B O}=E_{q\left(\boldsymbol{F}^L \mid \boldsymbol{F}^0,\left\{\boldsymbol{k}_g^{l, h}\right\}_{l=1, h=1}^{L, H}\right)}\left[\log p\left(\boldsymbol{Y} \mid \boldsymbol{F}^L\right)\right]$$
+
+$$-\sum_{l=1}^L \sum_{h=1}^H E_{q\left(\boldsymbol{F}^l \mid \boldsymbol{F}^0,\left\{\boldsymbol{k}_g^{j, h}\right\}_{j=1, h=1}^{l, H}\right)}\left[K L\left(q\left(\boldsymbol{u}_{a \cup g}^{l, h} \mid \boldsymbol{k}_g^{l, h}, \boldsymbol{F}^{l-1}\right) \| p\left(\boldsymbol{u}_{a \cup g}^{l, h} \mid \boldsymbol{k}_g^{l, h}, \boldsymbol{F}^{l-1}\right)\right)\right]$$ -->
+
+<p>실제 실험에서는, Monte-Carlo 방법을 통해 이 값을 추정한다.</p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<p>다음과 같은 setup 으로 실험을 진행하였다.</p>
+<ul>
+  <li>데이터 : CIFAR10&amp;CIFAR100 (CV), CoLA (NLP), IMDP (NLP)</li>
+  <li>Network 구조 : CV 문제에는 Vision Transformers 사용함. Kernel attention 에는 NLP 에는 exponential kernel, CV 에는 ARD-RBF kernel 사용함.</li>
+  <li>Baselines : Maximum likelihood estimation (MLE), Bayesian inference methods including mean-field variational inference (MFVI), Monte-Carlo Dropout (MCD), Kronecker-factored last layer Laplace approximation (KFLLLA), Spectral-normalized Neural Gaussian Process (SNGP). Validation set 이 있는 문제의 경우 temperature scaling (TS)를 사용해 calibration set 으로서 활용. CV 문제에 대해서는 ensemble 도 고려해 SGPA ensemble (SGPAE) with deep ensemble (DE).</li>
+  <li>Evaluations &amp; Metrics: 이 세가지를 보았음 in-distribution performance, out-of-distribution (OOD) robustness and OOD detection. 그 외 test set 에서는 다양한 metric 으로 측정하고 5개의 독립적인 run 을 통해 mean +/- two sigma 로 기록하였음.</li>
+</ul>
+
+<h3 id="41-in-distribution-calibration">4.1 In-distribution Calibration</h3>
+<p>모든 “single model” calibration 이 in-distribution calibration 을 향상시켰다. MFVI 는 가장 낮은 calibration errors 를 갖고 있지만, underfitting 이 보인다. 전반적으로 4가지 데이터셋에서 모두 SGPA 가 다른 single-model baseline 보다 좋은 성능을 보이며 competitive predictive accuracy 도 보였다.</p>
+<h3 id="42-robust-prediction-on-out-of-distribution">4.2 Robust Prediction on Out-of-distribution</h3>
+
+<p>CoLA 와 이미지 분류 문제인 CIFAR10&amp;CIFAR 100 에서 distribution shift 가 있을때의 성능을 분석하였다. 기존의 다른 연구에서 나온 OOD 데이터를 기반으로 실험을 하였을때, SGPA 는 MLE, MCD, SNGP를 NLL, calibration errors 측면에서 향상된 성능을 보였으면서 더욱 좋은 정확도를 보였다. MFVI, KFLLLA 는 더 낮은 calibration error 를 보였지만, predictive accuracy 가 좋지 못했다. OOD robustness 에 대해서도 실험을 했을 때 이와 같은 결과가 나왔다.</p>
+
+<h3 id="43-out-of-distribution-detection">4.3 Out-of-distribution Detection</h3>
+
+<p>이미지 분류 데이터에 학습된 Transformer 에 대해 OOD detection 문제를 비교해보았다. 전반적으로 다른 베이스라인 모델들보다 SGPA 가 랭크가 높았으며, ensemble 을 이용한 SGPAE 가 그중 가장 좋은 성능을 보였다.</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>SGPA를 제안하며 attention blocks 의 output 에 대해 approximate Bayesian inference 를 할 수 있는 방법론을 제안하였다. 다른 베이스라인에 비해 predictive accuracy 와 calibration 사이의 balance 가 훨씬 좋은 결과를 가져오게 되었다. 추가적으로 이러한 uncertainty quantification 을 잘하는 것은 distribution shift 하에서도 robustness 를 보였고, out of distribution detection 에서도 강점을 보였다.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Joohwan Ko
+    <ul>
+      <li>Masters student at Industrial Systems and Engineering, KAIST</li>
+      <li>Bayesian Machine Learning, Stochastic Optimization</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>Github Implementation 
+https://github.com/chenw20/SGPA</li>
+  <li>Reference<br />
+Wenlong Chen and Yingzhen Li. Calibrating Transformers via Sparse Gaussian Processes. International Conference on Learning Representations (ICLR), 2023.</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NeurIPS 2022] Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NeurIPS 2022] Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NeurIPS 2022] Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NeurIPS 2022] Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="decision-focused-learning-without-differentiable-optimization-learning-locally-optimized-decision-losses"><strong>Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses</strong></h1>
+
+<h2 id="0-preliminary-and-motivating-example"><strong>0. Preliminary and Motivating Example</strong></h2>
+
+<p>본 논문은 머신 러닝에서 새로운 학습 패러다임인 Decision-Focused Learning(DFL)에 관한 논문으로 기존 학습방법인 Two-stage Learning(or Predict-Focused Learning)과 Decision-Focused Learning간의 비교 설명을 먼저 해드리겠습니다.</p>
+
+<p><img src="../../images/DS503_24S/Decision-Focused_Learning_without_Differentiable_Optimization_Learning_Locally_Optimized_Decision_Losses/image_1.png" alt="" /></p>
+
+<h3 id="two-stage-learning"><strong>Two-stage Learning</strong></h3>
+<p>일반적으로 어떤 stochastic modeling을 통한 optimization 문제를 풀 때 model의 input $x$와 output $y$ 간의 관계를 정확히 알고 있다면 optimization problem의 정확한 optimal solution을 찾는 것이 가능합니다. 이를 식으로 표현하면 다음과 같이 표현이 가능합니다.</p>
+
+<p>Let $(x\in\mathcal{X},y\in\mathcal{Y})\sim \mathcal{D}$, $z\in\mathcal{Z}$ and expected loss $L_ {\mathcal{D}}(z)=E_ {x,y\sim\mathcal{D}}[f(x,y,z)]$. <br />
+Then $z_ {\mathcal{D}}^{*}=\text{argmin}_ {z} L_ {\mathcal{D}}(z)$</p>
+
+<p>그러나 실제로는 $\mathcal{D} \text{ or }p(y\vert x;\theta)$를 정확히 알 수 없습니다.</p>
+
+<p>따라서 전통적으로 $p(y\vert x;\theta)$를 예측하는 model $M_ {\theta}$를 주어진 $(x,y)$ 데이터를 이용하여 학습을 하고 이후에 optimal solution인 $a^{*}(x;\theta)$를 찾아내는 방법을 사용합니다.</p>
+
+<p>이를 Two-stage learning이라고 합니다.</p>
+
+<p>Two-stage learning에서의 주 목적은 주어진 $(x,y)$ 데이터를 가장 잘 설명하는 $p(y\vert x;\theta)$를 찾아내는 것입니다. 따라서 $M_\theta$를 학습할 때 $loss$ $function$으로 $(M_\theta(x)-y)^2$ 같은 함수를 사용하여 학습하게 됩니다.</p>
+
+<h3 id="decision-focused-learning"><strong>Decision-Focused Learning</strong></h3>
+
+<h4 id="motivating-example-knapsack-problem"><strong>Motivating example (Knapsack problem)</strong></h4>
+<p>우리는 주어진 feature들로 두개의 물건중 어느 물건이 더 가치가 높은지를 판단하여 하나의 물건을 고르고자 합니다.</p>
+
+<p><img src="../../images/DS503_24S/Decision-Focused_Learning_without_Differentiable_Optimization_Learning_Locally_Optimized_Decision_Losses/image_2.png" alt="" /></p>
+
+<p>이때 파란색 점이 실제 가치를 나타내는 점이고, 보라색 점과 초록색 점이 우리의 가치판단 모델에서 나온 결과라고 생각해봅시다. Two-stage learning관점에서는 두 점 모두 같은 값의 Loss를 얻게됩니다. 하지만 실제로 우리가 최종적으로 얻게되는 Loss는 보라색점은 0, 초록색 점은 -1이 되게 됩니다. 따라서 우리는 초록색 점으로 예측한 경우 보라색 점으로 예측한 것보다 더 높은 Loss값을 주어야 한다고 생각할 수 있습니다.</p>
+
+<p>즉 $x$와 $y$의 관계를 가장 잘 설명하도록 $p(y\vert x;\theta)$를 추정하여 $a^*(x;\theta)$를 얻는 방법이</p>
+
+<p>우리가 찾고자 하는 optimization solution, 다시 말해 $L_\mathcal{D}(a^<em>(x;\theta))$를 최소화하는 $a^</em>(x;\theta)$를 얻는 방법과 동일한 방법인지 의문이 들 수 있습니다.</p>
+
+<p>이러한 방향에서 생겨난 방법이 Decision-Focused Learning(DFL)입니다.</p>
+
+<p>DFL은 Two-stage learning 처럼 주어진 $(x,y)$ 데이터를 가장 잘 설명하는 방향으로 $M_ {\theta}$를 학습하는 것이 아니라 우리가 최종적으로 줄이고자 하는 task loss, $L_ {\mathcal{D}}(a^{*}(x;\theta))$를 줄이는 방향으로 $M_ {\theta}$를 학습하고자 합니다.</p>
+
+<p>즉 $\frac{\partial L_ {\mathcal{D}}(a^{*}(x;\theta))}{\partial\theta}$를 계산하여 $\theta$를 $update$ 하는 방법이 DFL 입니다.</p>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>DFL에서 가장 문제가 되는 부분이 $\frac{\partial L_ {\mathcal{D}}(a^{*}(x;\theta))}{\partial\theta}$를 계산하기 쉽지 않다는 것입니다.</p>
+
+<p>기존에 이 문제를 해결한 방법은 chain rule을 사용하여 $\frac{\partial L}{\partial \theta} = \frac{\partial L}{\partial z^{*}} \frac{\partial z^{*}}{\partial \theta}$로 나눈 후,</p>
+
+<p>첫번째 항은 task loss function을 단순히 미분한 값이므로 쉽게 구할 수 있게 되고,</p>
+
+<p>두번째 항인 $\frac{\partial z^{*}}{\partial \theta}$가 어떤 optimization problem 의 model parameter와 optimization solution의 관계이기때문에 특정한 problem에서 적용되는 condition을 이용하여 계산하였습니다.</p>
+
+<p>그러나 이러한 방법론은 특정한 problem(e.g.,convex problem)에서만 적용이 가능하다는 한계점이 존재합니다.</p>
+
+<p>이에대한 대안으로 Decision loss인 $L_ {\mathcal{D}}(a^{*}(x;\theta))$를 직접 미분하여 값을 얻어내는 것이 아니라 Decision loss에 근사하고 $\theta$로 미분이 가능한 Surrogate loss를 만들어 학습시킨 후, 학습된 Surrogate loss를 이용하여 predictive model을 학습시키는 방법론이 등장하였습니다.</p>
+
+<p>본 논문에서는 이러한 Surrogate loss의 새로운 form 인 Locally Optimized Decision Losses(LODL)을 소개하고 있습니다.</p>
+
+<h2 id="2-locally-optimized-decision-losses"><strong>2. Locally Optimized Decision Losses</strong></h2>
+
+<p>본 논문에서 소개하는 Locally Optimized Decision Losses(LODL)은 총 3가지의 특징으로 이루어져있습니다.</p>
+
+<ol>
+  <li>데이터셋의 각각의 $((x,y))$ pair마다 Surrogate loss를 학습시킵니다. 이때 우리의 predictive model $\mathbf{M}_ {\theta}$가 true label $y$에 충분히 가까이 예측할 수 있다는 가정하에 $\hat y_ {i} \approx y_ {i} \pm \epsilon$를 sampling 하여 $LODL_ {\phi} (\hat y, y)=[LODL_ {\phi_ {1}}(\hat y_ {1}),\ldots,LODL_ {\phi_ {N}}(\hat y_ {N})]$을 학습시킵니다.</li>
+  <li>$LODL_ {\phi_ {i}} (\hat y_ {i}) \approx DL(\hat y_ {i}, y_ {i})-DL(y_ {i}, y_ {i})\Rightarrow DL(\hat y_ {i}, y_ {i}) \approx LODL_ {\phi_ {i}} (\hat y_ {i}) + DL(y_ {i}, y_ {i})$
+위의 관계에서 $DL(y_ {i}, y_ {i})$가 constant 이므로 $LODL_ {\phi_ {i}}$의 form을 convex parametric form으로 설정하면 minima at $\hat y_ {i} = y_ {i}$인 convex function으로 predictive model을 학습 할 수 있습니다.</li>
+  <li>다양한 방법으로 $\hat y$를 sampling하였습니다.</li>
+</ol>
+
+<p>$LODL$과 기존의 Surrogate loss들의 가장 큰 차이점은 locally하게 Surrogate loss를 학습시킨다는 것인데, 이는 기존에 dim($y$)+dim($\hat y$)차원의 Surrogate loss를 학습시켜야 한다는 것에서 벗어나 dim($\hat y$)차원의 Surrogate loss를 학습시키면 된다는 점에서 이점이 있습니다.</p>
+
+<hr />
+
+<p>$LODL$의 Surrogate loss function form 에는 크게 4가지가 있습니다.</p>
+
+<ol>
+  <li><strong>WeightedMSE:</strong> $\text{WeightedMSE}(\hat y)=\sum_ {l=1}^{\text{dim}(y)} w_ {l}\cdot (\hat y_ {l}-y_ {l})^2$
+이때 학습되어야할 parameter은 $w_ {l}$ 입니다.</li>
+  <li><strong>Quadratic:</strong> $\text{Quadratic}(\hat y)=(\hat y - y)^T H(\hat y-y)$
+이때 학습되어야할 parameter은 low-rank symmetric Positive semidefinite(PSD) matrix 인 $H=L^T L$ 입니다.</li>
+  <li><strong>DirectedWeightedMSE:</strong>
+위의 $\text{WeightedMSE}$ 와 식은 동일하나 $w_ {l}=
+ \begin{cases}
+   w_ {+}, &amp; \text{if}\ \hat y_ {i}-y_ {i}\geq 0 <br />
+   w_ {-}, &amp; \text{otherwise}
+ \end{cases}$</li>
+  <li><strong>DirectedQuadratic:</strong>
+위의 $\text{Quadratic}$ 과 식은 동일하나 $L_ {ij}=
+ \begin{cases}
+   L_ {ij}^{++}, &amp; \text{if}\ \hat y_ {i}-y_ {i}\geq 0 \text{ and}\ \hat y_ {j}-y_ {j}\geq 0 <br />
+   L_ {ij}^{+-}, &amp; \text{if}\ \hat y_ {i}-y_ {i}\geq 0 \text{ and}\ \hat y_ {j}-y_ {j}&lt; 0 <br />
+   L_ {ij}^{-+}, &amp; \text{if}\ \hat y_ {i}-y_ {i}&lt; 0 \text{ and}\ \hat y_ {j}-y_ {j}\geq 0 <br />
+   L_ {ij}^{–}, &amp; \text{otherwise}
+ \end{cases}$</li>
+</ol>
+
+<hr />
+<p>LODL의 <strong>sampling strategy</strong>에는</p>
+<ol>
+  <li>Random_normal</li>
+  <li>Random_uniform</li>
+  <li>Random_dropout</li>
+  <li>Random_jacobian</li>
+  <li>Random_hessian</li>
+</ol>
+
+<p>등이 있습니다.</p>
+
+<hr />
+<p>LODL의 computational cost에 관해서</p>
+
+<ul>
+  <li>각각의 $LODL_ {\phi_ {i}} (\hat y_ {i})$이 parallelizable하게 학습될 수 있으므로 여러개의 core를 사용할수록 cost가 near-linearly 하게 줄어들것입니다.</li>
+  <li>학습된 $LODL_ {\phi_ {i}} (\hat y_ {i})$를 재사용할경우 LODL의 training time은 거의 two-stage의 경우만큼 줄어들 것입니다.</li>
+</ul>
+
+<h2 id="3-training-step"><strong>3. Training step</strong></h2>
+
+<p>본 논문에서 제시하는 방법론은 총 3가지 단계로 이루어져있습니다.</p>
+
+<ol>
+  <li>주어진 데이터셋 $((x,y))$에 대하여 각각의 $y_ {n}$ 마다 $\hat y_ {n}$를 sampling 하는 단계</li>
+  <li>Sampling된 $\hat y_ {n}$들로 $LODL_ {\phi_ {n}}(\hat y_ {i})\approx DL(\hat y_ {n},y_ {n})$가 되는 $\phi_ {n}$을 학습시키는 단계</li>
+  <li>학습된 $LODL_ {\phi}$를 이용하여 predictive model을 학습하는 단계</li>
+</ol>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<p>본 논문에서 실험에 사용한 문제는 총 세가지 문제입니다.</p>
+
+<ol>
+  <li>Linear Model</li>
+  <li>Web Advertising</li>
+  <li>Portfolio Optimization</li>
+</ol>
+
+<h3 id="linear-model"><strong>Linear Model</strong></h3>
+<p>Predict : feature $x_n\sim U[0,1]$를 이용하여 resource n의 utility $\hat y$를 예측합니다. 이때 true utility function : $y_ {n} = 10 x_ {n}^3 - 6.5 x_ {n}$입니다.
+Optimize : $N=50$ resources 중 $B=1$개의 highest utility를 고릅니다.</p>
+
+<p>$z^{*}(\hat y)=\text{arg topk}(\hat y)$</p>
+
+<h3 id="web-advertising"><strong>Web Advertising</strong></h3>
+<p>Predict : $M=5$ websites 에서 각 website $m$에 연관된 feature $x_m$을 이용하여 $N=10$명의 users에 대한 click-through rates(CTRs)를 예측합니다. 이때 true CTRs는 Yahoo! Webscope Dataset에서 얻었습니다.
+Optimize : 예측된 CTRs를 이용하여 user에게 advertise 할 $B=2$개의 website를 고릅니다.</p>
+
+<p>$z^{*}(\hat y)=\text{arg max}_ {z}\sum_ {j=0}^N(1-\prod_ {i=0}^M(1-z_ {i}\cdot\hat y_ {ij}))$ where $z_ {i}\in{0,1}$</p>
+
+<h3 id="portfolio-optimization"><strong>Portfolio Optimization</strong></h3>
+<p>Predict : Stock $n$에 대한 feature $x_n$를 이용하여 미래의 stock price $y_ {n}$를 예측합니다. 이때 QuandlWIKI dataset에서 $N=50$개의 stock에 대한 2004 to 2017의 과거 데이터를 이용했습니다.
+Optimize : 과거의 correlation matrix $Q$를 이용하여 $z^Ty - \lambda\cdot\hat y^TQ\hat y$를 maximize하는 distribution $z$를 고릅니다. 이때 risk aversion constant인 $\lambda$는 0.1로 설정합니다.</p>
+
+<h3 id="evaluation-metric">Evaluation Metric</h3>
+
+<p>본 논문에서 사용한 Evaluation Metric은 $\text{decision quality } DQ$로 higher is better 입니다.
+$DQ$는 Random으로 y를 설정한 경우 얻은 objective를 0, Optimal하게 y를 설정한 경우 objective를 1로 설정하여 scaling합니다.</p>
+
+<h3 id="experiment-setting">Experiment setting</h3>
+
+<ul>
+  <li>각 $y_ {i}$마다 $\hat y_{i}$를 50000개씩 sampling 하였습니다.</li>
+  <li>LODL의 NN은 4-layer fully-connected Neural Network with 100 hidden units로 설정하였습니다.</li>
+  <li>LODL의 DFL은 cvxpylayer을 이용한 Decision-focused learning 방식입니다.</li>
+  <li>2-stage방식은 standard MSE loss를 사용하여 학습하였습니다.</li>
+</ul>
+
+<h3 id="result"><strong>Result</strong></h3>
+
+<p><img src="../../images/DS503_24S/Decision-Focused_Learning_without_Differentiable_Optimization_Learning_Locally_Optimized_Decision_Losses/image_3.png" alt="" /></p>
+
+<p>본 논문에서 제시한 Locally optimized decision loss로 학습 한 경우 Decision quality가 좋게 나오는 것을 볼 수 있습니다. 특히 Directed Quadratic의 경우 2-stage보다 세 문제 모두 결과값이 더 좋게 나오고, 일반적인 DFL방식보다 대부분 결과값이 더 좋게 나오는 것을 확인할 수 있습니다.</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>본 논문은 기존의 surrogate loss들의 한계점인 optimization problem의 형태의 제약, 혹은 차원의 문제를 해결하는 새로운 surrogate loss 모델로 Locally optimized decision loss 방법론을 제시하였습니다. 2-stage 방법론보다 모든 문제에서 더 좋은 결과를 얻었으며, DFL방식보다 대부분의 문제에서 더 좋은 결과를 얻었다는 것을 확인할 수 있었습니다.</p>
+
+<p>본 논문에서 제시한 LODL방법론의 한계점은 복잡한 optimization problem 문제의 경우 본 논문에서처럼 각 데이터마다 50000번의 문제를 풀기에 cost가 매우 크다는 것입니다. 또한 surrogate loss를 하나의 form으로 특정한 것이 아니라 4가지의 loss form을 제시하였는데, 실제 문제에서는 어떠한 loss form을 이용해야하는지 판단하는데 어려움이 생길것이므로 이를 해결하는 방향의 연구가 더 필요할 것으로 예상됩니다.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>박민수 (Minsu Park)
+    <ul>
+      <li>Contact: mspark0425@kaist.ac.kr</li>
+      <li>KAIST GSDS Financial Engineering Lab</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<p>[1] Shah, S.; Wang, K.; Wilder, B.; Perrault, A.; and Tambe, M. 2022. Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses. Preprint at https://arxiv.org/abs/2203.16067.</p>
+
+<p>Code : https://github.com/sanketkshah/LODLs</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

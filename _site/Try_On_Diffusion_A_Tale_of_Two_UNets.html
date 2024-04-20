@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CVPR 2023] TryOnDiffusion: A Tale of Two UNets | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CVPR 2023] TryOnDiffusion: A Tale of Two UNets page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CVPR 2023] TryOnDiffusion: A Tale of Two UNets">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CVPR 2023] TryOnDiffusion: A Tale of Two UNets</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="title"><strong>Title</strong></h1>
+
+<p>TryOnDiffusion: A Tale of Two UNets</p>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+<h3 id="task-description"><strong>Task Description</strong></h3>
+<p><strong>Virtual Try-On (VTON)</strong>, which involves putting <strong>a garment</strong> on a <strong>particular individual</strong>, holds crucial significance in contemporary e-commerce and the prospective metaverse. The <strong>key challenge</strong> lies in preserving <strong>intricate clothes texture details</strong> along with <strong>the target person’s distinctive features</strong>. Adapting a garment to different body shapes without modifying patterns is particularly challenging, especially when the body appearance varies significantly.</p>
+
+<h3 id="general-related-works"><strong>General related works</strong></h3>
+
+<p>In general, when approaching this task, there are often two stages of processing: <strong>cloth warping</strong> and <strong>warped-cloth blending</strong>. 
+At the beginning, depending on the types of clothes, the corresponding changeable regions of the person image will be removed. Specifically, this mechanism is that if the garment is upper types, the upper regions of the body are omitted, which works the same as the lower types and dresses – the full body types.</p>
+
+<p>In terms of <strong>warping phases</strong>, the garment information and body appearance are pushed into several algorithms to learn the relative to predict a transformation matrix supporting to generate the most suitable body-fit warped garment. Subsequently, the warped garment is directly added to the person image which has already been removed from the changeable region, then the final output is generated after the calculation - <strong>warped-cloth blending phases</strong>.</p>
+
+<p>This type of process is quite common in recent VTON:</p>
+
+<p><a id="1">[1]</a> : Fele, Benjamin, et al. “C-vton: Context-driven image-based virtual try-on network.” Proceedings of the IEEE/CVF winter conference on applications of computer vision. 2022. <a href="https://arxiv.org/abs/2212.04437">Link</a></p>
+
+<p><a id="2">[2]</a> : Lee, Sangyun, et al. “High-resolution virtual try-on with misalignment and occlusion-handled conditions.” European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2022. <a href="https://arxiv.org/abs/2206.14180">Link</a></p>
+
+<p><a id="3">[3]</a> : Choi, Seunghwan, et al. “Viton-hd: High-resolution virtual try-on via misalignment-aware normalization.” Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021. <a href="https://github.com/shadow2496/VITON-HD">Link</a></p>
+
+<p><a id="4">[4]</a> : Xie, Zhenyu, et al. “Gp-vton: Towards general purpose virtual try-on via collaborative local-flow global-parsing learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023. <a href="https://arxiv.org/pdf/2303.13756.pdf">Link</a></p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>Almost all the recent previous studies use <strong>explicit wapring</strong> pharse - mentioned aboved.</p>
+
+<p><strong>In my opinion</strong>, this is a limitation of the whole process because during the training phase of the warping module the targets, which are used for losses calculation and backpropagation, are extracted from another segmenation model. It means that the explicit warping model performance <strong>is always underbound</strong> the segmentation model used for human parsing.</p>
+
+<p>In addition, all the mentioned aboved work with GAN-based or flow-based model.</p>
+
+<p>Meanwhile, <strong>in general task</strong> recent diffusion-based approaches are proven to be the current state-of-the-art methods in both quantitative and qualitative assessment.</p>
+
+<p><strong>“whether or not exist an approach using Diffusion model?”</strong> - just to guide the reader</p>
+
+<p>Take advantages of generative ability of Diffusion model, this paper focus on the task of garment detail preservation without effective pose and shape variation, or allow try-on with the desired shape and pose but lack garment details in <strong>a single network.</strong></p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p>In this paper, the author propose <strong>a diffusion-based architecture</strong> that unifies two UNets (referred to as Parallel-UNet), which allows us to preserve garment details and warp the garment for significant pose and body change in <strong>a single network.</strong></p>
+
+<p>The <strong>key ideas</strong> behind Parallel-UNet include: 
+1) garment is <strong>warped implicitly</strong> via a cross attention mechanism, 
+2) garment warp and person blend happen as part of a <strong>unified process</strong> as opposed to a sequence of two separate tasks.</p>
+
+<p>To find out the idea behind the <strong>implicity warping mechanism</strong>, we need to focus on the warping argorithm which known as the <a href="https://en.wikipedia.org/wiki/Thin_plate_spline">Thin Plate Spline</a>. This algorithm could easily explain as a <strong>scale and transition opertation</strong>. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase.</p>
+
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png" alt="" />
+<!-- ![Image 1](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x2.png) --></p>
+
+<p>Figure 1: Overall pipeline (top): During preprocessing step, the target person is segmented out of the person image creating “clothing agnostic RGB” image, the target garment is segmented out of the garment image, and pose is computed for both person and garment images. These inputs are taken into 128x128 Parallel-UNet (key contribution) to create the 128x128 try-on image which is further sent as input to the 256x256 Parallel-UNet together with the try-on conditional inputs. Output from  256x256 Parallel-UNet is sent to standard super resolution diffusion to create the 1024x1024 image. The architecture of  128x128 Parallel-UNet is visualized at the bottom, see text for details. The 256x256 Parallel-UNet is similar to the 128 one.</p>
+
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png" alt="" />
+<!-- ![Image 2](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x8.png) --></p>
+
+<p>Figure 2: Architecture of 256x256 Parallel-UNet</p>
+
+<h2 id="preprocessing-of-inputs"><strong>Preprocessing of inputs</strong></h2>
+
+<p>Note that clothing-agnostic RGB described in VITON-HD [6] leaks information of the original garment for challenging human poses and loose garments. The authors thus adopt a more aggressive way to remove the garment information. Specifically, they first mask out the whole bounding box area of the foreground person, and then copy-paste the head, hands and lower body part on top of it.</p>
+
+<p>They use Human Parsing Map and 2D keypoints to extract the non-garment body parts. They also normalize pose keypoints to the range of [0, 1] before inputting them to networks.</p>
+
+<h2 id="cascaded-diffusion-models-for-try-on"><strong>Cascaded Diffusion Models for Try-On</strong></h2>
+
+<p>Their cascaded diffusion models consist of <strong>one base diffusion model</strong> and <strong>two super-resolution (SR) diffusion models</strong>.</p>
+
+<p>The base diffusion model is parameterized as a 128×128 Parallel-UNet. It predicts the 128×128 try-on result, taking in the try-on conditional inputs. 
+The 128×128→256×256 SR diffusion model is parameterized as a 256×256 Parallel-UNet. It generates the 256×256 try-on result by conditioning on both the 128×128 try-on result and the try-on conditional inputs at 256×256 resolution. The 256×256→1024×1024 SR diffusion model is parameterized as Efficient-UNet introduced by <a href="https://arxiv.org/abs/2205.11487">Imagen</a>. This stage is a pure super-resolution model, with no try-on conditioning.</p>
+
+<h2 id="parallel-unet"><strong>Parallel-UNet</strong></h2>
+
+<p>The 128×128 Parallel-UNet can be represented as:</p>
+
+<p>$\epsilon_t = \epsilon_\theta(z_t,t,c_{tryon},t_{na})$</p>
+
+<p>where $t$ is the diffusion timestep, $𝐳_t$ is the noisy image corrupted from the ground-truth at timestep $t$, $𝐜_{tryon}$ is the try-on conditional inputs, $𝐭_na$ is the set of noise augmentation levels for different conditional images, and $\epsilon_t$ is predicted noise that can be used to recover the ground-truth from $𝐳_t$.</p>
+
+<h3 id="implicit-warping"><strong>Implicit warping</strong></h3>
+<p><em>“how can we implement implicit warping in the neural network?”</em> One natural solution is to use a traditional UNet and concatenate the segmented garment $I_c$ and the noisy image $z_t$ along the channel dimension. However, channel-wise concatenation can not handle complex transformations such as garment warping. This is because the computational primitives of the traditional UNet are spatial convolutions and spatial self attention, and these primitives have strong pixel-wise structural bias.</p>
+
+<p>Implicit warping using cross attention mechanism between streams of information:</p>
+
+<p>$Attention(Q,K,V) = softmax(\frac{QK^\top}{d})V$</p>
+
+<p>where $Q \in \mathbb{R}^{M \times d}, K \in \mathbb{R}^{N \times d}, V \in \mathbb{R}^{N \times d}$ are stacked vectors of query, key and value, $M$ is the number of query vectors, $N$ is the number of key and value vectors and $d$ is the dimension of the vector. 
+In this case, the query and key-value pairs come from different inputs.
+Specifically, $Q$ is the flattened features of $z_t$ and $K$, $V$ are the flattened features of $I_c$.</p>
+
+<p>The attention map $\frac{QK^\top}{d_k}$ computed through dot-product tells us the similarity between the target person and the source garment, providing a learnable way to represent correspondence for the try-on task.</p>
+
+<h3 id="combining-warp-and-blend-in-a-single-pass"><strong>Combining warp and blend in a single pass</strong></h3>
+
+<p>Instead of warping the garment to the target body and then blending with the target person as done by prior works, we combine the two operations into a single pass. As shown in Figure 1, they achieve it via two UNets that handle the garment and the person respectively.</p>
+
+<p>The person and garment poses are necessary for guiding the warp and blend process. They are first fed into the linear layers to compute pose embeddings separately. The pose embeddings are then fused to the person-UNet through the attention mechanism, which is implemented by concatenating pose embeddings to the key-value pairs of each self attention layer. Besides, pose embeddings are reduced along the keypoints dimension using CLIP-style 1D attention pooling, and summed with the positional encoding of diffusion timestep $t$ and noise augmentation levels $t_{na}$. The resulting 1D embedding is used to modulate features for both UNets using <a href="https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&amp;%3Butm_source=hs_email&amp;%3Butm_medium=email&amp;%3Butm_content=2&amp;%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&amp;ref=dl-staging-website.ghost.io">FiLM</a> across all scales.</p>
+
+<p><strong>In my opinion</strong>, the application of <a href="https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&amp;%3Butm_source=hs_email&amp;%3Butm_medium=email&amp;%3Butm_content=2&amp;%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&amp;ref=dl-staging-website.ghost.io">FiLM</a> is the key things that the most similar to implicit warping mechanism. <strong>(Scale and transition operation in the latent space)</strong></p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="experiment-setup"><strong>Experiment setup</strong></h3>
+<h4 id="dataset"><strong>Dataset</strong></h4>
+
+<p>The authors collect a paired training dataset of 4 Million samples. Each sample consists of two images of the same person wearing the same garment in two different poses. For test, they collect 6K unpaired samples that are never seen during training. Each test sample includes two images of different people wearing different garments under different poses. Both training and test images are cropped and resized to 1024x1024 based on detected 2D human poses. Our dataset includes both men and women captured in different poses, with different body shapes, skin tones, and wearing a wide variety of garments with diverse texture patterns. In addition, we also provide results on the <a href="https://github.com/shadow2496/VITON-HD">VITON-HD</a> dataset.</p>
+<h4 id="evaluation-metric"><strong>Evaluation Metric</strong></h4>
+
+<p>They compute Frechet Inception Distance (FID) and Kernel Inception Distance (KID) as evaluation metrics.</p>
+
+<h4 id="comparison-with-other-methods"><strong>Comparison with other methods.</strong></h4>
+
+<p>They compare their approach to three methods: <a href="https://arxiv.org/abs/2101.02285">TryOnGAN</a>, <a href="https://arxiv.org/abs/2207.09161">SDAFN</a> and <a href="https://arxiv.org/abs/2206.14180">HR-VITON</a>. For fair comparison, they re-train all three methods on our 4 Million samples until convergence. Without re-training, the results of these methods are worse. Released checkpoints of SDAFN and HR-VITON also require layflat garment as input, which is not applicable to our setting. The resolutions of the related methods vary, and they present each method’s results in their native resolution: SDAFN’s at 256x256, TryOnGAN’s at 512x512 and HR-VITON at 1024x1024.</p>
+
+<h3 id="result"><strong>Result</strong></h3>
+<p>The proposed models surpassed all the previous methods quantitatively.</p>
+
+<h4 id="quantitative-result"><strong>Quantitative Result</strong></h4>
+
+<!-- ![Image3](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x3.png) -->
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png" alt="" /></p>
+
+<!-- ![Image4](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x4.png) -->
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png" alt="" /></p>
+
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png" alt="" />
+<!-- ![Image5](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x7.png) --></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>The proposed method that allows to synthesize try-on given an image of a person and an image of a garment, are overwhelmingly better than state-of-the-art, both in the quality of the warp to new body shapes and poses, and in the preservation of the garment.</p>
+
+<p>A novel architecture Parallel-UNet, where two UNets are trained in parallel and one UNet sends information to the other via cross attentions</p>
+
+<p>This project only focus on <strong>upper clothes.</strong></p>
+
+<p><strong>In my opinion,</strong> the key idea lies on cross-attention and FiLM - Feature-wise transformations. The used of implicited warping removed the underbound of previous methods.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>(Hoang) Phuong Dam
+    <ul>
+      <li>AutoID LAB, School of Computing</li>
+      <li>Image Generation, Virtual TryOn</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<p>Please write the reference. If paper provides the public code or other materials, refer them.</p>
+
+<ul>
+  <li>Github Implementation of Tryon Diffusion: <a href="https://github.com/tryonlabs/tryondiffusion">here</a></li>
+  <li>
+    <p>Reference:</p>
+
+    <p><a id="1">[1]</a> : Fele, Benjamin, et al. “C-vton: Context-driven image-based virtual try-on network.” Proceedings of the IEEE/CVF winter conference on applications of computer vision. 2022. <a href="https://arxiv.org/abs/2212.04437">Link</a></p>
+
+    <p><a id="2">[2]</a> : Lee, Sangyun, et al. “High-resolution virtual try-on with misalignment and occlusion-handled conditions.” European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2022. <a href="https://arxiv.org/abs/2206.14180">Link</a></p>
+
+    <p><a id="3">[3]</a> : Choi, Seunghwan, et al. “Viton-hd: High-resolution virtual try-on via misalignment-aware normalization.” Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021. <a href="https://github.com/shadow2496/VITON-HD">Link</a></p>
+
+    <p><a id="4">[4]</a> : Xie, Zhenyu, et al. “Gp-vton: Towards general purpose virtual try-on via collaborative local-flow global-parsing learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023. <a href="https://arxiv.org/pdf/2303.13756.pdf">Link</a></p>
+
+    <p><a id="5">[5]</a> : Bai, Shuai, et al. “Single stage virtual try-on via deformable attention flows.” European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2022. <a href="https://arxiv.org/abs/2207.09161">Link</a></p>
+
+    <p><a id="6">[6]</a> : Lewis, Kathleen M., Srivatsan Varadharajan, and Ira Kemelmacher-Shlizerman. “Tryongan: Body-aware try-on via layered interpolation.” ACM Transactions on Graphics (TOG) 40.4 (2021): 1-10. <a href="https://arxiv.org/abs/2101.02285">Link</a></p>
+
+    <p><a id="7">[7]</a> : Dumoulin, Vincent, et al. “Feature-wise transformations.” Distill 3.7 (2018): e11. <a href="https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&amp;%3Butm_source=hs_email&amp;%3Butm_medium=email&amp;%3Butm_content=2&amp;%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&amp;ref=dl-staging-website.ghost.io">Link</a></p>
+  </li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

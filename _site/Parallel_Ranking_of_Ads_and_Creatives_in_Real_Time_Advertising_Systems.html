@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[AAAI 2024] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [AAAI 2024] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[AAAI 2024] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[AAAI 2024] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems</h1>
+        <p class="post-meta"><time datetime="2024-04-17T00:00:00+09:00" itemprop="datePublished">Apr 17, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h1 id="review-parallel-ranking-of-ads-and-creatives-in-real-time-advertising-systems">[Review] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems</h1>
+
+<h2 id="1-introduction">1. INTRODUCTION</h2>
+
+<p>The concept of Parallel Ranking of Ads and Creative in Real-Time Advertising Systems refers to the task of dynamically selecting the most appealing advertisement to users in real time. This proposes a new architecture where personalized content is arranged in parallel, rather than the traditional method of serially listing and ranking creative content. It also suggests an offline joint optimization model to correspond to this new architecture. The term “Creative” mentioned here refers to the display formats used in advertisements, such as images and videos, which serve as a bridge connecting users with products and enticing potential customers. By optimizing offline evaluation metrics, the paper demonstrates the effectiveness of this approach through experiments, showing improvements in response time, click-through rate (CTR), and cost per thousand impressions (CPM).</p>
+
+<p><img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure1.png" /></p>
+
+<p>$Figure 1$</p>
+
+<p>The first column of Figure 1 shows the overall click-through rate (CTR) for three different creatives of the same product, demonstrating that even well-designed creatives can show poor performance. The second column presents gender-specific CTRs for different creatives of the same product, emphasizing the importance of personalized creative selection.</p>
+
+<p>With advancements in AI technology, various creatives tailored to product attributes and styles are being generated, and their performance is rapidly improving. However, current recommendation systems face time and computational constraints in the two-stage cascade architecture of candidate search and ranking, which aims to narrow down billions of ads to thousands within a short period.</p>
+
+<p>The research proposes separating creative ranking from traditional ad search to reduce latency and optimize the efficiency of creative ranking in advertising systems. This involves developing sophisticated models for click-through rate (CTR) prediction and offline learning ranking models that incorporate ad and creative features. The goal is to enhance the accuracy of creative influence estimation through parallel modeling and optimize creative ranking efficiency.</p>
+
+<p>The techniques used in this research are summarized as follows:</p>
+<ul>
+<li> Peri-CR: Parallel estimation of creative ranking and ad ranking to reduce time and enable sophisticated modeling.</li> 
+<li> JAC: Joint optimization to model interactions and dependencies between ads and creatives.</li>
+<li> Optimization of NSCTR: Optimizing the offline evaluation metric NSCTR for feedback tasks related to creative ranking and enhancing model functionality for online performance.
+</li>
+</ul>
+
+<p>These techniques aim to improve the efficiency and effectiveness of creative ranking within advertising systems by leveraging advanced modeling and optimization strategies.</p>
+
+<p><br /></p>
+
+<h2 id="2-related-work">2. RELATED WORK</h2>
+
+<p>Our research is closely related to CTR prediction and ranking within advertising systems. Here’s a brief overview of existing research in advertising ranking and creative ranking:</p>
+<ul>
+<li>Advertising ranking: This involves techniques for selecting relevant items from a vast candidate pool using cascade ranking systems with recall and ranking stages. Researchers explore feature selection, interaction modeling, and user behavior modeling to enhance performance.
+</li>
+<li> Creative ranking: This area requires efficient online estimation due to large creative pools and sparse user feedback. Evaluating creative quality offline based on existing image and text content, it emphasizes online user feedback currently. Recent studies use methods like AES and HBM-VAM, employing tree structures and bandit approaches to optimize platform revenue.
+</li>
+</ul>
+<p>Our research is similar to CACS in optimizing creative ranking prior to ad ranking and employing joint optimization with distillation and shared embeddings. However, we separate the creative module from the main ad pipeline and enhance creative estimation through parallel modeling, enabling accurate creative evaluation.</p>
+
+<p><br /></p>
+
+<h2 id="3-problem-formulation">3. PROBLEM Formulation</h2>
+
+<p>An advertising platform tends to display advertisements with high eCPM(effective Cost Per Mille) to users, while eCPM is determined by the product of the CTR and CPC(Cost Per Click). $(eCPM = CTR · CPC · 1000)$. The scope of this work is constrained to ranking ads with the highest CTR from thousands of candidates, with less RT(response time). The problem formulation is as follows. Given the set of Ad $a$ as $({A_{1},A_{2},…,A_{M}})$, each Ads Am with a bundle of creative c, indicated as $({C^{1}_ {m},C^{2}_ {m} ,…,C^{n}_ {m}})$. The number of ad slots is $(L ≪ M)$, they will be displayed to users $u$. The ranking models output the scores in each ad and creative and select the top L ad and top 1 creative according to the scores. Formally, given a triple $(u,a,c)$, the ranking model predicts the score $z$ as follows:</p>
+
+<p>$z=p(y =1 \vert u,a,c) \quad(1)$</p>
+
+<p>where $p$ denotes the ranker model, and $y$ $\in$ ${0,1}$ is the label that denotes whether the user clicks the impressed ad. To simplify the formula notation, we will use x to represent the user-ad pair $(u,a)$ in the following. The permutation of combination is unacceptable both in time and compatibility, we transform the formula:</p>
+
+<p>$p(y = 1 \vert x) \cdot p(c \vert x,y = 1) = p(c \vert x) \cdot p(y = 1 \vert x,c) \quad(2)$</p>
+
+<p>While the ranking model widely adopts the softmax function to predict the click probability:</p>
+
+<p>$ p(c \vert x) = \text{softmax} (\frac{ p(y \vert x, c)}{\sum_{c^{‘} \in \mathcal{C}_ N} p(y \vert x, c = c^{‘}_ {i})}) (3)$</p>
+
+<p>Where $\sum_ {c^{‘} \in \mathcal{C}_ {N}} p(y \vert x,c = c^{‘} i) $ is an unknown constant. Combined with Equation2 and 3,</p>
+
+<p>$f_ {\theta}(x) · e^{−f_ {\theta}(x)} = p(y = 1 \vert x) \cdot p(c \vert x, y = 1) \quad(4)$</p>
+
+<p>Where $f_ {\theta}(x)$ denotes $p(y = 1 \vert x,c)$. Thus we decompose the permutation problem into the CTR prediction of ad and the creative distribution with the user and ad.</p>
+
+<p><br /></p>
+
+<h2 id="4-methodology">4. METHODOLOGY</h2>
+<p>We propose Peri-CR, a novel architecture for creative and ad ranking, along with the corresponding model framework JAC, which improves the performance of both ranking tasks and reduces the overall response time.
+<br /></p>
+
+<h3 id="41-online-parallelism-architecture">4.1 Online Parallelism Architecture</h3>
+
+<p>The three methodologies for ad and creative ranking are as follows, visually represented in Figure 2:</p>
+
+<p><img src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure2.png" alt="Figure2" /></p>
+
+<p>$Figure 2$
+The main modules and workflow of the online advertising system. (a) Multi-stage ad ranking system. (b) Pre-CR first
+requests creative ranking then ad ranking. (c) Post-CR first requests ad ranking then creative ranking. (d) Peri-CR requests ad
+ranking and creative ranking in parallel simultaneously.</p>
+<ol>
+<li>Post-CR: This approach involves placing creative ranking after ad ranking to save time and enable more sophisticated modeling based on the results of ad ranking. However, since the ad ranking phase cannot determine which creative will be used for the ads, performance may suffer.
+</li>
+<li>
+Pre-CR (CACS): In contrast to Post-CR, this method aims to enhance ad ranking performance by evaluating creative for all ad candidates. However, this approach requires significant time to evaluate all advertising candidates and restricts the creative model to a simple vector-based model.
+</li>
+<li>
+Peri-CR: This proposed method separates the creative ranking module from the main ad retrieval and ranking pipeline, running them in parallel. The ad ranker uses abundant user and ad features to estimate ad-level Click-Through Rate (CTR), while the creative ranker uses fewer inputs to estimate creative-level CTR. The creative-level CTR then determines the optimal creative to display for each ranked ad, and the ad-level CTR determines the final displayed ad sequence. This parallel, decoupled architecture offers several advantages, including eliminating dependencies between the ad and creative modules and allowing sufficient time for both to use more sophisticated models.
+</li>
+</ol>
+<p><br /></p>
+
+<p><img src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure3.png" alt="Figure3" /></p>
+
+<p>$Figure 3$ Framework of the proposed Joint optimization of Ad and Creative ranking(JAC), including two submodels: (a)Ad Ranking(AR) adopts deep cross network (DCN) as the main architecture to predict ad CTR, taking rich user and ad features as input. It also employs transformer to model user behavior sequence; (b)Creative Ranking(CR) uses a smaller network with fewer features, and leverages the AR output to estimate creative CTR.</p>
+
+<h3 id="42-offline-joint-optimizationn">4.2 Offline Joint Optimizationn</h3>
+
+<p>Using AR (Ad Ranking) and CR (Creative Ranking) to model and predict CTR (Click-Through Rate) has limitations as follows:</p>
+
+<ol>
+  <li>AR: Biased CTR prediction due to lack of access to creative information.</li>
+  <li>CR: Less accurate CTR estimates due to simultaneous evaluation of multiple candidates.</li>
+</ol>
+
+<p>To address this, a hierarchical model like the one shown in Figure 3, which integrates AR and CR offline, is proposed. This integration ensures mutual interaction between sub-models to enhance prediction accuracy. AR performs complex user behavior modeling using all features to predict ad-level CTR ($pctr_{ad}$), while CR estimates creative-level CTR ($pctr_{c}$) using simple features and rich creative characteristics through an MLP network.</p>
+
+<p>Another input feature is AR pctrad, which undergoes log transformation and quantization before ad embedding. The quantized code is discretized by</p>
+
+<p>$[ K \cdot \log_ {r+1}(1 + r · pctr_ {ad}) ]\quad(5)$</p>
+
+<p>where K is the embedding size and r is a hyperparameter calculated for information gain. This embedding is initialized and connected with other feature embeddings as inputs to higher network layers. Since the quantization process (Equation 5) is non-differentiable, gradients cannot be directly propagated through it.</p>
+
+<p>To handle the non-differentiable operation caused by quantization, gradients are directly copied from CR to AR during backpropagation. This allows CR to leverage information from AR to provide more accurate CTR estimates and maintain stability in CTR prediction during online inference.</p>
+
+<p>By combining AR and CR into an integrated model to leverage their respective strengths, this approach enhances overall CTR prediction performance in advertising systems.</p>
+
+<p><br /></p>
+
+<h3 id="43-quality-of-the-implicit-sub-ranking">4.3 Quality of the Implicit Sub-Ranking</h3>
+
+<p>The performance of the creative ranking model is measured by designing NSCTR and discussing offline metrics. The Area Under the ROC Curve (AUC) is a common metric calculated for all exposures, but introduces user bias, while GAUC focuses on the performance of ad ranking lists for each user. Simulation CTR (sCTR) is a metric designed for creative selection, evaluating the difference between selected creatives from offline data and those exposed online. However, sCTR can be affected by changes in sample distribution and may cause variations in CTR when there are few creative candidates for specific ads.</p>
+
+<h3 id="algorithm-1-evaluation-metrics---nsctr">Algorithm 1: Evaluation Metrics - NSCTR</h3>
+
+<p><img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Algorithm1.png" /></p>
+
+<p><img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure4.png" /></p>
+
+<p>$Figure 4$
+The results between offline metrics and online A/B CTR lift for 6 major creative ranking upgrades.</p>
+
+<p>NSCTR is a metric that addresses these issues by approximating the CTR of samples where the creative selected by the offline model matches the creative exposed online using Algorithm 1. Validating the effectiveness of these metrics is a challenging task, with online A/B testing being the most definitive but time-consuming method to prove efficacy.</p>
+
+<p>This underscores the importance of offline metrics that can be validated through correlation with results from online A/B testing. To demonstrate this, we analyzed six significant improvements in creative ranking over the past year, including bandit algorithms, personalized two-towers, and creative feature extraction. We computed four offline metric scores (AUC and GAUC for absolute lift, sCTR and NSCTR for relative lift) and their corresponding online CTR lifts for each improvement. Pearson correlation coefficients were high for NSCTR (0.988), AUC (0.741), and sCTR (0.636), but low for GAUC (-0.152). This analysis, depicted in Figure 4, indicates that NSCTR is a more reliable metric than others for the offline evaluation of creative ranking.
+<br /></p>
+
+<h2 id="5-experiments">5. EXPERIMENTS</h2>
+<p>In this section, we conduct extensive experiments to evaluate the effectiveness and efficiency of the proposed framework.
+<br /></p>
+
+<h3 id="51-experiment-setup">5.1 Experiment Setup</h3>
+<h3>1. Dataset</h3>
+<ul>
+  <li><strong>Test Date:</strong> 2023.05.01-2023.06.30 (total 60 days)</li>
+  <li><strong>Training set:</strong> 18 billion</li>
+  <li><strong>Test set:</strong> 300 million</li>
+  <li><strong>User:</strong> 53 million</li>
+  <li><strong>Ad:</strong> 16 million</li>
+  <li><strong>Creative:</strong> 54 million</li>
+  <li><strong>Overall CTR:</strong> 2.4%</li>
+</ul>
+
+<h3>2. Parameter Setting</h3>
+<ul>
+<li><strong>AR Model:</strong></li>
+<ul>
+  <li>30 users</li>
+  <li>40 ads</li>
+  <li>300 user-ad cross</li>
+  <li>Embedding table: 2<sup>30</sup>x16</li>
+  <li>Transformer: 2 layers, 2 attention heads</li>
+  <li>DCN (Deep &amp; Cross Network): 4 hidden layers (512x512x256x128)</li>
+  <li>Activation Function: ReLU, sigmoid (0,1)</li>
+</ul>
+
+<li><strong>CR Model:</strong></li>
+<ul>
+  <li>11 users</li>
+  <li>5 ads</li>
+  <li>Creative ID, content</li>
+  <li>Embedding dimension: 4</li>
+  <li>MLP (Multi-Layer Perceptron): 3 hidden layers (128x64x32)</li>
+  <li>Pctrad embedding size \( K \): 8192</li>
+  <li>Dimension: 128</li>
+  <li>Activation Function: ReLU, sigmoid (0,1)</li>
+  <li>Batch size: 512 with Adagrad (0.05)</li>
+  <li>Epochs: 1</li>
+</ul>
+</ul>
+
+<h3>3. Evaluation Metrics</h3>
+<ul>
+<li><strong>Offline Evaluation:</strong></li>
+<ul>
+  <li>Simulated Click-Through Rate (sCTR)</li>
+  <li>NSCTR (Normalized Simulated Click-Through Rate) for creative ranking</li>
+  <li>ROC (Receiver Operating Characteristic) - AUC (Area Under the Curve)</li>
+  <li>Group AUC (GAUC) for ad ranking</li>
+</ul>
+
+<li><strong>Online Experiments:</strong></li>
+<ul>
+  <li>Click-Through Rate (CTR)</li>
+  <li>Response Time (RT) - Crucial for timely ad delivery</li>
+  <li>Revenue per Mille (RPM)</li>
+</ul>
+</ul>
+
+<h3>4. Baseline</h3>
+<ul>
+  <li><strong>No-CR:</strong> No creative, random candidate creatives</li>
+  <li><strong>Post-CR:</strong> The creative module follows the ad ranking module and uses a two-tower model. Post-CR+ enhances this by integrating our JAC-guided CR+ model.</li>
+  <li><strong>Pre-CR:</strong> Creative module before ad ranking, using creative features in ad estimation. Ablation studies were conducted to assess the impact of our JAC model on creative and ad ranking tasks.</li>
+  <li><strong>Peri-CR:</strong> Involves parallel creative and ad ranking, with the creative model using an independently trained MLP network. CR+ and AR+ represent the creative and ad sub-modules within JAC.</li>
+</ul>
+
+<h3 id="52-analysis">5.2 Analysis</h3>
+<h3>Hypotheses</h3>
+<ul>
+  <li><strong>H1:</strong> Peri-CR is expected to have lower response time compared to Pre-CR and Post-CR.</li>
+  <li><strong>H2:</strong> Peri-CR is anticipated to achieve higher CTR and CPM than Pre-CR and Post-CR.</li>
+  <li><strong>H3:</strong> JAC is expected to be most effective in both ad and creative ranking, achieving higher AUC and GAUC than AR, and higher sCTR than CR.</li>
+  <li><strong>H4:</strong> JAC is predicted to enhance CR+ effectiveness, resulting in higher sCTR than CR without increasing time.</li>
+  <li><strong>H5:</strong> JAC is expected to enhance AR+ effectiveness, resulting in higher AUC and GAUC than ARX` without increasing time.</li>
+</ul>
+
+<p><img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table1_2.png" /></p>
+
+<h3>Online Evaluations</h3>
+<p>To verify the effectiveness of our proposed Peri-CR architecture on the overall ad system, we evaluated two key criteria - CTR and RPM. As presented in Table.1, Hypothesis tests based on the table are as follows:</p>
+<ol>
+  <li>Peri-CR architecture improved CTR by 1.58% and RPM by 0.86% compared to Pre-CR, validating hypothesis H2.</li>
+  <li>Peri-CR+ demonstrated performance similar to Post-CR+, confirming the effectiveness of offline JAC guidance in improving online estimation (hypotheses H4 and H5).</li>
+  <li>Peri-CR+ exhibited the lowest response time (RT) comparable to no-CR, affirming that the architecture did not increase system latency as per hypothesis H1.</li>
+  <li>The marginal differences between Peri-CR+ vs Peri-CR and Post-CR+ vs Post-CR revealed negligible computational overhead with offline JAC guidance, further validating hypothesis H4.</li>
+  <li>The comparison of Pre-CR&gt; Post-CR&gt;no-CR demonstrated higher latency with more complex creative ranking methods.</li>
+</ol>
+<p>Peri-CR achieved optimal efficiency and effectiveness in the ad system evaluation, with potential for further improvement by adopting more complex feature extraction and model structures within the existing time budget.</p>
+
+<p><img src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table3_4.png" alt="Table3_4" /></p>
+
+<h3>Offline Evaluations</h3>
+<p>The sentences discuss a shift to offline experimentation due to online performance constraints, focusing on evaluating the JAC model’s effectiveness in creative ranking. The validation results are presented in Table 3 and 4. Hypothesis tests based on the table are as follows:</p>
+<ol>
+<li>In offline experiments, the JAC model demonstrated superior effectiveness in creative ranking compared to CR, CACS, and VAM-HBM, with the highest NSCTR score, confirming hypothesis H3.</li>
+<li>CR+ improved NSCTR by 1.2% over CR and approached JAC's score, validating the effectiveness of the JAC network design in transferring capabilities from large models to smaller ones, confirming hypothesis H4.</li>
+<li>Further investigations on ad ranking showed that JAC significantly outperforms in AUC and GAUC, demonstrating improved click-through rate prediction accuracy for ads, thereby confirming hypothesis H3.</li>
+<li>AR+ also outperformed the baseline AR, validating that the offline large model can enhance the small model's ability to estimate ad click-through rates, confirming hypothesis H5.</li>
+</ol>
+
+<h2 id="6-conclusion">6. CONCLUSION</h2>
+<p>his work presents significant contributions to improving ad and creative ranking in online advertising. It introduces a novel architecture for online parallel estimation of ad and creative ranking, allowing for sophisticated personalized creative modeling while reducing overall latency compared to traditional serial ranking methods. Additionally, an offline joint model is developed to enhance mutual awareness and collaborative optimization between ads and creatives in click-through rate (CTR) estimation, leading to improved accuracy.
+Furthermore, the work optimizes offline evaluation metrics crucial for creative ranking, enhancing the correlation between offline assessments and real-world online performance. Extensive experiments demonstrate the effectiveness and efficiency of this approach over existing methods, achieving superior performance in response time, CTR, and cost-per-mille (CPM) compared to serial ranking approaches.</p>
+<h2 id="7-idea-proposal">7. IDEA PROPOSAL</h2>
+<p>Although online and offline experiments have proven the above method to be effective, delays and computational constraints have forced the abandonment of large-scale joint rankers for advertising and creatives, which has limited system performance. Moreover, improvements in hardware and system design seem to enable better joint ranking without significant ranking. NSCTR correlates well with online metrics, but it is only possible to approximate real sample distributions, and it will be possible to accurately recover real distributions by identifying mechanical variables for causal inference. Finally, this research system separates offline creative production from online estimation. Personally, if we utilize AIGC, we believe that we will be able to integrate them to derive optimal ads in real time for each user.</p>
+<h2 id="8-author-information">8. Author Information</h2>
+<p>Zhiguang Yang, Lu Wang, Chun Gan, Liufang Sang*, Haoran Wang, Wenlong Chen, Jie He, Changping Peng, Zhangang Lin, Jingping Shao</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Apr 20, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
