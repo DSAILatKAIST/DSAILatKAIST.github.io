@@ -104,7 +104,9 @@ L_{NCE} = \sum_i\sum_{v^s\in S}(f(v_i^\star,m(w,x_i))-f(v_s,m(w,x_i)))
 &argmax_w \sum_i [-f(v_i^\star, m(w,x_i))+ f(\hat{v_i^\star}, m(w,x_i))] \\
 &\text{where} \ \hat{v_i^\star} = argmin_{v' \in S} [f(v', m(w,x_i))], \quad \text{(MAP Solution for current model)}
 \end{aligned}
-![mlemap.png](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/mlemap.png)
+
+![mlemap.png](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/MLEMAP.png)
+
 위 그림을 통해 이해할 수 있듯 MLE와 MAP 모두 Noise-Contrastive 관점에서 동일한 의미를 가지고 있습니다. Loss minimization task로 변환하기 위한 NCE-based MAP loss function은 다음과 같습니다.
 \begin{aligned}
 L_{MAP} = \sum_i[f(v_i^\star,m(w,x_i)) - f(\hat{v_i^\star},m(w,x_i))]
