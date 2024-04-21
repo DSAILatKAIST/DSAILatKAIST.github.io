@@ -136,7 +136,7 @@ $\min_ {S} D(\theta^{S}, \theta^{\tau}) \text{ subject to } \theta^{S}(S) = \arg
     + IPC 1의 설정에서 dataset condensation으로 생성된 압축 이미지를 시각화했을 때, 각 클래스의 "프로토타입"처럼 보이며 해석 가능했다.
 
 #### *Comparison to DD*
-![figure2: Visualization of condensed 1 image/class with ConvNet for MNIST, Fashion-MNIST, SVHN and CIFAR10](./table3.png)
+![figure2: Visualization of condensed 1 image/class with ConvNet for MNIST, Fashion-MNIST, SVHN and CIFAR10](../../images/DS503_24S/Dataset_Condensation_with_Gradient_Matching/images/table3.png)
 + Dataset Distillation의 실험 설정과 동일한 아키텍처를 사용하여 LeNet과 AlexCifarNet에서 MNIST와 CIFAR10 데이터셋을 사용해 실험을 수행하였고, 결과는 위의 표와 같았다.
 + MNIST와 CIFAR10 두 벤치마크 데이터셋에서 더 높은 성능을 보였다. 특히 IPC가 1일 때의 dataset condensation 정확도가 IPC가 10일 때의 dataset distillation 정확도보다 5% 더 높음을 보였다.
 + 여러 번 실험을 진행하였을 때, 결과들은 표준편차이 dataset condensation에서는 일관되게 나타났으며, 특히 MNIST ipc10에서 표준 편차는 0.6%에 불과했다. 반면, dataset distillation의 성능은 실험마다 크게 달라졌으며(8.1%의 표준 편차), 더 높은 변동성을 보였다.

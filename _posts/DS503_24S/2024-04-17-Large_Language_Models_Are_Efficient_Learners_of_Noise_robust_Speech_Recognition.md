@@ -162,7 +162,7 @@ usemathjax: true
   - KD 방식을 통해 최적의 noise embedding을 구함
   - 다음과 같이 잡음의 대표성이 잘 나타남
 
-    ![embedding](../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/embedding-1.png)  
+    ![embedding](../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/embedding1.png)  
 
 - 데이터 효율성
   - LLM fine-tuning을 활용하여 점진적으로 훈련 데이터 크기를 줄여도 WER 유지
