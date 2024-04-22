@@ -265,8 +265,8 @@ $\cos(\theta^{S \leftrightarrow T}_ i) = \frac{G^+_ {s,i} \cdot G^+_ {t,i}}{\|G^
 $M = [\cos(\theta_ 1^{S \leftrightarrow T}), \ldots, \cos(\theta_ p^{S \leftrightarrow T})]$일때, pseudo-inverse of Gram matrix의 선택된 $k$개의 basis를 정렬하기 위한 loss는 다음과 같습니다.
 
   
-
-$\mathcal{L}_{\text{cos}}(\boldsymbol Z_ s, \boldsymbol Z_ t) = \|\mathbb{I} - M\|_ 1\quad with \;\mathbb{I}\;a\;vector\;of\;ones$
+![](../../images/DS503_24S/DARE-GRAM_Unsupervised_Domain_Adaptation_Regression_by_Aligning_Inverse_Gram_Matrices/equ10.png)
+<!-- $ \mathcal{L}_{\text{cos}}(\boldsymbol Z_ s, \boldsymbol Z_ t) = \vert\mathbb{I} - M\vert_ 1\quad with \;\mathbb{I}\;a\;vector\;of\;ones $ -->
 
   
 
@@ -296,10 +296,9 @@ $\|\boldsymbol Z\|_ 1 = \text{Tr}\left(\sqrt{\boldsymbol Z^T\boldsymbol Z}\right
 
 Scale alignment를 위한 손실함수는 다음과 같습니다.
 
-  
+![](../../images/DS503_24S/DARE-GRAM_Unsupervised_Domain_Adaptation_Regression_by_Aligning_Inverse_Gram_Matrices/equ11.png)
 
-$\mathcal{L}_{\text{scale}}(\boldsymbol Z_ s, \boldsymbol Z_ t) = \|\lambda_ {s,i=1,\ldots,k} - \lambda_ {t,i=1,\ldots,k}\|_2$
-
+<!-- $$\mathcal{L}_{\text{scale}}(\boldsymbol Z_ s, \boldsymbol Z_ t) = \|\lambda_ {s,i=1,\ldots,k} - \lambda_ {t,i=1,\ldots,k}\|_2$$ -->
   
 
 손실함수가 위와 같이 정의되는 이유는 무엇일까요?
