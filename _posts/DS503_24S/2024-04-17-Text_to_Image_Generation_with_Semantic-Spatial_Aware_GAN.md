@@ -36,7 +36,7 @@ Text-to-image synthesis (T2I)는 text 설명과 의미적으로 일치하는 실
 
 ## **2. Method**  
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure1.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure1.png)
 
 <!-- ![image 1](https://ifh.cc/g/WMs8PX.png) -->
 
@@ -51,7 +51,7 @@ SSA-GAN 구조는 위 그림 1에서 볼 수 있듯이  text encoder, text-image
 
 *2. Semantic-Spatial Aware block*
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure2.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure2.png)
 
  <!-- ![image2](https://ifh.cc/g/AVyFGA.png) -->
 - **notation** 
@@ -116,7 +116,7 @@ $\tilde{x}_ {nchw} = m_ {i,(h,w)}\left(\gamma_ c(\hat{e})\hat{x}_ {nchw} + \beta
 
 *3. Discriminator*
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure4.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure4.png)
 
 <!-- ![image4](https://ifh.cc/g/yKHox1.png) -->
 
@@ -135,7 +135,7 @@ MA-GP와 One-Way Output의 결합을 통해 구별자는 생성자가 실제 데
 먼저, 판별자의 목적함수부터 살펴 보겠다. 
 
 <!-- ![image5](https://ifh.cc/g/xlGvzw.png) -->
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure5.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure5.png)
 - **notation** 
 	$s$ :  주어진 text description
 	$\hat{s}$ :  잘못된(mismatched) text description
@@ -147,7 +147,7 @@ MA-GP와 One-Way Output의 결합을 통해 구별자는 생성자가 실제 데
 
 다음은 생성자의 목적함수이다. 생성자의 총 loss는 adversarial loss와 DAMSM loss로 이뤄져있다. 
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure6.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure6.png)
 
 <!-- ![image6](https://ifh.cc/g/bCzYdl.png) -->
 
@@ -204,7 +204,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN
 
  - **Quantitative Results**
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure7.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure7.png)
 
  <!-- ![image 6](https://ifh.cc/g/B3a1nh.png) -->
  
@@ -216,7 +216,7 @@ IS score의 경우, 기존의 SOTA 였던 DF-GAN에 비해 더 좋은 성능을 
 
 T2I task에서 최근 SOTA 모델이었던 DM-GAN, DF-GAN 그리고 DAE과 SSA-GAN의 생성 이미지를 질적으로 비교해보았다. 
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure8.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure8.png)
 
 <!-- ![image8](https://ifh.cc/g/Cz7RQX.jpg) -->
 
@@ -226,14 +226,14 @@ T2I task에서 최근 SOTA 모델이었던 DM-GAN, DF-GAN 그리고 DAE과 SSA-G
 
  **(1) SSA Block and DAMSM** 
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9.png)
 
 <!-- ![Image9](https://ifh.cc/g/x3741m.png) -->
 SSA block과 DAMSM의 성능을 확인하기 위해서 ablation study를 진행했다. 기존의 SSA block 대신 DF-GAN의 UPB block (Upsampling 기반의 block)을 사용하여 결과를 비교하였다. 그 결과, IS score는 fine-tuning 한 DAMSM loss와 SSA block을 활용하였을 때, 가장 높은 성능을 보였고 FID score는 fine-tuning 하지 않은 DAMSM loss와 SSA block을 사용하였을 때 가장 높은 성능을 보였다. 이는 fine-tuning을 통해서 생성된 이미지의 다양성이 커지면서 KL divergence가 커지면서 오히려 지표상 더 낮은 성능을 달성한 것으로 추측할 수 있다. 주목할 점은 본 연구에서 제안한 SSA block을 사용하지 않은 ID0보다 사용한 ID1에서 두 지표 모두에서 우수한 성능을 보였다는 점이다.  
 
 **(2) Semantic Mask** 
 
-![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9_.png)
+![](../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9_.png)
 <!-- ![image9](https://ifh.cc/g/ld40G1.png) -->
 
 한 SSA block마다 하나의 mask를 추가하고 성능을 비교하는 방식으로 mask의 성능을 증명했다. mask를 7개 추가 하였을 때, (7개의 SSA-block)이 있을 때, IS score에서 가장 높은 성능을 보였고 FID score에서 두 번째로 높은 성능을 보였다. IS score 점수를 통해 mask가 더 의미론적으로 일치할 수 있도록 image를 생성하게 유도함을 알 수 있고,  FID score를 통해 더 많은 text 정보를 담을 수록 생성된 이미지의 다양성이 높아져 오히려 점수가 높아짐을 확인할 수 있다. 
