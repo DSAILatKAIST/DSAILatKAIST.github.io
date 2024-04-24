@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 23 Apr 2024 15:52:39 +0900</pubDate>
-        <lastBuildDate>Tue, 23 Apr 2024 15:52:39 +0900</lastBuildDate>
+        <pubDate>Wed, 24 Apr 2024 13:14:49 +0900</pubDate>
+        <lastBuildDate>Wed, 24 Apr 2024 13:14:49 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1807,7 +1807,7 @@ window step size를 0.25 부터 1까지 0.25씩 증가시키면서 확인했다.
 
 &lt;h2 id=&quot;2-method&quot;&gt;&lt;strong&gt;2. Method&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![image 1](https://ifh.cc/g/WMs8PX.png) --&gt;
 
@@ -1823,7 +1823,7 @@ window step size를 0.25 부터 1까지 0.25씩 증가시키면서 확인했다.
 
 &lt;p&gt;&lt;em&gt;2. Semantic-Spatial Aware block&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;!-- ![image2](https://ifh.cc/g/AVyFGA.png) --&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -1894,7 +1894,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 
 &lt;p&gt;&lt;em&gt;3. Discriminator&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![image4](https://ifh.cc/g/yKHox1.png) --&gt;
 
@@ -1913,7 +1913,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 &lt;p&gt;먼저, 판별자의 목적함수부터 살펴 보겠다.&lt;/p&gt;
 
 &lt;!-- ![image5](https://ifh.cc/g/xlGvzw.png) --&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;notation&lt;/strong&gt; 
   $s$ :  주어진 text description
@@ -1927,7 +1927,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 
 &lt;p&gt;다음은 생성자의 목적함수이다. 생성자의 총 loss는 adversarial loss와 DAMSM loss로 이뤄져있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![image6](https://ifh.cc/g/bCzYdl.png) --&gt;
 
@@ -2003,7 +2003,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Quantitative Results&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;!-- ![image 6](https://ifh.cc/g/B3a1nh.png) --&gt;&lt;/p&gt;
 
@@ -2017,7 +2017,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN&lt;/li&gt;
 
 &lt;p&gt;T2I task에서 최근 SOTA 모델이었던 DM-GAN, DF-GAN 그리고 DAE과 SSA-GAN의 생성 이미지를 질적으로 비교해보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![image8](https://ifh.cc/g/Cz7RQX.jpg) --&gt;
 
@@ -2027,14 +2027,14 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN&lt;/li&gt;
 
 &lt;p&gt;&lt;strong&gt;(1) SSA Block and DAMSM&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![Image9](https://ifh.cc/g/x3741m.png) --&gt;
 &lt;p&gt;SSA block과 DAMSM의 성능을 확인하기 위해서 ablation study를 진행했다. 기존의 SSA block 대신 DF-GAN의 UPB block (Upsampling 기반의 block)을 사용하여 결과를 비교하였다. 그 결과, IS score는 fine-tuning 한 DAMSM loss와 SSA block을 활용하였을 때, 가장 높은 성능을 보였고 FID score는 fine-tuning 하지 않은 DAMSM loss와 SSA block을 사용하였을 때 가장 높은 성능을 보였다. 이는 fine-tuning을 통해서 생성된 이미지의 다양성이 커지면서 KL divergence가 커지면서 오히려 지표상 더 낮은 성능을 달성한 것으로 추측할 수 있다. 주목할 점은 본 연구에서 제안한 SSA block을 사용하지 않은 ID0보다 사용한 ID1에서 두 지표 모두에서 우수한 성능을 보였다는 점이다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;(2) Semantic Mask&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9_.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9_.png&quot; alt=&quot;&quot; /&gt;
 &lt;!-- ![image9](https://ifh.cc/g/ld40G1.png) --&gt;&lt;/p&gt;
 
 &lt;p&gt;한 SSA block마다 하나의 mask를 추가하고 성능을 비교하는 방식으로 mask의 성능을 증명했다. mask를 7개 추가 하였을 때, (7개의 SSA-block)이 있을 때, IS score에서 가장 높은 성능을 보였고 FID score에서 두 번째로 높은 성능을 보였다. IS score 점수를 통해 mask가 더 의미론적으로 일치할 수 있도록 image를 생성하게 유도함을 알 수 있고,  FID score를 통해 더 많은 text 정보를 담을 수록 생성된 이미지의 다양성이 높아져 오히려 점수가 높아짐을 확인할 수 있다.&lt;/p&gt;

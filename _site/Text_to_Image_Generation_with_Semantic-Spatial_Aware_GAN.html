@@ -436,7 +436,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="2-method"><strong>2. Method</strong></h2>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure1.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure1.png" alt="" /></p>
 
 <!-- ![image 1](https://ifh.cc/g/WMs8PX.png) -->
 
@@ -452,7 +452,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p><em>2. Semantic-Spatial Aware block</em></p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure2.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure2.png" alt="" /></p>
 
 <p><!-- ![image2](https://ifh.cc/g/AVyFGA.png) --></p>
 <ul>
@@ -523,7 +523,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 
 <p><em>3. Discriminator</em></p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure4.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure4.png" alt="" /></p>
 
 <!-- ![image4](https://ifh.cc/g/yKHox1.png) -->
 
@@ -542,7 +542,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 <p>먼저, 판별자의 목적함수부터 살펴 보겠다.</p>
 
 <!-- ![image5](https://ifh.cc/g/xlGvzw.png) -->
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure5.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure5.png" alt="" /></p>
 <ul>
   <li><strong>notation</strong> 
   $s$ :  주어진 text description
@@ -556,7 +556,7 @@ Batch $x \in \mathbb{R}^{N \times C \times H \times W}$에 대해서 BN은 아�
 
 <p>다음은 생성자의 목적함수이다. 생성자의 총 loss는 adversarial loss와 DAMSM loss로 이뤄져있다.</p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure6.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure6.png" alt="" /></p>
 
 <!-- ![image6](https://ifh.cc/g/bCzYdl.png) -->
 
@@ -632,7 +632,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN</li>
   <li><strong>Quantitative Results</strong></li>
 </ul>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure7.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure7.png" alt="" /></p>
 
 <p><!-- ![image 6](https://ifh.cc/g/B3a1nh.png) --></p>
 
@@ -646,7 +646,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN</li>
 
 <p>T2I task에서 최근 SOTA 모델이었던 DM-GAN, DF-GAN 그리고 DAE과 SSA-GAN의 생성 이미지를 질적으로 비교해보았다.</p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure8.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure8.png" alt="" /></p>
 
 <!-- ![image8](https://ifh.cc/g/Cz7RQX.jpg) -->
 
@@ -656,14 +656,14 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN</li>
 
 <p><strong>(1) SSA Block and DAMSM</strong></p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9.png" alt="" /></p>
 
 <!-- ![Image9](https://ifh.cc/g/x3741m.png) -->
 <p>SSA block과 DAMSM의 성능을 확인하기 위해서 ablation study를 진행했다. 기존의 SSA block 대신 DF-GAN의 UPB block (Upsampling 기반의 block)을 사용하여 결과를 비교하였다. 그 결과, IS score는 fine-tuning 한 DAMSM loss와 SSA block을 활용하였을 때, 가장 높은 성능을 보였고 FID score는 fine-tuning 하지 않은 DAMSM loss와 SSA block을 사용하였을 때 가장 높은 성능을 보였다. 이는 fine-tuning을 통해서 생성된 이미지의 다양성이 커지면서 KL divergence가 커지면서 오히려 지표상 더 낮은 성능을 달성한 것으로 추측할 수 있다. 주목할 점은 본 연구에서 제안한 SSA block을 사용하지 않은 ID0보다 사용한 ID1에서 두 지표 모두에서 우수한 성능을 보였다는 점이다.</p>
 
 <p><strong>(2) Semantic Mask</strong></p>
 
-<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic-Spatial_Aware_GAN/figure9_.png" alt="" />
+<p><img src="../../images/DS503_24S/Text_to_Image_Generation_with_Semantic_Spatial_Aware_GAN/figure9_.png" alt="" />
 <!-- ![image9](https://ifh.cc/g/ld40G1.png) --></p>
 
 <p>한 SSA block마다 하나의 mask를 추가하고 성능을 비교하는 방식으로 mask의 성능을 증명했다. mask를 7개 추가 하였을 때, (7개의 SSA-block)이 있을 때, IS score에서 가장 높은 성능을 보였고 FID score에서 두 번째로 높은 성능을 보였다. IS score 점수를 통해 mask가 더 의미론적으로 일치할 수 있도록 image를 생성하게 유도함을 알 수 있고,  FID score를 통해 더 많은 text 정보를 담을 수록 생성된 이미지의 다양성이 높아져 오히려 점수가 높아짐을 확인할 수 있다.</p>
@@ -705,7 +705,7 @@ StackGAN++, AttnGAN,Control-GAN, SD-GAN, DM-GAN,DF-GAN,DAE-GAN</li>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 23, 2024 <br />
+ Site last generated: Apr 24, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
