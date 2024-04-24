@@ -11,7 +11,7 @@ usemathjax: true
 
 The concept of Parallel Ranking of Ads and Creative in Real-Time Advertising Systems refers to the task of dynamically selecting the most appealing advertisement to users in real time. This proposes a new architecture where personalized content is arranged in parallel, rather than the traditional method of serially listing and ranking creative content. It also suggests an offline joint optimization model to correspond to this new architecture. The term "Creative" mentioned here refers to the display formats used in advertisements, such as images and videos, which serve as a bridge connecting users with products and enticing potential customers. By optimizing offline evaluation metrics, the paper demonstrates the effectiveness of this approach through experiments, showing improvements in response time, click-through rate (CTR), and cost per thousand impressions (CPM).
 
-<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure1.png">
+<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure1.PNG">
 
 
 $Figure 1$
@@ -78,7 +78,7 @@ We propose Peri-CR, a novel architecture for creative and ad ranking, along with
 
 The three methodologies for ad and creative ranking are as follows, visually represented in Figure 2:
 
-![Figure2](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure2.png)
+![Figure2](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure2.PNG)
 
 $Figure 2$
 The main modules and workflow of the online advertising system. (a) Multi-stage ad ranking system. (b) Pre-CR first
@@ -96,7 +96,7 @@ Peri-CR: This proposed method separates the creative ranking module from the mai
 </ol>
 <br>
 
-![Figure3](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure3.png)
+![Figure3](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure3.PNG)
 
 $Figure 3$ Framework of the proposed Joint optimization of Ad and Creative ranking(JAC), including two submodels: (a)Ad Ranking(AR) adopts deep cross network (DCN) as the main architecture to predict ad CTR, taking rich user and ad features as input. It also employs transformer to model user behavior sequence; (b)Creative Ranking(CR) uses a smaller network with fewer features, and leverages the AR output to estimate creative CTR. 
 
@@ -128,9 +128,9 @@ The performance of the creative ranking model is measured by designing NSCTR and
 
 ### Algorithm 1: Evaluation Metrics - NSCTR
 
-<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Algorithm1.png"> 
+<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Algorithm1.PNG"> 
 
-<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure4.png"> 
+<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure4.PNG"> 
 
 $Figure 4$
 The results between offline metrics and online A/B CTR lift for 6 major creative ranking upgrades.
@@ -220,7 +220,7 @@ In this section, we conduct extensive experiments to evaluate the effectiveness 
   <li><strong>H5:</strong> JAC is expected to enhance AR+ effectiveness, resulting in higher AUC and GAUC than ARX` without increasing time.</li>
 </ul>
 
-<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table1_2.png"> 
+<img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table1_2.PNG"> 
 
 <h3>Online Evaluations</h3>
 To verify the effectiveness of our proposed Peri-CR architecture on the overall ad system, we evaluated two key criteria - CTR and RPM. As presented in Table.1, Hypothesis tests based on the table are as follows:
@@ -233,7 +233,7 @@ To verify the effectiveness of our proposed Peri-CR architecture on the overall 
 </ol>
 <p>Peri-CR achieved optimal efficiency and effectiveness in the ad system evaluation, with potential for further improvement by adopting more complex feature extraction and model structures within the existing time budget.</p>
 
-![Table3_4](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table3_4.png)
+![Table3_4](../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Table3_4.PNG)
 
 <h3>Offline Evaluations</h3>
 The sentences discuss a shift to offline experimentation due to online performance constraints, focusing on evaluating the JAC model's effectiveness in creative ranking. The validation results are presented in Table 3 and 4. Hypothesis tests based on the table are as follows:
