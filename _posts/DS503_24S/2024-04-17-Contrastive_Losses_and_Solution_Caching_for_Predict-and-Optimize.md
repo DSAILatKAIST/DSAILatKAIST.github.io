@@ -173,7 +173,7 @@ Q4. 본 논문에서 설명한 방법론이 DFL을 위한 최신 알고리즘과
 
 **Q1**
 
-![Q1.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/q1.jpg)
+![Q1.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/Q1.jpg)
 
 Table을 통해 볼 수 있듯, knapsack problem과 scheduling problem에 대해, $L_{MAP}(\hat{c}-c)$의 성능이 가장 좋았습니다. Diverse Bipartite Matching의 경우, $L_{NCE}
 $의 성능이 조금 더 좋았습니다. 이러한 결과는 각 손실 함수가 특정 문제 유형에 어떻게 적합할 수 있는지를 보여줍니다. 배낭 문제와 스케줄링 문제에서는 $L_{MAP}(\hat{c}-c)$가, 반면 매칭 문제에서는 $L_{NCE}$가 더 효과적인 손실 함수임을 보여줍니다. 이러한 차이는 손실 함수의 설계가 각 문제의 특성과 어떻게 맞물리는지에 따라 달라질 수 있음을 강조합니다.
@@ -182,19 +182,19 @@ $의 성능이 조금 더 좋았습니다. 이러한 결과는 각 손실 함수
 
 이전 실험에서는 훈련 데이터에 대한 초기 discrete solution과 훈련 중에 얻은 모든 solutino을 caching하여 실행 가능한 영역의 내부 근사를 형성했습니다. 그러나 4장에서 설명한 바와 같이, 훈련 중 모든 $\hat{c}$에 대해 최적의 $v^\star(c)$를 찾아 solution cache에 추가하는 것은 계산 비용이 많이 듭니다. 대신, 본 논문에서는 $p_\text{solve}= 5\%$ , 즉 새로운 솔루션이 오직 5%의 시간에만 계산되는 실험을 실제로 진행하였습니다.
 
-![Q2.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/q2.jpg)
+![Q2.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/Q2.jpg)
 
 위 결과는 training time 대비 regret을 나타낸 그래프입니다. 5% 샘플링 전략으로 전환하면서 computation time이 크게 감소했습니다. 더욱이, 이러한 전략이 test regret에 해로운 영향을 주지 않습니다. 따라서 샘플링을 통해 새로운 solution을 solution cache에 추가하는 것이 높은 계산 부담 없이도 좋은 품질의 solution을 얻는 효과적인 전략이라 말할 수 있습니다.
 
 **Q3**
 
-![Q3.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/q3.jpg)
+![Q3.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/Q3.jpg)
 
 본 논문에서는 inner approximation caching approach의 타당성을 조사하기 위해 SPO-caching과 Blackbox-caching을 구현하였습니다. 여기서는 각각 SPO+ 손실과 Blackbox 솔버의 미분을 수행하며, $p_{solve}$= 5%로 설정했습니다. 다시 한번, Figure (b),(c)에서 각각 SPO+와 Blackbox에 대해 훈련 시간 대비 regret을 그래프로 나타냈습니다. 이 그림들은 SPO+와 Blackbox 미분 모두에서 caching이 훈련 시간을 대폭 줄이면서 regret에 유의미한 영향을 주지 않음을 보여줍니다.
 
 **Q4**
 
-![Q4.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/q4.jpg)
+![Q4.jpg](../../images/DS503_24S/Contrastive_Losses_and_Solution_Caching_for_Predict-and-Optimize/Q4.jpg)
 
 본 논문에서는 $L_{NCE}$, $$L^{\hat{c}-c}_{NCE}$$, $$L^{\hat{c}-c}_{MAP}$$, SPO-caching 및 Blackbox-caching을 구현하고, 이들을 최신 기술인 SPO+, QPTL, 그리고 Interior과 비교하였습니다. 이들과의 비교 목적은 비슷한 regret을 시간적 측면에서 효율적인 방식으로 달성하는 것입니다.
 Figure $(a),(b),(c)$는 각각 3가지 실험에 대해 epoch당 훈련 시간 대비 test regret을 그래프로 나타냈습니다.Knapsack의 경우, $$L^{\hat{c}-c}_{MAP}$$, SPO-caching 및 Blackbox-caching은 이들과 비교할 수 있는 낮은 regret을 달성하면서 훈련 시간을 크게 단축시켰습니다. Energy Consumption의 경우, SPO-Caching과 Blackbox-Caching의 regret이 최신 기술과 비슷했으며, $L^{\hat{c}-c}_{MAP}$가 특정 경우에 매우 적은 훈련 시간으로 가장 낮은 regret을 기록했습니다. Matching의 경우, QPTL이 가장 좋은 성능을 보였으나 가장 느렸고, SPO+와 BlackBox는 two-stage approach보다 좋은 성능을 보였습니다. 이 경우 caching 방법은 효과적이지 않았으나, QPTL의 낮은 regret과 two-stage learning의 빠른 런타임 사이의 절충안으로 볼 수 있었습니다.
