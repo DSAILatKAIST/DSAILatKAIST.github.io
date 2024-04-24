@@ -6,13 +6,13 @@ use_math: true
 usemathjax: true
 ---
 
-# [Review] Parallel Ranking of Ads and Creatives in Real-Time Advertising Systems
 
 ## 1. INTRODUCTION
 
 The concept of Parallel Ranking of Ads and Creative in Real-Time Advertising Systems refers to the task of dynamically selecting the most appealing advertisement to users in real time. This proposes a new architecture where personalized content is arranged in parallel, rather than the traditional method of serially listing and ranking creative content. It also suggests an offline joint optimization model to correspond to this new architecture. The term "Creative" mentioned here refers to the display formats used in advertisements, such as images and videos, which serve as a bridge connecting users with products and enticing potential customers. By optimizing offline evaluation metrics, the paper demonstrates the effectiveness of this approach through experiments, showing improvements in response time, click-through rate (CTR), and cost per thousand impressions (CPM).
 
 <img width="375" alt="image" src="../../images/DS503_24S/Parallel_Ranking_of_Ads_and_Creatives_in_Real_Time_Advertising_Systems/Figure1.png">
+
 
 $Figure 1$
 
