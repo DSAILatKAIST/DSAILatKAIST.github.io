@@ -18,6 +18,7 @@ CrossFormer에는 세가지 단계가 포함되어 있다: Dimension-Segment-Wis
 ## 2-1. Multivariate Time Series Forecasting models
 
 아래 표는 MTS 예측에 사용되는 모델 유형의 예를 요약하였다:
+
 | 유형      | 모델 예시 | 특징     |
 | :---        |    :----:   |          ---: |
 | 통계 기반 모델      | Vector augo-regressive models (VAR), Vector augo-regressive moving average (VARMA) | 차원 간 및 시간 간 종속성을 선형으로 가정함

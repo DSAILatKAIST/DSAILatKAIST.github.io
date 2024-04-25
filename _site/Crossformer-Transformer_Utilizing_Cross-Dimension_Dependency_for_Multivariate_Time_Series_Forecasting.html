@@ -395,13 +395,39 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>이 논문에서 다루는 주요 개념들에 대한 선행 연구를 간단히 소개하고자 한다.</p>
 <h2 id="2-1-multivariate-time-series-forecasting-models">2-1. Multivariate Time Series Forecasting models</h2>
 
-<p>아래 표는 MTS 예측에 사용되는 모델 유형의 예를 요약하였다:
-| 유형      | 모델 예시 | 특징     |
-| :—        |    :—-:   |          —: |
-| 통계 기반 모델      | Vector augo-regressive models (VAR), Vector augo-regressive moving average (VARMA) | 차원 간 및 시간 간 종속성을 선형으로 가정함
-| 신경망 기반 모델   | TCN, DeepAR        | MTS 데이터를 벡터 시퀀스로 취급하고 CNN/RNN을 사용하여 시간적 종속성을 포착함      |
-| 신경망 기반 모델 |LSTnet| CNN을 사용하여 차원 간 종속성을 포착하고 RNN을 사용하여 시간 간 종속성을 포착함 
-| 신경망 기반 모델| MTGNN | 시간적 합성곱 층 (convolution layer) 및 그래프 합성곱 층 (convolution layer)를 사용하여 시간 간 및 차원 간 종속성을 포착함</p>
+<p>아래 표는 MTS 예측에 사용되는 모델 유형의 예를 요약하였다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">유형</th>
+      <th style="text-align: center">모델 예시</th>
+      <th style="text-align: right">특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">통계 기반 모델</td>
+      <td style="text-align: center">Vector augo-regressive models (VAR), Vector augo-regressive moving average (VARMA)</td>
+      <td style="text-align: right">차원 간 및 시간 간 종속성을 선형으로 가정함</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">신경망 기반 모델</td>
+      <td style="text-align: center">TCN, DeepAR</td>
+      <td style="text-align: right">MTS 데이터를 벡터 시퀀스로 취급하고 CNN/RNN을 사용하여 시간적 종속성을 포착함</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">신경망 기반 모델</td>
+      <td style="text-align: center">LSTnet</td>
+      <td style="text-align: right">CNN을 사용하여 차원 간 종속성을 포착하고 RNN을 사용하여 시간 간 종속성을 포착함</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">신경망 기반 모델</td>
+      <td style="text-align: center">MTGNN</td>
+      <td style="text-align: right">시간적 합성곱 층 (convolution layer) 및 그래프 합성곱 층 (convolution layer)를 사용하여 시간 간 및 차원 간 종속성을 포착함</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>대부분의 신경망 모델은 시간 간 종속성을 포착하기 위해 CNN과 RNN을 사용하고 있다. 하지만 저자들은 장기 종속성을 모델링하는 데는 기존 모델들의 방법으로는 어려움이 있을 수 있다고 말한다.</p>
 
@@ -777,7 +803,7 @@ forecasting. In International Conference on Learning Representations (ICLR), 202
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 24, 2024 <br />
+ Site last generated: Apr 25, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
