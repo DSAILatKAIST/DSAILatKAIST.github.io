@@ -386,30 +386,187 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="end-to-end-generative-pretraining-for-multimodal-video-captioning">End-to-end Generative Pretraining for Multimodal Video Captioning</h1>
-
-<h2 id="1-problem-definition">1. Problem Definition</h2>
+        <h2 id="1-problem-definition">1. Problem Definition</h2>
 <p>The paper tackles the challenge of multimodal video captioning, learning from unlabelled videos and aiming to generate accurate and coherent captions for videos.</p>
 
 <h2 id="2-motivation">2. Motivation</h2>
-<p>The task of multimodal video captioning is an emerging benchmark of progress in AI fields. A successful model must not only understand multimodal streams of input video but also generate coherent descriptions of the content. However, there are two major limitations or challenges in this area. First, recent video and language pretraining frameworks lack the ability to generate sentences due to often lacking decoder. Secondly, the datasets often lack annotated captions in unlabelled videos. 
-To tackle the first obstacle, the authors propose integrating a decoder into the framework, enabling models to generate previously unseen sentences. Moreover, departing from prior approaches that solely pretrain the encoder, they advocate for joint end-to-end training of the entire encoder-decoder model. They also want to overcome the limitation of lacking annotated videos by introducing a novel pretraining objective that requires no annotated captions and instead uses utterances sampled at various times within the same video. Finally, apart from two mentioned challenges, they want to make the encoder trainable from raw pixels and words directly, in contrast with existing methods that rely on pre-extracted visual features limiting transfer to new domains.</p>
+<ul>
+  <li>
+    <p><strong>Emerging Benchmark in AI:</strong></p>
+
+    <ul>
+      <li>Multimodal video captioning is an emerging benchmark of progress in AI fields.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Requirements for Success:</strong></p>
+
+    <ul>
+      <li>A successful model must:
+        <ul>
+          <li>Understand multimodal streams of input video.</li>
+          <li>Generate coherent descriptions of the content.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Major Limitations/Challenges:</strong></p>
+
+    <ol>
+      <li><strong>Lack of Decoders:</strong>
+        <ul>
+          <li>Recent video and language pretraining frameworks often lack the ability to generate sentences due to the absence of decoders.</li>
+        </ul>
+      </li>
+      <li><strong>Annotated Captions:</strong>
+        <ul>
+          <li>Datasets often lack annotated captions in unlabelled videos.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Proposed Solutions:</strong></p>
+
+    <ul>
+      <li><strong>Integrating Decoders:</strong>
+        <ul>
+          <li>Propose integrating a decoder into the framework to enable models to generate previously unseen sentences.</li>
+        </ul>
+      </li>
+      <li><strong>Joint End-to-End Training:</strong>
+        <ul>
+          <li>Advocate for joint end-to-end training of the entire encoder-decoder model, unlike prior approaches that only pretrain the encoder.</li>
+        </ul>
+      </li>
+      <li><strong>Novel Pretraining Objective:</strong>
+        <ul>
+          <li>Introduce a pretraining objective that requires no annotated captions, instead using utterances sampled at various times within the same video.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Additional Improvement:</strong></p>
+
+    <ul>
+      <li><strong>Trainable Encoder from Raw Inputs:</strong>
+        <ul>
+          <li>Make the encoder trainable from raw pixels and words directly, contrasting with existing methods that rely on pre-extracted visual features, which limits transfer to new domains.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="3-method">3. Method</h2>
-<p>The proposed framework is called Multimodal Video Generative Pretraining (MV-GPT) as illustrated in the figure below.</p>
-
-<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/MV-GPT_framework.png" alt="" />
+<p>The proposed framework is called Multimodal Video Generative Pretraining (MV-GPT) as illustrated in the figure below.
+<img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/MV-GPT_framework.png" alt="" />
 <!-- ![MV-GPT Framework](images/MV-GPT%20framework.png) --></p>
 
 <p>Recall that the objective is to pretrain a model that can effectively encode multimodal videos (visual frames and transcribed speech) as well as decode natural language sentences.</p>
 
 <h3 id="pretraining-objectives-and-losses">Pretraining Objectives and Losses</h3>
-<p>The framework leverages unlabelled instructional video data containing video frames and associated utterances. Since unlabelled videos lack captioning targets, the model is trained to generate a future utterance (as a caption target) in the video based on the current video context and utterances (forward generation). To enable the generation of text aligned with the current video context, they add an extra backward generation loss. This involves the model generating the current utterance based on the current video frames and a future utterance (backward generation). With this bidirectional approach, the generated sentences are encouraged to be temporally aligned with the visual inputs. 
-Note that the employed loss functions are minimizing the negative log-likelihood of the true future and present utterances.</p>
+<ul>
+  <li><strong>Framework Overview:</strong>
+    <ul>
+      <li>Leverages unlabelled instructional video data containing video frames and associated utterances.</li>
+    </ul>
+  </li>
+  <li><strong>Training Challenges:</strong>
+    <ul>
+      <li>Unlabelled videos lack captioning targets.</li>
+    </ul>
+  </li>
+  <li><strong>Training Approach:</strong>
+    <ul>
+      <li><strong>Forward Generation:</strong>
+        <ul>
+          <li>Train the model to generate a future utterance (caption target) based on the current video context and utterances.</li>
+        </ul>
+      </li>
+      <li><strong>Backward Generation:</strong>
+        <ul>
+          <li>Add an extra backward generation loss, where the model generates the current utterance based on the current video frames and a future utterance.</li>
+        </ul>
+      </li>
+      <li><strong>Bidirectional Approach:</strong>
+        <ul>
+          <li>Encourages generated sentences to be temporally aligned with visual inputs.</li>
+        </ul>
+      </li>
+      <li><strong>Loss Functions:</strong>
+        <ul>
+          <li>Minimize the negative log-likelihood of the true future and present utterances.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <h3 id="model">Model</h3>
-<p>The model entirely uses transformer blocks and is trained directly from pixels and word tokens. At the beginning, there are two specific encoders: one for text using BERT-base architecture, and another for visuals using ViViT architecture. Then, they are fused using a co-attentional transformer by the multimodal encoder, where each layer is a stack of transformer blocks particular for each textual and visual stream. Lastly, the output is generated autoregressively conditioned on multimodal video features using a GPT-2 decoder with masked language modeling and special tokens, BOS and EOS. 
-The model is pretrained end-to-end using Adam optimizer with the batch size of 2048.</p>
+<ul>
+  <li><strong>Model Architecture:</strong>
+    <ul>
+      <li><strong>Transformers:</strong>
+        <ul>
+          <li>Uses transformer blocks throughout the model.</li>
+          <li>Trained directly from pixels and word tokens.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Encoders:</strong>
+    <ul>
+      <li><strong>Text Encoder:</strong>
+        <ul>
+          <li>Uses BERT-base architecture.</li>
+        </ul>
+      </li>
+      <li><strong>Visual Encoder:</strong>
+        <ul>
+          <li>Uses ViViT architecture.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Multimodal Fusion:</strong>
+    <ul>
+      <li><strong>Co-Attentional Transformer:</strong>
+        <ul>
+          <li>Fuses text and visual streams using a co-attentional transformer.</li>
+          <li>Each layer is a stack of transformer blocks specific to each stream (textual and visual).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Output Generation:</strong>
+    <ul>
+      <li><strong>GPT-2 Decoder:</strong>
+        <ul>
+          <li>Generates output autoregressively.</li>
+          <li>Conditions on multimodal video features.</li>
+          <li>Uses masked language modeling and special tokens (BOS and EOS).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Pretraining Details:</strong>
+    <ul>
+      <li><strong>Optimizer:</strong>
+        <ul>
+          <li>Pretrained end-to-end using the Adam optimizer.</li>
+        </ul>
+      </li>
+      <li><strong>Batch Size:</strong>
+        <ul>
+          <li>Uses a batch size of 2048.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="4-experiment">4. Experiment</h2>
 <h3 id="experiment-setup">Experiment Setup</h3>
@@ -417,23 +574,57 @@ The model is pretrained end-to-end using Adam optimizer with the batch size of 2
   <li>The authors utilize HowTo100M as the pretraining dataset and then evaluate on these four downstream captioning benchmarks through finetuning: YouCook2, Video Timeline Tags (ViTT), MSR-VTT, and ActivityNet-Captions</li>
   <li>The results are reported using the following metrics: BLEU-4 (B-4), CIDEr (C ), METEOR (M), and ROUGE-L (R-L). For ViTT, BLEU-1 (B-1) is measured instead of BLEU-4.
     <h3 id="result">Result</h3>
-    <p>The comparisons of the proposed MV-GPT to existing methods on all four datasets are shown below. It can be seen that the MV-GPT outperforms all prior works with a margin in all datasets and all metrics.</p>
+    <p>The comparisons of the proposed MV-GPT to existing methods on all four datasets are shown in the original paper. For simplicity, only the performance comparison on one dataset is displayed here while the rest can be found in the appendix section. It can be seen that the MV-GPT outperforms all prior works with a margin in all datasets and all metrics.</p>
   </li>
 </ul>
 
 <p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_youcook2.png" alt="" />
 <!-- ![compare youcook2](images/compare%20youcook2.png) --></p>
 
-<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_vitt.png" alt="" />
-<!-- ![compare ViTT](images/compare%20vitt.png) --></p>
+<p>Next, the author examines the influence of several critical design choices in MV-GPT, focusing on the backbone and objective functions. This includes analyzing pretrained losses, the effects of each loss term, the impact of random weight initialization, and the benefits of end-to-end training. The tables below illustrate the contributions and superiority of the proposed methods.</p>
 
-<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_msr-vtt.png" alt="" />
-<!-- ![compare MSR-VTT](images/compare%20msr-vtt.png) --></p>
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/pretraining loss.png" alt="" /></p>
 
-<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_act.png" alt="" />
-<!-- ![compare Act](images/compare%20act.png) --></p>
+<!-- ![pretraining loss](images/pretraining%20loss.png) -->
+<ul>
+  <li>Pretraining only the encoder provides small improvements compared to training from scratch for all tested losses.</li>
+  <li>Pretraining both the encoder and decoder together significantly boosts performance.</li>
+  <li>MV-GPT outperforms other joint pretraining techniques.</li>
+</ul>
 
-<p>Besides, the authors also show results on non-generative video understanding tasks (including VideoQA, video retrieval and action classification) to emphasize the capability other than just being a generative model.</p>
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/loss components.png" alt="" />
+<!-- ![loss components](images/loss%20components.png) --></p>
+
+<ul>
+  <li>The forward generation (FG) loss offers strong supervision.</li>
+  <li>Using the masked language modeling loss on decoder outputs (MLM-D) instead of encoder outputs (MLM-E) slightly improves performance due to better input contextualization.</li>
+  <li>Adding the backward generation (BG) loss further boosts all metrics.</li>
+  <li>Using weight decay (WD) provides extra gains.</li>
+</ul>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/visual encoder config.png" alt="" />
+<!-- ![visual encoder](images/visual%20encoder%20config.png) --></p>
+
+<ul>
+  <li>Training a visual encoder with HowTo100M shows significant gains for both architectures due to the similarity with the YouCook2 dataset.</li>
+  <li>However, ViViT sees larger improvements because its encoder is optimized for generative losses and can be jointly trained with other components due to its lower complexity.</li>
+  <li>These results highlight the benefits of end-to-end pretraining.</li>
+  <li>Examining the effects of end-to-end training for finetuning, for YouCook2, naive end-to-end finetuning from the start slightly degrades performance (row 4 to 5).</li>
+  <li>This is overcome by initially freezing the visual encoder and starting end-to-end training after convergence, resulting in a minor gain (row 6).</li>
+  <li>This suggests our pretrained visual encoder already captures strong representations for similar domains, making end-to-end finetuning less critical.</li>
+  <li>However, for MSR-VTT, end-to-end finetuning is crucial due to the larger domain gap, leading to significant gains (row 7 to 8).</li>
+</ul>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/weight init.png" alt="" /></p>
+
+<!-- ![weight init](images/weight%20init.png) -->
+<ul>
+  <li>Testing the model’s ability to learn from scratch involved initializing it randomly or with pretrained BERT, ViViT, and GPT-2 weights.</li>
+  <li>Table 4 illustrates that with random initialization, the method performs very well (row 2).</li>
+  <li>Interestingly, it even outperforms the model initialized with public BERT, GPT-2, and ViViT weights (row 3).</li>
+</ul>
+
+<p>Besides, the authors also show results on non-generative video understanding tasks (including VideoQA, video retrieval and action classification) to emphasize the capability other than just being a generative model. The results can be found in the appendix section.</p>
 
 <p>By the end, they illustrate qualitative examples on YouCook2 (first row) and MSR-VTT (last two rows) as follows.
 <img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/qualitative_example.png" alt="" />
@@ -476,6 +667,23 @@ In my opinion, this seems like a cutting-edge framework that will allow us to ha
   <li><a href="https://arxiv.org/abs/2201.08264">[CVPR 2022] End-to-end Generative Pretraining for Multimodal Video Captioning</a></li>
 </ul>
 
+<h2 id="7-appendix">7. Appendix</h2>
+<p>The performance comparison between SOTA on other datasets.</p>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_vitt.png" alt="" />
+<!-- ![compare ViTT](images/compare%20vitt.png) --></p>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_msr-vtt.png" alt="" />
+<!-- ![compare MSR-VTT](images/compare%20msr-vtt.png) --></p>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/compare_act.png" alt="" />
+<!-- ![compare Act](images/compare%20act.png) --></p>
+
+<p>The performance on video retrieval tasks.</p>
+
+<p><img src="../../images/DS503_24S/End-to-end_Generative_Pretraining_for_Multimodal_Video_Captioning/video retrieval.png" alt="" />
+<!-- ![compare other tasks](images/video%20retrieval.png) --></p>
+
     </div>
 
 
@@ -495,7 +703,7 @@ In my opinion, this seems like a cutting-edge framework that will allow us to ha
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 25, 2024 <br />
+ Site last generated: May 27, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

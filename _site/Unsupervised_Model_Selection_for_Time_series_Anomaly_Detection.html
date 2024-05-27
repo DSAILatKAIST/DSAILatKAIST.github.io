@@ -386,8 +386,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="iclr-2023-unsupervised-model-selection-for-time-series-anomaly-detection"><strong>[ICLR-2023] Unsupervised Model Selection for Time-series Anomaly Detection</strong></h1>
-<p><strong>key words</strong>: Model Selection · Time-series Anomaly Detection · Unsupervised Learning</p>
+        <p><strong>key words</strong>: Model Selection · Time-series Anomaly Detection · Unsupervised Learning</p>
 
 <h2 id="1-introduction"><strong>1. Introduction</strong></h2>
 
@@ -452,11 +451,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>순위 집계는 사회 선택, 생물정보학, 머신러닝 문헌에서 광범위하게 연구되었다. 특히, 케메니 순위 집계(Kemeny rank aggregation)는 순위의 집합에서 거리를 선택하고 중앙 순위를 찾는 것과 관련이 있다. 케메니 순위 집계는 다음의 목표를 가지고 있다.</p>
 
 <p><strong>Problem 2. 순위 집계</strong> 
-주어진 $N$개의 항목에 대한 $M$개의 순위 $\sigma_ {1}, \ldots, \sigma_ {M} \in S_ {N}$ 집합이 있을 때, 어떤 목표 $C(\sigma^{<em>}, \sigma_ {1}, \ldots, \sigma_ {M})$에 따라 이 순위들을 가장 잘 요약하는 $\sigma^{</em>} \in S_ {N}$를 찾는다.</p>
+주어진 $N$개의 항목에 대한 $M$개의 순위 $\sigma_ {1}, \ldots, \sigma_ {M} \in S_ {N}$ 집합이 있을 때, 어떤 목표 $C( \sigma^{*}, \sigma_ {1}, …, \sigma_ {M} )$에 따라 이 순위들을 가장 잘 요약하는 $\sigma^{*} \in S_ {N}$를 찾는다.</p>
 
 <p>이 문제는 케메니-영(Kemeny-Young) 문제로 알려져 있고, 목표가 다음과 같이 정의될 때, 케메니 순위 집계 문제가 된다.</p>
 
-<p>$C = \frac{1}{M} \sum_ {i=1}^M d_ {\tau}(\sigma^*, \sigma_ {i})$, 여기서 $d_ {\tau}$​는 켄달의 $\tau$거리를 나타낸다.</p>
+<p>$C = \frac{1}{M} \sum_ {i=1}^ M d_ {\tau}(\sigma^*, \sigma_ {i})$, 여기서 $d_ {\tau}$​는 켄달의 $\tau$거리를 나타낸다.</p>
 
 <p>케메니 순위 집계는 많은 바람직한 속성을 가지고 있지만, NP-hard 문제이므로 실제로는 효율적인 근사 해법을 고려해야 한다. 예를 들어, Borda 방법은 각 항목(모델)이 각 순위(대리 메트릭)에서 점수를 받는 방법을 사용한다. Borda 방법은 다음과 같이 점수를 부여한다.</p>
 
@@ -474,14 +473,15 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>$B_ {i} = \sum_ {k=1}^M (N - r_ {ik})$</p>
 
-<p>여기서 $B_ {i}$​는 모델 $i$의 Borda 점수, $M$은 메트릭의 수, $N$은 모델의 수, r_ {ik}​는 메트릭 $k$에서 모델 $i$의 순위. 모델은 $B_ {i}$​ 점수가 높은 순으로 순위가 매겨진다.</p>
+<p>여기서 $B_ {i}$​는 모델 $i$의 Borda 점수, $M$은 메트릭의 수, $N$은 모델의 수, $r_ {ik}$​는 메트릭 $k$에서 모델 $i$의 순위. 모델은 $B_ {i}$​ 점수가 높은 순으로 순위가 매겨진다.</p>
 
 <p>보르다 방법은 모든 대리 메트릭을 동등하게 취급한다. 그러나 저자의 경험과 이론적 분석은 “좋은” 메트릭만을 사용하여 집계하는 것이 성능을 개선할 수 있다고 제안한다. 그러나 어떻게 이상 레이블이 없이 “좋은” 순위를 식별할 수 있을까? 이에 대한 해답은 보르다 집계 방법과 이를 향상시킬 수 있는 다양한 기법들을 통해 제공된다. 저자는 각 대리 메트릭의 신뢰성을 평가하고, 그에 따라 각 순위에 가중치를 부여하여 향상된 보르다 집계 방법을 제안한다.</p>
 
 <h4 id="향상된-borda-방법">향상된 Borda 방법</h4>
 
-<p>향상된 Borda 방법은 각 대리 메트릭의 신뢰성을 고려하여 가중치를 조정한다. 더 신뢰할 수 있는 메트릭은 최종 순위 결정에 더 큰 영향을 미친다.<br />
-$B_ {i}^{*} = \sum_ {k=1}^{M} w_ {k}(N - r_ {ik})$,  $w_ {k}$​는 메트릭 $k$의 신뢰도에 따른 가중치</p>
+<p>향상된 Borda 방법은 각 대리 메트릭의 신뢰성을 고려하여 가중치를 조정한다. 더 신뢰할 수 있는 메트릭은 최종 순위 결정에 더 큰 영향을 미친다.</p>
+
+<p>$B_ {i}^{*} = \sum_ {k=1}^{M} w_ {k}(N - r_ {ik})$,  $w_ {k}$​는 메트릭 $k$의 신뢰도에 따른 가중치</p>
 
 <p>이 접근 방식을 사용하면, 더 신뢰할 수 있는 메트릭의 영향을 강화하고, 덜 신뢰할 수 있는 메트릭의 영향을 감소시킬 수 있다. 이는 전체적인 모델 선택 과정에서 더 정확하고 신뢰할 수 있는 결정을 내리는 데 도움을 줄 수 있다.</p>
 
@@ -508,17 +508,9 @@ $B_ {i}^{*} = \sum_ {k=1}^{M} w_ {k}(N - r_ {ik})$,  $w_ {k}$​는 메트릭 $k
 <p><img src="../../images/DS503_24S/Unsupervised_Model_Selection_for_Time_series_Anomaly_Detection/Table1.png" alt="image_sample" /></p>
 
 <h4 id="53-experimental-set-up">5.3 Experimental set up</h4>
+
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td><strong>Evaluating model selection performance</strong></td>
-          <td>: 모든 모델 선택 전략을 최고의 선택된 모델의 조정된 최고 F1 점수(제 2장 참조)에 기반하여 평가한다.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li><strong>Evaluating model selection performance</strong>: 모든 모델 선택 전략을 최고의 선택된 모델의 조정된 최고 F1 점수(제 2장 참조)에 기반하여 평가한다.</li>
   <li><strong>Baselines</strong>: baseline으로는 데이터셋의 일부를 레이블링하고 이 레이블을 기반으로 최고의 방법을 선택하는 접근법을 고려한다. 구체적으로, 각 데이터셋은 선택(20%)과 평가(80%) 세트로 임의 분할된다. 즉, baselines은 선택 세트의 이상 레이블을 기반으로 모델을 선택하지만, 저자의 대리 메트릭은 선택 세트를 사용하지 않고, 대신 레이블을 사용하지 않고 평가 세트에서 계산된다. 전체 실험은 무작위 선택/평가 분할로 5번 반복된다.</li>
   <li><strong>Model selection strategies</strong>: 5개의 예측 오류 메트릭, 9개의 합성 이상 주입 메트릭, 3개의 중심성 메트릭), Borda 순위 집계의 4가지 제안된 강력한 변형들을 포함한 17개의 개별 대리 메트릭을 비교한다.(제 3장 참조, 부록 A.7.2 참조).</li>
   <li><strong>Pairwise-statistical tests</strong>:  우리는 유의 수준 $\alpha$ = 0.05에서 one-sided paired Wilcoxon signed rank tests를 수행하여 각 데이터셋에서 모든 모델 선택 전략 및 기준선 간의 유의미한 성능 차이를 식별한다.</li>
@@ -585,7 +577,7 @@ $B_ {i}^{*} = \sum_ {k=1}^{M} w_ {k}(N - r_ {ik})$,  $w_ {k}$​는 메트릭 $k
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 25, 2024 <br />
+ Site last generated: May 27, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

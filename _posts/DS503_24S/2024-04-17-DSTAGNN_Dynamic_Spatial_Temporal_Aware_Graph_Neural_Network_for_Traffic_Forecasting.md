@@ -16,7 +16,11 @@ usemathjax: true
 그러나 도로 네크워크는 **복잡한 시공간 의존성을 동적으로 가진다는 점** 에서 교통 흐름을 예측하는 것이 꽤나 어려운 일인데요. 이러한 도로 네트워크는 몇 가지 특징이 있습니다.  
 먼저 **도로 네트워크는 Node와 Link들 간의 조합인 Graph 구조로 표현** 된다는 특징입니다. Graph 구조는 다른 Tabular data, Image data 등 일반적인 유클리디안 구조의 데이터와 다르게 비 유클리디안(Non-Euclidean) 구조의 데이터라는 점에서 이러한 특징을 효과적으로 고려한 모델이 필요합니다. 그리고 시간적인 요소와 공간적인 요소가 상호 의존적인 관계를 가진다는 특징을 고려하여 이를 동시에 고려할 수 있는 모델을 설계해야 합니다.
 
-![](../../images/DS503_24S/DSTAGNN_Dynamic_Spatial_Temporal_Aware_Graph_Neural_Network_for_Traffic_Forecasting/figure1.png)
+<p align = "center">
+    <img src ="../../images/DS503_24S/DSTAGNN_Dynamic_Spatial_Temporal_Aware_Graph_Neural_Network_for_Traffic_Forecasting/figure1.png">
+    <center>[Figure 1. Dynamic spatial-temporal correlations in real world traffic data]</center>
+</p>
+
 
 위 Figure의 (a)에서 각 colored zone은 district의 목적에 따라 색깔로 구분한 것이고, 검은 직선은 실제 도로이며, district 위의 원은 노드를 의미합니다. 결과적으로 도로 네트워크를 가시적으로 표현한 것입니다. 그리고 (b)는 (a)의 도로 네트워크의 시공간 요소의 상호 의존적인 패턴을 동적으로 나타낸 것입니다. 여기서 시간의 흐름에 따라 동적인 요소의 변화를 파악하는 것이 왜 중요할까요?
 
@@ -35,15 +39,15 @@ usemathjax: true
 
 이를 위해서 여러 아이디어들이 등장했습니다.
 
-시공간적 요소를 동시에 고려하는 고전적인 방법 중 하나는 **합성곱 신경망(CNN)과 순환 신경망(RNN)을 연결하는 모델을 구축** 하는 것입니다.
+시공간적 요소를 동시에 고려하는 고전적인 방법 중 하나는 **합성곱 신경망(CNN)과 순환 신경망(RNN)을 연결하는 모델을 구축** 하는 것입니다. **(Zhang et al., 2016; Li & Shahabi, 2018)**
 
-특히 CNN은 지역적인 공간 상관관계를 포착하는 데 적합하지만, Graph 구조인 도로 네트워크의 특징을 잡아내는 데 적합하진 않습니다. 그렇다면 **GCN(Graph Convolution Network)** 은 어떨까요? GCN은 비유클리디안 공간인 Graph 구조의 특징을 잘 잡아낼 수 있는 좋은 모델이라는 점에서 도로 네트워크에 적합한 모델입니다.
+특히 CNN은 지역적인 공간 상관관계를 포착하는 데 적합하지만, Graph 구조인 도로 네트워크의 특징을 잡아내는 데 적합하진 않습니다. 그렇다면 **GCN(Graph Convolution Network)** 은 어떨까요? GCN은 비유클리디안 공간인 Graph 구조의 특징을 잘 잡아낼 수 있는 좋은 모델이라는 점에서 도로 네트워크에 적합한 모델입니다. **(Li et al., 2017; Yu et al., 2017; Zhao et al., 2019)**
 
 그럼에도 불구하고 대부분의 기존 GCN 모델은 동적인 관계를 잡아내기엔 어려움이 있습니다. 왜냐하면 기존 GCN 모델들은 **미리 정의된 Static adjacency matrix** 를 사용해서 Spatial correlation을 모델에 반영하기 때문에 도로 네트워크 내의 Spatial dependency의 동적인 변화를 잡아내기에 한계가 있습니다.
 
 즉 Adjacency matrix는 그래프 구조에서 단순히 이웃 노드와의 연결 여부에 따라 1 혹은 0으로 연결 관계를 나타내는데, 연결된 노드 중에서도 더 중요한 노드가 있고 그렇지 않은 노드가 있음에도 불구하고 Static Adjacency Matrix는 이러한 관계를 포착하는 데 어려움이 있다는 것입니다.
 
-Time Series Data의 similarity를 포착하기 위해 **Dynamic Time Warping(DTW)** 의 개념을 이용해서 GCN에 반영한 **SFTGCN** 라는 모델도 등장했었으나, 이는 데이터 시퀀스 자체의 similarity만 포착한다는 점에서 semantic relevance를 고려하기엔 한계가 있습니다.
+Time Series Data의 similarity를 포착하기 위해 **Dynamic Time Warping(DTW)** 의 개념 **(Berndt & Clifford, 1994)** 을 이용해서 GCN에 반영한 **SFTGCN** 라는 모델도 등장했었으나, 이는 데이터 시퀀스 자체의 similarity만 포착한다는 점에서 semantic relevance를 고려하기엔 한계가 있습니다. **(Li & Zhu, 2021)**
 
 이처럼 Time Series Traffic Data는 다음과 같은 특징이 있는데요.
 Dynamic similar pattern과 Random irregular pattern이라고 하겠습니다.
@@ -173,7 +177,7 @@ Dynamic similar pattern과 Random irregular pattern이라고 하겠습니다.
     그리고 $\Pi_{[u, v]}$ 는 두 확률분포 $u, v$의 결합확률분포(Joint Distribution)를 모은 집합이고, $\gamma$는 그 중 하나입니다.  
 
     즉 Wasserstein Distance를 다시 쓰면 다음과 같습니다.
-     - $W\,[u, v] = \inf\limits_{\gamma \in \Pi_{[u, v]}} \int_{x}\int_{y} \mathbb{E}^{\gamma}[d(x,y)] \, dxdy$
+     - $W\,[u, v] = \inf\limits_{\gamma \in \Pi_{[u, v]}} \mathbb{E}^{\gamma}[d(x,y)] \,$
     
     즉 모든 결합확률분포 중에서 distance $d(x,y)$ 의 기댓값을 가장 작게 추정한 값, **최소 거리를 찾는 연산** 이라고 할 수 있습니다.  
 
@@ -188,7 +192,7 @@ Dynamic similar pattern과 Random irregular pattern이라고 하겠습니다.
 <br>
 
 # 4. Methodology
-이번 챕터에서는 Chapter 2의 내용을 바탕으로 연구에서 제안한 모델의 아키텍처에 대해 다뤄보겠습니다.  
+이번 챕터에서는 Chapter 3의 내용을 바탕으로 연구에서 제안한 모델의 아키텍처에 대해 다뤄보겠습니다.  
 
 Traffic Forecasting은 단순히 Tabular Data를 기반으로 예측하는 것에 중점을 둔 문제가 아닌, 도로 네트워크의 시공간적 요소들 동시에 고려한 예측 문제라는 점에서 **시공간 예측(Spatial-Temporal Forecasting)** 에 대해 먼저 알아야 합니다.  
 <br>
@@ -546,7 +550,7 @@ DSTAGNN-G는 $A_{STAG}$ 대신 adjacency matrix를 사용한 DSTAGNN 모델입�
 <br>
 
 # Author Information
-- Minwoo Jeong
+- Minwoo Jeong **(GSDS)**
   - **Affiliation** : TRUE Lab(Transportation Research and Urban Engineeting LAB)
   - **Research Topic** : Graph Neural Network, Urban Air Mobility, Spatial-Temporal Data Mining
   - **Contact** : minwoo5003@kaist.ac.kr
@@ -554,7 +558,14 @@ DSTAGNN-G는 $A_{STAG}$ 대신 adjacency matrix를 사용한 DSTAGNN 모델입�
 <br>
 
 # Reference
-- [[ICML 2022] DSTAGNN: Dynamic Spatial-Temporal Aware Graph Neural Network for Traffic Flow Forecasting](https://proceedings.mlr.press/v162/lan22a.html) 
+- [[ICML 2022] DSTAGNN: Dynamic Spatial-Temporal Aware Graph Neural Network for Traffic Flow Forecasting](https://proceedings.mlr.press/v162/lan22a.html)
+- Berndt, D. J. and Clifford, J. Using dynamic time warping to find patterns in time series. In KDD workshop, volume 10, pp. 359–370. Seattle, WA, USA:, 1994.
+- Li, M. and Zhu, Z. Spatial-temporal fusion graph neural networks for traffic flow forecasting. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 35, pp. 4189–4196, 2021.
+- Li, Y. and Shahabi, C. A brief overview of machine learning methods for short-term traffic forecasting and future directions. Sigspatial Special, 10(1):3–9, 2018.
+- Li, Y., Yu, R., Shahabi, C., and Liu, Y. Diffusion convolutional recurrent neural network: Data-driven traffic forecasting. arXiv preprint arXiv:1707.01926, 2017.
+- Yu, B., Yin, H., and Zhu, Z. Spatio-temporal graph convolutional networks: A deep learning framework for traffic forecasting. arXiv preprint arXiv:1709.04875, 2017.
+- Zhang, J., Zheng, Y., Qi, D., Li, R., and Yi, X. Dnn-based prediction model for spatio-temporal data. In Proceedings of the 24th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems, pp. 1–4, 2016.
+- Zhao, L., Song, Y., Zhang, C., Liu, Y., Wang, P., Lin, T., Deng, M., and Li, H. T-gcn: A temporal graph convolutional network for traffic prediction. IEEE Transactions on Intelligent Transportation Systems, 21(9):3848–3858, 2019.
 
 
 

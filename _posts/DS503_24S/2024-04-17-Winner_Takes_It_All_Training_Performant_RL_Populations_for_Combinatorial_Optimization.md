@@ -50,14 +50,14 @@ JSSP는 10개의 job과 10개의 설비 환경에서 makespan 최소화를 목�
 
 ![Result1](../../images/DS503_24S/Winner_Takes_It_All_Training_Performant_RL_Populations_for_Combinatorial_Optimization/Result1.PNG)
 
-$10\times10$ Job Shop Scheduling Problem 실험에서 동일 환경의 L2D(Zhang et al., 2020)에 비해서는 좋은 성능을 보였지만, OR-Tools가 37초 만에 optimal solution을 도출한 데 반해 Poppy(K=16)는 30분 동안 optimal gap이 6.2%인 스케줄을 도출했다. 이는 20대 이상의 설비에서 다양한 제약을 함께 고려해야 하는 실제 현장에 적용하기 매우 어려울 만큼 긴 연산 시간이다. 
+$10\times10$ Job Shop Scheduling Problem 실험에서 동일 환경의 L2D(Zhang et al., 2020)에 비해서는 좋은 성능을 보였지만, OR-Tools가 37초 만에 optimal solution을 도출한 데 반해 Poppy(K=16)는 30분 동안 optimal gap이 6.2%인 스케줄을 도출했다. 실제 현장에서는 3분 이내에 $20 \times 100$ 이상의 매우 큰 문제를 해결해야 한다. 이 사이즈의 문제에서는 연산 소요 시간을 1시간까지 허용하더라도 MIP formulation이 optimal solution을 도출하지 못한다. 즉, 문제 사이즈가 조금만 증가하더라도 optimal solution을 구하는 것이 거의 불가능해지며, dispatcher로 기능하는 learning 기반 모델은 연산 시간의 증가폭이 MIP formulation에 비해 작으므로 비교적 좋은 성능을 보이게 된다. 하지만 Poppy는 $10\times10$ 문제 해결에도 30분이 소요된 것으로 보아, 문제 사이즈가 증가하면 실제 문제에 적용이 불가능할 정도로 긴 시간이 소요된 것이다. Optimal gap이 크게 줄어든다 하더라도 연산 소요 시간이 매우 길다면 알고리즘을 현장에 적용할 수 없다.
 
 ## 5. Conclusion
 ### 5.1. Summary
 다양한 action을 탐색해 보는 전략은 sequential decision을 요하는 문제에서 특히 유용하다. 조합최적화 문제를 constructive dispatching 형식으로 접근하면 매 decision point에서 취하는 action이 후속 action에 큰 영향을 미치고, 대부분 sparse reward를 가져 해당 action의 영향을 즉각적으로 파악하기 어렵다. 이러한 문제를 해결하기 위해 조합최적화 문제에서 POMO(Kwon et al., 2020)를 시작으로 symmetry를 활용해 search space를 넓히려는 연구가 지속적으로 진행되고 있고, 본 논문에서는 population based learning을 통해 search space를 넓히는 Poppy를 제안하였다.
 
 ### 5.2. Insights for Scheduling Researches
-Poppy는 기존의 강화학습을 활용한 방법론에 비해 search space가 넓어 스케줄의 성능을 높이는 데는 효과적이지만, 여러 agent가 다양한 action을 탐색하도록 하는 만큼 연산 시간 역시 증가한다. 실제 제조 현장에서는 짧은 시간 내에 합리적인 성능의 스케줄을 도출하는 것이 중요하기 때문에 스케줄링 문제에서 Poppy를 바로 적용하는 데는 한계가 있다. 하지만 population-based learning의 스케줄링 문제 적용 가능성을 보여 주었다는 데 의의가 있다.
+Poppy는 기존의 강화학습을 활용한 방법론에 비해 search space가 넓어 local optima trap을 회피함으로써 스케줄의 성능을 높이는 데는 효과적이지만, 여러 agent가 다양한 action을 탐색하도록 하는 만큼 연산 시간 역시 증가한다. 실제 제조 현장에서는 짧은 시간 내에 합리적인 성능의 스케줄을 도출하는 것이 중요하기 때문에 스케줄링 문제에서 Poppy를 바로 적용하는 데는 한계가 있다. 즉, 이 연구는 기존 연구들과 비교하여 개선된 성능을 보이지는 못했다. 하지만 본 연구의 의의는 population-based learning이라는, 기존에 스케줄링 문제에 쓰이지 않았던 방법론을 적용한 데 있다. 이는 강화학습 기반 방법론이 처음 도입되었을 때도 그랬듯, population-based learning이 발전함에 따라 추후 등장할 연구들이 스케줄링 문제에 적용될 수 있게 함으로써 스케줄링 연구의 영역을 확장시키는 가교가 되리라 기대한다.
 
 특히 현재까지 제안된 강화학습 기반 스케줄링 방법론은 많은 경우 setup time, precedence constraint와 같은 복잡한 제약을 다루는 데 분명한 한계를 보인다. 본 논문에서 제안하는 population-based learning은 evolutionary algorithm과 결합하여 사용 가능하다. 따라서 population-based learning 단계에서는 제약을 relax한 환경에서 모델을 학습시켜 빠른 시간 내에 좋은 성능의 스케줄을 도출하고, 이를 genetic algorithm과 같은 evolutionary algorithm의 초기해로 활용해 제약을 만족할 수 있도록 해당 스케줄을 modify하는 알고리즘을 고안해볼 수 있다.
 

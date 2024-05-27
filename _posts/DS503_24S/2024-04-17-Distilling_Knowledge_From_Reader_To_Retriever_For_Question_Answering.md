@@ -6,22 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# "Distilling Knowledge From Reader To Retriever For Question Answering", Gautier Izacard et al., 4 Aug 2022
-
-<!-- MathJax Script for this post only -->
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ['\\(','\\)'] ],
-      displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 Conference: ICLR (International Conference on Learning Representations), 2021
 
 [논문 Link](https://arxiv.org/abs/2012.04584)
@@ -98,9 +82,11 @@ RAG는 LLM이 Text Generation을 하기 전에 신뢰할 수 있는 외부 데�
 <br>
 
 
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/1.png" alt="Image 1" style="width:100%; margin:auto; display:block;" />
-</div>
+</div> -->
+
+![image1](../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/1.png)
 
 ### **2-2. FiD(Fusion-in-Decoder model)**
 
@@ -121,10 +107,11 @@ FiD의 decoder는 검색된 여러 document의 정보를 종합하기 위해 cro
 
 Decoder 내부에서도 self-attention mechanism이 작동하여, 생성된 답변의 각 단어(또는 token) 사이의 관계를 modeling합니다. 이 과정은 문맥적으로 **일관되고 자연스러운 답변**을 생성하는 데 기여합니다.
 
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/2.png" alt="Image 2" style="width:100%; margin:auto; display:block;" />
-</div>
+</div> -->
 
+![image2](../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/2.png)
 
 위의 attention mechanism을 활용하면서, 기존의 encoder를 통과한 document를 decoder에 하나씩 개별적으로 넣어주는 방식을 하나의 sequence로 concat하는 방식으로 바꾸었습니다. Concat을 하면서 document들 끼리는 분류해주기 위해서 ‘question:’, ‘title:’, ‘context:’와 같은 special tokens를 concatenated sequence에 넣어주었습니다. 이러한 방식으로 FiD model은 당시에 SOTA를 달성한 model이라고 합니다.
 
@@ -137,12 +124,12 @@ KL Divergence는 $P(x)$와 $Q(x)$분포가 있을 때, 두 분포가 얼마나 �
 <br>
 
 $
-D_ {\text{KL}}(P\|\|Q) = \sum_ {x \in X} P(x) \log(\frac{P(x)}{Q(x)})
+D_ {\text{KL}}(P\vert \vert Q) = \sum_ {x \in X} P(x) \log(\frac{P(x)}{Q(x)})
 $
 
 <br>
 
-수식을 볼 때, $P(x) \approx Q(x)$일 때, $\frac{P(x)}{Q(x)} \approx 1$이 되어, $D_ {\text{KL}}(P\|\|Q) \approx 0$이 되는 것을 알 수 있습니다. 이는 두 distribution이 유사할 때, $D_ {\text{KL}}(P\|\|Q)$이 작다는 것을 의미합니다.
+수식을 볼 때, $P(x) \approx Q(x)$일 때, $\frac{P(x)}{Q(x)} \approx 1$이 되어, $ D_ {\text{KL}}(P \vert \vert Q) \approx 0 $이 되는 것을 알 수 있습니다. 이는 두 distribution이 유사할 때, $D_ {\text{KL}}(P \vert \vert Q)$이 작다는 것을 의미합니다.
 
 <br>
 
@@ -160,13 +147,11 @@ $
 
 <br>
 
-### **2-4. SpaCy**
 
-SpaCy는 NLP를 위한 Open source library로, Python으로 구현되어 있습니다. 다양한 NLP를 위한 강력하고 효율적인 기능을 제공하며, 특히 대규모 정보 추출 작업에 유용합니다. SpaCy는 tokenizing, 품사 tagging, syntactic analysis, NER(Named entity recognition), dependency parsing 등 다양한 NLP 작업을 지원합니다. 특히, SpaCy는 학습된 모델을 사용하여 빠르게 결과를 얻을 수 있으며, 사용자가 자신의 data set으로 모델을 추가로 학습시키거나 fine-tuning하는 것도 가능합니다. 이를 통해 더 나은 성능과 정확도를 얻을 수 있습니다. SpaCy는 특히 document classification, sementic analysis, named entity recognition 등의 작업에 자주 사용됩니다.
 
 <br>
 
-- ### **2-5. BLEU(Bilingual Evaluation Understudy) Score**
+### **2-4. BLEU(Bilingual Evaluation Understudy) Score**
 
 일반적으로 번역에 있어서 PPL보다는 BLEU Score가 더욱 신뢰성이 있는 지표로 평가됩니다. BLEU는 0과 1 사이의 값이 나오게 되는데 그 값이 클수록 좋은 성능을 가진다고 평가합니다. 수식을 통해서 Score에 어떤 의미들이 담겨있는지 살펴보겠습니다. 
 
@@ -179,7 +164,7 @@ $
 - $\text{BP}$ : Brevity penalty - 출력이 짧을 때에 Penalty를 부과해줍니다.
 - $N$ : Default가 4로 설정됩니다.
 
-  - ### **2-5-1. n-gram precision**
+  - ### **2-4-1. n-gram precision**
 
 먼저, n-gram precision에 대해서 살펴보겠습니다. n-gram precision은 연속한 n개 단어가 정답 문장에 존재하는지 여부로 계산합니다. 
 
@@ -207,7 +192,7 @@ $
 
 위에서 처럼 n-gram을 쓰는 이유는 1-gram만 쓴다면 ‘나는 읽고 논문을 Seq2Seq’와 같이 순서만 바뀐 것에 대해서도 좋은 평가를 하게 되기 때문에, 순서를 고려해주기 위함이라고 볼 수 있습니다.
 
-  - ### **2-5-2. BP(Brevity Penalty)**
+  - ### **2-4-2. BP(Brevity Penalty)**
 
 **Target : 나는 Seq2Seq 논문을 리뷰하면서 Seq2Seq 모델의 성능을 평가하는 지표를 소개한다.**
 
@@ -216,13 +201,11 @@ $
 위의 예시와 같이 번역을 하게 된다면, 중요한 정보가 많이 생략되어 번역을 잘 했다고 평가하기 어렵게 됩니다. 그럼에도 n-gram precision이 높은 값을 가질 수 있게 되어서, 이러한 부분에 대해 Penalty를 가해줍니다. 수식은 다음과 같습니다. 
 
 $
-
 \text{BP} = \begin{cases}
 1&\text{if  
 }   c\geq r \\
 e^{(1-r/c)} & \text{if  }   c<r
 \end{cases}
-
 $
 
 - ${r}$ : Reference(정답) 문장 길이
@@ -231,7 +214,7 @@ $
 최종적으로 BLEU Score는 위에서 구한 값에 100을 곱해준 형태로 위의 예시에서는 27.68이($\text{BP} = 1$) 나오게 됩니다.
 
 
-### **2-6. ROUGE Score**
+### **2-5. ROUGE Score**
 
 <br>
 
@@ -239,7 +222,7 @@ ROUGE (Recall-Oriented Understudy for Gisting Evaluation) score는 자동 요약
 
 <br>
 
-- **2-6-1. ROUGE-N**
+- **2-5-1. ROUGE-N**
 
 ROUGE-N은  Generated summary와 Reference summary간의 N-gram 오버랩을 측정합니다. 여기서 N은 연속적인 단어의 수를 의미합니다. ROUGE-N의 계산은 다음과 같이 이루어집니다.
 
@@ -251,12 +234,12 @@ $
 
 <br>
 
-- **2-6-2. ROUGE-L**
+- **2-5-2. ROUGE-L**
 
 ROUGE-L은 Generated summary와 Reference summary간의 가장 긴 공통 부분 수열(Longest Common Subsequence, LCS)을 기반으로 평가합니다. LCS는 단어의 순서를 유지하면서 두 요약 간에 공통적으로 나타나는 최장의 단어 수열을 찾는 것입니다. ROUGE-L의 계산은 다음과 같습니다.
 
 $
-\text{ROUGE-L} = \frac{\text{LCS}(S, \text{Generated Summary})}{\|S\|}
+\text{ROUGE-L} = \frac{\text{LCS}(S, \text{Generated Summary})}{\vert S \vert}
 $
 
 여기서 $\text{LCS}(S, \text{Generated Summary})$는 Reference summary $S$와 Generated summary 간의 LCS 길이를 나타내며, $\|S\|$는 Reference summary의 길이입니다. ROUGE-L 점수는 Generated summary가 Reference summary의 중요한 내용을 얼마나 잘 포함하고 있는지, 그리고 단어의 순서가 얼마나 잘 유지되고 있는지를 종합적으로 반영합니다.
@@ -359,22 +342,21 @@ $
     첫 번째로 논문에서는 normalized output인 $S_ {\theta}(q,p)$와 normalized attention score인 $G_ {q,p}$의 KL-divergence를 최소화하는 것을 제안했습니다. 
     
 
-$
-L_ {\text{KL}}(\theta, Q) = \sum_ {q \in Q,\text{ } p \in D_ {q}} \tilde{G}_ {q,p} (\log{\tilde{G}}_ {q,p} - \log \tilde{S}_{\theta}(q,p)) 
-$
+    $
+    L_ {\text{KL}}(\theta, Q) = \sum_ {q \in Q,\text{ } p \in D_ {q}} \tilde{G}_ {q,p} (\log{\tilde{G}}_ {q,p} - \log \tilde{S}_{\theta}(q,p)) 
+    $
 
-$
-where, \quad \tilde{G}_ {q,p} = \frac{\exp(G_ {q,p})}{\sum_ {p^{'} \in D_ {q}}\exp(G_ {q, p^{'}})}, \quad \tilde{S}_ {\theta}(q,p) = \frac{\exp(S_ {\theta}(q,p))}{\sum_{p^{'} \in D_ {q}}\exp(S_ {\theta}(q, p^{'}))}
-$
+    $
+    where, \quad \tilde{G}_ {q,p} = \frac{\exp(G_ {q,p})}{\sum_ {p^{'} \in D_ {q}}\exp(G_ {q, p^{'}})}, \quad \tilde{S}_ {\theta}(q,p) = \frac{\exp(S_ {\theta}(q,p))}{\sum_{p^{'} \in D_ {q}}\exp(S_ {\theta}(q, p^{'}))}
+    $
 
 - Option 2
     
     Option 2에서는 MSE를 최소화하는 Loss를 적용했습니다.
-    
 
-$
-L_ {\text{MSE}}(\theta, Q) = \sum_ {q \in Q, \text{ } p \in D_ {q}} (S_ {\theta}(q,p) - G_ {q,p})^{2}
-$
+    $
+    L_ {\text{MSE}}(\theta, Q) = \sum_ {q \in Q, \text{ } p \in D_ {q}} (S_ {\theta}(q,p) - G_ {q,p})^{2}
+    $
 
 - Option 3
     
@@ -384,7 +366,7 @@ $
     L_ {\text{ranking}}(\theta, Q) =\sum_ {q \in Q, \text{ } p_ {q}, p_ {2} \in D_ {q}} \max(0, \gamma - \text{sign}(G_ {q,p_ {1}} - G_ {q,p_ {2}})(S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2})))
     $
     
-    위의 수식을 직관적으로 접근해보자면, $p_ {1}$이 $p_ {2}$보다 클 때 ( $i.e. \quad G_ {q,p_ {1}}>G_ {q,p2}$),  $\max(0, \gamma - (S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2})))$ 가 되어, $S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2})$이 적어도 $\gamma$보다 크게 만들어줍니다.
+    위의 수식을 직관적으로 접근해보자면, $p_ {1}$이 $p_ {2}$보다 클 때 ( $i.e. \quad G_ {q,p_ {1}}>G_ {q,p2}$ ),  $\max(0, \gamma - (S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2})))$ 가 되어, $S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2})$이 적어도 $\gamma$보다 크게 만들어줍니다.
     
     $
     \text{consider} \quad \max(S_ {\theta}(q,p_ {1}) - S_ {\theta}(q,p_ {2}), \gamma)
@@ -401,15 +383,9 @@ negative sample을 next step에서 retriever를 학습하는 데에 쓰는 discr
 
 1. reader $R$을 각각의 질문에 대한 support document의 집합인 $D_{q}^0$를 활용하여 학습시켜줍니다.
 
-<br>
-
 2. 통합된 Attention socres $ (G_ {q,p})_ {q \in Q, \text{ } p \in D_ {q}^{0}}$ 를 reader $R$을 통해 계산해줍니다.
 
-<br>
-
 3. retriever $E$ 를 $ (G_ {q,p})_ {q \in Q, \text{ } p \in D_ {q}^{0}}$ 를 활용하여 학습시켜줍니다.
-
-<br>
 
 4. 새롭게 학습된 retriever $E$를 활용하여 top passages를 검색해옵니다.
 
@@ -421,43 +397,34 @@ negative sample을 next step에서 retriever를 학습하는 데에 쓰는 discr
 
 논문에서 제시한 방법론을 통해서 SOTA를 달성했다고 합니다. Table들을 통해서 확인해보겠습니다. 
 
-<br>
-
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/5.png" alt="Image 5" style="width:60%; margin:auto; display:block;" />
-</div>
+</div> -->
 
-<br>
+![image3](../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/5.png)
 
 먼저, 위의 table을 통해서 BERT보다 BM25가 retrieving task에서 성능이 더 좋다는 것을 확인할 수 있습니다. 이는 BERT를 활용하여 semantic관점에서 similarity를 고려하기 보다는, BM25를 활용하여 TF-IDF관점에서 similarity를 고려하는 것이 passage를 검색해오는 것에 더 좋은 성능은 보인다는 것을 의미합니다. 
 
-<br>
-
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/3.png" alt="Image 3" style="width:60%; margin:auto; display:block;" />
-</div>
+</div> -->
 
-<br>
+![image4](../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/3.png)
 
 또한, 논문에서 주장한 대로 성능이 잘 나온 것을 확인할 수 있습니다. 특히 제가 위 테이블에서 눈이 가는 부분은 더 많은 document를 top-k로 선정했을 때, 성능이 높아진다는 점입니다(R@k means extracting top-k documents). ROUGE나 BLEU score도 잘 나온 것을 확인할 수 있습니다. 
 
-<br>
-
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/6.png" alt="Image 6" style="width:60%; margin:auto; display:block;" />
-</div>
+</div> -->
 
-<br>
+![image5](https://i.ibb.co/fGmCGvs/5.png)
 
 여기에서 확인할 수 있듯이, passage retrieving에는 DPR을 활용하고 answer generation에 T5 large model을 쓰는 것이 가장 성능이 좋았다는 것을 알 수 있습니다. 결과적으로, BERT보다 BM25가 성능이 좋았고, BM25보다 DPR이 성능이 더 좋다는 것을 알 수 있습니다. 
 
 앞서서 제시한 Loss function들 중에서 무엇이 가장 잘 작동했는지는 아래 table에 있습니다.
 
-<div style="text-align:center;">
-  <img src="../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/4.png" alt="Image 4" style="width:60%; margin:auto; display:block;" />
-</div>
 
-<br>
+![image6](../../images/DS503_24S/Distilling_Knowledge_From_Reader_To_Retriever_For_Question_Answering/4.png)
 
 MSE는 성능이 안 좋았고, Max-margin loss에 있어서는 $\gamma$값이 유의미한 차이를 주지 못했다는 점, 그리고 KL-divergence가 가장 성능이 좋았다는 점을 확인할 수 있습니다. 또한 R@k에서 k가 높을 수록 성능이 더 높아지는 부분도 눈에 들어옵니다. k가 높을 수록 computation cost가 높아지는 문제가 있긴 하겠지만, 성능이 좋아진다는 점은 기억해 두고 싶은 부분입니다.
 
@@ -466,3 +433,12 @@ MSE는 성능이 안 좋았고, Max-margin loss에 있어서는 $\gamma$값이 �
 이상으로 논문리뷰를 마치겠습니다.  
 
 감사합니다.
+
+## **5. Conclusion**
+
+이 논문은 비지도 학습을 통한 RAG 시스템의 새로운 학습 방법을 제안하였습니다. 지식 증류와 어텐션 점수의 활용을 통해, query-document pair 없이도 높은 성능을 발휘할 수 있음을 실험적으로 증명하였습니다. 이러한 접근 방식은 데이터가 부족한 상황에서도 효율적으로 적용될 수 있으며, 향후 다양한 NLP 과제에 적용될 가능성이 큽니다.
+
+## **6. References**
+
+- Izacard, Gautier, et al. "Distilling Knowledge From Reader To Retriever For Question Answering." ICLR 2021.
+- Piktus, Aleksandra, et al. "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks." NeurlPS 2020.

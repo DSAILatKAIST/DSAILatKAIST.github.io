@@ -11,13 +11,17 @@ usemathjax: true
 
 # **Large Language Models Are Not Robust Multiple Choice Selectors** 
 
-## **1. Preliminary**  
+## **1. Motivation**
 
-The paper investigates a performance issue in large language models (LLMs) when answering multiple-choice questions (MCQs). While MCQs are a common way to test LLMs, the models are susceptible to the order of the answer choices. The authors call this bias towards specific answer positions "**selection bias**".
+The prevalence of multiple-choice question (MCQs) as an input format for large language models (LLMs) underscores their importance in various LLM-centric scenarios, for instance, within benchmarks for accessing LLMs (Hendrycks et al., 2020; Zhong et al., 2023; Huang et al., 2023; Chiang et al., 2023; Zheng et al., 2023b). However, recent observations reveal a vulnerability in modern LLMs to changes in option positions within MCQs, leading to significant performance fluctuations (Robinson & Wingate, 2022). This inconsistency stems from a biased behavior termed **selection bias**, where LLMs tend to favor specific option IDs. Despite attempts at mitigation through prompting strategies like Chain-of-Thought prompting (Wei et al., 2022; Kojima et al., 2022), selection bias persists across various LLMs and exhibits cross-domain similarities within the same model. Contrary to previous beliefs, the root cause of selection bias is attributed less to position bias and more to token bias, where the models tend to assign higher probabilities to specific ID tokens (e.g., A/B/C/D) when predicting answers.
 
-### 1.1 Measurement of Selection Bias
+## **2. Preliminary**  
 
-To measure selection bias in LLMs answering multiple-choice questions, a simple way is to count how often the model picks each answer choice. However, this can be misleading if some answer choices are much more common than others, i.e., label imbalance.
+The paper investigates a performance issue in LLMs when answering MCQs due to the bias towards specific answer positions "**selection bias**".
+
+### 2.1 Measurement of Selection Bias
+
+To measure selection bias in LLMs answering MCQs, a simple way is to count how often the model picks each answer choice. However, this can be misleading if some answer choices are much more common than others, i.e., label imbalance.
 
 Alternatively, the proposed way is to
 
@@ -33,7 +37,7 @@ and the recall of an option ID $d_ i$ is defined as $\textrm{Recall}(d_ i) = \fr
 This method is more reliable because it is not affected by how common each answer choice is overall. Also, this method reflects how well the model will perform when the order of the answer choice is changed, because it focuses on how likely the model is to pick each option regardless of its position.
 
 
-### 1.2 Observations
+### 2.2 Observations
 
 The paper studied how selection bias affects different LLM models. The major insights are as follows:
 
@@ -59,11 +63,11 @@ Further, removing option IDs is evidently not a promising solution to selection 
 
 Besides, the paper explores two ways to potentially reduce selection bias in LLMs with MCQs. One attempt is to involve explicit debiasing instruction. Adding a message telling the model to consider all options fairly shows no improvement. Another trial is to apply chain-of-thought (CoT) prompting. This technique involves prompting the LLM to explain its though process before giving the answer. Even with this prompt, the bias remains, thus the CoT prompting is inefficient. The two results suggest that selection bias is a deep-rooted issue within the LLM itself and cannot be easily fixed with basic changes to how the question is presented.
 
-## **2. Method**  
+## **3. Method**  
 
 To address the problem of selection bias, a new method called **PriDe** is proposed. It can remove this bias without needing any additional training data by estimating the bias based on a small number of samples and then corrects for it during the normal operation of the LLM.
 
-### 2.1 Permutation-based Debiasing Baseline and Formulation
+### 3.1 Permutation-based Debiasing Baseline and Formulation
 
 First, we need to define a baseline to compared with the newly proposed debiasing method. Here, the baseline averages the model's prediction distribution across various permutations of options, countervailing both the model's token bias and position bias.
 
@@ -75,7 +79,7 @@ $\begin{equation}
 
 where $x$ is the default input of option IDs and option contents, $P_ {\textrm{observed}} (d_ {g_ I (i)} \vert q, x^ I)$ is the observed prediction probability for the option ID $d_ {g_ I (i)}$ (meaning $o_ i$ being correct) under the option permutation $I$, and $\tilde{P}_ {\textrm{debiased}} (o_ i \vert q, x)$ denotes the debiased prediction probability for the option content $o_ i$. However, due to expensive computation, *cyclic permutation*, where $\mathcal{I} = \{ (i, i+1, ..., n, 1, ..., i-1) \}_ {i=1}^ n$, is alternatively considered to reduce the computational cost. In the case of the baseline, the overhead of Cyclic Permutation is still somewhat high, hence required more efficient debiasing methods.
 
-### 2.2 Prediction Probability Decomposition
+### 3.2 Prediction Probability Decomposition
 
 The core idea is to obtain a debiased prediction distribution by separating the model's prior bias for option IDs from the overall prediction distribution. In other words, the observed prediction distribution $P_ {\textrm{observed}}$ over $d_ i$ can be decomposed as a prior distribution $P_ {\textrm{prior}}$ over $d_ i$ and a debiased distribution $P_ {\textrm{debiased}}$ over $d_ i$:
 
@@ -91,7 +95,7 @@ $\begin{equation}
     P_ {\textrm{observed}} (d_ i \vert q, x^ I) = Z_ {q, x^ I}^ {-1} P_ {\textrm{prior}} (d_ i \vert q) P_ {\textrm{debiased}} (o_ {f_ I (i)} \vert q, x), \quad \forall I \in \mathcal{I}, i \in \{1, 2, ..., n\}.
 \end{equation}$
 
-### 2.3 Debiasing With Prior Estimation
+### 3.3 Debiasing With Prior Estimation
 
 Taking the logarithm of both sides of $(3)$ and summing over all $I \in \mathcal{I}$ gives
 
@@ -125,9 +129,9 @@ When $K \ll \vert \mathcal{D} \vert$, the overhead for prior estimation will bec
 
 *Figure 1: PriDe Algorithm*
 
-## **3. Experiment**  
+## **4. Experiment**  
 
-### **3.1 Experiment setup**  
+### 4.1 Experiment setup
 
 * Models:
     * Causal, decoder-only LLMs are used due to prevalent uses of this kind of architecture.
@@ -155,7 +159,7 @@ When $K \ll \vert \mathcal{D} \vert$, the overhead for prior estimation will bec
     * The primary evaluation focuses on the 0-shot setting to avoid bias from additional information.
     * 5-shot experiments are also conducted, where in-context examples are provided from development sets and shared across all test samples within the same task.
 
-### **3.2 Results**  
+### 4.2 Results
   
 By comparing a new debiasing method called PriDe with two existing methods (Cyclic Permutation and Full Permutation) for reducing selection bias in LLMs answering MCQs, some key findings are, according to Figure 2, that
 * PriDe achieves better debiasing and improves performance compared to the other two methods, especially when considering the computational cost. This holds true even when additional context (in-context examples) is provided to the LLM.
@@ -183,12 +187,19 @@ In addition, the consequence of model predictions by debiasing methods is also t
 * PriDe seems to mostly affect predictions where the model itself was not very confident at first. The new, debiased predictions tend to be among the top two choices the model considered before debiasing, especially for larger models. This suggests PriDe corrects the model's bias for certain answer IDs when it is unsure and pushes the model towards a more likely answer.
 * Cyclic Permutation changes even high-confidence predictions more frequently and can lead to more dramatic shifts in the answer choice. Also, it is inclined to pick the originally lowest-ranked option more often as the debiased answer. Additionally, it flattens the model's confidence distribution across all answer choices. This is due to the nature of the permutation-based debiasing which is a sort of mixture of experts, where each expert considers the options in a different order. This leads to more neutral, i.e., less certain, predictions yet requires more computation compared to PriDe.
 
-## **4. Conclusion**  
+## **5. Conclusion**  
 
 <!-- Please summarize the paper.  
 It is free to write all you want. e.g, your opinion, take home message(오늘의 교훈), key idea, and etc. -->
 
 The study investigates a common issue in LLMs where their answers to MCQs can be influenced by the way the answer choices are presented. This presence is called selection bias, encompassing two main reasons: token bias and position bias. A new method called PriDe is then proposed to fix this bias. The mechanism of this approach is to estimate the model's preference for certain answer IDs and corrects for it without needing any additional information about the questions themselves. This method is efficient, interpretable, and applicable for different domains, leading to the enhancement in the overall reliability of LLMs in answering MCQs.
+
+### 5.1 Future Directions
+Future approaches could be to explore novel debiasing techniques beyond prior estimation to address the complex distribution underlying selection bias in LLMs. Some possible directions are
+* Leveraging techniques from adversarial training or domain adaptation to train LLMs to be robust against biased predictions.
+* Incorporating reinforcement learning frameworks to enable LLMs to learn to adapt their decision-making processes dynamically.
+* Applying ensemble methods or model distillation.
+
 
 ---  
 ## **Author Information**  
@@ -199,22 +210,34 @@ The study investigates a common issue in LLMs where their answers to MCQs can be
 
 ## **6. Reference & Additional materials**  
 
+* [Main Paper](https://arxiv.org/abs/2309.03882): Zheng, Chujie, Hao Zhou, Fandong Meng, Jie Zhou, and Minlie Huang. "Large language models are not robust multiple choice selectors." In The Twelfth International Conference on Learning Representations. 2023.
+
 * [Github Implementation](https://github.com/chujiezheng/LLM-MCQ-Bias) 
 * References
 
-Zheng, Chujie, Hao Zhou, Fandong Meng, Jie Zhou, and Minlie Huang. "Large language models are not robust multiple choice selectors." In The Twelfth International Conference on Learning Representations. 2023.
+Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. Measuring massive multitask language understanding. In International Conference on Learning Representations, 2020.
+
+Wanjun Zhong, Ruixiang Cui, Yiduo Guo, Yaobo Liang, Shuai Lu, Yanlin Wang, Amin Saied, Weizhu Chen, and Nan Duan. Agieval: A human-centric benchmark for evaluating foundation models. arXiv preprint arXiv:2304.06364, 2023.
+
+Yuzhen Huang, Yuzhuo Bai, Zhihao Zhu, Junlei Zhang, Jinghan Zhang, Tangjun Su, Junteng Liu, Chuancheng Lv, Yikai Zhang, Jiayi Lei, et al. C-eval: A multi-level multi-discipline chinese evaluation suite for foundation models. arXiv preprint arXiv:2305.08322, 2023.
+
+Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https: //lmsys.org/blog/2023-03-30-vicuna/.
+
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric Xing, et al. Judging llm-as-a-judge with mt-bench and chatbot arena. arXiv preprint arXiv:2306.05685, 2023b.
+
+Joshua Robinson and David Wingate. Leveraging large language models for multiple choice ques- tion answering. In The Eleventh International Conference on Learning Representations, 2022.
+
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Fei Xia, Ed Chi, Quoc V Le, Denny Zhou, et al. Chain-of-thought prompting elicits reasoning in large language models. In Advances in Neural Information Processing Systems, volume 35, pp. 24824–24837, 2022.
+
+Takeshi Kojima, Shixiang Shane Gu, Machel Reid, Yutaka Matsuo, and Yusuke Iwasawa. Large language models are zero-shot reasoners. In Advances in neural information processing systems, volume 35, pp. 22199–22213, 2022.
 
 Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothe ́e Lacroix, Baptiste Rozie`re, Naman Goyal, Eric Hambro, Faisal Azhar, et al. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023a.
 
 Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Niko- lay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et al. Llama 2: Open founda- tion and fine-tuned chat models. arXiv preprint arXiv:2307.09288, 2023b.
 
-Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https: //lmsys.org/blog/2023-03-30-vicuna/.
-
 Ebtesam Almazrouei, Hamza Alobeidli, Abdulaziz Alshamsi, Alessandro Cappelli, Ruxandra Co- jocaru, Merouane Debbah, Etienne Goffinet, Daniel Heslow, Julien Launay, Quentin Malartic, Badreddine Noune, Baptiste Pannier, and Guilherme Penedo. Falcon-40B: an open large lan- guage model with state-of-the-art performance, 2023.
 
 OpenAI. https://chat.openai.com.chat, 2022.
-
-Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. Measuring massive multitask language understanding. In International Conference on Learning Representations, 2020.
 
 Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord. Think you have solved question answering? try arc, the ai2 reasoning challenge. arXiv preprint arXiv:1803.05457, 2018.
 

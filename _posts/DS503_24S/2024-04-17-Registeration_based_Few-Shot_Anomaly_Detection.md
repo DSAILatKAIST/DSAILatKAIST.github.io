@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# Registeration based Few-Shot Anomaly Detection (ECCV 2022 Oral)
-
 ## 1. Background
 ### Anomaly Detection
 이상 탐지(Anomaly Detection)는 결함 검출(Defect Detection), 의학 진단(Medical Diagnosis), 자율 주행(Autonomous Driving) 등에서 폭넓게 적용되는 기술로 정상(Normal)과 이상(Anomaly)을 구분하는 것을 목표로 한다.   

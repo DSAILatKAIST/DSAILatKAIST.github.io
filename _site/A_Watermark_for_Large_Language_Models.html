@@ -386,12 +386,10 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="a-watermark-for-large-language-models">A Watermark for Large Language Models</h1>
-
-<h2 id="introductionmotivation">Introduction/motivation</h2>
+        <h2 id="introductionmotivation">Introduction/motivation</h2>
 <p>Since the introduction of the transformer architecture there has been a revolution in the capabilities of AI models, more specifically Large Language Models (LLM), when it comes to process and generate text. These new abilities have in many terms changed the way we handle text data, by making it exceedingly easier to reform and generate any sort of text in any style one wants. As there are many positive aspects of this there are also associated risks with potential misuse in terms of manipulation campaigns on social media, where LLMs could be used to generate false information. There are also problems with academic cheating where a LLM could be used to generate code or text on a human level capability. Hence, there exists a need to be able to differentiate humanely produced code or text to that of an AI.</p>
 
-<p>Kirchenbauer et.al (2023) propose a soft-watermark for LLMs which makes detection of AI generated text easily available with a very small error.</p>
+<p>Kirchenbauer et.al (2023) propose a soft-watermark for LLMs which allows for detection of AI generated text with smaller amount of tokens then previously presented methods. The core principle of the watermark involves making the model choose certain words over others. Moreover, detecting the watermark with high statistical probability involves knowing which words are preferred by the model. Furthermore, the detection algorithm can be published open sourced without access to the parameters of the underlying model which is a novelty.</p>
 
 <h2 id="method">Method</h2>
 <p>The basic idea of this soft-watermark algorithm proposed in the paper is to divide the tokens in the model’s vocabulary $V$ into a red list and a green list of tokens, before the next token of the sequence is generated. The split itself, i.e. which tokens that fall into the red respective green list, is dependent on the previous token in the sequence, which is used as a hashed seed to a pseudo-random algorithm defined as the ‘red list rule’ in the paper. The model should then, to some probability threshold, choose tokens from the green list over the tokens in the red list. Before diving into the process in greater detail I find it important to explain some terminology used:</p>
@@ -468,9 +466,9 @@ $.</p>
 <!-- [![tradeoff-quality-watermark.png](https://i.postimg.cc/x8q1vFcG/tradeoff-quality-watermark.png)](https://postimg.cc/sGdzymP1) --></p>
 
 <h2 id="discussion">Discussion</h2>
-<p>The result shows that the type-I error is 0 for all combinations of parameter values, i.e none of the human written samples were incorrectly identified as AI-generated. However, there is a small type-II error for the majority of the used parameter values, where the watermark fails to be detected and some AI-generated text therefore is identified as human written. Primarily, this is due to a low hardness, which makes it hard to distinguish a human written text to that of an AI when the entropy is low and therefore contains less green tokens. To increase the hardness is not an obvious solution here, as there is a tradeoff, shown in Figure 2, between watermarking strength and perplexity, i.e. text quality. Therefore one has to make a tradeoff between the two using the parameters  $\delta$ and $\gamma$.</p>
+<p>The result shows that the type-I error is 0 for all combinations of parameter values, i.e none of the human written samples were incorrectly identified as AI-generated. However, there is a small type-II error for the majority of the used parameter values, where the watermark fails to be detected and some AI-generated text therefore is identified as human written. Primarily, this is due to a low hardness, which makes it hard to distinguish a human written text to that of an AI when the entropy is low and therefore contains less green tokens. To increase the hardness is not an obvious solution here, as there is a tradeoff, shown in Figure 2, between watermarking strength and perplexity, i.e. text quality. Therefore it is a tradeoff between the two using the parameters $\delta$ and $\gamma$. However, the proposed watermarking algorithm allows for high watermarking strength with low impact on texquality, representing a big leap in watermarking design.</p>
 
-<p>I find it worth mentioning that the paper delves into several other topics regarding the watermarking, such as private watermarking and attacking the watermarking. However, since I find these topics as not directly related to the result, but more towards the application and implementation of the algorithm, I decided to leave them out of the summarization.</p>
+<p>I find it to be worth mentioning that the paper delves into several other topics regarding the watermarking, such as private watermarking and attacking the watermarking. However, since I find these topics less correlated to the result and more related towards the application of the algorithm, I will just cover them quickly here. A potential limitation of the watermarking in practice is attacks towards it or a potential leakage of the seed used by the pseudo random algorithm that generates the red list. Knowledge of the seed could potentially help attackers reverse engineer the watermarking algorithm and hence remove the watermark from the text. To cope with this the paper addresses potential solutions as private watermarking, which involves making the detection algorithm private, making it harder for attackers to access or reconstruct the red list. Moreover, techniques such as more advanced seeding for the pseudo random algorithm can be utilized.</p>
 
 <h2 id="references">References</h2>
 
@@ -497,7 +495,7 @@ $.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 25, 2024 <br />
+ Site last generated: May 27, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

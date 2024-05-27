@@ -16,14 +16,12 @@ Dataset Condensaton 이전에는 coreset methods들이 활용되었다.
 Coreset Methods란, 거대한 데이터셋에서 데이터셋의 특성과 분포 등을 가지고 있는 작은 subset을 만드는 data selection 기법이다. 다음은 대표적인 coreset methods들이다. 
 1. Random: 거대한 데이터셋에서 임의로 데이터를 추출하는 기법이다.
 2. Herding: cluster center, 즉 데이터셋의 평균이라고 추정되는 데이터를 선택하는 기법이다.
-3. K-Center: 데이터셋에 여러 개의 군집이 있을 때, 각 군집의 중심에 해당하는 데이터를 추출하는 기법이다. 각 군집의 중심과 군집에서 가장 멀리 떨어져있는 데이터 사이의 거리를 최소화시키는 방식으로 군집을 파악하고, 각 군집의 center point에서 데이터를 선택하게 된다.
+3. K-Center: 데이터셋에 여러 개의 군집이 있을 때, 각 군집의 중심에 해당하는 데이터를 추출하는 기법이다. 각 군집의 중심과 군집에서 가장 멀리 떨어져있는 데이터 사이의 거리를 최소화시키는 방식으로 군집을 파악하고, 각 군집의 center point에서 데이터를 선택하게 된다.F
 4. forgetting: 데이터셋을 train 시킬 때, 정보가 잘 담겨있지 않아 잘 forget되는 데이터는 선택되지 않고, 정보가 많이 담겨있어 train에 용이하도록 하는 데이터를 선택하는 기법이다.
 
 그러나 이러한 기법들은 heuristics에 의존하기 때문에, 빠르고 효율적으로 data selection이 이루어질 순 있지만 이것이 image classification 과 같은 downstream task의 최선의 solution이 아닐 수 있다. 또 데이터셋을 대표하는 subset을 만들기 때문에, 모델의 학습 성능 측면에서 최선의 solution이 아닐 수 있다는 한계점이 있다.
 
 또 dataset synthetic method로 Dataset Distillation이 있다. Dataset distillation은 전체 training dataset에 있는 정보를 요약하여 작은 수의 synthetic training images를 만드는 기법이다. synthetic dataset은 training loss를 원본 training dataset을 기준으로 최소화시키며 학습된다. 이러한 합성 데이터는 downstream task에 최적화되어 있으며, 이미지의 모양은 크게 중요하지 않다.
-
-![figure1: Comparison between Dataset Distillation and Datset Condensation](../../images/DS503_24S/Dataset_Condensation_with_Gradient_Matching/images/figure1.png)
 
 Dataset Distillation과 마찬가지로 Dataset Condensation은 small sythetic images로 훈련된 모델로 최고의 일반화 성능을 얻는 것이 목표이다.
 Dataset Condensation의 목표를 세 가지로 정리하자면 다음과 같다.  
@@ -34,77 +32,63 @@ Dataset Condensation의 목표를 세 가지로 정리하자면 다음과 같다
 
 ## **2. Method**  
 
-### **2.1 Dataset Conensation**
+### **2.1 Basic Settings**
 
 #### Large original dataset:  
 + 총 $\lvert \tau \rvert$개의 이미지들로 구성되어 있다.  
-+ 각 이미지들은 $\tau = { (x_ {i}, y_ {i}) }\|_ {i=1}^{\|\tau\|}$ $\text{ where } x \in X \subset \mathbb{R^{d}} \text{ and } y \in \{0, \ldots, C-1\}$ 로 표현되며, 여기서 C는 class의 개수를 말한다.  
++ 각 이미지들은 $\tau = { (x_ {i}, y_ {i}) }\vert_ {i=1}^{\vert\tau\vert}$ $\text{ where } x \in X \subset \mathbb{R^{d}} \text{ and } y \in \{0, \ldots, C-1\}$ 로 표현되며, 여기서 C는 class의 개수를 말한다.  
 + 우리는 이러한 $\tau$를 미분 가능한 함수(*i.e.* deep neural network)인 $\phi$를 learn하고 싶으며, 이 함수의 parameter는 $\theta$라고 표현할 수 있다.  
 + $x$ 이미지에 대한 라벨 예측은, $y=\phi _ \theta (x)$ 로 표현할 수 있다.  
-+ parameter인 $\theta$를 최적화하고 싶다면, $\theta ^ \tau = \argmin_\theta \mathcal{L}^\tau(\theta)$의 식을 통해 empirical loss term을 학습데이터에 대해 최소화시키는 $\theta$를 찾아야 한다.  
-    + 여기서 $\mathcal{L}^\tau(\theta)$ 는 $\mathcal{L}^\tau(\theta) = \frac{1}{\|\tau\|} \sum_ {(x,y) \in \tau} \ell(\phi_ {\theta}(x), y)$ 를 의미하며, 이 때 $\ell(\cdot,\cdot)$는 task specific loss (i.e. cross-entropy)를 의미한다.
++ parameter인 $\theta$를 최적화하고 싶다면, $\theta ^ \tau = \text{argmin}_ \theta \mathcal{L}^\tau(\theta)$의 식을 통해 empirical loss term을 학습데이터에 대해 최소화시키는 $\theta$를 찾아야 한다.  
+    + 여기서 $\mathcal{L}^\tau(\theta)$ 는 $\mathcal{L}^\tau(\theta) = \frac{1}{\vert\tau\vert} \sum_ {(x,y) \in \tau} \ell(\phi_ {\theta}(x), y)$ 를 의미하며, 이 때 $\ell(\cdot,\cdot)$는 task specific loss (i.e. cross-entropy)를 의미한다.
     + $\theta ^ \tau$ 는 $\mathcal{L}^\tau$ 의 minimizer이다.
-+ 모델 $\phi _ {\theta^{\tau}}$ 로부터 얻을 수 있는 generalizaton performance는 $P_D$의 데이터 분포를 따를 때, $\mathbb{E}_{x \sim P_D} [\ell(\phi_{\theta^\tau}(x), y)]$라고 할 수 있다.
++ 모델 $\phi _ {\theta^{\tau}}$ 로부터 얻을 수 있는 generalizaton performance는 $P_ D$의 데이터 분포를 따를 때, $\mathbb{E}_ {x \sim P_ D} [\ell(\phi_ {\theta^\tau}(x), y)]$라고 할 수 있다.
 
 #### Small synthetic dataset:
 + 총 $\lvert S \rvert$개의 이미지들로 구성되어 있다.
-+ 각 이미지들은 $S = \{ (s_ {i}, y_ {i}) \}\|_ {i=1}^{\|S\|}$ $\text{ where } s \in \mathbb{R^{d}} \text{ and } y \in Y$ 로 표현되며, 여기서 Y는 large original dataset의 class 개수와 같은 C개의 class를 가진다.
++ 각 이미지들은 $S = \{ (s_ {i}, y_ {i}) \}\vert_ {i=1}^{\vert S \vert}$ $\text{ where } s \in \mathbb{R^{d}} \text{ and } y \in Y$ 로 표현되며, 여기서 Y는 large original dataset의 class 개수와 같은 C개의 class를 가진다.
 + 데이터셋의 크기는 synthetic dataset이 original dataset보다 훨씬 작아야 하므로, $\lvert S \rvert << \lvert \tau \rvert$로 표현할 수 있다.
-+ Large original dataset과 유사하게, 모델 $\phi$를 학습시키기 위해 $\theta ^ S = \argmin_ {\theta} \mathcal{L}^S(\theta)$를 만족하는 최적의 parameter $\theta$를 찾을 수 있다.
-    + 여기서 $\mathcal{L}^{S}(\theta)$ 는 $\mathcal{L}^{S}(\theta) = \frac{1}{\|S\|} \sum_ {(s,y) \in S} \ell(\phi_ {\theta}(s), y)$ 를 의미한다.
++ Large original dataset과 유사하게, 모델 $\phi$를 학습시키기 위해 $\theta ^ S = \text{argmin}_ {\theta} \mathcal{L}^S(\theta)$를 만족하는 최적의 parameter $\theta$를 찾을 수 있다.
+    + 여기서 $\mathcal{L}^{S}(\theta)$ 는 $\mathcal{L}^{S}(\theta) = \frac{1}{\vert S \vert} \sum_ {(s,y) \in S} \ell(\phi_ {\theta}(s), y)$ 를 의미한다.
     + 이 때 $\theta ^ S$는 $\mathcal{L}^{S}$의 minimizer이다.
 + $\lvert S \rvert$ 가 $\lvert \tau \rvert$보다 훨씬 작으므로, 최적의 $\theta$를 찾는 과정이 훨씬 빠를 것이다.
-+ 모델 $\phi _ {\theta^S}$ 로부터 얻을 수 있는 generalizaton performance는 $P_D$의 데이터 분포를 따를 때, 우리는 이것이 $\phi _ {\theta^\tau}$와 유사하도록 condensed set을 만들고싶다. 이를 식으로 표현하면 다음과 같다.
-$\mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{\tau}}(x), y)] \stackrel{\sim}{=} \mathbb{E}_ {x \sim P_D} [\ell(\phi_{\theta^{S}}(x), y)]$
++ 모델 $\phi _ {\theta^S}$ 로부터 얻을 수 있는 generalizaton performance는 $P_ D$의 데이터 분포를 따를 때, 우리는 이것이 $\phi _ {\theta^\tau}$와 유사하도록 condensed set을 만들고싶다. 이를 식으로 표현하면 다음과 같다.
+$\mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{\tau}}(x), y)] \stackrel{\sim}{=} \mathbb{E}_ {x \sim P_ D} [\ell(\phi_ {\theta^{S}}(x), y)]$
 
-
-### **2.2 Dataset Conensation with Parameter Matching**
 + $\mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{\tau}}(x), y)] \stackrel{\sim}{=} \mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{S}}(x), y)]$ 의 식을 다르게 formulate해보면 다음과 같다.  
-$\min_ {S} D(\theta^{S}, \theta^{\tau}) \text{ subject to } \theta^{S}(S) = \argmin_{\theta} \mathcal{L}^{S}(\theta)$ 
-+ 이 때 $\theta^{\tau} = \argmin_\theta \mathcal{L}^{\tau}(\theta)$ 이며, $D(\cdot,\cdot)$ 는 distance function을 의미한다.
-+ 현실에서 $\theta^{\tau}$는 initial value인 $\theta_{0}$에 의해 결정되게 된다.
-    + 다만, 이 식에서는 initialization $\theta_ {0}$에만 해당하는 하나의 모델 $\phi_ {\theta^{\tau}}$에 대해서만 최적의 synthetic images만 얻을 수 있게 된다.
-+ 따라서 저자는 이를 방지하기 위해 random initialization의 분포 $P_ {\theta_{0}}$를 정의하였다.
-+ 이를 활용하여 위의 distance function을 활용한 minimization 식을 다음과 같이 바꿀 수 있다.
-    $\min_S E_ {\theta_ {0} \sim P_ {\theta_ {0}}} [D(\theta^{S}(\theta_ {0}), \theta^{\tau}(\theta_ {0}))] \text{ subject to } \theta^{S}(S) = \argmin_ {\theta} \mathcal{L}^{S}(\theta(\theta_ {0}))$
-    + 여기서 $\theta^{\tau} = \argmin_ {\theta} \mathcal{L}^{\tau}(\theta(\theta_ {0}))$이다.
-    + 앞으로 간결화를 위해 $\theta^{\tau}(\theta_ {0})$는 $\theta^{\tau}$로, $\theta^ {S}(\theta_ {0})$는 $\theta^{S}$로 표현할 예정이다.
-+ inner loop operation인 $\theta^{S}(S) = \argmin_ {\theta} \mathcal{L}^{S}(\theta)$는 large-scale 모델에서 컴퓨팅적 비용이 매우 높기 때문에, 이를 back-optimization approach를 활용하였다.
-    + 따라서 $\theta^{S}$를 다음과 같이 재정의하였다.
-    $\theta^{S}(S) = \text{opt-alg}_ {\theta}(\mathcal{L^{S}(\theta), \varsigma})$
-    + 여기서 $\text{opt-alg}$란 정해진 시행 횟수 $\varsigma$에서의 특정 최적화 과정을 말한다.
-+ 그러나 이러한 과정을 통한 synthetic dataset 합성은 두 가지 문제점이 있다.  
-    1. $\theta^{\tau}$와 $\theta^S$사이의 거리가 parameter space에서 너무 클 수 있다.
-    2. $\text{opt-alg}$를 사용하는 것은 속도와 정확도 사이의 trade-off를 유발하게 된다.
+$\min_ {S} D(\theta^{S}, \theta^{\tau}) \text{ subject to } \theta^{S}(S) = \text{argmin}_ {\theta} \mathcal{L}^{S}(\theta)$ 
++ 이 때 $\theta^{\tau} = \text{argmin}_ \theta \mathcal{L}^{\tau}(\theta)$ 이며, $D(\cdot,\cdot)$ 는 distance function을 의미한다.
 
+### **2.2 Dataset Condensation with Curriculum Gradient Matching**
 
-### **2.3 Dataset Condensation with Curriculum Gradient Matching**
-
-+ 위에서 나온 문제점을 해결하기 위해, 해당 논문은 Dataset Condensation with Curriculum Gradient Matching 기법을 제시하였다.
++ Dataset Conensation with Parameter Matching의 문제점을 해결하기 위해, 해당 논문은 Dataset Condensation with Curriculum Gradient Matching 기법을 제시하였다.
+    + 간결한 논문 리뷰를 위해 Dataset Conensation with Parameter Matching의 문제점은 5의 Related Works에 더 자세히 설명하였다.
 + 본 아이디어의 목적은 $\theta^{\tau}$와 $\theta^{S}$가 유사해야 할 뿐 만 아니라, 최적화 과정에서 $\theta^{\tau}$와 $\theta^{S}$이 유사한 path를 따라야 한다는 것이다.
 + 이러한 목적을 반영하여 다음과 같은 수식을 도출하였다.
-    + $T$는 iteration 숫자를, $\varsigma^{\tau}$와 $\varsigma^{S}$는 $\theta^\tau$와 $\theta^S$의 최적화 steps 숫자를 의미한다.$$\min_S \mathbb{E}_{\theta_0\sim P_{\theta_0}}[\sum^{T-1}_{t=0} D(\theta^S_t. \theta^\tau_t)]$$ $$\text{subject to } \theta^S_{t+1}(S) = \text{opt-alg}_\theta(\mathcal{L}^S(\theta^S_t), \varsigma^S) \text{ and } \theta^\tau_{t+1} = \text{opt-alg}_\theta(\mathcal{L}^\tau(\theta^\tau_t), \varsigma^\tau)$$
+    + $T$는 iteration 숫자를, $\varsigma^{\tau}$와 $\varsigma^{S}$는 $\theta^\tau$와 $\theta^S$의 최적화 steps 숫자를 의미한다.   
+    $\min_ S \mathbb{E}_ {\theta_ 0\sim P_ {\theta_ 0}}[\sum^{T-1}_ {t=0} D(\theta^S_ t. \theta^\tau_ t)]$   
+    $\text{subject to } \theta^S_ {t+1}(S) = \text{opt-alg}_ \theta(\mathcal{L}^S(\theta^S_ t), \varsigma^S) \text{ and } \theta^\tau_ {t+1} = \text{opt-alg}_ \theta(\mathcal{L}^\tau(\theta^\tau_ t), \varsigma^\tau)$
     + 이 식은 각 iteration에서의 $\theta^S$와 $\theta^\tau$의 거리가 최소화되도록 한다.
     + 이를 모든 iteration에 대해서 적용하고, 0 iteration부터 $T-1$ iteration까지 모두 합하게 되어 각 iteration마다의 세타 값들을 유사하게 맞출 수 있게 된다.
-    + 여기서 $S$를 적절히 업데이트하고 $D(\theta^S_t. \theta^\tau_t)$를 0으로 근사시키게 된다면 $\theta^S_{t+1}$은 $\theta^\tau_{t+1}$를 성공적으로 tracking할 수 있게 된다. 
+    + 여기서 $S$를 적절히 업데이트하고 $D(\theta^S_ t. \theta^\tau_ t)$를 0으로 근사시키게 된다면 $\theta^S_ {t+1}$은 $\theta^\tau_ {t+1}$를 성공적으로 tracking할 수 있게 된다. 
 + 또, 다음 iteration으로의 $\theta$ update rule은 다음과 같다.
-    + $\eta_\theta$는 learning rate를 의미한다.
-    $$\theta^S_{t+1} \leftarrow \theta^S_t - \eta_\theta \nabla_\theta \mathcal{L}^S(\theta^S_t) \quad \text{and} \quad \theta^\tau_{t+1} \leftarrow \theta^\tau_t - \eta_\theta \nabla_\theta \mathcal{L}^\tau(\theta^T_t)$$
-+ 여기서 $D(\theta^S_t. \theta^\tau_t)\approx 0$이기 때문에, 위의 minimization 식을 다음과 같이 쓸 수 있다.
-    + $\theta^S_t$를 $\theta^\tau_t$로, $\theta^S$를 $\theta$로 대체할 수 있다.
-    $$\min_{S} \mathbb{E}_{\theta_0 \sim P_{\theta_0}} \left[ \sum_{t=0}^{T-1} D\left(\nabla_{\theta} \mathcal{L}^S(\theta_t), \nabla_{\theta} \mathcal{L}^\tau(\theta_t)\right) \right]$$
+    + $\eta_ \theta$는 learning rate를 의미한다.   
+    $\theta^S_ {t+1} \leftarrow \theta^S_ t - \eta_ \theta \nabla_ \theta \mathcal{L}^S(\theta^S_ t) \quad \text{and} \quad \theta^\tau_ {t+1} \leftarrow \theta^\tau_ t - \eta_ \theta \nabla_ \theta \mathcal{L}^\tau(\theta^T_ t)$
++ 여기서 $D(\theta^S_ t. \theta^\tau_ t)\approx 0$이기 때문에, 위의 minimization 식을 다음과 같이 쓸 수 있다.
+    + $\theta^S_ t$를 $\theta^\tau_ t$로, $\theta^S$를 $\theta$로 대체할 수 있다.   
+    $\min_ {S} \mathbb{E}_ {\theta_ 0 \sim P_ {\theta_ 0}} \left[ \sum_ {t=0}^{T-1} D\left(\nabla_ {\theta} \mathcal{L}^S(\theta_ t), \nabla_ {\theta} \mathcal{L}^\tau(\theta_ t)\right) \right]$
 
 #### *Algorithm*
 ![Algorithm: Dataset Condensation with gradient matching](../../images/DS503_24S/Dataset_Condensation_with_Gradient_Matching/images/algorithm.png)
 + Input으로 large original dataset인 $\tau$를 넣게 된다.
 + Outer-loop steps $K$를 정하고, $K$번의 outer-loop를 돌리게 된다. 즉 $K$번의 실험을 통해 총 $K$개의 synthetic set을 만들게 된다.
-+ 또 $\theta_0$가 분포 $P_{\theta_0}$를 따르도록 initialize한다.
++ 또 $\theta_ 0$가 분포 $P_ {\theta_ 0}$를 따르도록 initialize한다.
 + Inner-look steps $T$를 정하고, $T$번의 inner-loop를 돌리게 된다. 즉 하나의 synthetic set을 $T$번 update시킨다.
 + Synthetic samples $S$는 $C$개의 class를 가지고 있다.
-    + 각 $\tau$와 $S$에 대하여 minibatch pair $B_c^\tau$와 $B_c^S$를 생성한다.
-    + 위에서 언급하였던 수식대로 loss함수인 $\mathcal{L}_c^\tau$와 $\mathcal{L}_c^S$를 계산한다.
-    + 또 위에서 언급하였던 수식대로 $S_c$를 update한다.
-+ $\theta_{t+1}$을 $\text{opt-alg}$ 알고리즘에 맞춰 update해준다.
+    + 각 $\tau$와 $S$에 대하여 minibatch pair $B_ c^\tau$와 $B_ c^S$를 생성한다.
+    + 위에서 언급하였던 수식대로 loss함수인 $\mathcal{L}_ c^\tau$와 $\mathcal{L}_ c^S$를 계산한다.
+    + 또 위에서 언급하였던 수식대로 $S_ c$를 update한다.
++ $\theta_ {t+1}$을 $\text{opt-alg}$ 알고리즘에 맞춰 update해준다.
 + 이렇게 된다면 output으로 synthethized 된 subset $S$가 도출되게 된다.
 
 
@@ -205,3 +189,25 @@ $\min_ {S} D(\theta^{S}, \theta^{\tau}) \text{ subject to } \theta^{S}(S) = \arg
 ICLR, 1(2):3, 2021.
 * Tongzhou Wang, Jun-Yan Zhu, Antonio Torralba, and Alexei A Efros. Dataset distillation. arXiv
 preprint arXiv:1811.10959, 2018.
+
+
+### *Related Works*
+
+#### Methodoldgy for Dataset Conensation with Parameter Matching
++ 2.1에서 언급하였던 $\mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{\tau}}(x), y)] \stackrel{\sim}{=} \mathbb{E}_ {x \sim P_ {D}} [\ell(\phi_ {\theta^{S}}(x), y)]$ 의 식을 다르게 formulate해보면 다음과 같다.  
+$\min_ {S} D(\theta^{S}, \theta^{\tau}) \text{ subject to } \theta^{S}(S) = \text{argmin}_ {\theta} \mathcal{L}^{S}(\theta)$ 
++ 이 때 $\theta^{\tau} = \text{argmin}_ \theta \mathcal{L}^{\tau}(\theta)$ 이며, $D(\cdot,\cdot)$ 는 distance function을 의미한다.
++ 현실에서 $\theta^{\tau}$는 initial value인 $\theta_ {0}$에 의해 결정되게 된다.
+    + 다만, 이 식에서는 initialization $\theta_ {0}$에만 해당하는 하나의 모델 $\phi_ {\theta^{\tau}}$에 대해서만 최적의 synthetic images만 얻을 수 있게 된다.
++ 따라서 저자는 이를 방지하기 위해 random initialization의 분포 $P_ {\theta_ {0}}$를 정의하였다.
++ 이를 활용하여 위의 distance function을 활용한 minimization 식을 다음과 같이 바꿀 수 있다.
+    $\min_ S E_ {\theta_ {0} \sim P_ {\theta_ {0}}} [D(\theta^{S}(\theta_ {0}), \theta^{\tau}(\theta_ {0}))] \text{ subject to } \theta^{S}(S) = \text{argmin}_ {\theta} \mathcal{L}^{S}(\theta(\theta_ {0}))$
+    + 여기서 $\theta^{\tau} = \text{argmin}_ {\theta} \mathcal{L}^{\tau}(\theta(\theta_ {0}))$이다.
+    + 앞으로 간결화를 위해 $\theta^{\tau}(\theta_ {0})$는 $\theta^{\tau}$로, $\theta^ {S}(\theta_ {0})$는 $\theta^{S}$로 표현할 예정이다.
++ inner loop operation인 $\theta^{S}(S) = \text{argmin}_ {\theta} \mathcal{L}^{S}(\theta)$는 large-scale 모델에서 컴퓨팅적 비용이 매우 높기 때문에, 이를 back-optimization approach를 활용하였다.
+    + 따라서 $\theta^{S}$를 다음과 같이 재정의하였다.
+    $\theta^{S}(S) = \text{opt-alg}_ {\theta}(\mathcal{L^{S}(\theta), \varsigma})$
+    + 여기서 $\text{opt-alg}$란 정해진 시행 횟수 $\varsigma$에서의 특정 최적화 과정을 말한다.
++ 그러나 이러한 과정을 통한 synthetic dataset 합성은 두 가지 문제점이 있다.  
+    1. $\theta^{\tau}$와 $\theta^S$사이의 거리가 parameter space에서 너무 클 수 있다.
+    2. $\text{opt-alg}$를 사용하는 것은 속도와 정확도 사이의 trade-off를 유발하게 된다.

@@ -9,9 +9,13 @@ usemathjax: true
 
 
 # 1. Motivation
-다변량 시계열 (Multivariate Time Series, i.e. MTS)은 여러 차원을 갖는 시계열이다. 여기서 각 차원은 특정 단일변량 시계열을 나타낸다. 시간 간 종속성 (cross-time dependency)과 차원 간 종속성 (cross-dimension dependency) 모두 MTS 예측에서 중요한 역할을 한다. 트랜스포머 (Transformer) 기반 모델은 모든 차원의 데이터 포인트를 동시에 특징 벡터로 포함하여 시간 간 종속성을 캡처하는 데 성공적인 성능을 보였다. 그렇다면 차원 간 종속성은 어떨까? 이 논문에서는 CrossFormer라는 새로운 모델을 제안한다. 저자들은 Crossformer를 사용하면 차원 간 종속성도 포착함으로써 예측 능력을 높일 수 있다고 기대한다.
+다변량 시계열 (Multivariate Time Series, i.e. MTS)은 여러 차원을 갖는 시계열이다. 여기서 각 차원은 특정 단일변량 시계열을 나타낸다. 시간 간 종속성 (cross-time dependency)과 차원 간 종속성 (cross-dimension dependency) 모두 MTS 예측에서 중요한 역할을 한다. 
 
-CrossFormer에는 세가지 단계가 포함되어 있다: Dimension-Segment-Wise (DSW) embedding, Two-Stage-Attention (TSA) layer, 그리고 Hierarchical Encoder-Decoder (HED). 각 단계는 해당 주제에 대한 관련 작업에서 제기된 한계점을 보완하였다. 
+기존의 신경망 모델들은 명시적으로 차원 간 종속성을 포착한다. 즉, 잠재 특징 공간 (latent feature space)에서 차원의 정보를 보존하고 그 정보를 포착하기 위해 CNN 또는 GNN을 사용한다. 그러나 최근의 Transformer 기반 모델은 임베딩을 통해 이 종속성을 암묵적으로만 활용한다. 일반적으로 Transformer 기반 모델은 모든 차원의 데이터 포인트를 동시에 특성 벡터로 임베딩하고 서로 다른 시간 단계 사이의 종속성을 포착하려고 한다. 이러한 방식으로, 시간 간 종속성은 잘 포착되지만 차원 간 종속성은 그렇지 않을 수 있으며, 이는 예측 능력을 제한할 수 있다.
+
+이러한 한계를 극복하기 위해 이 논문에서는 CrossFormer라는 새로운 모델을 제안한다. 저자들은 Crossformer를 사용하면 차원 간 종속성도 포착함으로써 예측 능력을 높일 수 있다고 기대한다.
+
+CrossFormer에는 세가지 단계가 포함되어 있다: Dimension-Segment-Wise (DSW) embedding, Two-Stage-Attention (TSA) layer, 그리고 Hierarchical Encoder-Decoder (HED). 각 단계는 해당 주제에 대한 선행연구의 한게점을 보완하였다. 
 
 # 2. Related Work
 이 논문에서 다루는 주요 개념들에 대한 선행 연구를 간단히 소개하고자 한다.
@@ -36,7 +40,7 @@ CrossFormer에는 세가지 단계가 포함되어 있다: Dimension-Segment-Wis
 | :---        |    :----:   |          ---: |
 | LogTrans      | LogSparse attention       | 트랜스포머의 시간복잡도를 O(L^2) 에서 O(L(log L)^2)로 감소시킴   |
 | Informer   | ProbSparse self-attention        | KL 발산 추정을 통해 어텐션 점수의 희소성을 활용하여 O(L log L)을 달성함     |
-| Autoformer | decomposition architecture with an Augo-Correlation mechanism | 시간복잡도: O( L log L)
+| Autoformer | decomposition architecture with an Auto-Correlation mechanism | 시간복잡도: O( L log L)
 | Pyraformer | pyramidal attention module | 다양한 해상도에서 특징을 요약하여 O(L)을 달성
 | FEDformer | frequency enhanced Transformer | 시계열이 주파수 도메인에서 희소한 표현을 가지고 있다고 주장함; O(L) 달성
 | Preformer | segment-wise correlation-based attention | 임베딩된 특성 벡터 (feature vector) 시퀀스를 세그먼로 나눔
@@ -56,7 +60,7 @@ $x_ {(1:T)} \in \mathbb{R}^{T \times D} \text{  (history)}$
 
 $x_ {(T+1):(T+\tau)} \in \mathbb{R}^{\tau \times D} \text{  (future)}$ 
 
-## 3-1. 차원-세그먼트 단위 임베딩 (Dimension-Segment-Wise Embedding)
+## 3-1. Dimension-Segment-Wise Embedding
  
 기존 방법은 동일한 시간 단계의 데이터 포인트를 벡터로 임베딩한다. 구체적으로, 다음과 같은 단계를 거친다:
 
@@ -91,9 +95,9 @@ DSW 임베딩의 최종 출력은 각 $h_ {i,d}$가 단변량 (univariate) 시�
 
 $H = h_ {i,d}\vert 1 \le i \le \frac{T}{L_ {seg}}, 1 \le d \le D$  
 
-## 3-2. 두단계 Attention 층 (Two-Stage Attention Layer)
+## 3-2. Two-Stage Attention Layer
 
-### 3-2-a. 시간상 교차 단계 (Cross-Time Stage):  $O(DL^2)$
+### 3-2-a. Cross-Time Stage:  $O(DL^2)$
 
 DSW 임베딩의 아웃풋인 2차원 배열, $Z \in \mathbb{R}^{L \times D \times d_ {model}}$, 은 TSA layer의 인풋이 된다. $Z_ {i.:}$ 은 시간 단계에서 모든 차원의 벡터를 나타내고 $i$ and $Z_ {:,d}$ 은 차원 d의 모든 시간 단계의 벡터이다. 시간상의 교차 단계에서는 각 차원에 대해 다중 헤드 셀프 어텐션(Multi-Head Self-Attention, i.e. MSA)이 적용된다.
 
@@ -104,7 +108,7 @@ DSW 임베딩의 아웃풋인 2차원 배열, $Z \in \mathbb{R}^{L \times D \tim
 
 같은 차원 내의 시간 세그먼트 간의 종속성은 in $Z^{time}$ 에 포착된다. 
 
-### 3-2-b. 차원상 교차 단계 (Cross-Dimension Stage):   $O(DL)$
+### 3-2-b. Cross-Dimension Stage:   $O(DL)$
 
 저자들은 잠재적으로 큰 D에 대해 라우터 메커니즘 (router mechanism)을 사용했고, 각 시간 단계 $i$에 대해 소수의 학습 가능한 벡터를 라우터로 설정했다.
 
@@ -130,7 +134,7 @@ $Y = Z^{dim} = TSA(Z)$.
 정리하면, 위 그림의 (a)는 MTS를 표현하는 2차원 배열을 프로세싱하기 위한 TSA 층을 나타낸다. 여기서, 각 벡터는 기존 시계열의 세그먼트를 나타낸다. 전체 배열은 시간상 교차 단계와 차원상 교차 단계를 거쳐 각 종속성을 얻는다. 
 그림의 (b)는 차원상 교차 단계에서 직접적으로 MSA를 사용하여 D-to-D 연결을 구축하는 경우를 나타내고, 그림의 (c)는 차원상 교차단계의 라우터 메커니즘을 나타낸다. 구체적으로, 특정 갯수 (c개) 의 라우터는 전체 차원에서 정보를 얻고 그 정보를 전파한다. 이 과정을 통해 시간복잡도가 $O(2cD)$ 에서 $O(D)$로 줄어든다.
 
-## 3-3. 계층적 인코더-디코더 (Hierarchical Encoder-Decoder)  
+## 3-3. Hierarchical Encoder-Decoder
 마지막 단계로 저자들은 DSW 임베딩과 TSA 레이어를 사용하여 계층적 인코더-디코더를 구성했다. 트랜스포머 기반의 MTS 예측 모델은 다양한 척도의 정보를 포착하는 데 알려진 계층적 구조를 널리 활용한다. Zhou et al. 2021과 Liu et al. 2021a도 이러한 구조를 사용했다.
 
 ### Encoder:   $O(D \frac{T^2}{L^2_ {seg}})$
@@ -236,7 +240,7 @@ DSW+TSA+HED | 모든 설정에서 최상의 결과를 보임 |
 
 
 # 5. Conclusion
-이 논문에서 저자들은 다차원 시계열 (MTS) 예측을 위해 차원 간 종속성 (cross-dimension dependency)를 활용하는 트랜스포머 기반 모델인 Crossformer를 제안한다. 구체적으로, 차원-세그먼트 단위 (DSW) 임베딩은 입력 데이터를 2차원 배열로 임베딩하여 시간과 차원의 정보의 보존을 가능케 한다. 그 후 TSA층을 통해 DSW 임베딩의 출력 배열의 시간 및 차원 간 종속성을 포착하였고, 마지막으로 계층적 인코더-디코더를 활용하여 다양한 척도의 정보를 활용하였다. 새롭게 고안된 Crossformer 모델은 6가지의 실제 데이터셋에 대해 기존 state-of-the-arts 결과에 견주는, 혹은 더 뛰어난 성능을 보였다. 
+이 논문에서 저자들은 다차원 시계열 (MTS) 예측을 위해 cross-dimension dependency를 활용하는 트랜스포머 기반 모델인 Crossformer를 제안한다. 구체적으로, Dimension-Segment-Wise Embedding (DSW) 은 입력 데이터를 2차원 배열로 임베딩하여 시간과 차원의 정보의 보존을 가능케 한다. 그 후 TSA층을 통해 DSW 임베딩의 출력 배열의 시간 및 cross-dimension dependency를 포착하였고, 마지막으로 hierarchical encoder-decoder를 활용하여 다양한 척도의 정보를 활용하였다. 새롭게 고안된 Crossformer 모델은 6가지의 실제 데이터셋에 대해 기존 state-of-the-arts 결과에 견주는, 혹은 더 뛰어난 성능을 보였다. 
 
 # 6. Future direction
 - TSA 층의 차원상 교차 단계 (Cross-Dimension Stage)에서는 차원 간에 simple full connection을 구축하였는데, 이는 고차원 데이터셋에서 노이즈를 도입할 수 있다. Crossformer TSA층의 이러한 문제점은 최근에 연구된 sparse and efficient Graph Transformers (Wu et al., 2022)가 도움을 줄 수 있을것으로 보인다.

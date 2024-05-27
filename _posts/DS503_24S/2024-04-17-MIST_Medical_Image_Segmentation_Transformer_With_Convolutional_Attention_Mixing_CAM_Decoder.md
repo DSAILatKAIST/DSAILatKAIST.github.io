@@ -30,7 +30,7 @@ The motivation for this study stems from the limitations in current deep learnin
 - **CNNs** are limited by their local receptive fields, which means they can miss broader context unless specifically designed with mechanisms like dilated convolutions or large receptive fields that can become computationally expensive.
 - **Transformers**, adapted from NLP to handle long sequences, offer excellent capability in grasping global interactions in data but can be inefficient in processing high-resolution images due to their computational cost and can overlook local specifics crucial for high-resolution tasks like image segmentation.
 
-Thus, the motivation is to harness the deep, hierarchical feature-processing capability of CNNs and the global contextual awareness of transformers to create a hybrid model that excels at both local detail and global context understanding.
+Thus, the motivation is to harness the deep, hierarchical feature-processing capability of CNNs and the global contextual awareness of transformers to create a hybrid model that excels at both local detail and global context understanding. MIST introduces a more efficient way of combining CNNs and Transformers by utilizing a CAM decoder with convolutional projected multi-head self-attention. This approach reduces computational costs while enhancing the capture of spatial information, effectively addressing both local and global dependency limitations. Additionally, MIST integrates multiple forms of attention to manage the diverse dependencies among image pixels, ensuring that both short and long-range dependencies are captured comprehensively.
 
 
 ## 3. Method
@@ -38,11 +38,44 @@ Thus, the motivation is to harness the deep, hierarchical feature-processing cap
 ![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/model.png)
 <!-- ![model.png](https://i.ibb.co/34zG6y9/model.png) -->
 
-### Encoder: Multi-Axis Vision Transformer (MaxViT)
-The encoder utilizes a vision transformer architecture, designed to handle different stages of feature complexity in an image. Each stage consists of blocks that transform input features into increasingly abstract representations:
 
-- **Hierarchical Processing**: Each stage processes features at a different scale, enabling the model to capture both fine and coarse details.
-- **Efficient Scaling**: Lower stages have more blocks to handle finer details, while higher stages with fewer blocks focus on abstracting global features.
+### Encoder: Multi-Axis Vision Transformer (MaxViT)
+
+The encoder utilizes a vision transformer architecture MaxViT [1], designed to handle different stages of feature complexity in an image. Each stage consists of blocks that transform input features into increasingly abstract representations:
+
+**Key Components of MaxViT**
+
+![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/mist_qualitative_results.png)
+<!-- ![maxvit-model.png](https://i.ibb.co/ZcKh36Y/maxvit-model.png)   -->
+
+
+**1 - Multi-Axis Attention (Max-SA):**
+
+Local and Global Attention: MaxViT uses a combination of local and global attention mechanisms to handle various spatial interactions. Local attention focuses on smaller, nearby areas of the image, while global attention considers larger, more distant areas.
+Blocked Local Attention: This approach breaks the image into non-overlapping windows and applies self-attention within each window, effectively capturing local dependencies.
+Dilated Global Attention: This mechanism applies self-attention across a grid that covers the entire image, capturing long-range dependencies without the computational cost associated with full self-attention.
+
+**2 - Hierarchical Design:**
+
+-  Stage-wise Processing: MaxViT is built with a hierarchical architecture where the image passes through multiple stages, each consisting of repeated MaxViT blocks. Each stage progressively reduces the spatial resolution while increasing the depth of feature maps.
+
+-  Integration of Convolutions and Attention: Each MaxViT block combines convolutional layers with attention mechanisms, enhancing the model's ability to capture both local texture details and global context.
+MBConv and Squeeze-and-Excitation (SE) Blocks:
+
+**3- MBConv:**
+
+This convolutional block includes a depthwise separable convolution and is used to enhance the feature extraction capability of the network.
+SE Module: The Squeeze-and-Excitation module improves the network’s sensitivity to important features by recalibrating channel-wise feature responses.
+
+
+**Advantages of Using MaxViT**
+
+- Scalability: The multi-axis attention mechanism in MaxViT efficiently scales with image size, providing a balance between computational complexity and model performance.
+
+- Comprehensive Spatial Interactions: By combining local and global attention, MaxViT captures a wide range of dependencies, crucial for accurately segmenting medical images where both local textures and global structures are important.
+
+- Enhanced Feature Extraction: The integration of convolutions and attention mechanisms within each block ensures robust feature extraction, making MaxViT a powerful encoder for medical image segmentation tasks.
+
 
 ### Decoder: Convolutional Attention Mixing (CAM)
 The CAM decoder integrates several advanced mechanisms:
@@ -156,8 +189,9 @@ Such as Pyramid Vision Transformer (PVT) and Convolutional Vision Transformer (C
 These are advanced transformer models with modifications to improve segmentation accuracy by enhancing the model's ability to handle multi-scale features or by employing novel attention mechanisms. They are designed to provide better segmentation results by focusing on detailed and multi-scale understanding of medical images.
 
 ### 4.2 Result
-MIST demonstrated superior segmentation accuracy across various organs and conditions, attributed to its hybrid approach which effectively combines detailed local processing with global contextual analysis..
+MIST demonstrated superior segmentation accuracy across various organs and conditions, attributed to its hybrid approach which effectively combines detailed local processing with global contextual analysis.
 
+**Quantitative Results:** 
 
 **Table 1:**
 MIST achieves the highest Mean DICE scores across all organs compared to other models, marking superior segmentation accuracy with scores of 91.23 for the right ventricle (RV), 90.31 for the myocardium (Myo), and 96.14 for the left ventricle (LV). It outperforms well-known architectures like TransUNet, SwinUNet, and Parallel MERIT, particularly excelling in LV segmentation where it slightly surpasses even the advanced Parallel MERIT model. The consistent enhancement across all organs underscores the MIST model's effective utilization of the CAM decoder and integrated attention mechanisms, highlighting its robust performance in medical image segmentation.
@@ -170,6 +204,13 @@ MIST showcases top performance on the Synapse multi-organ dataset, achieving the
 
 ![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/table-2.png)
 <!-- ![table-2.png](https://i.ibb.co/xCfPKPJ/table-2.png) -->
+
+
+**Qualitative Results:**
+![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/mist_qualitative_results.png)
+<!-- ![mist-qualitative-results.png](https://i.ibb.co/cNydjsj/mist-qualitative-results.png) -->
+
+
 
 
  **Ablation Study**: The ablation studies focused on several aspects of the CAM decoder:
@@ -189,9 +230,11 @@ The MIST model, combining the Multi-Axis Vision Transformer with the Convolution
 ##  Author Information
 
  - Author name: Saad Wazir
- - Affiliation: KAIST
- - Research Topic: Medical Image Segmentation
+ - Affiliation: KAIST, AutoID LAB, School of Computing
+ - Research Topic: Medical Image Analysis
 
 ## Reference & Additional materials
 
 Github Implementation: https://github.com/Rahman-Motiur/MIST
+
+<a id="1">[1]</a> : Tu, Zhengzhong and Talebi, Hossein and Zhang, Han and Yang, Feng and Milanfar, Peyman and Bovik, Alan and Li, Yinxiao. "MaxViT: Multi-Axis Vision Transformer" European conference on computer vision 2022. [Link](https://arxiv.org/abs/2204.01697)

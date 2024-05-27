@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# Quantification of Uncertainty with Adversarial Models
-
 ## 1. Problem Definition
 Prevalent real-world adoption of deep learning models has increased the demand for the ability to assess the reliability of the predictions of these models, especially in high stake applications. This ability could be considered by quantifying the predictive uncertainty of deep neural networks [1, 2]. Predictive uncertainty can be categorized into two types:
 - *Aleatoric*, variability caused by inherent stochasticity of sampling outcomes from the predictive distribution
@@ -79,6 +77,8 @@ The uncertainty quantification methods being compared in the experiments are lis
 * MC Droupout (MCD), and
 * Deep Ensembles (DE)
 
+These methods are selected because they are the most relevant methods to compare with QUAM, and they are also persistently the best performing methods across various benchmark tasks.
+
 This paper conducts experiments on two different benchmark settings, synthetic and real-world vision datasets, as described below:
 * **Synthetic benchmark**  
   A synthetic benchmark is used since it is feasible to compute the ground truth of the epistemic uncertainty. The two-moons dataset is used here, and the Hamiltonian Monte Carlo (HMC) is utilized as the ground truth for this synthetic dataset.
@@ -118,8 +118,12 @@ The synthetic benchmark result shows that the QUAM matches the ground truth (HMC
 
 From the vision dataset benchmarking, it is shown that QUAM outperforms all other methods on all tasks evaluated, except for adversarial example detection, where it performed on par with DE (all). It is also shown that QUAM is more computationally-efficient when compared to all other methods in terms of the number of forward passes in the network.
 
+As performing adversarial model search is computationally expensive, the authors also provide ablation study to compare the computation efficiency in terms of number of forward passes. The ablation study shows that QUAM outperforms MC Dropout even under a very limited resource. Furthermore, the authors stated that training an additional member for Deep Ensemble is far more computationally demanding than when using QUAM with no computational restriction. This shows that QUAM is both efficient and effective against other popularly used methods.
+
 ## 5. Conclusion
 This paper has introduced QUAM, a method for predictive uncertainty quantification by leveraging adversarial models. Adversarial models identify important posterior modes with alternative and plausible predictive distributions that are missed by other methods. This proposed method has proven to outperform all previous methods while exploiting fewer computational resources, thus promoting its potential application in many operational use cases. Further study on how to develop a more efficient adversarial model search algorithm may be an interesting direction for future work.
+
+In my opinion, training and searching for adversarial models could be very computationally expensive. Therefore, developing a more efficient adversarial model search algorithm could be a crucial step in making QUAM more practical for real-world applications. Another research idea, applying QUAM to do sample selection and re-labeling in data-centric AI and semi-supervised learning could be an interesting direction to explore and a potential improvement from using a Gaussian Mixture Model or deterministic hard thresholding. 
 ## Author Information
 Dimas Ahmad (dimasat@kaist.ac.kr), Graduate School of Data Science, KAIST
 ## References

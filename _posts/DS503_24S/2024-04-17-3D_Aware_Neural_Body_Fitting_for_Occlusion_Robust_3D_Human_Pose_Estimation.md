@@ -6,19 +6,15 @@ use_math: true
 usemathjax: true
 ---
 
-# **3D-Aware Neural Body Fitting for Occlusion Robust 3D Human Pose Estimation**
-
 ## 1. Problem Definition and Motivation
 
-Human pose estimation (HPE) generally refers to detecting and tracking human body's posture and movements. Human pose estimation has been one of the most challenging subjects in recent years. Specifically, single-view 3D pose estimation using only one RGB camera is a research hotspot in computer vision. Human pose estimation is widely used in human-computer interaction, fall detection, ergonomic risk assessment, rehabilitation, sports, etc. Among different motion capture (MoCap) systems, marker-based MoCap systems have been utilized in research institutes and hospitals due to their precise and stable human pose detection. However, these systems demand a professional setup and a specific environment. Also, attaching sensors or markers to the subject's body is time-consuming and potentially can limit participant movements. On the other hand, markless pose estimation systems have overcome some of the limitations mentioned for marker-based MoCap systems. While the Microsoft Kinect series devices, use an RGB-D camera to estimate human poses accurately, are used as a benchmark, they are sensitive to changes in light conditions and have limited range.
-
-Computer vision-based (CV-based) approaches have captured great attention due to their easy and cost-effective setup. Although computer vision algorithms have significantly improved the accuracy of single-view RGB 2D pose estimation, accurate 3D pose estimation using a single RGB camera faces challenges like lack of depth information and occlusion. Different machine learning methods have tried to overcome these challenges. Regression-based approaches directly predict 3D pose parameters and tackle 2D to 3D ambiguity using a learned model from training data. However, these methods perform less efficiently in occluded situations. Optimization-based methods fit a parametric body model to 2D observations in an iterative manner. These methods have better tolerance to occluded situations but have worse performance in 3D HPE because they suffer from 2D-3D ambiguity.
+Human pose estimation (HPE) generally refers to detecting and tracking human body's posture and movements. Human pose estimation has been one of the most challenging subjects in recent years and it is widely used in human-computer interaction, fall detection, ergonomic risk assessment, rehabilitation, sports, etc. Specifically, single-view 3D pose estimation using only one RGB camera is a research hotspot in computer vision due to its easy and cost-effective setup. Although computer vision algorithms have significantly improved the accuracy of single-view RGB 2D pose estimation, accurate 3D pose estimation using a single RGB camera faces challenges like lack of depth information and occlusion.
 
 3D human pose estimation is a computer vision task that involves estimating the 3D positions and orientations of body joints and bones from 2D images or videos. There are several approaches to estimating 3D human pose estimation. The regression-based approach is one of the traditional approaches that uses deep networks to predict the 3D pose estimation from 2D images or video. However, these approaches are not efficient in occluded situations.
 
-there are some optimization-based methods that employ an iterative process, refining a parametric model of the human body to correspond with the 2D image features, such as edges and contours. Although they have a potentially better performance in occlusion, they encounter challenges due to the inherent 2D-3D ambiguity—a scenario where multiple distinct 3D poses may yield indistinguishable 2D projections.
+There are some optimization-based methods that employ an iterative process, refining a parametric model of the human body to correspond with the 2D image features, such as edges and contours. Although they have a potentially better performance in occlusion, they encounter challenges due to the inherent 2D-3D ambiguity—a scenario where multiple distinct 3D poses may yield indistinguishable 2D projections.
 
-A recent research that uses a generative model for 2D object detection in certain categories, has shown to be robust to occlusion with an innovative inverse graphics analysis-by-synthesis approach that tries to find model parameters that best explain the observed image and estimate occluded parts using an outlier process. Analysis-by-synthesis in RGB pixel space can be challenging because firstly, there are not many good generative models and secondly, there are no efficient algorithms to inverse these generative models. So they conducted an approximate analysis-by-synthesis in deep feature space.
+A recent research that uses a generative model for 2D object detection in certain categories, has shown to be robust to occlusion with an innovative inverse graphics analysis-by-synthesis approach that tries to find model parameters that best explain the observed image and estimate occluded parts using an outlier process. Analysis-by-synthesis in RGB pixel space can be challenging because firstly, there are not many good generative models and secondly, there are no efficient algorithms to invert these generative models. So they conducted an approximate analysis-by-synthesis in deep feature space.
 
 In this study, the 3D-aware Neural Body Fitting (3DNBF) framework was proposed that uses a volume-based parametric model called Neural Body Volumes (NBV) to analyze and synthesize features for 3D Human Pose Estimation (HPE). This model, comprised of Gaussian ellipsoidal kernels, excels in handling occlusions and differentiating body features analytically, offering smooth gradients for efficient optimization. In contrast to traditional optimization-based methods that may lose critical information, this framework has a contrastive learning approach to learn data-driven features that are robust to variations such as clothing color and adept at capturing essential local 3D pose information. The effectiveness of 3DNBF is validated on three existing 3D HPE datasets and a newly proposed adversarial protocol designed to assess occlusion robustness, showing superior performance over both state-of-the-art regression and optimization-based methods in occluded and non-occluded scenarios. Combining these innovative strategies addresses common errors in pose estimation, particularly in occluded body parts, demonstrating the framework's advanced capability in resolving 2D-3D pose ambiguities.
 
@@ -33,24 +29,22 @@ In this study, the 3D-aware Neural Body Fitting (3DNBF) framework was proposed t
 
 For input image $I \in \mathbb{R}^{H \times W \times 3}$, they defined 3D human pose parameters $\theta$ and with Bayes rule, they formulate the problem as follows:
 
-&\theta^{\*} = \underset{\theta}{\mathrm{argmax}} \ p(\theta \| I) = \underset{\theta}{\mathrm{argmax}} \ p(I \| \theta)p(\theta)&
+$\theta^{\*} = \underset{\theta}{\mathrm{argmax}} \ p(\theta \vert I) = \underset{\theta}{\mathrm{argmax}} \ p(I \vert \theta) p(\theta)$
 
 where $p(\theta)$ is a prior distribution learned from data and $p(I\|\theta)$ is the likelihood, that is typically derived from a generative forward model. The goal is to find the parameter $\theta^{\*}$ that best describes the input image.
 
 ### 2.2. Feature-Level Analysis-by-Synthesis
 
-In this method, they perform analysis-by-synthesis at the feature-level to make it invariant to the image's unnecessary information, such as colors, background, clothing, etc, that are not useful in human pose estimation. if the put output
+In this method, they perform analysis-by-synthesis at the feature-level to make it invariant to the image's unnecessary information, such as colors, background, clothing, etc, that are not useful in human pose estimation. if the output of a deep convolutional neural network $\zeta$ is feature respresentation of an input image $\zeta(I) = F \in \mathbb{R}^{H \times W \times D}$ and $f_ i \in \mathbb{R}^D$ is a feature vector in $F$ at pixel $i$ on the feature map. They defined $G( \theta) = \hat{\Phi} \in \mathbb{R}^{H \times W \times D}$, a generative model in feature level which produces a feature map $\hat{\Phi}$ given the pose $\theta$.
 
-of a deep convolutional neural network $\zeta$ is feature respresentation of an input image $\zeta(I) = F \in \mathbb{R}^{H \times W \times D}$ and $f_ i \in \mathbb{R}^D$ is a feature vector in $F$ at pixel $i$ on the feature map. They defined $G( \theta) = \hat{\Phi} \in \mathbb{R}^{H \times W \times D}$, a generative model in feature level which produces a feature map $\hat{\Phi}$ given the pose $\theta$.
-
-They defined the occlusion-robust likelihood as:
+They defined the occlusion-robust likelihood as.
 
 $p(F\|G(\theta), B, Z) = \prod_ {i \in \mathcal{FG}} p(f_ i\|\hat{\phi}_ i, z_ i) \prod_ {i' \in \mathcal{BG}} p(f_ {i'}\|B)$
 
 $p(f_ i \| \hat{\Phi}_ i, z_ i) = [p(f_ i \| \hat{\Phi}_ i)]^{z_ i} [p(f_ i \| \mathcal{B})]^{(1 - z_ i)}$
 
 
-following existing work on occlusion-robust analysis-by-synthesis where $z_ i \in\{0,1\}$ and $p(z_ i=1) = p(z_ i=0)= 0.5$ and $z_ i$ is for background model ($\mathcal{BG}$) that explains the information that cannot be explained by foreground model ($\mathcal{FG}$).
+Following existing work on occlusion-robust analysis-by-synthesis where $z_ i \in\{0,1\}$ and $p(z_ i=1) = p(z_ i=0)= 0.5$ and $z_ i$ is for background model ($\mathcal{BG}$) that explains the information that cannot be explained by foreground model ($\mathcal{FG}$).
 
 ### 2.3. Neural Body Volumes
 
@@ -193,6 +187,15 @@ The model accounts for limb orientation projected to the yz-plane and splits the
 
 **Baselines:** NBV is compared against state-of-the-art regression-based methods showing superior occlusion robustness and performance as shown in Table 1. For fair comparisons, they used the same ResNet-50 backbone for all the methods.
 
+**Evaluation Metrics:**
+- **Mean Per Joint Position Error (MPJPE)***
+MPJPE measures the average distance between the predicted and actual positions of each joint in a 3D space.
+- **Procrustes-Aligned Mean Per Joint Position Error (P-MPJPE)**
+Procrustes-Aligned refers to the alignment of predicted and ground truth poses using Procrustes analysis. This analysis involves translating, scaling, and rotating the predicted pose to best match the ground truth pose, minimizing the distance between corresponding joints.
+- **Percentage of Correct Keypoints with head-normalized distances (PCKh)**
+PCK measures the percentage of keypoints correctly predicted within a specified distance from the ground truth positions. PCKh normalizes this threshold by the head size, using a fraction of the head size (denoted as αh) to account for variations in body sizes.
+
+
 ![Table 1](../../images/DS503_24S/3D_Aware_Neural_Body_Fitting_for_Occlusion_Robust_3D_Human_Pose_Estimation/Table1.png)
 
 **Comparison to SOTA:** NBV shows significant improvements on standard 3DPW test set and 3DHP dataset. According to Table 1, As occlusion becomes more severe, their method, 3DNBF, significantly outperforms regression-based models, SPIN, HMRT-EFT, Mesh Graphormer, and PARE.
@@ -225,7 +228,9 @@ The paper introduces 3D Neural Body Fitting (3DNBF), an innovative analysis-by-s
 
 authors expect their method to be not only robust to occluded situations but also robust to other adversarial examinations.
 
-  
+
+### 5. Discussion and future work
+This paper proves that the proposed method is robust to occlusion. However, the method is primarily focused on estimating the pose of a single person in an image. Multi-person pose estimation could be a future direction. Moreover, there is significant potential for real-time applications, such as motion capture for animation, sports analytics, and human-computer interaction. Further enhancements in generative models, improved handling of complex occlusions, and integration with more diverse datasets and advanced neural architectures can also be explored to enhance robustness and accuracy.
 
 ## **Author Information**
 

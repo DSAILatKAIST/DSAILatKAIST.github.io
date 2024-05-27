@@ -7,10 +7,6 @@ usemathjax: true
 ---
 
 
-
-# **[ICDM 2023] Reserve Price optimization in First-Price Auctions via Multi-Task Learning** 
-
-Reserve Price optimization in First-Price Auctions via Multi-Task Learning 
 ## **Glossary**
 **Publisher** : Advertiser가 맏긴 광고를 게재해주는 업체,출판사 (e.g., Forbes)
 
@@ -88,24 +84,22 @@ Solution to 3
 QD loss function의 overall loss는 두가지 요소의 합으로 구성된다.
 
 **1. Captured Mean Prediction Interval Width($MPIW_ {capt}$)**
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img4.png)
-<!-- ![img4](https://ifh.cc/g/oM4q4z.png) -->
-$MPIW_ {capt-(1)}$
+
+$MPIW_ {capt-(1)} = \frac{1}{\sum_{i=1}^{n} k_i}(\hat{b}_ {U_ {i}}-\hat{b}_ {L_ {i}})k_ {i}$
+
  - 가능한 좋은 예측 구간을 파악하기위해, ground truth를 포함하는 예측구간의 평균 너비를 측정
  - $k_ {i}$는 $i$번째 sample의 ground truth가 추정된 예측구간에 포함된 여부를 나타내는 Boolean
  - $MPIW_ {capt-(1)}$값이 높을수록 추정된 예측구간의 퀄리티가 좋음
  - 그러나 highest bid의 upper bound($\hat{b}_ {U_ {i}}$)는 $+\infty$이므로 $MPIW_ {capt-(1)}$수식을 적절히 수정할 필요가 있음
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img5.png)
-<!-- ![img5](https://ifh.cc/g/BsqtZm.png) -->
-$MPIW_ {capt-(2)}$
+
+$MPIW_ {capt-(2)} = -\frac{\hat{b}_ {L_ {i}}k_ {i}}{\sum_{i=1}^{n} k_i}$
  - 다음처럼 수정하여 highest bid의 하한($\hat{b}_ {L_ {i}}$)만 고려할 수 있음
 
 
 **2. Prediction Interval Coverage Probability(PICP)**
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img6.png)
-<!-- ![img6](https://ifh.cc/g/WaDAbZ.png) -->
+$PICP = \frac{1}{n}\sum_{i=1}^{n} k_i$
  - 전체 중 몇개의 ground truth가 정확하게 예측구간에서 capture되었는지를 나타내는 예측구간의 coverage 확률
  - $PICP$는 예측구간의 quality를 나타내는 매우 중요한 척도임
 
@@ -118,23 +112,19 @@ $MPIW_ {capt-(2)}$
  -  $L_ {\theta} = \frac{n!}{c!(n-c)!}(1-\alpha)^ c\alpha^ {n-c}(c = \sum_{i=1}^{n} k_i)$
  - 위의 이항분포 식은 Moivre-Laplace theorem에 의해 정규분포로 근사될 수 있고 negative log likelihood는 다음과 같음
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img7.png)
-    <!-- ![img7](https://ifh.cc/g/93oGyA.png) -->
+$-logL_ {\theta} \propto \frac{n}{\alpha(1-\alpha)}((1-\alpha)-PICP)^ {2}$
  - 위의 변형들을 통해 **예측구간의 coverage 확률과 너비를 동시에 고려한** highest bid의 하한을 예측을 진행할 수 있으며 최종 QD loss function은 다음과 같음
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img8.png)
+$Loss_ {qd} = MPIW_ {capt} + \lambda PICP = -\frac{\hat{b}_ {L_ {i}}k_ {i}}{\sum_{i=1}^{n} k_i} + \lambda \frac{n}{\alpha(1-\alpha)} max(0, (1-\alpha)-\frac{1}{n} \sum_ {i=1}^{n} k_i)^2$
 
-$\lambda 는 PICP$의 중요도를 조절하는 parameter
-    <!-- ![img8](https://ifh.cc/g/g9kMtL.png) -->
-
+($\lambda 는 PICP$의 중요도를 조절하는 parameter)
 
 
 ### 3.1-B Loss of Failure Rate Prediction
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underbid가 발생하면 advertiser가 제시한 highest bid를 알 수 없으므로 3.1-A에서 제시한 QD estimation을 적용할 수 없다. 따라서 하나의 impression을 일련의 feature를 가진 instance로 정의하고 survival analysis을 적용하여 outbid impression과 underbid impression를 모두 활용한 reserve price의 failure rate(underbid될 확률)을 계산한다. 
 본 논문에서는 [2]에서 제시한 the Cox PH model을 활용한다.
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img9.png)
-<!-- ![img9](https://ifh.cc/g/aDAPlT.png)  -->
+$h(t,X_ {i}) = h_ {0}(t)e^ {\hat{y}_ {i}}$
 
 the Cox PH model은 두가지 부분으로 구성되어있고 설명은 다음과 같다.
 
@@ -146,22 +136,19 @@ $\hat{y}_ {i}$ : describes how the hazard varies in response to explanatory vari
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the COX partial liklihood function을 사용해 $\theta$를 추정한다면 outbid impression과 underbid impression를 모두 활용할 수 있다. reserve price가 $r_ {i}$일때 하나의 underbid impression($A_ {i}$)에 대해 $b_ {j}(highest bid)>r_ {i}$를 만족하는 모든 outbid impression($A_ {j}$)을 사용하여 $h(r_ {i}, X_ {i}) - h(r_ {i}, X_ {j})$를 최대화 하는 $\theta$를 찾고자 한다. reserve price = $r_ {i}$의 partial likelihood를 통해 outbid impression과 비교하여 underbid impression의 상대적인 가치를 학습할 수 있으며 수식은 다음과 같다.
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img10.png)
-<!-- ![img10](https://ifh.cc/g/8c6RAs.png) -->
+$L_ {i} = \frac{h(r_ {i},X_ {i})}{\sum_{j:b_ {j} \geq r_ {i}}^{} h(r_ {i},X_ {i})}=\frac{h_ {0}(r_ {i})e^{\hat{y}_ {i}}}{\sum_{j:b_ {j} \geq r_ {i}}^{} {h_ {0}(r_ {i})e^{\hat{y}_ {i}}}} = \frac{e^{\hat{y}_ {i}}}{\sum_{j:b_ {j} \geq r_ {i}}^{} e^{\hat{y}_ {i}}}$
 
 각 impression이 독립일때 underbid impression의 joint probability은 $L_ {\theta} = \Pi_ {A_ {i}\in U}L_ {i}$($U$는 underbid impression의 집합)이다. 
 
 Cox모델의 loss(negative log partial likelihood)는 다음과 같다
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img11.png)
-
- <!-- ![img11](https://ifh.cc/g/j7QXM7.png) -->
+$Loss_ {cox} = {\sum_{A_ {i} \in U} (log \sum_{j:b_ {j} \geq r_ {i}}e^{\hat{y}_ {i}}-\hat{y}_ {i}})$
 
 
 따라서, **multi-task learning의 최종 loss function**은 다음처럼 정의된다.($\mu$는 failure rate의 중요성을 조절하는 parameter)
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img12.png)
-<!-- ![img12](https://ifh.cc/g/ox0vMg.png) -->
+$Loss = Loss_ {qd} + \mu Loss_ {cox} = -\frac{\hat{b}_ {L_ {i}}k_ {i}}{\sum_ {i=1}^{n} k_ i} + \lambda \frac{n}{\alpha(1-\alpha)} max(0, (1-\alpha)-\frac{1}{n}\sum_ {i=1}^{n} k_ i)^2+\mu{\sum_ {A_ {i} \in U} (log \sum_ {j:b_ {j} \geq r_ {i}} e^{\hat{y}_ {i}}-\hat{y}_ {i}})$
+
 
 ### 3.1-C Predicting Highest Bid Lower Bounds and Failure Rates
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ad impression의 가치가 다음 4가지 feature에 영향을 받음에 착안하여 multi-task learning의 loss function을 최소화하는 $\hat{b}_ {L_ {i}}$, $\hat{y}_ {i}$를 찾는 모델을 구축한다.
@@ -229,17 +216,17 @@ page labeled by the publishers’ editors와 같은 feature 사용
 **1.MVE(Minimum Variance Estimation)**
 - Error가 target의 실제 평균을 중심으로 정규분포를 따르며, input의 집합에 대해 target의 분산이 dependence하다고 가정
 - NN을 사용해 $\hat{\mu}$, $\hat{\sigma^ {2}}$를 예측하며, 최종 reserve price 하한 $\hat{b}_ {L_ {i}}$에 대한 $\alpha$(risk level)를 구함
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img14.png)
-<!-- ![img14](https://ifh.cc/g/4PZ38M.png) -->
+
+ $\Phi(\hat{b}_ {L_ {i}})=\alpha$
 
 **2.Bootstrap**
 - 다른 parameter의 subset을 사용해 $B$개의 NN을 만든후, ensemble을 통해 collective한 decision을 내림
 
-![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img15.png) ![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img16.png) ![](../../images/DS503_24S/Reserve_Price_optimization_in_First-Price_Auctions_via_Multi-Task_Learning/img17.png)
+$\hat{y} = \sum_ {h=1}^{B} \hat{y}_ {h}$ 
 
-<!-- ![img15](https://ifh.cc/g/z24axt.png) -->
-<!-- ![img16](https://ifh.cc/g/RyqYFF.png) -->
-<!-- ![img17](https://ifh.cc/g/ALXhl8.png) -->
+$\hat{\sigma}_ {\hat{y}}^{2}=\frac{1}{B-1}{\sum_ {h=1}^{B} (\hat{y}_ {h}-\hat{y})}$
+
+$\hat{y} \pm t_ {1-\frac{\alpha}{2},df}  \sqrt{ \hat{\sigma}_ {\hat{y}}^{2}+ \hat{\sigma}_ {\epsilon}^{2}}$
 - 위의 예측구간을 통해 $\alpha$(risk level)를 반영한 $\hat{b}_ {L_ {i}}$를 구함
 
 **3.LUBE**
@@ -280,16 +267,7 @@ QD + Cox : QD에 더불어 reserve price의 하한이 highest bid를 초과할 �
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First-price auction에서 publisher가 ad 판매로 수익을 최대화하고 advertiser로 하여금 미래에 더 높은 가격으로 bid하게 유도하는데에 최적의 reserve price를 설정하는것이 매우 중요한 task이다. 해당 논문에서는 publisher가 설정한 risk level($\alpha$)에 따라 예측되는 advertiser의 highest bid와 underbid될 확률을 multi-task framework를 사용하여 효율적으로 예측하는 DNN 모델을 제시하였다. DNN에서 publisher의 광고판매를 통한 수익에 영향을 줄 수 있는 feature들을 고려하였으며, 해당 QD + Cox 모델이 타 방법론 대비 우수한 성능을 제시함과 동시에 publisher에게 다양한 insight를 제시하였다. 
 
 ---  
-## **Author Information**  
 
-* Achir Kalra  
-    * Forbes Media LLC  
-* Chong Wang  
-    * Amazon Ads 
-* Cristian Borcea 
-    * New Jersey Institute of Technology
-* Yi Chen 
-    * New Jersey Institute of Technology     
 
 
 ## **6. Reference & Additional materials**  
@@ -305,3 +283,9 @@ ICML’18. PMLR, 2018, pp. 4075–4084.
 models for ad viewability prediction on the web,” TKDE, vol. 29, no. 9,
 pp. 2012–2025, 2017.
 
+## **Author Information**  
+
+* Jeongmin Son 
+    * Contact : jmson@kaist.ac.kr  
+* Affiliation : CSD Lab(https://csdlab.kaist.ac.kr/)  
+ 

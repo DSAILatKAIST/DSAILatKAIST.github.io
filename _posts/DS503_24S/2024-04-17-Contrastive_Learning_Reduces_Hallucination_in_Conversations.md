@@ -6,7 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# **Contrastive Learning Reduces Hallucination in Conversations** 
 > [Paper Link](https://arxiv.org/abs/2212.10400)
 
 >[GitHub Implementation](https://github.com/sunnweiwei/MixCL)
@@ -14,7 +13,7 @@ usemathjax: true
 
 ## **1. Problem Definition**  
 
-현재 BART, GPT와 같은 언어 모델은 질문과 관련이 없거나 사실이 아닌 문장을 마치 사실인 것 처럼 그럴듯하게 생성하는 Hallucination 문제를 가지고 있습니다. Hallucination의 원인은 다양하지만, 주로 학습 데이터의 오류 혹은 언어 모델 학습 구조에서 비롯됩니다. 본 논문에서는 ChatGPT와 같은 대화형 언어모델의 Hallucination을 다룹니다. 대화형 언어모델의 Hallucination 문제를 완화하기 위해 MixCL 이라는 새로운 Contrastive Learning framework를 제안합니다.
+현재 BART, GPT와 같은 언어 모델은 질문과 관련이 없거나 사실이 아닌 문장을 마치 사실인 것처럼 그럴듯하게 생성하는 Hallucination 문제를 가지고 있습니다. Hallucination의 원인은 다양하지만, 주로 학습 데이터의 오류 혹은 언어 모델 학습 구조에서 비롯됩니다. 본 논문에서는 ChatGPT와 같은 대화형 언어모델의 Hallucination을 다룹니다. 대화형 언어모델의 Hallucination 문제를 완화하기 위해 MixCL 이라는 새로운 Contrastive Learning framework를 제안합니다.
 
 
 ## **2. Motivation**  
@@ -49,22 +48,30 @@ Topic이 정해져 있을 때, Apprentice 뒤에 알맞은 답변을 생성해�
 </div>
 <br>
 
-Dialogue Agent는 KB(Knowledge Base)-based model과 LM(Language Model)-based model로 나눌 수 있습니다. KB-based model은 지식을 검색하는 IR(Information Retrieval) 모듈을 통해서 dialogue에 추가적인 정보를 제공하는 역활을 합니다. LM-based model은 pre-training 및 fine-tuning을 통해서 언어 생성 모델의 파라미터에 추가적인 정보를 저장합니다.
-위 그림을 보면 두 Dialogue Agent 모델의 구조를 각각 나타내고 있습니다. 먼저 두 모델의 input은 지식(Knowledge)과 대화 지문(Dialogue context)으로 동일합니다. 하지만 KB-based model은 정보검색을 통해 지식을 명시적으로 추출하고 generator에 입력하는 반면에, LM-based model은 pre-training 된 모델에 fine tuning을 하여 지식을 파라미터에 함축적으로 저장합니다.
+Dialogue Agent는 지식(Knowledge)과 대화 지문(Dialogue context)을 입력 받아서 대화 지문 다음에 올 적절한 답변을 출력하는 모델입니다. Dialogue Agent의 종류는 KB(Knowledge Base)-based model과 LM(Language Model)-based model로 나눌 수 있습니다. 위 그림은 두 Dialogue Agent 모델의 구조를 나타내고 있습니다. 각각의 특징은 다음과 같습니다.
 
+* KB-based model은 지식을 검색하는 IR(Information Retrieval) 모듈을 통해서 입력된 Dialogue와 관련있는 적절한 정보를 추출합니다. 추출된 정보를 바탕으로 Response Generator를 통해 최종 답변을 생성합니다. 
+    * 장점: 정보를 명시적으로 추출하기 때문에 Hallucination 문제가 거의 없습니다.
+    * 단점: Retreiever 와 Generator 가 서로 분리되어 있기 때문에 답변 생성 속도가 느립니다.
+
+* LM-based model은 pre-training을 통해 모델의 파라미터에 지식을 저장하고 fine-tuning을 통해서 대화 지문에서의 답변 생성을 학습합니다.
+    * 장점: 모델의 파라미터에 학습된 지식과 답변 생성과 관련된 정보가 함께 포함되어 있어서 답변 생성 속도가 빠릅니다. 
+    * 단점: 정보가 파라미터에 함축적으로 저장되어 있기 때문에 Hallucination 문제가 발생합니다.
+
+**본 연구에서는 Dialogue Agent에서 LM-based model의 Hallucination을 완화하는 것에 초점을 맞춥니다.**
 
 >**Text Contrastive Learning**
 
-Contrastive Learning(대조합습)의 목표는 비슷한 데이터 끼리는 가까이 임베딩 하고 성질이 다른 데이터 끼리는 멀리 임베딩 하는것입니다. 아래 그림은 Text data에서 Contrastive Learning 이 진행되는 방식을 나타냅니다.
+Contrastive Learning(대조 학습)의 목표는 비슷한 데이터끼리는 가까이 임베딩 하고 성질이 다른 데이터끼리는 멀리 임베딩 하는것입니다. 아래 그림은 Text data에서 Contrastive Learning 이 진행되는 방식을 나타냅니다.
 
 <div style="text-align:center;">  
 <img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image3.png" alt="Image 14" style="width:80%; margin:auto; display:block;" />  
 </div>
 <br>
 
-먼저, 가운데 "BTS is a South Korean boy band" 라는 문장을 Anchor 데이터 라고 가정해보겠습니다. 이때 Anchor 데이터는 기준이 되는 데이터 입니다. 또한 Anchor 비슷한 특성을 가진 데이터를 초록색으로 표시된 것과 같이 Positive sample 이라고 합니다. 예를 들어 위와 같이 "BTS are K-pop artists" 라는 문장은 Anchor 와 의미가 같으므로 Positive sample 입니다. 반대로 Anchor 특성이 다른 데이터를 Negative sample 이라고 합니다.
+먼저, 가운데 "BTS is a South Korean boy band" 라는 문장을 Anchor 데이터 라고 가정해 보겠습니다. 이때 Anchor 데이터는 기준이 되는 데이터 입니다. 또한 Anchor 비슷한 특성을 가진 데이터를 초록색으로 표시된 것과 같이 Positive sample 이라고 합니다. 예를 들어 위와 같이 "BTS are K-pop artists" 라는 문장은 Anchor 와 의미가 같으므로 Positive sample 입니다. 반대로 Anchor 특성이 다른 데이터를 Negative sample 이라고 합니다.
 "BTS is a Japanese boy band" 라는 문장은 Anchor 와 의미가 다르므로 Negative sample 입니다.
-이들을 전부 같은 encoder에 통과시켜 데이터를 word 혹은 sentence 단위로 임베딩($h=f_\theta(x)$) 하고 나서, 엥커 데이터와 positive sample은 embedding space에서 거리($\delta(h,h^+$))를 가깝게 하고, 엥커데이터와 negative sample은 거리($\delta(h,h-)$)를 멀게 하도록 loss function을 설정합니다.
+이들을 전부 같은 encoder에 통과시켜 데이터를 word 혹은 sentence 단위로 임베딩($h=f_\theta(x)$) 하고 나서, 앵커 데이터와 positive sample은 embedding space에서 거리($\delta(h,h^+$))를 가깝게 하고, 앵커 데이터와 negative sample은 거리($\delta(h,h-)$)를 멀게 하도록 loss function을 설정합니다.
 
 기존의 Contrastive loss function은 다음과 같습니다.
 
@@ -72,7 +79,7 @@ $\begin{align}
     \mathcal{L}_ {\mathrm{contrastive}} = -\log \frac{e^{\operatorname{sim}\left(\mathbf{h}_ {i}, \mathbf{h}_ {i}^{+}\right) / \tau}}{\sum_ {j=1}^N\left(e^{\operatorname{sim}\left(\mathbf{h}_ {i}, \mathbf{h}_ {j}^{+}\right) / \tau}+e^{\operatorname{sim}\left(\mathbf{h}_ {i}, \mathbf{h}_ {j}^{-}\right) / \tau}\right)}
 \end{align}$
 
-$\mathbf{h}_ {i}$,$\mathbf{h}_ {i}^{+}$, $\mathbf{h}_ {i}^{-}$ 는 각각 anchor, positive, negative의 임베딩 벡터입니다. 이렇게 세팅을 하고 학습을 시키면 인코더의 파라미터 $\theta$는 positive와 negative의 특성을 파악하여 구분할 수 있게 업데이트가 됩니다.  본 논문에서는 Contrastive Learing을 사용하여 효율적으로 Span-Level으로 임베딩하는 전략에 대해 탐구합니다.
+$\mathbf{h}_ {i}$,$\mathbf{h}_ {i}^{+}$, $\mathbf{h}_ {i}^{-}$ 는 각각 anchor, positive, negative의 임베딩 벡터입니다. 이렇게 세팅을 하고 학습을 시키면 인코더의 파라미터 $\theta$는 positive와 negative의 특성을 파악하여 구분할 수 있게 업데이트가 됩니다.  본 논문에서는 Contrastive Learing을 사용하여 효율적으로 Span-Level로 임베딩하는 전략에 대해 탐구합니다.
 
 
 ## **3. Method**  
@@ -88,18 +95,18 @@ $\begin{align}
     \mathcal{L}_ {\mathrm{LM}}=-\mathbb{E}_ {k \sim \mathcal{K}} \log p_ {\theta}(k \vert \hat{k})
 \end{align}$
 
-여기서 $\mathcal{K}$ 는 위키피디아와 같은 외부 지식의 집합이고 $\hat{k}$는 원래 지식 $k$ 에서 masking이나 deletion을 통해 노이즈가 추가된 text 입니다. 즉, 노이즈 데이터 $\hat{k}$을 통해 정상적인 데이터 $k$를 output 하는 가능도를 최대화 시키는 방향으로 모델이 학습되게 됩니다. 따라서 denoising self-supervised learning 이란 노이즈를 제거하며 원본 데이터를 복원하는 과정을 말합니다.
+여기서 $\mathcal{K}$ 는 위키피디아와 같은 외부 지식의 집합이고 $\hat{k}$는 원래 지식 $k$ 에서 masking이나 deletion을 통해 노이즈가 추가된 text 입니다. 즉, 노이즈 데이터 $\hat{k}$을 통해 정상적인 데이터 $k$를 output 하는 가능도를 최대화하는 방향으로 모델이 학습되게 됩니다. 따라서 denoising self-supervised learning 이란 노이즈를 제거하며 원본 데이터를 복원하는 과정입니다. 이는 언어 모델의 파라미터에 올바른 지식 정보를 저장하여 Hallucination이 없는 답변을 생성하기 위함입니다.
 
 
-> **Fine-tuning on Dialogue Datasets**
+> **Fine-tuning on Dialogue Dataset**
 
-다음은 Dialogue Datasets을 Fine-tuning 하는 과정입니다.
+다음은 Dialogue Dataset을 Fine-tuning 하는 과정입니다.
 
 $\begin{align}
     \mathcal{L}_ {\mathrm{MLE}}=-\log p_ {\theta}(y \vert x)=- \sum_ {t=1}^{|y|} \log p_ {\theta} \left(y_ {t} \vert y_ {<t}, x\right)
 \end{align}$
 
-일반적으로 sequence to sequence를 바탕으로 한 언어 모델에서 teacher forcing이 사용되는데, 이때 Maximum Likelihood Estimation를 통해 학습을 합니다. 수식의 우변은 $x$와 이전 ground truth 답변 토큰 $y_{<t}$ 를 입력해주어 다음 ground truth 답변 토큰 $y_t$를 추정하는 teacher forcing 과정을 나타냅니다.
+일반적으로 sequence to sequence를 바탕으로 한 언어 모델에서 teacher forcing이 사용되는데, 이때 Maximum Likelihood Estimation을 통해 학습합니다. 수식의 우변은 $x$와 이전 ground truth 답변 토큰 $y_{<t}$ 를 입력하여 다음 ground truth 답변 토큰 $y_t$를 추정하는 teacher forcing 과정을 나타냅니다. 이는 언어 모델의 디코더가 다음 스텝에서 올바른 토큰을 출력하도록 학습하는 방식으로, fine-tuning 하려는 dialogue dataset의 특징을 올바르게 학습할 수 있습니다. 최종적으로 언어 모델의 파라미터는 dialogue response task에 적합하게 미세조정 됩니다. 본 논문에서는 이렇게 언어 모델을 미세조정 하는 과정에서 Hallucination 문제가 자주 발생한다고 강조합니다.
 
 ### **Positive/Negative Sampling**
 
@@ -107,18 +114,18 @@ Contrastive Learning 에서는 Positive sample 및 Negative sample을 생성하�
 
 본 논문에서는 Positive sample은 다른 연구와 비슷하게 human labeling 혹은 heuristic 한 방법을 사용했다고 합니다.
 
-Negative sample은 TF-IDF retreiver 를 사용하여 주어진 dialogue context $x$에 대해 관련이 없는 정보를 knowledge base $\mathcal{K}$로 부터 추출합니다. 또한 앞서 살펴본 pre-trained & fine-tuned 언어 모델 $p_\theta$를 사용하여 추출합니다.
+Negative sample은 TF-IDF retriever 를 사용하여 주어진 dialogue context $x$에 대해 관련이 없는 정보를 knowledge base $\mathcal{K}$로 부터 추출합니다. 또한 앞서 살펴본 pre-trained & fine-tuned 언어 모델 $p_\theta$를 사용하여 추출합니다.
 
 ### **MixCL: Mixed Contrastive Learning**
 
-다음으로 Figure 3는 본 논문에서 소개하는 MixCL 모델의 전체적인 구조입니다.
+다음으로 Figure 3은 본 논문에서 소개하는 MixCL 모델의 전체적인 구조입니다.
 
 <div style="text-align:center;">  
 <img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image4.png" alt="Image 4" style="width:98%; margin:auto; display:block;" />  
 </div>
 <br>
 
-본 논문에서는 먼저 Dialouge context query로 부터 human labeling 혹은 huristic한 방법을 통해 positive sample을 만들었습니다. 또한 retreiver 및 사전 학습된 모델을 사용하는 전략을 통해 negative sample을 만들었습니다.  그리고 이러한 정보를 원래 쿼리와 함께 사용하여 최종적으로 언어 모델의 output 중에서 negative sample의 비중을 줄이는 것이 목표입니다.
+본 논문에서는 먼저 Dialogue context query로 부터 human labeling 혹은 huristic한 방법을 통해 positive sample을 만들었습니다. 또한 retriever 및 사전 학습된 모델을 사용하는 전략을 통해 negative sample을 만들었습니다.  그리고 이러한 정보를 원래 query와 함께 사용하여 최종적으로 언어 모델의 output 중에서 negative sample의 비중을 줄이는 것이 목표입니다.
 Figure 3에서 Mixed Contrastive Learning 부분은 앞서 생성한 Positive/Negative sample을 Span-Level에서 접근하여 token embedding을 하려고 합니다.  
 
 > **Extracting Spans**
@@ -152,13 +159,13 @@ $\begin{align}
 
 이때, $\tilde{z}_ {i}=Mix(z^+,z^-_ {i})$ 이고 $\phi_ {i, j}=sign({\tilde{z}}_ {i,j})$ 입니다.
 
-이를 모든 $z^{+}$와 $z^{-}$에 적용시키면 최종 MixCL Loss는 다음과 같습니다:
+이를 모든 $z^{+}$와 $z^{-}$에 적용하면 최종 MixCL Loss는 다음과 같습니다:
 
 $\begin{align}
     \mathcal{L}_ {\mathrm{MCL}} = \sum_ {z^{+} \sim \mathcal{Q}_ {\mathrm{Pos}}(x)} \sum_ {z_ {i}^{-} \sim \mathcal{Q}_ {\mathrm{Neg}}(x)}^{i=1, \ldots, M} l_ {\text {mix }}\left(x, z^{+}, z_ {i}^{-}, \theta\right)
 \end{align}$
 
-이는 Span-Level에서 Contrastive Learning을 적용한 방식으로, 언어 모델이 Positive Span을 생성하는 가능도는 높히고 Negative Span을 생성하는 가능도는 낮추는 방향으로 학습하도록 작동합니다.
+이는 Span-Level에서 Contrastive Learning을 적용한 방식으로, 언어 모델이 Positive Span을 생성하는 가능도는 높이고 Negative Span을 생성하는 가능도는 낮추는 방향으로 학습하도록 작동합니다.
 
 <br>
 
@@ -202,9 +209,9 @@ $\begin{align}
     \mathcal{L}_ {\mathrm{MCL}} = l_ {\text {mix}}(z^+,z^-_ {1}) + l_ {\text {mix}}(z^+,z^-_ {2})
 \end{align}$
 
-이때 $\mathcal{L}_{\mathrm{MCL}}$이 작아지려면, Negative Span 에 해당하는 "Japanese", "North American"의 생성 가능도가 감소해야 하고 나머지 Positive Span의 생성 가능도는 커져야 하는 것을 확인할 수 있습니다.
+이때 $\mathcal{L}_{\mathrm{MCL}}$이 작아지려면, Negative Span에 해당하는 "Japanese", "North American"의 생성 가능도가 감소해야 하고 나머지 Positive Span의 생성 가능도는 커져야 하는 것을 확인할 수 있습니다.
 
-> **Final Traning Objective**
+> **Final Training Objective**
 
 최종적으로 Final Loss는 다음과 같이 3개의 Loss의 가중합으로 설정합니다:
 
@@ -218,14 +225,14 @@ $\begin{align}
 ### **Experiment setup**  
 >**Dataset**
 
-본 논문에서는 Dialogue Dataset으로 Wizard of Wikipedia (WoW) 한개만 사용합니다.
+본 논문에서는 Dialogue Dataset으로 Wizard of Wikipedia (WoW) 한 개만 사용합니다.
 다음 Table 1은 WoW 데이터셋의 통계량을 나타냅니다.
 <div style="text-align:center;">  
 <img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image5.png" alt="Image 5" style="width:60%; margin:auto; display:block;" />  
 </div>
 
 <br>
-아래 그림은  WoW 데이터 예시 입니다. Topic이 있고, Wizard 와 Apprentice 가 대화를 하고 있는 Dialogue data 입니다. 이때 Wizard는 topic에 대해서 가운데 파란색으로 표시된 위키피디아에서 제공받은 knolwdge를 사용하여 답변합니다. Apprentice 는 그러한 추가 정보 없이 대화를 이어나갑니다. 이 데이터를 학습해서 답변을 잘 하는 Wizard agent 모델을 만드는 것이 목표입니다.
+아래 그림은  WoW 데이터 예시 입니다. Topic이 있고, Wizard 와 Apprentice 가 대화를 하고 있는 Dialogue data 입니다. 이때 Wizard는 topic에 대해서 가운데 파란색으로 표시된 위키피디아에서 제공받은 knolwdge를 사용하여 답변합니다. Apprentice 는 그러한 추가 정보 없이 대화를 이어 나갑니다. 이 데이터를 학습해서 답변을 잘하는 Wizard agent 모델을 만드는 것이 목표입니다.
 
 <div style="text-align:center;">
 <br>  
@@ -246,7 +253,7 @@ F1, RL(ROUGE-L), B2, B4 (BLEU) MT(Meteor), KF1(Knowledge-F1), EF1(Entity-F1), an
 
 ### **Result**  
 
-아래 Table 1은 여러 가지 knowledge dialougue agent model로 WoW 데이터를 학습한 결과입니다. KB-based 모델도 있고 LM-based 모델도 있습니다. 대부분의 평가 지표에서 MixCL 모델 성능이 우수한 것을 확인할 수 있습니다.
+아래 Table 1은 여러 가지 knowledge dialogue agent model로 WoW 데이터를 학습한 결과입니다. KB-based 모델도 있고 LM-based 모델도 있습니다. 대부분의 평가 지표에서 MixCL 모델 성능이 우수한 것을 확인할 수 있습니다.
  
 <div style="text-align:center;">  
 <img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image7.png" alt="Image 7" style="width:95%; margin:auto; display:block;" />  
@@ -257,44 +264,44 @@ F1, RL(ROUGE-L), B2, B4 (BLEU) MT(Meteor), KF1(Knowledge-F1), EF1(Entity-F1), an
 
 <br>
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image8.png" alt="Image 8" style="width:50%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image8.png" alt="Image 8" style="width:60%; margin:auto; display:block;" />  
 </div>
 <br>
 아래 Table 3은 구성 요소들을 하나씩 제거하며 학습을 한 결과입니다. 요소를 제거할 때 마다 성능이 낮아지는 것을 알 수 있습니다. 즉, 본 논문에서 모델링한 loss 함수 및 negative sampling 과정이 효과가 있다는 것을 보여줍니다.
 
 <br>
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image9.png" alt="Image 9" style="width:50%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image9.png" alt="Image 9" style="width:60%; margin:auto; display:block;" />  
 </div>
 <br>
-아래 Figure 4의 세로축 F1은 모델 응답의 factuality를 나타내고 가로측 latency는 모델의 응답 지연률을 나타냅니다. 즉, 왼쪽 위에 있을수록 성능과 효율이 좋은 것입니다. 또한 원의 크기는 모델의 파라미터 개수를 의미합니다. 즉, MicCL로 학습한 BART-Large는 다른 모델들에 비해 모델의 파라미터 수는 적고 답변 퀄리티와 응답 속도는 우수하다는 것을 나타냅니다.
+아래 Figure 4의 세로축 F1은 모델 응답의 factuality를 나타내고, 가로축 latency는 모델의 응답 지연율을 나타냅니다. 즉, 왼쪽 위에 있을수록 성능과 효율이 좋은 것입니다. 또한 원의 크기는 모델의 파라미터 개수를 의미합니다. 즉, MicCL로 학습한 BART-Large는 다른 모델들에 비해 모델의 파라미터 수는 적고 답변 퀄리티와 응답 속도는 우수하다는 것을 나타냅니다.
 
 <br>
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image10.png" alt="Image 10" style="width:50%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image10.png" alt="Image 10" style="width:60%; margin:auto; display:block;" />  
 <br>
 </div>
 
 >**Case Study**
 
-아래 Table 4는 실제 MixCL로 학습한 BART-Large의 답변입니다. 주제를 요가라고 하고 주어진 Dialogue(Context)가 있을 때, 다음에 이어질 답변을 모델들이 생성한 결과입니다. 다른 모델들은 단순한 답변을 한 반면에,  초록색에 표시된 것 처럼 MicCL은 위키피디아 지식을 사용하여 더 자세하게 답변한 것을 확인할 수 있습니다. 
+아래 Table 4는 실제 MixCL로 학습한 BART-Large의 답변입니다. 주제를 요가라고 하고 주어진 Dialogue(Context)가 있을 때, 다음에 이어질 답변을 모델들이 생성한 결과입니다. 다른 모델들은 단순한 답변을 한 반면에,  초록색에 표시된 것처럼 MicCL은 위키피디아 지식을 사용하여 더 자세하게 답변한 것을 확인할 수 있습니다. 
 
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image11.png" alt="Image 11" style="width:90%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image11.png" alt="Image 11" style="width:95%; margin:auto; display:block;" />  
 </div>
 <br>
-아래 Table 6는 다음 예시를 나타냅니다. 주제는 양궁인데 다른 모델들은 빨간색으로 표시된 것처럼 검색을 잘못하여 초콜릿이나 체스와 같은 다른 답변을 합니다. 반면에 MixCL은 양궁 정보를 정확하게 전달하는 것을 알 수 있습니다.
+아래 Table 6은 다음 예시를 나타냅니다. 주제는 양궁인데 다른 모델들은 빨간색으로 표시된 것처럼 검색을 잘못하여 초콜릿이나 체스와 같은 다른 답변을 합니다. 반면에 MixCL은 양궁 정보를 정확하게 전달하는 것을 알 수 있습니다.
 
 <br>
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image12.png" alt="Image 12" style="width:90%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image12.png" alt="Image 12" style="width:95%; margin:auto; display:block;" />  
 </div>
 <br>
-아래 Table 7은 MicCL의 한계점을 나타내는 예시입니다. 주제는 군의관이고 끝에 캐나다의 Winnipeg이라는 도시의 소방서에 대해 말하고 있습니다. 하지만 빨간색으로 표시된 것처럼 Winnipeg 소방서는 세계에서 가장 큰 소방서가 아님에도 불구하고 세계에서 가장 크다고 답변합니다. 즉,  factuall 한 에러를 포함하고 있습니다. 이처럼 본 논문에서 제안한 MixCL도 여전히 Hallucination이 발생한다는 것을 알 수 있습니다.
+아래 Table 7은 MicCL의 한계점을 나타내는 예시입니다. 주제는 군의관이고 끝에 캐나다의 Winnipeg이라는 도시의 소방서에 대해 말하고 있습니다. 하지만 빨간색으로 표시된 것처럼 Winnipeg 소방서는 세계에서 가장 큰 소방서가 아님에도 불구하고 세계에서 가장 크다고 답변합니다. 즉,  factual 한 에러를 포함하고 있습니다. 이처럼 본 논문에서 제안한 MixCL도 여전히 Hallucination이 발생한다는 것을 알 수 있습니다.
 
 <br>
 <div style="text-align:center;">  
-<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image13.png" alt="Image 13" style="width:90%; margin:auto; display:block;" />  
+<img src="../../images\DS503_24S\Contrastive_Learning_Reduces_Hallucination_in_Conversations/image13.png" alt="Image 13" style="width:95%; margin:auto; display:block;" />  
 </div>
 
 

@@ -5,7 +5,7 @@ tags: [reviews]
 use_math: true
 usemathjax: true
 ---
-# **Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses** 
+
 
 ## **0. Preliminary and Motivating Example**
 
@@ -68,63 +68,98 @@ DFL에서 가장 문제가 되는 부분이 $\frac{\partial L_ {\mathcal{D}}(a^{
 
 본 논문에서 소개하는 Locally Optimized Decision Losses(LODL)은 총 3가지의 특징으로 이루어져있습니다.
 
-1. 데이터셋의 각각의 $((x,y))$ pair마다 Surrogate loss를 학습시킵니다. 이때 우리의 predictive model $\mathbf{M}_ {\theta}$가 true label $y$에 충분히 가까이 예측할 수 있다는 가정하에 $\hat y_ {i} \approx y_ {i} \pm \epsilon$를 sampling 하여 $LODL_ {\phi} (\hat y, y)=[LODL_ {\phi_ {1}}(\hat y_ {1}),\ldots,LODL_ {\phi_ {N}}(\hat y_ {N})]$을 학습시킵니다.
-2. $LODL_ {\phi_ {i}} (\hat y_ {i}) \approx DL(\hat y_ {i}, y_ {i})-DL(y_ {i}, y_ {i})\Rightarrow DL(\hat y_ {i}, y_ {i}) \approx LODL_ {\phi_ {i}} (\hat y_ {i}) + DL(y_ {i}, y_ {i})$
-위의 관계에서 $DL(y_ {i}, y_ {i})$가 constant 이므로 $LODL_ {\phi_ {i}}$의 form을 convex parametric form으로 설정하면 minima at $\hat y_ {i} = y_ {i}$인 convex function으로 predictive model을 학습 할 수 있습니다.
-3. 다양한 방법으로 $\hat y$를 sampling하였습니다.
 
-$LODL$과 기존의 Surrogate loss들의 가장 큰 차이점은 locally하게 Surrogate loss를 학습시킨다는 것인데, 이는 기존에 dim($y$)+dim($\hat y$)차원의 Surrogate loss를 학습시켜야 한다는 것에서 벗어나 dim($\hat y$)차원의 Surrogate loss를 학습시키면 된다는 점에서 이점이 있습니다.
+
+### 2.1 Local Loss Functions.
+
+Locally Optimized Decision Losses 는 데이터셋의 각각의 $((x,y))$ pair마다 Surrogate loss를 학습시킵니다. 즉 하나의 $(x_ {i}, y_ {i})$ pair 마다 하나의 Surrogat loss function $LODL_ {\phi_ {i}}$ 를 학습시키는 것입니다. 
+
+여기서 중요한 점은 각 Surrogate loss function을 어떤 sample $\hat y$들을 이용하여 학습시킬까 입니다.
+
+이 논문에서는 우리의 predictive model $\mathbf{M}_ {\theta}$가 true label $y$에 충분히 가까이 예측할 수 있다는 가정하에 $\hat y_ {i} \approx y_ {i} \pm \epsilon$를 sampling 하여 $LODL_ {\phi} (\hat y, y)=[LODL_ {\phi_ {1}}(\hat y_ {1}),\ldots,LODL_ {\phi_ {N}}(\hat y_ {N})]$을 학습시킵니다.
+
+
+### 2.2 Surrogate Loss Functions.
+
+이 논문에서는 Surrogate Loss function의 form을 모두 convex하게 설정하였는데 그 이유는 다음 식에서 유도할 수 있습니다.
 
 ---
 
-$LODL$의 Surrogate loss function form 에는 크게 4가지가 있습니다.
+$LODL_ {\phi_ {i}} (\hat y_ {i}) \approx DL(\hat y_ {i}, y_ {i})-DL(y_ {i}, y_ {i})\Rightarrow DL(\hat y_ {i}, y_ {i}) \approx LODL_ {\phi_ {i}} (\hat y_ {i}) + DL(y_ {i}, y_ {i})$
+
+---
+
+위의 관계에서 $DL(y_ {i}, y_ {i})$가 constant 이므로 $LODL_ {\phi_ {i}}$의 form을 convex parametric form으로 설정하면 minima at $\hat y_ {i} = y_ {i}$인 convex function으로 predictive model을 학습 할 수 있습니다.
+
+이 논문에서 설정한 $LODL$의 Surrogate loss function form 에는 크게 4가지가 있습니다.
 
 1. **WeightedMSE:** $\text{WeightedMSE}(\hat y)=\sum_ {l=1}^{\text{dim}(y)} w_ {l}\cdot (\hat y_ {l}-y_ {l})^2$
+
 이때 학습되어야할 parameter은 $w_ {l}$ 입니다.
+
 2. **Quadratic:** $\text{Quadratic}(\hat y)=(\hat y - y)^T H(\hat y-y)$
+
 이때 학습되어야할 parameter은 low-rank symmetric Positive semidefinite(PSD) matrix 인 $H=L^T L$ 입니다.
+
 3. **DirectedWeightedMSE:**
+
 위의 $\text{WeightedMSE}$ 와 식은 동일하나 $w_ {l}=
     \begin{cases}
       w_ {+}, & \text{if}\ \hat y_ {i}-y_ {i}\geq 0 \\
       w_ {-}, & \text{otherwise}
-    \end{cases}$
+    \end{cases}$ 으로 
+    direction을 추가하였습니다.
+
 4. **DirectedQuadratic:**
+
 위의 $\text{Quadratic}$ 과 식은 동일하나 $L_ {ij}=
     \begin{cases}
       L_ {ij}^{++}, & \text{if}\ \hat y_ {i}-y_ {i}\geq 0 \text{ and}\ \hat y_ {j}-y_ {j}\geq 0 \\
       L_ {ij}^{+-}, & \text{if}\ \hat y_ {i}-y_ {i}\geq 0 \text{ and}\ \hat y_ {j}-y_ {j}< 0 \\
       L_ {ij}^{-+}, & \text{if}\ \hat y_ {i}-y_ {i}< 0 \text{ and}\ \hat y_ {j}-y_ {j}\geq 0 \\
       L_ {ij}^{--}, & \text{otherwise}
-    \end{cases}$
+    \end{cases}$ 으로
+    direction을 추가하였습니다.
+
+
+### 2.3 Sampling
+이 논문에서는 Surrogate Loss function을 학습시키기 위해 다양한 방법으로 $\hat y$를 sampling하였습니다.
+
+즉 $\hat y -y = \epsilon$ 이라고 하였을 때,
+
+- $\epsilon \sim N(0,\sigma^2)$ (Random Normal)
+- $\epsilon \sim U(0,\sigma)$ (Random Uniform)
+- $\epsilon \sim d *N(0,\sigma^2)$ (Random Normal dropout)
+등 다양한 방법으로 sampling strategy를 설정하였습니다.
 
 ---
-LODL의 **sampling strategy**에는
-1. Random_normal
-2. Random_uniform
-3. Random_dropout
-4. Random_jacobian
-5. Random_hessian
 
-등이 있습니다.
 
----
-LODL의 computational cost에 관해서
+$LODL$과 기존의 Surrogate loss들의 가장 큰 차이점은 locally하게 Surrogate loss를 학습시킨다는 것인데, 이는 기존에 dim($y$)+dim($\hat y$)차원의 Surrogate loss를 학습시켜야 한다는 것에서 벗어나 dim($\hat y$)차원의 Surrogate loss를 학습시키면 된다는 점에서 이점이 있습니다.
 
-- 각각의 $LODL_ {\phi_ {i}} (\hat y_ {i})$이 parallelizable하게 학습될 수 있으므로 여러개의 core를 사용할수록 cost가 near-linearly 하게 줄어들것입니다.
-- 학습된 $LODL_ {\phi_ {i}} (\hat y_ {i})$를 재사용할경우 LODL의 training time은 거의 two-stage의 경우만큼 줄어들 것입니다.
+또한 각각의 $LODL_ {\phi_ {i}} (\hat y_ {i})$이 parallelizable하게 학습될 수 있으므로 여러개의 core를 사용할수록 cost가 near-linearly 하게 줄어들것입니다. 그리고 학습된 $LODL_ {\phi_ {i}} (\hat y_ {i})$를 재사용할경우 LODL의 training time은 거의 two-stage의 경우만큼 줄어들 것입니다.
 
 
 
-## **3. Training step**  
+## **3. Training method**  
 
 본 논문에서 제시하는 방법론은 총 3가지 단계로 이루어져있습니다.
 
-1. 주어진 데이터셋 $((x,y))$에 대하여 각각의 $y_ {n}$ 마다 $\hat y_ {n}$를 sampling 하는 단계
-2. Sampling된 $\hat y_ {n}$들로 $LODL_ {\phi_ {n}}(\hat y_ {i})\approx DL(\hat y_ {n},y_ {n})$가 되는 $\phi_ {n}$을 학습시키는 단계
-3. 학습된 $LODL_ {\phi}$를 이용하여 predictive model을 학습하는 단계
+이해를 돕기 위해 간단한 그림으로 설명드리겠습니다.
 
+![Training step](https://i.ibb.co/hK0bQS1/Training-step.png)
 
+### Step 1 : Sampling stage
+
+각 $(x_ {i}, y_ {i})$ pair에 대해서 $\hat y_ {i}$를 sampling하여 dataset에 저장합니다.
+
+### Step 2 : Loss training stage
+
+Sampling된 $\hat y_ {i}$들로 $LODL_ {\phi_ {i}}(\hat y_ {i})\approx DL(\hat y_ {i},y_ {i})$가 되는 $\phi_ {n}$을 학습시킵니다.
+
+### Step 3 : Model training stage
+
+학습된 $LODL_ {\phi}$를 이용하여 predictive model을 학습합니다.
 
 ## **4. Experiment**  
 
@@ -134,27 +169,24 @@ LODL의 computational cost에 관해서
 2. Web Advertising
 3. Portfolio Optimization
 
-### **Linear Model**
+### Linear Model
 Predict : feature $x_n\sim U[0,1]$를 이용하여 resource n의 utility $\hat y$를 예측합니다. 이때 true utility function : $y_ {n} = 10 x_ {n}^3 - 6.5 x_ {n}$입니다.
+
 Optimize : $N=50$ resources 중 $B=1$개의 highest utility를 고릅니다.
 
 $z^{\*}(\hat y)=\text{arg topk}(\hat y)$
 
-### **Web Advertising**
+### Web Advertising
 Predict : $M=5$ websites 에서 각 website $m$에 연관된 feature $x_m$을 이용하여 $N=10$명의 users에 대한 click-through rates(CTRs)를 예측합니다. 이때 true CTRs는 Yahoo! Webscope Dataset에서 얻었습니다.
+
 Optimize : 예측된 CTRs를 이용하여 user에게 advertise 할 $B=2$개의 website를 고릅니다.
 
 $z^{\*}(\hat y)=\text{arg max}_ {z}\sum_ {j=0}^N(1-\prod_ {i=0}^M(1-z_ {i}\cdot\hat y_ {ij}))$ where $z_ {i}\in\{0,1\}$
 
-### **Portfolio Optimization**
+### Portfolio Optimization
 Predict : Stock $n$에 대한 feature $x_n$를 이용하여 미래의 stock price $y_ {n}$를 예측합니다. 이때 QuandlWIKI dataset에서 $N=50$개의 stock에 대한 2004 to 2017의 과거 데이터를 이용했습니다.
+
 Optimize : 과거의 correlation matrix $Q$를 이용하여 $z^Ty - \lambda\cdot\hat y^TQ\hat y$를 maximize하는 distribution $z$를 고릅니다. 이때 risk aversion constant인 $\lambda$는 0.1로 설정합니다.
-
-
-### Evaluation Metric  
-
-본 논문에서 사용한 Evaluation Metric은 $\text{decision quality } DQ$로 higher is better 입니다.
-$DQ$는 Random으로 y를 설정한 경우 얻은 objective를 0, Optimal하게 y를 설정한 경우 objective를 1로 설정하여 scaling합니다.
 
 ### Experiment setting
 
@@ -164,15 +196,25 @@ $DQ$는 Random으로 y를 설정한 경우 얻은 objective를 0, Optimal하게 
 - 2-stage방식은 standard MSE loss를 사용하여 학습하였습니다.
 
 
-### **Result**  
+## **5. Result**
+
+### Evaluation Metric  
+
+본 논문에서 사용한 Evaluation Metric은 $\text{decision quality } DQ$로 higher is better 입니다.
+$DQ$는 Random으로 y를 설정한 경우 얻은 objective를 0, Optimal하게 y를 설정한 경우 objective를 1로 설정하여 scaling합니다.
 
 ![](../../images/DS503_24S/Decision-Focused_Learning_without_Differentiable_Optimization_Learning_Locally_Optimized_Decision_Losses/image_3.png)
 
 본 논문에서 제시한 Locally optimized decision loss로 학습 한 경우 Decision quality가 좋게 나오는 것을 볼 수 있습니다. 특히 Directed Quadratic의 경우 2-stage보다 세 문제 모두 결과값이 더 좋게 나오고, 일반적인 DFL방식보다 대부분 결과값이 더 좋게 나오는 것을 확인할 수 있습니다.
   
+위의 결과를 토대로 우리는 세가지 결론을 얻어낼 수 있습니다.
+
+1. $LODL$의 DirectedQuadratic function이 consistent 하게 잘 perform합니다, 특히 항상 2-stage보다 좋은 결과를 볼 수 있습니다.
+2. Convexity를 가지지 않는 fucntion form이면 결과가 inconsistent 할 수 있습니다. 이는 $NN$ 의 성능이 Portfolio Optimizatin 문제에서 급격히 감소함을 토대로 해석할 수 있습니다.
+3. DFL 은 performance 측면에서 매우 큰 variance를 가집니다. 이는 여러 problem에서 DFL의 variance가 highest quality를 보이는 LODL보다 더 큰 variance를 보임을 통해 해석할 수 있습니다.
 
 
-## **5. Conclusion**  
+## **6. Conclusion**  
 
 본 논문은 기존의 surrogate loss들의 한계점인 optimization problem의 형태의 제약, 혹은 차원의 문제를 해결하는 새로운 surrogate loss 모델로 Locally optimized decision loss 방법론을 제시하였습니다. 2-stage 방법론보다 모든 문제에서 더 좋은 결과를 얻었으며, DFL방식보다 대부분의 문제에서 더 좋은 결과를 얻었다는 것을 확인할 수 있었습니다.
 
@@ -188,5 +230,3 @@ $DQ$는 Random으로 y를 설정한 경우 얻은 objective를 0, Optimal하게 
 ## **6. Reference & Additional materials**  
 
 [1] Shah, S.; Wang, K.; Wilder, B.; Perrault, A.; and Tambe, M. 2022. Decision-Focused Learning without Differentiable Optimization: Learning Locally Optimized Decision Losses. Preprint at https://arxiv.org/abs/2203.16067.
-
-Code : https://github.com/sanketkshah/LODLs

@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-
-# **[IJCAI-2021] Contrastive Losses and Solution Caching for Predict-and-Optimize**  #
 ## **1. Introduction**
 현실에서 decision-making problem들은 combinatorial optimization problem으로 정의됩니다. 그러나, 미래 에너지 가격이 불확실한 기계의 작업을 하루빨리 스케쥴링 해야 하는 것과 같이. 대부분의 입력 매개 변수는 불확실성을 가지고 있습니다. 
 이러한 맥락에서 가장 널리 사용되는 관행은 먼저 ML 모델을 훈련한 다음, uncertain parameter의 point estimate를 만들고, 그 후에 최적화 문제를 해결하는 **predict-then-optimize** 방식입니다. 그러나 이 과정에서 ML 모델은 downstream optimization problem에 대한 영향을 고려하지 않고 prediction error를 최소화하도록 훈련됩니다. 
@@ -158,10 +156,33 @@ Q4. 본 논문에서 설명한 방법론이 DFL을 위한 최신 알고리즘과
     - Data Generation: 2011~2013년까지의 에너지 가격 데이터를 사용하여 각 time slot(half our)마다 임의의 가중치를 할당하고 Gaussian noise를 추가하여 데이터 생성
     - Detail: 각 knapsack instance는 하루를 나타내는 48개의 time slot으로 구성되며, 각 slot마다 3,5,7 중 하나의 가중치가 할당됨.
 
-- **Energy-cost Aware Scheduling
-    - Goal: 여러 기게에서 작업을 스케쥴링하여 전체 에너지 소비 비용을 최소화
-    - Problem Setting: 각 작업은 지속 시간, 가장 빠른 시작 시간, 가장 늦은 종료 시간, 에너지 사용량 등의 특성을 가짐.
-    - Detail: 스케줄링은 하루를 나타내는 48개의 시간 구간으로 이루어지며, 각 작업은 해당 기간동안 특정 기계에서 시작해야 함.
+- **Energy-cost Aware Scheduling**
+    - Problem Setting: 주어진 문제에서 J는 M개의 기계에 스케줄링되어야 하는 작업들의 집합을 나타냅니다. 각 작업은 R개의 자원 요구 사항을 유지하면서 스케줄링되어야 합니다. 작업들은 T(=48)개의 동일한 길이의 시간 구간에 걸쳐 스케줄링됩니다. 각 작업 \( j \)는 다음과 같은 속성들을 가집니다:
+        - **지속 시간 \( d_j \)**: 작업이 수행되는 데 걸리는 시간.
+        - **최초 시작 시간 \( e_j \)**: 작업이 시작될 수 있는 가장 빠른 시간.
+        - **마지막 종료 시간 \( l_j \)**: 작업이 종료되어야 하는 가장 늦은 시간.
+        - **전력 사용량 \( p_j \)**: 작업이 수행될 때 소모되는 전력.
+        - **자원 사용량 \( u_{jr} \)**: 작업 \( j \)가 자원 \( r \)을 사용할 때 필요한 자원 양.
+        - **기계의 자원 용량 \( c_{mr} \)**: 기계 \( m \)이 자원 \( r \)을 수용할 수 있는 용량.
+        
+        각 시간 구간 \( t \)에서의 에너지 가격 \( c_t \)가 주어지면, 총 에너지 비용을 최소화하는 것이 목표입니다. 이를 위해 이진 변수 \( x_{jmt} \)를 정의합니다. \( x_{jmt} \)는 작업 \( j \)가 기계 \( m \)에서 시간 \( t \)에 시작되면 1, 그렇지 않으면 0을 나타냅니다.
+    - Goal: 최적화 문제는 다음과 같이 정의됩니다:
+        - **목표 함수**
+        총 에너지 비용을 최소화하기 위해 다음과 같은 목적 함수를 설정합니다:
+        $\text{minimize} \quad \sum_{j \in J} \sum_{m \in M} \sum_{t \in T} x_{jmt} \left( \sum_{t \leq t' < t + d_j} p_j c_{t'} \right)$
+
+        - **제약 조건들**
+            1. **작업 할당 제약**: 각 작업은 정확히 한 번 시작되어야 합니다.
+            $\sum_{m \in M} \sum_{t \in T} x_{jmt} = 1 \quad \forall j \in J$
+            2. **최초 시작 시간 제약**: 작업은 최초 시작 시간 이전에는 시작할 수 없습니다.
+            $x_{jmt} = 0 \quad \forall j \in J, \forall m \in M, \forall t < e_j$
+            3. **마지막 종료 시간 제약**: 작업은 마지막 종료 시간 이후에는 시작할 수 없습니다.
+            $x_{jmt} = 0 \quad \forall j \in J, \forall m \in M, \forall t + d_j > l_j$
+            4. **자원 용량 제약**: 각 시간 구간에서 각 기계의 자원 사용량은 기계의 자원 용량을 초과할 수 없습니다.
+            $\sum_{j \in J} \sum_{t' - d_j < t \leq t'} x_{jmt'} u_{jr} \leq c_{mr} \quad \forall m \in M, \forall r \in R, \forall t \in T$
+
+            위의 제약 조건들을 만족하면서 총 에너지 비용을 최소화하는 작업 스케줄을 찾는 것이 이 문제의 목표입니다.
+
 
 - **Diverse Bipartite Matching**
     - Goal: 노드 특성을 사용하여 그래프 내 존재하는 간선 예측 및 예측된 그래프에서 maximum matching을 찾는 것

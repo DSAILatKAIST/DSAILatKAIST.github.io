@@ -38,8 +38,10 @@ Modality가 융합되는 지점에 따라 크게 early fusion과 late fusion으�
 LeMDA 는 semantic한 구조를 유지하는 informative data를 생성하도록 task network인 F를 활용하여 augmentation network인 G를 학습하는 방법을 말한다.<br>
 우선 LeMDA 의 overview 는 다음 그림과 같다.<br>
 
+
 ![Figure1](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Figure1.png)
 <br>
+
 
 #### - Training (multimodal) task network <br>
 우선 task network가 어떻게 training되는지 살펴보자.<br>
@@ -74,7 +76,14 @@ $$\mathcal{L} _{Augmentation} = \text{max} E_{x\sim X}(\mathcal{L}(\hat{y}_G)) +
 
 ##### - Consistency regularizer <br>
 
-consistency regularizer은 orginal data와 augmented data의 유사한 logit output distribution을 유도하는 역할이다. 
+consistency regularizer은 orginal data와 augmented data의 유사한 logit output distribution을 유도하는 역할이다. 이를 그래프와 함께 살펴보면 다음과 같다. <br>
+
+
+![Figure2](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Figure2.png)
+
+
+주황색 동그라미(original data)로부터 두개의 화살표로 이어진 D1,D2는 모두 augmented data이다. 육각형으로 표시된 부분은 training loss를 표현한 것으로, 더 어두울수록 task training loss가 더 큰 것을 의미한다. 녹색 실선은 actual decision boundary이고, 녹색 점선은 model의 decision boundary이다. Task loss의 관점에서 봤을 때, D1과 D2 모두 original data로부터 비슷한 거리만큼 이동했기 때문에 선호도는 같다. 하지만 D2는 모델의 decision boundary를 넘어갔기 때문에 consistency regularizer에 의해 penalty가 부과된다. 이는 D2가 기존 data의 class label과 description과 맞지 않고, augmentation을 통해 original data와 많이 달라진 예시이기도 하기 때문이다. 
+
 본 논문에서 consistency regularizer에 적용된 주요 기법은 두 가지가 있는데, 다음과 같다.
 - confidence masking
 - design decisions
@@ -90,8 +99,12 @@ LeMDA 에 대한 평가를 위해 다양한 modality의 data가 pair로 존재�
 #### - Baselines <br>
 baseline 으로는 task network의 경우 multimodal-net이 사용되었고, modality encoder의 경우 modality의 종류에 따라 ConvNet, ELECTRA, Transformer 등이 사용되었다.<br>
 
+
 ![Table1](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Table1.png)
 ![Table2](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Table2.png)
+
+
+
 Table 1은 실험에 사용된 8개의 dataset에 대한 정보이다. image, text, tabular 총 세 개의 modality의 조합으로 구성된 dataset들이 이용되었음을 알 수 있다. 
 LeMDA의 성능을 평가하기 위해 총 4가지의 data augmentation method와 LeMDA를 비교하였다. 실험에 이용된 data augmentation method는 다음과 같다.
 - single-modal method : Image의 경우 최신 이미지 증강 기법인 TriviralAugment가 이용되었다. Text의 경우 EDA, AEDA의 모든 transformation에서 random하게 선택된 하나가 이용되었다.
@@ -103,6 +116,9 @@ Table 2에서 확인 할 수 있듯이, LeMDA를 사용했을 때 모든 dataset
 ![Table3](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Table3.png)
 ![Table4](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Table4.png)
 ![Table5](../../images/DS503_24S/Learning_Multimodal_Data_Augmentation_In_Feature_Space//Table5.png)
+
+
+
 마지막으로 ablation study 에 대한 분석을 진행하겠다. regularizer에 대한 Ablation study 에서 확인 할 수 있듯이 consistency가 포함된 경우 model performance가 향상되었음을 확인할 수 있다. 이는 consistency를 이용함으로써 target과 augmentation network 간의 softmax 값에 접근하면서 lebel에 대한 직접적인 정보를 제공하는 것이 중요함을 시사하는 바이다.
 <br>
 Table 4는 두 VAE를 비교한 결과이다. 모든 dataset에서 MLP-VAE를 사용했을 때 성능이 더 좋다는 것을 알 수 있다. 이는 modality의 개수와 연관이 있다. Late fusion 기준으로 fusion하는 modality의 개수가 2,3개 정도로 작은 숫자이기 때문에 attention을 수행하는 것이 효과적이지 않음을 알 수 있다.
@@ -115,3 +131,10 @@ Table 5는 augmentation network의 confidence masking의 threshold를 조정한 
 따라서 late fusion에 초점을 맞춰 모든 modality와 task에 적용할 수 있는 기법을 제안하여 모델의 성능 향상을 성공적으로 구현하였다.
 <br> 
 논문의 마지막에서 저자는 early fusion에 대한 연구는 open question으로 남겨두었다. 
+##### - personal idea<br>
+multimodal data는 각 modality가 pair로 이뤄져야한다는 점 때문에 그 수가 unimodal data에 비해 적은 것이 사실이다. 따라서 multimodal data augmentation은 연구가 더 이뤄져야하는 부분이고, early fusion을 적용하는 것이 더 나은 상황에서의 augmentation도 필요하다. 이 경우에는 각 modality별로 augmentation을 진행한 뒤, augmented data 간의 pair를 만드는 방식의 연구가 도움이 될 것이라고 생각한다. contrastive learning 등을 이용하여 modality 간의 positive pair를 생성하는 방식을 이용하면 late fusion을 하지 않고도 multimodal data의 augmentation을 할 수 있을 것이다.
+
+
+### 6. Author infromation
+##### - Zichang Liu <br>
+- Rice University

@@ -386,9 +386,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="iclr-2024-large-language-models-are-efficient-learners-of-noise-robust-speech-recognition">[ICLR 2024] Large Language Models Are Efficient Learners of Noise-robust Speech Recognition</h1>
-
-<h2 id="사전-지식">사전 지식</h2>
+        <h2 id="사전-지식">사전 지식</h2>
 <ul>
   <li>LM (Language Model, 언어 모델)
     <ul>
@@ -464,19 +462,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       <li>noise에 robust한 ASR 모델</li>
       <li>noisy한 speech $X_n$으로부터 beam search decoding을 활용하여 N_best hypotheses $\mathcal{Y}_N={Y_1,Y_2,···,Y_N}$을 생성함</li>
       <li>
-        <p>생성한 후보군을 text로 바꿔주는 hypotheses-to-transcription (H2T) 모델에 넣어줌</p>
-
-        <p>${Y=\mathcal{M}_ {H2T}(\mathcal{Y}_N)}$
-<br />
-<br /></p>
+        <p>생성한 후보군을 text로 바꿔주는 hypotheses-to-transcription (H2T) 모델에 넣어줌  ${Y=\mathcal{M}_ {H2T}(\mathcal{Y}_N)}$</p>
       </li>
-      <li>
-        <p>ground truth가 $Y^+$일 때, cross-entropy loss를 다음과 같이 계산하여 LLM을 fine-tuning 함. ($\theta$는 learnable parameter)</p>
-
-        <p>${\mathcal{L}_ {H2T} = \sum_ {t=1}^{T}- \log \mathcal{P}_ {\theta}(y_ {t}^{+} \vert y_ {t-1}^{+}, ··· ,y_ {1}^{+},\mathcal{Y}_ {N})}$
-<br />
-<br /></p>
-      </li>
+      <li>ground truth가 $Y^+$일 때, cross-entropy loss를 다음과 같이 계산하여 LLM을 fine-tuning 함. ($\theta$는 learnable parameter)  ${\mathcal{L}_ {H2T} = \sum_ {t=1}^{T}- \log \mathcal{P}_ {\theta}(y_ {t}^{+} \vert y_ {t-1}^{+}, ··· ,y_ {1}^{+},\mathcal{Y}_ {N})}$</li>
     </ul>
   </li>
   <li>데이터
@@ -499,13 +487,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       <li>$\mathcal{Y}_ {N}$으로부터 추출한 language-space noise를 $E_ {LN}$으로 설정</li>
       <li>source speech $X_n$에서 KD를 통해 noise를 제거하기 위해 ASR audio embedding을 $\mathcal{E}_ {ASR}(X_ {n})$으로 설정</li>
       <li>noise 제거를 위해 denoising을 minus sign을 붙여 $-E_ {LN}$으로 표현</li>
-      <li>
-        <p>아래 ${\mathcal{M}_ {H2T}}$는 LLM finetuning을 거친 H2T mapping</p>
-
-        <p>${Y=\mathcal{M}_ {H2T}(\mathcal{Y}_ {N};-E_ {LN})}$
-<br />
-<br /></p>
-      </li>
+      <li>다음 ${\mathcal{M}_ {H2T}}$는 LLM finetuning을 거친 H2T mapping: ${Y=\mathcal{M}_ {H2T}(\mathcal{Y}_ {N};-E_ {LN})}$</li>
     </ul>
   </li>
   <li>Language-space Noise Embedding
@@ -513,84 +495,79 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       <li>$E_ {LN}=[E_ {LN}^{utt};E_ {LN}^{tok}]$</li>
       <li>$E_ {LN}$은 N-best list 내부의 문장 전체 diversity에 영향 끼치는 1) utterance level $E_ {LN}^{utt}$와 단어 단위에서 distribution을 측정한 2) token level $E_ {LN}^{tok}$로 나누어짐</li>
       <li>한편, raw text로부터 audio embedding을 얻기 위해 sentence-BERT (SBERT)가 사용됨</li>
+    </ul>
+  </li>
+  <li>Utterance-level Noise Embedding
+    <ul>
       <li>
-        <p>Utterance-level Noise Embedding</p>
-
-        <p>$E_ {LN}^{utt}=Concat { [\mathcal{E}_ {sbert} (Y_ {i}) - \mathcal{E}_ {sbert}(Y_ {j}) ]_ {i,j=1,i&gt;j}^{N} } \in ?^{ {N(N-1)\over{2} } \times D_ {sbert} }$</p>
-
-        <ul>
-          <li>이 때, $D_ {sbert}$는 SBERT embedding size</li>
-          <li>$i,j$ 차이가 클 수록, worse noise가 생성됨</li>
-        </ul>
+        <p>Utterance-level Noise Embedding은 음성 신호에서 발생하는 배경 소음이나 잡음을 표현하는 데 사용되는 특징 벡터</p>
       </li>
-      <li>Token-level Noise Embedding
-        <ul>
-          <li>
-            <p>zero-padding ($Ø$)한 $Y_ {i}$를 일정한 길이로 잘라 $T$개의 token을 만듦</p>
-
-            <p>$Y_i^{ali}=[y_ {i_ {1}}^{ali},y_ {i_ {2}}^{ali},···,y_ {i_ {T}}^{ali}], \quad y_ {i_ {t}}^{ali}\in \mathcal{V} \cup  Ø$
-<br />
-<br /></p>
-          </li>
-          <li>
-            <p>$E_ {edit}$을 통해 token-level difference를 측정</p>
-
-            <p>$E_ {LN}^{tok} = Concat { [ E_ {edit}(Y_ {i}^{ali}, Y_ {j}^{ali}) ]_ {i,j=1,i&gt;j}^{N} } \in ?^{ {N(N-1)\over{2}} \times D_ {sbert} }$</p>
-
-            <p>$E_ {edit}(Y_i^{ali},Y_j^{ali})=\sum_ {t=1}^T[\mathcal{E}_ {sbert}(y_ {i_t}^{ali})-\mathcal{E}_ {sbert}(y_ {j_t}^{ali})]$</p>
-          </li>
-        </ul>
+      <li>
+        <p>$E_ {LN}^{utt}=Concat { [\mathcal{E}_ {sbert} (Y_ {i}) - \mathcal{E}_ {sbert}(Y_ {j}) ]_ {i,j=1,i&gt;j}^{N} } \in \mathbb{R}^{ {N(N-1)\over{2} } \times D_ {sbert} }$</p>
       </li>
-      <li>Audio Noise Distillation
-        <ul>
-          <li>
-            <p>Mutual Information을 활용하여 clean speech와 noisy speech의 분포가 얼마나 차이 나는지 살핌</p>
-
-            <p>$I(X;Z)=D_ {KL}(?_ {XZ} \vert\vert?_ {X} ?_ {Z})$
-  <br />
-<br /></p>
-          </li>
-          <li>아래와 같은 MINE (mutual information neural estimation)을 활용하여 parameter $\theta \in \Theta$에 대해 계산</li>
-          <li>
-            <p>$\psi_ { \mathbf{\theta} }는 \mathcal{X} \times \mathcal{Z} \rightarrow \mathbb{R}$ statistics network</p>
-
-            <p>$I_ {\Theta}(X;Z) = \sup_ {\theta \in \Theta} \mathbb{E}_ {\mathbb{P}_ {XZ}}[ \psi_ { \mathbf{\theta} } ] - \log(\mathbb{E}_ {\mathbb{P}_ {X} \mathbb{P}_ {Z}}[e^{\psi_ { \mathbf{\theta} } } ])$
-<br />
-<br />
-<img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/mine1.png" alt="mine" /></p>
-          </li>
-          <li>학습 알고리즘은 아래와 같음</li>
-        </ul>
-
-        <ol>
-          <li><strong>Require:</strong>
-            <ul>
-              <li>LLM $\mathcal{M}<em>\text{H2T}$ with adapter $\mathcal{G}</em> { \mathbf{\upsilon} }$.</li>
-              <li>MINE statistics network $\psi$ of parameters $\mathbf\theta$.</li>
-              <li>Language embedding tuner $\mathcal{T}$ of parameters $\mathbf{\omega}$.</li>
-              <li>N-best hypotheses $\mathcal{Y}_N$.</li>
-              <li>Parallel noisy speech $\mathcal{X}<em>n$ and clean speech data $\mathcal{X}</em> {c}$.</li>
-              <li>Batch size $B$ and the total number of iterations $M$.</li>
-              <li>Hyper-parameter weight $\lambda$.</li>
-            </ul>
-          </li>
-          <li><strong>For</strong> $m=1$ <strong>to</strong> $M$:
-            <ul>
-              <li>Draw $B$ N-best hypotheses samples from RobustHP dataset: ${ \mathcal{Y}_ {N}^{(1)}, \mathcal{Y}_ {N}^{(2)}, \cdots, \mathcal{Y}_ {N}^{(B)} }$;</li>
-              <li>Draw corresponding noisy and clean speech samples: ${(X_n^{(1)}, X_c^{(1)}), (X_n^{(2)}, X_c^{(2)}), \cdots, (X_n^{(B)}, X_c^{(B)})}$;</li>
-              <li>Extract language-space noise embedding from N-best list: ${E_ {\text{LN}}^{(1)}, E_ {\text{LN}}^{(2)}, \cdots, E_ {\text{LN}}^{(B)}}$;</li>
-              <li>Calculate $\mathcal{I} = \frac{1}{B} \sum_ {b=1}^{B} \psi_ {\mathbf{\theta}} (E_ {\text{LN}}^{(b)}, \mathcal{E}_ {\text{ASR}}(X_ {n}^{(b)})) - \log( \frac{1}{B} \sum_ {b=1}^{B} e^{\psi_ { \mathbf{\theta} }(E_ {\text{LN}}^{(b)}, \mathcal{E}_ {\text{ASR}}(X_ {c}^{(b)}))})$;</li>
-              <li>Calculate ${\mathbf{g}}_ { \mathbf{\theta} } = \nabla_ { \mathbf{\theta} }(\mathcal{I})$ and update $ \mathbf{\theta} $ by gradient ascent: $ \mathbf{\theta} \leftarrow \mathbf{\theta} + {\mathbf{g}}_ {\mathbf{\theta}}$;</li>
-              <li>Calculate GER cost function $\mathcal{L}<em>\text{H2T}$ with $\mathcal{T}</em> {\mathbf\omega}(E_\text{LN}^{(b)})$ incorporated for denoising;</li>
-              <li>Re-calculate $\mathcal{I}_ {1} = \frac{1}{B}\sum_ {b=1}^{B} \psi_ {\mathbf{\theta}}(\mathcal{T}_ {\mathbf{\omega}}(E_ {\text{LN}}^{(b)}), \mathcal{E}_ {\text{ASR}}(X_ {n}^{(b)}))$;</li>
-              <li>Calculate $\mathbf{g_ {\upsilon,\omega}} = \nabla_ {\mathbf{\upsilon,\omega}}(\mathcal{L}_ {\text{H2T}} - \lambda \mathcal{I}_ {1})$ and update $\mathbf{\upsilon, \omega}$ by gradient descent: $\mathbf{\upsilon} \leftarrow \mathbf{\upsilon} - \mathbf{g_ {\upsilon}}, \mathbf{\omega} \leftarrow \mathbf{\omega} - \mathbf{g_ {\omega}}$;</li>
-            </ul>
-          </li>
-        </ol>
-      </li>
+      <li>이 때, $D_ {sbert}$는 SBERT embedding size</li>
+      <li>$i,j$ 차이가 클 수록, worse noise가 생성됨</li>
+    </ul>
+  </li>
+  <li>Token-level Noise Embedding
+    <ul>
+      <li>Token-level Noise Embedding은특정 단어나 음성 토큰에 대응되는 잡음이나 변형을 나타내는 임베딩 벡터</li>
+      <li>zero-padding ($Ø$)한 $Y_ {i}$를 일정한 길이로 잘라 $T$개의 token을 만듦</li>
+      <li>$Y_i^{ali}=[y_ {i_ {1}}^{ali},y_ {i_ {2}}^{ali},···,y_ {i_ {T}}^{ali}], \quad y_ {i_ {t}}^{ali}\in \mathcal{V} \cup  Ø$</li>
+      <li>$E_ {edit}$을 통해 token-level difference를 측정</li>
+      <li>$E_ {LN}^{tok} = Concat { [ E_ {edit}(Y_ {i}^{ali}, Y_ {j}^{ali}) ]_ {i,j=1,i&gt;j}^{N} } \in \mathbb{R}^{ {N(N-1)\over{2}} \times D_ {sbert} }$</li>
+      <li>$E_ {edit}(Y_i^{ali},Y_j^{ali})=\sum_ {t=1}^T[\mathcal{E}_ {sbert}(y_ {i_t}^{ali})-\mathcal{E}_ {sbert}(y_ {j_t}^{ali})]$</li>
+    </ul>
+  </li>
+  <li>Audio Noise Distillation
+    <ul>
+      <li>Mutual Information을 활용하여 clean speech와 noisy speech의 분포가 얼마나 차이 나는지 살핌</li>
+      <li>$I(X;Z)=D_ {KL}(\mathbb{P}_ {XZ} \vert\vert\mathbb{P}_ {X} \mathbb{P}_ {Z})$</li>
+    </ul>
+  </li>
+  <li>MINE (mutual information neural estimation)
+    <ul>
+      <li>MINE은 상호 정보(Mutual Information, MI)를 신경망을 통해 추정하는 방법론</li>
+      <li>아래와 같은 MINE (mutual information neural estimation)을 활용하여 parameter $\theta \in \Theta$에 대해 계산</li>
+      <li>$\psi_ { \mathbf{\theta} }는 \mathcal{X} \times \mathcal{Z} \rightarrow \mathbb{R}$ statistics network</li>
+      <li>$I_ {\Theta}(X;Z) = \sup_ {\theta \in \Theta} \mathbb{E}_ {\mathbb{P}_ {XZ}}[ \psi_ { \mathbf{\theta} } ] - \log(\mathbb{E}_ {\mathbb{P}_ {X} \mathbb{P}_ {Z}}[e^{\psi_ { \mathbf{\theta} } } ])$</li>
     </ul>
   </li>
 </ul>
+
+<p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/mine1.png" alt="mine" /></p>
+
+<ul>
+  <li>학습 알고리즘은 아래와 같음</li>
+  <li>이 알고리즘은 잡음이 섞인 음성 데이터를 효과적으로 처리하여 깨끗한 음성 데이터를 얻기 위해 여러 모델과 네트워크를 조정하는 과정을 반복</li>
+</ul>
+
+<ol>
+  <li><strong>Require:</strong>
+    <ul>
+      <li>LLM $\mathcal{M}_ {\text{H2T}}$ 과 어댑터 $\mathcal{G}_ { \mathbf{\upsilon} }$</li>
+      <li>정보 이론 기반의 MINE 통계 네트워크 $\psi$ (parameters: $\mathbf\theta$)</li>
+      <li>언어 임베딩 조정 튜너 $\mathcal{T}$ (parameters: $\mathbf{\omega}$)</li>
+      <li>N-best 음성 인식 가설 $\mathcal{Y}_N$</li>
+      <li>병렬 잡음 음성 $\mathcal{X}_ {n}$ 및 깨끗한 음성 데이터 $\mathcal{X}_ {c}$</li>
+      <li>배치 크기 $B$ 와 총 반복 횟수 $M$</li>
+      <li>하이퍼 파라미터 가중치 $\lambda$ (손실 함수 가중치)
+      -</li>
+    </ul>
+  </li>
+  <li><strong>For</strong> $m=1$ <strong>to</strong> $M$:
+    <ul>
+      <li>N-best 가설 샘플링: ${ \mathcal{Y}_ {N}^{(1)}, \mathcal{Y}_ {N}^{(2)}, \cdots, \mathcal{Y}_ {N}^{(B)} }$;</li>
+      <li>잡음 및 깨끗한 음성 샘플 추출: ${(X_n^{(1)}, X_c^{(1)}), (X_n^{(2)}, X_c^{(2)}), \cdots, (X_n^{(B)}, X_c^{(B)})}$;</li>
+      <li>언어 공간 잡음 임베딩 추출: ${E_ {\text{LN}}^{(1)}, E_ {\text{LN}}^{(2)}, \cdots, E_ {\text{LN}}^{(B)}}$;</li>
+      <li>상호 정보 계산: $\mathcal{I} = \frac{1}{B} \sum_ {b=1}^{B} \psi_ {\mathbf{\theta}} (E_ {\text{LN}}^{(b)}, \mathcal{E}_ {\text{ASR}}(X_ {n}^{(b)})) - \log( \frac{1}{B} \sum_ {b=1}^{B} e^{\psi_ { \mathbf{\theta} }(E_ {\text{LN}}^{(b)}, \mathcal{E}_ {\text{ASR}}(X_ {c}^{(b)}))})$;</li>
+      <li>파라미터 업데이트:   $\mathbf{\theta} \leftarrow \mathbf{\theta} + {\mathbf{g}}_ {\mathbf{\theta}}$; (${\mathbf{g}}_ { \mathbf{\theta} } = \nabla_ { \mathbf{\theta} }(\mathcal{I})$)</li>
+      <li>GER 손실 함수 계산: $\mathcal{L}_ {\text{H2T}}$ (with $\mathcal{T}_ {\mathbf{\omega}} (E_ {\text{LN}}^{(b)})$);</li>
+      <li>상호 정보 재계산: $\mathcal{I}_ {1} = \frac{1}{B}\sum_ {b=1}^{B} \psi_ {\mathbf{\theta}}(\mathcal{T}_ {\mathbf{\omega}}(E_ {\text{LN}}^{(b)}), \mathcal{E}_ {\text{ASR}}(X_ {n}^{(b)}))$;</li>
+      <li>파라미터 업데이트: $\mathbf{\upsilon} \leftarrow \mathbf{\upsilon} - \mathbf{g_ {\upsilon}}, \mathbf{\omega} \leftarrow \mathbf{\omega} - \mathbf{g_ {\omega}}$; ($\mathbf{g_ {\upsilon,\omega}} = \nabla_ {\mathbf{\upsilon,\omega}}(\mathcal{L}_ {\text{H2T}} - \lambda \mathcal{I}_ {1})$  )</li>
+    </ul>
+  </li>
+</ol>
 
 <h2 id="실험">실험</h2>
 <ul>
@@ -601,20 +578,16 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li>
     <p>token-level noise가 성능 개선에 큰 기여 (Table 3)</p>
 
-    <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table1.png" alt="table1" /> 
-<strong>Table 1: WER (%) results of RobustGER with LLaMA-2-7b finetuning</strong></p>
+    <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table1.png" alt="table1" /></p>
 
-    <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table2.png" alt="table2" /> 
-<strong>Table 2: WER (%) results of RobustGER on different SNR-level testing conditions</strong></p>
+    <p>$\quad$ <strong>Table 1: WER (%) results of RobustGER with LLaMA-2-7b finetuning</strong>
+  <img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table2.png" alt="table2" /></p>
 
-    <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table3.png" alt="table3" /> 
-<strong>Table 3: Ablation study of the language-space noise embedding in terms of utterance and token levels</strong></p>
+    <p>$\quad$ <strong>Table 2: WER (%) results of RobustGER on different SNR-level testing conditions</strong>
+  <img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table3.png" alt="table3" /></p>
+
+    <p>$\quad$ <strong>Table 3: Ablation study of the language-space noise embedding in terms of utterance and token levels</strong></p>
   </li>
-</ul>
-
-<p>&lt;/br&gt;</p>
-
-<ul>
   <li>noise embedding
     <ul>
       <li>KD 방식을 통해 최적의 noise embedding을 구함</li>
@@ -630,23 +603,20 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       <li>
         <p>LLM fine-tuning을 활용하여 점진적으로 훈련 데이터 크기를 줄여도 WER 유지</p>
 
-        <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table4.png" alt="table4" />
-<strong>Table 4: Data efficiency of RobustGER on CHiME-4 test sets</strong></p>
+        <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table4.png" alt="table4" /></p>
+
+        <p>$\quad$ <strong>Table 4: Data efficiency of RobustGER on CHiME-4 test sets</strong></p>
       </li>
     </ul>
   </li>
-</ul>
-
-<p>&lt;/br&gt;</p>
-
-<ul>
   <li>error 수정 예시
     <ul>
       <li>
         <p>다음과 같이 RobustGER이 correction 성능이 가장 뛰어난 것을 볼 수 있음</p>
 
-        <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table5.png" alt="table5" />
-<strong>Table 5:  Case study of RobustGER</strong></p>
+        <p><img src="../../images/DS503_24S/Large_Language_Models_Are_Efficient_Learners_of_Noise_robust_Speech_Recognition/table5.png" alt="table5" /></p>
+
+        <p>$\quad$ <strong>Table 5:  Case study of RobustGER</strong></p>
       </li>
     </ul>
   </li>
@@ -690,7 +660,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 25, 2024 <br />
+ Site last generated: May 27, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

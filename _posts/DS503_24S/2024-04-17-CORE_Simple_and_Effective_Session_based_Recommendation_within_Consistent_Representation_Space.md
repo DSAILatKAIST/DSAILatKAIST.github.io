@@ -6,8 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# [SIGIR 2022] CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space
-
 *Yupeng Hou, Binbin Hu, Zhiqiang Zhang, and Wayne Xin Zhao. 2022. CORE: Simple and Effective Session-based Recommendation within Consistent Representation Space. In Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '22). Association for Computing Machinery, New York, NY, USA, 1796–1801. https://doi.org/10.1145/3477495.3531955*
 
 본 리뷰는 한국어로 작성되었으며, 영어 표현이 필요한 경우 괄호 안에 병기하였습니다.
@@ -68,6 +66,7 @@ usemathjax: true
 
 본 논문은 5개의 공개 데이터으로 실험을 진행하여 제시한 모델이 효과적임을 보이고, 기존의 세션 기반 추천 방법의 성능을 제시된 방법으로 향상시킬 수 있음을 보였다.
 
+
 ## 2. Method
 
 모델의 전반적인 구조는 Figure 2와 같다.
@@ -94,7 +93,9 @@ usemathjax: true
 
 본 논문은 세션 임베딩을 아이템 임베딩의 선형 결합으로 표현하는 *Representation-Consistent Encoding(RCE)* 를 제시한다. 세션 임베딩은 아이템 임베딩에 가중치를 곱하여 더한 값으로 표현되며, 심층 신경망으로 가중치를 학습하여 귀납적 편향을 학습한다. 일반적인 심층 신경망으로 아이템 임베딩의 가중치를 학습할 때,  *RCE*는 다음과 같은 수식으로 표현할 수 있다.
 
-$\alpha = DNN([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \\ \\ h_ {s} = \sum^ n_ {i=1} \alpha_ {i} h_ {s, i}$
+$\alpha = DNN([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}])$
+
+$h_ {s} = {\sum^ {n}}_ {i=1} \alpha_ {i} h_ {s, i}$
 
 #### 2.2.1 Learning Weights via Mean Pooling
 심층 신경망으로 평균 풀링 레이어(*Mean Pooling Layer*)을 사용한다.
@@ -104,7 +105,9 @@ $\alpha_ {i} = 1 / n$
 #### 2.2.2 Learning Weights via Transformer
 심층 신경망으로 SASRec과 같이 셀프 어텐션 레이어(*self-attention layer*)들로 이루어진 트랜스포머 구조를 사용한다. 트랜스포머의 위치 인코딩(*positional encoding*)을 활용하여 아이템들의 순서에 대한 정보를 포함한다. 다음과 같은 수식으로 표현할 수 있다.
 
-$F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \\ \\ \alpha = softmax(w \cdot F^\intercal)$
+$F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}])$
+
+$\alpha = softmax(w \cdot F^\intercal)$
 
 ### 2.3 Robust Distance Measuring for Decoding
 
@@ -118,12 +121,15 @@ $F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \\ \\ \alpha = softm
 
 위 Lemma는 다음과 같이 증명할 수 있다.
 
-
-> $l_ {ori} = -log ( {exp(h_ {s} \cdot h_ {v^+}) \over \sum	^n_ {i=1} exp(h_ {s} \cdot h_ {v_i})} ) \\ 
-= log [1+(\vert {\mathcal{V}} \vert - 1) \sum_ {v^- \in  \mathcal{V}\backslash \{v^+\}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} )] \\
-\simeq (\vert {\mathcal{V}} \vert - 1) \sum_{v^- \in  \mathcal{V}\backslash \{v^+\}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} ) \\
-\simeq (\vert {\mathcal{V}} \vert - 1) \sum_{v^- \in  \mathcal{V}\backslash \{v^+\}}  (h_ {s} h_ {v^-} - h_ {s} h_ {v^+} +1) \\
-\propto \sum_{v^- \in  \mathcal{V}\backslash \{v^+\}} (\vert \vert h_ {s} - h_ {v^+} \vert \vert ^2 - \vert \vert h_ {s} - h_ {v^-} \vert \vert ^2 + 2)$
+> $l_ {ori} = -log ( {exp(h_ {s} \cdot h_ {v^+}) \over {\sum^ {n}}_ {i=1} exp(h_ {s} \cdot h_ {v_i})} )$
+> 
+> $= log [1+(\vert {\mathcal{V}} \vert - 1) \sum_ {v^- \in  \mathcal{V}\backslash \{v^+\}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} )]$
+> 
+> $\simeq (\vert {\mathcal{V}} \vert - 1) \sum_ {v^- \in  \mathcal{V}\backslash \{v^+\}}  exp(h_ {s} h_ {v^-} - h_ {s} h_ {v^+} )$
+> 
+> $\simeq (\vert {\mathcal{V}} \vert - 1) \sum_ {v^- \in  \mathcal{V}\backslash \{v^+\}}  (h_ {s} h_ {v^-} - h_ {s} h_ {v^+} +1)$
+> 
+> $\propto \sum_ {v^- \in  \mathcal{V}\backslash \{v^+\}} (\vert \vert h_ {s} - h_ {v^+} \vert \vert ^2 - \vert \vert h_ {s} - h_ {v^-} \vert \vert ^2 + 2)$
 
 ### 2.3.2 Robust Distance Measuring
 
@@ -135,7 +141,7 @@ $F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \\ \\ \alpha = softm
 
 이러한 접근을 바탕으로 본 논문은 *Robust Distance Measuring(RDM)* 에 대한 손실함수를 다음과 같이 제시한다. 
 
-+ $l = -log {exp(cos(h_ {s}, h'_ {v^+})/\tau) \over \sum	^m_ {i=1} exp(cos(h_ {s}, h'_ {v_i})/\tau)}$
++ $l = -log {exp(cos(h_ {s}, h'_ {v^+})/\tau) \over {\sum^ {m}}_ {i=1} exp(cos(h_ {s}, h'_ {v_i})/\tau)}$
 
 ## 3. Experiments
 ### 3.1 Datasets and evaluation metrics
@@ -175,7 +181,7 @@ $F = Transformers([h_ {s, 1};h_ {s, 2}; \ldots ;h_ {s, n}]) \\ \\ \alpha = softm
 
 ![Figure 5](../../images/DS503_24S/CORE_Simple_and_Effective_Session_based_Recommendation_within_Consistent_Representation_Space/Figure5.png)
 
-위 표는 CORE 모델의 주요 구성 요소인 RCE와 RDM의 효과를 나타낸다. 같은 트랜스포머 구조를 사용하는 SASRec과 비교하였을 때, 성능은 CORE 모델, RCE만을 이용한 CORE 모델, RDM만을 이용한 CORE 모델, SASRec 순으로 나타난다.
+위 표는 CORE 모델의 주요 구성 요소인 RCE와 RDM의 효과를 나타낸다. 같은 트랜스포머 구조를 사용하는 SASRec과 비교하였을 때, 성능은 CORE 모델, RCE만을 이용한 CORE 모델, RDM만을 이용한 CORE 모델, SASRec 순으로 나타난다. 이때 RCE, RDM 둘 중 하나의 요소만을 이용한 CORE 모델은 각각 SASRec의 구성 요소를 RDM, RCE으로 대체한 것과 동일하다. 이를 통해 RCE와 RDM 두 요소 모두 성능 향상에 기여함을 알 수 있다.
 
 ### 3.6 Improving existing methods
 

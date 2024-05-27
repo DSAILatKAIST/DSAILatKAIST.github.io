@@ -7,9 +7,6 @@ usemathjax: true
 ---
 
 
-# **[DDPO]Training Diffusion Models with Reinforcement Learning**
-
-
 ## **1. Problem Definition & Motivation**  
 
 Diffusion probabilistic models, 일반적으로 Diffusion model라 칭하는 모델이 최근 Image, Video, Audio, Drug/Material Design, Continuous Control 등 다양한 분야에서 두각을 보이고 있다. 
@@ -189,6 +186,27 @@ RL Finetuning이 Generalization Property를 띈다는 다른 논문 (English ins
 논문에서는 Text-to-image에 한정하여 실험을 진행하였으나, Diffusion 기반 모델들의 Fine-tuning에 RL방법론을 사용할 수 있다는 점은 이 논문이 훨씬 다양한 분야로 확장이 가능함을 의미한다. 
 
 또한, Likelihood Maximization 에 대해, Policy gradient 방법론을 적용함으로서, 조금 더 Optimality에 다다르게 밀어넣을 수 있다는 점은, MDP formulation이 가능한 MLE base의 다양한 모델에 적용해 볼 만하다는 점에서 여러 색다른 접근이 가능하다고 해석할 수 있겠다.
+## **6. Implementation Details**
+
+DDPO Fine-tuning 시에 VAE(Variational Auto Encoder)는 고정하고, U-NET 구조만 fine-tuning을 하는데 여기에는 몇 가지 이유가 있다.
+
+1. **Efficiency**: 일반적으로 모델 Fine-tuning 시에는 여러가지 방법론이 있음. 대표적으로 CNN 구조의 Classification 문제를 생각 해 보면, CNN만 학습, FC layer만 학습, 둘 다 학습 세 가지 경우가 있는데, 동일한 이미지 셋에서 부터 학습을 진행하는 경우 이미 충분히 pretrained 된 CNN Extraction Part는 이미 이미지를 효과적으로 추출하는 기능을 갖추었기 때문에 Task가 크게 변화하지 않는 이상 CNN-FC network 두 개를 모두 풀어놓고 학습하는 것은 Efficiency 차원에서 문제가 된다. 이 경우도 마찬가지.
+2. **Overfitting**: RLHF와 같은 Fine-tuning methods들이 최근 각광을 받고 있는 한편 가장 큰 Limitation중 하나는, Overfitting 문제이다. 기본적으로 주어진 문제를 잘 수행하면서 추가적인 다른 Task나 다른 Objective에도 어느정도 효과적이기를 바라는 것인데, 문제는 Fine-tuning을 진행할 수록 기본 문제 성능이 떨어진다는 점. DDPO에서도 마찬가지로 Fine-tuning으로 인한 성능 저하가 커지지 않기 위해 위와 같은 테크닉을 사용한다고 볼 수 있다.
+
+
+마지막으로 Loss가  어떻게 코드 내에서 구현되는지 확인해보고 마무리 하겠다.
+
+<!-- $$\nabla_\theta \mathcal{J}_{\mathrm{DDRL}}=\mathbb{E}\left[\sum_{t=0}^T \frac{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{c}\right)}{p_{\theta_{\text{old}}}\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{c}\right)} \nabla_\theta \log p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{c}\right) r\left(\mathbf{x}_0, \mathbf{c}\right)\right]$$ -->
+
+![](../../images/DS503_24S/Training_Diffusion_Models_With_Reinforcement_Learning/equ.png)
+
+```python
+advantages = jnp.clip(batch["advantages"], -ADV_CLIP_MAX, ADV_CLIP_MAX)
+ratio = jnp.exp(log_prob - batch["log_probs"])
+unclipped_loss = -advantages * ratio
+clipped_loss = -advantages * jnp.clip(ratio, 1.0 - clip_range, 1.0 + clip_range)
+loss = jnp.mean(jnp.maximum(unclipped_loss, clipped_loss))
+```
 
 ---  
 ## **Author Information**  

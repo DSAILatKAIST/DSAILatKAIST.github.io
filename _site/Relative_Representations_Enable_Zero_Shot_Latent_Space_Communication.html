@@ -386,14 +386,14 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
         
 
-        <h1 id="iclr-23-relative-representations-enable-zero-shot-latent-space-communication">[ICLR 23] Relative Representations Enable Zero-Shot Latent Space Communication</h1>
-<p>Reviewer: <strong>20223380 Yang Mingyu</strong> 
+        <p>Reviewer: <strong>20223380 Yang Mingyu</strong> 
 Affiliation: <em>ISysE Financial Engineering Lab</em></p>
 
 <h2 id="1-introduction">1. Introduction</h2>
 <p>Neural Network(NN)은 고차원의 데이터를 목적에 맞는 정보를 함축한 형태의 저차원 형태로 변환시키는 것을 학습한다. 따라서 그 목적은 어떤 초기값에서 학습을 시키던 상관없이 최적의 임베딩 형태를 학습하는 것에 있다. 하지만 실제로는 학습이 되지 않는 초기 랜덤값 (Initial weights, data shuffle 등)에 의해 최종 임베딩이 다양하게 나타나는 것을 볼 수 있다. 저자들은 그 예시로 그림 1을 제시했다. 그림 1은 같은 오토인코더를 사용하여 MNIST 데이터를 학습한 결과로 stochasticity는 비슷하지만 다른 형태의 임베딩을 이루고 있음을 보인다. 
-<img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/1.png" alt="그림 1" />
- 따라서 저자들은 이 문제를 해결하기 위해 다음과 같은 순서로 논문을 전개한다.</p>
+<img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/1.png" alt="그림 1" /></p>
+
+<p>따라서 저자들은 이 문제를 해결하기 위해 다음과 같은 순서로 논문을 전개한다.</p>
 <ul>
   <li>같은 네트워크 상에서 같은 데이터를 학습시킬 때 latent embedding 사이의 각도는 보존됨을 가정한다.</li>
   <li>이를 이용해 초기값에 좌우되지 않는 형태의 relative represenation을 제시한다.</li>
@@ -438,16 +438,37 @@ $S_ {C}(a,b) = \frac{ab}{\vert\vert a\vert\vert \vert\vert b \vert\vert} = cos \
 $(S_ {C}(e_ {x^{(i)}}, e_ {a^{(1)}}), S_ {C}(e_ {x^{(i)}}, e_ {a^{(2)}}), \dots, S_ {C}(e_ {x^{(i)}}, e_ {a^{(\vert \mathbb{A} \vert)}})) = (S_ {C}(\tilde{e}_ {x^{(i)}}, \tilde{e}_ {a^{(1)}}), S_ {C}(\tilde{e}_ {x^{(i)}}, \tilde{e}_ {a^{(2)}}), \dots, S_ {C}(\tilde{e}_ {x^{(i)}}, \tilde{e}_ {a^{(\vert \mathbb{A} \vert)}}))$</p>
 
 <h2 id="4-latent-vector-communication">4. Latent vector communication</h2>
-<p>저자들은 다른 데이터로 학습된 모델 간의 latent space를 비교하기 위해 각각의 embedding space가 relative representation으로 나타내졌을 때 어떠한 모습을 보이는지 관찰하고 모델의 성능에 어떤 영향을 미치는지 실험하였다.</p>
+<p>저자들은 다른 데이터로 학습된 모델 간의 latent space를 비교하기 위해 각각의 embedding space가 relative representation으로 나타내졌을 때 어떠한 모습을 보이는지 관찰하고 모델의 성능에 어떤 영향을 미치는지 실험하였다. 일반적인 absolute representation을 이용할 때와 각각의 anchor과 input간의 consine similarity를 relative representation으로 활용하여 이를 학습 embedding으로 사용했을 때, 그 성능 차이와 domain, modality가 변화했을 때 기존의 학습된 모델을 간단한 transformation을 이용하여 그대로 사용할 수 있을지를 알아보는 것에 중점을 두었다.</p>
+
+<p>$\text{Absolute representation} = X \rightarrow R(X)$
+$\text{Relative representation} = R(X) \times \mathbb{A}_ {\mathbb{X}} \rightarrow (S_ {C}(R(X), \mathbb{A}_ {1}), \dots, S_ {C} (R(X), \mathbb{A}_ {\vert\vert\mathbb{A}\vert\vert}))$</p>
 
 <h3 id="41-word-imbeddings">4.1 Word Imbeddings</h3>
 <h4 id="experimental-setting">Experimental Setting</h4>
-<p><strong>목적</strong>: 학습 모델에서 Absolute representation을 Relative represenation으로 나타냈을 때 변화를 관찰
-<strong>Dataset</strong>: FastText (Bojanowski et al., 2017), Word2Vec (Mikolov et al., 2013a) for English language datasets
-<strong>Model</strong>: 두 개의 다른 데이터를 이용해서 학습된 두 개의 모델, 몇몇 단어는 겹침
-<strong>검증 Dataset</strong>: 2만개의 단어를 300개의 anchor로 무작위 구성하여 검증
-<strong>검증 방법</strong>: 2만개의 단어들로 10개의 다른 seed를 이용해서 실험
-<strong>비교 metric</strong>: Jaccard, Mean Reciprocal Rank(MRR), Cosine</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>목적</strong></th>
+      <th><strong>Dataset</strong></th>
+      <th><strong>Model</strong></th>
+      <th><strong>검증 Dataset</strong></th>
+      <th><strong>검증 방법</strong></th>
+      <th><strong>비교 metric</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>학습 모델에서 Absolute representation을 Relative represenation으로 나타냈을 때 변화를 관찰</td>
+      <td>FastText (Bojanowski et al., 2017), Word2Vec (Mikolov et al., 2013a) for English language datasets</td>
+      <td>두 개의 다른 데이터를 이용해서 학습된 두 개의 모델, 몇몇 단어는 겹침</td>
+      <td>2만개의 단어를 300개의 anchor로 무작위 구성하여 검증</td>
+      <td>2만개의 단어들로 10개의 다른 seed를 이용해서 실험</td>
+      <td>Jaccard, Mean Reciprocal Rank(MRR), Cosine</td>
+    </tr>
+  </tbody>
+</table>
+
 <blockquote>
   <ul>
     <li>Jaccard: 이산 자카드 유사도($\frac{\text{교집합 크기}}{\text{합집합 크기}}$)를 이용하여 source와 target의 유사도를 구함</li>
@@ -457,8 +478,9 @@ $(S_ {C}(e_ {x^{(i)}}, e_ {a^{(1)}}), S_ {C}(e_ {x^{(i)}}, e_ {a^{(2)}}), \dots,
 </blockquote>
 
 <h4 id="result">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/2.png" alt="그림 2" />
-그림 2는 Absolute representation과 Relative representation의 도식화, 그리고 각각의 metric으로 source와 target의 유사도를 보여준다. 결과로 알 수 있는 사실은 다음과 같다.</p>
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/2.png" alt="그림 2" /></p>
+
+<p>그림 2는 Absolute representation과 Relative representation의 도식화, 그리고 각각의 metric으로 source와 target의 유사도를 보여준다. 결과로 알 수 있는 사실은 다음과 같다.</p>
 <ul>
   <li>두 개의 embedding space를 relative representation로 나타냈을 때 놀랍도록 유사한 모습을 보인다.</li>
   <li>Relative representation을 이용했을 때 3개의 metric에서 모두 유사도를 보인 반면 absolute representation에서는 0%의 유사도를 보인다.</li>
@@ -468,15 +490,34 @@ $(S_ {C}(e_ {x^{(i)}}, e_ {a^{(1)}}), S_ {C}(e_ {x^{(i)}}, e_ {a^{(2)}}), \dots,
 <p>따라서 relative representation을 통해 embedding space를 나타냈을 때 두 모델이 비슷한 형태의 학습을 진행함을 알 수 있다.</p>
 
 <h3 id="42-latent-distance-as-a-performance-proxy">4.2 Latent distance as a performance proxy</h3>
+
 <h4 id="experiment-setting">Experiment Setting</h4>
-<p><strong>목적</strong>: 모델의 성능과 Relative representation의 유사도 사이 관계 관찰
-<strong>Dataset</strong>: <em>Cora</em> graph dataset (Sen et al., 2008)
-<strong>Model</strong>: 기존의 Reference model, 다양한 layer, activation function등을 지닌 약 2000개의 모델들
-<strong>검증 Dataset</strong>: 무작위로 선정된 Relative embedding으로 변환된 300개의 anchor
-<strong>검증 방법</strong>: Reference model과 타 모델들의 consine simularity와 성능을 비교</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>목적</strong></th>
+      <th><strong>Dataset</strong></th>
+      <th><strong>Model</strong></th>
+      <th><strong>검증 Dataset</strong></th>
+      <th><strong>검증 방법</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>모델의 성능과 Relative representation의 유사도 사이 관계 관찰</td>
+      <td><em>Cora</em> graph dataset (Sen et al., 2008)</td>
+      <td>기존의 Reference model, 다양한 layer, activation function등을 지닌 약 2000개의 모델들</td>
+      <td>무작위로 선정된 Relative embedding으로 변환된 300개의 anchor</td>
+      <td>Reference model과 타 모델들의 consine similarity와 성능을 비교</td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 id="result-1">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/3.png" alt="그림 3" />
-그림 3은 모델 간의 코사인 유사도와 성능, 그리고 학습의 진행 과정에서 유사도와 성능의 관계를 도식화해서 보여준다. 이를 통해 알 수 있는 사실은 다음과 같다.</p>
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/3.png" alt="그림 3" /></p>
+
+<p>그림 3은 모델 간의 코사인 유사도와 성능, 그리고 학습의 진행 과정에서 유사도와 성능의 관계를 도식화해서 보여준다. 이를 통해 알 수 있는 사실은 다음과 같다.</p>
 <ul>
   <li>코사인 유사도와 성능은 뚜렷한 양의 상관관계를 이룬다.</li>
   <li>validation 성능이 0.5 이하인 모델을 거른 후 성능과 유사도는 학습 내내 매우 높은 상관관계를 유지한다.</li>
@@ -484,29 +525,70 @@ $(S_ {C}(e_ {x^{(i)}}, e_ {a^{(1)}}), S_ {C}(e_ {x^{(i)}}, e_ {a^{(2)}}), \dots,
 
 <p>따라서 코사인 유사도는 미분가능하며 성능과 매우 높은 상관관계를 보이므로 teacher-student 프레임워크에서 지표로 사용되기 적합하다.</p>
 
-<h3 id="43-relative-vs-absolute-represenation-학습">4.3 Relative vs Absolute represenation 학습</h3>
+<h3 id="43-relative-vs-absolute-representation-학습">4.3 Relative vs Absolute representation 학습</h3>
+
 <h4 id="experiment-setting-1">Experiment Setting</h4>
-<p><strong>목적</strong>: Relative representation을 통한 학습이 성능에 미치는 영향 관찰
-<strong>Dataset</strong>: MNIST, F-MNIST, CIFAR-10, CIFAR-100, Cora, CiteSeer, PubMed
-<strong>Model</strong>: 학습 목적에 따라 다
-<strong>비교 metric</strong>: Weighted F1 score</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>목적</strong></th>
+      <th><strong>Dataset</strong></th>
+      <th><strong>Model</strong></th>
+      <th><strong>비교 metric</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Relative representation을 통한 학습이 성능에 미치는 영향 관찰</td>
+      <td>MNIST, F-MNIST, CIFAR-10, CIFAR-100, Cora, CiteSeer, PubMed</td>
+      <td>학습 목적에 따라 다름</td>
+      <td>Weighted F1 score</td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 id="result-2">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/4.png" alt="그림 4" />
-그림 4는 각각 Absolute representation과 Relative representation을 사용해 모델을 학습했을 때 Weighted f1 점수를 보여준다. 학습 데이터의 유형은 모델의 성능에 영향을 미치지 않음을 알 수 있다. 저자들은 추가적인 실험을 통해 taks, domain, dataset에 따른 유의미한 차이가 없음을 보였다.</p>
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/4.png" alt="그림 4" /></p>
+
+<p>그림 4는 각각 Absolute representation과 Relative representation을 사용해 모델을 학습했을 때 Weighted f1 점수를 보여준다. 학습 데이터의 유형은 모델의 성능에 영향을 미치지 않음을 알 수 있다. 저자들은 추가적인 실험을 통해 task, domain, dataset에 따른 유의미한 차이가 없음을 보였다.</p>
 
 <h2 id="5-zero-shot-model-stitching">5. Zero-shot model stitching</h2>
-<p>본 논문에서는 인코더와 학습 taks에 따른 relative 디코더를 결합한 stitching 모델을 제안한다. 추가적인 학습과 하이퍼 파라미터 튜닝을 진행하지 않고 바로 동작하는 zero-shot learning을 목표로 다양한 domain에서의 실험을 진행했다.</p>
+
+<p>본 논문에서는 인코더와 학습 task에 따른 relative 디코더를 결합한 stitching 모델을 제안한다. Stitching이라함은 기존의 network를 별도의 수정 없이 새로운 모델의 network에 stitch함으로서 동작할 수 있게 함을 의미한다. 추가적인 학습과 하이퍼 파라미터 튜닝을 진행하지 않고 바로 동작하는 zero-shot learning을 목표로 다양한 domain에서의 실험을 진행했다.</p>
+
 <h3 id="51-image-reconstruction">5.1 Image reconstruction</h3>
+
 <h4 id="experiment-setting-2">Experiment Setting</h4>
-<p><strong>목적</strong>: Stitching model을 통한 이미지 재현 성능 관찰
-<strong>Dataset</strong>: MINST, F-MNIST, CIFAR-10, CIFAR-100
-<strong>Model</strong>: AE와 VAE를 relative representation으로 학습
-<strong>검증방법</strong>: 학습 모델을 새로운 모델에 stitch 후 성능 관찰
-<strong>비교 metric</strong>: Mean Square Error(MSE)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>목적</strong></th>
+      <th><strong>Dataset</strong></th>
+      <th><strong>Model</strong></th>
+      <th><strong>검증방법</strong></th>
+      <th><strong>비교 metric</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stitching model을 통한 이미지 재현 성능 관찰</td>
+      <td>MINST, F-MNIST, CIFAR-10, CIFAR-100</td>
+      <td>AE와 VAE를 relative representation으로 학습</td>
+      <td>학습 모델을 새로운 모델에 stitch 후 성능 관찰</td>
+      <td>Mean Square Error(MSE)</td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 id="result-3">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/5.png" alt="그림 5" />
-<img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/6.png" alt="그림 6" />
-그림 5는 각 데이터셋에 대해 absolute representation과 relative representation으로 학습 후, 원래 모델과 stitch 된 모델의 MSE를 나타낸 표이다. 이를 통해 알 수 있는 사실은 다음과 같다.</p>
+
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/5.png" alt="그림 5" /></p>
+
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/6.png" alt="그림 6" /></p>
+
+<p>그림 5는 각 데이터셋에 대해 absolute representation과 relative representation으로 학습 후, 원래 모델과 stitch 된 모델의 MSE를 나타낸 표이다. 이를 통해 알 수 있는 사실은 다음과 같다.</p>
 <ul>
   <li>AE와 VAE 모두에서 relative representation을 통해 학습된 모델을 stitch 했을 때 absolute representation을 stitch한 모델보다 월등한 성능을 보임.</li>
   <li>Training stochasticity에 무관하게 stitch 된 모델은 우월한 성능을 보임.</li>
@@ -514,37 +596,55 @@ $(S_ {C}(e_ {x^{(i)}}, e_ {a^{(1)}}), S_ {C}(e_ {x^{(i)}}, e_ {a^{(2)}}), \dots,
 </ul>
 
 <h3 id="52-text-classification">5.2 Text classification</h3>
+
 <h4 id="experiment-setting-3">Experiment Setting</h4>
-<p><strong>목적</strong>: Parallel anchor(3.2에서 언급됨)를 통한 stitching이 적용 가능한지 cross-lingual, cross-architecture 관점에서 관찰 
-<strong>Dataset</strong>: 
-Cross-lingual - 타 언어로 번역된 영어 리뷰(Translated), wikipedia에서 추출된 문장 쌍(Wikipedia)
-Cross-architecture - TREC (Hovy et al., 2001), DBpedia (Zhang et al., 2015), Amazon Reviews (Keung et al., 2020)
-<strong>Model</strong>:	
-Cross-lingual - 학습된 RoBERTa transformers (Liu et al., 2019)
-Cross-architecture - 학습된 BERT (Devlin et al., 2019), ELECTRA (Clark et al., 2020), RoBERTa
-<strong>비교 metric</strong>: Weighted F1 score, MAE</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>목적</strong></th>
+      <th><strong>Dataset</strong></th>
+      <th><strong>Model</strong></th>
+      <th><strong>비교 metric</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Parallel anchor(3.2에서 언급됨)를 통한 stitching이 적용 가능한지 cross-lingual, cross-architecture 관점에서 관찰</td>
+      <td><strong>Cross-lingual</strong> - 타 언어로 번역된 영어 리뷰(Translated), wikipedia에서 추출된 문장 쌍(Wikipedia) <br /> <strong>Cross-architecture</strong> - TREC (Hovy et al., 2001), DBpedia (Zhang et al., 2015), Amazon Reviews (Keung et al., 2020)</td>
+      <td><strong>Cross-lingual</strong> - 학습된 RoBERTa transformers (Liu et al., 2019) <br /><strong>Cross-architecture</strong> - 학습된 BERT (Devlin et al., 2019), ELECTRA (Clark et al., 2020), RoBERTa</td>
+      <td>Weighted F1 score, MAE</td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 id="result-4">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/7.png" alt="그림 7" />
-<img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/8.png" alt="그림 8" />
-그림 7은 cross-lingual의 결과를 그림 8은  cross-architecture의 결과를 표로 나타낸 것이다. 이를 통해 알 수 있는 바는 다음과 같다.</p>
+
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/7.png" alt="그림 7" /></p>
+
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/8.png" alt="그림 8" /></p>
+
+<p>그림 7은 cross-lingual의 결과를 그림 8은  cross-architecture의 결과를 표로 나타낸 것이다. 이를 통해 알 수 있는 바는 다음과 같다.</p>
 <ul>
   <li>학습되지 않은 언어에 대해 랜덤으로 선택하는 absolute representation stitching에 비해 Relative representation을 통한 stitching은 learning이 된 성능을 보인다.</li>
   <li>Anchor의 선택에 관계없이(모델에 상관없이) 인코딩이 잘 이루어진다면 좋은 성능을 보인다.</li>
 </ul>
 
 <h3 id="53-image-classification">5.3 Image classification</h3>
+
 <h4 id="experiment-setting-4">Experiment Setting</h4>
-<p><strong>목적</strong>: OOD anchor(3.2에서 언급)에 대해서 stitching model의 성능을 관찰
-<strong>Dataset</strong>: ImageNet1k, CIFAR-100
-<strong>Model</strong>: ViT transformer (Dosovitskiy et al., 2021), RexNet (Han et al., 2020)
+<p><strong>목적</strong>: OOD anchor(3.2에서 언급)에 대해서 stitching model의 성능을 관찰           <br />
+<strong>Dataset</strong>: ImageNet1k, CIFAR-100          <br />
+<strong>Model</strong>: ViT transformer (Dosovitskiy et al., 2021), RexNet (Han et al., 2020)            <br />
 <strong>비교 metric</strong>: Mean weighted F1 score</p>
 <h4 id="result-5">Result</h4>
-<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/9.png" alt="그림 9" />
-그림 9는 디코더와 인코더 조합에 대해 각각의 데이터셋에서의 성능을 표로 보인다. 이를 통해 알 수 있는 바는 다음과 같다.</p>
+<p><img src="../../images/DS503_24S/Relative_Representations_Enable_Zero_Shot_Latent_Space_Communication/9.png" alt="그림 9" /></p>
+
+<p>그림 9는 디코더와 인코더 조합에 대해 각각의 데이터셋에서의 성능을 표로 보인다. 이를 통해 알 수 있는 바는 다음과 같다.</p>
 <ul>
   <li>Relative representation을 통해 학습될 경우 같은 크기의 input을 이용하므로 각 모델의 차원에 관계없이 stitching이 가능하다.</li>
   <li>한번도 보여지지 않은 CIFAR-100 데이터에 대해 stitching 모델은 준수한 성능을 보여준다.</li>
-  <li>RexNet은 anchor의 갯수보다 latent dimensionality가 더 높은 유일한 네트워크인데 이를 디코더로 이용할 경우 stitching에서 급격한 성능 하락을 보인다.</li>
+  <li>RexNet은 anchor의 갯수보다 latent dimensionality가 더 높은 유일한 네트워크인데 이를 디코더로 이용할 경우 stitching에서 급격한 성능 하락을 보인다.`</li>
 </ul>
 
 <h2 id="6-conclusion">6. Conclusion</h2>
@@ -573,7 +673,7 @@ Paper: Moschella, L., Maiorca, V., Fumero, M., Norelli, A., Locatello, F., &amp;
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Apr 25, 2024 <br />
+ Site last generated: May 27, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

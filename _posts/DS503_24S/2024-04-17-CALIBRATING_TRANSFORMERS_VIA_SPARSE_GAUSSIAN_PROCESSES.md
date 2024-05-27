@@ -56,7 +56,12 @@ $$\mathcal{L}_{E L B O}=E_{q(\boldsymbol{f} \mid \boldsymbol{X}, \boldsymbol{Z})
 $$=\mathcal{N}\left(K_{X^* Z} K_{Z Z}^{-1} m_u, K_{X^* X^*}+K_{X^* Z Z} K_{Z Z}^{-1}\left(S_u-K_{Z Z}\right) K_{Z Z}^{-1} K_{Z X^*}\right)$$ -->
 
 ## **3. Method**  
+
+![fig](../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/fig1.png)
+
 Sparse Gaussian Process Attention(SGPA)의 메인 아이디어는 scaled dot-product attention 을 kernel 로 대체하면서 SGPA 의 평균과 attention 을 연결하는 것이다. 
+
+
 
 ### 3.1 Attention as the mean of a sparse variational GP
 통상적인 Transformers 의 attention block 은 scaled dot-product(SDP) attention 으로
@@ -118,6 +123,8 @@ $$-\sum_{l=1}^L \sum_{h=1}^H E_{q\left(\boldsymbol{F}^l \mid \boldsymbol{F}^0,\l
 
 ## **4. Experiment**  
 
+![fig](../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/fig2.png)
+
 다음과 같은 setup 으로 실험을 진행하였다.
 * 데이터 : CIFAR10&CIFAR100 (CV), CoLA (NLP), IMDP (NLP)
 * Network 구조 : CV 문제에는 Vision Transformers 사용함. Kernel attention 에는 NLP 에는 exponential kernel, CV 에는 ARD-RBF kernel 사용함. 
@@ -128,9 +135,13 @@ $$-\sum_{l=1}^L \sum_{h=1}^H E_{q\left(\boldsymbol{F}^l \mid \boldsymbol{F}^0,\l
 모든 "single model" calibration 이 in-distribution calibration 을 향상시켰다. MFVI 는 가장 낮은 calibration errors 를 갖고 있지만, underfitting 이 보인다. 전반적으로 4가지 데이터셋에서 모두 SGPA 가 다른 single-model baseline 보다 좋은 성능을 보이며 competitive predictive accuracy 도 보였다.
 ### 4.2 Robust Prediction on Out-of-distribution
 
+![fig](../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/fig3.png)
+
 CoLA 와 이미지 분류 문제인 CIFAR10&CIFAR 100 에서 distribution shift 가 있을때의 성능을 분석하였다. 기존의 다른 연구에서 나온 OOD 데이터를 기반으로 실험을 하였을때, SGPA 는 MLE, MCD, SNGP를 NLL, calibration errors 측면에서 향상된 성능을 보였으면서 더욱 좋은 정확도를 보였다. MFVI, KFLLLA 는 더 낮은 calibration error 를 보였지만, predictive accuracy 가 좋지 못했다. OOD robustness 에 대해서도 실험을 했을 때 이와 같은 결과가 나왔다.
 
 ### 4.3 Out-of-distribution Detection
+
+![fig](../../images/DS503_24S/CALIBRATING_TRANSFORMERS_VIA_SPARSE_GAUSSIAN_PROCESSES/fig4.png)
 
 이미지 분류 데이터에 학습된 Transformer 에 대해 OOD detection 문제를 비교해보았다. 전반적으로 다른 베이스라인 모델들보다 SGPA 가 랭크가 높았으며, ensemble 을 이용한 SGPAE 가 그중 가장 좋은 성능을 보였다.
 

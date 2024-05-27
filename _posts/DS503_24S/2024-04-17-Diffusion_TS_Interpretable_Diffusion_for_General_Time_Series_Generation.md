@@ -6,9 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-
-#  Diffusion-TS: Interpretable Diffusion for General Time Series Generation
-
 ## 1. Motivation
 생성형 모델(Generative model)에 대한 연구가 활발히 진행됨에 따라 이를 시계열 데이터에 적용하기 위한 목적으로 다양한 시도가 이루어져 왔다. 과거에는 GAN(Generative Adversarial Networks)과 VAE(Variational Autoencoders)기반 모델을 통해 시계열 데이터를 생성하는데 중점을 두었는데, GAN 기반 모델은 학습 및 최적화 과정에서의 불안정성으로 인해 mode collapse 현상이 발생하기 쉬웠으며, VAE 기반 모델은 저품질(blurry sample)의 데이터를 생성하는 경향이 있었다. 게다가 이러한 모델들은 모두 기존의 이미지, 언어 데이터와는 다른 시계열 데이터가 가진 시간적 특성과 다변량 변수 간의 복잡한 상호 작용을 충분히 학습하는데 어려움이 있었다.
 
@@ -33,7 +30,7 @@ usemathjax: true
 ![](../../images/DS503_24S/Diffusion_TS_Interpretable_Diffusion_for_General_Time_Series_Generation/figure1.png)
 <!-- ![figure1.png](https://i.postimg.cc/ZnxM5hwp/figure1.png) -->
 
-Figure 1은 Diffusion-TS모델에서 사용되는 diffusion 기반 학습과정을 간략히 보여주고 있다. 노이즈가 추가된 데이터 $x_t$로부터 원본 시계열 데이터인 $x_0$ 를 생성할 수 있도록 하는 분포 $p_ \theta (x_{t-1} \vert x_ t,y)$ 를 학습하려는 목적은 일반적인 diffusion 기반 모델의 학습 방식과 동일하다. **하지만 $x_t$ 를 추세(Trend)요소와 주기적으로 반복되는 계절성(Season), 비주기적으로 발생하는 에러(Error)항으로 분해한 뒤 이들을 합하여 $ \hat x_ {0} (x_t,t)$ 을 추정하고 원본 시계열 데이터 $x_0$ 와의 차이를 이 논문에서 새롭게 제안하는 손실함수를 통해 학습하는 과정은 기존의 방식과 차별화 된다.** 이처럼 시계열 데이터 $x_t$에 대해 구체적으로 분해(decomposition)하는 과정은 아래의 Encoder-Decoder Transforemr Architecture에서 구현된다.
+Figure 1은 Diffusion-TS모델에서 사용되는 diffusion 기반 학습과정을 간략히 보여주고 있다. 노이즈가 추가된 데이터 $x_t$로부터 원본 시계열 데이터인 $x_0$ 를 생성할 수 있도록 하는 분포 $p_ \theta (x_{t-1} \vert x_ t,y)$ 를 학습하려는 목적은 일반적인 diffusion 기반 모델의 학습 방식과 동일하다. **하지만 $x_t$ 를 추세(Trend)요소와 주기적으로 반복되는 계절성(Season), 비주기적으로 발생하는 에러(Error)항으로 분해한 뒤 이들을 합하여 $\hat x_ {0} (x_t,t)$ 을 추정하고 원본 시계열 데이터 $x_0$ 와의 차이를 이 논문에서 새롭게 제안하는 손실함수를 통해 학습하는 과정은 기존의 방식과 차별화 된다.** 이처럼 시계열 데이터 $x_t$에 대해 구체적으로 분해(decomposition)하는 과정은 아래의 Encoder-Decoder Transforemr Architecture에서 구현된다.
 
 ### 2.2 Encoder-Decoder Transformer Architecture
 
@@ -86,9 +83,9 @@ $\alpha_t = 1 - \beta_t$ and $\hat {\alpha}_ t = \prod_ {s=1}^{t} {\alpha}_ s$
 
 $\lambda$ = 상수 (i.e. 0.01)
 
-여기에 최종적으로 실제 시계열 데이터의 Fourier변환을 한 값($F\mathcal{T}(x_0)$)과 생성한 시계열 데이터의 Fourier변환을 적용한 값($F\mathcal{T}(\hat{x}_0(x_t, \theta))$)의 차를 아래와 같이 손실항에 추가하여 생성된 시계열 데이터가 원본 시계열 데이터의 주기적 특성을 더 유사하게 학습할 수 있도록 한다.
+여기에 최종적으로 실제 시계열 데이터의 Fourier변환을 한 값($FT(x_0)$)과 생성한 시계열 데이터의 Fourier변환을 적용한 값($FT(\hat{x}_0(x_t, \theta))$)의 차를 아래와 같이 손실항에 추가하여 생성된 시계열 데이터가 원본 시계열 데이터의 주기적 특성을 더 유사하게 학습할 수 있도록 한다.
 
-$L_{\theta} = \mathbb{E}_{t,x_0} \left[ w_t \left\| x_0 - \hat{x}_0(x_t, \theta) \right\|^2 + \lambda_2 \|F\mathcal{T}(x_0) - F\mathcal{T}(\hat{x}_0(x_t, \theta))\|^2 \right]$
+$L_{\theta} = \mathbb{E}_{t,x_0} \left[ w_t \left\| x_0 - \hat{x}_0(x_t, \theta) \right\|^2 + \lambda_2 \|FT(x_0) - FT(\hat{x}_0(x_t, \theta))\|^2 \right]$
 
 
 ## 3. Experiment

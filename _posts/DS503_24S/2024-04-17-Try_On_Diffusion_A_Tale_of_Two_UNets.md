@@ -6,10 +6,6 @@ use_math: true
 usemathjax: true
 ---
 
-# **Title** 
-
-TryOnDiffusion: A Tale of Two UNets
-
 ## **1. Problem Definition**  
 ### **Task Description**
 **Virtual Try-On (VTON)**, which involves putting **a garment** on a **particular individual**, holds crucial significance in contemporary e-commerce and the prospective metaverse. The **key challenge** lies in preserving **intricate clothes texture details** along with **the target person's distinctive features**. Adapting a garment to different body shapes without modifying patterns is particularly challenging, especially when the body appearance varies significantly.
@@ -53,14 +49,14 @@ The **key ideas** behind Parallel-UNet include:
 1) garment is **warped implicitly** via a cross attention mechanism, 
 2) garment warp and person blend happen as part of a **unified process** as opposed to a sequence of two separate tasks.
 
-To find out the idea behind the **implicity warping mechanism**, we need to focus on the warping argorithm which known as the [Thin Plate Spline](https://en.wikipedia.org/wiki/Thin_plate_spline). This algorithm could easily explain as a **scale and transition opertation**. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase.
+To find out the idea behind the **implicity warping mechanism**, we need to focus on the warping argorithm which known as the [Thin Plate Spline](https://en.wikipedia.org/wiki/Thin_plate_spline). This algorithm could easily explain as a **scale and transition opertation**. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase. **Latent space is more rubust than RGB space**
 
-![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png)
+![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png)
 <!-- ![Image 1](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x2.png) -->
 
 Figure 1: Overall pipeline (top): During preprocessing step, the target person is segmented out of the person image creating “clothing agnostic RGB” image, the target garment is segmented out of the garment image, and pose is computed for both person and garment images. These inputs are taken into 128x128 Parallel-UNet (key contribution) to create the 128x128 try-on image which is further sent as input to the 256x256 Parallel-UNet together with the try-on conditional inputs. Output from  256x256 Parallel-UNet is sent to standard super resolution diffusion to create the 1024x1024 image. The architecture of  128x128 Parallel-UNet is visualized at the bottom, see text for details. The 256x256 Parallel-UNet is similar to the 128 one.
 
-![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png)
+![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png)
 <!-- ![Image 2](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x8.png) -->
 
 Figure 2: Architecture of 256x256 Parallel-UNet
@@ -105,7 +101,7 @@ Instead of warping the garment to the target body and then blending with the tar
 
 The person and garment poses are necessary for guiding the warp and blend process. They are first fed into the linear layers to compute pose embeddings separately. The pose embeddings are then fused to the person-UNet through the attention mechanism, which is implemented by concatenating pose embeddings to the key-value pairs of each self attention layer. Besides, pose embeddings are reduced along the keypoints dimension using CLIP-style 1D attention pooling, and summed with the positional encoding of diffusion timestep $t$ and noise augmentation levels $t_{na}$. The resulting 1D embedding is used to modulate features for both UNets using [FiLM](https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&%3Butm_source=hs_email&%3Butm_medium=email&%3Butm_content=2&%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&ref=dl-staging-website.ghost.io) across all scales.
 
-**In my opinion**, the application of [FiLM](https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&%3Butm_source=hs_email&%3Butm_medium=email&%3Butm_content=2&%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&ref=dl-staging-website.ghost.io) is the key things that the most similar to implicit warping mechanism. **(Scale and transition operation in the latent space)**
+**In my opinion**, the application of [FiLM](https://staging.distill.pub/2018/feature-wise-transformations/?utm_campaign=The+Batch&%3Butm_source=hs_email&%3Butm_medium=email&%3Butm_content=2&%3B_hsenc=p2ANqtz-_y7LKn2OW8eVKFWN6aYCjxUI-sOF4aNoqsVlfHqHvZqO66RnPZbAPo4wwMyW2fo5iNqSLEHOGgkqNU2QwzSqK0HJUNdw&ref=dl-staging-website.ghost.io) is the operation that the most similar to warping mechanism **(Scale and transition operation in the latent space)** and can be applied in all latent resolution.  Meanwhile, Cross Attention is really parameter consuming that why it is only applied at low resolution latent space to save the parameter. Combine both of them, we can get a realy powerful way of injecting or combining feature from other models.  
 
 ## **4. Experiment**  
 
@@ -127,13 +123,13 @@ The proposed models surpassed all the previous methods quantitatively.
 #### **Quantitative Result**
 
 <!-- ![Image3](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x3.png) -->
-![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png)
+![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png)
 
 <!-- ![Image4](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x4.png) -->
-![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png)
+![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png)
 
-![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png)
 <!-- ![Image5](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x7.png) -->
+![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png)
 
 ## **5. Conclusion**  
 
@@ -143,7 +139,13 @@ A novel architecture Parallel-UNet, where two UNets are trained in parallel and 
 
 This project only focus on **upper clothes.** 
 
-**In my opinion,** the key idea lies on cross-attention and FiLM - Feature-wise transformations. The used of implicited warping removed the underbound of previous methods. 
+**In my opinion,** the key idea lies on cross-attention and FiLM - Feature-wise transformations, an parameter-efficient method to injecting the embeding information to the model. The used of implicited warping removed the underbound of previous methods. 
+
+## **6. Limitation**
+The limitation of this paper is identity preservation problem. The tryon model can not retain the identity feature of the reference person (tattoos, muscle structure, accessories). Examples are showcased below.
+
+<!-- ![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/6.png) -->
+![Image6](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x18.png)
 
 ---  
 ## **Author Information**  
@@ -156,7 +158,8 @@ This project only focus on **upper clothes.**
 
 Please write the reference. If paper provides the public code or other materials, refer them.  
 
-* Github Implementation of Tryon Diffusion: [here](https://github.com/tryonlabs/tryondiffusion) 
+* Github Implementation of Tryon Diffusion: [here](https://github.com/tryonlabs/tryondiffusion) (No official code is released, a group of people try to reproduce that.)
+
 * Reference: 
     
     <a id="1">[1]</a> : Fele, Benjamin, et al. "C-vton: Context-driven image-based virtual try-on network." Proceedings of the IEEE/CVF winter conference on applications of computer vision. 2022. [Link](https://arxiv.org/abs/2212.04437)
