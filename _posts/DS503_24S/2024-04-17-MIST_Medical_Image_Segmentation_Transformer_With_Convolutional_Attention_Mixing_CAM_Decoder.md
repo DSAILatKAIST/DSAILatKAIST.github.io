@@ -45,8 +45,8 @@ The encoder utilizes a vision transformer architecture MaxViT [1], designed to h
 
 **Key Components of MaxViT**
 
-![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/mist_qualitative_results.png)
-<!-- ![maxvit-model.png](https://i.ibb.co/ZcKh36Y/maxvit-model.png)   -->
+<!-- ![](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/mist_qualitative_results.png) -->
+![maxvit-model.png](../../images/DS503_24S/MIST_Medical_Image_Segmentation_Transformer_With_Convolutional_Attention_Mixing_CAM_Decoder/maxvit_model.png)  
 
 
 **1 - Multi-Axis Attention (Max-SA):**

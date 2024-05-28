@@ -65,8 +65,8 @@ $\huge \mathbf{X}^{(i)} \in \mathbb{R}^{1 \times T} \rightarrow \mathbf{X}_ P^{(
 > Patching
 
 ### **3.2. Patch Reprogramming**
- 시계열 데이터를 Natural Language처럼 처리될 수 있게 Modality를 Align해주는 과정이 필요하다. 이를 통해 시계열 데이터를 Backbone model이 이해하기 쉬워지고, 시계열 데이터 속에서 Temporal Interrelationship을 잘 capture하게 된다. 그래서 이 과정에서 시계열 데이터의 특성이나 변화를 설명할 수 있는 Text 등을 이전의 Patching이 된 데이터에 Cross-Attention을 수행하여 Patch Representation을 진행한다. (시계열 데이터를 설명하는 Text 예시: "Short", "Up", "Late, "Steady" 등)
-
+ Patch Reprogramming이란 시계열 데이터를 LLM에서 Natural Language처럼 처리될 수 있게 Modality를 Align해주는 과정을 의미한다. 이를 통해 시계열 데이터를 Backbone model이 이해하기 쉬워지고, 시계열 데이터 속에서 Temporal Interrelationship을 잘 capture하게 된다. 그래서 이 과정에서 시계열 데이터의 특성이나 변화를 설명할 수 있는 Text 등을 이전의 Patching이 된 데이터에 Cross-Attention을 수행하여 Patch Representation을 진행한다. (시계열 데이터를 설명하는 Text 예시: "Short", "Up", "Late, "Steady" 등)
+ 
  먼저 이전의 Patching을 끝낸 시계열 데이터에 대해 Linear layer를 통해 embedding을 진행시킨다.
 
  $\huge \mathbf{X}_ P^{(i)} \in \mathbb{R}^{P \times L_ p} \rightarrow \hat{\mathbf{X}}_ P^{(i)} \in \mathbb{R}^{P \times d_ m}$
@@ -113,9 +113,9 @@ $\huge O^{(i)} \in \mathbb{R}^{P \times D}$
 > Patch Reprogramming Output
 
 ### **3.3. Prompt as Prefix**
-시계열 데이터셋의 사전 정보를 자연어 형태로 제공함으로써, LLM의 패턴 인식과 추론 능력을 향상시킨다. 이때 사전 정보는 Dataset Context, Task instruction, Input Statistics이다. 
+Prompt as Prefix는 시계열 데이터셋의 사전 정보를 자연어 형태로 제공함으로써, LLM의 패턴 인식과 추론 능력을 향상시키는 것을 의미한다. 이때 사전 정보는 Dataset Context, Task Instruction, Input Statistics이다.
 
-(e.g. 전력량 예측의 경우: 전력은 여름에 많이 쓰여, 너는 내년 여름의 전력량을 예측해야 해, 올해 전력량 평균은 ---이야)
+(e.g. 전력량 예측의 경우, Dataset Context: 전력은 여름에 많이 쓰여, Task Instruction: 너는 내년 여름의 전력량을 예측해야 해, Input Statistics: 올해 전력량 평균은 ---이야)
 
 ![](../../images/DS503_24S/Time-LLM_Time_Series_Forecasting_by_Reprogramming_Large_Language_Models/image2.png)
 
@@ -180,6 +180,20 @@ LLM Backbone은 Llama-7B을 사용했다. 아래는 Baseline을 보여주는 표
 | Non-stationary transformer(2022), |                      |                       |                      |
 | ETSformer(2022),                  |                      |                       |                      |
 | Informer(2021), Reformer(2020)    |                      |                       |                      |
+
+1. AutoARIMA: 시계열 예측을 위해 최적의 파라미터를 자동으로 선택하는 자동 ARIMA(Autoregressive Integrated Moving Average) 모델.
+2. AutoTheta: 다양한 trends와 seasonalities를 고려한 시계열 예측을 위한 Theta 모델의 자동화 버전.
+3. AutoETS: 다중 seasonalities와 trends를 처리하기 위한 automatic Exponential Smoothing State Space model selection method.
+4. N-HiTS: 시계열 데이터의 다양한 패턴을 효과적으로 포착하기 위해 hierarchical interpolation을 사용하는 신경망 기반 모델.
+5. N-BEATS: 여러 Block을 사용하여 다양한 시계열 패턴을 포착하는 시계열 예측을 위한 신경망 기반 확장 분석 모델.
+6. PatchTST: 시계열 데이터의 patch를 생성하고 Transformer를 사용하여 데이터의 long dependencies를 처리하는 모델.
+7. DLinear: 데이터의 선형적 특성을 활용하여 빠르고 간단한 예측을 위한 시계열 예측 선형 모델.
+8. TimesNet: 여러 계층을 통해 다양한 복잡한 시계열 패턴을 학습하고 예측하기 위한 시계열 네트워크 모델.
+9. FEDformer: frequency 성분을 활용하여 정확한 시계열 예측을 수행하는 주파수 강화 분해 Transformer 모델.
+10. Autoformer: 시계열 데이터의 seasonalities와 trends를 효과적으로 모델링하기 위한 auto-regressive Transformer를 사용하는 모델.
+11. Informer: sparse attention를 사용하여 긴 시계열 데이터를 처리하기 위한 효율적인 attention mechanism을 갖춘 Transformer 모델.
+12. Reformer: 긴 시계열 데이터를 처리하면서 메모리 효율성을 높이기 위해 LSH(Locality-Sensitive Hashing)를 사용하는 Transformer 모델.
+
 
 
 ### **4.4. Result**
@@ -283,3 +297,5 @@ Please write the reference. If paper provides the public code or other materials
 * Reference
   *  [Time-LLM: Time Series Forecasting by Reprogramming Large Language Models](https://openreview.net/forum?id=Unb5CVPtae)
   *  [Reversible Instance Normalization for Accurate Time-Series Forecasting against Distribution Shift](https://openreview.net/forum?id=cGDAkQo1C0p "Reversible Instance Normalization")
+
+
