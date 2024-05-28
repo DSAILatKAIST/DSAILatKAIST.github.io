@@ -88,7 +88,7 @@ consistency regularizer은 orginal data와 augmented data의 유사한 logit out
 - confidence masking
 - design decisions
 
-Confidence masking이란 예측확률이 threshold인 \alpha보다 더 큰 sample에만 $\mathcal{L} _{consist}$를 적용한다는 것이다.이는 label이 확실하지 않은 augmented data에 penalty를 잘못 적용하면 augmentation network의 학습이 망가질 수 있기 때문이다. 
+Confidence masking이란 예측확률이 threshold인 $\alpha$보다 더 큰 sample에만 $\mathcal{L} _{consist}$를 적용한다는 것이다.이는 label이 확실하지 않은 augmented data에 penalty를 잘못 적용하면 augmentation network의 학습이 망가질 수 있기 때문이다. 
 다음으로 design decisions는 상황에 맞게 학습을 위한 설계를 결정하는 것을 의미한다. LeMDA는 단순하고 일반적인 구조로 구성되어있으므로 consistency regularizer를 어떻게 정의해서 어느 범위까지 적용되어야 할지가 실험을 통해 잘 결정되어야 한다. 
 
 
