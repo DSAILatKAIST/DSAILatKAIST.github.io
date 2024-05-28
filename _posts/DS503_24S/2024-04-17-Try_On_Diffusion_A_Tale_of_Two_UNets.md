@@ -51,12 +51,12 @@ The **key ideas** behind Parallel-UNet include:
 
 To find out the idea behind the **implicity warping mechanism**, we need to focus on the warping argorithm which known as the [Thin Plate Spline](https://en.wikipedia.org/wiki/Thin_plate_spline). This algorithm could easily explain as a **scale and transition opertation**. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase. **Latent space is more rubust than RGB space**
 
-![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png)
+![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png)
 <!-- ![Image 1](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x2.png) -->
 
 Figure 1: Overall pipeline (top): During preprocessing step, the target person is segmented out of the person image creating “clothing agnostic RGB” image, the target garment is segmented out of the garment image, and pose is computed for both person and garment images. These inputs are taken into 128x128 Parallel-UNet (key contribution) to create the 128x128 try-on image which is further sent as input to the 256x256 Parallel-UNet together with the try-on conditional inputs. Output from  256x256 Parallel-UNet is sent to standard super resolution diffusion to create the 1024x1024 image. The architecture of  128x128 Parallel-UNet is visualized at the bottom, see text for details. The 256x256 Parallel-UNet is similar to the 128 one.
 
-![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png)
+![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png)
 <!-- ![Image 2](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x8.png) -->
 
 Figure 2: Architecture of 256x256 Parallel-UNet
@@ -123,13 +123,13 @@ The proposed models surpassed all the previous methods quantitatively.
 #### **Quantitative Result**
 
 <!-- ![Image3](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x3.png) -->
-![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png)
+![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png)
 
 <!-- ![Image4](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x4.png) -->
-![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png)
+![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png)
 
 <!-- ![Image5](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x7.png) -->
-![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png)
+![](../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png)
 
 ## **5. Conclusion**  
 
@@ -144,7 +144,7 @@ This project only focus on **upper clothes.**
 ## **6. Limitation**
 The limitation of this paper is identity preservation problem. The tryon model can not retain the identity feature of the reference person (tattoos, muscle structure, accessories). Examples are showcased below.
 
-<!-- ![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/6.png) -->
+
 ![Image6](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x18.png)
 
 ---  

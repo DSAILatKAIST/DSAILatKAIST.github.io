@@ -27,7 +27,7 @@ usemathjax: true
 **Molecule generation**<br>
 De novo molecule generation task 는 여타 생성 모델과 마찬가지로 정의된 prior 에서 vector 를 추출하여 일련의 과정을 거쳐 새로운 분자를 생성하는 것이다.<br>
 아래 그림은 GAN 을 통한 molecule generation 을 목표하는 MolGAN [1] 의 outline 을 도식화한 것이다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/1.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/1.png)<br>
 
 <!-- ![Figure1](https://github.com/khchul/my_nerf/assets/49011793/875c68c3-00e0-4a5f-a72f-f3c7928e570d)<br> -->
 
@@ -47,7 +47,7 @@ $\mathcal{f(XQ + t)} = \mathcal{f(X)Q + t}$<br>
 해당 논문은 최근 Geometric deep learning [3] 의 발전에 힘입어 원자들의 3차원 좌표를 생성하는 과정에서 이러한 E(3)-Equivariance 에 주목하여 모델을 설계한다.<br>
 
 **DDPM and D3PM**<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/2.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/2.png)<br>
 
 <!-- ![Figure2](https://github.com/khchul/my_nerf/assets/49011793/f65a1da8-09ec-4daf-af63-f88505d749fd)<br> -->
 DDPM 은 생성 모델 방법론 중의 하나로, 알려지지 않은 data distribution $\mathcal{p(X_ {0})}$ 에 Markov process 형태의 점진적인 noise 를 가하여<br>
@@ -55,7 +55,7 @@ predefined distribution $\mathcal{p(X_ {T})}$ 으로 변환하고, 그것의 역
 이때 t-1 timestep 에서 t 번째 timestep 으로 noise 를 가하는 가하는 forward process $\mathcal{q(X_ {t} \vert X_ {t-1})}$ 와<br>
 t 번째 timestep 에서 t-1 번째 timestep 으로 noise 를 제거하는 reverse process $\mathcal{p_ {\theta}(X_ {t-1} \vert X_ {t})}$ 모두 Gaussian distribution 으로 정의한다.<br>
 또한 모든 단계에서의 variable $\mathcal{X_ {t}}$ 들은 연속적인 값을 갖는다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/3.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/3.png)<br>
 
 <!-- ![Figure3](https://github.com/khchul/my_nerf/assets/49011793/5d3fd31e-c6fc-4e8d-aee7-9151bd3ab0e4)<br> -->
 D3PM [4] 는 DDPM 의 성공에 힘입어 그것을 이산적인 값을 띄는 variable 을 생성하도록 변형한 생성 모델이다.<br>
@@ -71,7 +71,7 @@ DDPM 의 저자들은 loss 를 계산할 수 있는 두 가지 방법론을 제�
 reverse process 를 통해 neural network 가 $\mathcal{X_ {t}}$ 에 적용된 noise 를 예측하는 방법론이다.<br>
 
 ### 3. Proposed model
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/4.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/4.png)<br>
 <!-- ![Figure4](https://github.com/khchul/my_nerf/assets/49011793/f9c2a04a-386c-4eee-bfb7-278d60ac7f9b)<br> -->
 
 EQGAT-diff 모델은 diffusion 기반의 생성 모델을 통해 앞서 설명한 값들을 생성하여 분자를 표현하는데, 이때 학습되는 reverse process approximator 의 backbone model 로<br>
@@ -81,14 +81,14 @@ scalar feature 들에 대해선 geometric attention filter 를 거치게 하여 
 이때 Figure 에 나타난 EQGAT 모델을 backbone 으로 삼아 diffusion 모델의 알맞는 parameterization 의 prediction 을 예측하도록 하여 E(3)-Equivariance 를 얻게 된다.<br>
 
 이를 통해 message function $\mathcal{m}$ 은 2-layer MLP 표현되고, 원자들의 위치 정보를 담는 $\mathcal{X}$, 분자를 구성하는 원자 및 결합 정보 $\mathcal{H}$, $\mathcal{E}$ 를 다음과 같이 계산하여 반환한다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/5.png)<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/6.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/5.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/6.png)<br>
 
 <!-- ![image](https://github.com/khchul/my_nerf/assets/49011793/0fdde32d-b111-49c3-9632-4f6b12cf92d2)<br>
 ![image](https://github.com/khchul/my_nerf/assets/49011793/87b0ae81-2330-4207-bb54-049955fcce8b)<br> -->
 
 또한 다른 diffusion model 사이에서 널리 활용되는 weighting coefficient 를 적용하여 KL divergence 의 loss term 은 아래와 같으며,<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/7.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/7.png)<br>
 <!-- ![image](https://github.com/khchul/my_nerf/assets/49011793/10d915b0-08e0-45e8-b49d-f367c2276195)<br> -->
 
 Weighting 으로 $\mathcal{w_ {u} = 1}$, $\mathcal{w_ {t}}$ = min(0.05, max(1.5, SNR(t))) 를 활용한다.<br>
@@ -101,7 +101,7 @@ Weighting 으로 $\mathcal{w_ {u} = 1}$, $\mathcal{w_ {t}}$ = min(0.05, max(1.5,
 - 별도의 화학 정보의 추가 활용
 
 저자들은 이들 중 어떠한 변화가 가장 큰 영향이 주었는지 규명하기 위해 EQGAT-diff 에 조건을 변화시켜 QM9 과 GEOM-Drugs dataset 에 대해 성능 평가를 진행하였다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/8.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/8.png)<br>
 <!-- ![Figure5](https://github.com/khchul/my_nerf/assets/49011793/41ebd799-1c93-4f5c-89d6-620ce98f9ec4)<br> -->
 
 여러 지표를 분석한 결과 저자들은 categorical diffusion 을 적용한 discrete state-space 와 $\mathcal{x_ {0} }$-parameterization 을 활용하는 것이 가장 높은 성능이 나온 것을 통해<br>
@@ -113,14 +113,14 @@ Weighting 으로 $\mathcal{w_ {u} = 1}$, $\mathcal{w_ {t}}$ = min(0.05, max(1.5,
 EQGAT-diff 의 실용적인 우수성을 보인다.<br>
 이때 범용적인 분자 정보를 학습하기 위해 9570 만개의 비교적 간단한 분자들로 구성된 PubChem3D dataset 을 사용하여 pre-training 을 진행하고,<br>
 QM9 와 GEOM-Drugs 를 각각 25%, 50%, 75%, 100% 활용하여 성능 평가를 분석하여 pre-training 의 효과를 제시하였다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/9.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/9.png)<br>
 <!-- ![Figure6](https://github.com/khchul/my_nerf/assets/49011793/20da461f-dcd2-4038-a620-db06952d3ef9)<br> -->
 
 또한 pre-trained model 이 적은 양의 fine-tuning 만으로 괜찮은 성능이 나오는 것을 보이기 위해 아래의 실험들을 제시하였다.<br>
 이것을 통해 training dataset 의 25% 만을 활용해도 높은 성능이 나오는 것을 확인할 수 있으며, 원자의 갯수가 많은 복잡한 경우에 대해서도 이것이 유지됨을 보여주었다.<br>
 
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/10.png)<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/11.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/10.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/11.png)<br>
 <!-- ![Figure7](https://github.com/khchul/my_nerf/assets/49011793/381d7e0f-48bd-449d-95d2-1b36d5e49794)<br>
 ![Figure8](https://github.com/khchul/my_nerf/assets/49011793/f6b26cd7-ee60-4859-bba7-38e556a69bbb)<br> -->
 
@@ -130,13 +130,13 @@ GEOM-Drugs dataset 은 45만 개의 복잡한 분자들로 구성된 dataset 으
 이때 EQGAT-diff 는 앞서 설명한 다양한 variation 들을 모두 포함하여 실험하고, 대부분의 지표에서 모두 SOTA 성능을 기록하였다.<br>
 또한, 분자들의 입체 구조 정보가 얼마나 잘 표현되는지 평가하는 지표들인 AtomsTV, BondsTV, BondAngles 등의 지표에서 큰 격차의 성능 향상이 발생한 것을 통해 E(3)-Equivariance 가<br>
 실제로 물리, 화학적 현상을 반영한 분자의 구조에 필수적임을 확인할 수 있다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/12.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/12.png)<br>
 <!-- ![Figure9](https://github.com/khchul/my_nerf/assets/49011793/2f28d34d-2109-4f38-afd5-683477d79b89)<br> -->
 
 마지막으로 아래는 EQGAT-diff 를 통해 prior 에서 sampling 한 vector 두 개를 각각 점진적으로 noise 를 제거하여 생성한 3차원 분자 구조들을 그린 것이다<br>
 Predefined prior 에서 sampling 한 정보를 분자 구조로 도식화한 상태인 t=500 시점에서의 모습은 noise 외의 중요한 정보는 담기지 않는 것을 확인할 수 있다.<br>
 이것이 denoising 단계를 거치면서 점점 의미있는 분자 형태로 바뀌는 모습을 확인할 수 있다.<br>
-![](../../images/DS501_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/13.png)<br>
+![](../../images/DS503_24S/Navigating_the_Design_Space_of_Equivariant_Diffusion-Based_Generative_Models_for_De_Novo_3D_Molecule_Generation/13.png)<br>
 <!-- ![Figure10](https://github.com/khchul/my_nerf/assets/49011793/122d863e-fad5-49ad-91a5-568bdccc8bb7)<br> -->
 
 ### 5. Conclusion

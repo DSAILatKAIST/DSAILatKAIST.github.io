@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 28 May 2024 14:17:04 +0900</pubDate>
-        <lastBuildDate>Tue, 28 May 2024 14:17:04 +0900</lastBuildDate>
+        <pubDate>Tue, 28 May 2024 15:50:50 +0900</pubDate>
+        <lastBuildDate>Tue, 28 May 2024 15:50:50 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -889,12 +889,12 @@ At the beginning, depending on the types of clothes, the corresponding changeabl
 
 &lt;p&gt;To find out the idea behind the &lt;strong&gt;implicity warping mechanism&lt;/strong&gt;, we need to focus on the warping argorithm which known as the &lt;a href=&quot;https://en.wikipedia.org/wiki/Thin_plate_spline&quot;&gt;Thin Plate Spline&lt;/a&gt;. This algorithm could easily explain as a &lt;strong&gt;scale and transition opertation&lt;/strong&gt;. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase. &lt;strong&gt;Latent space is more rubust than RGB space&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png&quot; alt=&quot;&quot; /&gt;
 &lt;!-- ![Image 1](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x2.png) --&gt;&lt;/p&gt;
 
 &lt;p&gt;Figure 1: Overall pipeline (top): During preprocessing step, the target person is segmented out of the person image creating “clothing agnostic RGB” image, the target garment is segmented out of the garment image, and pose is computed for both person and garment images. These inputs are taken into 128x128 Parallel-UNet (key contribution) to create the 128x128 try-on image which is further sent as input to the 256x256 Parallel-UNet together with the try-on conditional inputs. Output from  256x256 Parallel-UNet is sent to standard super resolution diffusion to create the 1024x1024 image. The architecture of  128x128 Parallel-UNet is visualized at the bottom, see text for details. The 256x256 Parallel-UNet is similar to the 128 one.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png&quot; alt=&quot;&quot; /&gt;
 &lt;!-- ![Image 2](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x8.png) --&gt;&lt;/p&gt;
 
 &lt;p&gt;Figure 2: Architecture of 256x256 Parallel-UNet&lt;/p&gt;
@@ -961,13 +961,13 @@ Specifically, $Q$ is the flattened features of $z_t$ and $K$, $V$ are the flatte
 &lt;h4 id=&quot;quantitative-result&quot;&gt;&lt;strong&gt;Quantitative Result&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;!-- ![Image3](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x3.png) --&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![Image4](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x4.png) --&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;!-- ![Image5](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x7.png) --&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
 
@@ -982,7 +982,6 @@ Specifically, $Q$ is the flattened features of $z_t$ and $K$, $V$ are the flatte
 &lt;h2 id=&quot;6-limitation&quot;&gt;&lt;strong&gt;6. Limitation&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;The limitation of this paper is identity preservation problem. The tryon model can not retain the identity feature of the reference person (tattoos, muscle structure, accessories). Examples are showcased below.&lt;/p&gt;
 
-&lt;!-- ![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/6.png) --&gt;
 &lt;p&gt;&lt;img src=&quot;https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x18.png&quot; alt=&quot;Image6&quot; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;

@@ -431,12 +431,12 @@ At the beginning, depending on the types of clothes, the corresponding changeabl
 
 <p>To find out the idea behind the <strong>implicity warping mechanism</strong>, we need to focus on the warping argorithm which known as the <a href="https://en.wikipedia.org/wiki/Thin_plate_spline">Thin Plate Spline</a>. This algorithm could easily explain as a <strong>scale and transition opertation</strong>. In previous study, the warping model will try to predict an tranformation matrix to operate this argorithm on picture space or in RGB space. Meanwhile, to unified two model, this process also could also be operated under latent space by adding condition information supporting the implicit warp phase. <strong>Latent space is more rubust than RGB space</strong></p>
 
-<p><img src="../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png" alt="" />
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/1.png" alt="" />
 <!-- ![Image 1](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x2.png) --></p>
 
 <p>Figure 1: Overall pipeline (top): During preprocessing step, the target person is segmented out of the person image creating “clothing agnostic RGB” image, the target garment is segmented out of the garment image, and pose is computed for both person and garment images. These inputs are taken into 128x128 Parallel-UNet (key contribution) to create the 128x128 try-on image which is further sent as input to the 256x256 Parallel-UNet together with the try-on conditional inputs. Output from  256x256 Parallel-UNet is sent to standard super resolution diffusion to create the 1024x1024 image. The architecture of  128x128 Parallel-UNet is visualized at the bottom, see text for details. The 256x256 Parallel-UNet is similar to the 128 one.</p>
 
-<p><img src="../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png" alt="" />
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/2.png" alt="" />
 <!-- ![Image 2](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x8.png) --></p>
 
 <p>Figure 2: Architecture of 256x256 Parallel-UNet</p>
@@ -503,13 +503,13 @@ Specifically, $Q$ is the flattened features of $z_t$ and $K$, $V$ are the flatte
 <h4 id="quantitative-result"><strong>Quantitative Result</strong></h4>
 
 <!-- ![Image3](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x3.png) -->
-<p><img src="../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/3.png" alt="" /></p>
 
 <!-- ![Image4](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x4.png) -->
-<p><img src="../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/4.png" alt="" /></p>
 
 <!-- ![Image5](https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x7.png) -->
-<p><img src="../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png" alt="" /></p>
+<p><img src="../../images/DS503_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/5.png" alt="" /></p>
 
 <h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
 
@@ -524,7 +524,6 @@ Specifically, $Q$ is the flattened features of $z_t$ and $K$, $V$ are the flatte
 <h2 id="6-limitation"><strong>6. Limitation</strong></h2>
 <p>The limitation of this paper is identity preservation problem. The tryon model can not retain the identity feature of the reference person (tattoos, muscle structure, accessories). Examples are showcased below.</p>
 
-<!-- ![](../../images/DS501_24S/Try_On_Diffusion_A_Tale_of_Two_UNets/6.png) -->
 <p><img src="https://ar5iv.labs.arxiv.org/html/2306.08276/assets/x18.png" alt="Image6" /></p>
 
 <hr />
