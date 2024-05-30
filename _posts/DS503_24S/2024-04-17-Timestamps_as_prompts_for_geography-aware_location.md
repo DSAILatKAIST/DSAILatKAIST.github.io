@@ -41,13 +41,13 @@ timestamp 정보를 추가 prompt로 활용해서 next , interval location predi
 E: transformer Encoder
 D: transformer Decoder
 
-  
+
 
 ## **Preliminaries**
 
-1. **TPG모델 input**: , $c^u_i = (u, t_i, p_i, geo_i)$
+&nbsp;1. **TPG모델 input**: , $c^u_i = (u, t_i, p_i, geo_i)$
 
-	→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = \{c^u_i\}^n_{i=1}$
+→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = \{c^u_i\}^n_{i=1}$
 
 - u: user
 - $t_i$: i번째 check-in 시간
@@ -57,7 +57,7 @@ D: transformer Decoder
 💡 최종 목적은 $t_ {n+1}$의 $p_ {n+1}$을 맞추는 것
 
 
-2. **tile map 방식**(지리 정보를 hierarchical gridding으로 표현한 방식)
+&nbsp;2. **tile map 방식**(지리 정보를 hierarchical gridding으로 표현한 방식)
 
 ![](../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-2.png)
 
@@ -211,14 +211,15 @@ user embedding을 추가 했을떄 TPG 모델의 성능이 나빠진다. 이는 
 
 ## Parameter Sensitivity Analysis
 지리 embedding 차원과 shifted window의 크기가 중요한 파라미터라고 생각되어 두 파라미터에 대해 NYC, TKY dataset을 이용해 Parameter Sensitivity Analysis를 진행했다. 
-1. **지리 embedding 차원 변화**
+
+&nbsp;1. **지리 embedding 차원 변화**
 
 ![](../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/untitle13.jpg)
 
 embedding 차원을 10부터 60까지 10단위로 변화시키면서 성능을 비교했다. 
 embedding 차원을 증가시킬 수록 성능이 좋아지지만 차원이 50을 넘어가면 성능이 떨저지는 것을 확인하였다. 이는 차원이 낮을때는 지리 정보를 다 표현하기에는 부족한 것으로 보이고 차원이 너무 커지면 반대로 너무 많은 차원으로 noise가 발생 할 수 있음을 보여준다. 최종 TPG모델의 차원은 50이다.
 
-2. **shifted window step size 변화**
+&nbsp;2. **shifted window step size 변화**
 
 ![](../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitle14.jpg)
 

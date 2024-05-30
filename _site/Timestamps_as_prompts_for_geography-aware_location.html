@@ -421,13 +421,9 @@ D: transformer Decoder</p>
 
 <h2 id="preliminaries"><strong>Preliminaries</strong></h2>
 
-<ol>
-  <li>
-    <p><strong>TPG모델 input</strong>: , $c^u_i = (u, t_i, p_i, geo_i)$</p>
+<p> 1. <strong>TPG모델 input</strong>: , $c^u_i = (u, t_i, p_i, geo_i)$</p>
 
-    <p>→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = {c^u_i}^n_{i=1}$</p>
-  </li>
-</ol>
+<p>→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = {c^u_i}^n_{i=1}$</p>
 
 <ul>
   <li>u: user</li>
@@ -438,9 +434,7 @@ D: transformer Decoder</p>
 
 <p>💡 최종 목적은 $t_ {n+1}$의 $p_ {n+1}$을 맞추는 것</p>
 
-<ol>
-  <li><strong>tile map 방식</strong>(지리 정보를 hierarchical gridding으로 표현한 방식)</li>
-</ol>
+<p> 2. <strong>tile map 방식</strong>(지리 정보를 hierarchical gridding으로 표현한 방식)</p>
 
 <p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-2.png" alt="" /></p>
 
@@ -607,18 +601,15 @@ user embedding을 추가 했을떄 TPG 모델의 성능이 나빠진다. 이는 
 
 <h2 id="parameter-sensitivity-analysis">Parameter Sensitivity Analysis</h2>
 <p>지리 embedding 차원과 shifted window의 크기가 중요한 파라미터라고 생각되어 두 파라미터에 대해 NYC, TKY dataset을 이용해 Parameter Sensitivity Analysis를 진행했다.</p>
-<ol>
-  <li><strong>지리 embedding 차원 변화</strong></li>
-</ol>
+
+<p> 1. <strong>지리 embedding 차원 변화</strong></p>
 
 <p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/untitle13.jpg" alt="" /></p>
 
 <p>embedding 차원을 10부터 60까지 10단위로 변화시키면서 성능을 비교했다. 
 embedding 차원을 증가시킬 수록 성능이 좋아지지만 차원이 50을 넘어가면 성능이 떨저지는 것을 확인하였다. 이는 차원이 낮을때는 지리 정보를 다 표현하기에는 부족한 것으로 보이고 차원이 너무 커지면 반대로 너무 많은 차원으로 noise가 발생 할 수 있음을 보여준다. 최종 TPG모델의 차원은 50이다.</p>
 
-<ol>
-  <li><strong>shifted window step size 변화</strong></li>
-</ol>
+<p> 2. <strong>shifted window step size 변화</strong></p>
 
 <p><img src="../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitle14.jpg" alt="" /></p>
 
@@ -683,7 +674,7 @@ embedding 차원을 증가시킬 수록 성능이 좋아지지만 차원이 50�
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: May 28, 2024 <br />
+ Site last generated: May 31, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

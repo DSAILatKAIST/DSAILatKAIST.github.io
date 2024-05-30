@@ -6,7 +6,7 @@ use_math: true
 usemathjax: true
 ---
 
-[Page Links](https://arxiv.org/pdf/2310.18961.pdf)
+# **[ICLR 24] [AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly Detection](https://arxiv.org/pdf/2310.18961.pdf)** 
 
 ## **1. Introduction**  
 Zero-shot Anomaly Detection(ZSAD)이란 target dataset에 대한 어떠한 training sample도 사용하지 않고 anomalies를 감지하는 task를 일컫는다.
@@ -95,11 +95,11 @@ textual embedding이 이미지의 전역 visual embedding과 일치되어 전역
   
 >Ground truth segmentation mask $S \in \mathbb{R}^{H_{\text{image}} \times W_{\text{image}}}$
 >
->(j,K)에 위치한 pixel이 이상치일 경우에는 $S^{(j,k)} = 1$, 그렇지 않을 경우에는 $S^{(j,k)} = 0$  
+>(j,k)에 위치한 pixel이 이상치일 경우에는 $S^{(j,k)} = 1$, 그렇지 않을 경우에는 $S^{(j,k)} = 0$  
 >$Up$ = Bilinear interpolation Upsampling  
 >$I$ = 모든 값이 1인 행  
 
-이상 영역은 일반적로 정상 영억보다 작다. 이러한 불균형 문제를 해결하기 위해 Focal loss를 사용한다.  
+이상 영역은 일반적로 정상 영역보다 작다. 이러한 불균형 문제를 해결하기 위해 Focal loss를 사용한다.  
 예측된 segmentation mask와 ground truth mask 간의 겹침을 측정하기 위해 Dice loss를 사용하여 정확한 decision boundary를 설정하도록 한다.  
 결과적으로 object-agnostic text prompt가 visual encoder의 중간 layer M으로부터 미세한 지역 이상치 부분을 포착하도록 돕는다.
 

@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 28 May 2024 15:50:50 +0900</pubDate>
-        <lastBuildDate>Tue, 28 May 2024 15:50:50 +0900</lastBuildDate>
+        <pubDate>Fri, 31 May 2024 03:18:08 +0900</pubDate>
+        <lastBuildDate>Fri, 31 May 2024 03:18:08 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1335,13 +1335,9 @@ D: transformer Decoder&lt;/p&gt;
 
 &lt;h2 id=&quot;preliminaries&quot;&gt;&lt;strong&gt;Preliminaries&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;TPG모델 input&lt;/strong&gt;: , $c^u_i = (u, t_i, p_i, geo_i)$&lt;/p&gt;
+&lt;p&gt; 1. &lt;strong&gt;TPG모델 input&lt;/strong&gt;: , $c^u_i = (u, t_i, p_i, geo_i)$&lt;/p&gt;
 
-    &lt;p&gt;→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = {c^u_i}^n_{i=1}$&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;→ 각 유저들의 n개의 historical check-in 정보를 이용해 학습 진행한다. $C^u_ {1→n} = {c^u_i}^n_{i=1}$&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;u: user&lt;/li&gt;
@@ -1352,9 +1348,7 @@ D: transformer Decoder&lt;/p&gt;
 
 &lt;p&gt;💡 최종 목적은 $t_ {n+1}$의 $p_ {n+1}$을 맞추는 것&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;tile map 방식&lt;/strong&gt;(지리 정보를 hierarchical gridding으로 표현한 방식)&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt; 2. &lt;strong&gt;tile map 방식&lt;/strong&gt;(지리 정보를 hierarchical gridding으로 표현한 방식)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitled-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -1521,18 +1515,15 @@ user embedding을 추가 했을떄 TPG 모델의 성능이 나빠진다. 이는 
 
 &lt;h2 id=&quot;parameter-sensitivity-analysis&quot;&gt;Parameter Sensitivity Analysis&lt;/h2&gt;
 &lt;p&gt;지리 embedding 차원과 shifted window의 크기가 중요한 파라미터라고 생각되어 두 파라미터에 대해 NYC, TKY dataset을 이용해 Parameter Sensitivity Analysis를 진행했다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;지리 embedding 차원 변화&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+
+&lt;p&gt; 1. &lt;strong&gt;지리 embedding 차원 변화&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/untitle13.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;embedding 차원을 10부터 60까지 10단위로 변화시키면서 성능을 비교했다. 
 embedding 차원을 증가시킬 수록 성능이 좋아지지만 차원이 50을 넘어가면 성능이 떨저지는 것을 확인하였다. 이는 차원이 낮을때는 지리 정보를 다 표현하기에는 부족한 것으로 보이고 차원이 너무 커지면 반대로 너무 많은 차원으로 noise가 발생 할 수 있음을 보여준다. 최종 TPG모델의 차원은 50이다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;shifted window step size 변화&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt; 2. &lt;strong&gt;shifted window step size 변화&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/DS503_24S/Timestamps_as_prompts_for_geography-aware_location/Untitle14.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
