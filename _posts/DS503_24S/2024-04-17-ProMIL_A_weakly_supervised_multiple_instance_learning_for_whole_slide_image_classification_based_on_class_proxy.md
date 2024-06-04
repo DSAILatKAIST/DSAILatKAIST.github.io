@@ -15,7 +15,7 @@ usemathjax: true
 ## 2. Motivation
 &emsp;Multiple Instance Learning(MIL)은 WSI와 같은 고해상도 이미지를 처리하는데 효과적인 모델이다. 해당 모델은 feature extractor, aggregator, classifier로 이루어져 작은 patch들로부터 feature를 추출하여 이를 기반으로 embedding을 수행하고, WSI의 범주를 분류할 수 있다. 그러나, 기존 conventional MIL은 1장에서 언급한 바와 같이 patch level label을 필요로 하며, 범주 불균형 문제를 해결하는데 어려움을 지닌다. 이러한 문제를 해결하기 위하여 다양한 시도가 이루어졌으나, 다음과 같은 한계점을 지닌다.   
 
-[DS-MIL(CVPR 2021)](https://arxiv.org/abs/2011.08939): Dual stream을 도입하여 중요한 patch를 중심으로 prediction은 수행한다. 1st stream은 max-pooling을 활용하여 informative patch를 식별하며, 2nd stream은 각 patch에 대한 attention score를 계산하여 prediction을 수행한다. 그러나, DS-MIL은 spatial feature를 반영하지 못한다는 한계점을 지닌다.   
+[DS-MIL(CVPR 2021)](https://arxiv.org/abs/2011.08939): Dual stream을 도입하여 중요한 patch를 중심으로 prediction을 수행한다. 1st stream은 max-pooling을 활용하여 informative patch를 식별하며, 2nd stream은 각 patch에 대한 attention score를 계산하여 prediction을 수행한다. 그러나, DS-MIL은 두 stream 구조를 통해 중요 patch를 독립적으로 식별하고 처리하는 데 집중하기 때문에  spatial feature를 반영하지 못한다는 한계점을 지닌다.   
 
 [DTFD-MIL(CVPR 2022)](https://arxiv.org/abs/2203.12081): WSI level에서의 정보만 존재할 뿐, patch level의 정보는 존재하지 않기에, pseudo-bag을 도입하여 # of bag를 늘리고, 결과적으로 동일한 데이터로부터 보다 많은 정보를 얻고자 시도한다. T1 단계에서 각 pseudo-bag의 representation을 예측하고, T2 단계에서는 T1 단계에서의 정보를 반영하여 WSI level의 prediction을 수행한다. 그러나, DTFD-MIL은 pseudo-bag의 수를 실험적으로 결정해야 하며, label noise에 민감하다는 한계점을 지닌다.   
 
@@ -146,7 +146,9 @@ $$
 </p>
 
 ## 4. Experiment
-&emsp;본 장에서는 ProMIL 모델의 성능을 평가하기 위해 6개의 (CAMELYON16, TCGA-NSCLC, TCGA-RCC, HER2-Status, Trastuzumab response, Breakhis-2 (binary), Breakhis-8 (multi-class)) open-source dataset에 대해 실험을 진행하였다. 그 결과, ProMIL 모델이 기존 모델 DS-MIL, Trans-MIL, DTFD-MIL 등에 비해 우수한 성능을 보임을 확인할 수 있다. 실험 결과는 Table.1, Table.2, Table.3에서 확인할 수 있다.
+&emsp;본 장에서는 ProMIL 모델의 성능을 평가하기 위해 6개의 (CAMELYON16, TCGA-NSCLC, TCGA-RCC, HER2-Status, Trastuzumab response, Breakhis-2 (binary), Breakhis-8 (multi-class)) open-source dataset에 대해 실험을 진행하였다. 그 결과, ProMIL 모델이 기존 모델 DS-MIL, Trans-MIL, DTFD-MIL 등에 비해 우수한 성능을 보임을 확인할 수 있다. 해당 dataset의 실험 결과는 Table.1, Table.2, Table.3와 같다.   
+
+&emsp;Table.1의 CAMELYON16은 imbalanced dataset, TCGA-NSCLC과 TCGA-RCC는 balacned dataset에 해당한다. 두 다른 type의 데이터셋에 대하여 본 모델의 성능 차이가 기존 모델 대비 작음을 확인할 수 있다.   
 
 |   Method   | CAMELYON16 Accuracy | CAMELYON16 AUC | TCGA-NSCLC Accuracy | TCGA-NSCLC AUC | TCGA-RCC Accuracy | TCGA-RCC AUC |
 |:----------:|:-------------------:|:--------------:|:-------------------:|:--------------:|:-----------------:|:------------:|
@@ -212,7 +214,7 @@ Fig.9은 WSI의 각 patch들이 본 모델의 Gated-Attention 과정을 거쳤�
 </p>
 
 ## 5. Conclusion
-&emsp;4장의 실험 결과에 따르면, 본 논문에서 제시하는 모델 ProMIL은 최소한의 annotation (WSI level annotation)만을 바탕으로 기존 모델 대비 나은 성능을 이끌어낸다. 특히, balanced, imbalanced dataset에서, binary, multi-class classification과 같은 다양한 상황에서 적용 가능한 stability가 모델의 장점으로 보인다. 본 모델의 활용이 실제 병리학 분야에서의 workload 감소에 영향을 줄 수 있기를 희망한다.
+&emsp;4장의 실험 결과에 따르면, 본 논문에서 제시하는 모델 ProMIL은 최소한의 annotation (WSI level annotation)만을 바탕으로 기존 weakly supervised learning 모델 대비 나은 성능을 이끌어낸다. 특히, balanced(TCGA, HER2-Status, Breakhis), imbalanced(CAMELYON16, Trastuzumab) dataset에 대하여 binary, multi-class classification과 같은 다양한 상황에서 적절한 성능을 보유한 채 적용 가능한 stability가 모델의 장점으로 보인다. 본 모델의 활용이 실제 병리학 분야에서의 workload 감소 및 보다 정확한 진단에 긍정적 영향을 줄 수 있기를 희망한다.   
 
 ## 6. Reference
 [1] Ilse, Maximilian, Jakub Tomczak, and Max Welling. "Attention-based deep multiple instance learning." International conference on machine learning. PMLR, 2018.   
