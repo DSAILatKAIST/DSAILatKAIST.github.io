@@ -79,6 +79,35 @@ You can insert your image file using the converted image url as follows :
 <br/>
 <br/>
 
+1. 구글에 image to URL을 검색하여 변환 사이트에 접속합니다. (예시 : https://postimages.org/)  
+Search the website for converting image to URL. (ex : https://postimages.org/)  
+<br/>
+<br/>
+
+2. 변환할 이미지를 업로드합니다. (옵션은 변경하지 않습니다.)  
+Upload the image to convert. (Do not change options.)
+![img](https://i.postimg.cc/NGJ1f5Zc/step1.png)  
+<br/>
+<br/>
+
+3. '직접 링크'를 복사합니다.  
+Copy the 'Direct Link'.  
+![img](https://i.postimg.cc/gkx3wGP6/STEP2.png)  
+<br/>
+<br/>
+
+4. 본인의 md 파일에서 ```![이미지이름](복사한 URL)``` 의 형태로 입력하여 이미지를 첨부합니다.  
+Enter the ```![image_name](copied URL)``` to your md file.  
+
+**E.g.**
+```markdown
+### How to add images in Markdown?  
+You can insert your image file using the converted image url as follows :
+![image_sample](https://i.ibb.co/PNTw57H/img.png)  
+```
+
+
+<!--
 1. 구글에 image to URL을 검색하여 변환 사이트에 접속합니다.  
 Search the website for converting image to URL.  
 ![img](https://drive.google.com/uc?id=1J-Zh6WFXzfufKB37yYpfQY1ugyIkxxoU)  
@@ -106,7 +135,7 @@ Enter the ```![image_name](copied URL)``` to your md file.
 You can insert your image file using the converted image url as follows :
 ![image_sample](https://i.ibb.co/PNTw57H/img.png)  
 ```
-
+-->
 
 <!--
 사진을 url로 변환하는 방법은 github을 이용하면 편리합니다.  
