@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NIPS-21] Language Models as Recommender Systems: Evaluations and Limitations | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NIPS-21] Language Models as Recommender Systems: Evaluations and Limitations page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NIPS-21] Language Models as Recommender Systems: Evaluations and Limitations">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NIPS-21] Language Models as Recommender Systems: Evaluations and Limitations</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition">1. Problem Definition</h2>
+
+<p>이 논문은 2021년 NeurIPS에서 발표된 연구로, <strong>PLM (Pre-trained Language Model)</strong>이 추천 시스템에서 어떻게 활용될 수 있는지를 평가하고, 그 가능성과 한계점을 분석한다. PLM은 대규모 데이터로 사전 학습된 모델로, 전통적인 추천 시스템과 비교하여 언어 모델 기반 추천 시스템이 제공할 수 있는 새로운 이점을 탐구한다. 이 연구는 PLM을 추천 시스템에 적용할 때 발생하는 계산 자원 문제와 성능 최적화 방법을 포함한 과제를 명확히 제시하고 있다.</p>
+
+<p>특히, 이 논문은 ChatGPT 이전의 초기 GPT와 BERT가 대표적인 시기에 이루어진 연구로, <strong>LLM (Large Language Model)</strong>이 추천 시스템에 어떻게 적용될 수 있을지 고민하는 초기 시도의 일환으로 볼 수 있다. 따라서, LLM을 추천 시스템에 적용하는 과정에서 발생할 수 있는 한계점들을 보다 명확히 분석하고 있어, 그 가치가 더욱 돋보인다.</p>
+
+<h2 id="11-preliminaries-plm과-llm의-정의-및-학습-과정">1.1 Preliminaries: PLM과 LLM의 정의 및 학습 과정</h2>
+
+<p><img src="https://i.postimg.cc/13hfk1Cs/text-generation-models.png" alt="Text Generation PLM Model List" /></p>
+
+<p><em>텍스트 생성에 사용되는 주요 PLM 모델 리스트 (출처: Hugging Face)</em></p>
+
+<p><strong>PLM의 정의</strong>:</p>
+
+<p>(참조: Scaling Laws for Neural Language Models [Kaplan, J., OpenAI, 2020])</p>
+
+<p>PLM은 말 그대로 Pre-trained Language Model로, 특정 분야 또는 일반적인 텍스트에 대해 사전 학습된 모델을 말한다. 예를 들어, BERT나 GPT는 Wikipedia, 책, 뉴스 등 일반적인 텍스트로 먼저 학습을 시킨 후, 이후 법률 문서나 의료 문서 같은 특정 분야의 데이터로 <strong>세부 조정(fine-tuning)</strong>을 하여 특정 작업에 적합하게 만든다.</p>
+
+<p>따라서, PLM은 초기 단계에서 일반적인 데이터셋으로 학습된 모델이며, 이후 특정 작업이나 도메인에 맞춰 추가 학습되는 모델로 이해할 수 있다. 예를 들어, BERT를 법률 문서로 다시 학습시켜 법률 텍스트 분석을 잘하는 모델로 만드는 과정이 PLM의 주요 사용 방식이다.</p>
+
+<p><strong>LLM의 정의</strong>:</p>
+
+<p>LLM은 대규모 데이터셋으로 학습된 매우 큰 규모의 모델을 의미한다. LLM은 Wikipedia, 뉴스, 블로그, YouTube 자막 등 가능한 한 모든 데이터를 사용해서 학습한다. 이 과정에서 모델이 다양한 주제에 대한 광범위한 지식을 얻게 되며, 이후에는 세부 조정(fine-tuning) 없이도 다양한 언어 작업을 수행할 수 있는 능력을 갖추게 된다.</p>
+
+<p>GPT-3나 PaLM 같은 모델들은 대표적인 LLM이다. 이들은 대규모 데이터로 학습되어 있어, 별도의 추가 학습 없이도 <strong>텍스트 생성, 번역, 요약, 질문 답변 등</strong>과 같은 다양한 언어 작업을 효과적으로 수행할 수 있다.</p>
+
+<blockquote>
+  <p><strong>PLM이 범용성을 가질 수 있는 이유</strong>: PLM은 <strong>Transformer</strong>라는 모델을 기반으로 하며, 이 모델은 <strong>Self-Attention 메커니즘</strong>을 통해 이전 값에만 의존하는 RNN과 달리 텍스트의 모든 상관관계를 병렬로 분석한다. PLM은 Wikipedia, 뉴스, 블로그와 같은 다양한 텍스트 데이터로 학습된 후, <strong>특정 분야에 맞는 데이터</strong>로 추가 학습(세부 조정)을 하여 특정 작업을 잘 수행할 수 있도록 만들어진다. 이는 PLM이 다양한 <strong>downstream task</strong>에서 좋은 성능을 발휘할 수 있는 이유다.</p>
+</blockquote>
+
+<p>참고로, 대규모의 의미는 <strong>데이터셋의 종류와 크기</strong>, 그리고 <strong>모델의 파라미터 수</strong>를 포함한다.</p>
+
+<h3 id="gpt-학습-과정">GPT 학습 과정</h3>
+
+<p><strong>GPT</strong>는 대규모 데이터를 사용해 학습되었다. 예를 들어, GPT가 학습한 주요 데이터셋 중 하나는 <strong>WebText</strong>인데, 이 데이터셋은 <strong>Reddit</strong>에서 유용하거나 흥미로운 링크로 평가된 글들을 기반으로 만들어졌다. WebText에는 총 <strong>96GB</strong>의 텍스트가 포함되어 있으며, <strong>2030만 개의 문서</strong>와 <strong>162억 개의 단어</strong>로 구성된다. 이 외에도 <strong>BooksCorpus</strong>, <strong>Common Crawl</strong>, <strong>영어 Wikipedia</strong>, 그리고 인터넷에 공개된 책들로 학습이 진행되었다.</p>
+
+<h3 id="학습-방식">학습 방식</h3>
+
+<ul>
+  <li><strong>GPT</strong>는 <strong>Adam</strong> 최적화 알고리즘을 사용하여 약 <strong>25만 번의 학습 단계(steps)</strong> 동안 학습되었다. <strong>가장 큰 모델</strong>은 <strong>10억 개 이상의 파라미터</strong>로 학습되었으며, 대규모 학습이 가능하도록 <strong>Adafactor</strong>라는 최적화 기법이 추가로 사용되었다. 배치 크기는 <strong>512개의 시퀀스</strong>로 이루어져 있고, 각 시퀀스는 <strong>1024개의 토큰</strong>을 포함한다.</li>
+</ul>
+
+<p>이처럼 다양한 출처의 대규모 데이터를 학습한 덕분에, GPT는 광범위한 텍스트 주제와 문맥을 이해할 수 있게 되었고, 이는 <strong>downstream task</strong>에서 효과적으로 적용될 수 있는 이유이다.</p>
+
+<h3 id="downstream-task">Downstream Task</h3>
+
+<blockquote>
+  <p><strong>Downstream task</strong>란, 사전 학습된 PLM을 기반으로 한 <strong>후속 작업</strong>을 의미하며, 예를 들어 <strong>텍스트 생성</strong>, <strong>번역</strong>, <strong>질문 답변</strong>, <strong>문서 분류</strong>와 같은 구체적인 작업을 포함한다. PLM이 다양한 텍스트 데이터를 학습했기 때문에, 이러한 작업에서 높은 성능을 발휘할 수 있다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="2-motivation">2. Motivation</h2>
+
+<p><img src="https://i.postimg.cc/kM1PLN5c/motivation.png" alt="Motivation" /></p>
+
+<p><em>Figure 1: Motivation (top): large pre-trained language models possess both knowledge of items (generate the movie synopsis given the movie title) and reasoning capability (infer user interests based on the context); these are key factors to build a successful recommender system. Method (bottom): traditional sequential recommender operates on the item level, whereas our model use prompts to reformulate the recommendation task to a multi-token cloze task and operates on the token level; our method aims to enable zero-shot recommendation and improve data efficiency.</em> (출처: 논문 발췌)</p>
+
+<p><strong>GPT</strong>와 같은 <strong>PLM</strong>은 방대한 양의 텍스트를 학습하여 일반적인 텍스트 표현과 광범위한 세계 지식을 습득하기 때문에, 다양한 <strong>downstream task</strong>에 사람과 유사한 수준의 정확도로 적용될 수 있는 강력한 능력을 보여주고 있다. 반면, 기존의 추천 시스템은 주로 <strong>협업 필터링</strong>이나 <strong>순차적인 RNN 기반 모델</strong>에 의존해왔다. 그러나 이러한 모델들은 학습 데이터가 부족하거나, <strong>세션 기반 추천</strong> 상황에서 성능 저하를 겪는 경우가 많다. 본 연구의 저자들은 <strong>PLM</strong>의 문맥 이해 능력을 활용하여, 기존 추천 시스템의 한계를 극복하고자 <strong>session-based recommendation task</strong>를 <strong>multi-token cloze task</strong>로 재구성하는 새로운 접근 방식을 제안하였다.</p>
+
+<p>PLM은 풍부한 문맥 정보를 바탕으로 텍스트 데이터를 이해하고 처리하는 데 탁월하며, 이는 학습 데이터가 부족한 상황에서도 우수한 성능을 보일 수 있는 잠재력을 가지고 있다.</p>
+
+<p>따라서 이 연구의 동기는 <strong>PLM</strong>을 활용한 추천 시스템이 데이터가 부족한 상황에서도 효과적으로 작동할 수 있는지를 탐구하고, 이를 통해 기존 추천 시스템이 직면한 문제를 해결할 수 있는지 확인하는 데 있다. 특히, <strong>zero-shot</strong> 및 <strong>fine-tuning</strong> 설정에서 <strong>PLM</strong>의 성능을 평가하여 기존 추천 시스템과의 비교를 통해 그 가능성과 한계를 제시하고자 한다.</p>
+
+<h2 id="21-preliminaries">2.1 Preliminaries</h2>
+
+<h3 id="session-based-recommendation">Session-based recommendation</h3>
+
+<p><img src="https://i.postimg.cc/GmwxqNvs/session-based-recommendation.png" alt="Session based recommendation" />
+<em>(출처: Hidasi, ICLR 2016, SESSION-BASED RECOMMENDATIONS WITH RECURRENT NEURAL NETWORKS)</em></p>
+
+<p><strong>Session-based recommendation task</strong></p>
+
+<p>Session-based recommendation task는 사용자의 <strong>세션(session)</strong>에 기반하여 실시간으로 관련된 아이템을 추천하는 작업이다. 여기서 세션이란 사용자가 특정 기간 동안 웹사이트나 애플리케이션에서 수행한 일련의 활동(예: 클릭, 검색, 구매 등)을 의미한다. 즉, 사용자의 이전 활동을 바탕으로 현재 세션에서 어떤 아이템(영화, 음악, 상품 등)을 추천할지 예측하는 것이 목적이다. 이 방식은 사용자 프로필이나 장기적인 사용 기록이 아닌, 현재 세션의 짧은 상호작용 기록만을 사용하여 즉각적인 추천을 제공하기 때문에, 주로 <strong>익명의 사용자</strong>나 <strong>짧은 상호작용 기록</strong>이 있는 상황에서 유용하게 사용된다.</p>
+
+<p>예를 들어, 사용자가 음악 스트리밍 서비스에서 노래 A를 듣고, 노래 B를 듣고, 그다음에 C를 들었다면, 이 세션에서 사용자가 다음으로 어떤 노래를 듣고 싶어 할지 예측하는 것이 <strong>session-based recommendation task</strong>이다. <strong>가장 큰 제약</strong>은 사용자의 과거 행동을 알 수 없다는 점으로, 현재 세션 내의 짧은 상호작용에 기반해 예측해야 한다는 것이다.</p>
+
+<p><strong>Multi-token cloze task</strong></p>
+
+<p>Multi-token cloze task는 한 개 이상의 단어(token)가 빠진 문장에서 빈칸에 여러 개의 적절한 단어를 채우는 문제를 의미한다. 즉, 단일 단어 대신 <strong>여러 단어</strong>를 예측해야 하는 과제이다.</p>
+
+<p>예를 들어, “The <strong>_ ran over the _</strong>.”에서 “dog”과 “hill” 같은 두 개 이상의 단어를 예측하는 상황을 의미한다. 이 <strong>multi-token cloze task</strong>는 텍스트 생성이나 추천 시스템 등 다양한 분야에서 유용하게 사용될 수 있으며, 추천 시스템에서는 사용자의 이전 행동을 기반으로 여러 추천 항목을 예측하는 방식으로 이 개념을 적용할 수 있다.</p>
+
+<p>본 논문에서는 <strong>session-based recommendation task</strong>를 <strong>multi-token cloze task</strong>로 재구성하여, 사용자가 어떤 아이템을 클릭했는지에 기반해 그다음에 클릭할 여러 아이템을 예측하는 과제로 변환하였다.</p>
+
+<hr />
+
+<h2 id="3-method">3. Method</h2>
+
+<h3 id="31-preliminaries">3.1 Preliminaries</h3>
+
+<p>본 연구에서는 <strong>Language Model Recommender Systems (LMRecSys)</strong>을 통해 PLM을 추천 시스템에 적용하는 방법을 제안한다. 이를 위해 Prompt-based Tuning, Zero-shot Recommendation, 그리고 Multi-token Cloze Task의 개념을 기반으로 설명한다.</p>
+
+<h4 id="311-prompt-based-tuning">3.1.1 Prompt-based Tuning</h4>
+
+<p><strong>Prompt-based Tuning</strong>은 PLM이 특정 작업에 적응하도록 프롬프트를 사용하여 조정하는 방식이다. 본 연구에서는 프롬프트를 “<strong>사용자는 A, B, C를 보았습니다. 이제 사용자가 보고 싶은 영화는 _ _ _입니다.</strong>“와 같은 형식으로 구성하여, PLM이 사전 학습된 지식을 빠르게 활용할 수 있도록 하였다.</p>
+
+<h4 id="312-zero-shot-recommendation">3.1.2 Zero-shot Recommendation</h4>
+
+<p><strong>Zero-shot Recommendation</strong>은 <strong>학습 데이터가 없는 상황</strong>에서도 PLM이 축적한 사전 학습된 지식을 활용해 적절한 추천을 제공할 수 있음을 의미한다. PLM은 방대한 데이터를 통해 미리 학습된 지식을 바탕으로 별도의 추가 학습 없이 추천 작업을 수행할 수 있다.</p>
+
+<h4 id="313-multi-token-cloze-task">3.1.3 Multi-token Cloze Task</h4>
+
+<p><strong>Multi-token Cloze Task</strong>는 여러 개의 누락된 단어(토큰)를 채우는 문제로, 본 연구에서는 사용자가 본 여러 아이템(토큰)을 기반으로 다음에 소비할 아이템을 예측하는 방식으로 재구성되었다. 이를 통해 PLM은 여러 아이템(예: 영화 제목)을 동시에 예측하여 추천을 생성할 수 있다.</p>
+
+<hr />
+
+<h3 id="32-proposed-methods">3.2 Proposed Methods</h3>
+
+<p>본 연구에서는 PLM을 추천 시스템으로 활용하기 위해, 추천 작업을 언어 모델링 작업으로 재구성하였다. 이는 PLM을 통해 사용자의 상호작용 시퀀스를 텍스트 질의로 변환하고, 빈칸을 채워 추천을 수행하는 방식이다. 예를 들어, 사용자의 영화 시청 기록을 “사용자는 One Flew Over the Cuckoo’s Nest, James and the Giant Peach, My Fair Lady를 보았습니다. 이제 사용자가 보고 싶은 영화는 _ _ _입니다.”로 변환하고, PLM이 빈칸을 채워 추천을 제공한다.</p>
+
+<h4 id="321-zero-shot-and-data-efficiency">3.2.1 Zero-shot and Data Efficiency</h4>
+
+<p>PLM의 <strong>Zero-shot Recommendation</strong>은 <strong>학습 데이터가 없는 상황</strong>에서도 유효한 추천을 생성할 수 있다. 이는 PLM이 사전 학습 단계에서 학습한 일반 표현을 활용하여 다양한 작업에 적응할 수 있는 능력을 바탕으로 한다. 또한, <strong>Prompt-based Tuning</strong>을 통해 데이터 효율성이 크게 향상되었으며, 매우 적은 데이터로도 높은 성능을 낼 수 있다.</p>
+
+<h4 id="322-multi-token-inference">3.2.2 Multi-token Inference</h4>
+
+<p><strong>Multi-token Inference</strong>는 PLM을 사용하여 여러 토큰으로 이루어진 아이템(예: 영화 제목 “Star Wars”)을 예측하는 과정에서 중요한 역할을 한다. 본 연구에서는 두 가지 주요 추론 방식을 제안한다.</p>
+
+<hr />
+
+<p>아래는 제공된 지침을 반영하여 수식을 업데이트한 내용입니다. <strong>Markdown에서 $ 기호</strong>를 사용하고, <strong>수식 내 띄어쓰기와 기호 사용</strong>에 주의하였습니다.</p>
+
+<hr />
+
+<h3 id="33-inference-strategies">3.3 Inference Strategies</h3>
+
+<h4 id="331-independent-estimation-o1-inference">3.3.1 Independent Estimation (O(1) Inference)</h4>
+
+<p><strong>독립 추정</strong> 방식에서는 각 아이템의 토큰을 독립적으로 추정하며, <strong>O(1)</strong>의 복잡도를 가진다. 이는 한 번의 <strong>forward pass</strong>로 모든 마스크된 토큰을 채울 수 있는 방식이다.</p>
+
+<p>$p(d(x_t) \vert c) = p(w_{t1}, w_{t2}, …, w_{tL} \vert c)$</p>
+
+<p>여기서 $c$는 아이템 시퀀스를 텍스트로 변환한 <strong>문맥(context)</strong>을 의미한다. 각 토큰 $w_{tj}$는 독립적으로 예측되므로 효율적이다.</p>
+
+<h4 id="332-dependent-estimation-oln-inference">3.3.2 Dependent Estimation (O(LN) Inference)</h4>
+
+<p><strong>종속 추정</strong> 방식에서는 각 토큰을 순차적으로 추정하며, 더 높은 정확도를 보이지만 <strong>O(LN)</strong>의 복잡도를 가진다. 이 방식에서는 이전 토큰에 의존하여 다음 토큰을 예측한다.</p>
+
+<p>$p(w_{t1}, w_{t2}, …, w_{tL} \vert c) = \prod_{j=1}^{L} p(w_{tj} \vert w_{t1}, …, w_{t(j-1)}, c)$</p>
+
+<p>이 방식은 더 많은 계산이 필요하지만, 각 토큰 간의 의존성을 고려한 추론을 수행할 수 있다.</p>
+
+<hr />
+
+<h3 id="34-fine-tuning-with-cross-entropy-loss">3.4 Fine-tuning with Cross-entropy Loss</h3>
+
+<p>추천 시스템에서 <strong>PLM</strong>을 미세 조정하기 위해, <strong>크로스 엔트로피 손실 (Cross-entropy loss)</strong>을 사용하여 실제 아이템의 확률을 최대화한다.</p>
+
+<p>$\mathcal{L} = - \sum_{i=1}^{N} \log p(d(x_t) \vert c)$</p>
+
+<p>여기서 $p(d(x_t) \vert c)$는 문맥 $c$에 기반한 정답 아이템의 확률이다. 이를 통해 추천 성능을 최적화할 수 있다.</p>
+
+<hr />
+
+<h3 id="35-summary">3.5 Summary</h3>
+
+<p>위 방법론은 PLM의 기존 강력한 학습된 지식을 추천 시스템에 접목함으로써, Zero-shot 상황에서도 효율적이고 데이터 효율적인 추천 성능을 보여줄 수 있음을 목표로 한다. 또한, <strong>Independent Estimation</strong>과 <strong>Dependent Estimation</strong>의 차이를 설명하고, 각각의 효율성과 정확도를 고려하여 최적의 추론 방법을 제시한다.</p>
+
+<hr />
+
+<p>작성하신 <strong>4. Experiments</strong> 섹션은 전체적으로 논리적 흐름이 잘 구성되어 있으며, 연구 질문, 데이터셋 소개, 그리고 실험 결과와 평가가 명확하게 정리되어 있습니다. 아래에서 제안하는 작은 수정 사항들을 반영하면 더 매끄럽고 체계적으로 보일 수 있습니다.</p>
+
+<h3 id="제안-사항">제안 사항:</h3>
+
+<ol>
+  <li><strong>세부 목차 간의 일관성</strong>: <code class="language-plaintext highlighter-rouge">4.3.1 Baselines and Comparisons</code>에서 비교 설명이 잘 되어 있지만, 결과를 논의하는 <code class="language-plaintext highlighter-rouge">4.3.2</code>와 <code class="language-plaintext highlighter-rouge">4.3.3</code>에서 문장의 전환이 약간 어색할 수 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">Inference Methods and Results</code>와 <code class="language-plaintext highlighter-rouge">Model Size and Prompt Effects</code> 사이에 좀 더 명확한 연결 문장을 추가하면 좋습니다.</li>
+  <li>
+    <p><strong>정리 및 요약의 구조</strong>: <code class="language-plaintext highlighter-rouge">4.3.4 Summary</code>는 실험 결과에 대한 요약인데, 전체 실험의 결론을 요약하는 문장으로 연결하는 방식이 좋습니다. 예를 들어, <strong>Q1에 대한 결론</strong>이라는 형태로 요약할 수 있습니다.</p>
+  </li>
+  <li><strong>약간의 표현 다듬기</strong>: 특정 구문(예: “이를 해결하기 위해”)과 강조(예: “특히”)를 더 명확하게 하고, 불필요하게 반복된 표현은 제거하면 좋습니다.</li>
+</ol>
+
+<hr />
+
+<h3 id="4-experiments">4. Experiments</h3>
+
+<p>실험은 두 가지 주요 연구 질문을 중심으로 구성되었다.</p>
+
+<h4 id="41-research-questions">4.1 Research Questions</h4>
+
+<ul>
+  <li><strong>Q1</strong>: 사전 학습된 언어 모델(PLM)을 <strong>zero-shot</strong> 추천에 사용할 수 있는가?</li>
+  <li><strong>Q2</strong>: 사전 학습된 언어 모델을 <strong>fine-tuning</strong>하여 추천 성능을 개선할 수 있는가?</li>
+</ul>
+
+<h4 id="42-dataset">4.2 Dataset</h4>
+
+<p>본 실험에서는 영화 추천 시스템 연구에서 자주 사용되는 표준 데이터셋 중 하나인 <strong>MovieLens-1M (ML1M)</strong>을 사용하여 모델을 학습하고 평가하였다.</p>
+
+<p><strong>MovieLens-1M</strong>은 <strong>6040명의 사용자</strong>와 <strong>3883개의 영화</strong>, 그리고 <strong>100만 개의 상호작용 데이터</strong>로 구성된 영화 추천 데이터셋이다. 각 사용자는 영화에 대한 평가를 남겼으며, 이 데이터를 기반으로 추천 모델이 각 사용자의 영화 선호도를 학습하고 예측하는 데 사용된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>user_id</th>
+      <th>movie_id</th>
+      <th>rating</th>
+      <th>movie_nm</th>
+      <th>genre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1747</td>
+      <td>1690</td>
+      <td>Alien: Resurrection (1997)</td>
+      <td>Action, Horror, Sci-Fi</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1749</td>
+      <td>1305</td>
+      <td>Paris, Texas (1984)</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1812</td>
+      <td>1394</td>
+      <td>Raising Arizona (1987)</td>
+      <td>Comedy</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5491</td>
+      <td>2702</td>
+      <td>Summer of Sam (1999)</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>5251</td>
+      <td>1193</td>
+      <td>One Flew Over the Cuckoo’s Nest (1975)</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>3196</td>
+      <td>2407</td>
+      <td>Cocoon (1985)</td>
+      <td>Comedy, Sci-Fi</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>1207</td>
+      <td>2785</td>
+      <td>Tales of Terror (1962)</td>
+      <td>Horror</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>861</td>
+      <td>3398</td>
+      <td>Muppets Take Manhattan, The (1984)</td>
+      <td>Children’s, Comedy</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>108</td>
+      <td>3521</td>
+      <td>Mystery Train (1989)</td>
+      <td>Comedy, Crime, Drama</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1889</td>
+      <td>2407</td>
+      <td>Cocoon (1985)</td>
+      <td>Comedy, Sci-Fi</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>데이터샘플 예시</em></p>
+
+<hr />
+
+<h3 id="43-q1-zero-shot-recommendations-results-and-evaluation">4.3 Q1. Zero-shot Recommendations: Results and Evaluation</h3>
+
+<p>첫 번째 연구 질문인 “<strong>사전 학습된 언어 모델(PLM)을 zero-shot 추천에 사용할 수 있는가?</strong>“에 대해, <strong>Zero-shot Recommendation</strong> 실험을 통해 <strong>LMRecSys (Language Model Recommender Systems)</strong>를 평가하였다. Zero-shot 설정에서는 사용자 상호작용 데이터 없이 추천을 수행한다. 각 사용자에게 <strong>처음 본 5개의 영화</strong>를 제공하고, <strong>6번째로 본 영화</strong>를 예측하는 방식으로 실험을 진행하였다. 이때, 영화 제목을 아이템 설명으로 사용하고, 모든 영화 제목을 10개의 토큰으로 패딩하거나 잘랐다.</p>
+
+<p>프롬프트는 다음과 같이 구성하였다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A user watched A, B, C, D, E. Now the user may want to watch [F].
+</code></pre></div></div>
+
+<p>여기서 A, B, C, D, E는 사용자가 본 영화 제목을 의미하고, F는 예측해야 할 6번째 영화이다.</p>
+
+<p><img src="https://i.postimg.cc/CLc5PfyT/Q1-Experiment-Results.png" alt="Q1. Zero-shot Recommendation 실험 결과" /></p>
+
+<p><em>Q1. Zero-shot Recommendation 실험 결과 테이블 (출처: 논문 실험결과 발췌)</em></p>
+
+<h4 id="431-baselines-and-comparisons">4.3.1 Baselines and Comparisons</h4>
+
+<p>실험에서는 다양한 <strong>추론 방식</strong>, <strong>모델 크기</strong>, <strong>프롬프트</strong>를 비교하였다. <strong>LMRecSys</strong>의 성능을 아래의 <strong>zero-shot</strong> 및 <strong>supervised</strong> 베이스라인들과 비교하였다:</p>
+
+<ul>
+  <li><strong>Zero-shot Baselines</strong>:
+    <ul>
+      <li><strong>Random</strong>: 무작위로 영화를 추천하는 방식.</li>
+      <li><strong>BERT-Base ItemKNN</strong>: BERT를 사용하여 아이템 임베딩을 생성하고, 최근접 이웃 방식으로 추천.</li>
+    </ul>
+  </li>
+  <li><strong>Supervised Baselines</strong>:
+    <ul>
+      <li><strong>POP</strong>: 인기 기반 추천 모델.</li>
+      <li><strong>GRU4Rec</strong>: 아이템 ID를 기반으로 GRU로 임베딩을 생성하는 모델.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="432-inference-methods-and-results">4.3.2 Inference Methods and Results</h4>
+
+<blockquote>
+  <p><strong>결과적으로, Multi-token Inference 방식이 추천 성능에 큰 영향을 미쳤다.</strong></p>
+</blockquote>
+
+<p>특히, <strong>O(1) 추론 방식</strong>에서 영화 제목을 10개의 토큰으로 패딩하고 한 번의 <strong>forward pass</strong>로 모든 마스크를 채웠을 때, <strong>BERT O(1)</strong>은 <strong>무작위 추천보다 성능이 낮게 나타났다</strong>. 이는 영화 제목이 항상 10개의 토큰으로 맞춰지지 않아, 모델이 학습하지 않은 비문법적인 텍스트를 생성하게 되어 성능이 저하된 결과였다.</p>
+
+<p>이를 해결하기 위해 <strong>O(L) 추론 방식</strong>을 도입하였다. 이 방식에서는 <strong>L개의 마스크를 남겨두고</strong>, 영화 제목 길이에 맞춰 여러 번 모델을 통과시키며 각 영화에 맞는 결과를 선택하는 방식이다. <strong>O(L) 추론 방식</strong>은 <strong>O(1)</strong> 방식보다 <strong>R@20 성능이 2배</strong> 개선되었고, <strong>무작위 추천보다 1배 더 높은 성능</strong>을 보였다.</p>
+
+<p>또한, <strong>GPT2 O(LN)</strong> 방식은 더 정확한 확률 추정을 통해 다른 방식들보다 훨씬 높은 성능을 보였지만, 계산 비용이 크게 증가하였다.</p>
+
+<h4 id="433-model-size-and-prompt-effects">4.3.3 Model Size and Prompt Effects</h4>
+
+<blockquote>
+  <p>하지만, 모델 크기와 프롬프트의 영향은 다른 NLP 작업에서 큰 차이를 보였으나, 본 연구에서는 상대적으로 작은 영향을 미쳤다.</p>
+</blockquote>
+
+<p><strong>GPT2-Small (117M 파라미터)</strong>에서 <strong>GPT-XL (1542M 파라미터)</strong>로 크기를 늘렸을 때, <strong>R@20 성능이 0.72%</strong> 정도만 향상되었다.</p>
+
+<p>프롬프트의 경우, <strong>약한 프롬프트</strong>(A, B, C, D, E, [F].)와 <strong>강한 프롬프트</strong>(A user watched movies A, B, C, D, E. Now the user may want to watch the movie [F].)를 비교했을 때도, 성능 차이는 거의 나타나지 않았다.</p>
+
+<h4 id="434-q1에-대한-실험-요약">4.3.4 Q1에 대한 실험 요약</h4>
+
+<p><strong>결론적으로</strong>, Zero-shot Recommendation에서 <strong>Multi-token Inference</strong> 방식이 성능에 중요한 역할을 했으며, 특히 <strong>O(L)</strong> 및 <strong>O(LN)</strong> 방식이 가장 좋은 성능을 보였다. 반면, 모델 크기와 프롬프트의 변화는 성능에 미치는 영향이 제한적이었다.</p>
+
+<hr />
+
+<h3 id="44-q2-fine-tuning-recommendations-results-and-evaluation">4.4 Q2. Fine-tuning Recommendations: Results and Evaluation</h3>
+
+<p>두 번째 연구 질문인 “<strong>사전 학습된 언어 모델을 fine-tuning하여 추천 성능을 개선할 수 있는가?</strong>“에 대해, <strong>Fine-tuning Recommendation</strong> 실험을 통해 <strong>LMRecSys (Language Model Recommender Systems)</strong>의 성능을 평가하였다. Fine-tuning은 추가적인 학습 데이터를 사용하여 모델이 추천 성능을 더욱 개선할 수 있는지 확인하는 과정이다.</p>
+
+<h4 id="441-fine-tuning-process">4.4.1 Fine-tuning Process</h4>
+
+<p>Fine-tuning 실험에서는 다양한 <strong>multi-token inference</strong> 방법을 사용하여 아이템 확률 분포를 추정한 후, <strong>cross-entropy loss</strong>를 사용하여 실제 정답 아이템의 확률을 최대화하였다.</p>
+
+<ul>
+  <li><strong>Cross-entropy Loss</strong>: Fine-tuning 과정에서, 모델이 예측한 아이템 확률 분포와 실제 정답 아이템 간의 차이를 줄이기 위해 <strong>cross-entropy 손실 함수</strong>를 사용하였다. 이를 통해 모델은 추천 성능을 지속적으로 개선할 수 있었다.</li>
+</ul>
+
+<p>계산 자원의 한계로 인해, 복잡도가 <strong>상수(complexity constant)</strong>인 추론 방식만 사용하였다. 즉, 효율적인 <strong>O(1)</strong> 복잡도를 가진 방법을 주로 사용하여 실험을 진행하였다.</p>
+
+<h4 id="442-data-efficiency-and-session-length">4.4.2 Data Efficiency and Session Length</h4>
+
+<p>실험에서는 <strong>모델 성능</strong>과 <strong>학습 데이터 양</strong>(세션 길이 $K$)의 관계를 분석하였다. 각 사용자의 <strong>세션 길이</strong>를 조정하여, 서로 다른 양의 데이터를 기반으로 fine-tuning 성능을 비교하였다.</p>
+
+<ul>
+  <li><strong>결과적으로</strong>, 세션 길이가 길어질수록(즉, 더 많은 학습 데이터가 제공될수록), 모델의 추천 성능이 점진적으로 향상되었다. 이는 데이터 효율성에서 중요한 발견으로, 충분한 학습 데이터가 제공될 때 fine-tuning이 더 큰 효과를 발휘할 수 있음을 보여준다.</li>
+</ul>
+
+<h4 id="443-hybrid-masking-strategy">4.4.3 Hybrid Masking Strategy</h4>
+
+<p>Fine-tuning 과정에서 사용한 <strong>하이브리드 마스킹 전략</strong>은 모델 성능을 소폭 개선하는 데 기여하였다. 이 전략에서는 영화 시놉시스와 제목을 결합한 다음, <strong>30%의 랜덤 단어</strong>를 마스킹하거나 <strong>전체 제목</strong>을 마스킹하는 방식으로 모델을 훈련시켰다.</p>
+
+<ul>
+  <li>마스킹 예시: “[시놉시스]. This is the movie [Title].”이라는 포맷으로 데이터를 구성한 후, 30%의 단어 또는 전체 제목을 마스킹하였다.</li>
+  <li>결과적으로, 이 하이브리드 마스킹 전략은 <strong>순전히 랜덤 마스킹 방식</strong>보다 추천 성능을 약간 개선하는 데 효과적이었다.</li>
+</ul>
+
+<p>다만, 성능 개선의 폭이 제한적인 이유는 <strong>fine-tuning 데이터의 상대적으로 작은 크기</strong> 때문으로 분석되었다. 일반적인 사전 학습 데이터에 비해, MovieLens-1M의 데이터 크기가 작기 때문에 성능 향상이 제한적일 수 있다.</p>
+
+<h4 id="444-linguistic-biases-in-fine-tuning">4.4.4 Linguistic Biases in Fine-tuning</h4>
+
+<p>Fine-tuned LMRecSys는 추천을 개선하는 데 성공했지만, <strong>언어적 편향(linguistic bias)</strong>이 여전히 존재하였다. 특히, 하위 순위 예측에서 비문법적인 영화 제목이나 <strong>비영어권</strong> 영화 제목의 경우, 모델이 불이익을 주는 경향이 발견되었다. 이는 PLM이 학습 중에 주로 영어 문법에 맞는 텍스트에 노출되었기 때문으로 분석되며, 이는 향후 연구에서 개선할 수 있는 잠재적 과제이다. 하지만, <strong>상위 예측</strong>에서는 이러한 편향이 명확하게 나타나지 않았다.</p>
+
+<hr />
+
+<h4 id="445-q2에-대한-실험-요약">4.4.5 Q2에 대한 실험 요약</h4>
+
+<p><strong>Fine-tuning</strong>을 통해 모델의 추천 성능을 개선할 수 있었으며, 특히 세션 길이와 학습 데이터의 양에 따라 성능이 향상되는 경향을 보였다. <strong>하이브리드 마스킹 전략</strong>은 랜덤 마스킹보다 더 나은 성능을 보였으나, 데이터 크기 제한으로 인해 성능 향상 폭이 크지 않았다. 또한, <strong>언어적 편향</strong>이 일부 하위 예측에서 발견되었으나, 상위 예측에서는 큰 문제가 되지 않았다.</p>
+
+<p><img src="https://i.postimg.cc/bNtVL1Sd/Q2-Experiment-Results-2.png" alt="Q2_Results_2" /></p>
+
+<hr />
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+
+<p>이 연구에서는 <strong>PLM (Pre-trained Language Models)</strong>을 추천 시스템으로 활용하여 추천 작업을 <strong>multi-token cloze task</strong>로 변환함으로써, <strong>zero-shot 추천</strong>을 가능하게 하고 <strong>데이터 효율성</strong>을 향상시키는 방법을 제안했다. 실험을 통해 다음과 같은 추가적인 연구 과제가 도출되었다.</p>
+
+<ul>
+  <li>
+    <p><strong>Multi-token Inference</strong>: 언어 모델은 단일 토큰의 확률 분포를 정확하게 예측할 수 있지만, 여러 토큰에 해당하는 확률 분포를 추정하는 것은 여전히 도전 과제이다. 다양한 추론 방법에 따라 성능이 크게 달라진다는 점을 확인하였다.</p>
+  </li>
+  <li>
+    <p><strong>Linguistic Biases</strong>: 언어 모델은 문장을 자연스럽게 만들기 위해 일반적인 토큰을 예측하는 경향이 있다. 이러한 언어적 편향을 진정한 확률과 분리하는 것이 중요하며, 이는 프롬프트 기반 메서드를 사용하는 다양한 작업에서 중요한 과제이다.</p>
+  </li>
+  <li>
+    <p><strong>Domain Knowledge</strong>: 언어 모델이 얼마나 많은 도메인 지식을 가지고 있는지, 그리고 도메인 지식을 어떻게 주입할 수 있을지에 대한 문제는 해결되지 않았다. 단순한 도메인 적응 사전 학습은 미미한 성능 향상만을 가져왔다.</p>
+  </li>
+  <li>
+    <p><strong>모델 크기</strong>: 모델의 크기는 zero-shot 및 few-shot 성능에 큰 영향을 미친다. 실험에서는 J1-Jumbo(178B 파라미터)가 J1-Large(7.5B)나 GPT-2 XL(1.5B)보다 영화 콘텐츠를 더 잘 이해하는 것을 확인했으나, 큰 모델에 대한 평가가 API에서 제공되는 토큰 분포의 제한으로 인해 어려웠다.</p>
+  </li>
+</ul>
+
+<h3 id="6-my-implications">6. My Implications</h3>
+
+<p>본 연구는 PLM을 활용한 추천 시스템의 새로운 가능성을 탐구하면서도, multi-token inference, 언어적 편향, 도메인 지식 주입 등 해결해야 할 중요한 과제들을 도출함으로써, 언어 모델을 추천 시스템에 적용할 때 고려해야 할 다양한 시각을 제시했다. 특히, 언어 모델의 강력한 언어 추론 능력이 사용자들의 성향을 정확히 파악하지 못하는 경우, 편향된 추천을 생성할 가능성이 있다는 점에서 우려된다.</p>
+
+<p>이러한 문제를 해결하기 위해, <strong>전통적인 추천 시스템(RecSys)</strong>을 기반으로 하고, 다양한 메타 데이터(예: 사용자 리뷰, 설명 등)를 PLM을 통해 결합하여 보강하는 방식이 더 효과적일 수 있다고 생각한다. 즉, PLM의 언어 이해 능력을 활용하되, 데이터 편향을 최소화하고 사용자의 실제 성향을 반영하는 방식을 채택하는 것이 중요할 것 같다.</p>
+
+<p>또한, 언어 모델이 제공하는 <strong>zero-shot</strong> 및 <strong>few-shot 학습 능력</strong>을 활용하여, 기존의 추천 알고리즘을 보완하거나 데이터가 부족한 상황에서도 유의미한 추천을 제공하는 방식이 실용적인 접근이 될 수 있다. 이는 언어 모델의 강점을 살리면서도, 추천 시스템의 본질적인 정확성을 유지하는 데 기여할 수 있을 것이다.</p>
+
+<p><strong>도메인 지식 주입</strong>에 있어서도, 단순한 도메인 적응을 넘어, 특정 추천 도메인에 특화된 지식을 언어 모델에 더 깊이 통합할 수 있는 방안을 탐구하는 것이 향후 연구에서 중요할 것으로 보인다.</p>
+
+<h2 id="reference">Reference</h2>
+
+<ol>
+  <li>Pre-trained Language Models (PLMs) 관련
+    <ul>
+      <li>BERT: Devlin, J., Chang, M. W., Lee, K., &amp; Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv:1810.04805</li>
+      <li>GPT-3: Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., … &amp; Amodei, D. (2020). Language models are few-shot learners. NeurIPS. arXiv:2005.14165</li>
+      <li>Scaling Laws: Kaplan, J., McCandlish, S., Henighan, T., Brown, T. B., Chess, B., Child, R., … &amp; Amodei, D. (2020). Scaling Laws for Neural Language Models. arXiv:2001.08361</li>
+    </ul>
+  </li>
+  <li>추천 시스템 관련
+    <ul>
+      <li>Collaborative Filtering: Koren, Y., Bell, R., &amp; Volinsky, C. (2009). Matrix factorization techniques for recommender systems. IEEE Computer. DOI:10.1109/MC.2009.263</li>
+      <li>GRU4Rec: Hidasi, B., Karatzoglou, A., Baltrunas, L., &amp; Tikk, D. (2016). Session-based recommendations with recurrent neural networks. ICLR. arXiv:1511.06939</li>
+      <li>BERT4Rec: Sun, F., Liu, J., Wu, J., Pei, C., Lin, X., Ou, W., &amp; Jiang, P. (2019) BERT4Rec: Sequential recommendation with bidirectional encoder representations from transformer. CIKM. arXiv:1904.06690</li>
+    </ul>
+  </li>
+  <li>Zero-shot Learning 및 Prompt-based 학습 관련
+    <ul>
+      <li>Zero-shot Learning: Xian, Y., Schiele, B., &amp; Akata, Z. (2017). Zero-shot learning—the good, the bad and the ugly. CVPR. DOI:10.1109/CVPR.2017.327</li>
+      <li>Prompt-based Learning: Liu, P., Yuan, W., Fu, J., Jiang, Z., Hayashi, H., &amp; Neubig, G. (2021). Pre-train, prompt, and predict: A systematic survey of prompting methods in natural language processing. ACL. arXiv:2107.13586</li>
+    </ul>
+  </li>
+  <li>Multi-token Inference 관련
+    <ul>
+      <li>Cloze-style Tasks: Taylor, W. L. (1953). “Cloze procedure”: A new tool for measuring readability. Journalism Quarterly. DOI:10.1177/107769905303000401</li>
+      <li>Masked Language Modeling: Devlin, J., Chang, M. W., Lee, K., &amp; Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv:1810.04805</li>
+    </ul>
+  </li>
+  <li>도메인 지식 주입 및 사전 학습 관련
+    <ul>
+      <li>Domain-Adaptive Pre-training: Gururangan, S., Marasović, A., Swayamdipta, S., Lo, K., Beltagy, I., Downey, D., &amp; Smith, N. A. (2020). Don’t stop pretraining: Adapt language models to domains and tasks. ACL. arXiv:2004.10964</li>
+      <li>Domain Knowledge in Recommender Systems: Zhang, S., Yao, L., Sun, A., &amp; Tay, Y. (2019). Deep learning based recommender system: A survey and new perspectives. ACM Computing Surveys (CSUR). DOI:10.1145/3285029</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="open-source-sample-code">Open Source Sample Code</h2>
+
+<ol>
+  <li><strong>Pre-trained Language Models (PLMs) 관련</strong>
+    <ul>
+      <li><strong>Hugging Face Transformers</strong>: Hugging Face의 Transformers를 활용하면 BERT, GPT, T5 등 다양한 PLM을 쉽게 로컬 PC에서 자신의 데이테세트를 기반으로 Fine-tuning 등 다양한 실험을 쉽게 할 수 있다. (무조건 한번 써보시기를 강추합니다!!)
+        <ul>
+          <li>GitHub: <a href="https://github.com/huggingface/transformers">huggingface/transformers</a></li>
+          <li>Python 설치 및 예시:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>transformers
+</code></pre></div>            </div>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="c1"># Zero-shot classification example
+</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s">"zero-shot-classification"</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s">"I want to watch a movie"</span><span class="p">,</span> <span class="n">candidate_labels</span><span class="o">=</span><span class="p">[</span><span class="s">"movie"</span><span class="p">,</span> <span class="s">"book"</span><span class="p">,</span> <span class="s">"music"</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>추천 시스템 관련</strong>
+    <ul>
+      <li><strong>RecBole</strong>: RecBole은 다양한 추천 시스템 알고리즘을 지원하는 파이썬 라이브러리로, 협업 필터링부터 순차 추천 알고리즘(GRU4Rec)까지 여러 모델을 실험해볼 수 있다.
+        <ul>
+          <li>GitHub: <a href="https://github.com/RUCAIBox/RecBole">RUCAIBox/RecBole</a></li>
+          <li>Python 설치 및 예시:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>recbole
+</code></pre></div>            </div>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">recbole.quick_start</span> <span class="kn">import</span> <span class="n">run_recbole</span>
+
+<span class="c1"># 기본적인 추천 시스템 실행
+</span><span class="n">run_recbole</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s">'BERT4Rec'</span><span class="p">)</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Microsoft Recommenders</strong>: Microsoft에서 제공하는 추천 시스템 라이브러리로, 고전적인 Matrix Factorization부터 최근 Deep Learning 기반 모델(GRU4Rec 등) 등 다양한 추천 시스템 코드를 실험해 볼 수 있다.
+        <ul>
+          <li>GitHub: <a href="https://github.com/microsoft/recommenders">microsoft/recommenders</a></li>
+          <li>Python 설치 및 예시:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>recommenders
+</code></pre></div>            </div>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">recommenders.models.ncf.ncf_singlenode</span> <span class="kn">import</span> <span class="n">NCF</span>
+
+<span class="c1"># NCF 모델 실행
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">NCF</span><span class="p">(</span><span class="n">user_num</span><span class="p">,</span> <span class="n">item_num</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">,</span> <span class="p">...)</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Zero-shot Learning 및 Prompt-based 학습 관련</strong>
+    <ul>
+      <li><strong>Prompt Engineering</strong>: PLM 모델을 가지고 다양한 프롬프트 엔지니어링 기법을 실험할 수 있는 프롬프트 특화 라이브러리이다.
+        <ul>
+          <li>GitHub: <a href="https://github.com/bigscience-workshop/promptsource">bigscience-workshop/promptsource</a></li>
+          <li>Python 설치 및 예시:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/bigscience-workshop/promptsource.git
+<span class="nb">cd </span>promptsource
+pip <span class="nb">install</span> <span class="nt">-e</span> <span class="nb">.</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li><strong>OpenAI GPT-3</strong>: GPT 최근 모델은 Closed API로써 비용을 내야하나, GPT-2 등 과거 모델은 오픈소스로 활용가능하다. 최근 모델은 비용을 지불해야 하지만 LLM 모델의 현 수준을 파악하기 위해 꼭 한번즘 API를 연동하여 다양한 실험을 해보기를 추천한다. 아래를 활용하면 OpenAI의 오픈소스부터 GPT-3, 4 최신 모델까지 활용하여 프롬프트 기반 학습과 zero-shot, few-shot 등 다양한 예제를 테스트할 수 있다.
+        <ul>
+          <li>GitHub: <a href="https://github.com/openai/openai-python">openai/openai-python</a></li>
+          <li>Python 설치 및 예시:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>openai
+</code></pre></div>            </div>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+ <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+ <span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">chat</span><span class="p">.</span><span class="n">completions</span><span class="p">.</span><span class="n">create</span><span class="p">(</span>
+     <span class="n">model</span><span class="o">=</span><span class="s">"gpt-4o"</span><span class="p">,</span>
+     <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+         <span class="p">{</span><span class="s">"role"</span><span class="p">:</span> <span class="s">"system"</span><span class="p">,</span> <span class="s">"content"</span><span class="p">:</span> <span class="s">"You are a helpful assistant."</span><span class="p">},</span>
+         <span class="p">{</span>
+             <span class="s">"role"</span><span class="p">:</span> <span class="s">"user"</span><span class="p">,</span>
+             <span class="s">"content"</span><span class="p">:</span> <span class="s">"Write a haiku about recursion in programming."</span>
+         <span class="p">}</span>
+     <span class="p">]</span>
+ <span class="p">)</span>
+
+ <span class="k">print</span><span class="p">(</span><span class="n">completion</span><span class="p">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="author-information">Author Information</h2>
+<ul>
+  <li>Author name: Bongsang Kim</li>
+  <li>Research Topic: Time-series Forecasting, Automatic Regression Analysis using LLM, LM-RecSys</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

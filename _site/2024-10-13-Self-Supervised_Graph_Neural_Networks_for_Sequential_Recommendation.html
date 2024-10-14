@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[SIGIR-24] SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [SIGIR-24] SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[SIGIR-24] SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[SIGIR-24] SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>In Liu et. al (2024) they propose a self-supervised method for modeling long and short-term interaction sequences
+for user-item recommendation. They call this method Self-Supervised Graph Neural Network (SelfGNN) 
+which they analize with the following research questions (RQ):</p>
+<ol>
+  <li>How does SelfGNN perform w.r.t top-k recommendation as
+compared with the state-of-the-art models?</li>
+  <li>What are the benefits of the components proposed?</li>
+  <li>How does SelfGNN perform in the data noise issues?</li>
+  <li>How do the key hyperparameters influence SelfGNN?</li>
+  <li>In real cases, how can the designed self-augmented learning
+in SelfGNN provide useful interpretations?</li>
+</ol>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+<p>As stated by the paper (Liu et. al) recommender systems are an important field of research
+for addressing user-item interactions benefitting service providers such as Amazon
+(Ge et al. 2020) but also digital platforms such as TikTok, YouTube and Facebook (Wei et al. 2023; Zhang et al. 2021). 
+Furthermore, self-supervised learning (SSL) have become very attractive for recommender systems and graph learning as 
+they additional graphical structure compensates for the lack of labelled data. SSL methods are only limited to a few
+labeled data points thus enabling usages for many more applications.</p>
+
+<p>An important branch of recommender systems is <em>sequential recommendation</em>, which models user interactions over 
+time (as a sequence of actions in time). Thus, by analyzing the temporal interaction patterns the model can predict future user actions. Examples of sequential recommendation could be the task of predicting the next movie
+a user wants to watch given the ordered list of previously watched movies (as presented in the lectures). Modeling sequential patterns
+can be crucial recommender systems as they relay chronological patterns giving insights into both short and 
+long-term user preferences (Liu et al.). Thus many studies have analyzed how to incorporate temporal information to the
+recommender system such as DGSR (Zhang et al. 2023), SURGE (Chang et al. 2021), GRU4Rec (Hidasi et al. 2016), SASRec (Kang and McAuley 2018), Bert4Rec (Liu et al. 2019), TiSASRec (Li et al. 2020)
+and MBHT~\cite{MBHT} (where the last four methods are based on Transformers (Vaswani et al. 2017)). However, while these models manage to model dynamic user-interactions
+they fail to effectivly integrate both long and short-term interaction or overlook important periodical collaborative relationships between users by 
+only encoding single-user sequences (Liu et al. 2024). Furthermore, previous SSL methods for sequential recommendation like CLSR~\cite{CLSR}, are extremely dependent on
+high-quality data. This means they lack the natural robustness to noisy data which is present in real-world data as the noise will propagate through the model (Lie et al. 2024).</p>
+
+<p>With these issues in mind, SelfGNN was designed to effectively encode both long and short-term interaction while <em>denoising</em> the short-term
+patterns with long-term dependencies thus making the model robust to noisy data (Liu et al. 2024).</p>
+
+<h2 id="3-preliminary"><strong>3. Preliminary</strong></h2>
+<h3 id="31-message-passing"><em>3.1 Message Passing</em></h3>
+<p>Message Passing is the central process of Graph Convolution Networks (GCN)
+to encode graph information such as nodes~\cite{Kipf}. The core idea is to send <em>messages</em> of 
+information between the nodes to iteratively update the encoded node representations~\cite{Kipf}. In this paper (Lie et al. 2024)
+were inspired by LightGCN~\cite{LightGCN} where each user-node $\bm{e}_ {u}^{(k)}$ and item-node $\bm{e}_ {i}^{(k)}$ 
+encoding are updated by the weighted sum of their neighboring nodes:</p>
+
+<p>$
+\bm{e}_ {u}^{(k+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert}\sqrt{\vert\mathcal{N}_ i\vert}}\bm{e}_ {i}^{(k)}
+$</p>
+
+<p>$
+\bm{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\bm{e}_ {u}^{(k)}
+$</p>
+
+<p>Where $\bm{e}_ {u}^{(0)}$ and $\bm{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.</p>
+<h3 id="32-self-attention"><em>3.2 Self-Attention</em></h3>
+<p>Another key operation for propagating information which has seen increased popularity for graph-based learning is 
+self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\bm{X} \in \mathbb{R}^{n\times d}$ to 
+the <em>query</em>, <em>key</em> and <em>value</em> subspace using (the learned) projection matrices $\bm{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\bm{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\bm{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:</p>
+
+<p>$
+\text{Attn}(\bm{X}) = \text{Softmax}\left(\frac{\bm{XW}_ Q(\bm{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\bm{XW} <em>V = \text{Softmax}\left(\frac{\bm{QK}^\mathsf{T}}{\sqrt{d</em> K}}\right)\bm{V} 
+$</p>
+<h3 id="33-validation-metrics"><em>3.3 Validation Metrics</em></h3>
+<p>To validate the effectiveness of their proposed method, (Liu et al. 2024) use the Hit Rate (HR)@N and Normalized
+Discounted Cumulative Gain (NDCG)@N (<a href="https://www.evidentlyai.com/ranking-metrics/evaluating-recommender-systems">www.evidentlyai.com</a>). 
+To calculate the Hit Rate for top $N$ recommendations, each user gets a score of either 0 or 1 depending on if they were recommended a
+relevant item in their top $N$ recommendations. Then we calculate the average score for all users, which is the final validation metric.</p>
+
+<p>To calculate the Normalized Discounted Cumulative Gain, we first calculate the Discounted Cumulative Gain (DCG) and 
+then normalize it using the Idealized discounted cumulative gain (IDCG) (<a href="https://www.evidentlyai.com/ranking-metrics/ndcg-metric">www.evidentlyai.com</a>).
+For a user with predicted item ranking-position order $p_ i$ and ground-truth item-relevance $r_ i$ DCG@N is computed as:</p>
+
+<p>$
+DCG@N = \sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}
+$</p>
+
+<p>The idea of NDCG is to normalize the DCG with the <em>ideal</em> discounted cumulative gain (IDCG). 
+The equation for IDCG is almost equivalent to that of DCG, however, we just assume
+that the item positions $p <em>i$ are ordered according to their relevance $r</em> i$. This way,
+the IDCG represents the best possible ranking order the recommender could produce. With this in mind,
+the final equation for NDCG is:</p>
+
+<p>$
+NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p’_ i +1)}} \in [0,1]
+$</p>
+
+<p>In the paper by Liu et al. they set $N = {10,20}$ for both HR@N and NDCG@N.</p>
+<h2 id="4-method"><strong>4. Method</strong></h2>
+<p>Given the set of users $\mathcal{U} = {u_ 1,\dots, u_ I}$ with $\vert\mathcal{U}\vert = I$ and the set of 
+items $\mathcal{V} = {v_ i,\dots,v_ J}$ where $\vert\mathcal{V}\vert = J$ the time-dependent adjacency matrix
+$\bm{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
+discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t <em>b$ and $t</em> e$ is the 
+first (beginning) and last (end) observed time stamp. Thus in other words, ${\mathcal{A}}_ {t,i,j}$ is 
+set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving ${\bm{\mathcal{A}}_ {t}| 1\leq t \leq T}$ the objective
+is to predict future user-item interactions $\bm{\mathcal{A}_{T+1}}$. Formally, they define the objective as:</p>
+
+<p>$
+\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}<em>{recom}\left(\bm{\mathcal{\hat{A}}</em> {T+1}},\bm{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\bm{E}_ s,\bm{E}_ l)
+$</p>
+
+<p>$
+\bm{\mathcal{\hat{A}}_ {T+1}} = f\left(\bm{E}_ s,\bm{E}_ l\right)\quad \bm{E}_ s,\bm{E}_ l = g({\bm{\mathcal{A}}_t})
+$</p>
+
+<p>Where $\mathcal{L}<em>{recom}$ is the recommendation error between the true and predicted user-item interactions $\bm{\mathcal{A}</em> {T+1}}$ and $\bm{\mathcal{\hat{A}}_ {T+1}}$, respectively.
+$\mathcal{L}<em>{att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\bm{E}</em> l,\bm{E}_ s$ which are encoded using the sequential data and encoder $g$.
+Lastly, the estimated predictions $\bm{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.</p>
+
+<h3 id="41-encoding-short-term-user-item-interactions"><em>4.1 Encoding Short-term user-item interactions</em></h3>
+<p>The model begins by modeling the short-term interactions as these will be used throughout the whole encoding process. Inspired by LightGCN~\cite{LightGCN}, they project
+each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\bm{e}_ {t,i}^{(u)}$, $\bm{e}_ {t,j}^{(v)}$ are assembled
+to the embedding matrices $\bm{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\bm{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
+following message passing method:</p>
+
+<p>$
+\bm{z}_ {t,i}^{(u)} = \text{LeakyReLU}\left(\mathcal{A}<em>{ti,{*}}\cdot \bm{E}</em> t^{(v)}\right), \quad \bm{z}_ {t,j}^{(v)} = \text{LeakyReLU}\left(\mathcal{A}<em>{tj,{*}}\cdot \bm{E}</em> t^{(u)}\right)
+$</p>
+
+<p>This is repeated for $L$-layers with the embeddings in the $l$-th layer defined as:</p>
+
+<p>$
+\bm{e}_ {t,i,l}^{(u)} = \bm{z}_ {t,i,l}^{(u)}+\bm{e}_ {t,i,l-1}^{(u)},\quad \bm{e}_ {t,i,l}^{(v)} = \bm{z}_ {t,i,l}^{(v)}+\bm{e}_ {t,i,l-1}^{(v)}
+$</p>
+
+<p>Finally, all embeddings for each layer are concatenated together to form the final short-term embeddings $\bm{e}_ {t,i}^{(u)}$ and $\bm{e}_ {t,j}^{(v)}$:</p>
+
+<p>$
+\bm{e}_ {t,i}^{(u)} = \bm{e}_ {t,i,1}^{(u)}| \dots|  \bm{e}_ {t,i,L}^{(u)},\quad\bm{e}_ {t,j}^{(v)} = \bm{e}_ {t,j,1}^{(v)}| \dots|  \bm{e}_ {t,j,L}^{(v)}
+$</p>
+
+<h3 id="42-encoding-long-term-user-item-interactions"><em>4.2 Encoding Long-term user-item interactions</em></h3>
+<p>The long-term user-item information is encoded in two different ways which in the end
+are combined for the final prediction. First, we have what they call <em>Interval-Level Sequential Pattern Modeling</em> which aims to
+capture dynamic changes from period to period by integrating the aforementioned short-term embeddings into long-term embeddings using temporal attention. 
+Second, the use <em>Instance-Level Sequential Pattern Modeling</em> which aims to learn the pairwise relations between specific item instances directly (Liu et al. 2024).</p>
+
+<p><strong>Interval-Level Sequential Pattern Modeling</strong> To integrate short-term embeddings into long-term ones Liu et al. (2024) use the
+Gated Recurrent Unit (GRU) on the sequential short-term embeddings ${\bm{e}_ {t,i}^{(u)}}$ and ${\bm{e}_ {t,j}^{(v)}}$ for each user $u_ i$ and item $v_ j$. 
+More specifically, each hidden state $\bm{h}_ {t,i}^{(u)}$ and $\bm{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:</p>
+
+<p>$
+S_ i^{interval} = \left(\bm{h}_ {1,i}^{(u)},\dots,\bm{h}_ {T,i}^{(u)}\right),\quad S_ j^{interval} = \left(\bm{h}_ {1,j}^{(v)},\dots,\bm{h}_ {T,j}^{(v)}\right)
+$</p>
+
+<p>where:</p>
+
+<p>$
+\bm{h}_ {t,i}^{(u)} = \text{GRU}\left(\bm{e}_ {t,i}^{(u)},\bm{h}_ {t-1,i}^{(u)}\right)
+,\quad \bm{h}_ {t,j}^{(v)} = \text{GRU}\left(\bm{e}_ {t,j}^{(v)},\bm{h}_ {t-1,j}^{(v)}\right)
+$</p>
+
+<p>Then (multi-head dot-product) self-attention (Vaswani et al. 2017) is applied for the interval-level sequences to uncover the temporal patterns:</p>
+
+<p>$
+\bm{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \bm{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
+$
+Which finally, are summed across time:</p>
+
+<p>$
+\bm{\bar e}_ i^{(u)} = \sum_ {t=1}^T \bm{\bar H}_ {i,t}^{(u)},\quad \bm{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \bm{\bar H}_ {j,t}^{(v)}
+$</p>
+
+<p>Where $\bm{\bar e}_ i,\bm{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
+Note, that while the short-term embeddings are dependent on the given time-interval $t$ the long-term embeddings are independent of $t$ as 
+while the long-term as $t$ is effectively integrated out.</p>
+
+<p><strong>Instance-Level Sequential Pattern Modeling</strong> However, interval-level embeddings are not the only long-term embeddings used in the SelfGNN.
+The model also uses instance-level sequential patterns by applying self-attention directly over
+sequences containing users’ interacted item instances (Liu et al. 2024). Given a user $u_ i$ they denote
+the $m$’th interacted item for set user as $v <em>{i,m}$ for $m = {1,\dots,M}$ (for a set maximum interaction length $M$).
+Then the sequences of items user $u</em> i$ interacted with can be modeled as:</p>
+
+<p>$
+S_ {i,0}^{instance} = \left(\bm{\bar e}_ {v_ {i,1}}^{(v)}+ \bm{p}_ 1,\dots,\bm{\bar e}_ {v_ {i,M}}^{(v)} + \bm{p}_ M\right) 
+$</p>
+
+<p>Where $\bm{\bar e}_ {v_ {i,m}}^{(v)} \in\mathbb{R}^d$ is the aforementioned long-term embedding for item $v_ {i,m}$ and $\bm{p}_ m\in\mathbb{R}^d$ is learnable 
+position embeddings for the $m$-th position. Then $L_ {attn}$ layers of self-attention (with residual connections) are applied on the instance-level sequence $S_ {i,0}^{instance}$:</p>
+
+<p>$
+S_ {i,l}^{instance} = \text{LeakyReLU}\left(\text{Self-Attn}\left(S_ {i,l-1}^{instance}\right)\right) + S_ {i,l-1}^{instance}
+$</p>
+
+<p>The final instance-level embedding is calculated by summing over the elements of the final sequence $S_ {i,L_ {attn}}^{instance}$:</p>
+
+<p>$
+\bm{\tilde e}_ i^{(u)} = \sum  S_ {i,L_ {attn}}^{instance} 
+$</p>
+
+<p><strong>Predicting Future user-item interactions</strong> The prediction for new user-item interactions $\mathcal{\hat A}_ {T+1,i,j}$ for user $u_ i$ and item $v_ j$
+is now computed using the long-term embeddings (which implicitly uses the short-term embeddings):</p>
+
+<p>$
+\mathcal{\hat A}_ {T+1,i,j} = \left(\bm{\bar e}_ i^{(u)} + \bm{\tilde e}_ i^{(u)} \right)^{\mathsf{T}} \cdot \bm{\bar e}_ j^{(v)} 
+$</p>
+
+<p>They optimize with the following loss function (to prevent predicted values from becoming arbitrarily large):</p>
+
+<p>$
+\mathcal{L}<em>{recom}\left(\mathcal{ A}</em> {T+1,i,j},\mathcal{\hat A}_ {T+1,i,j}\right) = \sum_ {i = 1}^I\sum_ {k=1}^{N_ {pr}} \max\left(0,1 -\mathcal{\hat A}_ {T+1,i,p_ {k}} + \mathcal{\hat A}_ {T+1,i,n_ k} \right)
+$</p>
+
+<p>where $N <em>{pr}$ is the number of samples and $p</em> k$ and $n_ k$ is the $k$-th
+positive (user-interaction) and negative (no user-interaction) item index respectively.</p>
+
+<h3 id="43-denoising-short-term-user-item-interactions">4.3 <em>Denoising short-term user-item interactions</em></h3>
+<p>While short-term user interactions are important for modeling sequential user-item 
+interaction patterns they often contain noisy data. Here <em>noise</em> refers to any temporary intents 
+or misclicks, which cannot be considered as long-term user interests or new recent points of interest for predictions (Liu et al. 2024). An example of this is
+when an Aunt buys Modern Warfare III for their nephew for Christmas as this interaction does not reflect user $u_ {Aunt}$’s interests. Other examples are simple misclicks or situations where
+you click on something expecting it to be a different thing. Thus to <em>denoise</em> these noisy short-term user-item interactions Liu et al. (2024) propose to use filter them using long-term interactions.
+Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i’},v_ {j’})$ from the short-term graphs $\bm{\mathcal{A}}<em>t$ and calculate the likelihood $s</em> {t,i,j}, \bar{s}_ {i,j},s_ {t,i’,j’}, \bar{s}_ {i’,j’} \in\mathbb{R}$ that user $u_ i$/$u_ {i’}$ interacts with item $v_ j$/$v _ {j’}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i’,j’}, \bar{s}_ {i’,j’}$ are calculated in the same way):</p>
+
+<p>$
+s_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(e_ {t,i,k}^{(u)}\cdot e_ {t,j,k}^{(v)}\right),\quad \bar{s}_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(\bar{e}_ {i,k}^{(u)}\cdot \bar{e}_ {t,j,k}^{(v)}\right) 
+$</p>
+
+<p>Where $e_ {t,i,k}^{(u)},e_ {t,j,k}^{(v)},\bar{e}_ {i,k}^{(u)},\bar{e}_ {t,j,k}^{(v)}\in\mathbb{R}$ is the element value of the $k$-th embedding dimension. Thus the SSL objective functions become:</p>
+
+<p>$
+\mathcal{L}_ {SSL} = \sum_ {t=1}^T\sum_ {(u_ {i},v_ {j}),(u_ {i’},v_ {j’})} \max\left(0,1- (w_ {t,i}\bar{s}_ {t,i,j} - w_ {t,i’}\bar{s}_ {t,i’,j’})\cdot (s_ {t,i,j} -s_ {t,i’,j’} )\right)
+$</p>
+
+<p>With learnable stabilty weigths $w_ {t,i’},w_ {t,i’}\in\mathbb{R}$ calculated using the short and long-term embeddings:</p>
+
+<p>$
+w_ {t,i} = \text{Sigmoid}\left(\bm{\Gamma}_ {t,i} \cdot\bm{W}_2 + b_2\right)
+$</p>
+
+<p>$
+\bm{\Gamma}_ {t,i} = \text{LeakyReLU}\left(\left(\bm{\bar{e}}^{(u)}_ i + \bm^{(u)}_ {t,i} + \bm{\bar{e}}^{(u)}_ i\odot\bm^{(u)}_ {t,i}  \right)\bm{W}_1 + \bm{b}_1\right)
+$</p>
+
+<p>With learnable parameters $\bm{W}<em>1\in\mathbb{R}^{d\times d</em> {SSL}}$, $\bm{W}<em>2\in\mathbb{R}^{d</em> {SSL}\times 1}$, $\bm{b}<em>1\in\mathbb{R}^{d</em> {SSL}}$, and ${b}_2\in\mathbb{R}$. Thus the final learning objective becomes:</p>
+
+<p>$
+\mathcal{L} = \mathcal{L}<em>{recom} + \lambda</em> 1\mathcal{L}_ {SSL} + \lambda_ 2\cdot |\Theta|_ F^2
+$</p>
+
+<p>For weight-importance parameters $\lambda_1$ and $\lambda_2$. The complete procedure is shown in Figure 1.</p>
+
+<p><img src="https://i.postimg.cc/0jBdgs4G/image.png" alt="image" /></p>
+
+<p><strong>Figure 1: Overview of the SelfGNN framework</strong></p>
+<h2 id="5-experiment"><strong>5. Experiment</strong></h2>
+<h3 id="51-experiment-setup"><em>5.1 Experiment setup</em></h3>
+<p>As mentioned in the beginning, the following experiments are designed to answer the aforementioned research questions.</p>
+
+<p><strong>Data sets</strong> The SelfGNN model is tested using an Amazon-book dataset (user ratings of Amazon books) (He and McAuley 2016), Gowalla dataset (user geolocation check-ins) (Cho et al. 2011), Movielens dataset (users’ ratings for movies from 2002 to 2009)(Harper and Konstant 2015), and Yelp data set (venue reviews sampled from 2009 to 2019) (Liu et al. 2024). Furthermore the <em>5-core setting</em> is applied which removes all users and items with less than 5 interactions.</p>
+
+<p><strong>Baselines</strong> They test their method against a plethora of methods. This includes BiasMF (Koren et al. 2009), NCF (He et al. 2017), GRU4Rec (Hidasi et al. 2016), SASRec (Kang and McAuley 2018), TiSASRec (Li et al. 2020), Bert4Rec (Liu et al. 2019), NGCF (Wang et al. 2019), LightGCN~\cite{}, SRGNN~\cite{}, GCE-GNN~\cite{}, SURGE (Chang et al. 2021), ICLRec~\cite{}, CoSeRec~\cite{}, CoTRec~\cite{}, and CLSR~\cite{}.</p>
+
+<p><strong>Evaluation</strong> For evaluation the data sets were split by time such that the most recent observations were used for testing, the earliest observations were used for training, and the remaining (middle) observations were used for validation. Furthermore, 10.000 users were sampled as test users for which negative samples were sampled by selecting 999 items the test user had not interacted with. Lastly, they use Hit rate (HR)@N and Normalized Discounted Cumulative Gain (NDCG)@N for $N = {10,20}$ as their evaluation metrics.</p>
+
+<h3 id="52-results"><em>5.2 Results</em></h3>
+<p>The main results are presented in Figure 2:</p>
+
+<p><img src="https://i.postimg.cc/LsGqL3WT/image.png" alt="table of results" /></p>
+
+<p><strong>Figure 2: Results for the top 10 and top 20 recommendations for the SelfGNN and the baselines</strong></p>
+
+<p>From Figure 2, it is clear that the SelfGNN is able to outperform the previous recommender methods on the top 10 and top 20 recommendations.</p>
+
+<p>Furthermore, they perform an ablation study on the different modules of the SelfGNN model to see what happens to the performance when different parts of the model are changed. The results are shown in Figure 3.</p>
+
+<p><img src="https://i.postimg.cc/C5SxsPsj/image.png" alt="ablation study table" /></p>
+
+<p><strong>Figure 3: Module ablation study of the SelfGNN model.</strong></p>
+
+<p>From the figure, we see how the performance changes when different parts of the model are either removed or changed. Notably, we see how much the performance drops when the collaborative filtering <em>-CF</em> is dropped.</p>
+
+<p>Lastly, to analyze the SelfGNN robustness against noise they conducted experiments where they randomly replaced some of the real item interactions with randomly generated fake ones. Figure 4 shows the performance of the SelfGNN and the top baselines on the Amazon and Movielens data set as the percentage of fake items increased.</p>
+
+<p><img src="https://i.postimg.cc/d35wmq1Y/image.png" alt="Noise study" /></p>
+
+<p><strong>Figure 4: Relative HR@10 as a function of noise ratio for the SelfGNN and top baselines on the Amazon (a) and Movielens (b) data set</strong></p>
+
+<p>From the figure, it is also clear that the performance of the SelfGNN is much more stable as more and more noise is injected into the data.</p>
+
+<h2 id="6-conclusion"><strong>6. Conclusion</strong></h2>
+<p>Liu et al (2024) propose a novel method to encode short and long-term user-item interactions for self-supervised learning by integrating the short-term embeddings into long-term ones. They further empirically show, that their method outperforms state-of-the-art recommender system methods in top 10 and top 20 recommendations.</p>
+
+<p>Importantly, they propose to <em>denoise</em> the short-term information for self-supervised learning by filtering using long-term embeddings. This is quite logical, as we would expect long-term patterns to shape individual user preferences. Thus short-term instances that deviate too much from the long-term patterns can safely be assumed to be noise.</p>
+
+<p>Possible direction for future research could be making the time-series continuous instead of discretized time-intervals using things such as ordinary differential equations.</p>
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Author name: Christian Hvilshøj
+    <ul>
+      <li>Affiliation: KAIST School of Computing</li>
+      <li>Research Topic: Sequential Recommendation Learning</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="7-reference--additional-materials"><strong>7. Reference &amp; Additional materials</strong></h2>
+<ul>
+  <li><a href="https://arxiv.org/abs/2405.20878">Main paper</a>: Liu, Yuxi, Lianghao Xia, and Chao Huang. “SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation.” Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval. 2024.</li>
+  <li><a href="https://github.com/HKUDS/SelfGNN">Github Implementation</a></li>
+  <li>Reference</li>
+</ul>
+
+<p>Vaswani, A. “Attention is all you need.” Advances in Neural Information Processing Systems (2017).</p>
+
+<p>Yingqiang Ge, Shuya Zhao, Honglu Zhou, Changhua Pei, Fei Sun, Wenwu Ou,
+and Yongfeng Zhang. 2020. Understanding echo chambers in e-commerce recommender systems. In SIGIR. 2261–2270.</p>
+
+<p>Wei Wei, Chao Huang, Lianghao Xia, and Chuxu Zhang. 2023. Multi-modal
+self-supervised learning for recommendation. In WWW. 790–800.</p>
+
+<p>Jinghao Zhang, Yanqiao Zhu, Qiang Liu, Shu Wu, Shuhui Wang, and Liang
+Wang. 2021. Mining latent structures for multimedia recommendation. In MM.
+3872–3880</p>
+
+<p>Mengqi Zhang, Shu Wu, Xueli Yu, Qiang Liu, and Liang Wang. 2023. Dynamic
+Graph Neural Networks for Sequential Recommendation. IEEE Transactions on
+Knowledge and Data Engineering (TKDE) 35, 5 (2023), 4741–4753.</p>
+
+<p>Jianxin Chang, Chen Gao, Yu Zheng, Yiqun Hui, Yanan Niu, Yang Song, Depeng
+Jin, and Yong Li. 2021. Sequential recommendation with graph neural networks.
+, 378–387 pages</p>
+
+<p>Ruining He and Julian McAuley. 2016. Ups and Downs: Modeling the Visual
+Evolution of Fashion Trends with One-Class Collaborative Filtering. In WWW.
+507–517</p>
+
+<p>Eunjoon Cho, Seth A. Myers, and Jure Leskovec. 2011. Friendship and mobility:
+user movement in location-based social networks. In KDD. 1082–1090.</p>
+
+<p>F. Maxwell Harper and Joseph A. Konstan. 2015. The MovieLens Datasets: History
+and Context. ACM Transactions on Interactive Intelligent Systems (TIIS) (2015).</p>
+
+<p>Yehuda Koren, Robert Bell, and Chris Volinsky. 2009. Matrix Factorization Techniques for Recommender Systems. Computer 42, 8 (2009), 30–37.</p>
+
+<p>Xiangnan He, Lizi Liao, Hanwang Zhang, Liqiang Nie, Xia Hu, and Tat-Seng
+Chua. 2017. Neural Collaborative Filtering. In WWW. 173–182.</p>
+
+<p>BalÃ¡zs Hidasi, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk.</p>
+<ol>
+  <li>Session-based Recommendations with Recurrent Neural Networks. In
+ICLR</li>
+</ol>
+
+<p>Wang-Cheng Kang and Julian McAuley. 2018. Self-Attentive Sequential Recommendation. In ICDM. IEEE, 197–206.</p>
+
+<p>Jiacheng Li, Yujie Wang, and Julian McAuley. 2020. Time Interval Aware SelfAttention for Sequential Recommendation. In WSDM. 322–330.</p>
+
+<p>Fei Sun, Jun Liu, Jian Wu, Changhua Pei, Xiao Lin, Wenwu Ou, and Peng Jiang.</p>
+<ol>
+  <li>BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer. In CIKM. 1441–1450.</li>
+</ol>
+
+<p>Xiang Wang, Xiangnan He, Meng Wang, Fuli Feng, and Tat-Seng Chua. 2019.
+Neural graph collaborative filtering. In SIGIR. 165–174.</p>
+
+<p><em>More references is to be cited where \cite{} is presented but I ran out of time…</em></p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

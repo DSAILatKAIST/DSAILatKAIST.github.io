@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CIKM-21] Learning Dual Dynamic Representations on Time-Sliced User-Item Interaction Graphs for Sequential Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CIKM-21] Learning Dual Dynamic Representations on Time-Sliced User-Item Interaction Graphs for Sequential Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CIKM-21] Learning Dual Dynamic Representations on Time-Sliced User-Item Interaction Graphs for Sequential Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CIKM-21] Learning Dual Dynamic Representations on Time-Sliced User-Item Interaction Graphs for Sequential Recommendation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="0-author-information">0. Author Information</h2>
+<p><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+Z">Zeyuan Chen</a>,  <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+W">Wei Zhang</a>,  <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yan,+J">Junchi Yan</a>,  <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+G">Gang Wang</a>,  <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+J">Jianyong Wang</a></p>
+
+<h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>이 논문에서는 <strong>시퀀스 추천</strong> 문제를 다룹니다. 시퀀스 추천이란, 사용자가 과거에 상호작용했던 항목을 바탕으로 가까운 미래에 사용자가 상호작용할 가능성이 높은 항목을 추천하는 문제입니다. 전통적인 추천 시스템에서는 사용자-항목 간의 상호작용을 시간과 독립적으로모델링하지만, 시퀀스 추천은 시간에 따른 사용자 행동 패턴의 변화를 반영해야 합니다.</p>
+
+<p>대부분의 기존 방식은 시간에 따른 user behavior, dynamics를 학습하고자 하였습니다. 하지만 이는 user-item interaction을 충분히 사용하지 않습니다. 이를 위해 이 논문은 사용자 뿐 아니라 item 측면에서도 시계열 상호작용을 고려하여 양방향의 동적인 표현을 학습하는 새로운 모델을 제안합니다. 따라서 해당 모델은 아래와 같이, user, item과 특정 시간 T에 대한 예측을 수행하는 함수를 잘 만드는 것을 목표로 합니다.</p>
+
+<p>$ \hat{y}_{ui} = f(u, i, \mathcal{T}; \Theta)$</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>대부분의 기존 연구는 사용자 측면에서의 변화에 초점을 맞추고 있기에, item의 변화를 간과하고 있습니다.</p>
+
+<p>item의 인기도 변화를 고려하는 것이 보다 정교한 추천 결과를 도출할 수 있습니다. 예를 들어, 겨울이 다가옴에 따라 특정 겨울옷이 점점 더 많이 팔리게 되는 패턴을 포착하면 해당 item의 representation이 더욱 정확해지고, 이는 추천 성능 향상에 기여할 수 있습니다.</p>
+
+<p>이러한 방식처럼 user와 item 양쪽 모두를 고려한 방법이 몇 개 존재합니다만, 이들 모두 user와 item 방향에서 개별적인 deep sequential model을 만드는 방식을 따른다. 예를 들어서 user별로 transition을 RNN을 학습하고 item에 대한 변화를 RNN을 통해 학습하여 잘 결합하는 등의 방법입니다. 하지만 이 방식은 user-item interaction의 상당 부분이 무시되거나 global perspective를 충분히 반영하지 못하며, 이 interaction이 명시적으로 모델링이 되지 않습니다.</p>
+
+<h3 id="discriminated-idea">Discriminated Idea</h3>
+
+<p>이 논문에서는 user-item 간 상호작용을 시간 단위로 분할하여 전반적인 시점에서 user and item represenation을 학습하는 시도를 했습니다. 각 시간 단위별로 global user-item interaction graph가 만들어지며 이를 통해 user와 Item represenation 학습에 향상을 유도합니다.</p>
+
+<h2 id="3-related-work">3. Related Work</h2>
+
+<h3 id="3-1-sequential-recommendation"><strong>3-1. Sequential Recommendation</strong></h3>
+
+<p>Sequential Recommendation에서 해당 논문과 가장 관련이 있는 모델과의 차별점은 아래와 같습니다.</p>
+
+<ol>
+  <li><strong>RRN [39] - Recurrent Recommender Networks</strong></li>
+</ol>
+
+<ul>
+  <li><strong>구조적 차이점</strong>:
+    <ul>
+      <li><strong>RRN</strong>은 <strong>두 개의 RNN</strong>을 사용하여 <strong>사용자와 항목의 시간적 변화</strong>를 각각 독립적으로 학습합니다. 마지막 시간 단계의 출력 표현을 결합해 사용자의 선호도와 항목의 특징을 계산하여 상호작용 확률을 예측합니다.</li>
+      <li><strong>DRL-SRe</strong>는 사용자와 항목의 동적 표현을 <strong>전역적으로</strong> 학습하기 위해 <strong>시간 슬라이스 기반 그래프 신경망</strong>을 사용합니다. 사용자-항목 간의 모든 상호작용을 <strong>한꺼번에</strong> 고려하여 더 나은 동적 표현을 학습합니다.</li>
+    </ul>
+  </li>
+  <li>차별점:
+    <ul>
+      <li><strong>RRN</strong>은 사용자와 항목의 시간적 변화를 각각 독립적으로 모델링하여 서로 간의 상호작용에 대한 정보를 충분히 공유하지 못합니다. 이는 사용자-항목 상호작용을 독립적으로 다루는 방식입니다. 반면 <strong>DRL-SRe</strong>는 시간 슬라이스 단위에서 <strong>사용자와 항목의 상호작용</strong>을 동시에 고려하여 더 <strong>풍부한 상호작용 정보</strong>를 학습할 수 있습니다.</li>
+      <li>RRN은 <strong>단순한 결합</strong>을 통해 두 개의 시퀀스를 연결하는 반면, DRL-SRe는 <strong>전역적인 사용자-항목 상호작용</strong>을 그래프 구조를 통해 포착하여 더 높은 차원의 관계를 학습합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>2. DEEMS [41] - Dual Embedding Enhanced Memory Stream</strong></p>
+
+<ul>
+  <li><strong>구조적 차이점</strong>:
+    <ul>
+      <li><strong>DEEMS</strong>도 <strong>두 개의 RNN</strong>을 사용하여 user와 item의 표현을 학습하지만, <strong>새로운 손실 함수</strong>를 적용하여 차별화된 접근을 시도합니다. DEEMS는 <strong>사용자 중심의 순차적 손실</strong>과 함께 item <strong>중심의 정보 확산 손실</strong>을 도입하여 보다 풍부한 손실 함수를 구성했습니다.</li>
+      <li><strong>DRL-SRe</strong>는 RNN 대신 <strong>시간 슬라이스 그래프 구조</strong>를 도입하여 시간 구간별로 <strong>모든 user-item 상호작용</strong>을 포착하고, 이를 기반으로 <strong>전역적인 상호작용 표현</strong>을 학습합니다.</li>
+    </ul>
+  </li>
+  <li>차별점:
+    <ul>
+      <li><strong>DEEMS</strong>는 손실 함수의 개선을 통해 두 시퀀스를 독립적으로 학습하는 방식의 한계를 일부 극복하려 했습니다. 하지만 여전히 user-item interaction을 직접적으로 결합하는 방식이 아니라, 독립적인 시퀀스를 따로따로 모델링한 후 손실 함수에서 보완하는 방식입니다.</li>
+      <li>반면 <strong>DRL-SRe</strong>는 두 시퀀스를 <strong>그래프 기반</strong>으로 동시에 학습하고, 시간적 변화를 반영하는 데에 중점을 둡니다. <strong>시간 슬라이스 그래프</strong>는 모든 사용자-항목 상호작용을 한꺼번에 고려할 수 있기 때문에, RNN 기반 모델보다 <strong>더 나은 전역적 관계</strong>를 포착할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>3. SCoRe [24] - Sequential Collaborative Representation Learning</strong></p>
+
+<ul>
+  <li><strong>구조적 차이점</strong>:
+    <ul>
+      <li><strong>SCoRe</strong>는 user-item 간의 과거 상호작용을 활용하여 표현을 학습합니다. 그러나 이 모델은 <strong>직접 이웃 노드</strong>(direct neighbors)에 대해서만 상호작용을 고려하며, 이는 대상 user-item pair와 직접적으로 연결된 노드들만 사용합니다.</li>
+      <li><strong>DRL-SRe</strong>는 시간 슬라이스 내에서 <strong>전역적인 user-item interaction</strong>을 활용하여 <strong>모든 상호작용</strong>을 고려하는 방식으로, 직접적인 이웃 관계에 국한되지 않고 <strong>고차원적인 상호작용</strong>까지 포착합니다.</li>
+    </ul>
+  </li>
+  <li><strong>차별점:</strong>
+    <ul>
+      <li><strong>SCoRe</strong>는 <strong>로컬</strong>(local)한 상호작용에 집중하여 상호작용 네트워크에서 직접 연결된 사용자와 항목 간의 관계만 고려하는 한계가 있습니다. 이는 전체적인 user-item 상호작용 정보를 충분히 반영하지 못할 수 있습니다.</li>
+      <li>반면 <strong>DRL-SRe</strong>는 한 시간 슬라이스 내의 모든 user-item 상호작용을 포괄적으로 다루어, <strong>전체적인 상호작용 관계</strong>를 학습합니다. 이 방식은 상호작용 네트워크 내의 <strong>고차원적 관계</strong>를 더 잘 반영하여 <strong>더 나은 추천 성능</strong>을 발휘할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>4. 연속 시간 기반 모델들 [2, 16, 18] - Continuous-Time Models</strong></p>
+
+<ul>
+  <li><strong>차이점</strong>:
+    <ul>
+      <li>[2, 16, 18]에서는 user-item representation을 연속 시간(continuous time)에서 학습하지만, 이 방식은 <strong>다음 interaction 시간이 미리 알려져 있어야</strong>만 유효합니다. 또한, 과거 상호작용을 <strong>한 번만</strong> 모델링하므로 <strong>반복적인 전파</strong>를 통한 <strong>고차원적 관계</strong>를 포착하기 어렵습니다.</li>
+      <li><strong>DRL-SRe</strong>는 시간 슬라이스 내에서 <strong>모든 상호작용</strong>을 반복적으로 전파하여 더 <strong>정교한 관계</strong>를 학습할 수 있으며, 다음 상호작용 시간을 미리 알 필요 없이 시간 구간 내의 상호작용을 포괄적으로 학습합니다.</li>
+    </ul>
+  </li>
+  <li>차별점:
+    <ul>
+      <li><strong>연속 시간 모델들</strong>은 각 사용자-항목 상호작용을 <strong>한 번</strong>만 모델링하기 때문에 반복적인 상호작용을 충분히 포착하지 못하고, 또한 <strong>다음 상호작용 시간</strong>이 필요하기 때문에 그 정보가 없는 경우 모델의 성능이 저하될 수 있습니다.</li>
+      <li>반면 <strong>DRL-SRe</strong>는 시간 구간별로 상호작용을 쪼개어 학습하고, 반복적인 전파를 통해 <strong>더 높은 차원의 관계</strong>를 학습할 수 있습니다. 또한, <strong>시간 예측 작업</strong>을 통해 상호작용 시간 정보가 주어지지 않더라도 모델 성능을 유지할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-2-gnn"><strong>3-2. GNN</strong></h3>
+
+<p>GNN은 최근 짧은 sequence를 가지는 session recommendation이라는 분야에 주로 사용되고 있지만, 근본적으로는 user-item interaction을 모델링하는 기법으로써, user-item interaction에 초점을 맞추어 sequential recommendation을 하는 경우는 드뭅니다.</p>
+
+<ul>
+  <li>GLS-GRL 은 <strong>사용자 그룹</strong>을 대상으로 아이템을 추천하는 반면, <strong>DRL-SRe</strong>는 개별 사용자와 아이템 간의 상호작용을 학습하여 <strong>개별 사용자</strong>를 위한 추천을 수행합니다.</li>
+  <li>연구 [22, 28, 40]은 동적 그래프 신경망을 다루고 있지만, <strong>순차 추천</strong>을 위한 연구는 아니며, DRL-SRe는 이를 순차 추천에 적용한 첫 사례입니다.</li>
+</ul>
+
+<h3 id="3-3-temporal-point-process"><strong>3-3. Temporal Point Process</strong></h3>
+
+<p><strong>Temporal Point Process</strong>는 비동기적인 시간 간격을 다룰 수 있는 수학적 도구로, 기존 연구들은 <strong>상호작용 예측</strong>과 <strong>시간 예측</strong>을 동시에 수행하는 방식으로 이를 사용해왔습니다. 하지만 이 논문은 time-slice 방식에서 발생할 수 있는 <strong>시간 정보 손실</strong>을 보완하기 위해 <strong>과거 연속된 시간 슬라이스</strong>에서의 시간 예측을 사용합니다. 즉, time-slice를 하게 되면 이산적인 시간을 다룰 수 밖에 없는데, TPP를 이용하여 해당 구간 안에서 언제 interaction이 일어나는지 예측하고자 하는 것이 목적입니다. 이를 통해 <strong>시간적으로 더 세밀한 패턴</strong>을 포착하고 <strong>추천 성능</strong>을 향상시키려는 목적입니다.</p>
+
+<h2 id="4-method"><strong>4. Method</strong></h2>
+
+<p>제안된 모델은 <strong>DRL-SRe (Dual Representation Learning Sequential Recommendation)</strong>입니다. 이 모델은 시간 단위로 잘린 사용자-항목 상호작용 그래프를 생성하고, 각 시간 단위에서 사용자와 항목의 표현을 학습합니다.</p>
+
+<ul>
+  <li><strong>time-sliced interaction 그래프</strong>: 전체 타임라인을 일정한 간격으로 나누고, 각 시간 구간에서 발생한 사용자-항목 상호작용을 그래프로 표현합니다. 이 그래프에서 노드는 사용자와 항목, 그리고 엣지는 상호작용을 의미합니다.</li>
+  <li><strong>time-slice 그래프 신경망</strong>: 각 시간 슬라이스에서 그래프 신경망을 통해 사용자와 항목의 표현을 학습한 뒤, 이러한 시간별 표현을 RNN(순환 신경망)을 사용해 time-slice 간의 관련성을 모델링합니다.</li>
+  <li><strong>auxiliary temporal prediction</strong>: time-sliced 데이터에서 발생하는 정보 손실을 보완하기 위해 연속된 시간 슬라이스 간의 시간 정보를 모델링하는 보조 작업을 추가했습니다. 이 작업은 <strong>Temporal Point Process</strong>을 활용해 특정 시간 구간에서 다음 상호작용이 일어날 가능성을 예측합니다. 즉 다음 상호 작용이 어느 시점에 발생할지를 예측하는 시간 예측 작업입니다.</li>
+</ul>
+
+<h3 id="예시">예시:</h3>
+
+<ol>
+  <li>사용자 u1가 시간 슬라이스 t1에서는 항목 i1과 상호작용하고, t2에서는 i2와 상호작용했다고 가정합니다.</li>
+  <li>각각의 시간 슬라이스에서 사용자와 항목은 그래프 노드로 표현되고, 그래프 신경망을 통해 각 시간에서의 동적 표현이 학습됩니다.</li>
+  <li>이러한 시간 슬라이스 표현을 GRU를 통해 시간적으로 연결하여 사용자의 전체 상호작용 시퀀스를 학습합니다.</li>
+</ol>
+
+<p><img src="https://i.postimg.cc/D0x9JthK/image.png" alt="Architecture of model DRL-SRe" /></p>
+
+<h3 id="model-construction">Model Construction</h3>
+
+<p>먼저 graph neural network에서 Adjacent matrix를 사용하여 propagation을 하듯, user와 item 모두에 대해 l-layer embedding을 도출해냅니다.</p>
+
+<p>$ \mathbf{X}_{l+1}^s = \hat{\mathbf{A}}^s \mathbf{X}_l^s
+$</p>
+
+<p>이후 이 layer 간의 표현을 GRU를 통해 학습합니다.</p>
+
+<p>$ \bar{\mathbf{X}}^s_ {U} = \text{GRU}(\tilde{\mathbf{X}}^s_ {U}; \Theta_U^{1}) \Big\vert_ {L+1}, \quad \bar{\mathbf{X}}^{s}_ {I} = \text{GRU}(\tilde{\mathbf{X}}^{s} _{I}; \Theta_I^{1}) \Big\vert _ {L+1} 
+$</p>
+
+<p>이렇게 layer 간의 표현을 학습하게 되면, 하나의 time-slice에서 user와 item에 대한 representation이 도출되게 됩니다. 이후 여러 time-slice에 대해서 GRU를 적용하여 최종 representaion을 도출합니다.</p>
+
+<p>$ \mathbf{H}_ {U} = \text{GRU}(\tilde{\mathbf{X}}_U; \Theta_U^{2}), \quad \mathbf{H}_I = \text{GRU}(\tilde{\mathbf{X}}_I; \Theta_I^{2}) $</p>
+
+<p>마지막으로 예측 단계에서는 모든 모델을 통해 나온 표현과, 최초 embedding들을 모두 MLP에 통과시켜 예측합니다.</p>
+
+<p>$ \hat{y}_{ui} = \sigma(\text{MLPs}(\mathbf{h}_u^T \oplus \mathbf{h}_i^T \oplus \mathbf{e}_u \oplus \mathbf{e}_i; \Theta^{\text{MLP}})) $</p>
+
+<p>Loss function으로써는 binary classification 문제로써의 loss를 사용합니다.</p>
+
+<p>$ \mathcal{L}_ {c} = - \left( y_ {ui} \log \hat{y}_ {ui} + (1 - y_ {ui}) \log(1 - \hat{y}_ {ui}) \right) $</p>
+
+<h3 id="temporal-point-process">Temporal Point Process</h3>
+
+<p>Time-slice로 인해 시간 정보가 손실되는 것을 막기 위헤 TPP 기법을 사용합니다.</p>
+
+<p>여기서 확률 밀도 함수는 다음과 같이 정의 됩니다.</p>
+
+<p>$ f^{*}(t) = \lambda^{*}(t) \exp\left( - \int_{t_j}^{t}  \lambda^{*}(\epsilon) d\epsilon  \right) $</p>
+
+<p>위의 식은 특정 시간에 대한 intensity function를 상정하고, 해당 event가 발생한 이후 exponential하게 감소하는 형태입니다. 이를 통해 특정 이벤트가 발생한 이후, 지속적으로 이벤트 발생 확률이 감소하는 식으로 모델링할 수 있습니다.</p>
+
+<p>[6]에서 연구된 디자인을 참고하여 intensity function을 user와 item에 대해 각각 다음과 같이 정의합니다.</p>
+
+<p>$ \lambda^{*}_u(t) = \exp\left( \mathbf{w}_U \mathbf{h}^s_u + \omega_U (t - t^s_u) + b_U \right), $</p>
+
+<p>$ \lambda^{*}_i(t) = \exp\left( \mathbf{w}_I \mathbf{h}^s_i + \omega_I (t - t^s_i) + b_I \right) $</p>
+
+<p>이를 확률 밀도 함수 식에 대입하게 되면 아래와 같은 형태가 나오게 됩니다.</p>
+
+<p>$ \begin{array}{l}
+f^{*}_{u}(t) = \exp\lbrace\mathbf{w}_U \mathbf{h}^s_u+\omega_U(t-t^s_u)+b_U+\frac{1}{\omega_U}\exp(\mathbf{w_U}\mathbf{h}^s_u + b_U) <br />
+     -\frac{1}{\omega_U}\exp(\mathbf{w}_U \mathbf{h}^s_u+\omega_U(t-t^s_u)+b_U)\rbrace\,.
+\end{array} $</p>
+
+<p>최종적인 Loss function은 negative log likelihood 형식으로, 각 항에는 userd와 item에 대한 representation이 포함되어있으므로, representation에 시간에 대한 정보가 좀 더 잘 반영되게 됩니다. 특히 정의한 확률 밀도 함수의 likelihood를 높이는 방향으로 학습이 진행되게 됩니다.</p>
+
+<p>$ \mathcal{L}_ {p} = - \sum_ {s=1}^{T-1}  \log f^{*}_ {u}(t_ {u}^{s+1} \vert \mathbf{h}_ {u}^s) - \sum_ {s=1}^{T-1}  \log f^{*}_ {i}(t_ {i}^{s+1} \vert \mathbf{h}_ {i}^s) $</p>
+
+<p>최종적인 학습은 Model과 TPP 모두를 활용한 loss function으로 구성됩니다.</p>
+
+<p>$ \mathcal{L} = \mathcal{L}_c + \beta \mathcal{L}_p $</p>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="experiment-setup"><strong>Experiment setup</strong></h3>
+
+<ul>
+  <li><strong>Dataset</strong>: Amazon Baby, Yelp, Netflix 세 가지 공개 데이터셋을 사용하였습니다. 각 데이터셋의 사용자와 항목 수, 상호작용 수 및 시간 구간은 다릅니다.</li>
+  <li><strong>Baseline</strong>: GRU4Rec, SASRec, SCoRe 등 다양한 최신 시퀀스 추천 모델과 성능을 비교했습니다.</li>
+  <li><strong>Evaluation Metric</strong>: HR@k, NDCG@k, MRR을 사용해 추천 성능을 평가하였습니다.</li>
+</ul>
+
+<h3 id="result"><strong>Result</strong></h3>
+
+<ul>
+  <li>DRL-SRe는 모든 데이터셋에서 다른 최신 모델들보다 월등히 높은 성능을 보였습니다.</li>
+</ul>
+
+<p><img src="https://i.postimg.cc/0jhCBfdw/image.png" alt="image.png" /></p>
+
+<ul>
+  <li>Baby 데이터셋에서 NDCG@10 기준으로 3.39% 향상, Yelp에서는 10.22%, Netflix에서는 9.62% 향상을 보였습니다.</li>
+</ul>
+
+<h3 id="ablation-study">Ablation Study</h3>
+
+<p><img src="https://i.postimg.cc/sgYJT5BM/image.png" alt="image.png" /></p>
+
+<ul>
+  <li>Graph, RNN, 보조 시간 예측 작업에 대한 기여도가 크게 나타났고, 각 요소가 중요한 component임을 확인할 수 있습니다.</li>
+</ul>
+
+<h3 id="replacement-study">Replacement Study</h3>
+
+<p><img src="https://i.postimg.cc/C11HMtc8/image.png" alt="image.png" /></p>
+
+<ul>
+  <li>Global Graph : time-sliced된 graph를 사용하지 않고, time-slice를 늘려 하나의 graph를 사용하는 방식입니다.</li>
+  <li>historical graph를 사용하지 않고, 마지막 graph만을 사용한 방식입니다.</li>
+  <li>user slices, item slices: Dual 뷰로 보지 않고, user 또는 Item의 transition을 보았을 때의 결과입니다.</li>
+  <li>GNN에서 각 layer에서 도출된 표현에 대해 처리를 할 때, 어떻게 할지 네 가지 대체 방식 1) concat, 2) last-layer output 3) mean-pooling 4) single GRU 에 대해 실험을 진행하였습니다.</li>
+</ul>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>Sequential Recommendation에서 사용자와 항목 양쪽의 시간적 패턴을 모두 반영하는 새로운 방법론을 제시했습니다. time-sliced <strong>그래프 신경망</strong>과 <strong>Temporal Point Process</strong> 기반의 보조 시간 예측 작업을 통해 보다 정교한 사용자와 항목의 동적 표현을 학습할 수 있었습니다. 실험 결과는 이 모델이 기존의 최신 모델들에 비해 더 나은 성능을 보여주었음을 입증했습니다.</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[AAAI-24] No prejudice! Fair Federated Graph Neural Networks for Personalized Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [AAAI-24] No prejudice! Fair Federated Graph Neural Networks for Personalized Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[AAAI-24] No prejudice! Fair Federated Graph Neural Networks for Personalized Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[AAAI-24] No prejudice! Fair Federated Graph Neural Networks for Personalized Recommendation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+<p>The primary issue addressed by this paper is the challenge of achieving <strong>fairness across demographic groups</strong> in Federated Learning (FL)-based recommendation systems (RSs), particularly while ensuring <strong>user privacy</strong>. Traditional, centralized recommendation systems tend to produce biased recommendations that favor certain demographic groups (e.g., gender or age), while also violating user privacy by gathering sensitive data on central servers. FL provides a solution to the privacy issue by decentralizing data processing, but ensuring fairness without access to users’ demographic information is an unresolved problem. The goal of this paper is to develop a recommendation system that mitigates demographic biases within FL environments using Graph Neural Networks (GNNs), while preserving the privacy of sensitive user information and maintaining high utility for recommendations.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+<font color="red" size="4px"><b>2.1 Limitations and Challenges</b></font>
+<p>The use of recommendation systems has grown significantly in various industries such as e-commerce, healthcare, and entertainment. However, the following challenges remain unresolved:</p>
+
+<ul>
+  <li>
+    <p><strong>Privacy and Security:</strong> Traditional RSs rely on centralized data collection, where sensitive user information is stored and processed, leading to privacy violations [2].</p>
+  </li>
+  <li>
+    <p><strong>Fairness Concerns:</strong> FL allows for the decentralized training of models on local devices and transmitting the updated model back to the sever, to preserve user privacy. However, FL fail to ensure fairness across demographic groups [1] when sensitive data like gender or race, is unavailable for analysis [3].</p>
+  </li>
+  <li>
+    <p><strong>Amplified Bias:</strong> GNNs are effective at modeling user-item interactions in RSs but can inherit and  exacerbate existing biases in the data, making fairness even harder to achieve in FL environments [4].</p>
+  </li>
+</ul>
+
+<font color="red" size="4px"><b>2.2 Proposed Approch</b></font>
+<p>The authors introduce F<sup>2</sup>PGNN (Fair Federated Personalized Graph Neural Network), a novel framework that addresses these issues through three key pillars:</p>
+<ol>
+  <li><strong>Fairness:</strong> F<sup>2</sup>PGNN ensures fairness in recommendations without requiring access to sensitive demographic information.</li>
+  <li><strong>Privacy:</strong> By using <strong>Local Differential Privacy (LDP)</strong>, the model maintains user privacy while sharing group-level statistics.</li>
+  <li><strong>Personalization:</strong> The system captures both higher-order and explicit user-item interactions through a GNN model, improving recommendation accuracy while reducing bias.</li>
+</ol>
+
+<h2 id="3-related-work"><strong>3. Related Work</strong></h2>
+<p>Research on fairness in recommendation systems and federated learning has been extensive, but integrating fairness with privacy-preserving techniques in federated settings is still a challenging area. Previous studies on fairness in centralized recommendation systems, such as those by Yao and Huang (2017) [5] and Li et al. (2021) [6], focus on mitigating bias using demographic data. However, these methods require access to centralized data, which violates privacy norms.</p>
+
+<p>In the federated learning domain, models like <strong>FedMF</strong> [7] and <strong>FedPerGNN</strong> [8] have integrated fairness into federated settings, but they either rely on <strong>Matrix Factorization</strong>, which lacks the ability to model higher-order interactions, or introduce significant computational overhead with encryption techniques.</p>
+
+<p>This paper builds on existing works but proposes a more efficient and scalable solution by utilizing GNNs for recommendation and adding privacy constraints through LDP, ensuring fairness while preserving privacy.</p>
+
+<h2 id="4-methodology"><strong>4. Methodology</strong></h2>
+<p>The proposed F<sup>2</sup>PGNN  is designed to ensure fairness in federated recommendation systems by leveraging GNNs, which allow users to train models locally while preserving privacy. Below are the core components of this framework:</p>
+
+<font color="red" size="4px"><b>4.1 Inductive Graph Expansion Algorithm</b></font>
+<p>One of the key innovations in the F<sup>2</sup>PGNN framework is the <strong>Inductive Graph Expansion</strong> algorithm, which allows users to incorporate higher-order interactions into their local user-item interaction graphs. Higher-order interactions refer to indirect relationships between users and items that may not be immediately apparent but can be inferred from the broader graph structure. For instance, users who have interacted with similar items can be connected, thus uncovering latent relationships and improving the quality of recommendations.</p>
+
+<p>The steps in this algorithm are:</p>
+<ol>
+  <li>Users encrypt their item IDs using a public key.</li>
+  <li>These encrypted IDs are sent to a server, which matches them across different users to find co-interacted items (i.e., items that have been rated by multiple users).</li>
+  <li>The server provides anonymous embeddings for users who share interactions with the same items, allowing users to expand their graphs while maintaining privacy.</li>
+</ol>
+
+<p>These expanded subgraphs enable each client to capture higher-order interactions, significantly improving recommendation quality.</p>
+
+<font color="red" size="4px"><b>4.2 Local GNN Training</b></font>
+<p>Once users have expanded their local subgraphs, they train a <strong>Graph Attention Network (GAT)</strong> locally. GATs are particularly suited to recommendation systems as they allow the model to assign varying levels of importance to neighboring nodes (users or items), depending on the strength of their connections. The GAT model updates user and item embeddings by aggregating information from neighboring nodes, with the attention mechanism determining how much influence each neighbor has on the final embedding.</p>
+
+<p>Mathematically, the attention coefficient between a user node $v$ and its neighbor $k$ is calculated as:
+\(e_{vk} = \text{LeakyReLU}(\mathbf{a}^\top [\mathbf{W}\mathbf{h}_v \| \mathbf{W}\mathbf{h}_k])\)</p>
+
+<p>Here, $h_v$ and $h_k$ are the feature vectors of nodes $v$ and $k$, respectively, and $\mathbf{W}$ is the weight matrix. The operator $||$ denotes concatenation, and $\mathbf{a}$ is the attention weight vector that learns the relative importance of neighboring nodes. This attention score is then normalized across all neighbors $j \in \mathcal{N}_v$ of node $v$:
+\(\alpha_{vk} = \frac{\exp(e_{vk})}{\sum_{j \in N_v} \exp(e_{vj})}\)
+The final node embedding $\mathbf{h}_v’$ for node $v$ is updated by aggregating the normalized attention-weighted features from all its neighbors:
+\(\mathbf{h}'_v = \sigma \left( \sum_{k \in N_v} \alpha_{vk} \mathbf{W}\mathbf{h}_k \right)\)
+where $\sigma$ is a non-linear activation function (e.g., ReLU).
+<img src="./F2PGNN.png" alt="img1" />
+<em>Figure 1: The overall structure of the F<sup>2</sup>PGNN framework.</em></p>
+
+<font color="red" size="4px"><b>4.3 Fairness-Aware Loss Function</b></font>
+<p>A core innovation of F<sup>2</sup>PGNN is its <strong>fairness-aware loss function</strong>, designed to ensure equitable recommendations across different demographic groups. The function balances two objectives: utility (i.e., recommendation accuracy) and fairness (i.e., reducing bias between demographic groups).</p>
+
+<p>The overall loss function is defined as:
+\(L = L_{util} + \beta L_{fair}\)
+Here, $L_{util}$ is the utility loss, which can be the mean squared error (MSE) between the predicted and true ratings, and $L_{fair}$ is the fairness loss, which penalizes the model for disparities in performance across different demographic groups. The parameter $\beta$ ontrols the trade-off between utility and fairness, with higher values of $\beta$ placing more emphasis on fairness.</p>
+
+<p>The fairness loss is defined as the absolute difference in the average performance of the model between two demographic groups $S_0$ (e.g., males) and $S_1$ (e.g., females):
+\(L_{fair}(M, S_0. S_1) = |\frac{1}{S_0}\sum_{u \in S_0}\mathcal{M}(u)-\frac{1}{S_0}\sum_{u \in S_1}\mathcal{M}(u)|^\alpha\)
+where $\mathcal{M}(u)$  is the performance metric for user $u$ (e.g., the negative loss for user $u$) and $\alpha$ is an exponent that determines the severity of the fairness penalty (typically set to 1 or 2).</p>
+
+<font color="red" size="4px"><b>4.4 Fairness-Aware Gradient Adjustment</b></font>
+<p>To incorporate fairness into the training process, the gradients of the model are adjusted based on the fairness loss. This is crucial because it allows the model to reduce bias during training by controlling the learning speed for different groups.</p>
+
+<p>Specifically, if a user belongs to an overperforming demographic group, their learning rate is scaled down, whereas the learning rate is increased for underperforming groups, promoting fairness throughout training.</p>
+
+<p>The adjusted gradient for user $u$ is computed using the following formula:
+\(\nabla \Theta_u = (1 - \beta R|P - Q|^{\alpha-1}) \frac{\partial L^u_\text{util}}{\partial \Theta_u}\)
+where $\nabla \Theta_u$ represents the gradient update for user $u$, $\beta$ is the fairness budget determining how much weight is given to fairness during training. $R$ is a scalar determined by the difference in performance between groups and user group membership:
+\(R = \alpha \cdot (-1)^{1(P&lt;Q)} \cdot (-1)^{1(u \notin S_0)}\)
+$P$ and $Q$ represent the average performance metrics (e.g., accuracy or utility) for groups $S_0$ and $S_1$ respectively:
+\(P = \frac{1}{|S_0|} \sum_{u \in S_0} \mathcal{M(u)}, \quad Q = \frac{1}{|S_1|} \sum_{u \in S_1} \mathcal{M(u)}\)
+Here, $\mathcal{M(u)}$ represents the utility metric for user $u$, such as the recommendation accuracy.</p>
+
+<p>The adjusted gradient ensures that:</p>
+<ul>
+  <li>Overperforming users (i.e., those in group $S_0$ if $P&gt;Q$) experience slower learning, reducing potential biases toward their group.</li>
+  <li>Underperforming users (i.e., those in group $S_1$ if $P&lt;Q$) experience faster learning, helping to close the performance gap.
+Thus, fairness is promoted by adjusting the learning rates dynamically, ensuring that both groups are treated equitably during the training process.</li>
+</ul>
+
+<font color="red" size="4px"><b>4.5 Local Differential Privacy (LDP)</b></font>
+<p>To ensure privacy, F<sup>2</sup>PGNN employs LDP. This mechanism ensures that sensitive information (such as individual interactions or group membership) is obfuscated during model updates. LDP is applied both to the model gradients and to the group statistics (i.e., the information used to adjust the model based on fairness).
+<strong>Model Updates:</strong> After computing the adjusted gradients, each user applies gradient clipping to ensure that the updates are bounded, followed by adding noise to the gradients using the Laplace mechanism. This results in differentially private gradient updates, which protect the user’s data even from inference attacks.
+The clipped and noisy gradient is computed as follows:
+\(\nabla \Theta_u^\text{LDP} = \text{clip}(\nabla \Theta_u, \delta) + \text{Laplace}(0, \lambda)\)
+where $\text{clip}(\nabla \Theta_u, \delta)$ ensures that the gradient norm is bounded by $\delta$, and $\lambda$ controls the variance of the Laplace noise, with larger values of $\lambda$ providing stronger privacy but potentially reducing model accuracy.</p>
+
+<p><strong>Group Statistics Updates:</strong> To ensure fairness, the server needs to know the group-level statistics (i.e.,$P$ and $Q$) that measure the performance of different demographic groups. However, directly uploading these statistics could reveal sensitive group membership information. To address this, LDP is also applied to the group statistics updates.</p>
+
+<p>For each user $u$ the server receives the following noisy updates:
+\(P_u^\text{perf} = \mathbb{I}(u \in S_0)\mathcal{M(u)} + \epsilon_1, \quad Q_u^\text{perf} = \mathbb{I}(u \in S_1)\mathcal{M(u)} + \epsilon_2\)</p>
+
+<p>\(P_u^\text{count} = \mathbb{I}(u \in S_0) + \epsilon_3, \quad Q_u^\text{count} = \mathbb{I}(u \in S_1) + \epsilon_4\)
+where:</p>
+<ul>
+  <li>$\mathbb{I}(u \in S_0)$ is an indicator function that equals 1 if user $u$ belongs to group $S_0$ and 0 otherwise.</li>
+  <li>$\epsilon_1, \epsilon_2, \epsilon_3, \epsilon_4 \sim \mathcal{N}(0, \sigma^2)$ re noise terms drawn from a normal distribution with variance $\sigma^2$, ensuring privacy.</li>
+  <li>By adding noise to the group statistics, the server cannot accurately infer which users belong to each group, thus preserving privacy.</li>
+</ul>
+
+<font color="red" size="4px"><b>4.6 Training Process</b></font>
+<p>The overall training process involves the following steps during each communication round:</p>
+<ol>
+  <li>Users receive the global model parameters and group statistics.</li>
+  <li>Each user expands their local graph using the Inductive Graph Expansion algorithm and trains their GNN on the expanded subgraph.</li>
+  <li>Users compute adjusted gradients that incorporate fairness scaling.</li>
+  <li>LDP is applied to both gradients and group statistics to preserve privacy.</li>
+  <li>Updated parameters and statistics are sent back to the server.</li>
+  <li>The server aggregates these updates, computes new global model parameters, and rebroadcasts them to the users.</li>
+</ol>
+
+<p><strong>Example</strong>:
+In a movie recommendation system with two demographic groups (e.g., males and females), if the average recommendation accuracy for males is higher, the fairness-aware gradient adjustment will slow the learning rate for male users and increase it for female users to reduce group disparity.</p>
+
+<h2 id="5-experiment"><strong>5. Experiment</strong></h2>
+<font color="red" size="4px"><b>5.1 Experiment Setup</b></font>
+<p>The experimental evaluation of the F<sup>2</sup>PGNN framework  was conducted using three well-known real-world datasets commonly used in recommendation tasks:</p>
+<ul>
+  <li>MovieLens-100K (ML-100K): Contains 100,000 ratings from 943 users on 1,682 movies. This dataset is frequently used in recommendation research due to its manageable size and well-documented structure.</li>
+  <li>MovieLens-1M (ML-1M): A larger dataset with 1 million ratings from 6,040 users on 3,706 movies. It provides richer interactions, allowing for more thorough analysis of performance across different user types.</li>
+  <li>Amazon-Movies: A large-scale dataset with approximately 500,000 ratings from 5,515 users on 13,509 movies. Its diversity and sparse interactions make it a challenging benchmark for recommendation models.</li>
+</ul>
+
+<p>In the experiments, two types of sensitive attributes were considered:</p>
+<ol>
+  <li>Gender (G): Users were categorized as male or female based on available metadata. This was used to test how well F<sup>2</sup>PGNN mitigates gender bias in recommendations.</li>
+  <li>Activity Level (A): Users were classified as either “active” or “inactive” based on the number of ratings they provided. This tested the model’s ability to ensure fairness across users with varying levels of engagement.</li>
+</ol>
+
+<font color="red" size="4px"><b>5.2 Baseline</b></font>
+<p>The authors compare F<sup>2</sup>PGNN against the <strong>F2MF</strong> (Fair Federated Matrix Factorization) model, a federated recommendation system that also incorporates fairness constraints. However, F2MF does not utilize the graph structure of user-item interactions, which limits its ability to capture higher-order relationships. The comparison between these models aims to highlight the advantages of GNNs in federated learning environments, particularly in terms of balancing fairness and utility.</p>
+
+<font color="red" size="4px"><b>5.3 Evaluation Metrics</b></font>
+<p>Two key metrics were used to evaluate the performance of the model:</p>
+<ul>
+  <li><strong>Utility Metric:</strong> The accuracy of the recommendations was measured using <strong>Root Mean Square Error (RMSE)</strong>. A lower RMSE indicates better prediction accuracy.</li>
+  <li><strong>Fairness Metric:</strong> Fairness was measured using <strong>group unfairness</strong>, which calculates the absolute difference in average performance (RMSE) between demographic groups. Lower group unfairness scores indicate more equitable treatment of different user groups.</li>
+</ul>
+
+<font color="red" size="4px"><b>5.4 Results</b></font>
+<p>The experimental results demonstrated the effectiveness of F<sup>2</sup>PGNN in improving fairness while maintaining high utility across all datasets. The key findings can be summarized as follows:</p>
+<ol>
+  <li><strong>Fairness Improvement:</strong> F<sup>2</sup>PGNN <strong>significantly reduced group disparity</strong> compared to the F2MF baseline in all datasets. For example, when gender was used as the sensitive attribute in the MovieLens-1M dataset, F<sup>2</sup>PGNN reduced group disparity by up to 84% compared to F2MF. This improvement showcases the strength of incorporating fairness-aware loss functions and fairness-driven gradient adjustments in GNN-based federated recommendation systems.</li>
+  <li><strong>Utility Preservation:</strong> Despite focusing on fairness, F<sup>2</sup>PGNN <strong>maintained comparable or even better RMSE scores</strong> compared to the baseline. For instance, in the MovieLens-100K dataset, F<sup>2</sup>PGNN achieved a lower RMSE than F2MF, demonstrating that the accuracy of recommendations was not compromised by introducing fairness constraints. In some cases, the RMSE slightly increased, especially when fairness constraints were stronger, but the increase was justifiable by the significant improvements in fairness.</li>
+  <li><strong>Effect of Fairness Budget ($\beta$):</strong>  The fairness budget parameter ($\beta$) controlled the trade-off between fairness and utility. Increasing $\beta$ improved fairness by reducing group disparity, with only a minimal impact on RMSE in most cases. This trade-off makes F<sup>2</sup>PGNN adaptable to real-world applications where fairness is a critical requirement, such as personalized recommendation systems for e-commerce or healthcare.</li>
+</ol>
+
+<p>Below is a table summarizing the performance and fairness of F<sup>2</sup>PGNN compared to F2MF in different datasets. G denotes Gender while A denotes Activity. 
+<img src="./result.png" alt="img2" />
+<em>Figure 2: Performance vs Fairness comparison with different fairness budget $\beta$.</em></p>
+
+<p><strong>Disparity vs. Epochs:</strong> The experiments included a visualization of group disparity over time. The results showed that group disparity consistently decreased with F<sup>2</sup>PGNN, particularly when a higher fairness budget ($\beta$) was used. This graph reinforced that the model is effective at reducing demographic bias as training progresses.
+<img src="./disparity.png" alt="img3" />
+<em>Figure 3: <strong>Top Row:</strong> Disparity vs epoch for different fairness budget $\beta$ on validation data. <strong>Bottom row:</strong> % change in fairness (left y-axis) and % change in RMSE (right y-axis) w.r.t different $\beta$</em></p>
+
+<p><strong>Privacy-Utility Trade-off:</strong> Another experiment explored the trade-off between privacy and utility by varying the parameters of the LDP mechanism. Increasing the noise variance ($\lambda$) enhanced privacy by adding more noise to the model updates, but it slightly increased RMSE. However, with proper tuning of LDP parameters (e.g., the noise variance $\lambda$ and gradient clipping threshold $\delta$), the model achieved a good balance between privacy protection and utility.
+<img src="./privacy.png" alt="img4" />
+<em>Figure 4: Privacy budget $\epsilon$ (left y-axis) and the personalization RMSE (right y-axis) w.r.t different clipping threshold $\delta$ and noise variance $\lambda.$</em></p>
+
+<font color="red" size="3px"><b>5.4.1 Analysis of Results</b></font>
+<ol>
+  <li><strong>Fairness vs. Utility:</strong> The results demonstrate that F<sup>2</sup>PGNN achieves substantial improvements in fairness without a significant loss of utility. The framework provides flexibility in adjusting the fairness budget ($\beta$), allowing practitioners to prioritize fairness or accuracy based on the specific requirements of their application. This flexibility is crucial for practical implementations in industries where both fairness and recommendation accuracy are important.</li>
+  <li><strong>Privacy Protection:</strong> The use of LDP ensures that sensitive user data, such as gender or activity level, remains protected. Even with the added noise from LDP, F<sup>2</sup>PGNN was able to maintain high utility, proving that privacy, fairness, and utility can be effectively balanced in a federated learning setup.</li>
+</ol>
+
+<h2 id="6-conclusion"><strong>6. Conclusion</strong></h2>
+<font color="red" size="4px"><b>6.1 Summary</b></font>
+<p>The paper introduces F<sup>2</sup>PGNN, a novel framework that incorporates fairness into federated GNN-based RSs while preserving user privacy. By leveraging GNNs and incorporating a fairness-aware loss function, F<sup>2</sup>PGNN is able to reduce demographic biases without requiring access to sensitive user attributes such as gender or activity level. The framework uses LDP to protect both model updates and group statistics, ensuring that privacy regulations are adhered to while still delivering fair recommendations.</p>
+
+<font color="red" size="4px"><b>6.2 Key Contributions</b></font>
+<ol>
+  <li>
+    <p><strong>Fair Federated GNNs:</strong> F<sup>2</sup>PGNN is the first framework to address fairness in federated GNN-based recommendation systems, providing significant improvements in reducing group disparity and promoting equitable treatment across demographic groups.</p>
+  </li>
+  <li>
+    <p><strong>Privacy-Preserving Techniques:</strong> By using LDP for both model updates and group statistics, F<sup>2</sup>PGNN adheres to strict privacy regulations, making it applicable in scenarios where privacy is of paramount importance.</p>
+  </li>
+  <li>
+    <p><strong>Practical Effectiveness:</strong> The framework achieves fairness improvements without incurring major utility losses, demonstrating its scalability and adaptability for large datasets. Its flexibility to incorporate various sensitive attributes (e.g., gender, activity level) further underscores its practical value.</p>
+  </li>
+</ol>
+
+<font color="red" size="4px"><b>6.3 Take-Home Messages</b></font>
+<p>F<sup>2</sup>PGNN demonstrates that integrating fairness into federated GNN-based recommendation systems is both feasible and beneficial. By carefully designing the loss function and applying privacy-preserving techniques, the framework effectively mitigates demographic biases without sacrificing recommendation quality or violating user privacy. This work provides a foundation for future developments in fair federated learning with GNNs, particularly in sensitive domains such as healthcare and finance.</p>
+
+<hr />
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Qiuli Jin
+    <ul>
+      <li>Affiliation: KAIST, <a href="https://hfel.kaist.ac.kr/">Human Factors and Ergonomics Lab</a></li>
+      <li>Research Topics: Virtual Reality; Data science</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="7-references"><strong>7. References</strong></h2>
+<p>[1] Gupta, Manjul, Carlos M. Parra, and Denis Dennehy. “Questioning racial and gender bias in AI-based recommendations: Do espoused national cultural values matter?.” Information Systems Frontiers 24.5 (2022): <a href="https://doi.org/10.1007/s10796-021-10156-2">1465-1481</a>.
+[2] Himeur, Yassine, et al. “Latest trends of security and privacy in recommender systems: a comprehensive review and future perspectives.” Computers &amp; Security 118 (2022): <a href="https://doi.org/10.1016/j.cose.2022.102746">102746</a>.
+[3] Kairouz, Peter, et al. “Advances and open problems in federated learning.” Foundations and trends® in machine learning 14.1–2 (2021): <a href="https://www.nowpublishers.com/article/Details/MAL-083">1-210</a>.
+[4] Wu, Chuhan, et al. “A federated graph neural network framework for privacy-preserving personalization.” Nature Communications 13.1 (2022): <a href="https://doi.org/10.1038/s41467-022-30714-9">3091.</a>
+[5] Lyu, He, et al. “Advances in neural information processing systems.” Advances in neural information processing systems 32 (2019): <a href="https://par.nsf.gov/biblio/10195511">1049-5258</a>.
+[6] Li, Yunqi, et al. “User-oriented fairness in recommendation.” Proceedings of the web conference 2021. (2021): <a href="https://dl.acm.org/doi/abs/10.1145/3442381.3449866">624-632</a>.
+[7] Chai, Di, et al. “Secure federated matrix factorization.” IEEE Intelligent Systems 36.5 (2020): <a href="https://ieeexplore.ieee.org/abstract/document/9162459">11-20</a>.
+[8] Wu, Shiwen, et al. “Graph neural networks in recommender systems: a survey.” ACM Computing Surveys 55.5 (2022): <a href="https://dl.acm.org/doi/full/10.1145/3535101">1-37</a>.</p>
+
+<h2 id="8additional-materials"><strong>8.Additional materials</strong></h2>
+<h2 id="8-additional-materials"><strong>8. Additional Materials</strong></h2>
+<ul>
+  <li><strong><a href="https://arxiv.org/abs/2312.10080">Paper Link</a>:</strong> Access the full paper on arXiv.</li>
+  <li><strong><a href="https://github.com/nimeshagrawal/F2PGNN-AAAI24">GitHub Implementation</a>:</strong> Explore the implementation of F<sup>2</sup>PGNN on GitHub.</li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

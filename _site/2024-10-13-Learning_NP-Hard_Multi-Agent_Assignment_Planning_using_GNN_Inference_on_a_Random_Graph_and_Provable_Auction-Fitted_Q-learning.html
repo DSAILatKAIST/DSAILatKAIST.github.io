@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NeurIPS 2022] Learning NP-Hard Multi-Agent Assignment Planning using GNN: Inference on a Random Graph and Provable Auction-Fitted Q-learning | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NeurIPS 2022] Learning NP-Hard Multi-Agent Assignment Planning using GNN: Inference on a Random Graph and Provable Auction-Fitted Q-learning page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NeurIPS 2022] Learning NP-Hard Multi-Agent Assignment Planning using GNN: Inference on a Random Graph and Provable Auction-Fitted Q-learning">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NeurIPS 2022] Learning NP-Hard Multi-Agent Assignment Planning using GNN: Inference on a Random Graph and Provable Auction-Fitted Q-learning</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-문제-정의">1.1 문제 정의</h3>
+<p><strong>멀티 로봇 보상 수집 문제 (MRRC):</strong></p>
+<ul>
+  <li>시간에 따라 변화하는 보상을 고려한 멀티 에이전트, 멀티 태스크 NP-난해 계획 문제.</li>
+  <li>동일한 로봇들이 공간적으로 분포된 작업을 수행하려고 함.</li>
+  <li>미리 정해진 보상 규칙에 따라, 더 빨리 작업을 완료할 때 더 높은 보상을 부여.</li>
+  <li>MRRC 문제는 라이드 쉐어링, 픽업-딜리버리와 같은 문제를 잘 모델링함.</li>
+  <li>응용 분야: 고객을 운송하기 위한 운전 기사 배차, 또는 공장에서의 기계 스케줄링.</li>
+</ul>
+
+<h3 id="12-문제점">1.2 문제점</h3>
+<ul>
+  <li><strong>비싼 계산 비용</strong>, 특히 문제의 규모가 커질 때.</li>
+  <li>멀티 에이전트 모델링 프레임워크를 사용하는 분산 접근법의 어려움:
+    <ul>
+      <li>통신 없이 <strong>에이전트 간에 합의</strong>를 유도해 글로벌 목표를 달성하는 것이 불가능.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>따라서, 이 연구는 <strong>중앙 집중식 방법</strong>을 사용하여 MRRC 문제를 해결하는 데 집중함.</p>
+
+<h3 id="13-연구-질문">1.3 연구 질문</h3>
+<p>대규모 NP-난해 스케줄링 문제를 해결하기 위해 <strong>학습 기반 중앙 집중식 의사결정 방식</strong>을 설계할 때, 학습과 의사결정 측면에서 <strong>효율적이고 확장 가능한</strong> 방법을 어떻게 설계할 수 있을까?</p>
+
+<h3 id="14-연구-기여">1.4 연구 기여</h3>
+<ul>
+  <li>state-joint action 쌍을 <strong>random PGM(Probabilistic Graphical Model)</strong> 으로 표현할 수 있음을 관찰. 이를 바탕으로 <strong>random PGM 기반 Mean-field inference</strong> 이론을 개발하고, <strong>structure2vec</strong> (Dai et al., 2016)의 확장판인 <strong>random structure2vec</strong>을 제안.</li>
+  <li>Q-function을 랜덤 structure2vec 계층을 사용해 추정. structure2vec의 계층을 <strong>Weisfeiler-Lehman 커널</strong>로 해석하여, <strong>order-transferability</strong>(순서 전달성)라는 속성을 갖도록 설계. 이는 문제 규모에 따라 <strong>전이 가능한</strong> 성질을 제공함.</li>
+  <li><strong>OTAP (Order-Transferability-Enabled Auction Policy)</strong> 라는 할당 규칙을 제안하여, 할당 공간의 지수적 성장을 해결함.</li>
+  <li><strong>AFQI (Auction-Fitted Q-Iteration)</strong> 는 기존 Fitted Q-Iteration의 argmax 연산을 OTAP으로 대체해 Q-function를 <strong>효율적으로 학습</strong>하도록 제안됨.</li>
+  <li><strong>AFQI는 다항 시간 내에</strong> 계산 가능하며, 최적 정책의 최소 (1 - 1/e) 성능을 달성함이 입증됨.</li>
+</ul>
+
+<h2 id="2-multi-robot-reward-collection-problem-mrrc">2. Multi-Robot Reward Collection Problem (MRRC)</h2>
+
+<p>본문에서는 MRRC problem을 disctrete-time, discrete-state (DTDS) sequential decision-making problem으로 정의함.</p>
+<ul>
+  <li>시간 증분이 $\triangle$ 즉, $t_k = t_0 + \triangle \times k$ ($t_k$: $k$번째 결정의 실제 시간).</li>
+  <li>이 프레임워크에서 $s_k$는 상태를 나타내고, $a_k$는 $k$번째 에포크(epoch)에서 로봇/기계를 미완료 작업에 할당하는 조인트 할당을 의미함.</li>
+  <li>이 문제의 목표는 최적의 스케줄링 정책 $\pi_\theta : s_k \rightarrow a_k$를 학습하는 것이며, 이는 수집된 보상을 극대화하거나 총 작업 완료 시간을 최소화하는 것을 목적.</li>
+</ul>
+
+<h3 id="21-state">2.1 State</h3>
+<p>State $s_k = (g_k, D_k)$로 나타내며 그래프 $g_k= ((R,T_k),(E_k^{TT},E_k^{RT}))$와 관련 특성 $D_k = (D_k^R,D_k^T,D_k^{TT},D_k^{RT})$로 정의됨.</p>
+
+<p>$g_k$ 정의:</p>
+<ul>
+  <li>$R=${ $1,…,M$ }: 모든 로봇 set, $i$와 $j$ 인댁스로 나타냄.</li>
+  <li>$T_k=${ $1,…,N$ }: $k$번째 에포크때 남아있는 unserved task set, $p$와 $q$ 인댁스로 나타냄.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$E_k^{TT} = ${ $\epsilon_{pq}^{TT}</td>
+          <td>p \in T_k, q \in T_k$ }:</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>모든 작업에서 다른 작업으로 향하는 모든 방향성 있는 간선들의 집합.</li>
+      <li>각 간선은 확률 변수로 간주.</li>
+      <li>작업-작업 간선 $\epsilon_{pq}^{TT} = 1$은 작업 $p$를 완료한 로봇이 이후에 작업 $q$ 를 수행하는 이벤트를 의미함.</li>
+      <li>간선 $\epsilon_{pq}^{TT}$의 존재 확률을 $p(\epsilon_{pq}^{TT} = 1) \in [0, 1] $로 나타냄.</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$E_k^{RT} = ${ $\epsilon_{iq}^{RT}</td>
+          <td>i \in R, q \in T_k$ }:</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>로봇 $R$에서 작업 $T_k$로 향하는 모든 방향성 있는 간선들의 집합</li>
+      <li>로봇-작업 간선 $\epsilon_{ip}^{RT} = 1$은 로봇 $i$가 작업 $p$에 할당된 이벤트를 의미</li>
+      <li>이 간선은 공동 할당 액션에 따라 deterministic.</li>
+      <li>만약 로봇 $i$가 작업 $p$에 할당되면 $p(\epsilon_{ip}^{RT}) = 1$이고, 그렇지 않으면 0입니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>$D_k$ 정의:</p>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$D_k^R=${ $d_i^R</td>
+          <td>i\in R$ }:</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>에포크 $k$때 로봇 노드 $R$의 노드 특징들의 집합.</li>
+      <li>MRRC에서는 $d^R_i$를 에포크 $k$에서 로봇 $i$의 위치로 정의 (에포크 인덱스 $k$는 생략될 수 있음).</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$D_k^T=${ $d_p^T</td>
+          <td>p\in T_k$ }</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>에포크 $k$때 작업 노드 $T_k$의 노드 특징들의 집합</li>
+      <li>MRRC에서는 $d_p^T$를 에포크 $k$에서 작업 $p$의 나이로 정의 (에포크 인덱스 $k$는 생략될 수 있음).</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$D_k^{TT}=${ $d_{pq}^{TT}</td>
+          <td>p\in T_k, q\in T_k$}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>에포크 $k$때 작업 간의 간선 feature들의 집합</li>
+      <li>$d_{pq}^{TT}$는 작업 $p$를 완료한 로봇이 작업 $q$를 완료하는 데 걸리는 시간을 나타냄. 이 시간을 <strong>작업 완료 시간</strong>이라함.</li>
+      <li>MRRC에서는 작업 완료 시간이 확률 변수로 주어지며, 실제로는 이 확률 변수의 샘플 집합만 필요함.</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$D_k^{RT}=${ $d_{ip}^{RT}</td>
+          <td>i\in R, p\in T_k$}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>에포크 $k$때 로봇-작업 간의 간선 특징들의 집합.</li>
+      <li>$d_{ip}^{RT}$는 로봇 $i$가 작업 $p$에 도달하는 데 걸리는 시간을 나타냄.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="22-action">2.2 Action</h3>
+<ul>
+  <li>에포크 $k$때 액션 $a_k$는 완전 이분 그래프 $(R, T_k, E_k^{RT})$ 의 최대 이분 매칭(maximal bipartite matching)으로 정의됨.</li>
+  <li>즉, 현재 상태 $s_k = (g_k, D_k)$가 주어졌을 때, $a_k$는 다음 조건을 만족하는 $E_k^{RT}$ 의 부분 집합입니다:
+    <ol>
+      <li>두 로봇이 동일한 작업에 할당될 수 없음.</li>
+      <li>남아 있는 작업 수보다 로봇 수가 더 많은 경우에만 일부 로봇이 할당되지 않을 수 있음.</li>
+    </ol>
+  </li>
+  <li>만약 $\epsilon^{RT}_{ip} \in a_k$ 이면, 이는 에포크 $k$ 에서 로봇 $i$가 작업 $p$에 할당된다는 것을 의미함.</li>
+  <li>모든 로봇에 할당된 것은 매 애포크 마다 바뀔 수 있음.</li>
+</ul>
+
+<h3 id="23-state-transition">2.3 State transition</h3>
+<ul>
+  <li>Graph update: 작업 $p$가 완료되는 시점이 되면, 해당 작업 노드는 업데이트된 작업 노드에서 제거됨. 즉, $T_{k+1} = T_k \setminus${ $p$ }. 또한, 작업-작업 간선 $E_{k+1}^{TT}$과 로봇-작업 간선 $E_{k+1}^{RT}$도 이에 맞게 업데이트됨.</li>
+  <li>Feature update: $D_k+1= (D_{k+1}^R,D_{k+1}^T,D_{k+1}^{TT},D_{k+1}^{RT})$은 determined.</li>
+</ul>
+
+<h3 id="24-reward-and-objective">2.4 Reward and objective</h3>
+<ul>
+  <li>시간 0에서, 각 작업에는 초기 나이가 주어지며, 이 나이는 시간에 따라 선형적으로 증가함.</li>
+  <li>에포크 $k$에서 나이가 $d_p^T$ 인 작업 $p \in T_k$ 가 수행될 때 주어지는 보상 $r_k$는 $r_k = r - d_p^T$로 정의</li>
+  <li>MRRC에서는 선형 및 비선형 보상 함수 $r$를 고려함.</li>
+  <li>목표는 정책 $\pi$를 학습하는 것: 정책 $\pi$ 는 현재 상태 $s$를 현재 액션 $a$로 매핑하는 함수로, 주어진 정책에 따라 총 기대 보상을 최대화하는 것을 목표로 함.</li>
+</ul>
+
+\[Q^\pi (s, a):=E_{P,\pi} \left\[ \sum_{k=0}^{\infty} R(s_{t_k}, a_{t_k}, s_{t_{k+1}}) \mid s_{t_0} = s, a_{t_0} = a \right\]\]
+
+<h2 id="3-random-graph-embedding-randstructure2vec">3. Random graph embedding: RandStructure2Vec</h2>
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/fig_1.png" alt="ex_screenshot" /></p>
+<h3 id="31-random-pgm-for-representing-a-state-of-mrrc">3.1 Random PGM for representing a state of MRRC</h3>
+<ul>
+  <li>
+    <p>Random probabilistic graphical model (PGM) $\chi=${ $X_p$ } (random variable)</p>
+
+    <p>\(p(\chi) = \frac{1}{Z}\prod_i \phi_i(D_i)\)</p>
+    <ul>
+      <li>$Z$: normalizing constant</li>
+      <li>$\phi_i(D_i)$: clique potnetial for $D_i$</li>
+      <li>$D_i$: clique (scope of $\phi_i$)</li>
+    </ul>
+  </li>
+  <li>Scenarios:
+    <ul>
+      <li>주어진 상태 $s_k$와 행동 $a_k$ 에서 시작하여, “정책 $\pi$를 사용한 순차적 의사결정”이라는 랜덤 실험을 수행할 수 있음.</li>
+      <li>random experiment에서 ‘로봇들은 남아 있는 모든 작업을 어떤 순서로 수행하는가?’를 나타냄.</li>
+      <li>1개의 scenario는 1개의 Bayesian Network로 나타냄.</li>
+      <li>scenario realization은 random하기 때문에, random node $X_k=(s_k,a_k)$와 clique potential $\phi$로 이루어진 <strong>random</strong> Bayesian Network로 나타낼 수 있음.
+        <h3 id="32-mean-field-inference-with-random-pgm">3.2 Mean-field inference with random PGM</h3>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>random variable인 $\chi =${ $X_p$}를 추론하는 문제에서 $G_\chi$를 가능한 모든 PGM set, $P: G_\chi \to [0,1]$ probability measure라 하면 $</td>
+          <td>G_\chi</td>
+          <td>$가 너무 커서 Monte-Carlo sampling 방법으로는 { $G_\chi,P$ } 추론이 어려움.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>semi-cliques $D_m$를 사용해서 approximation할 것:
+    <ul>
+      <li>$C_\chi$를 가능한 모든 clique들의 집합이라 할때 $P$에 따르면 실제 realization되는 clique는 일부뿐인데 그 잠재적 clique들 semi-clique라 함.</li>
+      <li>semi-clique $D_m$에 대한 확률 $p_m = \sum_{G\in G_\chi} P(G)1_{D_m\in G} $
+        <h4 id="mean-field-inference-with-random-pgm">Mean-field inference with random PGM</h4>
+      </li>
+    </ul>
+  </li>
+  <li>Random PGM on $\chi =$ ({ $H_i$ },{ $X_j$ }) ($H_K$: 관측변수 $X_k$에 대응되는 잠재변수)</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>목표: p({ $H_i$ }</td>
+          <td>{ $x_j$ })를 찾아 { $X_j$ }가 주어졌을때 { $H_i$ }를 추론</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>Mean-field inference에서는 { $H_i$ }들이 independent한 surrogate distribution  $q^{ \lbrace x_j \rbrace }(H_i)$의 set을 찾는 것이 목표 ($q^{ \lbrace x_j \rbrace }$는 $q$가 { $x_j$ } 로 이루어짐을 뜻함.)</p>
+
+    <p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/thm_1.png" alt="ex_screenshot" /></p>
+  </li>
+  <li>Theorem 1은  각 semi-clique의 확률 $p_m$을 추론 하는 것만으로 mean-field inference를 하는데 충분하며, { $G_\chi,P$ } 추론이 필요 없음을 의미함.
+    <h4 id="radstructure2vec">RadStructure2Vec</h4>
+  </li>
+  <li><strong>structure2vec</strong>: Dai et al.(2016)에서 mean-field inference와 PGM를 통해 vector space embedding을 도출함.
+    <ul>
+      <li>PGM이 realization될 경우 PGM의 joint distribution은 다음과 같이 factorization 된다고 가정</li>
+    </ul>
+  </li>
+</ul>
+
+<p>\(\prod_p \phi(H_p|I_p)\prod_{p,q} \phi(H_p|H_q)\)</p>
+<ul>
+  <li>위 가정 하에서 { $q^{ \lbrace x_j \rbrace }(H_i)$ } 를  { $q^{ x_j  }(H_i)$ } 로 쓸 수 있음.</li>
+  <li>
+    <p>Fixed point iteration</p>
+
+\[\tilde{\mu_p} \gets \sigma ( W_1 x_p +W_2 \sum_{q \neq p} \tilde{\mu_q} )\]
+  </li>
+  <li>$\tilde{\mu_p}$는 노드 $p$의 잠재 벡터이고, $x_p는 노드 $p$의 input</li>
+  <li>$\tilde{\mu_p}$를 injective embedding으로 해석할 시 structure2vec의 fixed point iteration == Mean-field inference의 fiexed point inference임을 보임</li>
+</ul>
+
+<p>\(\tilde{\mu_i} = \int _H \phi(h_i) q^{x_i}(h_i) dh_i\)</p>
+<ul>
+  <li>Random structure2vec
+    <ul>
+      <li>
+        <p>Theorem 1에 따라 random structure2vec은 mean-field inference와 random PGM를 통해 vector space embedding을 도출함.</p>
+
+        <p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/lem_1.png" alt="ex_screenshot" /></p>
+      </li>
+      <li>Lemma 1은 GNN을 사용해 무작위 그래프를 임베딩할 때, 간선 존재 여부 간의 상호 의존성을 무시해도 된다는 이론적 근거를 제공함.</li>
+      <li>그래프의 간선이 명시적으로 주어지지 않거나 무작위로 알려진 경우, 사용할 수 있는 가장 간단한 휴리스틱은 모든 간선의 존재 확률을 개별적으로 추론하고, GNN의 message propagation 과정에서 가중치를 조정하는 것.</li>
+      <li>Lemma 1에 따르면, 간선 간의 상호 의존성은 이러한 휴리스틱 추론의 품질에 영향을 미치지 않음.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="4-solving-mrrc-with-randstructure2vec">4. Solving MRRC with RandStructure2Vec</h2>
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/fig_2.png" alt="ex_screenshot" /></p>
+<ul>
+  <li>random structure2vec을 이용해 MRRC 문제를 푸는 방법에 대해 설명</li>
+  <li>state $s_k=(g_k,D_k)$ 가 주어졌을때 $a_k$를 어떻게 할지 설명:
+    <ol>
+      <li>random Bayesian Network를 통해 state 표현</li>
+      <li>random graph embedding을 통해 Q-value 추정</li>
+      <li>joint assignment 선택
+        <h3 id="41-representing-a-state-using-a-random-pgm">4.1 Representing a state using a random PGM</h3>
+      </li>
+    </ol>
+  </li>
+  <li>하나의 $s_k$와 $a_k$를 bayesian network로 표현</li>
+  <li>$H_p$: 작업 $p$에 대한 hidden random variable - 작업 $p$의 이익에 대한 정보를 담음.</li>
+  <li>시나리오가 주어졌을때, $H_p$는 작업 $p$의 feature $X_p$에 dependent하고 만약 같은 로봇이 작업 $p$이후 $q$를 한다면 $H_q$에도 dependent함.</li>
+  <li>
+    <p>Bayesian Network는 다음과 같이 정의되며 이는 하나의 시나리오에 대응됨.</p>
+
+\[p(\lbrace H_p \rbrace | \lbrace X_p \rbrace) = \prod_p \phi(H_p|X_p) \prod_{p,q} \phi(H_p|H_q)\]
+  </li>
+  <li>Lemma 1에 따르면 random PGM이 이러한 특성을 모델링하기 때문에 edge(semi-clique)에 대한 확률 { $p(\epsilon_{pq}^{TT}$) }을 사용한 random structure2vec을 적용</li>
+  <li>작업 $p$에대한 embedding $\tilde{ \mu_p } $는 다음과 같음.</li>
+</ul>
+
+<p>\(\tilde{\mu_p} \gets \sigma \left( W_1 x_p +W_2 \sum_{p \neq q} p_{qp} \tilde{\mu_q} \right)\)</p>
+<h3 id="42-estimating-state-action-value-using-order-trainability-enabled-q-function">4.2 Estimating state-action value using Order trainability-enabled Q-function</h3>
+<ul>
+  <li>MRRC 문제에서 주어지는 $X_p$는 $d_{ip}^{RT}$ (로봇 $i$과 작업 $p$와의 거리)와 $d_p^T$ (작업 $p$의 나이)로 두 종류 이다.</li>
+  <li>이를 하나의 embedding으로 나타내기 위해 action embedding과 value embedding로 구분되는 two-step의 sequntial random structure2vec network 구조를 제안함.</li>
+  <li>두 step 모두 random structure2vec을 사용하며 그때 들어가는 feature 종류만 다름
+    <ul>
+      <li>Action embedding: 로봇과 할당된 작업 간의 상대적인 위치 정보를 충분히 제공</li>
+    </ul>
+  </li>
+</ul>
+
+\[\tilde{\mu_p}^A = \sigma \left( W_1^A x_p^A +W_2^A \sum_{p \neq q} p_{qp} \tilde{\mu_q}^A \right)  \text{, where } x_p^A =d_{ip}^{RT}\]
+
+<ul>
+  <li>Value embedding: 주어진 공동 할당에 따라 각 작업 주변의 로컬 그래프에서 발생할 수 있는 가치를 충분히 표현</li>
+</ul>
+
+\[\tilde{\mu_p}^V = \sigma \left( W_1^V x_p^V +W_2^A \sum_{p \neq q} p_{qp} \tilde{\mu_q}^V \right)  \text{, where } x_p^V =(\tilde{\mu_p}^A,d_p^T)\]
+
+<ul>
+  <li>최종적으로는 모든 node의 embedding vector를 더해 aggregation한 graph의 embedding을 $(s_k,a_k)$의 represnetation으로 사용하며 $Q_\theta(s_k,a_k)$ 에 input</li>
+</ul>
+
+\[\tilde{\mu}^V  = \sum_p \tilde{\mu_p}^V\]
+
+<ul>
+  <li><strong>Order-Transferability</strong>: 문제 크기(그래프 크기) 와 무관하게 Q-value를 estimate할 수 있음
+    <ul>
+      <li>action embedding: 각 노드 주변에서 지역적으로 규모와 무관한 작업이기 때문에 전이 가능성이 자명.</li>
+      <li>value embedding: 로봇과 작업의 비율이 중요. 만약 훈련 환경의 로봇-작업 비율이 테스트 환경보다 작으면 전체 임베딩 값이 과소 추정될 수 있고, 그 반대의 경우 과대 추정될 수 있다.</li>
+      <li>하지만, Q-function 기반의 policy에서 Q-function의 값 순서만 동일하면 과대/과소 추정은 문제되지 않음</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="43-selecting-a-joint-assignment-using-otap">4.3 Selecting a joint assignment using OTAP</h3>
+<ul>
+  <li>상태 ​$s_k$가 주어졌을 때 공동 할당(action) $𝑎_k$ = a maximal bipartite matching in the bipartite graph $(R,T_k,E_k^{RT})$</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Order Trasferability-enabled Aution Policy(OTAP): Bidding phase와 Consensus phase 마다 하나의 로봇-작업 할당을 추가해가며 $N=\max(</td>
+          <td>R</td>
+          <td>,</td>
+          <td>k</td>
+          <td>)$번 반복하며 모든 작업할당이 끝날떄까지 반복함.</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>Bidding-phase:
+        <ul>
+          <li>아직 할당되지않은 로봇별로 이전 iteration들에서 이미 할당된 로봇-작업은 고정하고 자기자신과 다른 작업 pair를 추가했을때의 Q-value를 계산하고 그 중 가장 큰 작업과 Q-value bidding</li>
+        </ul>
+      </li>
+      <li>Consensus-phase:
+        <ul>
+          <li>아직 할당되지않은 로봇들의 bidding값 중 가장 큰 bidding값을 제시한 로봇에게 해당 작업을 할당</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="44-training-q-function-using-afqi">4.4 Training Q-function using AFQI</h3>
+<ul>
+  <li>일반적인 fitted Q-learning (FQI):</li>
+</ul>
+
+\[minimize_\theta \quad E_{(s_k,a_k,r_k,s_{k+1}) \sim D} \[Q_\theta(s_k,a_k) - \[r(s_k,a_k) + \gamma \max_a Q_\theta (s_{k+1},a) \]\]\]
+
+<ul>
+  <li>Auction fitted Q-learning (AFQI):</li>
+</ul>
+
+\[minimize_\theta \quad E_{(s_k,a_k,r_k,s_{k+1}) \sim D} \[Q_\theta(s_k,a_k) - \[r(s_k,a_k) + \gamma Q_\theta (s_{k+1},\pi_{Q_\theta} (s_{k+1})) \]\]\]
+
+<h2 id="5-theoretical-analysis">5. Theoretical analysis</h2>
+<h3 id="51-performance-bound-of-otap">5.1 Performance bound of OTAP</h3>
+
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/thm_2.png" alt="ex_screenshot" /></p>
+
+<ul>
+  <li>Theorem 2를 통해 OTAP 알고리즘이 $1-1/e$ optimality를 가짐</li>
+</ul>
+
+<h3 id="52-performance-bound-of-afqi">5.2 Performance bound of AFQI</h3>
+
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/lem_3.png" alt="ex_screenshot" /></p>
+
+<ul>
+  <li>Lemma 3에 따르면 FQI의 max operator를 정책 $1-1/r$의 근사 정책으로 대체하면 FQI역시도 $1-1/r$ optimality를 가짐.</li>
+  <li>AFQI의 경우 $1-1/e$의 근사 정책 OTAP로 max operator를 대체하였기 때문에 AFQI 알고리즘역시 $1-1/e$ optimality를 가짐</li>
+</ul>
+
+<h2 id="6-experiment">6. Experiment</h2>
+<h3 id="61-experiment-setting">6.1 Experiment setting</h3>
+<ul>
+  <li>작업 완료 시간은 deterministic 환경에서는 다익스트라 알고리즘, stochastic 환경에서는 동적 프로그래밍을 사용하여 생성됨</li>
+  <li>확률적 환경에서는 로봇이 특정 확률로 의도한 대로 움직임.
+    <ul>
+      <li>점이 있는 셀: 성공 확률 55%, 나머지 방향 각각 15%.</li>
+      <li>점이 없는 셀: 성공 확률 70%, 나머지 방향 각각 10%.</li>
+    </ul>
+  </li>
+  <li>로봇이 작업 지점에 도달하면 해당 작업은 완료된 것으로 간주. 보상 규칙으로는 두 가지를 사용:
+    <ul>
+      <li>Linear : $f(age) = \max\lbrace 200 - age,0 \rbrace$</li>
+      <li>Nonlinear : $f(age) = \lambda^{age} $ ($\lambda = 0.99$)</li>
+    </ul>
+  </li>
+  <li>Baselines:
+    <ul>
+      <li>deterministic: MILP 공식화 후 2가지 알고리즘
+        <ul>
+          <li>Optimal: Gurobi Optimization(2019)의 MILP 최적화 도구를 사용하여, 60분 제한 시간 내에 문제를 해결</li>
+          <li>Ekici et al. (2013): Operations Research 분야에서 최신 휴리스틱 알고리즘을 사용</li>
+        </ul>
+      </li>
+      <li>stochastic or Nonlinear: 이전 연구가 없기 때문에 간접적인 benchmark사용
+        <ul>
+          <li>Sequential Greedy Algorithm (SGA) :일반적인 다중 로봇 작업 할당 알고리즘(SGA; Han-Lim Choi et al., 2009)을 사용하였다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Performance measure:</li>
+</ul>
+
+\[\rho = \frac{\text{Rewards collected by the proposed method}}{\text{Reward collected by the baseline}}\]
+
+<h3 id="62-performance-test">6.2 Performance test</h3>
+
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/tab_1.png" alt="ex_screenshot" /></p>
+
+<p>-제안된 방법은 결정론적/선형 보상 환경에서 최적 해보다 평균 3% 낮은 보상을 달성하며, 거의 최적의 성능을 보임.</p>
+<ul>
+  <li>다른 환경에서도 SGA 비율이 잘 유지됨.</li>
+</ul>
+
+<h3 id="63-transferability-test">6.3 Transferability test</h3>
+
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/tab_2.png" alt="ex_screenshot" /></p>
+
+<ul>
+  <li>행은 훈련 조건을 나타내고, 열은 테스트 조건을 나타냄.</li>
+  <li>대각선 셀(빨간색)은 동일한 훈련 및 테스트 크기에서의 직접 테스트 결과를 나타내며, baseline 성능으로 사용.</li>
+  <li>비대각선 셀은 전이 가능성 테스트 결과를 보여주며, 다른 문제 크기에서 훈련된 알고리즘이 테스트 문제에서 얼마나 잘 수행되는지를 나타냄.
+    <ul>
+      <li>하향 전이 테스트(큰 문제로 훈련하고 작은 문제에서 테스트)는 성능 손실이 거의 없음.</li>
+      <li>상향 전이 테스트(작은 문제로 훈련하고 큰 문제에서 테스트)는 최대 4%의 성능 손실이 발생함.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="64-scalability-analysis">6.4 Scalability analysis</h3>
+
+<p><img src="../../images/DS535_24F/Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning/tab_3.png" alt="ex_screenshot" /></p>
+
+<ul>
+  <li>훈련 복잡성
+    <ul>
+      <li>deterministic에서 linear 보상을 고려할 때 93% 최적 성능에 도달하는 데 필요한 훈련 시간을 측정함.</li>
+      <li>표 4에 따르면, 문제 크기가 커지더라도 훈련 시간이 반드시 증가하지는 않으며, 성능이 안정적으로 유지됨</li>
+    </ul>
+  </li>
+  <li>MRRC 문제 복잡성:
+    <ul>
+      <li>MRRC 문제는 semi-MDP 기반의 다중 로봇 계획 문제로 공식화할 수 있음</li>
+      <li>$R$대 로봇, $T$개 작업, 최대시간 $H$일때, 문제 복잡도는 $O((R!/T!(R-T)!)^H)$.</li>
+      <li>제안된 방법은 이걸 계산복잡도와 훈련 복잡도로 분리하여 해결.</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>각 시간 단계에서 action을 위한 계산복잡도는 $O(</td>
+              <td>R</td>
+              <td> </td>
+              <td>T</td>
+              <td>^3)$.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="7-conclusion">7. Conclusion</h2>
+<p>본 논문에서는 NP-난해한 다중 로봇/기계 스케줄링 문제를 해결하기 위해 근사 최적의 학습 기반 방법을 개발하는 도전에 대해 다루었다. 우리는 스케줄링 문제를 위한 mean-field inference 이론을 개발하고, 이에 기반한 Q-함수를 정확하게 추론할 수 있는 이론적으로 정당화된 GNN 방법을 제안하였다. 또한, 다중 로봇/기계 스케줄링 문제에서 Fitted Q-Iteration 방법의 확장성 문제를 해결하기 위해 다항 시간 내에 계산 가능한 알고리즘과 성능 보장을 제공하였다. 시뮬레이션 결과를 통해 제안된 방법의 효율성을 입증하였다.</p>
+<h2 id="references">References</h2>
+<ul>
+  <li>Dai, H., Dai, B., and Song, L. Discriminative Embeddings of Latent Variable Models for Structured Data. 48:1–23, 2016. doi: 1603.05629.</li>
+  <li>Gurobi Optimization, L. Gurobi optimizer reference manual, 2019. URL http://www.gurobi.com.</li>
+  <li>Ekici, A. and Retharekar, A. Multiple agents maximum collection problem with time dependent rewards. Computers and Industrial Engineering, 64(4):1009–1018, 2013. ISSN 03608352. doi: 10.1016/j.cie.2013.01.010. URL http://dx.doi.org/10.1016/j.cie.2013.01.010.</li>
+  <li>Han-Lim Choi, Brunet, L., and How, J. Consensus-Based Decentralized Auctions for Robust Task Allocation. IEEE Transactions on Robotics, 25(4):912–926, aug 2009. ISSN 1552-3098. doi: 10.1109/TRO.2009.2022423.</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
