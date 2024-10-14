@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NIPS-23] Evaluating Post-hoc Explanations for Graph Neural Networks via Robustness Analysis | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NIPS-23] Evaluating Post-hoc Explanations for Graph Neural Networks via Robustness Analysis page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NIPS-23] Evaluating Post-hoc Explanations for Graph Neural Networks via Robustness Analysis">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NIPS-23] Evaluating Post-hoc Explanations for Graph Neural Networks via Robustness Analysis</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <p><strong>Authors</strong>: Junfeng Fang, Wei Liu, Yuan Gao, Zemin Liu, An Zhang, Xiang Wang, Xiangnan He<br />
+<strong>Published in</strong>: 37th Con3ference on Neural Information Processing Systems (NeurIPS 2023)<br />
+<strong>Reviewer</strong>: Taewook Ham</p>
+
+<h2 id="0-preliminaries">0. Preliminaries</h2>
+<p><em>Post-hoc based GNN explanation</em>: Graph Neural Network가 graph 혹은 node의 레이블을 예측할 때, 그래프 내의 어떤 요소들(노드 혹은 에지)의 집합이 그 예측값이 나오도록 주요하게 기여했는지를 설명하는 방식이다. GNN이 먼저 예측한 후 이에 기반해 해당 예측을 뒷받침하는 subgraph를 찾기 때문에 post-hoc 방식이라고 부르며, GNN의 예측값의 신뢰성을 위해서 해당 작업은 중요한 일 중의 하나로 여겨진다.</p>
+
+<h2 id="1-problem-definition">1. Problem Definition</h2>
+<p>Post-hoc 방식으로 subgraph를 찾은 뒤, 찾은 subgraph가 얼마나 유효한지 확인하기 위해 GNN의 input으로 넣은 뒤 원래의 레이블을 얼마나 잘 예측하는지로 평가한다. 그러나 graph의 일부분에 해당하는 subgraph는 GNN 학습에 사용된 data distribution과 떨어져 있기 때문에 이 subgraph만으로는 충분한 설명력을 얻었다고 보기 어렵다. GNN이 message aggregation을 통해 이용해서 node &amp; structural information을 모아 임베딩을 update하는 원리를 가졌기 때문이다. 이런 현상을 Out-of-Distribution (OOD) 이 발생했다고 하며, 기존의 GNN explanation model들은 OOD 문제를 겪는다. 다시 말해, explanatory subgraph는 일반적으로 전체 그래프와 다른 분포를 가지며, 분포의 차이에서 발생하는 문제를 해결할 새로운 metric이 필요하다.<br />
+최근에는 이런 OOD 문제를 해결하기 위해 subgraph 외의 부분(complementary part)을 generation model을 이용해서 그럴듯하게 채워주는 generation-based evaluation이 고안되었다. 그러나 학습된 생성 모델은 필연적으로 bias를 포함하게 되며, 이 bias는 필연적으로 GNN이 consistent한 레이블 예측을 하는 데에 영향을 준다.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+<p>정리하자면, 기존의 removal-based evaluation은 OOD 문제를 해결할 수 없고, generation-based evaluation은 bias가 포함될 위험성이 존재한다. 따라서 논문은 “data distribution과 GNN behavior를 동시에 고려하는 metric을 설계할 수 있을까?”라는 질문을 던지고 이 문제를 해결할 수 있는 OAR (OOD-resistant Adversarial Robustness)이라는 새로운 evaluation framework를 제안한다.</p>
+
+<h2 id="3-method">3. Method</h2>
+
+<p>지금부터 $\mathcal{G}$의 일부인 explanatory subgraph를 $g_ s$로, 그 여집합(complementary part)을 $g_ {\bar{s}} = g\backslash g_ {s} $로 표기하며, explanation method (explainer)는 $h$를 사용해 $g_ {s} = h(g, f)$로 표기한다.</p>
+
+<ul>
+  <li>
+    <p><strong>Step 1: Formulation of Adversarial Robustness</strong></p>
+
+    <p>이제 adversarial robustness라는 개념을 도입하고 이에 기반하여 새로운 metric에 대한 설명을 하겠다. adversarial robustness of $x$란 모델의 예측을 (잘못된 방향으로) 바꿀 수 있는 최소한의 perturbation으로 정의할 수 있다. 예시를 들기 위해 오리지널 그래프 $\mathcal{G} = (A, X) $와 perturb된 그래프 $\mathcal{G’} = (A’, X’) $로 가정하자. 이때의 $\mathcal{G}$의 GNN explanation $\mathcal{G_ s}$에 가해지는 minimum perturbation $\delta_ {g_ {s}}$를 아래와 같이 정의할 수 있다.</p>
+
+    <p><strong>Definition 1.</strong></p>
+
+    <p>$ \delta_ {\mathcal{G}_ s} = \min_ {A’} \sum_ {u \in \mathcal{V}} \sum_ {v \in \mathcal{V} \setminus {u}} \left\vert A_ {uv} - A’_ {uv} \right\vert
+  $</p>
+
+    <p>$
+  \text{s.t} \quad \arg\max_ i f(\mathcal{G}’)_ i \neq \arg\max_ i \mathbf{y}_ i, \quad \sum_ {u \in \mathcal{V}_ s} \sum_ {v \in \mathcal{V}_ s \setminus {u}} \left\vert A_ {uv} - A’_ {uv} \right\vert = 0,
+  $</p>
+
+    <p>$\text{where}$
+  $V$ and $V_ s$ are the node sets of $\mathcal{G}$ and $\mathcal{G_ s}$, respectively.</p>
+
+    <p>식을 정리해보자면, 원래의 adj matrix $A$와 perturb된 adj matrix $A’$을 element-wise하게 뺄셈을 했을 때, 그 차이를 가장 적게 하는 perturbation을 구하는 것이다. 이때 perturb를 하더라도 원래 그래프의 subgraph는 보존되어야 하며, 원래의 레이블과 perturbation 그래프를 통한 예측값은 달라야 한다. 그리고 우리는 이 minimum perturbation 값이 클수록 high adversarial robustness $\delta$를 지니고 있다고 이해할 수 있다. Definition 1을 통해 subgraph $\mathcal{G_ s}$가 잘 뽑혀있을수록 wrong prediction으로 유도하기 위한 complementary part에 대한 perturbation이 어려워진다고 생각할 수 있다(= perturbation 횟수가 늘어날 것이다). 즉, label-irrelevant한 $g_ {\bar{s}}$를 바꿈으로써 prediction을 바꾸기는 쉽지 않아야 한다.</p>
+
+    <p>그러나 이 식을 우리의 feasible metric으로서 직접 사용하기에는 몇 가지 문제점이 있다. 첫 번째 문제는 식이 tractable 하지 않다는 점이고, 두 번째 문제는 이 metric이 data distribution을 반영하는지 알 수 없다는 점이다.</p>
+  </li>
+  <li>
+    <p><strong>Step 2: Finding a Tractable Objective</strong></p>
+
+    <p>위에서 논의한 사실에 기반하여 Proposition 1을 아래와 같이 제시한다.</p>
+
+    <p><strong>Proposition 1</strong>: $\mathcal{G}$를 잘 설명하는 explanation $\mathcal{G_ s}$가 고정되어 있다면, 그 complementary part인 $\mathcal{G_ {\bar{s}}}$를 perturb하는 것은 모델 예측에 미미한 영향을 끼친다.</p>
+
+    <p>그리고 기존의 Definition 1을 tractable하게 수정하여 Definition 2를 제시한다.</p>
+
+    <p><strong>Definition 2</strong></p>
+
+    <p>$
+  \delta^{*}_ {\mathcal{G}_ s} = \mathbb{E}_ {\mathcal{G}’} \left( f(\mathcal{G}’)_ c - \mathbf{y}_ c \right)
+  $</p>
+
+    <p>$
+  \text{s.t} \quad c = \arg\max_ i \mathbf{y}_ i, \quad \sum_ {u \in \mathcal{V}_ s} \sum_ {v \in \mathcal{V}_ s \setminus {u}} \left\vert A_ {uv} - A’_ {uv} \right\vert = 0,
+  $</p>
+
+    <p>perturb된 그래프 $\mathcal{G’}$를 GNN에 넣었을 때 label prediction 값의 차이의 기대값을 adversarial robustness로서 정의함으로써 tractable한 function으로 수정된 것을 확인할 수 있다. 이때 당연히 subgraph는 perturb가 되더라도 보존되어야 한다.<br />
+  자, 그렇다면 남은 것은 앞서 언급된 evaluation process가 data distribution을 반영할 수 있도록 만드는 것이다.</p>
+  </li>
+  <li>
+    <p>Step 3</p>
+
+    <p>우리는 OOD reweighting block이라는 요소를 도입해서 두 번째 문제를 해결하고자 한다. OOD reweighting block을 통해서 생성된 각 그래프 $\mathcal{G’}$이 얼마나 train dataset의 분포로부터 떨어져 있는지에 대한 OOD score를 계산한다. 이때 그래프를 생성할 때는 학습된 VGAE(Variational Graph Auto-Encoder)를 통해 $\mathcal{G’}$를 생성한다. VGAE는 일반적인 VAE처럼 인코더와 디코더로 구성되어 있고, prior를 gaussian으로 가정하거나, reparametrization trick을 사용하는 등 전반적인 기저 원리는 서로 유사하다. 인코더와 디코더에 대한 구체적인 설명은 생략하고 관계식으로만 대체하겠다.</p>
+
+    <ul>
+      <li>
+        <p>Encoder:</p>
+
+        <p>$
+  q(\mathbf{Z} \vert \mathbf{A’}, \mathbf{X’}) = \prod_ {i=1}^{\vert\mathcal{V}’\vert} q(z_ i \vert \mathbf{A’}, \mathbf{X’}) = \prod_ {i=1}^{\vert\mathcal{V}’\vert} \mathcal{N}(z_ i \vert \mathbf{\mu}_ i, \text{diag}(\mathbf{\sigma}_ i^2)),
+  $</p>
+      </li>
+      <li>
+        <p>Decoder</p>
+
+        <p>$
+  p(\mathbf{A’} \vert \mathbf{Z}) = \prod_ {i=1}^{\vert\mathcal{V}’\vert} \prod_ {j=1}^{\vert\mathcal{V}’\vert} p(A’_ {ij} \vert \mathbf{z}_ i, \mathbf{z}_ j),
+  $</p>
+
+        <p>$
+  \text{with} \quad p(A’_ {ij} = 1 \vert \mathbf{z}_ i, \mathbf{z}_ j) = \sigma(\mathbf{z}_ i^\top \mathbf{z}_ j),
+  $</p>
+      </li>
+      <li>
+        <p>OOD score</p>
+
+        <p>$
+  \mathcal{L}_ {\text{recon}}(\mathcal{G}’) = -\log p(A’ \vert \mathbf{Z}), \quad \text{with} \quad \mathbf{Z} = \mu = \text{GCN}_ \mu (A’, X’).
+  $</p>
+
+        <p>OOD score는 위의 식처럼 $\mathcal{L}_ {\text{recon}}(\mathcal{G}’)$ , 즉 NLL(negative log likelihood)의 역수를 취함으로써 얻을 수 있다(($p(A’ \vert \mathbf{Z})$)는 디코더의 output). 더 직관적으로 이해를 해보자면, 학습 데이터 셋의 분포로부터 많이 벗어난 $\mathcal{G’}$은 높은 Loss를 받을 것이고, 그 역수를 취한다면 할당되는 OOD score는 낮아진다. 그 반대의 경우로, 학습 데이터 셋의 분포와 가깝다면 동일하게 계산해 높은 OOD score를 받을 것이고, 결과적으로 합리적인 evaluation metric을 얻을 수 있다.</p>
+      </li>
+      <li>
+        <p>Overall evaluation process</p>
+
+        <ol>
+          <li>
+            <p>Subgraph $\mathcal{G_ s}$를 평가하기 전에 OOD reweighting block (VGAE)을 데이터셋 D에서 샘플된 input graph G를 사용하여 학습시킨다.</p>
+          </li>
+          <li>
+            <p>이후 $\mathcal{G_ s}$를 고정한 상태에서 $\mathcal{G_ {\bar{s}}}$의 구조를 무작위로 변형하여 G′를 생성한다.</p>
+          </li>
+          <li>
+            <p>각 $\mathcal{G’}$는 GNN f와 VGAE에 동시에 입력되어 예측 결과와 OOD 점수를 평가하며, 이 과정에서는 GNN의 동작과 데이터 분포를 모두 고려한다.</p>
+          </li>
+          <li>
+            <p>마지막으로 예측 결과와 OOD 점수를 기반으로 생성된 그래프들의 예측값에 가중치를 부여하여 가중 평균을 계산한다. 이 가중 평균이 원래 그래프 G의 예측값에 가까울수록 설명 그래프 $\mathcal{G_ s}$의 품질이 높다고 평가한다.</p>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>SimOAR(Simplified version of OAR)</p>
+
+    <p>OAR은 VGAE를 학습시키기 위해서 시간이 오래 걸리고, OOD score가 edge deletion 개수에 크게 영향을 받는 단점이 있다. 일반적으로 같은 횟수의 perturbation을 받은 두 그래프가 있다면, 각각에 할당되는 OOD score는 비슷한 경향이 있다는 사실을 이용해서 단점을 보완한 SimOAR framework를 제시한다.<br />
+  SimOAR은 계산을 줄이기 위해서 OOD reweighting block을 비활성화하고, 그래프의 원래 엣지 수에 대한 perturbation 비율을 미리 정의된 값으로 제한한다. 그 후, 이를 통해 생성된 그래프들의 평균 예측값을 계산하여 예측을 근사한다. SimOAR로 생성된 몇몇 그래프가 분포를 벗어날 가능성은 있지만, 그럼에도 불구하고 SimOAR은 일관성과 성능 면에서 기존 metric보다 뛰어난 성능을 보인다.</p>
+  </li>
+</ul>
+
+<h2 id="4-experiments">4. Experiments</h2>
+<p>실험은 크게 세 가지 질문에 답을 하기 위한 목적으로 진행되었다.</p>
+
+<p>RQ1. OAR과 SimOAR이 기존 evaluation 방식들에 비해서 얼마나 evaluation을 잘 할 수 있는 metric인가?</p>
+
+<p>RQ2. OAR과 SimOAR이 기존 evaluation 방식들에 비해서 더 일반화할 수 있는 metric인가?</p>
+
+<p>RQ3. evaluation 과정에서 OOD reweighting block의 impact는 무엇인가?</p>
+
+<p>BA3, TR3, Mutagenicity, MNIST-sp와 같은 다양한 데이터셋에서 실험이 진행되었으며, 사용할 explainer model 들은 SA, GradCAM, GNNExplainer, PGExplainer, CXPlain,ReFine 이다. baseline이 되는 metric들은 Recall, removal-based evaluation, generation-based evaluation 로 삼았다. 아래 table에서 확인 가능하듯, OAR과 SimOAR은 기존 메트릭에 비해 일관된 성능 향상을 보여주었다. 특히, SimOAR은 계산 속도를 크게 향상시키면서도 높은 성능을 유지했다.</p>
+
+<p><strong>RQ1: How is the evaluation quality of OAR and SimOAR compared to that of existing metrics?</strong></p>
+
+<p>첫 번째 질문에 대한 답으로서 paper에서는 새롭게 제시한 metric이 기존의 Recall과 얼마나 consistency를 가지는지 확인했다. 각 explainer별 수치를 줄세우기 했을 때 아래와 같이 정의된 consistency $\tau$의 수치를 확인해보았다. $\tau$ 값이 높을수록 explainer별로 metric value 크기 순서가 Recall과 일치한다고 이해할 수 있다. 아래의 Table 1과 Figure 3(a)를 통해서 우리는 OAR이 removal-based (RM)나 generation-based (DSE) 방식보다 Recall과 더 유사하다는 것을 확인했다. 추가로, SimOAR이 OAR에 비하여 성능 면에 있어 크게 뒤떨어지지 않는다는 것을 알 수 있다.</p>
+
+<p>$
+\tau \left( {r^i}<em>{i=1}^n, {s^i}</em>{i=1}^n \right) = \frac{2}{n(n+1)} \sum_{i &lt; j} I \left( \text{sgn}(r^i - r^j) = \text{sgn}(s^i - s^j) \right),
+$</p>
+
+<p><img src="https://i.postimg.cc/Jhy0HD39/2024-10-06-9-13-56.png" alt="Table1" /></p>
+
+<p><img src="https://i.postimg.cc/15SvcDcN/2024-10-10-5-06-12.png" alt="Figure3" /></p>
+
+<p><strong>RQ2: How is the generalization of OAR and SimOAR compared to that of existing metrics?</strong></p>
+
+<p>paper에서는 두번째 논의로 OAR과 SimOAR 방식의 일반화 가능성에 대한 분석을 제시한다. 실험적으로 특정 explainer는 특정 패턴을 선호하는 경향이 있으며, 이러한 explainer가 추출하는 subgraph가 유사한 구조를 가지는 경우가 빈번하다. 따라서 특정 explainer를 바탕으로 한 실험 결과가 다른 기존의 혹은 앞으로의 explainer들에 대해 잘 일반화되지 않을 수 있다는 점을 지적하고 있다.
+따라서 우리는 fake subgraph를 샘플링하여 일반화된 evaluation scenario를 시뮬레이션 한다. 이는 explainer들이 가진 bias의 한계를 피하고 전체 그래프에서 무작위로 샘플링된 서브그래프들을 사용함으로써 평가를 수행하는 방법이다. 이 방법은 다양한 explainer들에 대해 평가 점수와 Recall 수준 간의 일관성을 높이는 데 중점을 두고 있다.</p>
+
+<p>Figure 3(b)는 모든 evaluation methods에 대한 평균 정규화 점수를 의미한다. 그리고 가장 이상적인 경우는 evaluation score가 Recall level에 대해 monotonic하게 증가하는 경우이다. 실험 결과, Figure 3(b)에서 볼 수 있듯, OAR과 SimOAR 방법이 다양한 explainer에서 evaluation scores와 Recall의 일관성을 높인다는 것을 볼 수 있으며, 이는 이 방법이 다른 설명자들에 대해서도 우수한 성능을 발휘할 가능성이 크다는 것을 시사한다.</p>
+
+<p><strong>RQ3: What is the impact of the designs (e.g., the OOD reweighting block) on the evaluations?</strong></p>
+
+<p>앞선 Table 1에서 확인할 수 있듯, OAR과 SimOAR 간의 성능 차이가 발생하는 것으로, OOD reweighting block의 영향력을 알 수 있으며 OOD score를 0부터 1까지 정규화 가능하다는 점에 기여했다는 사실도 알 수 있다. 또한 아래의 Figure 4에서 OOD block이 전체 그래프의 underlying property를 벗어난 생성그래프에 대해서 낮은 점수를 부여할 수 있다는 점을 명시적으로 확인할 수 있다. 다만 앞서 언급했듯, OOD block을 학습시키는 과정은 꽤나 time-cost한 일이다. Table 2를 통해 OAR과 SimOAR이 소모하는 시간까지 비교할 수 있다.</p>
+
+<p><img src="https://i.postimg.cc/85rZwH0L/2024-10-10-5-08-30.png" alt="Figure4" /> 
+<img src="https://i.postimg.cc/L86vGRW9/2024-10-10-5-10-30.png" alt="Table2" /></p>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+<p>이 논문은 GNN explanation evaluation에서 OOD 문제를 해결하는 새로운 metric을 제시한다. OAR은 adversarial robustenss을 기반으로 explanatory subgraph의 신뢰성을 평가하며, 데이터 분포를 고려하는 OOD reweighting을 통해 정확한 평가를 제공한다. 실험 결과, OAR과 SimOAR은 기존 메트릭에 비해 우수한 성능을 보여주었으며, 이는 향후 GNN explainability 연구에 중요한 기여를 할 것이다.</p>
+
+<h2 id="6-references">6. References</h2>
+<p>Fang, Junfeng, et al. “Evaluating post-hoc explanations for graph neural networks via robustness analysis.” Advances in Neural Information Processing Systems 36 (2024).</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[NeurIPS-24] SPA: A Graph Spectral Alignment Perspective for Domain Adaptation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [NeurIPS-24] SPA: A Graph Spectral Alignment Perspective for Domain Adaptation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[NeurIPS-24] SPA: A Graph Spectral Alignment Perspective for Domain Adaptation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[NeurIPS-24] SPA: A Graph Spectral Alignment Perspective for Domain Adaptation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="overview">Overview</h2>
+
+<p>This paper introduces <strong>SPA (graph SPectral Alignment Perspective)</strong>, an innovative method for <strong>Unsupervised Domain Adaptation (UDA)</strong> that leverages graph spectral alignment. <strong>UDA</strong> addresses the challenge of adapting a model trained on a labeled source domain to perform well on an unlabeled target domain with different data distributions. Traditional UDA methods mainly focus on aligning features between domains and often overlook the rich intra-domain structures within each domain, therefore reducing the model’s ability to discriminate between classes. SPA offers a hierarchical framework that combines coarse graph alignment using spectral regularization with fine-grained message propagation through a neighbor-aware self-training mechanism. By doing so, SPA effectively balances the transfer of features across domains while maintaining discriminability within the target domain.</p>
+
+<h2 id="1-introduction">1. Introduction</h2>
+
+<p>The main challenge in UDA is to predict labels for the target domain data without access to labeled target data during training. Existing UDA methods primarily emphasize inter-domain transferability by aligning source and target domains to reduce domain shift. However, the authors claim that there exists trade of between learning a representation that is domain invariant, and learning a representation that results in maximum separabaility of the target domain.</p>
+
+<p>The key innovation of this paper is the introduction of a graph spectral alignment perspective, which allows for an intrinsic and flexible alignment of the source and target domains without the need for restrictive point-wise matching. By casting the UDA problem into graph primitives, the authors aim to capture both inter-domain and intra-domain relations. The alignment of two domains via SPA appears to be more flexible and as a result the neighbor-aware self-training mechanism is able to further refines the target domain representations, improving discriminability.</p>
+
+<h2 id="2-problem-definition">2. Problem Definition</h2>
+
+<p>Formally, given:</p>
+
+<ul>
+  <li>
+    <p><strong>Source Domain Data</strong>: $D_ s = { (x_ i^s, y_ i^s) }_ {i=1}^{N_ s}$, where $x_ i^s$ are the samples and $y_ i^s$ are the labels associated with the given samples, $N_ s$ is the number of labeled samples associated with $C_ s$ categorites.</p>
+  </li>
+  <li>
+    <p><strong>Target Domain Data</strong>: $D_ t = { x_ i^t }_ {i=1}^{N_ t}$, where $x_ i^t$ are $N_ t$ unlabeled samples associated with $C_ t$ labels.</p>
+  </li>
+</ul>
+
+<p>The goal of <strong>UDA</strong> is to learn a model that accurately predicts the labels ${y_ i^t}_ {i=1}^{N_ t}$ for the target domain samples $x_ i^t$. Both domains are assumed to share the same feature space and label space but to have different marginal data distributions.</p>
+
+<h2 id="3-related-works">3. Related Works</h2>
+
+<h3 id="31-adversarial-methods">3.1 Adversarial Methods</h3>
+
+<p>Adversarial methods, such as <strong>Domain-Adversarial Neural Networks (DANN)[1]</strong>, aim to learn domain-invariant features by confusing a domain classifier in an adversarial setup. While effective in reducing domain discrepancies, these methods often neglect intra-domain structures, which can reduce the model’s ability to discriminate between classes within the target domain.</p>
+
+<h3 id="32-discrepancy-based-methods">3.2 Discrepancy-Based Methods</h3>
+
+<p>Discrepancy-based approaches, like <strong>Correlation Alignment (CORAL)[2]</strong>, focus on minimizing statistical differences between source and target feature distributions. They primarily emphasize inter-domain transferability but often overlook the intra-domain relationships essential for maintaining class discriminability in the target domain.</p>
+
+<h3 id="33-graph-based-methods">3.3 Graph-Based Methods</h3>
+
+<p>Graph-based UDA methods capture relationships between samples by constructing and aligning graphs based on structural properties. Techniques like <strong>Bipartite Spectral Matching (BSP)[3]</strong> align domain graphs to enhance transferability. However, these methods rely on explicit, point-wise graph matching, which can be restrictive and computationally intensive, and insufficiently address intra-domain discriminability.</p>
+
+<h3 id="34-novelty-of-spa">3.4 Novelty of SPA</h3>
+
+<p>The proposed <strong>SPA (Spectral Alignment Perspective)</strong> advances UDA by effectively balancing inter-domain transferability and intra-domain discriminability through a hierarchical framework:</p>
+
+<ol>
+  <li>
+    <p><strong>Graph Spectral Alignment</strong>: SPA introduces a spectral regularizer that aligns source and target domain graphs in the eigenspace by minimizing the spectral distance between their Laplacian eigenvalues. This implicit alignment captures essential topological features without restrictive point-wise matching.</p>
+  </li>
+  <li>
+    <p><strong>Neighbor-aware Self-training</strong>: SPA incorporates a neighbor-aware propagation mechanism that enhances discriminability within the target domain. By generating pseudo-labels using a weighted K-Nearest Neighbors (kNN) algorithm, it encourages smoothness among neighboring predictions and maintains class distinctions.</p>
+  </li>
+  <li>
+    <p><strong>Joint Balancing Mechanism</strong>: By integrating spectral alignment with neighbor-aware propagation, SPA ensures domain alignment reduces transfer gaps while preserving and enhancing intra-domain structures for high discriminability.</p>
+  </li>
+</ol>
+
+<h2 id="4-methodology">4. Methodology</h2>
+
+<h3 id="41-adversarial-domain-adaptation-framework">4.1 Adversarial Domain Adaptation Framework</h3>
+
+<p>SPA contains an adversarial domain adaptation framework, which includes:</p>
+
+<ul>
+  <li>
+    <p><strong>Feature Encoder</strong> $F(\cdot)$: Extracts features from input data.</p>
+  </li>
+  <li>
+    <p><strong>Classifier</strong> $C(\cdot)$: Predicts class labels based on extracted features.</p>
+  </li>
+  <li>
+    <p><strong>Domain Classifier</strong> $D(\cdot)$: Distinguishes between source and target domain features.</p>
+  </li>
+</ul>
+
+<p><strong>Objective Functions</strong>:</p>
+
+<p>There are four objective functions parallely optimized. The supervised loss and adversarial loss components are defined as follows. The supervised loss component trains the model to learn the label information and the adversarial loss helps regularize this information to be domain invariant.</p>
+
+<ul>
+  <li>
+    <p><strong>Supervised Classification Loss</strong>:  $L_ {\text{cls}} = \mathbb{E}_ {(x_ i^s, y_ i^s) \sim D_ s} \left[ L_ {\text{ce}} \left( C(F(x_ i^s)), y_ i^s \right) \right]$, where $L_ {\text{ce}}$ is the cross-entropy loss.</p>
+  </li>
+  <li>
+    <p><strong>Adversarial Loss</strong>: $L_ {\text{adv}} = \mathbb{E}_ {x_ i^s \sim D_ s} \left[ \log D(F(x_ i^s)) \right] + \mathbb{E}_ {x_ i^t \sim D_ t} \left[ \log  \left( 1 - D(F(x_ i^t)) \right) \right]$</p>
+  </li>
+</ul>
+
+<h3 id="42-dynamic-graph-construction">4.2 Dynamic Graph Construction</h3>
+
+<p>To capture intra-domain relations, SPA constructs self-correlation graphs for both the source and target domains:</p>
+
+<ul>
+  <li>
+    <p><strong>Nodes</strong>: Each node represents a sample’s feature embedding from the feature encoder:</p>
+
+    <ul>
+      <li>
+        <p>Source nodes: $f_ i^s = F(x_ i^s)$</p>
+      </li>
+      <li>
+        <p>Target nodes: $f_ i^t = F(x_ i^t)$</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Edges</strong>: Edges are weighted based on a similarity function $\delta(f_ i, f_ j)$, such as cosine similarity.</p>
+  </li>
+  <li>
+    <p><strong>Dynamic Nature</strong>: The graphs are dynamic because they evolve as the feature encoder $F$ updates during training.</p>
+  </li>
+</ul>
+
+<h3 id="43-graph-spectral-alignment">4.3 Graph Spectral Alignment</h3>
+
+<p>SPA introduces a spectral regularizer to align the source and target graphs:</p>
+
+<ul>
+  <li>
+    <p>Compute the <strong>graph Laplacian</strong> $L$ for each graph.</p>
+  </li>
+  <li>
+    <p>Obtain the <strong>eigenvalues</strong> $\Lambda$ of the Laplacian matrices for both source ($\Lambda^s$) and target ($\Lambda^t$) graphs.</p>
+  </li>
+  <li>
+    <p>Define the <strong>Spectral Distance</strong>: $L_ {\text{gsa}} = \left\vert  \Lambda^s - \Lambda^t \right\vert_ p$ ,where $\left\vert  \cdot  \right\vert_ p$ denotes the $L_ p$ norm.</p>
+  </li>
+  <li>
+    <p><strong>Objective</strong>: Minimize $L_ {\text{gsa}}$ to encourage the source and target graphs to have similar spectral properties, aligning them in the eigenspace.</p>
+  </li>
+</ul>
+
+<p>This implicit alignment avoids the need for explicit, restrictive point-wise matching.</p>
+
+<h3 id="44-neighbor-aware-propagation-mechanism">4.4 Neighbor-aware Propagation Mechanism</h3>
+
+<p>To enhance discriminability within the target domain, SPA introduces a neighbor-aware self-training mechanism:</p>
+
+<ul>
+  <li>
+    <p><strong>Pseudo-label Generation</strong>:</p>
+
+    <ul>
+      <li>The pseudo label generation is is   a weighted K-Nearest Neighbors (kNN) algorithm to assign pseudo-labels to target samples.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Voting Mechanism</strong>:</p>
+
+    <ul>
+      <li>
+        <p>Each target sample $x_ i^t$ considers its $k$ nearest neighbors $N_ i$.</p>
+      </li>
+      <li>
+        <p>Neighbors vote for the class labels, weighted by their predicted probabilities.</p>
+      </li>
+      <li>
+        <p><strong>Confidence Weighting</strong>:</p>
+
+        <ul>
+          <li>
+            <p>Compute the weighted vote for class $c$ is: $q_ {i,c} = \sum_ {j \in N_ i} p_ {j,c}^m$</p>
+          </li>
+          <li>
+            <p>Normalize to get the confidence $\hat{q}<em>{i,c}$ is : $\hat{q}</em> {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Assign the pseudo-label: $\hat{y}_ i = \arg\max_ c \hat{q}_ {i,c}$</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Memory Bank</strong>:</p>
+
+    <ul>
+      <li>
+        <p>The Memory Bank plays a vital role in the neighbor-aware propagation mechanism by storing sharpened predictions and normalized features for target samples. Sharpening is achieved through the equation:</p>
+
+        <ul>
+          <li>
+            <p><strong>Sharpening</strong> reduces prediction ambiguity: $\tilde{p}_ {j,c} = \frac{p_ {j,c}^{1/\tau}}{\sum_ {x=1}^{C_ t} p_ {j,x}^{1/\tau}}$, where $\tau$ is the temperature parameter.</p>
+          </li>
+          <li>
+            <p><strong>Exponential Moving Average (EMA)</strong> updates the stored predictions and features over iterations.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Neighbor-aware Propagation Loss</strong>: $L_ {\text{nap}} = -\alpha  \cdot  \frac{1}{N_ t} \sum_ {i=1}^{N_ t} \hat{q}_ {i, \hat{y}_ i} \log p_ {i, \hat{y}_ i}$</p>
+
+    <ul>
+      <li>$\alpha$ is a scaling coefficient that increases over iterations.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://postimg.cc/TK6QdmW0" alt="Image description" /></p>
+
+<h3 id="45-final-objective">4.5 Final Objective</h3>
+
+<p>The overall loss function combines all components:</p>
+
+<p>$L_ {\text{total}} = L_ {\text{cls}} + \lambda_ {\text{adv}} L_ {\text{adv}} + \lambda_ {\text{gsa}} L_ {\text{gsa}} + \lambda_ {\text{nap}} L_ {\text{nap}}$</p>
+
+<p>This objective aims to:</p>
+
+<ul>
+  <li>
+    <p>Learn discriminative features on the source domain ($L_ {\text{cls}}$).</p>
+  </li>
+  <li>
+    <p>Align the source and target domains ($L_ {\text{adv}}$ and $L_ {\text{gsa}}$).</p>
+  </li>
+  <li>
+    <p>Refine target domain representations through neighbor-aware propagation ($L_ {\text{nap}}$).</p>
+  </li>
+</ul>
+
+<h2 id="5-experiments">5. Experiments</h2>
+
+<h3 id="51-experimental-setup">5.1 Experimental Setup</h3>
+
+<ul>
+  <li>
+    <p><strong>Datasets</strong>:</p>
+
+    <ol>
+      <li>
+        <p><strong>Office31</strong>: 4,652 images, 31 categories, 3 domains (Amazon, DSLR, Webcam).</p>
+      </li>
+      <li>
+        <p><strong>OfficeHome</strong>: ~15,500 images, 65 categories, 4 domains (Artistic, Clipart, Product, Real-World).</p>
+      </li>
+      <li>
+        <p><strong>VisDA2017</strong>: Over 280,000 images, 12 categories, synthetic-to-real domain adaptation.</p>
+      </li>
+      <li>
+        <p><strong>DomainNet</strong>: ~600,000 images, 345 categories, 6 domains (Clipart, Infograph, Painting, Quickdraw, Real, Sketch).</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Baselines</strong>: Compared with state-of-the-art UDA methods like DANN, CDAN, MDD, and others.</p>
+  </li>
+  <li>
+    <p><strong>Backbone Networks</strong>:</p>
+
+    <ul>
+      <li>
+        <p><strong>ResNet-50</strong> for Office31 and OfficeHome.</p>
+      </li>
+      <li>
+        <p><strong>ResNet-101</strong> for VisDA2017 and DomainNet.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Optimization</strong>:</p>
+
+    <ul>
+      <li>
+        <p><strong>Optimizer</strong>: Stochastic Gradient Descent (SGD) with momentum.</p>
+      </li>
+      <li>
+        <p><strong>Learning Rate</strong>: Initialized at 0.01 with specific schedules.</p>
+      </li>
+      <li>
+        <p><strong>Weight Decay</strong>: Set to 0.005.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="52-results">5.2 Results</h3>
+
+<p>In the  <strong>DomainNet</strong> dataset, SPA achieved an 8.6% improvement in accuracy over previous state-of-the-art methods, demonstrating superior performance in handling large-scale datasets with significant domain gaps. On the <strong>OfficeHome</strong> dataset, SPA showed approximately a 2.6% improvement in accuracy over existing methods, consistently outperforming competitors in all 12 adaptation scenarios. For the <strong>Office31 and VisDA2017</strong> datasets, SPA performed on par with or better than state-of-the-art methods, showcasing its robustness and effectiveness across all domain pairs and tasks. In terms of evaluation metrics, classification accuracy on target domains was used, and SPA consistently showed improvements when compared to methods like DANN, CDAN, and MDD across all datasets.</p>
+
+<h2 id="6-discussion-and-conclusion">6. Discussion and Conclusion</h2>
+
+<h3 id="61-efficacy-and-robustness">6.1 Efficacy and Robustness</h3>
+
+<ul>
+  <li>SPA effectively balances inter-domain transferability and intra-domain discriminability, making it an efficient method. Its robustness is demonstrated across different datasets and domain shifts, showing that it can adapt well to various scenarios without a significant drop in performance.</li>
+</ul>
+
+<h3 id="62-comparison-with-related-works">6.2 Comparison with Related Works</h3>
+<ul>
+  <li>SPA distinguishes itself from methods like BSP and SIGMA by using implicit graph alignment through spectral regularization. This approach avoids the limitations of point-wise matching that are present in other techniques. Additionally, SPA’s neighbor-aware propagation mechanism enhances discriminability within the target domain, countering potential reductions that could arise from external regularization.</li>
+</ul>
+
+<h3 id="64-conclusion">6.4 Conclusion</h3>
+<ul>
+  <li>SPA introduces a novel approach to unsupervised domain adaptation by integrating graph spectral alignment with a neighbor-aware propagation mechanism. It effectively addresses the limitations of existing methods by considering both inter-domain and intra-domain relations. The experiments show that SPA outperforms current state-of-the-art methods, significantly improving accuracy while maintaining a balance between transferability and discriminability.</li>
+</ul>
+
+<h2 id="7-author-information">7. Author Information</h2>
+
+<ul>
+  <li><strong>Zhiqing Xiao</strong>
+    <ul>
+      <li>College of Computer Science and Technology, Zhejiang University</li>
+      <li>Key Lab of Intelligent Computing based Big Data of Zhejiang Province, Zhejiang University</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="8-references-and-additional-materials">8. References and Additional Materials</h2>
+<p>Xiao, Z., Wang, H., Jin, Y., Feng, L., Chen, G., Huang, F., &amp; Zhao, J. (2023). <strong>SPA: A Graph Spectral Alignment Perspective for Domain Adaptation</strong>. <em>arXiv preprint arXiv:2310.17594</em>.</p>
+
+<ul>
+  <li>
+    <p><strong>GitHub Repository</strong>: <a href="https://github.com/CrownX/SPA">https://github.com/CrownX/SPA</a></p>
+  </li>
+  <li>
+    <p><strong>Paper Reference</strong>:</p>
+    <ul>
+      <li>
+        <p>[1] Yaroslav Ganin and Victor Lempitsky. Unsupervised domain adaptation by back propagation. In Proceedings of the 32th International Conference on Machine Learning (ICML), pages 1180–1189. PMLR, 2015.</p>
+      </li>
+      <li>[2] Baochen Sun and Kate Saenko. Deep coral: Correlation alignment for deep domain adaptation. In ECCV 2016 Workshops, 2016.</li>
+      <li>[3] Xinyang Chen, Sinan Wang, Mingsheng Long, and Jianmin Wang. Transferability vs. discriminability: Batch spectral penalization for adversarial domain adaptation. In Proceedings of the 36th International Conference on Machine Learning (ICML), pages 1081–1090. PMLR, 2019.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

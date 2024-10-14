@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[WWW-2024] On the Feasibility of Simple Transformer for Dynamic Graph Modeling | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [WWW-2024] On the Feasibility of Simple Transformer for Dynamic Graph Modeling page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[WWW-2024] On the Feasibility of Simple Transformer for Dynamic Graph Modeling">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[WWW-2024] On the Feasibility of Simple Transformer for Dynamic Graph Modeling</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <p>===</p>
+<h1 id="세줄-요약">세줄 요약</h1>
+<ul>
+  <li>기존 Message passing GNNs(GAT, GCN)들은 모델 구조가 복잡해질수록 Over-smoothing, Over-squashing의 문제가 존재한다.</li>
+  <li>최근 Transformer 기반 모델들이 <strong>Static graph (t = T)</strong> 에 대해서 이 문제들을 잘 해결하고, 좋은 성능을 나타내고 있다.</li>
+  <li>본 논문은 Static graph에 적용되는 Transformer 기반 모델을 발전시켜 <strong>Dynamic graph (t = 1 ~ T)</strong> 에 적용하였다.</li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<h2 id="기존-message-passing-gnn의-단점">기존 Message Passing GNN의 단점</h2>
+<p>GNN의 장점은 특정 node에 대해 이웃 node들이 미치는 네트워크 효과를 잘 포착한다는 점이다. 이를 위해 Graph Convolution Network(GCN), Graph Attention Network(GAT)와 같은 모델을 통해 주변 node에서 정보를 추출하는 방법론이 제시되었고, 최근까지 좋은 성능을 보여주었다. 하지만 해당 방법들은 주변 Node에서 정보를 추출하는 과정에서 GNN의 Layer가 증가하여 각 Node의 Embedding이 동일해지는 현상(<strong>Over-Smoothing</strong>)과 먼 Node에서 정보를 가져오는 과정에서 해당 정보가 손실되는 현상(<strong>Over-Squashing</strong>)의 단점이 관찰되었다.</p>
+
+<h2 id="temporality-with-transformer">Temporality with Transformer</h2>
+<p>기존 GNN 방법론들에서 Dynamic Graph의 temporality를 다루는 방법에는 크게 두 가지가 있다. <strong>Discrete time step GNN</strong>은 시간/일/월 등 특정한 시간 단위로 Snapshot을 찍은 후(ex: 1월 snapshot, 2월 snapshot, …) 그에 맞게 Graph를 나누어 다루는 방법이고, <strong>Continuous time step GNN</strong>은 말 그대로 연속적인 Graph의 변화를 보는 방법이다. 
+Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다루기가 쉽다는 장점이 있지만, 해당 시간대 이하에서 나타나는 fine-grained temporality를 포착하기 어렵다는 단점이 있다. Continuous는 세부적인 temporality를 잃지 않는 장점이 있지만, 모델이 더 복잡해지고 Gradient vanishing 문제가 발생하여 Graph의 Long-term dependency를 잘 포착하지 못한다고 알려져있다. 
+<strong>Transformer</strong>를 사용하면 1. continous의 장점인 fine-grained temporality를 놓치지 않을 수 있고, 2. self-attention을 통해 long-term dependency의 성능이 향상된다. 3. Message passing GNNs의 단점인 Over-smoothing과 Over-squashing의 문제도 덜하다는 장점이 있다.</p>
+
+<h1 id="related-works">Related Works</h1>
+<h2 id="dynamic-graph-learning">Dynamic Graph Learning</h2>
+<p>Dynamic graph를 다루기 위해 제시된 주요 방법론은 다음과 같다.
+|방법론|Graph Structure|Temporal Structure|
+|——|—|—|
+|DySAT(WSDM 2020)|GAT|Self-attention|
+|EvolveGCN(AAAI 2020)|GCN|RNN|
+|TGAT(ICLR 2020)|Temporal graph attention|Temporal graph attention|
+|TGN(ICML 2020)|Temporal graph attention|Temporal graph attention|
+|GraphMixer(ICLR 2022)|Temporal graph attention(MLP mixer)|Temporal graph attention(MLP Mixer)|</p>
+
+<h2 id="transfomer-기반-gnns">Transfomer 기반 GNNs</h2>
+<p>최근에는 Transformer 구조를 사용해 Graph 구조를 파악하게 하는 연구들이 활발하게 진행되었는데, 대표적으로는 NeurIPS 2022에 발표된 <strong>Pure Transformers are Powerful Graph Learners</strong>가 있다. 이 논문에서는, vanila Transformer 구조에 Node, Edge와 같은 그래프 구성물들을 Node, Edge라고 표시해주는 Type identifier들만 추가하여 input으로 넣었을 때, 기존 Message Passing GNN에 기반한 SOTA 모델보다 좋은 성능을 냈다고 보고하고 있다.
+<img src="image.png" alt="test" /></p>
+<h1 id="proposed-approach">Proposed Approach</h1>
+<p><img src="image-1.png" alt="alt text" /></p>
+<h2 id="temporal-ego-graph">Temporal Ego-graph</h2>
+<p>Dynamic graph의 특성상 Static graph를 다뤘던 이전 논문처럼 바로 Transformer에 Graph를 input으로 넣을 수 없기에, Temporal Ego-graph라는 subgraph을 Node마다 생성한다. Temporal Ego-graph는 Node  <strong>$v$</strong> 가 다른 Node들과 상호작용한 기록이 담겨있는 Graph로, 수식으로 표시하면 아래와 같다.</p>
+
+<p><img src="image-2.png" alt="alt text" />
+$v^k_i$는 Node $v$가 Node $k$와 timestep $\tau$에 상호작용한 정보를 담고 있다($v_i, v_k, \tau$). training data $x_i$는 Node $i$에 대해 sequence length $w$만큼의 길이를 가지는 Temporal Ego-graph로, training data임을 Transformer model에 알려주기 위해 앞뒤로 &lt;|hist|&gt;와 &lt;|endofhist|&gt; token으로 감싸주었다. $y_i$는 Node i의 label data로, 상세 사항은 $x_i$와 같다.</p>
+<h2 id="temporal-alignment">Temporal Alignment</h2>
+<p>Transformer model이 자연적으로 sequence의 상대적 위치에 따라 temporality를 학습하기는 하지만, 서로 다른 Node 간에는 다른 time step을 따르는 맹점이 아직 남아있다. 다음과 같은 예시를 보자</p>
+<ul>
+  <li>Node $u$는 24년 1월에 Graph에 추가되어 sequence가 $w_u$ = &lt;$v_u^{24년 1월}$,$v_u^{24년 2월}$, …, $v_u^{24년 10월}$&gt;이고,</li>
+  <li>Node $k$는 23년 7월에 Graph에 추가되어 sequence가 $w_k$ = &lt;$v_k^{23년 7월}$,$v_k^{23년 8월}$, …, $v_k^{24년 10월}$&gt;이라면 
+Transformer model은 해당 sequence들만으로는 $v_u^{24년 1월}$와 $v_k^{23년 7월}$가 같은 time step에 일어났는지 판단할 수 없다.
+이에 저자들은 특정 time step마다 다른 Temporal token을 삽입하여, Node전체에 적용되는 universal timeline을 부여하고자 하였다.
+    <h2 id="training-objectives">Training objectives</h2>
+    <p>생성한 Temporal Ego-graph에 Temporal Alignment과정을 통해 Temporal token을 추가한 sequence를 $R = &lt;r_1, r_2, …, r_{|R|}&gt;$이라고 하자($|R|$은 Sequence R의 길이). 해당 sequence의 joint probability는 아래와 같이 표현할 수 있다.
+<img src="image-3.png" alt="alt text" />
+$p(r_i|R_{&lt;i})$는 $R_{&lt;i}$까지의 token이 주어졌을 때 step i에서의 token의 probability distribution이고, 아래와 같이 놓고 train할 수 있다.(LN은 Layer normalization)
+<img src="image-4.png" alt="alt text" />
+결과적으로 이를 Negative log-likelihood 방식으로 바꾸면 아래와 같이 loss를 정의할 수 있다.
+<img src="image-5.png" alt="alt text" />
+최종적인 학습 Process는 아래와 같다.
+<img src="image-6.png" alt="alt text" /></p>
+    <h1 id="experiments">Experiments</h1>
+    <h2 id="datasets">Datasets</h2>
+  </li>
+  <li>UCI: SNS 상에서 user들간의 message 교환 기록이 있는 dataset</li>
+  <li>ML-10M: MovieLens dataset 중 하나로, user들이 각 영화들에 대해 어떤 tag를 부여했는지가 나와있는 dataset</li>
+  <li>Hepth: 고에너지 물리학 논문들의 citation network</li>
+  <li>MMConv: Multi-turn task oriented dialogue dataset
+    <h2 id="evaluation-metrics">Evaluation Metrics</h2>
+  </li>
+  <li>NDCG@5: 추천시스템/검색 엔진 평가에 자주 쓰이는 Metric으로, Top 5개의 추천 항목을 기준으로 함</li>
+  <li>Jaccard Similarity: 추천 set과 정답 set의 유사도를 측정하는 지표
+    <h1 id="results">Results</h1>
+  </li>
+</ul>
+
+<p><img src="image-7.png" alt="alt text" />
+결과는 위의 그림과 같다. 4개 dataset 모두에서 NDCG@5와 Jaccard 모두 해당 논문의 방법론인 <strong>SimpleDyG</strong>가 최고 성능을 보였다.</p>
+
+<h2 id="effect-of-extra-tokens">Effect of Extra Tokens</h2>
+<h3 id="impact-of-special-tokens">Impact of Special Tokens</h3>
+<p><img src="image-8.png" alt="alt text" />
+Special tokens(“&lt;|hist|&gt;”, “&lt;|endofhist|&gt;”, “&lt;|pred|&gt;”, “&lt;|endofpred|&gt;”)와 같은 special token의 효과를 알아보기 위해 두 가지 Ablation 실험을 진행하였다.</p>
+<ul>
+  <li>SimpleDyG: 원 모델, 각기 다른 special token 사용(ex: hist, endofhist, pred, endofpred)</li>
+  <li>same special: 같은 special token 사용(ex: x, x, x, x)</li>
+  <li>no special: special token 미사용
+결과적으로는 dataset에 따라 SimpleDyG와 same special이 엎치락뒤치락하는 모습을 보여주었다.
+    <h3 id="impact-of-temporal-tokens">Impact of Temporal Tokens</h3>
+    <p><img src="image-9.png" alt="alt text" />
+Temporal tokens의 효과를 알아보기 위해 역시 두 가지 Ablation 실험을 진행하였다.</p>
+  </li>
+  <li>SimpleDyG: 원 모델, 각기 다른 temporal token 사용(ex: 24년 1월, 24년 2월, …)</li>
+  <li>same time: 같은 temporal token 사용(ex: x, x, …)</li>
+  <li>no time: temporal token 미사용
+결과를 보면, 의외로 same time이나 no time의 결과가 좋은데, 이는 transformer 모델에게 temporality를 자연스럽게 배우게 하는 것이 인위적인 temporal token을 부여하는 것보다 때때로 더 나을 수 있다고 해석할 수 있다.
+    <h2 id="performance-of-multi-step-prediction">Performance of Multi-step Prediction</h2>
+    <p><img src="image-10.png" alt="alt text" />
+t시점에서 단순히 다음 time step인 t+1만 예측하는 것이 아닌, 그 이후를 예측하는 성능을 검증하기 위해 다른 baseline 모델과 비교 실험을 해본 결과이다. 당연하지만 t+3으로 갈수록 모델의 성능이 낮아지지만, SimpleDyG가 다른 baseline model인 TGAT과 GraphMixer보다 꾸준히 성능이 낫다는 것을 보여준다.</p>
+    <h2 id="hyper-parameter-analysis">Hyper-parameter Analysis</h2>
+    <p><img src="image-11.png" alt="alt text" />
+Hyper-parameter에 따른 성능 변화도 꽤나 robust한 결과를 보여주어, 특정한 setting에서만 성능이 좋은 것이 아니라는 것을 입증한다.</p>
+    <h1 id="conclusion">Conclusion</h1>
+    <p>본 논문은 그래프 분석에 Transformer를 도입하려는 최근의 연구흐름 속에서, Dynamic graph에의 적용을 다룬 논문이다. Dynamic graph의 특징인 Temporality를 도입하기 위해 저자들은 새로운 방법인 Temporal ego-graph과 Temporal alignment를 도입하였고, 4가지 dataset에서 기존 baseline model들보다 성능이 좋다는 것을 여러 실험으로 밝혔다. 저자들이 제안한 방법론은 vanila Transformer 구조를 사용해 구현이 쉽다는 장점이 있고, 추가적인 Transformer 구조의 수정 없이도 SOTA 성능을 보이는 것을 보여주어 Dynamic graph에서의 Transformer 적용가능성을 열었다.</p>
+  </li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

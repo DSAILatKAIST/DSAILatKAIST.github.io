@@ -2,6 +2,502 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
     <url>
+      <loc>http://localhost:4000/2024-10-13-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Self-Supervised_Graph_Neural_Networks_for_Sequential_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-SPA_A_Graph_Spectral_Alignment_Perspective_for_Domain_Adaptation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Recurrent_Distance_Filtering_for_Graph_Representation_Learning.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-RecExplainer_Aligning_Large_Models_for_Explaining_Recomendation_Models.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Popularity-Aware_Alignment_and_Contrast_for_Mitigating_Popularity_Bias.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Pacer_and_Runner_Cooperative_Learning_Framework_between_Single-_and_Cross-Domain_Sequential_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-On_Evaluation_Metrics_For_Graph_Generative_Models.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Learning_NP-Hard_Multi-Agent_Assignment_Planning_using_GNN_Inference_on_a_Random_Graph_and_Provable_Auction-Fitted_Q-learning.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Learning_Dual_Dynamic_Representations_on_Time-Sliced_User-Item_Interaction_Graphs_for_Sequential_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Learnable_Item_Tokenization_for_Generative_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Language_Models_as_Recommender_Systems_Evaluations_and_Limitations.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Label_Attentive_Distillation_for_GNN-Based_Graph_Classification.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-LLMRec_Large_Language_Models_with_Graph_Augmentation_for_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Interaction_Modeling_with_Multiplex_Attention.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Generative_Flow_Network_for_Listwise_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Fine-Tuning_Large_Language_Model_Based_Explainable_Recommendation_with_Explainable_Quality_Reward.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Exploring_Large_Language_Model_for_Graph_Data_Understanding_in_Online_Job_Recommendations.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Evaluating_Post-hoc_Explanations_for_Graph_Neural_Networks_via_Robustness_Analysis.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Diffusion_Models_for_Generative_Outfit_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Detecting_Vulnerable_Nodes_in_Urban_Infrastructure_Interdependent_Network.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Deep_Graph_Reprogramming.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Curse_of__Low__Dimensionality_in_Recommender_Systems.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Contrastive_Graph_Structure_Learning_via_Information_Bottleneck_for_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Class-Imbalanced_Graph_Learning_without_Class_Rebalancing.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Can_Small_Language_Models_be_Good_Reasoners_for_Sequential_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-AgentCF_Collaborative_Learning_with_Autonomous_Language_Agents for_Recommender_Systems.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Adversarial_Robustness_in_Graph_Neural_Networks_A_Hamiltonian_Approach.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024-10-13-Adaptive_Graph_Contrastive_Learning_for_Recommendation.html</loc>
+      
+        <lastmod>2024-10-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
       <loc>http://localhost:4000/Winner_Takes_It_All_Training_Performant_RL_Populations_for_Combinatorial_Optimization.html</loc>
       
         <lastmod>2024-04-17T00:00:00+09:00</lastmod>

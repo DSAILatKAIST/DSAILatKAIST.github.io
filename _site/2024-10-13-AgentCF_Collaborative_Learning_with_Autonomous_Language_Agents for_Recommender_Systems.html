@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[WWW-24] AgentCF: Collaborative Learning with Autonomous Language Agents for Recommender Systems | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [WWW-24] AgentCF: Collaborative Learning with Autonomous Language Agents for Recommender Systems page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[WWW-24] AgentCF: Collaborative Learning with Autonomous Language Agents for Recommender Systems">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[WWW-24] AgentCF: Collaborative Learning with Autonomous Language Agents for Recommender Systems</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>This paper considers the following item ranking problem:</p>
+
+<ul>
+  <li>GIVEN: A user $u$ and a list of candidate items ${c_1, \dots, c_n}$</li>
+  <li>FIND: A ranking over the given candidate list</li>
+  <li>ASSUMPTIONS:
+    <ul>
+      <li>Interaction records between users and items $\mathcal{D}={\langle u, i\rangle}$, including reviews and item meta-data, is available.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>The semantic knowledge encoded in LLMs have been utilised for various tasks involving human behaviour modeling. However, for recommendation tasks, the gap between universal language modeling, which is verbal and explicit, and user preference modeling, which can be non-verbal and implicit, poses a challenge. As such, this paper proposes to bridge this gap by treating both users and items as collaborative agents to autonomously induce such implicit preference.</p>
+
+<p>Existing approaches to LLM-powered recommendation that employs agents are one-sided, i.e., either item-focused or user-focused, with self-learning strategies for such agents; meanwhile, this work considers a <em>collaborative</em> setting where users and items do interact. From a collaborative learning perspective, this work is also novel with agent-based collaboration modeling instead of traditional function modeling (e.g., inferring embeddings of users and items for similarity measure) methods.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p><img src="https://i.postimg.cc/fbhbXFRh/overall.png" alt="overall" />
+<em>An overview of the algorithm</em></p>
+
+<h3 id="31-initialisation">3.1. Initialisation</h3>
+
+<p>The algorithm initialises two types of agents, users and items, equipped with memory.</p>
+<ul>
+  <li>User memory includes short-term memory $M _u^s$ (natural language text describing any recently updated preference of user, initialised by general preference induced from reviews) and long-term memory $M _u^l$ (evolving records preference texts).</li>
+  <li>Item memory includes a unified memory $M _i$ with characteristics (initialised by meta-data) of the item and preferences of users who purchased it, all in natural language.</li>
+</ul>
+
+<p>Note that the proposed method also assumes the availability of a frozen LLM which will serve as the backbone for memory optimisation and the ranking mechanism.</p>
+
+<h3 id="32-memory-optimisation">3.2. Memory optimisation</h3>
+
+<p>The following two processes are carried out alternatively with each item along the interaction sequence of a user.</p>
+
+<h4 id="321-autonomous-interactions-for-contrastive-item-selection">3.2.1. Autonomous Interactions for Contrastive Item Selection</h4>
+
+<p>From (1) the running memory of the user together with (2) a random popular item (denoted $i^-$, the negative item) and (3) a true next item (denoted $i^+$, the positive item), an LLM has to predict an item that the user will interact with, $i^o$,
+as well as an explanation $y _{exp}$ for such a selection. Here the two items are presented equally to the user (i.e., the ground truth is hidden).</p>
+
+<p>$i^o = f_{LLM} (M _u; M _{i^-}; M _{i^+}),$
+$y _{exp} = Prompt _{LLM} (i^o; M _u; M _{i^-}; M _{i^+}).$</p>
+
+<h4 id="322-collaborative-reflection-and-memory-update">3.2.2. Collaborative Reflection and Memory Update</h4>
+
+<p>After a predicted item and an explanation are obtained, they are fed to an LLM reflection module together with the user’s, positive item’s, and negative item’s memory. The information on the correctness of the prediction is available, allowing the agents’ memory to update accordingly, improving alignment between the memory and the underlying preferences.</p>
+
+<p>$M _u^s \leftarrow Reflection^u (i^o; y _{exp}; M _u; M _{i^-}; M _{i^+})$
+$M _i \leftarrow Reflection^i (i^o; y _{exp}; M _u; M _{i^-}; M _{i^+})$
+$M _u^l \leftarrow Append (M _u^l; M _u^s)$</p>
+
+<h3 id="33-candidate-item-ranking">3.3. Candidate Item Ranking</h3>
+
+<p>After the optimisation process in Section 3.2. is finished, the agents are ready to be used for item ranking. Given a user $u$ and a candidate set ${c_1, \dots, c_n}$, there are three ranking strategies considered.</p>
+<ul>
+  <li>Basic stategy: based on the user’s short-term memory and all item’s memory. The ranking result is $\mathcal{R} _B = f _{LLM}(M _u^s; {M _{c _1}, \dots, M _{c _ n}})$.</li>
+  <li>Advanced strategy 1: In addition to the memory utilised in the basic strategy, we also use $M _u^r$, preference retrieved from the long-term memory by querying with candidate items’ memories. The ranking result is $\mathcal{R} _{B+R} = f _{LLM}(M _u^r; M _u^s; {M _{c _1}, \dots, M _{c _ n}})$.</li>
+  <li>Advanced strategy 2.  In addition to the memory utilised in the basic strategy, we also use memories of items that the user $u$ interacted with historically. The ranking result is $\mathcal{R} _{B+H} = f _{LLM}(M _u^s; {M _{i _1}, \dots, M _{i _ m}}; {M _{c _1}, \dots, M _{c _ n}})$.</li>
+</ul>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="experiment-setup"><strong>Experiment setup</strong></h3>
+
+<ul>
+  <li>
+    <p>Dataset: the authors utilised two subsets of the Amazon review dataset, “CDs and Vinyl” and “Office Products”, sampling 100 users from each of them for two scenarios, dense and sparse interactions.</p>
+  </li>
+  <li>Baseline
+    <ul>
+      <li>BPR [1]: matrix factorisation</li>
+      <li>SASRec [2]: transformer-encoder</li>
+      <li>Pop: simply ranking candidate items by popularity</li>
+      <li>BM25 [3]: ranking items based on their textual similarity to items the user interacted with</li>
+      <li>LLMRank [4]: zero-shot ranker with ChatGPT</li>
+    </ul>
+  </li>
+  <li>Evaluation Metric: NDCG@K, where K is set to 1, 5, and 10.</li>
+</ul>
+
+<h3 id="result"><strong>Result</strong></h3>
+
+<h4 id="main-results">Main results</h4>
+
+<p>The proposed method together with its three ranking strategies is comparable or outperforms baselines on the considered datasets.</p>
+
+<p><img src="https://i.postimg.cc/HxMbxTfQ/main-results.png" alt="main_results" /></p>
+
+<h4 id="ablation">Ablation</h4>
+
+<p>Ablation study is conducted on the inclusion of autonomous interaction, user agents, and item agents. Results show that all components are useful, except for the case of NDCG@1 on the Office category data, where the algorithm without user agent excels; this is argued by the authors to be due to the long item description text included in the data, which effectively render LLMs as sequential recommenders. Even in such a scenario, the inclusion of item agents is still shown to be necessary.</p>
+
+<p><img src="https://i.postimg.cc/44zzRNvG/ablation.png" alt="ablation" /></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>This paper proposed a novel modeling of two-sided interactions between user and item LLM agents for the recommendation ranking task, which serves as a proxy for preference modeling. This approach alleviates the gap between the semantic knowledge in general-purpose LLMs and deeper behavioural patterns inherent in user-item interactions.</p>
+
+<p>I find the optimisation process of this algorithm intriguing, as it implicitly mimics the forward pass and gradient-based updates in traditional optimisation. Furthermore, the core idea of interactions between both user and item agents is indeed interesting. However, the specific implementation of it in this paper has a number of issues:</p>
+<ol>
+  <li>The extensive use of the LLM backbone with very long prompts may result in instability (i.e., results may not be consistent), poor attention to all parts of the given prompts, and expensive computational costs.</li>
+  <li>The choice of implicit contrastive learning (i.e., with negative and positive items) is presented somewhat arbitrarily. No reasoning was given as to why such contrastive learning was preferred over classifying a single item as true or false interaction, for example.</li>
+</ol>
+
+<p>I think there can be two directions (or more) in which subsequent research can develop:</p>
+<ol>
+  <li>Instead of letting agents interact superficially through an LLM prompting interface, we could either finetune models or modify embeddings that represent the agents in some way. This may potentially be less expensive than extensive prompting and at the same time provide more flexibility to agents.</li>
+  <li>The idea of comparing product might be relevant to preference optimisation in LLM alignment (see direct preference optimisation, DPO [5]). We might be able to treat recommendation as a generative task while still optimising user or item agents with an LLM backbone.</li>
+</ol>
+
+<hr />
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Name: Quang Minh Nguyen (see me at https://ngqm.github.io/)</li>
+  <li>Affiliation: KAIST Graduate School of Data Science</li>
+  <li>Research topic: reasoning on language and vision data, natural language processing for social media analysis</li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<h3 id="paper-information">Paper information</h3>
+<ul>
+  <li>Code: https://github.com/RUCAIBox/AgentCF</li>
+  <li>Full text: https://dl.acm.org/doi/10.1145/3589334.3645537</li>
+</ul>
+
+<h3 id="references">References</h3>
+<p>[1] Steffen Rendle, Christoph Freudenthaler, Zeno Gantner, and Lars Schmidt-Thieme. 2009. BPR: Bayesian Personalized Ranking from Implicit Feedback. In UAI, Jeff A. Bilmes and Andrew Y. Ng (Eds.). AUAI Press, 452–461.
+[2] Wang-Cheng Kang and Julian McAuley. 2018. Self-Attentive Sequential Recommendation. In ICDM.
+[3] Stephen E. Robertson and Hugo Zaragoza. 2009. The Probabilistic Relevance Framework: BM25 and Beyond. Found. Trends Inf. Retr. 3, 4 (2009), 333–389.
+[4] Yupeng Hou, Junjie Zhang, Zihan Lin, Hongyu Lu, Ruobing Xie, Julian J. McAuley, and Wayne Xin Zhao. 2023. Large Language Models are Zero-Shot Rankers for Recommender Systems. CoRR (2023).
+[5] Rafael Rafailov, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D. Manning, and Chelsea Finn. 2023. Direct Preference Optimization: Your Language Model is Secretly a Reward Model. In <em>37th Conference on Neural Information Processing Systems</em>, 2023. . Retrieved from https://neurips.cc/virtual/2023/oral/73865</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[KDD-24] Generative Flow Network for Listwise Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [KDD-24] Generative Flow Network for Listwise Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[KDD-24] Generative Flow Network for Listwise Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[KDD-24] Generative Flow Network for Listwise Recommendation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <p>ID: 20245231<br />
+Name: Taeyoung Yun</p>
+
+<h3 id="1-motivation">1. Motivation</h3>
+<p>개인화 추천 시스템 (Personalized Recommender System)의 목표는 사용자의 취향에 맞는 일련의 아이템 리스트를 생성하는 정책 함수(Policy)를 학습하는 것이다. 기존 방법론들은 주로 아이템 각각의 점수를 예측하는 모델을 지도 학습 (Supervised Learning)으로 학습한 뒤, 상위 $K$개의 아이템을 선택하는 방식인데, 이러한 방식은 아이템 간의 상호 보완적인 관계를 포착할 수 없다는 한계가 있다. 최근에는 아이템 리스트 전체에 대한 보상(reward)을 최대화하는 리스트를 생성하는 생성형 모델 (Generative Models)를 활용하는 연구가 주목받고 있지만. 방대한 조합 공간 탐색의 어려움과 다양한 아이템 리스트를 만들지 못한다는 한계가 존재한다. 본 연구에서는 Generative Flow Networks (GFlowNets)를 활용하여 위 문제를 해결하고자 하였다.</p>
+
+<h3 id="2-preliminaries">2. Preliminaries</h3>
+<h4 id="21-listwise-recommendation">2.1. Listwise Recommendation</h4>
+<p>리스트 기반 추천 (Listwise Recommendation)문제는 다음과 같이 정의할 수 있다.
+사용자 집합을 $\mathcal{U}$, 아이템 집합을 $\mathcal{I}$라고 정의하자. 리스트 기반 추천 문제는 사용자 $u\in\mathcal{U}$와 아이템 후보 집합 $C$가 주어졌을 때, 보상 함수 $\mathcal{R}(u, O)$를 최대화하는 $u$에게 추천할 $K$개의 아이템 $O\in C^{K}$를 찾는 정책 함수 $\pi(C,u;\theta)$를 찾는 문제이다. 수식으로 표현하면 다음과 같다.
+\(\theta^{*}=\arg\max_{\theta}\mathbb{E}_{u\in\mathcal{U}}\left[\mathcal{R}(u, \pi(C, u;\theta))\right]\)</p>
+
+<h4 id="22-generative-flow-networks">2.2. Generative Flow Networks</h4>
+<p>생성 흐름 모델 (Generative Flow Networks, GFlowNets)은 생성형 모델을 학습하는 방법론 중 하나로, 공집합 (empty set)에서 시작하여 순차적으로 기본 블록 (building blocks)을 쌓아가며 우리가 원하는 object (e.g., set, list, graph, …)를 생성하고자 한다. 순차적으로 action을 선택한다는 점에서 강화 학습 (Reinforcement Learning)과 유사하지만, GFlowNets은 주어진 보상 함수를 최대화하는 것이 아닌 학습한 정책 함수가 보상 함수에 비례하게 object를 생성하는 것을 목표로 하기 때문에 높은 보상을 얻으면서도 다양한 object를 생성할 수 있다는 장점이 있다. 수식으로 표현하면 다음과 같다.
+\(P_{\theta}(\tau)\propto \mathcal{R}(O^{T}),\\
+\text{where } \tau=\{\emptyset=O^{0}\rightarrow O^{1}\rightarrow\cdots\rightarrow O^{T}\}\)</p>
+
+<p>GFlowNets를 학습하는 방식으로는 크게 두 가지가 있는데, Trajectory Balance (TB)와 Detailed Balance (DB)가 있다. TB는 object를 생성하는 경로 $\tau$가 주어졌을 때, 아래 목적 함수를 최소화하는 방향으로 학습을 진행한다.</p>
+
+\[\mathcal{L}_{\text{TB}}(\theta, \phi)=\log\left(\frac{\mathcal{F}_{\phi}(u, \emptyset)\prod_{t=1}^{K}P_{\theta}(a_t\vert u, O^{t-1})}{\mathcal{R}(u, O^{K})}\right)^2\]
+
+<p>TB는 object를 생성하는 경로 전체를 가지고 학습을 진행하기 때문에, 경로의 길이가 길어지는 경우 학습의 variance가 커질 위험이 있다. DB는 경로 전체가 아닌 transition을 기반으로 학습을 진행한다. DB의 목적함수는 아래와 같다.</p>
+
+\[\mathcal{L}_{\text{DB}}(\theta, \phi)=\sum_{t=1}^{K-1}\log\left(\frac{\mathcal{F}_{\phi}(u, O^{t-1})P_{\theta}(a_t\vert u, O^{t-1})}{\mathcal{F}_{\phi}(u, O^t)}\right)^2+\log\left(\frac{\mathcal{F}_{\phi}(u, O^{K-1})P_{\theta}(a_t\vert u, O^{K-1})}{\mathcal{R}_{\phi}(u, O^K)}\right)^2\]
+
+<h3 id="3-method">3. Method</h3>
+<h4 id="31-item-selection-model-and-generation-tree">3.1. Item Selection Model and Generation Tree</h4>
+<p>본 단락에서는 어떻게 모델을 정의하고 어떻게 모델을 활용하여 아이템 리스트를 생성하는 지에 대해 설명한다. 리스트를 생성하는 절차는 아래와 같다.</p>
+
+<ol>
+  <li>사용자의 데이터 $u$가 들어오면, 먼저 리스트를 초기화한다. $O^{0}=\emptyset$</li>
+  <li>매 timestep $t$마다 아직 선택 안 된 아이템 후보 리스트 중 어떤 아이템을 추천 리스트에 넣을 것인지를 item selection model $P_{\theta}(i\vert u, O^{t-1})$로부터 선택한다. $a_t\sim P_{\theta}(i\vert u, O^{t-1})$</li>
+  <li>선택한 아이템을 추천 리스트에 넣는다. $O^{t}=O^{t-1}\oplus{a_t}$</li>
+  <li>timestep이 끝날 때까지 2,3번을 반복한다.</li>
+</ol>
+
+<p>Autoregressive하게 아이템을 선택하기 때문에 우리는 쉽게 item selection model이 특정 아이템 리스트를 생성할 확률을 아래와 같이 구할 수 있다. 그림은 item selection model이 아이템 리스트를 생성하는 과정을 도식화한 것이다.</p>
+
+\[P_{\theta}(O\vert u)=\prod_{t=1}^{K}P_{\theta}(a_t\vert u, O^{t-1})\]
+
+<p><img src="figure1.png" alt="alt text" /></p>
+
+<h4 id="32-learning-objectives-on-network-flow">3.2. Learning Objectives on Network Flow</h4>
+<p>본 단락에서는 어떻게 모델을 학습하여 보상이 높으면서도 다양한 아이템 리스트를 만드는 정책 함수를 만드는 지에 대해 설명한다. Preliminaries에서 설명하였듯이, GFlowNets의 목표는 아래와 같고, TB와 DB loss를 활용해 모델을 학습할 수 있다.
+\(P(O\vert u) \propto \mathcal{R}(u, O)\)</p>
+
+<h4 id="33-transformer-based-user-request-encoder">3.3. Transformer-based User Request Encoder</h4>
+<p>본 단락에서는 사용자와 관련된 정보를 처리하는 Encoder구조에 대해 이야기한다. 사용자와 관련된 정보로는 user profile $(\mathcal{X}<em>{u})$와 user history $(\mathcal{H}</em>{u}={(a_1, Y_{a_1}), \cdots, (a_L, Y_{a_{L}})})$이 주어진다. 본 논문에서는 Transformer기반 Encoder를 활용하여 user정보를 input으로 받아 user state embedding $s_t$를 만들고 이를 item selection model의 input으로 활용한다.</p>
+
+<p>전체 모델 아키텍쳐는 아래 그림과 같다.
+<img src="figure2.png" alt="alt text" /></p>
+
+<h3 id="4-experiments">4. Experiments</h3>
+
+<h4 id="41-experiment-setup">4.1. Experiment Setup</h4>
+<p>실험 세팅은 다음과 같다.</p>
+<ol>
+  <li>Datasets
+    <ul>
+      <li>ML1M: user의 movie rating정보를 담고 있는 데이터이다. $(\vert\mathcal{U}\vert=6400, \vert\mathcal{U}\vert=3706, \text{record}=1000208)$</li>
+      <li>KR1K: user의 short videos 시청 기록 정보를 담고 있는 데이터이다. $(\vert\mathcal{U}\vert=1000, \vert\mathcal{U}\vert=69219, \text{record}=2597865)$</li>
+    </ul>
+  </li>
+  <li>Baselines
+    <ul>
+      <li>CF: user와 item embedding의 dot product로 user의 item에 대한 score을 예측하는 모델</li>
+      <li>ListCVAE: Conditional VAE를 활용하여 높은 보상을 가지는 아이템 리스트를 생성하도록 학습된 모델</li>
+      <li>PRM: CF 모델을 초기 랭킹 모델로 두고 Transformer기반 re-ranking모델을 학습하는 방식</li>
+      <li>GFN4Rec: 제안한 모델 (default: TB)</li>
+    </ul>
+  </li>
+  <li>Simulated User Environment
+    <ul>
+      <li>특정 아이템 리스트의 효과를 확인하기 위한 시뮬레이터를 만들기 위해, stochastic한 user model를 데이터를 통해 학습하였다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="42-online-learning">4.2. Online Learning</h4>
+<p>제안한 모델의 효과를 검증하기 위해, 먼저 온라인 세팅에서 실험을 진행하였다. Online 상황이기 때문에 exploration을 진행할 때 action을 무조건 학습 중인 정책 함수로부터 sampling할 필요가 없다. 따라서 두 가지 버전을 실험하였다.</p>
+<ul>
+  <li>GFN4Rec(Explore): $\epsilon$-greedy방식으로 action을 선택</li>
+  <li>GFN4Rec: 학습 중인 policy로 action을 선택.</li>
+</ul>
+
+<p>실험에 사용한 metric은 아래와 같다.</p>
+<ul>
+  <li>Avg, Max reward: 아이템 리스트의 평균, 최대 보상. mini-batch로 들어온 user request에 대해 계산하였다.</li>
+  <li>Coverage: mini-batch로 들어온 user request에 대해 생성한 아이템 리스트에 존재하는 서로 다른 아이템의 개수</li>
+  <li>ILD (intra-list diversity): 1.0 - 아이템 리스트에 존재하는 아이템 간의 pairwise cosine similarity</li>
+</ul>
+
+<p>실험 결과는 아래와 같다. 본문에서 주장하였듯이, GFN4Rec를 사용하였을 때 높은 reward를 가지면서도 상대적으로 다양한 아이템 리스트를 생성하는 것을 확인할 수 있다.
+<img src="figure3.png" alt="alt text" /></p>
+
+<h4 id="43-offline-learning">4.3. Offline Learning</h4>
+<p>제안한 모델은 Offline 상황에서도 활용될 수 있다. 실험 결과는 아래와 같다. 본문에서 주장하였듯이, GFN4Rec를 사용하였을 때 Offline 상황에서도 높은 reward를 가지면서도 상대적으로 다양한 아이템 리스트를 생성하는 것을 확인할 수 있다.
+<img src="figure4.png" alt="alt text" /></p>
+
+<h4 id="44-ablation-studies">4.4. Ablation Studies</h4>
+<p>본 논문에서는 여러 가지 components에 대한 다양한 ablation studies를 진행하였다.</p>
+<ol>
+  <li>Greedy vs Exploration
+    <ul>
+      <li>Online 상황에서는 action를 선택할 때 지금 학습하고 있는 정책 함수만 사용할 것인지, $\epsilon$-greedy와 같은 Exploration을 진행할 것인지를 선택할 수 있다. 실험 결과 평균 reward는 Greedy한 방식이 더 높지만, diversity metric인 coverage의 경우 Exploration은 진행했을 때 더 높은 것을 아래 그림에서 확인할 수 있다.</li>
+    </ul>
+
+    <p><img src="figure5.png" alt="alt text" /></p>
+  </li>
+  <li>TB vs DB
+    <ul>
+      <li>GFlowNets를 학습하기 위해 TB혹은 DB loss를 활용할 수 있다. 실험 결과 variance가 큰 TB에 비해 상대적으로 DB가 많은 metric에서 좋은 performance를 보여주는 것을 확인할 수 있다.</li>
+    </ul>
+
+    <p><img src="figure6.png" alt="alt text" /></p>
+  </li>
+</ol>
+
+<h3 id="5-conclusion">5. Conclusion</h3>
+<p>본 논문에서는 Listwise Recommendation문제에서 높은 reward를 가지면서도 다양한 아이템 리스트를 생성하는 모델을 만들기 위해 Generative Flow Networks를 활용하였다. 실험 결과 추천 태스크에서 기존 baselines에 비해 높은 reward를 가지면서도 상대적으로 다양한 아이템 리스트를 생성하는 것을 확인할 수 있었다. 하지만 GFN4Rec은 다양한 hyperparameters를 요구한다는 문제와, reward-diversity trade-off를 위해서 sophisticated한 exploration strategy가 필요하다는 한계가 있다.</p>
+
+<h4 id="51-possible-future-works">5.1. Possible Future Works</h4>
+<p>본 문제와 같이 Conditional Generation문제에 GFlowNets를 적용하는 경우, TB loss는 variance가 크다는 한계가 있다. 많은 논문들에서 이를 해결하기 위해 VarGrad라는 기법을 활용한다 [1, 2, 3]. VarGrad는 TB와 달리 initial flow를 direct하게 parametrize하지 않고, 아래 식을 활용해 모델을 학습한다.
+\(\hat{\mathcal{F}}(u, \emptyset)^{(i)} = \log\mathcal{R}(u, O^K_{i}) - \sum_{t=1}^{K}\log P_{\theta}(a_t\vert u, O^{t-1}_{i})\\
+\mathcal{L}_{\text{VarGrad}}(\theta)=\left(\hat{\mathcal{F}}(u, \emptyset)^{(i)} - \frac{1}{B}\sum_{j=1}^{B}\hat{\mathcal{F}}(u, \emptyset)^{(j)}\right)^2\)
+위 문제에서도 이러한 기법을 활용한다면 성능 향상을 기대할 수 있을 것으로 보인다.</p>
+
+<h3 id="references">References</h3>
+<p>[1] Richter et al., VarGrad: A Low-Variance Gradient Estimator for Variational Inference, NIPS 2020</p>
+
+<p>[2] Zheng et al., Robust Scheduling with GFlowNets, ICLR 2023</p>
+
+<p>[3] Kim et al., Amortizing Intractable Inference in Diffusion Models for Vision, Language and Control, NIPS 2024</p>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

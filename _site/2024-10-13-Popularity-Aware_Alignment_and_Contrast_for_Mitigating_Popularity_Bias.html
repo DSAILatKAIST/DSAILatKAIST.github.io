@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[KDD-24] Popularity-Aware Alignment and Contrast for Mitigating Popularity Bias | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [KDD-24] Popularity-Aware Alignment and Contrast for Mitigating Popularity Bias page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[KDD-24] Popularity-Aware Alignment and Contrast for Mitigating Popularity Bias">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[KDD-24] Popularity-Aware Alignment and Contrast for Mitigating Popularity Bias</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition">1. Problem Definition</h2>
+
+<p><img src="https://i.postimg.cc/CLLWnsSr/motivation.png" width="400" height="200" /></p>
+
+<p><strong>[Figure 1] 아이템의 인기에 따른 추천 성능 차이 및 아이템 임베딩의 분리</strong></p>
+
+<p>Collaborative Fitlering 기반의 방법들은 인기 없는 아이템의 경우, 사용자와 interaction이 적기 때문에 인기 있는 아이템의 supervisory로 학습이 된다. 이러한 Popularity bias로 인해 Figure1에 나타난 것처럼 인기 있는 아이템과 인기 없는 아이템 사이에서 추천 성능이 차이가 나며, 임베딩 표현도 벌어지게 된다.</p>
+
+<h2 id="2-motivation">2. Motivation</h2>
+<p>본 논문에서는 두 가지 모듈을 활용해 unpopoular item에 대한 표현성을 향상시키고자 하였다. 기존의 방법들은 contarstive learning을 통해 popularity bias를 완화시키고자 하였으나, 이러한 방법은 popular, unpopular item 사이의 representation sepration을 심화시킨다. 본 논문에서 제안한 PAAC의 경우는 contrastive loss에서 가중치를 조절하여 popular item과 unpopular item의 representation이 너무 분리되지 않도록 하였다.</p>
+
+<h2 id="3-method">3. Method</h2>
+
+<p><img src="https://i.postimg.cc/HWw3GdS1/framework.png" width="650" height="300" /></p>
+
+<p><strong>[Figure 2] Popularity-Aware-Alignment and Contrast 모델의 학습 과정</strong></p>
+
+<p>본 논문에서 제시한 프레임워크는 Collaborative Filtering을 기반으로 하여 Supervised Alignment Module, Re-weighting Contrast Module 두 가지 모듈을 추가한 형태로 구성되어 있다.</p>
+
+<h3 id="31-supervised-alignment-module">3.1 Supervised Alignment Module</h3>
+<p>Figure2에 그려진 대로, GCN encoder를 통과한 item embedding에 대하여 같은 user와 interaction이 있는 아이템들에 대해서 representation을 유사하게 만들어준다.</p>
+
+<p><img src="https://i.postimg.cc/NjKbyTxR/five.png" width="250" height="45" /></p>
+
+<h3 id="32-re-weighting-contrast-module">3.2 Re-weighting Contrast Module</h3>
+<p>본 논문에서는 상위 50% item을 popular item으로 정의하고, 하위 50%의 item을 unpopular item으로 정의하였다. Contrastive loss를 계산할 때 popular item에 대해서 unpopular item이 negative sample로 뽑히거나, unpopular item에 대해서 popular item이 negative sample로 뽑히게 되면 representation separation이 심화된다. 따라서 본 논문에서는 아래의 식처럼 contrastive loss를 계산할 때 가중치를 주어 negative sample을 지나치게 밀어내는 것을 막도록 하였다.
+<img src="https://i.postimg.cc/1XGVt6Bc/cl.png" width="300" height="40" /></p>
+
+<p><img src="https://i.postimg.cc/Gm6J83Kt/8.png" width="300" height="50" /></p>
+
+<p><img src="https://i.postimg.cc/Gm6J83Kt/8.png" width="300" height="50" /></p>
+
+<h2 id="4-experiment">4. Experiment</h2>
+
+<h3 id="research-question">Research Question</h3>
+<ul>
+  <li>RQ1: PAAC가 기존의 모델과 어떻게 다른지?</li>
+  <li>RQ2: PAAC의 서로 다른 구성 요소가 어떻게 역할을 수행하고 있는지?</li>
+  <li>RQ3: PAAC가 어떻게 popularity bias를 완화하는지?</li>
+  <li>RQ4: Hyper-parameter가 PAAC의 추천 성능에 어떻게 영향을 주는지?</li>
+</ul>
+
+<h3 id="experiment-setup">Experiment setup</h3>
+<ul>
+  <li>Dataset: Amazon-book, Yelp2018, Gowalla</li>
+  <li>baseline: IPS, $𝛾$-AdjNorm, MACR, InvCF, Adap-$t$, SimGCL</li>
+  <li>Evaluation Metric: Recall@K, HR@K, NDCG@K</li>
+</ul>
+
+<h3 id="result">Result</h3>
+
+<h3 id="overall-performancerq1">Overall Performance(RQ1)</h3>
+<p><img src="https://i.postimg.cc/SKJ9GBZ5/test.png" width="800" height="300" /></p>
+
+<p><strong>[Table 1] Baseline과 PAAC의 성능 및 향상 정도</strong></p>
+
+<p>모든 베이스라인에 대하여 본 논문에서 제시한 PAAC가 popularity bias를 완화하며 성능 향상을 보였다. 특히, LightGCN을 베이스로 사용한 PAAC는 LightGCN의 NDCG@20 성능을 모든 데이터셋에 대해 크게 향상시켰다. 그러나 sparse한 Gowalla같은 데이터에 대해서는 작은 향상만을 보였다.</p>
+
+<h3 id="ablation-studyrq2">Ablation Study(RQ2)</h3>
+<p><img src="https://i.postimg.cc/SjFV0yPJ/ablation.png" width="670" height="150" /></p>
+
+<p><strong>[Table 2] PAAC의 Ablation</strong></p>
+<ul>
+  <li>PAAC-w/o P: popular item의 re-weighting contrastive loss가 사라진 경우</li>
+  <li>PAAC-w/o U: unpopular item의 re-weighting contrastive loss가 사라진 경우</li>
+  <li>PAAC-w/o A: popularity-aware supervised alignment loss가 사라진 경우</li>
+</ul>
+
+<p>popular item의 re-weighting contrastive loss가 사라진 경우에 가장 큰 성능 하락이 있었으며, alignment loss가 없는 케이스도 SimGCL보다 좋은 성능을 보였는데 이는 popularity에 따라 구분된 contrastive loss가 적용되었기 때문이다.</p>
+
+<h3 id="debias-abilityrq3">Debias Ability(RQ3)</h3>
+<p><img src="https://i.postimg.cc/zvC5YffQ/pop.png" width="500" height="200" /></p>
+
+<p><strong>[Figure 3] Popular/ Unpopular item 각각에서의 추천 성능</strong></p>
+
+<p>Gowalla와 Yelp2018 데이터셋에 대하여, 상위 20%의 item을 Popular item으로, 나머지를 Unpopular item으로 분류하여 성능을 측정하면 LightGCN 베이스의 PAAC가 Unpopular item에서 성능을 많이 향상시킨다는 것을 확인할 수 있다.</p>
+
+<h3 id="hyperparameter-sensitivesrq4">Hyperparameter Sensitives(RQ4)</h3>
+<p><img src="https://i.postimg.cc/FFyY0yb0/dd.png" width="500" height="200" /></p>
+
+<p><strong>[Figure 4] $\lambda_ 1, \lambda_ 2$에 따른 성능 향상 정도</strong></p>
+
+<p>$\lambda_ 2$이 증가할 때, 처음엔 성능이 향상되지만 어느순간 감소하며 $\lambda_ 1$이 증가할 때 역시 초반엔 성능이 향상되지만 어느순간 감소한다.</p>
+
+<p><img src="https://i.postimg.cc/8PvfsdF8/hyper.png" width="500" height="300" /></p>
+
+<p><strong>[Figure 5] $\gamma, \beta$에 따른 PAAC의 성능</strong></p>
+
+<p>Yelp2018에서 $\gamma = 0.8, \beta = 0.6$일 때, Gowalla에서 $\gamma = 0.2, \beta = 0.2$일 때가 최적의 값을 보이는데, 이는 item당 interaction이 상대적으로 많은 Yelp에서는 popular item을 positive sample로 쓰는데서 많은 이득을 보기 때문이다.</p>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+
+<p>본 논문에서는 popularity bias 해결을 위해 PAAC를 제안하였다. 같은 user를 공유하는 item들은 비슷한 특성을 가졌을 거라는 가정하에서, popularity-aware supervised alignment approach를 고안하고 contrastive learning 기반의 모델에서 representation separation을 방지하기 위하여 popularity level에 따라서 loss의 weight를 조절하였다. 이러한 방법으로 개선된 PAAC는 다양한 데이터셋에서 성능이 개선되는 것으로 증명되었다.
+  창의적인 솔루션이 아니더라도, 문제의 존재를 명확히 밝히고 개선의 여지를 보일 수 있는 것 또한 좋은 연구라는 생각이 들었습니다.</p>
+
+<ul>
+  <li>
+    <p>Author Information</p>
+
+    <ul>
+      <li>Jimin Seo</li>
+      <li>Dept. of ISysE, KAIST</li>
+      <li>Research Topic: Recommender System</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-reference--additional-materials">6. Reference &amp; Additional materials</h2>
+<p>- Miaomiao Cai, Lei Chen, Yifan Wang, Haoyue Bai, Peijie Sun, Le Wu. Popularity-Aware Alignment and Contrast for Mitigating Popularity Bias. <em>KDD(2024)</em>.</p>
+
+<p>- Github Implementation : https://github.com/miaomiao-cai2/KDD2024-PAAC.</p>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

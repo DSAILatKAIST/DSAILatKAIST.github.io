@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[SIGIAR-24] Diffusion Models for Generative Outfit Recommendation | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [SIGIAR-24] Diffusion Models for Generative Outfit Recommendation page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[SIGIAR-24] Diffusion Models for Generative Outfit Recommendation">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[SIGIAR-24] Diffusion Models for Generative Outfit Recommendation</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+<p>패션 도메인에서 사용자에게 맞춤형 코디를 추천하는 것은 매우 중요한 과제입니다. 기존의 코디 추천 시스템은 두 가지 접근 방식으로 나뉩니다. 첫 번째는 <strong>Pre-defined Outfit Recommendation (POR)</strong> 으로, 이미 잘 구성된 코디 세트를 사용자에게 추천하는 방식입니다. 하지만 이러한 방식은 이미 존재하는 한정된 코디 세트로만 추천이 이루어지므로, 사용자 개인의 다양하고 세부적인 패션 요구를 충족시키기에는 한계가 있습니다.</p>
+
+<p>두 번째는 <strong>Personalized Outfit Composition (POC)</strong> 방식으로, 개별 패션 아이템을 검색하여 이를 조합해 사용자가 선호할 만한 코디를 구성하는 방법입니다. 이 접근 방식은 기존의 POR보다 사용자 맞춤형 추천을 제공할 수 있지만, 여전히 기존의 패션 제품들로만 코디를 구성해야 한다는 제한이 있으며, 이는 사용자가 원하는 스타일, 색상, 패턴과 완벽히 일치하지 않을 가능성이 높습니다.</p>
+
+<p>본 논문에서는 이러한 한계를 극복하고자 새로운 과제인 <strong>Generative Outfit Recommendation (GOR)</strong> 을 제안합니다. GOR의 목표는 기존의 패션 아이템에만 의존하지 않고, 사용자의 취향에 맞춰 새롭게 생성된 패션 제품들을 기반으로 코디를 구성하여 추천하는 것입니다.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>기존의 코디 추천 시스템은 크게 두 가지 문제를 가지고 있습니다. 첫 번째로, <strong>POR</strong>은 이미 만들어진 코디 세트를 사용자에게 추천하는 방식으로, 사용자 취향에 맞춘 다양성을 제공하는 데 한계가 있습니다. 기존의 연구들은 사용자가 선호하는 스타일과 일치하는 코디를 제안하기 위해 코디 데이터베이스를 활용하거나, Content-based Filtering 또는 Collaborative Filtering 기법을 사용해왔습니다. 하지만 이러한 방식들은 데이터베이스에 이미 존재하는 패션 제품에 의존할 수밖에 없기 때문에, 사용자 맞춤형 코디를 세밀하게 제안하는 데 어려움이 있습니다.</p>
+
+<p>두 번째로, <strong>POC</strong>은 개별 아이템들을 조합하여 사용자에게 맞춤형 코디를 제안하는 접근 방식입니다. 이를 통해 어느 정도의 개인화는 이루어지지만, 기존 패션 아이템들로만 제한된 조합을 제공하기 때문에 사용자가 원하는 특정 디자인이나 패턴을 충족시키기에는 부족할 수 있습니다.</p>
+
+<p>본 논문에서 제안하는 <strong>DiFashion</strong> 모델은 이러한 문제를 해결하기 위해 <strong>Diffusion Models (DMs)</strong> 을 기반으로 패션 이미지를 생성하는 새로운 접근 방식을 채택했습니다. DiFashion은 기존의 패션 아이템에 국한되지 않고, 사용자 취향에 맞춰 새로운 패션 아이템을 생성하고 이들로 구성된 코디를 추천할 수 있습니다. 이를 통해 사용자의 개별적 취향을 더 정밀하게 반영한 맞춤형 코디를 제공할 수 있으며, <strong>high fidelity</strong>, <strong>comparibility</strong>, 그리고 <strong>personalized</strong>된 추천을 실현할 수 있습니다. 이는 기존의 추천 시스템들이 직면한 한계를 넘어, 패션 도메인에서 더욱 진화된 추천 경험을 제공할 수 있음을 의미합니다.</p>
+
+<h2 id="3-preliminary"><strong>3. Preliminary</strong></h2>
+
+<p><strong>Diffusion Models (DMs)</strong> 은 이미지 합성을 위한 강력한 방법으로, 마르코프 체인을 기반으로 이미지에 점진적으로 노이즈를 추가하는 <strong>forward process</strong>와 노이즈를 제거하여 이미지를 복원하는 <strong>reverse process</strong>로 구성됩니다.</p>
+
+<ul>
+  <li>
+    <p><strong>Forward Process</strong>: 주어진 이미지 $\mathbf{x}_0 \sim q(\mathbf{x}_0)$에 가우시안 노이즈를 단계적으로 추가하여 이미지를 점진적으로 파괴합니다.
+\(q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I})\)
+여기서 $\beta_t 는 각 단계 $t$에서 추가되는 노이즈의 크기를 제어하며, $t = 1, \dots, T$ 입니다. $T$가 커질수록 이미지 $\mathbf{x}_T$는 가우시안 노이즈로 수렴하게 됩니다.</p>
+  </li>
+  <li>
+    <p><strong>Reverse Process</strong>: 시작 이미지가 순수한 노이즈 $\mathbf{x}<em>T \sim \mathcal{N}(0, \mathbf{I})$일 때, 노이즈 제거 과정을 통해 원본 이미지를 복원합니다.
+\(p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu_\theta(\mathbf{x}_t, t), \Sigma_\theta(\mathbf{x}_t, t))\)
+여기서 $\mu</em>\theta$와 $\Sigma_\theta$는 신경망으로 학습된 평균과 공분산입니다. 이 과정에서 학습 목표는 원래 이미지와 유사한 이미지를 점진적으로 생성하는 것입니다.</p>
+  </li>
+  <li>
+    <p><strong>최적화</strong>: DMs는 다음 손실 함수를 통해 학습됩니다.
+\(L_\theta = \mathbb{E}_{t, \epsilon \sim \mathcal{N}(0, \mathbf{I})} \left[ \Vert \epsilon - \epsilon_\theta(\mathbf{x}_t, t) \Vert_2^2 \right]\)
+여기서 $\epsilon_\theta$는 노이즈 예측 모델이며, $t$는 무작위로 샘플링된 시점입니다.</p>
+  </li>
+  <li>
+    <p><strong>이미지 생성</strong>: 학습이 완료된 후, DMs는 순수한 노이즈에서 시작하여 단계별로 노이즈를 제거하며 이미지를 생성합니다.</p>
+  </li>
+</ul>
+
+<h2 id="41-task-formulation"><strong>4.1 Task Formulation</strong></h2>
+
+<p><strong>Generative Outfit Recommendation (GOR)</strong> 는 사용자의 개인 취향에 맞는 시각적으로 호환되는 새로운 패션 제품 이미지를 생성하여 코디를 구성하는 과제입니다. 공식적으로, 주어진 사용자 정보 $\mathbf{u}$ (예: 상호작용 내역, 사용자 특징)를 기반으로  $n$개의 패션 아이템 $\mathcal{O} = { \mathbf{i}<em>k }</em>{k=1}^n$을 생성하는 문제로 정의됩니다. 여기서 각 아이템 $\mathbf{i}<em>k$는 아래 최적화 문제를 만족해야 합니다:
+\(\mathbf{u},\mathbf{\emptyset} \rightarrow \mathcal{O}=\{\mathbf{i}_k\}_{k=1}^n\)
+\(\text{s.t. } \mathbf{i}_k = \arg\max_{\mathbf{i}} P_\theta(\mathbf{i} | \mathcal{O}_k', \mathbf{u}), \quad k = 1, \dots, n\)
+여기서 $\mathcal{O}_k’ = \mathcal{O} \setminus { \mathbf{i}_k }$는 불완전한 코디이며, $P</em>\theta(\cdot)$는 각 아이템의 조건부 생성 확률을 나타냅니다.</p>
+
+<p>하지만 이 문제는 시작점이 명확하지 않고, 최적화 과정 중 계속 변하는 제약 조건 때문에 직접 풀기 어렵습니다. 따라서 이 문제를 해결하기 위해 순차적으로 생성하는 방식이 아닌, 여러 이미지를 병렬로 생성하는 방식으로 문제를 변환합니다. 이 과정에서 $\mathcal{O}<em>T = { \mathbf{i}</em>{k,T} }_{k=1}^n$은 순수한 가우시안 노이즈에서 시작하여 각 단계 $t$에서 이미지를 생성하는 방식으로 문제를 해결할 수 있습니다.</p>
+
+<h2 id="42-difashion"><strong>4.2 DiFashion</strong></h2>
+
+<p>DiFashion은 사용자 정보에 기반해 다수의 패션 이미지를 병렬로 생성하여 코디를 구성하는 <strong>generative outfit recommender model</strong>입니다. 이 모델은 두 가지 중요한 과정을 포함합니다:</p>
+
+<ol>
+  <li>
+    <p><strong>Forward Process</strong>: 코디 이미지를 가우시안 노이즈로 점진적으로 파괴합니다. 각 이미지 $\mathbf{i}_{k,t}$는 서로 독립적으로 노이즈가 추가됩니다.
+\(q(\mathcal{O}_t | \mathcal{O}_{t-1}) = \prod_{k=1}^n q(\mathbf{i}_{k,t} | \mathbf{i}_{k,t-1}) = \prod_{k=1}^n \mathcal{N}(\mathbf{i}_{k,t}; \sqrt{1 - \beta_t} \mathbf{i}_{k,t-1}, \beta_t \mathbf{I})\)</p>
+  </li>
+  <li>
+    <p><strong>Reverse Process</strong>: DiFashion의 <strong>reverse process</strong>는 순수한 노이즈 $\mathcal{O}<em>T = { \mathbf{i}</em>{k,T} }_{k=1}^n$에서 시작하여, 각 패션 아이템 이미지를 병렬로 복원하는 과정입니다. <strong>U-Net</strong>을 기반으로 하는 이 과정은 각 패션 아이템이 고유의 조건들에 맞게 복원될 수 있도록 설계되었습니다. Reverse process는 다음과 같은 확률 분포로 정의됩니다:</p>
+  </li>
+</ol>
+
+\[p_\theta(\mathcal{O}_{t-1} | \mathcal{O}_t) = \prod_{k=1}^n p_\theta(\mathbf{i}_{k,t-1} | \mathcal{O}_t)\]
+
+<p>각 아이템에 대한 복원 과정은 다음과 같이 노이즈를 제거하는 가우시안 분포로 표현됩니다:</p>
+
+\[p_\theta(\mathbf{i}_{k,t-1} | \mathcal{O}_t) = \mathcal{N}(\mathbf{i}_{k,t-1}; \mu_\theta(\mathcal{O}_t, t), \Sigma_\theta(\mathcal{O}_t, t))\]
+
+<p>여기서 $\mu_\theta$와 $\Sigma_\theta$는 U-Net을 통해 학습된 평균과 공분산입니다. Reverse process는 $T$부터 0까지 점진적으로 진행되며, 점점 더 노이즈가 제거된 패션 아이템 이미지를 생성합니다.</p>
+
+<h3 id="condition-encoders"><strong>Condition Encoders</strong></h3>
+
+<p>DiFashion은 패션 아이템을 복원할 때 세 가지 중요한 조건을 활용합니다:</p>
+<ol>
+  <li><strong>Category Prompt</strong>: 각 아이템의 카테고리를 보장하는 텍스트 기반 조건입니다. 예를 들어 “A photo of a hat, on white background”와 같은 문장이 주어집니다.</li>
+  <li><strong>Mutual Condition</strong>: 동일한 코디 내 다른 아이템들과의 호환성을 보장하는 조건입니다. 복원 중인 아이템의 호환성을 유지하기 위해 다른 아이템의 정보가 사용됩니다.</li>
+  <li><strong>History Condition</strong>: 사용자의 과거 상호작용 데이터를 활용하여, 해당 사용자의 패션 취향을 반영한 개인화된 조건입니다.</li>
+</ol>
+
+<p>이 세 가지 조건을 reverse process에서 동시에 적용하여 복원 과정을 효과적으로 이끌어 갑니다.</p>
+
+<h3 id="mutual-encoder"><strong>Mutual Encoder</strong></h3>
+
+<p>Mutual encoder는 동일한 코디 내 다른 패션 아이템들의 호환성을 고려하여 복원 과정에 반영하는 역할을 합니다. 이를 위해 각 아이템 $\mathbf{i}_{k,t}$는 나머지 아이템들의 평균 정보로부터 호환성 정보를 추출합니다. 이를 수식으로 표현하면 다음과 같습니다:</p>
+
+\[\mathcal{O}_t' = \mathcal{O}_t \setminus \{ \mathbf{i}_{k,t} \}\]
+
+\[\mathbf{m}_{k,t} = f_\phi \left( \frac{1}{n-1} \sum_{v \neq k} \mathbf{i}_{v,t} \right)\]
+
+<p>여기서 $f_\phi$는 multi-layer perceptron (MLP)이며, 다른 아이템들의 평균 영향을 계산한 후 mutual condition $\mathbf{m}_{k,t}$를 도출합니다. 이 mutual condition은 복원 중인 아이템에 다음과 같이 적용됩니다:</p>
+
+\[\mathbf{i}_{k,t}^\text{mutual} = (1 - \eta) \cdot \mathbf{i}_{k,t} + \eta \cdot \mathbf{m}_{k,t}\]
+
+<p>여기서 $\eta$는 mutual condition의 영향을 조절하는 가중치입니다. 이 방식으로 mutual encoder는 코디 내 아이템 간의 호환성을 높입니다.</p>
+
+<h3 id="history-encoder"><strong>History Encoder</strong></h3>
+
+<p>History encoder는 사용자의 과거 상호작용 데이터를 바탕으로 개인화된 패션 아이템을 복원하는 역할을 합니다. 각 사용자 $u$의 상호작용 기록에서 해당 카테고리 $c_k$에 대한 아이템들을 활용하여 history condition을 생성합니다:</p>
+
+\[\mathbf{u}_{c_k} = \{ \mathbf{i}_{r}^{c_k} \}_{r=1}^m\]
+
+<p>이를 통해 각 상호작용 아이템을 잠재 공간으로 압축한 후 평균을 취하여 history condition $\mathbf{h}_{c_k}$를 계산합니다:</p>
+
+\[\mathbf{h}_{c_k} = \text{Avg}(E(\mathbf{u}_{c_k})) = \frac{1}{m} \sum_{r=1}^m E(\mathbf{i}_{r}^{c_k})\]
+
+<p>여기서 $E$는 미리 학습된 인코더이며, $\mathbf{h}_{c_k}$는 해당 카테고리에서의 사용자 선호를 반영합니다. 이 history condition은 mutual condition과 결합되어 복원 과정에 사용됩니다:</p>
+
+\[[\mathbf{i}_{k,t}^\text{mutual}, \mathbf{h}_{c_k}]\]
+
+<p>이렇게 결합된 정보가 U-Net의 입력으로 사용되며, 이를 통해 사용자 취향에 맞는 맞춤형 복원이 이루어집니다.</p>
+
+<h3 id="training"><strong>Training</strong></h3>
+
+<p>DiFashion의 학습 과정은 <strong>Stable Diffusion</strong> (SD)에서 사용하는 방식을 확장하여 세 가지 조건을 통합하는 방식으로 이루어집니다. 학습 목표는 U-Net이 각 아이템에 추가된 노이즈를 정확하게 예측하도록 하는 것입니다. 손실 함수는 다음과 같이 정의됩니다:</p>
+
+\[L_{\theta, \phi} = \frac{1}{n} \sum_{k=1}^n \mathbb{E}_{t, \epsilon_k \sim \mathcal{N}(0, \mathbf{I})} \left[ \| \epsilon_k - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) \|_2^2 \right]\]
+
+<p>여기서 $\epsilon_{\theta, \phi}$는 노이즈 예측 모델이며, 학습 중 각 조건 (category prompt $\mathbf{t}<em>{c_k}$, mutual condition $\mathbf{m}</em>{k,t}$, history condition $\mathbf{h}_{c_k}$)이 주어진 상황에서 노이즈를 제거하는 능력을 학습합니다. 학습 과정에서 각 조건은 무작위로 마스킹되며, 모델이 다양한 조건에 대해 잘 대응할 수 있도록 합니다.</p>
+
+<h3 id="inference"><strong>Inference</strong></h3>
+
+<p>학습이 완료된 후, DiFashion은 두 가지 주요 태스크를 수행할 수 있습니다:</p>
+<ol>
+  <li><strong>PFITB (Personalized Fill-In-The-Blank)</strong>: 불완전한 코디에서 누락된 패션 아이템을 개인화된 방식으로 생성합니다. 주어진 카테고리 $c_n$에 대한 category prompt $\mathbf{t}<em>{c_n}$, mutual condition $\mathbf{m}_n$, history condition $\mathbf{h}</em>{c_n}$을 활용하여, 노이즈 $\mathbf{i}_{n,T} \sim \mathcal{N}(0, \mathbf{I})$에서 시작해 아이템을 복원합니다.</li>
+  <li><strong>GOR (Generative Outfit Recommendation)</strong>: 지정된 카테고리 ${c_k}<em>{k=1}^n$에 맞는 전체 코디를 생성합니다. 초기 노이즈 $\mathcal{O}_T = { \mathbf{i}</em>{k,T} }<em>{k=1}^n$에서 시작해 mutual condition ${\mathbf{m}</em>{k,T}}<em>{k=1}^n$과 history condition ${\mathbf{h}</em>{c_k}}_{k=1}^n$을 활용하여 모든 아이템을 복원합니다.</li>
+</ol>
+
+<p>Inference 과정에서는 다음과 같은 수식을 통해 생성이 이루어집니다:</p>
+
+\[\tilde{\epsilon}_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) = \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \emptyset, \emptyset, \emptyset, t) + s_t \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \emptyset, \emptyset, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \emptyset, \emptyset, \emptyset, t)]\]
+
+\[+s_m \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \emptyset, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \emptyset, \emptyset, t)]\]
+
+\[+s_h \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \emptyset, t)]\]
+
+<p>여기서 $s_t$, $s_m$, $s_h$는 각 조건의 가이드 스케일이며, 이 값들은 inference 과정에서 최적화되어 각 조건이 적절히 반영된 이미지를 생성합니다. 아래의 이미지는 DiFashion의 Overall Structure입니다.</p>
+
+<p><img src="https://i.postimg.cc/L5rtfHrW/Di-Fashion-Overall.png" alt="DiFashion_Overall" /></p>
+
+<h2 id="5-experiments"><strong>5. Experiments</strong></h2>
+
+<p>DiFashion의 성능을 평가하기 위해 다양한 실험을 수행했습니다. 실험은 세 가지 주요 질문에 답하는 것을 목표로 합니다:</p>
+
+<ol>
+  <li><strong>RQ1</strong>: DiFashion은 PFITB (Personalized Fill-In-The-Blank)와 GOR (Generative Outfit Recommendation) 태스크에서 기존의 생성 모델 및 검색 기반 코디 추천 방법과 비교하여 어떤 성능을 보이는가?</li>
+  <li><strong>RQ2</strong>: DiFashion은 인간 평가 기준에서 기존 모델보다 더 나은 호환성과 개인화된 코디를 제공할 수 있는가?</li>
+  <li><strong>RQ3</strong>: DiFashion의 다양한 디자인 결정 (mutual influence ratio $\eta$, condition guidance scale $s_t$, $s_m$, $s_h$)이 성능에 어떤 영향을 미치는가?</li>
+</ol>
+
+<h3 id="51-experimental-settings"><strong>5.1 Experimental Settings</strong></h3>
+
+<h4 id="511-datasets"><strong>5.1.1 Datasets</strong></h4>
+
+<ul>
+  <li><strong>iFashion</strong>: 사전 정의된 코디 및 개별 패션 아이템으로 구성된 데이터셋으로, 사용자의 클릭 이력과 상호작용 내역을 포함합니다.</li>
+  <li><strong>Polyvore-U</strong>: Polyvore 웹사이트에서 수집된 데이터로, 다양한 코디와 사용자-코디 상호작용 데이터를 포함합니다.</li>
+</ul>
+
+<p>두 데이터셋에서 사용자가 5개 이상의 상호작용을 한 경우만을 남겨 훈련, 검증, 테스트 세트로 나누어 사용했습니다.</p>
+
+<h4 id="512-baselines"><strong>5.1.2 Baselines</strong></h4>
+
+<p>DiFashion의 성능을 평가하기 위해 다음과 같은 생성 모델 및 검색 기반 추천 시스템과 비교를 수행했습니다:</p>
+
+<ol>
+  <li><strong>Generative Models</strong>:
+    <ul>
+      <li><strong>OutfitGAN</strong>: 패션 이미지 생성을 위해 GAN을 사용하는 모델.</li>
+      <li><strong>Stable Diffusion v1.5 &amp; v2</strong>: 텍스트 프롬프트 기반 이미지 생성을 위한 Stable Diffusion 모델.</li>
+      <li><strong>SD-naive</strong>: GOR 태스크에 SD를 단순하게 적용한 모델로, mutual condition 및 history condition을 활용하지만 MLP 없이 결합.</li>
+      <li><strong>ControlNet</strong>: 미리 학습된 DM에 공간적 조건을 추가해 패션 이미지를 생성.</li>
+    </ul>
+  </li>
+  <li><strong>Retrieval-based Models</strong>:
+    <ul>
+      <li><strong>Random</strong>: 무작위로 패션 아이템을 선택하여 추천하는 단순 전략.</li>
+      <li><strong>HFN</strong>: 이진 코드로 사용자 및 콘텐츠 기반 추천을 수행하는 검색 기반 모델.</li>
+      <li><strong>HFGN</strong>: 그래프를 사용해 사용자-코디 상호작용을 모델링하여 추천하는 모델.</li>
+      <li><strong>BGN &amp; BGN-Trans</strong>: LSTM 및 Transformer를 사용해 패션 아이템을 시퀀스 형태로 모델링하여 코디를 구성하는 모델.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="513-evaluation-metrics"><strong>5.1.3 Evaluation Metrics</strong></h4>
+
+<p>DiFashion과 다른 모델들을 비교하기 위해 다음과 같은 정량적 평가 지표를 사용했습니다:</p>
+
+<ol>
+  <li><strong>Generative Metrics</strong>:
+    <ul>
+      <li><strong>FID (Frechet Inception Distance)</strong>: 생성된 이미지와 실제 이미지 간의 거리를 측정하는 지표.</li>
+      <li><strong>IS (Inception Score)</strong>: 이미지의 다채로움과 질을 평가.</li>
+      <li><strong>CLIP Score (CS)</strong>: CLIP 모델을 사용하여 이미지와 텍스트 간의 일치도를 평가.</li>
+      <li><strong>IS-acc</strong>: 생성된 이미지의 카테고리 일치율을 나타내는 정확도.</li>
+    </ul>
+  </li>
+  <li><strong>Fashion Metrics</strong>:
+    <ul>
+      <li><strong>CIS (CLIP Image Score)</strong>: 생성된 이미지와 실제 이미지 간의 유사도를 평가.</li>
+      <li><strong>LPIPS (Learned Perceptual Image Patch Similarity)</strong>: 지각적인 이미지 유사도를 평가하는 지표.</li>
+      <li><strong>Compatibility</strong>: OutfitGAN에서 사용된 호환성 평가기를 활용해 코디 내 아이템 간의 호환성을 평가.</li>
+      <li><strong>Personalization</strong>: 사용자가 상호작용한 아이템과 생성된 아이템 간의 개인화 정도를 평가.</li>
+    </ul>
+  </li>
+  <li><strong>Retrieval Accuracy</strong>:
+    <ul>
+      <li>PFITB 태스크에서는 생성된 아이템을 후보군에서 검색하는 정확도를 평가.</li>
+      <li>GOR 태스크에서는 생성된 코디와 후보군 간의 유사성을 측정.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="52-quantitative-evaluation-rq1"><strong>5.2 Quantitative Evaluation (RQ1)</strong></h3>
+
+<h4 id="521-comparison-with-generative-models"><strong>5.2.1 Comparison with Generative Models</strong></h4>
+
+<p>DiFashion은 PFITB와 GOR 태스크 모두에서 다른 생성 모델들과 비교했을 때 우수한 성능을 보였습니다. 다음과 같은 결과를 도출할 수 있었습니다:</p>
+
+<ul>
+  <li><strong>OutfitGAN</strong>은 생성된 이미지의 화질과 호환성 면에서 상대적으로 낮은 성능을 보였습니다.</li>
+  <li><strong>Stable Diffusion (v1.5 &amp; v2)</strong> 는 iFashion 데이터셋에서 미세 조정 후, 더 높은 화질과 호환성을 보여줬지만, category prompt가 충분한 패션 디테일을 포함하지 못해 CLIP Score가 감소했습니다.</li>
+  <li><strong>SD-naive</strong>와 <strong>ControlNet</strong>은 mutual과 history 조건을 통합했지만, 성능이 DiFashion에 미치지 못했습니다. ControlNet의 경우, 사전 학습된 U-Net의 가중치를 고정하여 finetuning한 점에서 일반화 능력이 제한되었습니다.</li>
+  <li><strong>DiFashion</strong>은 대부분의 지표에서 우수한 성능을 기록했으며, 특히 호환성과 개인화 측면에서 가장 뛰어난 성과를 보였습니다.</li>
+</ul>
+
+<p><img src="https://i.postimg.cc/vHt7Dd00/Ex5-2-1.png" alt="Ex5.2.1" /></p>
+
+<h4 id="522-comparison-with-retrieval-based-models"><strong>5.2.2 Comparison with Retrieval-based Models</strong></h4>
+
+<p>검색 기반 모델과의 비교에서, DiFashion은 검색 태스크에서도 높은 성능을 보였습니다. PFITB 태스크에서는 검색 정확도에서 기존 모델들과 비슷하거나 더 나은 성능을 보여줬습니다. 특히 DiFashion은 개인화 및 호환성 측면에서 탁월한 성과를 나타내며, 실제 패션 제품을 생성하고 검색하는 데 실질적으로 적용 가능한 가능성을 확인했습니다.</p>
+
+<p><img src="https://i.postimg.cc/DwCqdPks/Ex5-2-2.png" alt="Ex5.2.2" /></p>
+
+<h3 id="53-human-involved-qualitative-evaluation-rq2"><strong>5.3 Human-involved Qualitative Evaluation (RQ2)</strong></h3>
+
+<p>Human Evaluation은 DiFashion과 두 가지 Stable Diffusion 모델 (v1.5, v2)과 비교한 결과, DiFashion이 더 높은 화질, 호환성, 개인화를 제공한다고 판단했습니다. 이 평가는 Amazon Mechanical Turk에서 50개의 PFITB 및 GOR 사례를 바탕으로 수행되었으며, DiFashion은 항상 더 높은 선호도를 기록했습니다.</p>
+
+<p><img src="https://i.postimg.cc/0jDNrPxZ/Ex5-3.png" alt="Ex5.3" /></p>
+
+<h3 id="54-in-depth-analysis-rq3"><strong>5.4 In-depth Analysis (RQ3)</strong></h3>
+
+<h4 id="541-hyper-parameter-analysis"><strong>5.4.1 Hyper-parameter Analysis</strong></h4>
+
+<ul>
+  <li><strong>Mutual Influence Ratio $\eta$</strong>: $\eta$ 값이 너무 작으면 호환성 지표가 저하되었으며, 너무 큰 값은 호환성이 지나치게 강조되어 다른 조건들의 영향을 감소시켰습니다.</li>
+  <li><strong>Guidance Scales $s_t$, $s_m$, $s_h$</strong>: 세 가지 가이드 스케일을 변화시키며 성능을 분석한 결과, 각 조건의 적절한 가이드 스케일을 선택하는 것이 중요함을 확인했습니다. 특히 mutual condition의 가이드 스케일 $s_m$은 호환성에 큰 영향을 미쳤습니다.</li>
+</ul>
+
+<p><img src="https://i.postimg.cc/wj6BxCrc/Ex5-4-1.png" alt="Ex5.4.1" /></p>
+
+<h4 id="542-ablation-study"><strong>5.4.2 Ablation Study</strong></h4>
+
+<p>Mutual encoder에 MLP를 사용하는 것과 그렇지 않은 경우를 비교한 결과, MLP가 없을 경우 호환성과 개인화 성능이 저하되었습니다. 또한 mutual 및 history 조건이 없을 경우, 모델의 호환성 및 개인화 성능이 크게 떨어지는 것을 확인했습니다.</p>
+
+<p><img src="https://i.postimg.cc/G2sLSdBr/Ex5-4-2T.png" alt="Ex5.4.2T" />
+<img src="https://i.postimg.cc/dV4VhWPM/Ex5-4-2F.png" alt="Ex5.4.2F" /></p>
+
+<h2 id="6-conclusion"><strong>6. Conclusion</strong></h2>
+
+<p>본 논문에서는 <strong>Generative Outfit Recommendation (GOR)</strong> 이라는 새로운 패션 추천 과제를 제안하였으며, 이를 해결하기 위한 <strong>DiFashion</strong> 모델을 제시했습니다. DiFashion은 <strong>Diffusion Models (DMs)</strong> 을 기반으로 하여 사용자의 패션 아이템 상호작용 기록과 카테고리 정보를 활용해 새로운 패션 이미지를 생성함으로써, 사용자에게 호환성과 개인화가 뛰어난 코디를 추천합니다.</p>
+
+<h3 id="contributions"><strong>Contributions</strong>:</h3>
+<ol>
+  <li>
+    <p><strong>Generative Outfit Recommendation (GOR)</strong>: 기존의 검색 기반 패션 추천 방식이 아닌, 패션 아이템을 직접 생성하여 사용자에게 추천하는 새로운 추천 과제를 정의하였습니다. 이를 통해 기존의 한정된 패션 아이템 데이터베이스의 제약을 넘어서, 사용자의 취향에 맞춘 새로운 코디를 생성할 수 있는 가능성을 제시했습니다.</p>
+  </li>
+  <li>
+    <p><strong>DiFashion 모델 제안</strong>: <strong>Diffusion Models (DMs)</strong> 에 기반하여, 카테고리 프롬프트, 코디 아이템 간의 호환성을 고려한 mutual condition, 사용자 상호작용 기록을 반영한 history condition을 통합하는 새로운 아키텍처를 설계했습니다. 이 아키텍처는 U-Net을 통해 복잡한 패션 이미지를 효과적으로 생성할 수 있으며, 이러한 조건들이 함께 작용하여 높은 화질, 호환성, 개인화된 추천을 가능하게 합니다.</p>
+  </li>
+  <li>
+    <p><strong>실험적 검증</strong>: iFashion 및 Polyvore-U 데이터셋을 사용한 실험을 통해, DiFashion은 다른 생성 모델과 검색 기반 패션 추천 방법들에 비해 우수한 성능을 보였음을 확인했습니다. 정량적 지표뿐만 아니라, 인간 평가에서도 DiFashion이 생성하는 패션 이미지가 더 높은 선호도를 받았으며, 이를 통해 실질적인 응용 가능성을 입증했습니다.</p>
+  </li>
+</ol>
+
+<h3 id="future-works"><strong>Future Works</strong>:</h3>
+<ol>
+  <li>
+    <p><strong>속성 기반 제어 강화</strong>: 현재 DiFashion은 사용자의 상호작용 기록을 기반으로 전반적인 코디를 생성하지만, 향후에는 사용자가 선호하는 특정 패션 속성 (예: 색상, 패턴)을 더 세밀하게 제어할 수 있는 메커니즘을 연구할 필요가 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>진화하는 패션 트렌드 반영</strong>: 패션 트렌드는 지속적으로 변화하므로, DiFashion이 실시간으로 변화하는 트렌드에 적응할 수 있는 방안을 탐구하는 것이 중요합니다. 예를 들어, 소셜 미디어나 패션 잡지의 데이터를 실시간으로 반영하는 모델을 개발할 수 있습니다.</p>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li><strong>Yiyan Xu</strong>: University of Science and Technology of China</li>
+  <li><strong>Wenjie Wang</strong>: National University of Singapore</li>
+  <li><strong>Fuli Feng</strong>: University of Science and Technology of China</li>
+  <li><strong>Yunshan Ma</strong>: National University of Singapore</li>
+  <li><strong>Jizhi Zhang</strong>: University of Science and Technology of China</li>
+  <li>
+    <p><strong>Xiangnan He</strong>: University of Science and Technology of China</p>
+  </li>
+  <li><strong>Research Topic</strong>:<br />
+Generative Outfit Recommendation, Recommender Systems.</li>
+</ul>
+
+<hr />
+
+<h2 id="7-reference--additional-materials"><strong>7. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li><a href="https://github.com/YiyanXu/DiFashion">official github repository</a></li>
+  <li><strong>Xu, Yiyan, et al.</strong> “Diffusion Models for Generative Outfit Recommendation.” Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval. 2024.</li>
+  <li><strong>Ho, J., Jain, A., &amp; Abbeel, P. (2020)</strong>: “Denoising Diffusion Probabilistic Models.” NeurIPS 2020.</li>
+  <li><strong>Ramesh, A., Dhariwal, P., Nichol, A., et al. (2022)</strong>: “Hierarchical Text-Conditional Image Generation with CLIP Latents.” arXiv preprint arXiv:2204.06125.</li>
+  <li><strong>Reed, S., Akata, Z., Yan, X., et al. (2016)</strong>: “Generative Adversarial Text to Image Synthesis.” ICML 2016.</li>
+  <li><strong>Zhu, X., Bain, M., Nam, H., et al. (2022)</strong>: “Learning to Generate Diverse Fashion Designs from Social Media.” ICCV 2022.</li>
+  <li><strong>Chen, H., Ma, Y., Ma, Y., et al. (2019)</strong>: “Personalized Fashion Recommendation with Neural Networks.” WWW 2019.</li>
+  <li><strong>Veit, A., Kovacs, B., Bell, S., et al. (2015)</strong>: “Learning Visual Clothing Style with Heterogeneous Dyadic Co-occurrences.” ICCV 2015.</li>
+  <li><strong>Kang, W.-C., Fang, C., Wang, Z., et al. (2019)</strong>: “Visually-Aware Fashion Recommendation and Design with Generative Image Models.” KDD 2019.</li>
+</ul>
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

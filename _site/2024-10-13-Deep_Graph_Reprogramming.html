@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[CVPR-2023] Deep Graph Reprogramming | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [CVPR-2023] Deep Graph Reprogramming page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[CVPR-2023] Deep Graph Reprogramming">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[CVPR-2023] Deep Graph Reprogramming</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-introduction">1. Introduction</h2>
+
+<p>Graph data의 폭발적인 증가에 따라 GNN은 추천 시스템, 자율 주행 등 다양한 분야에서 사용할 수 있게 되었습니다. 하지만 막대한 training effort와 메모리 문제에 의해 한정된 자원으로 GNN을 활용하는 것에 있어 한계가 있습니다. 이를 해결하기 위해 최근 pre-trained GNNs을 재사용 함으로써 training cost를 감소시키려는 연구가 활발하게 진행되고 있습니다.</p>
+
+<p>대표적으로 non-Euclidean domain에서의 knowledge distillation이 있지만, 이는 per-task-per-distillation으로 각 작업마다 별도의 distillation 모델이 필요하기에 여러 작업을 처리할 때 저장 및 계산 측면에서 부담이 존재합니다.</p>
+
+<p>또한, 사전 훈련된 모델이 충분한 Euclidean domain과는 달리, graph와 같은 non-Euclidean domain에서는 다음과 같은 문제점이 있습니다:</p>
+
+<ul>
+  <li><strong>Input 측면</strong>
+    <ul>
+      <li>다양한 feature 차원을 가진 불규칙한 그래프</li>
+    </ul>
+  </li>
+  <li><strong>Task 측면</strong>
+    <ul>
+      <li>다양한 task-level(graph-, node-, edge-) 및 settings(transductive, inductive)과 같은 구조적 다양성</li>
+    </ul>
+  </li>
+</ul>
+
+<p>위 두 가지 이유로 인해, downstream task를 진행하기 위한 적합한 pre-trained된 GNN 모델이 충분하지 않다는 문제점이 있습니다.</p>
+
+<p>본 논문은 Graph Neural Networks (GNNs)를 위한 novel reusing task인 <strong>Deep Graph Reprogramming</strong>에 대한 연구를 소개하고 있습니다. Pre-trained된 GNN model에 대해, raw node feature 혹은 model parameter를 tuning 하지 않고 <strong>다양한 domain의 cross-level downstream task</strong>들을 해결하는 것을 목표로 하고 있습니다.</p>
+
+<p>다양한 cross-level downstream task를 해결하기 위하여 두 가지 paradigm을 제안합니다.</p>
+
+<ol>
+  <li><strong>Data Reprogramming Paradigm (DARE)</strong>
+    <ul>
+      <li>Input 측면에서 여러 task에 따른 다양한 graph feature 차원의 문제점을 해결할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li><strong>Model Reprogramming Paradigm (MERE)</strong>
+    <ul>
+      <li>Model 측면에서, fixed per-task-per-model behaviour, 즉 특정 task를 해결하기 위해 각 task에 맞는 별도의 모델이 필요한 문제점을 완화할 수 있습니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Data 측면의 paradigm인 DARE와 model 측면의 MERE는 각각 다른 setting을 고려하여 다음과 같은 세부 사항으로 나뉩니다.</p>
+
+<h3 id="1-data-reprogramming-dare">1. Data Reprogramming (DARE)</h3>
+<ul>
+  <li><strong>Reprogramming in heterogenous-domains</strong>
+    <ul>
+      <li>Meta-FeatPadding (MetaFP)</li>
+    </ul>
+  </li>
+  <li><strong>Reprogramming in homogenous-domains</strong>
+    <ul>
+      <li>Edge-Slimming (EdgSlim)</li>
+      <li>Meta-GraPadding (MetaGP)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-model-reprogramming-mere">2. Model Reprogramming (MERE)</h3>
+<ul>
+  <li><strong>Reprogrammable Aggregating (ReAgg)</strong></li>
+</ul>
+
+<p>Meta-FeatPadding approach를 통해 이질적(heterogenous) 차원을 가진 graph를 pre-trained GNN model로 padding을 통해 작은 변형을 가해 reusing을 가능하게 합니다. Edge-slimming과 Meta-GraPadding은 동질적(homogenous) 차원을 가진 graph를 각각 edge 제거와 작은 graph를 추가하는 방식을 통해 처리할 수 있습니다.</p>
+
+<p>모델 측면에서의 Reprogrammable Aggregating 방법은 Gumbel-Max trick을 기반으로 pre-trained model의 aggregation behaviour를 변형시켜 다양한 downstream task를 해결할 수 있습니다.</p>
+
+<p>이처럼 본 논문은 위 세 가지 approach를 통해, re-training 혹은 fine-tuning 없이도 pre-trained GNN model을 이용해 다양한 domain에서의 cross-level downstream task를 진행할 수 있게 하는 reusing paradigm을 제안하고 있습니다.</p>
+
+<h1 id="2-background">2. Background</h1>
+
+<h2 id="21-model-reusing">2.1. Model Reusing</h2>
+
+<p>GNN model reusing은 <strong>[1]</strong> 에서 pre-trained model을 경량화된 GNN model로 변환하기 위해 GNN에 특화된 knowledge distillation(KD) 방법을 제안함으로써 처음 알려지게 되었습니다. 이후 이 연구를 토대로, graph가 없는 환경에서의 KD 등 다양한 setting에서 도전적인 연구들이 활발하게 진행되고 있습니다.</p>
+
+<p>Pre-trained된 GNN model을 reusing하는 3가지 주된 요인은 다음과 같습니다.</p>
+
+<ol>
+  <li>Enhance performance</li>
+  <li>Reduce training efforts</li>
+  <li>Improve inference speed</li>
+</ol>
+
+<p>위 3가지 목적을 달성하기 위해 여러 연구들이 제안되고 있지만, 현재까지 주로 사용되고 있는 방법은 distillation-based method들로, 무거운 teacher model로부터 핵심 knowledge를 추출하여 작고 가벼운 student model이 학습할 수 있도록 하는 기법을 의미합니다. 이를 통해 student model은 teacher model의 복잡한 구조를 유지하지 않으면서도 유사한 성능을 낼 수 있도록 합니다.</p>
+
+<p>본 논문은 이러한 전통적인 기법 및 이전 연구들과는 달리 병렬적으로 처리하는 GARE-based method를 소개하고 있습니다.</p>
+
+<h2 id="22-knowledge-distillation">2.2. Knowledge Distillation</h2>
+
+<p>앞서 이야기했듯이, Knowledge Distillation은 teacher model로부터 지식을 추출하고 전달하여, 가벼운 student model을 처음부터 재훈련시키는 것입니다. 이 방식에는 크게 2가지 문제점 및 한계점이 존재합니다.</p>
+
+<ol>
+  <li>Knowledge distillation은 이상적인 조건에 의존하고 있습니다.
+    <ul>
+      <li>Image, 즉 Euclidean domain의 data 경우, ImageNet과 같은 대규모 데이터셋에서 훈련된 model이 downstream task에 사용될 수 있습니다.</li>
+      <li>하지만 graph와 같은 non-Euclidean domain의 data일 경우, 다양한 input dimension과 feature type 등 다양한 구조적인 측면을 고려한 충분한 pre-trained model이 없기에 KD 방법을 사용하기에는 한계점이 있습니다.</li>
+    </ul>
+  </li>
+  <li>Knowledge distillation은 resource 측면에서 비효율적입니다.
+    <ul>
+      <li>Knowledge distillation을 통해 추출된 student model은 teacher model과 정확히 동일한 task들만 처리할 수 있고, 특정 작업에만 사용되기에 multi-task scenario에서 모델이 중복될 수 있습니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이처럼 Knowledge distillation과 달리 논문에서 제안하는 GARE method는 하나의 pre-trained model을 통해 다양한 domain과 cross-level task를 re-training 혹은 fine-tuning 없이 진행할 수 있으며, 메모리 측면에서도 효율적입니다.</p>
+
+<h2 id="23-adversarial-reprogramming">2.3. Adversarial Reprogramming</h2>
+
+<p>Adversarial reprogramming은 target model에 작은 변형을 가하여 공격자가 목적을 바꾼 task를 수행하도록 하는 적대적 공격의 유형입니다. 본 논문에서는 graph에 적대적 변형을 가하여 GNN이 공격자가 선택한 task를 수행하도록 재목적화하는 것을 의미합니다. Adversarial reprogramming은 image classification <strong>[2, 3]</strong> 및 language understanding <strong>[4]</strong> 등 다양한 분야에서 연구되고 있지만, non-Euclidean domain에서의 연구는 아직 진행되지 않았습니다. 저자들이 제안하는 deep graph reprogramming이라는 용어는 adversarial reprogramming으로부터 유래되었으며, 이는 GNN에서 adversarial reprogramming을 탐구한 첫 번째 연구로, 이 방식을 통해 효율적인 model reusing의 방법을 제시하고 있습니다.</p>
+
+<p>Adversarial reprogramming은 여러 task level에 따라 분류할 수 있으며, 대표적으로 다음과 같은 유형들이 있습니다.</p>
+
+<ol>
+  <li><strong>Adversarial node-level perturbation</strong> <strong>[5]</strong>
+    <ul>
+      <li>공격자가 node를 추가 및 제거하거나, target node의 feature를 변형하여 공격하는 것을 의미합니다.</li>
+    </ul>
+  </li>
+  <li><strong>Adversarial edge-level perturbation</strong> <strong>[5]</strong>
+    <ul>
+      <li>공격자가 edge를 추가 및 제거하거나, 다르게 연결함으로써 공격하는 것을 의미합니다.</li>
+    </ul>
+  </li>
+  <li><strong>Adversarial structure-level perturbation</strong> <strong>[5]</strong>
+    <ul>
+      <li>Edge-level perturbation과 동일하게 edge를 수정하지만, degree의 총합이나 node distribution과 같은 structure information을 보존하는 것을 전제로 하고 있습니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="24-gumbel-max-trick">2.4. Gumbel-Max trick</h2>
+
+<p>Gumbel-Max trick <strong>[6,7]</strong> 은 sampling을 위한 간단한 방법으로, 주어진 복잡한 확률 분포에서 sampling하기 위해 사용됩니다. 즉 Gumbel(0,1) 분포로부터 random 값을 추출하여 log로 표현된 확률값에 Gumbel noise 값을 더해주고, 이 과정에서 가장 큰 값을 갖는 범주를 선택하게 됩니다. 수식으로 표현하면 다음과 같습니다.</p>
+
+<p>$X = \arg\max_{k \in {1, \dots, K}} (\log \alpha_k + G_k), \quad \text{where } G_1, \dots, G_k \, \text{i.i.d.} \sim \text{Gumbel}(0, 1)$</p>
+
+<p>Gumbel-Max trick은 argmax function에 의존하기 때문에 non-differentiable 합니다. 이를 해결하기 위해 Gumbel-softmax가 나오게 되는데, 이는 연속적인 확률 분포로부터 sample을 뽑는 방법으로 argmax function을 softmax function으로 대체하여 나타내었고, differentiable 합니다.</p>
+
+<p>$\hat{X}_k = \text{softmax} \left( \frac{\log \alpha_k + G_k}{\tau} \right), \quad \text{where } G_1, \dots, G_k \, \text{i.i.d.} \sim \text{Gumbel}(0, 1)$</p>
+
+<p>수식에서 타우는 temperature를 나타내며, softmax의 출력을 조절하는 중요한 parameter입니다. 이는 sampling의 sharpness와 분산을 결정합니다. 타우가 0에 가까워질수록 argmax function에 가까워지는 반면, temperature가 infinity로 갈수록 uniform distribution에 가까워지는데, 이는 noise의 상대적인 차이가 감소하면서 모든 선택에 대한 확률이 균등하게 분포되기 때문입니다.</p>
+
+<h1 id="3-proposed-methods">3. Proposed Methods</h1>
+
+<h2 id="31-data-reprogramming-dare">3.1. Data Reprogramming (DARE)</h2>
+
+<p>Input 측면에서 graph의 다양한 feature 특징을 해결하기 위하여, graph 표현을 재구성하여 다양한 downstream task의 특징에 따라 pre-trained GNN을 맞추는 작업이 필요합니다. CNN domain에서 사용되던 adversarial reprogramming에 영감을 받아, pre-trained된 GNN에도 적용하여, domain에 상당한 차이가 있는 보지 못한 새로운 task를 해결하는데 reusing을 할 수 있도록 합니다.</p>
+
+<h3 id="311-meta-featpadding-metafp">3.1.1. Meta-FeatPadding (MetaFP)</h3>
+
+<p>Meta-Feat Padding(MetaFP)은 raw features 주위에 padding을 함으로써 다양한 downstream dimension을 다룰 수 있게 하는 것을 목표로 하고 있고, 이는 노드 레벨 <strong>[5]</strong> 의 adversarial perturbation을 기반으로 하고 있습니다. 즉 MetaFP는 heterogenous dimension을 해결하기 위한 method로 볼 수 있습니다. 다음은 padding feature를 만드는 수식인데, (x,y)는 각각 downstream graph feature와 대응되는 label이며, 이들은 downstream data distribution을 따릅니다.</p>
+
+<p>$\min_{\delta_{\text{padding}}} \, \mathbb{E}<em>{(x, y) \sim \mathcal{D}} \left[ \mathcal{L}</em>{\text{downstream}} \left( \text{GNN}<em>{\text{pre-trained}} \left[ x \parallel \delta</em>{\text{padding}} \right], y \right) \right]$</p>
+
+<p>Raw input feature인 x와 optimised padding feature를 concat하여 feature padding을 수행하고, label y와 비교하며 loss를 minimise함으로써 학습하게 됩니다. 즉 downstream task의 feature dimension을 pre-trained GNN model과 일치시킬 뿐만 아니라 loss function을 동시에 minimise 하기에, downstream performance를 향상시킬 수 있습니다. 참고로 저자는 optimised padding을 생성하는데까지 하나 혹은 몇 개의 epoch만이 필요하다고 하고 있습니다.</p>
+
+<h3 id="312-edge-slimming-edgslim">3.1.2. Edge-Slimming (EdgSlim)</h3>
+
+<p>Edge-slimming 같은 경우, 엣지 레벨 <strong>[5]</strong> 의 adversarial perturbation을 기반으로 heterogenous(이질적인) 차원을 고려할 필요가 없을 때, homogenous(동질적인) 차원에서 접근하는 방식을 제안하는 방법입니다. 노드 수준의 방해 요소에서 벗어나, downstream graph data에서 raw node feature를 변경하지 않고 노드 연결을 수정함으로써 resource 측면에서의 효율적인 model reusing을 달성하는 것을 목표로 하고 있습니다. 다음 수식은 EdgSlim의 알고리즘 과정인데, 이를 최적화함으로써 downstream task의 손실을 줄일 수 있습니다.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$\min_{{u_i, v_i}<em>{i=1}^m} \sum</em>{i=1}^{m} \left</td>
+      <td>\frac{\partial \mathcal{L}<em>{\text{downstream}}}{\partial \alpha</em>{u_i, v_i}} \right</td>
+      <td>$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>s.t : $\widetilde{\mathcal{G}} = \text{Modify} \left( \mathcal{G}, {\alpha_{u_i, v_i}}<em>{i=1}^m \right)$
+$= \left( \mathcal{G} \setminus {u_i, v_i} \right), \text{if} \, \frac{\partial \mathcal{L}</em>{\text{downstream}}}{\partial \alpha_{u_i, v_i}} &gt; 0$</p>
+
+<p>위 loss function을 $\alpha_{u_i, v_i}$ 에 대해 미분을 하는데 이는 edge gradient를 나타내며, 이때 0보다 큰 downstream graph에 있는 edge를 순차적으로 큰 순서대로 제거하게 됩니다. 단순히 불필요한 edge를 제거하는 것만으로도 downstream loss를 최소화할 수 있습니다. 또한 학습 속도 향상, 모델의 간소화 그리고 과적합 방지를 가능하게 하고, 반대로 0보다 작은 기울기를 제거하면 안 되는 이유는 noise나 모델을 향상시키기 위한 정보들을 놓칠 수 있기 때문입니다. EdgSlim 최적화 과정 또한 빠르게 수렴하기에 resource 측면에서 효율적이라고 볼 수 있습니다.</p>
+
+<h3 id="313-meta-grapadding-metagp">3.1.3. Meta-GraPadding (MetaGP)</h3>
+
+<p>Meta-GraPadding approach는 EdgSlim의 만족스러운 결과에도 inductive setting에서는 적용할 수 없다는 문제점을 해결하기 위해 structure-level <strong>[5]</strong> 의 adversarial perturbation 기반으로 제안하는 방법입니다. 즉 raw node feature 주위에 padding하는 대신, 작은 subgraph를 생성하고 downstream graph 주위에 padding을 시켜주는 방식입니다. subgraph는 10개 정도의 작은 갯수의 노드로 이루어져 있고, meta node 경우 fully connected 방식으로, 모든 downstream node와 연결되게 합니다. 추론 단계에서 training된 subgraph가 test graph에 padding되어, pre-trained GNN을 통해 downstream inductive task를 수행할 수 있게 해줍니다.</p>
+
+<h2 id="32-model-reprogramming-mere">3.2. Model Reprogramming (MERE)</h2>
+
+<p>DARE의 접근 방식으로도 충분한 performance를 얻을 수 있지만, pre-trained task와 domain 측면에서 차이가 심한 경우 성능이 떨어지는 경우를 볼 수 있습니다. 이는 GNN의 parameter와 architecture가 고정되어 있기에 발생하는 문제로 추론을 하였고, 이를 해결하고자 GNN의 가장 중요한 특성인 message aggregation을 고려하는 MERE 방식을 제안하였습니다.</p>
+
+<h3 id="321-reprogrammable-aggregating-reagg">3.2.1 Reprogrammable aggregating (ReAgg)</h3>
+
+<p>Reprogrammable aggregating(ReAgg)은 모델 측면에서 DARE approach를 보완하는 방식으로, domain gap 차이가 큰 시나리오에서의 문제를 해결하기 위해 제안되었습니다. ReAgg 방식은 모델의 parameter를 바꾸지 않고, 다양한 downstream task에 대해 aggregating behaviour를 dynamic하게 바꾸어주는 것을 목표로 하고 있습니다. 여기서 미분이 불가능한 결정 방식이라는 문제가 있는데, 이를 해결하는 방법으로는 강화학습 혹은 SemHash technique <strong>[8]</strong> 을 도입하는 방법이 있습니다. 하지만 강화학습 같은 경우, Monte Carlo search process에 의한 computation cost가 높다는 단점이 있고, SemHash 경우, 특정 aggregator가 항상 선택되거나, 아예 선택되지 않는 collapse 문제가 생긴다는 문제점이 있습니다. 이에 저자들은 앞서 설명한 Gumbel-Max trick의 softmax function으로 대체한 미분가능한 Gumbel-Softmax estimator를 통해 이 문제점을 해결하고자 하였습니다. 다음은 Gumbel-Softmax estimator를 이용한 각 downstream task에 대해 최적의 aggregator를 선택하는 방식을 나타낸 것입니다.</p>
+
+<p>$\text{Aggregator}_k = \text{softmax} \left( \frac{\mathcal{F}(G) + G}{\tau} \right)$</p>
+
+<p>k는 k번째 downstream task를 의미하고, G는 Gumbel random noise로 모델의 붕괴 문제를 해결하여 줍니다. 이로써 ReAgg approach를 통해 domain 차이가 큰 경우에도 최적의 aggregation behaviour를 결정하여 모델의 성능을 보완 및 향상시켜줄 수 있습니다.</p>
+
+<h1 id="4-experiments">4. Experiments</h1>
+
+<p>실험을 각각 살펴보기 앞서, 저자들은 진행되는 실험에 대해 State-Of-The-Art 성능을 달성하는 것이 목표가 아닌 한정된 계산 및 컨디션에서 최대한 다양한 downstream task에서 우수한 성능을 도출해 내는 것이 목표 라고 말하고 있습니다. 14개의 공개된 benchmarks를 소개하였는데, 세부사항은 다음과 같습니다.</p>
+
+<p><img src="https://i.postimg.cc/Nj4PM9MH/Screenshot-2024-10-03-at-6-50-58-PM.png" alt="benchmarks" /> &lt;p align="center"&gt;Table 1&lt;/p&gt;</p>
+
+<p>또한 모든 실험은 NVIDIA GeForce RTX 2080 Ti GPU 한대를 사용하여 수행하고 있습니다.</p>
+
+<p>저자들은 실험을 크게 2가지, 즉 이질적인(Heterogenous) domain과 동질적인(Homogenous) domain으로 나누어 진행하였습니다.</p>
+
+<h2 id="41-heterogenous---domains">4.1. Heterogenous - Domains</h2>
+
+<p>첫번째는 node classification task에 대한 결과입니다.</p>
+
+<p><img src="https://i.postimg.cc/g0xqWn6d/2.png" alt="exp1" />&lt;p align="center"&gt;Table 2&lt;/p&gt;
+본 실험은 Citeseer dataset으로 사전 훈련을 하고, 다양한 heterogenous dimension을 가진 데이터셋에 대해 사전 훈련된 모델을 적용한 결과입니다. MetaFP는 모델을 retraining을 하지 않고 진행하였기 때문에, retraining을 한 모델들보다 성능이 살짝 못미치지만 비교할 수 있을 만한 성능을 보여주고 있습니다. 특히 MERE의 ReAgg approach를 더해준 결과, MetaFP만을 사용한 결과보다 평균적으로 2.3% 향상된 모습을 보여주고 있습니다. Cora 데이터셋 같은 경우 ReAgg 방법을 사용했을 시 결과가 조금 하락하는 것을 볼 수 있는데, 이는 Citseer와 Cora 데이터셋이 모두 computer science domain의 데이터 셋으로 domain 차이가 나지 않아 ReAgg 방법이 효과적이지 않는 것을 볼 수 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/vmx9KkpZ/3.png" alt="exp2" /></p>
+<p align="center">Table 3</p>
+<p>Table 3 는 padding size와 padding하는 위치에 변화를 주고, 다양한 pre-trained task와 downstream task에 MetaFP를 적용하여 성능을 비교한 결과입니다. 여기서 주목할 만한 점은 작은 padding size와 random한 position에 padding을 진행하여도 높은 성능을 보여주고 있다는 것입니다.</p>
+
+<p><img src="https://i.postimg.cc/63sRxzXL/4.png" alt="exp3" /></p>
+<p align="center">Figure 1</p>
+<p>위의 Figure 1을 통해, MetaFP 및 제안된 approach 들이 빠르게 수렴되어, 자원이 한계적인 상황에서도 모델을 적용할 수 있다는 것을 보여주고 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/0jPwbQrz/5.png" alt="exp4" /></p>
+<p align="center">Table 4</p>
+<p>Table 4는 node-level classification을 진행한 하나의 pre-trained model로 cross-level task(graph regression, classifcation)를 진행한 결과입니다. MetaGP를 이용하여 downstream task를 진행하였고, vanalia reusing 방법을 사용한 것보다 모두 압도적으로 우수한 성능을 이끌어낸다는 것을 볼 수 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/fWfd1xgm/6.png" alt="exp5" /></p>
+<p align="center">Table 5</p>
+<p>Table 5는 homogenous domain에서 node classification을 진행하였습니다. EdgSlim은 retraining을 하지 않고도 vanila method는 물론이고, retraining을 한 모델들과 견주어도 비교할 만한 결과를 도출해 내는 것을 볼 수 있습니다.</p>
+
+<h2 id="42-homogenous---domains">4.2. Homogenous - Domains</h2>
+
+<p><img src="https://i.postimg.cc/J4TkzR8h/7.png" alt="exp6" /></p>
+<p align="center">Table 6</p>
+<p>Homogenous domain에서의 첫번째 task는 molecular property를 예측하는 것으로, MetaGP를 적용하여 하나의 pre-trained 모델로 cross-level task 진행한 것을 볼 수 있습니다. 이 실험 역시 vanilla method 보다 뛰어난 성능을 보여주고 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/QdwKcSHG/8.png" alt="exp7" /></p>
+<p align="center">Figure 2</p>
+<p>Figure 2는 중간 레이어 에서의 특징 공간의 구조를 보여주는데, vanilla reusing 방법과 달리 MetaGP를 적용한 reusing 방법은 처음(scratch)부터 re-training한 모델과 의미적으로 유사하다는 것을 볼 수 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/76yCW63K/9.png" alt="exp8" /></p>
+<p align="center">Table 7</p>
+<p>또한 Table 7에서는 ModelNet40에 사전 훈련된 DGCNN을 ShapeNet의 다양한 downstream class에 대해 처리한 결과를 보여주는데, 이는 cross-level 뿐만 아니라 cross-domain에서의 모델 reusing이 가능하다는 것을 보여주고 있습니다.</p>
+
+<h1 id="5-conclusions">5. Conclusions</h1>
+
+<h2 id="51-conclusion">5.1. Conclusion</h2>
+
+<p>본 논문에서는 하나의 pre-trained GNN을 사용하여 제한된 상황에서 다양한 cross-level 및 cross-domain에 재학습(re-training) 혹은 fine-tuning 없이 reusing 하는 패러다임을 소개하고 있습니다. 이는 크게 데이터 측면(DARE)의 Meta-FeatPadding, Edge-Slimming 그리고 Meta-GraPadding과 모델 측면(MERE)의 Reprogrammable aggregator를 통해 가능하게 하였습니다. 다양한 실험을 통해, 제한된 computation 자원 밑에서도 re-training model과 견줄만한 성능을 거둘 수 있다는 것을 보여주었습니다.</p>
+
+<h2 id="51-strong-points">5.1. Strong Points</h2>
+
+<ol>
+  <li>Knowledge Distillation (지식 증류) 기반 모델이 아닌 새로운 paradigm을 소개하였습니다.
+    <ul>
+      <li>이는 retraining 혹은 fine-tuning이 필요하지 않는 장점이 있습니다.</li>
+    </ul>
+  </li>
+  <li>제안된 방법은 자원이 극히 한정된 환경에서도 적용하기에 매우 적합합니다.
+    <ul>
+      <li>MetaFP 및 EdgSlim은 수렴된 결과를 얻기 위해 단 한번 혹은 몇번의 epoch만을 필요로 합니다.</li>
+      <li>MetaGP 경우, subgraph를 위해 단 10개의 노드로도 충분하다는 장점이 있습니다.</li>
+    </ul>
+  </li>
+  <li>다양한 실험을 통해 re-training model과 견주어도 될 정도의 성능을 입증시켜 주었습니다.</li>
+</ol>
+
+<h2 id="52-weak-points">5.2. Weak Points</h2>
+
+<ol>
+  <li>모델 reprogramming 방식인 ReAgg의 효과성 입증에 대한 실험이 충분하지 않다는 점과, pre-trained model에 대한 실험은 주로 classification(분류)에 대해서만 수행되었습니다</li>
+  <li>제안된 방법은 GNN 사전 모델에 맞추어져 있어 다른 domain으로 일반화 하기에는 어려움이 있어 보입니다.</li>
+  <li>Padding을 해야 할 경우 downstream task의 그래프 사이즈가 pre-trained task의 그래프 사이즈보다 작아야 된다는 단점이 존재합니다.</li>
+</ol>
+
+<h1 id="6-references">6. References</h1>
+
+<p>[1] Yang et al., “Distilling Knowledge from Graph Convolutional Networks”, CVPR 2020 (University of Sydney)</p>
+
+<p>[2] Chen et al., “Model Reprogramming: Resource-Efficient Cross-Domain Machine Learning”, AAAI 2024 (IBM research)</p>
+
+<p>[3]  Elsayed et al., “Adversarial reprogramming of neural networks”, ICLR 2019 (Google Brain)</p>
+
+<p>[4] Hambardzumyan et al., “WARP: Word-level Adversarial ReProgramming”, ACL 2021 (YerevaNN)</p>
+
+<p>[5] Sun et al., “Adversarial Attack and Defense on Graph Data : A Survey”, TKDE 2022 (Lehigh University)</p>
+
+<p>[6] Jang et al., “Categorical reparameterization with Gumbel-Softmax”, ICLR 2017 (Google Brain)</p>
+
+<p>[7] Veit et al., “Convolutional networks with adaptive inference graphs”, IJCV 2020 (Google Research)</p>
+
+<p>[8] Kaiser et al., “Discrete autoencoders for sequence models”, arxiv 2018 (Google Brain)</p>
+
+<h2 id="author-information">Author Information</h2>
+<p><strong>Kyeongryul Lee</strong><br />
+<strong>Affiliation:</strong> KAIST
+<strong>Research Interest:</strong> Graph Neural Networks, Knowledge Graphs, Graph Machine Learning
+<strong>Contact:</strong> klee0257@kaist.ac.kr</p>
+
+<h2 id="additional-informations">Additional Informations</h2>
+<ul>
+  <li>그룹 : The University of Sydney, National University of Singapore</li>
+  <li>Code &amp; Github for the paper
+    <ul>
+      <li><strong>Not provided</strong></li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 14, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
