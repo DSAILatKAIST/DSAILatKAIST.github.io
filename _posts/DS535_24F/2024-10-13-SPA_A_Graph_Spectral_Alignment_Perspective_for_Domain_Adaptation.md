@@ -195,7 +195,7 @@ To enhance discriminability within the target domain, SPA introduces a neighbor-
 
 	  
 
-		- Normalize to get the confidence $\hat{q}_{i,c}$ is : $\hat{q}_ {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$
+		- Normalize to get the confidence $\hat{q}_ {i,c}$ is : $\hat{q}_ {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$
 
 	  
 
@@ -222,7 +222,7 @@ To enhance discriminability within the target domain, SPA introduces a neighbor-
 
 	- $\alpha$ is a scaling coefficient that increases over iterations.
 
-![Image description](https://postimg.cc/TK6QdmW0) 
+![Image description](https://i.postimg.cc/Njynxks3/overall-method.jpg) 
 
 ### 4.5 Final Objective
 

@@ -14,6 +14,7 @@ Graph Neural Networks (GNNs) have gained substantial traction in recent years du
 The key problem in existing GNN approaches can be named to be embedding misalignment. Traditional GNN models perform node-level feature aggregation without considering graph-level label information. This results in embeddings that do not align well with their corresponding graph labels. The misalignment of these embeddings reduces the discriminative power of graph representations, leading lessened classification accuracy.
 
 ![Figure 1](https://i.postimg.cc/nLLq4sRD/Figure-1.png)
+
 *Figure 1. The shortcomings of the conventional pipeline of GNN-based graph classification.*
 
 To address this issue, the authors proposed the LAD-GNN algorithm, which introduces a distillation framework where a "teacher" model guides a "student" GNN. The teacher model uses a label-attentive encoder that incorporates label information into the node embedding process, while the student model learns to produce class-friendly node embeddings based on the teacher's supervision that leads to improved alignment.
@@ -42,7 +43,7 @@ Knowledge distillation, introduced by Hinton et al. (2015), typically uses a lar
 
 ## 3. Problem Formulation
 
-Given a graph dataset $D = (G,Y) = \left\{ (G_ {i}, y_ i) \right\}_ {i=1}^{N}$, where $G_ i \in G$ represents the $i$ -th graph in the dataset and $y_ i \in Y$ is the corresponding graph label, the goal is to learn a low-dimensional graph representation for predicting the graph labels. Each graph $G_ i$ consists of:
+Given a graph dataset $D = (G,Y) = \lbrace (G_ {i}, y_ i) \rbrace_ {i=1}^{N}$, where $G_ i \in G$ represents the $i$ -th graph in the dataset and $y_ i \in Y$ is the corresponding graph label, the goal is to learn a low-dimensional graph representation for predicting the graph labels. Each graph $G_ i$ consists of:
 
 - $A_ i \in \mathbb{R}^{n_ i \times n_ i}$ : an adjacency matrix describing the relationships between the nodes in the graph, where $n$ is the number of nodes.
 - $X_ i \in \mathbb{R}^{n_ i \times d}$: a node feature matrix where $d$ is the dimension of the node features.
@@ -76,7 +77,7 @@ where $H_ {v}^{(l+1)}$ is the node embedding at layer $l + 1$, $N_ v$ represents
 
 After multiple layers of message-passing and aggregation, the final node embeddings $H$ are aggregated into a graph-level representation $Z_ G$ using a readout (pooling) function:
 
-$Z_ G = POOL(\{H_ v\vert v \in V\})$
+$Z_ G = POOL(\lbrace H_ v\vert v \in V \rbrace)$
 
 where $POOL$ can be an average, max pooling, or an attention-based pooling method. The graph-level representation $Z_ G$ is then passed to the classifier for label prediction:
 
@@ -97,7 +98,7 @@ $H_ v^{(T)}=FFN(LN(H'_ v + H_ v)) + H'_ v$
 
 The teacher model is optimized using a classification loss:
 
-$\mathcal{L}_ {cls} = \frac{1}{N}\sum_ {i = 1}^{N}{-(y_ {i}\log(\hat{y_ {i}}) + \left( 1 - y_ {i} \right)\log\left( 1 - \hat{y_ {i}} \right))}$
+$\mathcal{L}_ {cls} = \frac{1}{N}\sum_ {i = 1}^{N}{-(y_ {i} \log(\hat{y_ {i}}) + \left( 1 - y_ {i} \right) \log\left( 1 - \hat{y_ {i}} \right))}$
 
 **Distillation-Based Student Learning**
 

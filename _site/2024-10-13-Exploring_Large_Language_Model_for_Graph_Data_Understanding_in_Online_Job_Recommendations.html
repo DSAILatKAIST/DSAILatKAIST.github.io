@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -403,11 +417,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <ol>
   <li>메타-경로 프롬프트 생성기(meta-path prompt constructor)를 도입하여 그래프 구조를 자연어 형태로 LLM에 입력함으로써, LLM이 그래프 데이터를 이해할 수 있게 한다.</li>
   <li>경로 편향 해소와 소프트 선택 메커니즘을 통해 LLM의 그래프 이해를 개선하고, 더 안정적이고 정확한 추천을 가능하게 한다.</li>
-  <li>LLM의 풍부한 언어 이해력과 외부 지식을 활용하여 OOD 항목에 대한 추천 성능을 향상시킨다.
-    <h3 id="31-problem-formulation">3.1 Problem Formulation</h3>
-    <p>GLRec의 목표는 특정 구직자(Candidate)와 특정 직업 공고(Job Posting)의 호환성(Compatibility)을 예측하는 것이다.</p>
-  </li>
+  <li>LLM의 풍부한 언어 이해력과 외부 지식을 활용하여 OOD 항목에 대한 추천 성능을 향상시킨다.</li>
 </ol>
+
+<h3 id="31-problem-formulation">3.1 Problem Formulation</h3>
+<p>GLRec의 목표는 특정 구직자(Candidate)와 특정 직업 공고(Job Posting)의 호환성(Compatibility)을 예측하는 것이다.</p>
 
 <p><strong>Input</strong>:</p>
 
@@ -427,26 +441,12 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   <li><strong>상호작용 기록:</strong> 구직자와 직업 공고는 방향성에 따라 다르게 묘사할 수 있다.
     <ul>
       <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>구직자가 시작한 상호작용: $A_{ci} = {c_i \rightarrow\ j’</td>
-              <td>c_i \in\ C,  j’ \in\ J}$</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>구직자가 시작한 상호작용: $A_ {ci} = \lbrace c_ i \rightarrow\ j’ \vert c_i \in\ C,  j’ \in\ J\rbrace$</p>
 
         <p>$c_i \rightarrow\ j’$ 는 구직자 $c_i$가 직업 공고 $j’$에 대해 상호작용(예: 지원)을 시작</p>
       </li>
       <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>직업 공고가 시작한 상호작용: $A_{jk} = {j_k \rightarrow\ c’</td>
-              <td>j_k \in\ J,  c’ \in\ C}$</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>직업 공고가 시작한 상호작용: $A_ {jk} = \lbrace j_k \rightarrow\ c’ \vert j_k \in\ J,  c’ \in\ C\rbrace$</p>
 
         <p>$j_k \rightarrow\ c’$ 는 직업 공고 $j_k$가 구직자 $j’$에 대해 상호작용(예: 면접 요청)을 시작</p>
       </li>
@@ -457,10 +457,10 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 <p>위 Input들을 통해 지시문을 생성하고 두 가지 추천 작업을 정의한다 (Bao et al. 2023a).</p>
 <ol>
   <li>Point-wise 추천: 특정 구직자가 특정 직업 공고에 만족할지 여부를 예측</li>
-  <li>Pair-wise 추천: 특정 구직자에게 두 개의 직업 공고 중 더 적합한 것을 선택
-    <h3 id="32-메타패스-프롬프트-생성기-meta-path-prompt-generation">3.2 메타패스 프롬프트 생성기 (Meta-path Prompt Generation)</h3>
-  </li>
+  <li>Pair-wise 추천: 특정 구직자에게 두 개의 직업 공고 중 더 적합한 것을 선택</li>
 </ol>
+
+<h3 id="32-메타패스-프롬프트-생성기-meta-path-prompt-generation">3.2 메타패스 프롬프트 생성기 (Meta-path Prompt Generation)</h3>
 
 <h4 id="321-이중-행동-그래프-heterogeneous-behavior-graph">3.2.1 이중 행동 그래프 (Heterogeneous Behavior Graph)</h4>
 <p>채용 플랫폼에서는 다양한 유형의 Node와 Edge로 구성된 이중 행동 그래프를 만들 수 있다 (Wu et al. 2021).</p>
@@ -500,15 +500,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
     <ul>
       <li>
-        <table>
-          <tbody>
-            <tr>
-              <td><strong>메타패스 임베딩 계산:</strong> 각 메타패스의 토큰 임베딩을 평균하여 메타패스의 임베딩 벡터 $H_i$를 계산한다. $$H_i = \frac{1}{</td>
-              <td>M_i</td>
-              <td>} \sum_{t \in M_i} e_t$$</td>
-            </tr>
-          </tbody>
-        </table>
+        <p><strong>메타패스 임베딩 계산:</strong> 각 메타패스의 토큰 임베딩을 평균하여 메타패스의 임베딩 벡터 $H_i$를 계산한다. $H_i = \frac{1}{\vert M_i\vert} \sum_ {t \in M_i} e_t$</p>
 
         <ul>
           <li>$M_i$: 메타패스 $i$의 토큰 집합.</li>
@@ -539,8 +531,8 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h4 id="324-llm-미세-조정-및-추천-large-language-model-instruction-tuning-and-recommendation">3.2.4 LLM 미세 조정 및 추천 (Large Language Model Instruction Tuning and Recommendation)</h4>
 
-<p>LLM을 추천 시스템으로 사용하기 전에 LoRA (Low-Rank Adaption) 기법을 통해 계산 비용과 메모리 사용량 효율화시켜야 한다 (Hu et al. 2021). LoRA는 LLM의 원래 파라미터 $\theta$를 고정하고, 각 층(layer)에 low-rank로 구성된 추가 파라미터 ${\theta}_L$만 학습한다.
-\(L_f = \max_\Theta \sum_{(x,y)\in T} \sum_{t=1}^{|y|} \log(P_{\Theta+\Theta_L}(y_t | e_x, y_{&lt;t}))\)</p>
+<p>LLM을 추천 시스템으로 사용하기 전에 LoRA (Low-Rank Adaption) 기법을 통해 계산 비용과 메모리 사용량 효율화시켜야 한다 (Hu et al. 2021). LoRA는 LLM의 원래 파라미터 $\theta$를 고정하고, 각 층(layer)에 low-rank로 구성된 추가 파라미터 $\theta_ L$만 학습한다.
+$L_ f = \max_\Theta \sum_ {(x,y)\in T} \sum_ {t=1}^{\vert y \vert} \log(P_ {\Theta+\Theta_ L}(y_ t \vert e_ x, y_ {&lt;t}))$</p>
 <ul>
   <li>$T$: 학습 데이터 세트</li>
   <li>$y_t$: 출력 시퀀스에서 시점 $t$의 토큰</li>
@@ -552,25 +544,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h4 id="325-추천-프로세스">3.2.5 추천 프로세스</h4>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Point-wise 추천: $P(y</td>
-      <td>x) = \text{softmax}(f_\Theta(x))$, $y \in {\text{“Yes”}, \text{“No”}}$</td>
-    </tr>
-  </tbody>
-</table>
+<p>Point-wise 추천: $P(y \vert x) = \text{softmax}(f_ \Theta(x))$, $y \in {\text{“Yes”}, \text{“No”}}$</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Pair-wise 추천: $P(y</td>
-      <td>x_A, x_B) = \text{softmax}(f_\Theta(x_A, x_B))$, $y \in {\text{“[A]”}, \text{“[B]”}}$</td>
-    </tr>
-  </tbody>
-</table>
+<p>Pair-wise 추천: $P(y \vert x_A, x_B) = \text{softmax}(f_ \Theta(x_A, x_B))$, $y \in {\text{“[A]”}, \text{“[B]”}}$</p>
 
-<p>여기서 $f_\Theta$는 파인튜닝된 LLM, $x$는 입력 프롬프트, $x_A$와 $x_B$는 비교할 두 직무의 프롬프트이다.</p>
+<p>여기서 $f_ \Theta$는 파인튜닝된 LLM, $x$는 입력 프롬프트, $x_ A$와 $x_ B$는 비교할 두 직무의 프롬프트이다.</p>
 
 <h2 id="4-experiment"><strong>4. Experiment</strong></h2>
 
@@ -719,7 +697,7 @@ and Data Engineering.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

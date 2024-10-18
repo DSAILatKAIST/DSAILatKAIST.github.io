@@ -24,8 +24,8 @@ usemathjax: true
 **Figure 1** <br>
 ![Figure1](https://github.com/user-attachments/assets/2fa1106c-3f37-4b25-973a-969fb3bc4935)<br>
 사용자의 과거 이력을 $x_u = \langle a_1, a_2, \ldots, a_{|x_u|} \rangle, a_* :=$ 소비한 아이템, 로 표현하면<br>
-추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_i, a_j$ 에 대해 f(x_u, a_i) > f(x_u, a_j)$ 의 값을 부여하는 것을 목표로 한다.<br>
-이때 임베딩 기반의 모델들은 $e_u = \text{encoder}_\text{user}(x_u), \space e_i = \text{encoder}_\text{item}(a_i)$ 두 개의 임베딩을 구하고,<br>
+추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_ {i}, a_ {j}$ 에 대해 $f(x_ {u}, a_ {i}) > f(x_ {u}, a_ {j})$ 의 값을 부여하는 것을 목표로 한다.<br>
+이때 임베딩 기반의 모델들은 $e_ {u} = \text{encoder}_ \text{user}(x_ {u}), \space e_ {i} = \text{encoder}_ \text{item}(a_ {i})$ 두 개의 임베딩을 구하고,<br>
 이들 간의 similarity 를 기반으로 선호도 점수를 예측한다.<br>
 RecExplainer 는 이미 학습이 완료된 $f()$ 가 주어졌을 때, 이것과 잘 aligning 되도록 LLM $g()$ 을 fine-tuning 하여 $f()$ 의 출력을 $g()$ 로 설명하도록 한다.<br>
 Fig. 1 에서 나타나 있듰이, 이때 $f()$ 은 frozen 이며 dimension projection 을 위한 MLP 와 $g()$ 만을 학습하며,<br>

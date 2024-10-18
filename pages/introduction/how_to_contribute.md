@@ -38,12 +38,15 @@ Markdown 편집기([StackEdit](https://stackedit.io/app#))에서 잘 보이더�
 블로그에서 수식이 깨지는 경우를 방지하기 위해서 다음 주의사항을 유의해서 작성해주시기 바랍니다:  
 Even if it looks good in the Markdown editor ([StackEdit](https://stackedit.io/app#)), equations may break in the blog. To prevent equations from breaking in the blog, please note the following precautions when writing:
 
-- 수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 \$$는 작동하지 않습니다.  
-When writing equations, please use only one $ sign. $$ does not work on this blog.  
+- 수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 \$$는 작동하지 않습니다. 수식을 작성하실 때, 수식의 시작 또는 끝을 나타내기 위해 \\(, \\), \\[, \\]를 사용하지 마시길 바랍니다. $ 를 사용해주시길 바랍니다.  
+When writing equations, please use only one $ sign. $$ does not work on this blog. Also, do not use \\(, \\), \\[, \\] as start or end of equation. Use $ instead.  
 
 ```
-$$y=ax+b$$ (X)
-$y=ax+b$ (O)
+\[ y=ax+b \] (X)
+\( y=ax+b \) (X)
+$$ y=ax+b $$ (X)
+$ y=ax+b $ (O)
+$ f\( x \)=ax+b $ (O)
 ```
 
 - 수식에서 아래첨자(subscript)를 표기할 때 다음과 같이 띄어쓰기에 유념해주시길 바랍니다.  
@@ -68,6 +71,22 @@ When indicating a bar in an equation, please write it as \vert instead of the | 
 ```
 $|x|$ (X)
 $\vert x \vert$ (O)
+```
+
+- 수식 안에 중괄호({})를 표기할 때 \{, \}가 아니라 \lbrace, \rbrace를 사용해주시길 바랍니다.  
+When indicating brace({}) in an equation, please write it as \lbrace and \rbrace instead of the \{, \}.  
+
+```
+$\{ x \}$ (X)
+$\lbrace x \rbrace$ (O)
+```
+
+- 수식 안에 화살표를 표기할 때 \rarr가 아니라 \rightarrow를 사용해주시길 바랍니다.  
+When indicating arrow in an equation, please write it as \rightarrow instead of the \rarr.  
+
+```
+$x \rarr y$ (X)
+$x \rightarrow y$ (O)
 ```
 
 ### **Attach image file**

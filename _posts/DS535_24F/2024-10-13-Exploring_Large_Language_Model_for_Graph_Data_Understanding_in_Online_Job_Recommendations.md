@@ -24,6 +24,7 @@ usemathjax: true
 1. 메타-경로 프롬프트 생성기(meta-path prompt constructor)를 도입하여 그래프 구조를 자연어 형태로 LLM에 입력함으로써, LLM이 그래프 데이터를 이해할 수 있게 한다.
 2. 경로 편향 해소와 소프트 선택 메커니즘을 통해 LLM의 그래프 이해를 개선하고, 더 안정적이고 정확한 추천을 가능하게 한다.
 3. LLM의 풍부한 언어 이해력과 외부 지식을 활용하여 OOD 항목에 대한 추천 성능을 향상시킨다.
+
 ### 3.1 Problem Formulation 
 GLRec의 목표는 특정 구직자(Candidate)와 특정 직업 공고(Job Posting)의 호환성(Compatibility)을 예측하는 것이다.
 
@@ -38,16 +39,17 @@ GLRec의 목표는 특정 구직자(Candidate)와 특정 직업 공고(Job Posti
     - 각 직업 공고 $j_k$는 직무 요구 사항을 설명하는 텍스트 문서이다
 
 - **상호작용 기록:** 구직자와 직업 공고는 방향성에 따라 다르게 묘사할 수 있다.
-    - 구직자가 시작한 상호작용: $A_{ci} = \{c_i \rightarrow\ j' | c_i \in\ C,  j' \in\ J\}$
+    - 구직자가 시작한 상호작용: $A_ {ci} = \lbrace c_ i \rightarrow\ j' \vert c_i \in\ C,  j' \in\ J\rbrace$
 
         $c_i \rightarrow\ j'$ 는 구직자 $c_i$가 직업 공고 $j'$에 대해 상호작용(예: 지원)을 시작
-    - 직업 공고가 시작한 상호작용: $A_{jk} = \{j_k \rightarrow\ c' | j_k \in\ J,  c' \in\ C\}$
+    - 직업 공고가 시작한 상호작용: $A_ {jk} = \lbrace j_k \rightarrow\ c' \vert j_k \in\ J,  c' \in\ C\rbrace$
 
         $j_k \rightarrow\ c'$ 는 직업 공고 $j_k$가 구직자 $j'$에 대해 상호작용(예: 면접 요청)을 시작
 
 위 Input들을 통해 지시문을 생성하고 두 가지 추천 작업을 정의한다 (Bao et al. 2023a).
 1. Point-wise 추천: 특정 구직자가 특정 직업 공고에 만족할지 여부를 예측
 2. Pair-wise 추천: 특정 구직자에게 두 개의 직업 공고 중 더 적합한 것을 선택
+
 ### 3.2 메타패스 프롬프트 생성기 (Meta-path Prompt Generation)
 
 #### 3.2.1 이중 행동 그래프 (Heterogeneous Behavior Graph)
@@ -79,7 +81,7 @@ Case 3과 Case 4는 메타패스 프롬프트의 순서만 바꾸었지만, LLM�
 
 2. **경로 소프트 선택기(Path Soft Selector):** 각 메타패스의 중요도를 모델이 학습하여, 중요한 메타패스에 더 큰 가중치를 부여하도록 한다.
 
-    - **메타패스 임베딩 계산:** 각 메타패스의 토큰 임베딩을 평균하여 메타패스의 임베딩 벡터 $H_i$를 계산한다. $$H_i = \frac{1}{|M_i|} \sum_{t \in M_i} e_t$$ 
+    - **메타패스 임베딩 계산:** 각 메타패스의 토큰 임베딩을 평균하여 메타패스의 임베딩 벡터 $H_i$를 계산한다. $H_i = \frac{1}{\vert M_i\vert} \sum_ {t \in M_i} e_t$ 
         
         - $M_i$: 메타패스 $i$의 토큰 집합.
         - $e_t$: 토큰 $t$의 임베딩 벡터
@@ -98,8 +100,8 @@ Case 3과 Case 4는 메타패스 프롬프트의 순서만 바꾸었지만, LLM�
 
 #### 3.2.4 LLM 미세 조정 및 추천 (Large Language Model Instruction Tuning and Recommendation)
 
-LLM을 추천 시스템으로 사용하기 전에 LoRA (Low-Rank Adaption) 기법을 통해 계산 비용과 메모리 사용량 효율화시켜야 한다 (Hu et al. 2021). LoRA는 LLM의 원래 파라미터 $\theta$를 고정하고, 각 층(layer)에 low-rank로 구성된 추가 파라미터 ${\theta}_L$만 학습한다.
-$$L_f = \max_\Theta \sum_{(x,y)\in T} \sum_{t=1}^{|y|} \log(P_{\Theta+\Theta_L}(y_t | e_x, y_{<t}))$$
+LLM을 추천 시스템으로 사용하기 전에 LoRA (Low-Rank Adaption) 기법을 통해 계산 비용과 메모리 사용량 효율화시켜야 한다 (Hu et al. 2021). LoRA는 LLM의 원래 파라미터 $\theta$를 고정하고, 각 층(layer)에 low-rank로 구성된 추가 파라미터 $\theta_ L$만 학습한다.
+$L_ f = \max_\Theta \sum_ {(x,y)\in T} \sum_ {t=1}^{\vert y \vert} \log(P_ {\Theta+\Theta_ L}(y_ t \vert e_ x, y_ {<t}))$
 - $T$: 학습 데이터 세트
 - $y_t$: 출력 시퀀스에서 시점 $t$의 토큰
 - $y_{<t}$: 시점 $t$ 이전의 출력 토큰들
@@ -109,11 +111,11 @@ $$L_f = \max_\Theta \sum_{(x,y)\in T} \sum_{t=1}^{|y|} \log(P_{\Theta+\Theta_L}(
 
 #### 3.2.5 추천 프로세스
 
-Point-wise 추천: $P(y|x) = \text{softmax}(f_\Theta(x))$, $y \in {\text{"Yes"}, \text{"No"}}$
+Point-wise 추천: $P(y \vert x) = \text{softmax}(f_ \Theta(x))$, $y \in {\text{"Yes"}, \text{"No"}}$
 
-Pair-wise 추천: $P(y|x_A, x_B) = \text{softmax}(f_\Theta(x_A, x_B))$, $y \in {\text{"[A]"}, \text{"[B]"}}$
+Pair-wise 추천: $P(y \vert x_A, x_B) = \text{softmax}(f_ \Theta(x_A, x_B))$, $y \in {\text{"[A]"}, \text{"[B]"}}$
 
-여기서 $f_\Theta$는 파인튜닝된 LLM, $x$는 입력 프롬프트, $x_A$와 $x_B$는 비교할 두 직무의 프롬프트이다.
+여기서 $f_ \Theta$는 파인튜닝된 LLM, $x$는 입력 프롬프트, $x_ A$와 $x_ B$는 비교할 두 직무의 프롬프트이다.
 
 ## **4. Experiment**  
 

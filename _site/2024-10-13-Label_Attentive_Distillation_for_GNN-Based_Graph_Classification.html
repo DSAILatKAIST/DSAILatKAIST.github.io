@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -392,8 +406,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>The key problem in existing GNN approaches can be named to be embedding misalignment. Traditional GNN models perform node-level feature aggregation without considering graph-level label information. This results in embeddings that do not align well with their corresponding graph labels. The misalignment of these embeddings reduces the discriminative power of graph representations, leading lessened classification accuracy.</p>
 
-<p><img src="https://i.postimg.cc/nLLq4sRD/Figure-1.png" alt="Figure 1" />
-<em>Figure 1. The shortcomings of the conventional pipeline of GNN-based graph classification.</em></p>
+<p><img src="https://i.postimg.cc/nLLq4sRD/Figure-1.png" alt="Figure 1" /></p>
+
+<p><em>Figure 1. The shortcomings of the conventional pipeline of GNN-based graph classification.</em></p>
 
 <p>To address this issue, the authors proposed the LAD-GNN algorithm, which introduces a distillation framework where a “teacher” model guides a “student” GNN. The teacher model uses a label-attentive encoder that incorporates label information into the node embedding process, while the student model learns to produce class-friendly node embeddings based on the teacher’s supervision that leads to improved alignment.</p>
 
@@ -426,7 +441,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h2 id="3-problem-formulation">3. Problem Formulation</h2>
 
-<p>Given a graph dataset $D = (G,Y) = \left{ (G_ {i}, y_ i) \right}_ {i=1}^{N}$, where $G_ i \in G$ represents the $i$ -th graph in the dataset and $y_ i \in Y$ is the corresponding graph label, the goal is to learn a low-dimensional graph representation for predicting the graph labels. Each graph $G_ i$ consists of:</p>
+<p>Given a graph dataset $D = (G,Y) = \lbrace (G_ {i}, y_ i) \rbrace_ {i=1}^{N}$, where $G_ i \in G$ represents the $i$ -th graph in the dataset and $y_ i \in Y$ is the corresponding graph label, the goal is to learn a low-dimensional graph representation for predicting the graph labels. Each graph $G_ i$ consists of:</p>
 
 <ul>
   <li>$A_ i \in \mathbb{R}^{n_ i \times n_ i}$ : an adjacency matrix describing the relationships between the nodes in the graph, where $n$ is the number of nodes.</li>
@@ -462,7 +477,7 @@ where $H_ {v}^{(l+1)}$ is the node embedding at layer $l + 1$, $N_ v$ represents
 
 <p>After multiple layers of message-passing and aggregation, the final node embeddings $H$ are aggregated into a graph-level representation $Z_ G$ using a readout (pooling) function:</p>
 
-<p>$Z_ G = POOL({H_ v\vert v \in V})$</p>
+<p>$Z_ G = POOL(\lbrace H_ v\vert v \in V \rbrace)$</p>
 
 <p>where $POOL$ can be an average, max pooling, or an attention-based pooling method. The graph-level representation $Z_ G$ is then passed to the classifier for label prediction:</p>
 
@@ -483,7 +498,7 @@ $H_ v^{(T)}=FFN(LN(H’_ v + H_ v)) + H’_ v$</p>
 
 <p>The teacher model is optimized using a classification loss:</p>
 
-<p>$\mathcal{L}_ {cls} = \frac{1}{N}\sum_ {i = 1}^{N}{-(y_ {i}\log(\hat{y_ {i}}) + \left( 1 - y_ {i} \right)\log\left( 1 - \hat{y_ {i}} \right))}$</p>
+<p>$\mathcal{L}_ {cls} = \frac{1}{N}\sum_ {i = 1}^{N}{-(y_ {i} \log(\hat{y_ {i}}) + \left( 1 - y_ {i} \right) \log\left( 1 - \hat{y_ {i}} \right))}$</p>
 
 <p><strong>Distillation-Based Student Learning</strong></p>
 
@@ -660,7 +675,7 @@ This hyperparameter analysis provides valuable insights into the importance of f
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion</h1>
+        <p class="post-meta"><time datetime="2024-10-13T00:00:00+09:00" itemprop="datePublished">Oct 13, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>The primary problem addressed in this paper is source detection in graphs with incomplete node information. Specifically, the task is to identify the origin of a rumor in a social network where some nodes have missing or incomplete data, such as missing timestamps of message reception or incomplete user activity.</p>
+
+<p>Rumor source detection is important for mitigating the spread of misinformation on social media, but it becomes significantly harder when key data is missing. To address this, the authors drew inspiration from two emerging trends in machine learning: positional encoding (Han et al. 2021) and attention mechanisms.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<p>In real-world social networks, obtaining complete user data is often impractical due to privacy concerns, technical limitations, and the large scale of data collection (Du et al. 2017; Zhou, Jagmohan, and Varshney 2019).</p>
+
+<p>Previously existing architectures for rumor source detection typically assume access to complete and clean datasets. In practice, as showed by the investigations of this paper, most existing models that depend on full access to this information struggle with propagating information effectively across the graph when faced with incomplete datasets. Moreover, models that rely on full snapshots of the network tend to treat missing nodes or edges as noise or unknowns, which introduces errors in their predictions.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p><img src="https://i.postimg.cc/KvL3f4Nb/biggraph.jpg" alt="enter image description here" /></p>
+<h3 id="problem-formulation">Problem Formulation</h3>
+
+<p>The social network is represented as a graph $G = (V, E)$, where:</p>
+
+<ul>
+  <li>$V$ represents the set of nodes (users),</li>
+  <li>$E$ represents the set of edges (connections between users).</li>
+</ul>
+
+<p>The graph is represented by its adjacency matrix $A$, where:</p>
+
+<p><img src="../../images/DS535_24F/GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion/cases_loop.PNG" alt="cases_loop" /></p>
+
+<p>The propagation of the rumor over time is modeled as a time series ${X(t), t \geq 0}$, where $X(t)$ is the state matrix of the graph at time $t$. Each node’s state at time $t$ is either:</p>
+<ul>
+  <li>$+1$ (rumor received),</li>
+  <li>$-1$ (rumor not received),</li>
+  <li>$0$ (missing or incomplete information).</li>
+</ul>
+
+<h3 id="propagation-process">Propagation Process</h3>
+
+<p>At every time step, a vertex $v_ i$ has probability $p_ i$ of propagating the rumors it currently has access to. The propagation continues until the spread reaches a threshold of $\theta \%$ of nodes being infected. A snapshot $G’(T, U,P)$ of the network is taken, where:</p>
+<ul>
+  <li>$T$ represents the network topology,</li>
+  <li>$U$ represents user states and information forwarding frequency</li>
+  <li>$P$ represents reception time of information and information propagator data</li>
+</ul>
+
+<p>In order to deal with the incomplete information of $U$ and $P$, the incomplete data problem is formalized though the ratio of incomplete user data $\delta$:
+ $U’ = (1-\delta)U$, $P’ = (1-\delta)P$</p>
+
+<h3 id="positional-embedding-module-pem"><strong>Positional Embedding Module (PEM)</strong></h3>
+
+<p>The PEM is designed to capture information about the position of nodes in the graph, especially focusing on incomplete nodes. It incorporates three main types of features: user state, propagation information, and positional information.</p>
+
+<ol>
+  <li><strong>User State Information</strong>:
+The state of each user $v_ i$ is defined based on whether the user has been influenced by the rumor, has not been influenced, or has missing information. The user state feature $X^1_ i$ is represented as:</li>
+</ol>
+
+<p><img src="../../images/DS535_24F/GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion/X_i_1.PNG" alt="cases_loop" /></p>
+
+<ol>
+  <li><strong>Propagation Information</strong>:
+Each user $v_ i$ also has a timestamp $t_ i$ indicating when the user received the rumor. The propagation information $X^2_ i$ is represented as:</li>
+</ol>
+
+<p><img src="../../images/DS535_24F/GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion/X_i_2.PNG" alt="cases_loop" /></p>
+
+<ol>
+  <li>
+    <p><strong>Positional Information</strong>:
+The positional information is computed using Laplacian Positional Encodings of the infected subgraph $G^+$. For each node $v_ i$, its positional encoding $X^3_ i$ is derived by calculating the eigenvectors of the symmetrically normalized Laplacian matrix:</p>
+
+    <p>$L_ {\text{sym}} = I - D^{-1/2} A D^{-1/2}$</p>
+
+    <p>Where $A$ is the adjacency matrix, and $D$ is the degree matrix of the infected subgraph.
+  Factorization is then performed on this matrix to obtain the relevant eigenvalues and eigenvectors: 
+  $\Delta L_ {\text{sym}}^+ = \Gamma^T \Lambda \Gamma$ 
+  Where $\Gamma$ and $\Lambda$ represent the eigenvector and eigenvalue matrices of $L_ {\text{sym}}$.  We select the $k$ smallest non-trivial eigenvectors as $\Gamma_ i$ for user $v_ i$’s positional information, where $k$ is a small number. Those values correspond to important clusters in our original graph.
+  The positional encoding $X^3_ i$ for user $v_ i$ is then represented as:</p>
+  </li>
+</ol>
+
+<p><img src="../../images/DS535_24F/GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion/X_i_3.PNG" alt="cases_loop" /></p>
+
+<p>The final feature vector for each node is the concatenation of all features:</p>
+
+<p>$X_ i = [X^1_ i \parallel X^2_ i \parallel X^3_ i]$</p>
+
+<hr />
+
+<h3 id="attentive-fusion-module-afm"><strong>Attentive Fusion Module (AFM)</strong></h3>
+
+<p>The <strong>Attentive Fusion Module (AFM)</strong> applies a self-attention mechanism to assign different attention weights to nodes based on their information transmission capacity. The presented approach is a very classical way of implementing the attention mechanism.</p>
+
+<p>The attention mechanism computes the relevance of node $v_ j$ to node $v_ i$ by defining the attention coefficient $e_ {ij}$ as follows:</p>
+
+<p>$e_ {ij} = a^T \cdot \text{LReLU}(W^{(l)}[X_ i^{(l)} , X_ j^{(l)}])$</p>
+
+<p>Where $W$ is a learnable weight matrix, $a$ is the attention weight vector,
+$X^{(l)}$ is the feature representation of users and $LReLU$ is the activation function.</p>
+
+<p>The attention weights are then normalized using a softmax function:</p>
+
+<p>$\alpha_ {ij} = \frac{\exp(e_ {ij})}{\sum_ {k \in N(v_  i)} \exp(e_ {ik})}$</p>
+
+<p>Where $N(i)$ is the set of neighbors of node $v_ i$.</p>
+
+<p>The final representation of node $v_ i$ is a weighted sum of its neighbors’ features:</p>
+
+<p>$X’_ i = \sum_ {j \in N(v_  i)} \alpha_ {ij} W X_ j$</p>
+
+<p>Multiple attention heads are used to capture diverse information, and the outputs are concatenated:</p>
+
+<p>$X’‘_ i = \parallel_ {k=1}^{K}\sigma(X’^k_ i)$, where $\sigma$ is a $RELU$ activation function</p>
+
+<p>For dimension alignment, there is a mean pooling layer at the end of the model:
+$X’'’_ i = \sigma \left( \frac{1}{K} \sum_ {k=1}^{K} X’^ k_  i \right)$</p>
+
+<p>Finally, the output is passed through a softmax function for classification:
+$S(\mathbf{z})_ i = \frac{e^{z_ i}}{\sum_ j e^{z_ j}}, \quad \mathbf{z} = X’'’_ i$</p>
+
+<h3 id="loss-function-and-training"><strong>Loss Function and Training</strong></h3>
+
+<p>The loss function in the framework is designed to address the class imbalance problem between source and non-source nodes. Since the number of non-source nodes is much larger than the number of source nodes, simple classification models are biased toward the majority class. To mitigate this bias, the authors introduce a <strong>class-balancing mechanism</strong>. This mechanism assigns a higher weight to source nodes during training, ensuring that the model pays equal attention to both source and non-source nodes. The class-balancing constant $\xi$ is computed as:</p>
+
+<p>$\xi = \frac{\vert s \vert}{n - \vert s \vert}$</p>
+
+<p>where $\vert s \vert$ is the number of source nodes, and $n$ is the total number of nodes. This ensures that the weight distribution between source and non-source nodes is balanced.</p>
+
+<p>The overall loss function is composed of two main terms: the cross-entropy loss for both source and non-source nodes, weighted by $\xi$, and an $L_ 2$ regularization term to prevent overfitting. The complete loss function is defined as:</p>
+
+<p>$\text{Loss} = \sum_ {v_ i \in s} L_ i + \xi \sum_ {v_ j \in (V - s)} L_ j + \lambda \vert w \vert_ 2$</p>
+
+<p>where $L_ i$ represents the cross-entropy loss for each sample, and $\lambda$ is the regularization coefficient.</p>
+
+<h2 id="4-experiment-and-results"><strong>4. Experiment and Results</strong></h2>
+
+<h3 id="experiment-setup"><strong>Experiment Setup</strong></h3>
+<p>To evaluate the effectiveness of the proposed GIN-SD model, the authors conducted experiments on eight real-world datasets of varying sizes and structures.  The task was to detect the sources of a rumor in these networks, assuming that a portion of the nodes had incomplete information. GIN-SD was compared against several state-of-the-art source detection methods, with values for $\delta$ being $0.1$ and $0.2$. The method of propagation considered is Independent Cascade (Wen et al. 2017).</p>
+
+<p>Two widely used metrics were used to evaluate the model’s performance:</p>
+
+<ol>
+  <li>Accuracy: The proportion of correctly classified source nodes among all nodes.</li>
+  <li>F-Score: The harmonic mean of Precision and Recall.</li>
+</ol>
+
+<h3 id="results"><strong>Results</strong></h3>
+<p><img src="https://i.postimg.cc/qMp1HfZ9/Table1.jpg" alt="enter image description here" />
+<img src="https://i.postimg.cc/hjr79Ybd/Table-2.jpg" alt="enter image description here" /></p>
+
+<p>Among all methods, GIN-SD provides the best results. Compared to models that do not focus on the propagation process, GIN-SD has an average improvement of $32\%$, and compared to models tat do consider the propagation process GIN-SD’s accuracy increase ranges between $5\%$ and $18\%$.</p>
+
+<p>For other models, it is noted that even when the Accuracy performance is good, the F-Score is usually low. This is caused by other models not dealing with the class imbalance issue, and non-source nodes significantly outnumbering source nodes.</p>
+
+<h4 id="impact-of-incomplete-node-ratio"><strong>Impact of Incomplete Node Ratio</strong></h4>
+
+<p>The authors also investigated how the proportion of incomplete nodes affects the performance of different models. As the percentage of incomplete nodes increases from 0% to 25%, the performance of all methods decreases, but GIN-SD remains more robust compared to others, showing a significantly smaller decline in both accuracy and F-Score.
+<img src="https://i.postimg.cc/FRsKQH3Y/graph1.jpg" alt="enter image description here" /></p>
+
+<h4 id="ablation-study"><strong>Ablation Study</strong></h4>
+
+<p>To validate the necessity of each module in GIN-SD, an ablation study was conducted, showing that removing either the PEM or the class-balancing mechanism resulted in a notable drop in performance. Surprisingly, removing the AFM resulted in only a slight drop in performance. 
+<img src="https://i.postimg.cc/JhK1KCvM/table3.jpg" alt="enter image description here" /></p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>The experimental results demonstrated that GIN-SD significantly outperforms state-of-the-art methods across multiple real-world datasets, maintaining high accuracy and F-Score even with incomplete nodes.</p>
+
+<p>GIN-SD offers a promising solution for handling missing data and incomplete information in source detection task. The integration of class-balancing mechanisms and positional encoding techniques make GIN-SD a powerful tool for rumor source detection and similar applications.</p>
+
+<h2 id="author-information"><strong>Author Information</strong></h2>
+
+<ul>
+  <li>Author name: Anca-Mihaela Sfia</li>
+  <li>Affiliation: Ecole Polytechnique</li>
+  <li>Research Topic: Recommender Systems and Graph Machine Learning</li>
+</ul>
+
+<h2 id="6-reference--additional-materials"><strong>6. Reference &amp; Additional materials</strong></h2>
+
+<ul>
+  <li>Han, K.; Xiao, A.; Wu, E.; Guo, J.; Xu, C.; and Wang, Y. 2021. Transformer in transformer. Advances in Neural Information Processing Systems, 34: 15908–15919.</li>
+  <li>Du, J.; Jiang, C.; Chen, K.-C.; Ren, Y.; and Poor, H. V. 2017. Community-structured evolutionary game for privacy protection in social networks. IEEE Transactions on Information Forensics and Security, 13(3): 574–589.</li>
+  <li>Zhou, H.; Jagmohan, A.; and Varshney, L. R. 2019. Generalized Jordan center: A source localization heuristic for noisy and incomplete observations. In 2019 IEEE Data Science Workshop (DSW), 243–247. IEEE.</li>
+  <li>Wen, Z.; Kveton, B.; Valko, M.; and Vaswani, S. 2017. Online infuence maximization under independent cascade model with semi-bandit feedback. Advances in Neural Information Processing Systems, 30.</li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Oct 18, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+

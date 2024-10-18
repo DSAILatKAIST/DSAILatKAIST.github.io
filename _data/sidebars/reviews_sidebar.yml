@@ -17,6 +17,12 @@ entries:
     - title: DS535 (2023F)
       url: /reviews_DS535_2023.html
       output: web
+    - title: DS503 (2024S)
+      url: /reviews_DS503_2024.html
+      output: web
+    - title: DS535 (2024F)
+      url: /reviews_DS535_2024.html
+      output: web
 
     # - title: Theme instructions
     #   url: /mydoc_introduction.html

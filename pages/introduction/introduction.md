@@ -47,3 +47,7 @@ Please refer to the following link [How to contribute](/how_to_contribute.html) 
 **김세인 (Sein Kim)** : Ph.D. student, ISysE, KAIST
 
 **전재형 (Sein Kim)** : Master student, ISysE, KAIST
+
+**이윤호 (Yoonho Lee)** : Master student, GSAI, KAIST
+
+**김정훈 (Junghoon Kim)** : Master student, GSDS, KAIST

@@ -92,7 +92,8 @@ Rationale을 사용하여 LLaMA 7B 모델을 Instruction Tuning을 하도록 합
 
   
 
-$\mathcal{L}_{\text{distill}} = \sum_ {u \in \mathcal{U}'} \sum_ {t=1}^{\vert r' _u\vert} \log \left( P_ {\theta} \left( r'_ {u,t} \mid p'_ {u}, r'_ {u,<t} \right) \right)$
+$\mathcal{L}_ {\text{distill}} = \sum_ {u \in \mathcal{U}'} \sum_ {t=1}^{\vert r'_ u\vert} \log \left( P_ {\theta} \left( r'_ {u,t} \mid p'_ {u}, r'_ {u,<t} \right) \right)$
+
 
   
 
@@ -176,7 +177,7 @@ ID-agnostic은 Item description, rationale Embedding을 Transformer Layer에 같
 
 $z_ i = g_ t(z_i^{text})$
 
-$s_ u = g_ t(s_ u^{text})$ㅇ
+$s_ u = g_ t(s_ u^{text})$
 
 위 식에서 $g_ t$ 는 transformer layer를 의미합니다.
 

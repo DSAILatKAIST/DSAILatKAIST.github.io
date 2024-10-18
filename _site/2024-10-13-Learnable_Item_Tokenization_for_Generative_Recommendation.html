@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -431,11 +445,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>이 과정을 거친 후 아이템의 <em>quantized representation</em>은 각 레벨에서 배정된 벡터들의 합으로 표현된다. 이러한 <em>quantized representation</em>은 디코더를 통과하여 최초 입력값을 재건하도록 학습된다. 이 전체 과정은 디코더를 통해 얻은 값과 인코더 간의 차이에 대한 <em>reconstruction loss</em>와 각 레벨에서의 입력값과 배정된 벡터 간의 차이에 대한 <em>RQ-VAE loss</em>로 학습된다. 이를 수식으로 표현하면 다음과 같다.</p>
 
-<p>$\mathcal{L}(x) := \mathcal{L}<em>{Recon} + \mathcal{L}</em>{RQ-VAE}$</p>
+<p>$\mathcal{L}(x) := \mathcal{L}_ {Recon} + \mathcal{L}_ {RQ-VAE}$</p>
 
 <p>$\mathcal{L}_{Recon} := \vert\vert x - \hat{x} \vert\vert ^2$</p>
 
-<p>$\mathcal{L}<em>{RQ-VAE} := \sum</em>{d=0}^{m-1} \vert\vert sg[r_i]-e_{c_i}\vert\vert^2 + \beta \vert\vert r_i-sg[e_{c_i}]\vert\vert^2$</p>
+<p>$\mathcal{L}_ {RQ-VAE} := \sum_ {d=0}^{m-1} \vert\vert sg[r_ i]-e_ {c_ i}\vert\vert^2 + \beta \vert\vert r_ i-sg[e_ {c_ i}]\vert\vert^2$</p>
 
 <p>이때 <em>sg</em>는 <em>stop gradient operation</em>을 의미한다.</p>
 
@@ -464,7 +478,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>본 논문은 식별자에 <em>collaborative signal</em>을 반영하기 위해 <em>quantized embedding</em>과 <em>CF embedding</em>을 <em>contrastive learning</em>을 통해 맞추는 <em>collaborative regularization</em>을 도입하였다. 잘 학습된 추천 모델(<em>SASRec, LightGCN</em>)을 활용하여 <em>CF embedding</em>을 구하고, 다음과 같은 <em>contrastive loss</em>를 활용한다.</p>
 
-<p>$\mathcal{L}<em>{CF} = -{1 \over B} \sum</em>{i=1}^{B} {exp(&lt; \hat{z_i}, h_i &gt;) \over \sum^B_{j=1} exp(&lt; \hat{z_i}, h_j &gt;) }$</p>
+<p>$\mathcal{L}_ {CF} = -{1 \over B} \sum_ {i=1}^{B} {exp(&lt; \hat{z_ i}, h_ i &gt;) \over \sum^B_ {j=1} exp(&lt; \hat{z_ i}, h_ j &gt;) }$</p>
 
 <p>이를 통해 기존 방법과는 달리 생성된 식별자가 사용자들의 선호도를 반영한다.</p>
 
@@ -476,7 +490,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>각 레벨의 코드북에 대해, 코드 임베딩을 <em>constrained K-means clustering</em>을 활용하여 <em>K</em>개의 그룹으로 나눈다. 이후 같은 클러스터에 속한 임베딩끼리는 가깝게 하고, 다른 클러스터에 속한 임베딩은 멀게 하도록 다음과 같은 <em>loss</em>를 사용한다.</p>
 
-<p>$\mathcal{L}<em>{Div} = -{1 \over B} \sum</em>{i=1}^{B} {exp(&lt; e^i_{Cl}, e_+ &gt;) \over \sum^{N-1}<em>{j=1} exp(&lt; e^i</em>{Cl}, e_j &gt;) }$</p>
+<p>$\mathcal{L}_ {Div} = -{1 \over B} \sum_ {i=1}^{B} {exp(&lt; e^i_ {Cl}, e_ + &gt;) \over \sum^{N-1}_ {j=1} exp(&lt; e^i_ {Cl}, e_ j &gt;) }$</p>
 
 <p>이때 e<sub>+</sub>는 같은 클러스터에서 임의로 뽑은 코드 임베딩이고, e<sup>i</sup><sub>Cl</sub> 은 아이템 <em>i</em>와 가장 가까운 코드 임베딩이다.</p>
 
@@ -484,7 +498,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p><em>LETTER</em>의 <em>training loss</em>는 다음과 같은 가중합으로 나타난다.</p>
 
-<p>$\mathcal{L}<em>{LETTER} = \mathcal{L}</em>{Recon} + \mathcal{L}<em>{RQ-VAE} + \alpha \mathcal{L}</em>{CF} + \beta \mathcal{L}_{Div}$</p>
+<p>$\mathcal{L}_ {LETTER} = \mathcal{L}_ {Recon} + \mathcal{L}_ {RQ-VAE} + \alpha \mathcal{L}_ {CF} + \beta \mathcal{L}_ {Div}$</p>
 
 <h3 id="25-instantiation">2.5 Instantiation</h3>
 
@@ -492,9 +506,9 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>기존의 대형 언어 모델 기반 생성형 추천 모델은 <em>generation loss</em>를 활용하여 대형 언어 모델을 학습하였다. 하지만 이러한 방식은 추천 시스템에 적합하지 않으며, 따라서 본 논문은 다음과 같은 <em>ranking-guided generation loss</em>를 도입하였다.</p>
 
-<p>$\mathcal{L}<em>{rank} = - \sum</em>{t=1}^{\vert y \vert} log P_{\theta}(y_t \vert y_{&lt;t}, x)$</p>
+<p>$\mathcal{L}_ {rank} = - \sum_ {t=1}^{\vert y \vert} log P_ {\theta}(y_ t \vert y_ {&lt;t}, x)$</p>
 
-<p>$P_{\theta}(y_t \vert y_{&lt;t}, x) = {exp(p(y_t)/\tau) \over \sum_{v \in V} exp(p(v)/\tau)}$</p>
+<p>$P_ {\theta}(y_ t \vert y_ {&lt;t}, x) = {exp(p(y_ t)/\tau) \over \sum_ {v \in V} exp(p(v)/\tau)}$</p>
 
 <h2 id="3-experiments">3. Experiments</h2>
 
@@ -637,7 +651,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

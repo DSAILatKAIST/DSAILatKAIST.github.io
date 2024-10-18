@@ -35,7 +35,7 @@ IMMA의 목표는 **여러 개체들의 이동 궤적을 보고 이들 간의 �
 
 ![IMMA 메커니즘 설명](https://i.postimg.cc/HkJytyCq/image.png)
 
-좀 더 세부적으로 설명하자면, 시점 t에 대한 N개 개체의 feature vector를 $\mathbf{x}^t = \{ \mathbf{x}^t_ 1, \ldots, \mathbf{x}^t_ N \}$라고 하면(즉, $\mathbf{x}^t_ i$는 시점 t에 대한 개체 i의 feature vector), 모델은 과거 시점의 궤적 $X^{1 : T_ h} = \{ \mathbf{x}^{1 : T_ h}_ i \vert i = 1, \ldots, N \}$를 입력으로 받아서 미래 시점의 궤적 $X^{T_ h + 1 : T_ h + T_ f} = \{ \mathbf{x}^{T_ h + 1 : T_ h + T_ f}_ i \vert i = 1, \ldots, N \}$를 예측하는 task를 수행하게 됩니다. 그 과정에서 latent graph $\mathbf{z} = (z_ {ij})_ {i,j=1}^N$를 학습하게 되며, 이 때 각 $z_ {ij} = (z_ {ij}^1, \ldots, z_ {ij}^K)$는 각 component가 0 이상 1 이하의 실수인 K차원 벡터입니다.
+좀 더 세부적으로 설명하자면, 시점 t에 대한 N개 개체의 feature vector를 $\mathbf{x}^t = \lbrace \mathbf{x}^t_ 1, \ldots, \mathbf{x}^t_ N \rbrace$라고 하면(즉, $\mathbf{x}^t_ i$는 시점 t에 대한 개체 i의 feature vector), 모델은 과거 시점의 궤적 $X^{1 : T_ h} = \lbrace \mathbf{x}^{1 : T_ h}_ i \vert i = 1, \ldots, N \rbrace$를 입력으로 받아서 미래 시점의 궤적 $X^{T_ h + 1 : T_ h + T_ f} = \lbrace \mathbf{x}^{T_ h + 1 : T_ h + T_ f}_ i \vert i = 1, \ldots, N \rbrace$를 예측하는 task를 수행하게 됩니다. 그 과정에서 latent graph $\mathbf{z} = (z_ {ij})_ {i,j=1}^N$를 학습하게 되며, 이 때 각 $z_ {ij} = (z_ {ij}^1, \ldots, z_ {ij}^K)$는 각 component가 0 이상 1 이하의 실수인 K차원 벡터입니다.
 
 학습 단계에서 IMMA는 기본적으로 Conditional Variational Autoencoder (CVAE) [7, 8]의 방식을 따릅니다. 전체 시점의 궤적을 보고 latent graph를 추론하는 encoder (posterior) $q_ {\phi} (\mathbf{z} \vert \mathbf{x}^{1 : T_ h + T_ f})$ 및 과거의 궤적과 latent graph를 보고 미래 궤적을 추론하는 decoder (likelihood) $p_ {\theta} (\mathbf{x}^{T_ h+1 : T_ h + T_ f} \vert \mathbf{x}^{1 : T_ h}, \mathbf{z})$에 대하여 아래의 CVAE loss를 줄이는 방식으로 학습이 진행됩니다.
 

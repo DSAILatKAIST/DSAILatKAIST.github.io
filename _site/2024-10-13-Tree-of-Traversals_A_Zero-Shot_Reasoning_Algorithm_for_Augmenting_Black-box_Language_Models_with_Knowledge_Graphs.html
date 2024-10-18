@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -402,15 +416,15 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 
 <ol>
   <li>$initialize(q)$</li>
-  <li>$get_relations(E_{selected})$</li>
-  <li>$get_edges(E_{selected}, r)$</li>
+  <li>$get$_$relations(E_{selected})$</li>
+  <li>$get$_$edges(E_{selected}, r)$</li>
 </ol>
 
 <p>$initialize(q)$는 query $q$가 입력으로 주어졌을 때, KG $K$에서 $q$에 포함된 entity를 추출하여 subgraph를 initialize하는 함수이다. 예를 들어 “What actor played in both Inception and Interstellar?”라는 query가 주어졌을 때, label이 ‘Inception’인 entity와 ‘Interstellar’인 entity를 추출하여 entity가 두 개인 subgraph를 생성한다.</p>
 
-<p>다음으로 $get_relations(E_{selected})$는 entity set $E_{selected}$가 주어졌을 때, 해당 entity와 관련된 relation type을 추출하여 relation set $R_{options}$를 출력하는 함수이다. 수학적으로 $R_{options}={r\mid(s, r, o)\in T, s\in E_{selected}}$와 같이 표현할 수 있다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}가 주어졌을 때, {‘cast’, ‘director’}가 출력된다.</p>
+<p>다음으로 $get$_$relations(E_{selected})$는 entity set $E_{selected}$가 주어졌을 때, 해당 entity와 관련된 relation type을 추출하여 relation set $R_{options}$를 출력하는 함수이다. 수학적으로 $R_{options}={r\mid(s, r, o)\in T, s\in E_{selected}}$와 같이 표현할 수 있다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}가 주어졌을 때, {‘cast’, ‘director’}가 출력된다.</p>
 
-<p>마지막으로 $get_edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다.</p>
+<p>마지막으로 $get$_$edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다.</p>
 
 <h3 id="22-action-state-machine-asm">2.2 Action State Machine (ASM)</h3>
 <p>LLM의 답변 과정에 KG의 지식을 고려하기 위해 과거에는 KG를 prompt에 함께 제공하는 in-context learning 기법을 시도했다. 하지만 LLM의 token 제한 때문에 크기가 큰 KG를 모두 prompt에 제공하기는 어려웠고, LLM이 KG에서 필요한 정보를 추출하는 데 어려움이 있었다. 이 문제를 해결하기 위해 본 논문에서는 KG subgraph를 추출하는데, 이때 단계별로 확장을 수행하고 각 단계마다 LLM의 판단을 거치며 KG를 점차 확장해나간다.</p>
@@ -433,7 +447,7 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 <p>Chain-of-Traversals는 Tree-of-Traversals의 일종으로 k개의 action을 샘플링할 때 k가 1인 경우에 해당한다. 따라서 방문하지 않은 노드가 하나만 존재하게 되고, 노드 중에서 점수에 따라 선택하는 대신에 확정적으로 노드를 방문한다. 이후의 실험 결과에서 Chain-of-Traversals와 Tree-of-Traversals의 question answering 성능을 비교한다.</p>
 
 <h3 id="24-tree-of-traversals-with-multiple-kgs">2.4 Tree-of-Traversals with Multiple KGs</h3>
-<p>Tree-of-Traversals 알고리즘에서 여러 개의 KG를 고려하기 위해 우선 각각의 KG에 KG interface를 만든다. 또한 알고리즘에 몇 가지 변화가 있다. 각각의 KG $initialize(q)$ 함수로부터 중복으로 동일한 entity가 추출되지 않도록 하고, $get_relations(E_{selected})$ 함수에서 모든 KG로부터 해당하는 relation이 출력되도록 하며 $get_edges(E_{selected}, r)$ 함수를 통해 새로운 노드가 추가될 때 기존 노드와 새로운 노드 간의 edge가 존재하는지 모든 KG에 대해 확인하도록 한다.</p>
+<p>Tree-of-Traversals 알고리즘에서 여러 개의 KG를 고려하기 위해 우선 각각의 KG에 KG interface를 만든다. 또한 알고리즘에 몇 가지 변화가 있다. 각각의 KG $initialize(q)$ 함수로부터 중복으로 동일한 entity가 추출되지 않도록 하고, $get$_$relations(E_{selected})$ 함수에서 모든 KG로부터 해당하는 relation이 출력되도록 하며 $get$_$edges(E_{selected}, r)$ 함수를 통해 새로운 노드가 추가될 때 기존 노드와 새로운 노드 간의 edge가 존재하는지 모든 KG에 대해 확인하도록 한다.</p>
 
 <h2 id="3-experiments">3. Experiments</h2>
 <p>Tree-of-Traversals 알고리즘에서 사용할 LLM으로는 Amazon Bedrock에서 API를 통해 이용할 수 있는 Claude-Instant, Llama2 70b, Llama2 13b를 사용한다. 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 question answering task를 수행한다. 이때 metric으로 Exact Match Included (EM-in)을 사용하는데, 생성한 답변에 정답 답변이 모두 포함되어 있으면 1, 그렇지 않다면 0이다. EM-in은 EM과 다르게 생성한 답변과 정답 답변이 완전히 일치하지 않아도 되는데, LLM이 응답을 생성할 때 다양한 문장 구조와 구문을 사용할 수 있다는 점과 일반적으로 LLM의 답변에 정답 이외에 부가 설명이 추가된다는 점을 고려할 때 더 적합한 metric이다.</p>
@@ -483,7 +497,7 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

@@ -66,7 +66,8 @@ $$ \alpha_{vk} = \frac{\exp(e_{vk})}{\sum_{j \in N_v} \exp(e_{vj})} $$
 The final node embedding $\mathbf{h}_v'$ for node $v$ is updated by aggregating the normalized attention-weighted features from all its neighbors:
 $$ \mathbf{h}'_v = \sigma \left( \sum_{k \in N_v} \alpha_{vk} \mathbf{W}\mathbf{h}_k \right)$$
 where $\sigma$ is a non-linear activation function (e.g., ReLU).
-![img1](./F2PGNN.png)
+
+![img1](../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/F2PGNN.png)
 *Figure 1: The overall structure of the F<sup>2</sup>PGNN framework.*
 
 <font color=red size=4px ><b>4.3 Fairness-Aware Loss Function</b></font>
@@ -160,15 +161,15 @@ The experimental results demonstrated the effectiveness of F<sup>2</sup>PGNN in 
 3. **Effect of Fairness Budget ($\beta$):**  The fairness budget parameter ($\beta$) controlled the trade-off between fairness and utility. Increasing $\beta$ improved fairness by reducing group disparity, with only a minimal impact on RMSE in most cases. This trade-off makes F<sup>2</sup>PGNN adaptable to real-world applications where fairness is a critical requirement, such as personalized recommendation systems for e-commerce or healthcare.
 
 Below is a table summarizing the performance and fairness of F<sup>2</sup>PGNN compared to F2MF in different datasets. G denotes Gender while A denotes Activity. 
-![img2](./result.png)
+![img2](../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/result.png)
 *Figure 2: Performance vs Fairness comparison with different fairness budget $\beta$.*
 
 **Disparity vs. Epochs:** The experiments included a visualization of group disparity over time. The results showed that group disparity consistently decreased with F<sup>2</sup>PGNN, particularly when a higher fairness budget ($\beta$) was used. This graph reinforced that the model is effective at reducing demographic bias as training progresses.
-![img3](./disparity.png)
+![img3](../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/disparity.png)
 *Figure 3: **Top Row:** Disparity vs epoch for different fairness budget $\beta$ on validation data. **Bottom row:** % change in fairness (left y-axis) and % change in RMSE (right y-axis) w.r.t different $\beta$*
 
 **Privacy-Utility Trade-off:** Another experiment explored the trade-off between privacy and utility by varying the parameters of the LDP mechanism. Increasing the noise variance ($\lambda$) enhanced privacy by adding more noise to the model updates, but it slightly increased RMSE. However, with proper tuning of LDP parameters (e.g., the noise variance $\lambda$ and gradient clipping threshold $\delta$), the model achieved a good balance between privacy protection and utility.
-![img4](./privacy.png)
+![img4](../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/privacy.png)
 *Figure 4: Privacy budget $\epsilon$ (left y-axis) and the personalization RMSE (right y-axis) w.r.t different clipping threshold $\delta$ and noise variance $\lambda.$*
 
 <font color=red size=3px ><b>5.4.1 Analysis of Results</b></font>

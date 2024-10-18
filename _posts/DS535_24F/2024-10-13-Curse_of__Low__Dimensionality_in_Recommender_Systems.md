@@ -58,18 +58,18 @@ This section presents a theoretical analysis focused on understanding the impact
 
 ### Theoretical Investigation
 
-Theoretical investigation explores **representable rankings** over item vectors in \( \mathbb{R}^d \), highlighting the limitations and expressive power of low-dimensional spaces in representing these rankings.
+Theoretical investigation explores **representable rankings** over item vectors in \( $\mathbb{R}^d$ \), highlighting the limitations and expressive power of low-dimensional spaces in representing these rankings.
 
 #### Main Concepts
 
 ##### Representable Rankings
-A ranking is representable if there exists a query vector \( q \in \mathbb{R}^d \) such that the items are ordered based on the inner products \( \langle q, v_i \rangle \), where \( v_i \) are the item vectors.
+A ranking is representable if there exists a query vector \( $q \in \mathbb{R}^d$ \) such that the items are ordered based on the inner products \( $\langle q, v_i \rangle$ \), where \( $v_i$ \) are the item vectors.
 
 ##### Bounding the Number of Representable Rankings
 The focus is on estimating how many distinct rankings can be represented with a set of item vectors in low-dimensional space:
 
-- **Upper Bound**: For \( n \) item vectors in \( \mathbb{R}^d \), the number of representable rankings of size \( K \) is at most \( n^{\min(K, 2^d)} \). Increasing dimensionality enhances expressive power.
-- **Lower Bound**: There exist \( n \) item vectors such that the number of representable rankings in \( \mathbb{R}^d \) is \( n^{\Theta(d)} \), indicating expressivity increases with dimensionality.
+- **Upper Bound**: For \( $n$ \) item vectors in \( $\mathbb{R}^d$ \), the number of representable rankings of size \( $K$ \) is at most \( $n^{\min(K, 2^d)}$ \). Increasing dimensionality enhances expressive power.
+- **Lower Bound**: There exist \( $n$ \) item vectors such that the number of representable rankings in \( $\mathbb{R}^d$ \) is \( $n^{\Theta(d)}$ \), indicating expressivity increases with dimensionality.
 
 #### Key Theoretical Insights
 
@@ -88,26 +88,26 @@ Low-dimensional spaces may lead to overfitting to popular items and fail to repr
 ## Outline of the Proof
 
 ### Dot-Product Representation of Rankings
-A ranking is derived from the inner products between item vectors \( v_i \in \mathbb{R}^d \) and a query vector \( q \in \mathbb{R}^d \). Items are ranked based on \( \langle q, v_i \rangle \), and the number of rankings depends on how many ways \( \langle q, v_i \rangle \) can be ordered.
+A ranking is derived from the inner products between item vectors \( $v_i \in \mathbb{R}^d$ \) and a query vector \( $q \in \mathbb{R}^d$ \). Items are ranked based on \( $\langle q, v_i \rangle$ \), and the number of rankings depends on how many ways \( $\langle q, v_i \rangle$ \) can be ordered.
 
 ### Geometric Interpretation via Hyperplanes
-The query space \( q \in \mathbb{R}^d \) is divided into regions by hyperplanes, where each region corresponds to a specific ranking. A **hyperplane** is defined by \( \langle q, v_i \rangle = \langle q, v_j \rangle \), partitioning the space of query vectors into ranking regions.
+The query space \( $q \in \mathbb{R}^d$ \) is divided into regions by hyperplanes, where each region corresponds to a specific ranking. A **hyperplane** is defined by \( $\langle q, v_i \rangle = \langle q, v_j \rangle$ \), partitioning the space of query vectors into ranking regions.
 
 ### Upper Bound Using Hyperplane Arrangements
-The number of regions formed by \( n \) hyperplanes in \( \mathbb{R}^d \) provides an upper bound on the number of distinct rankings. For ranking \( K \) items, the number of regions scales as \( n^{\min(K, 2d)} \).
+The number of regions formed by \( $n$ \) hyperplanes in \( $\mathbb{R}^d$ \) provides an upper bound on the number of distinct rankings. For ranking \( $K$ \) items, the number of regions scales as \( $n^{\min(K, 2d)}$ \).
 
 ### Lower Bound
-A lower bound is demonstrated by constructing specific item vectors, showing that the number of representable rankings grows polynomially with dimensionality, \( n^{\Theta(d)} \).
+A lower bound is demonstrated by constructing specific item vectors, showing that the number of representable rankings grows polynomially with dimensionality, \( $n^{\Theta(d)}$ \).
 
 ## Step-by-Step Breakdown of the Derivation
 
-1. **Defining the Problem**: For \( n \) items with vectors \( v_1, v_2, \dots, v_n \) embedded in \( \mathbb{R}^d \), a query vector \( q \) ranks the items by sorting \( \langle q, v_i \rangle \).
-2. **Hyperplane Arrangements**: Each pair of items defines a hyperplane \( \langle q, v_i \rangle = \langle q, v_j \rangle \). These hyperplanes partition the query space into ranking regions.
-3. **Bounding the Number of Regions**: The number of regions in \( \mathbb{R}^d \) is bounded by \( O(n^{2d}) \). For the top \( K \) items, the number of regions is \( O(n^{\min(K, 2d)}) \).
+1. **Defining the Problem**: For \( $n$ \) items with vectors \( $v_1, v_2, \dots, v_n$ \) embedded in \( $\mathbb{R}^d$ \), a query vector \( $q$ \) ranks the items by sorting \( $\langle q, v_i \rangle$ \).
+2. **Hyperplane Arrangements**: Each pair of items defines a hyperplane \( $\langle q, v_i \rangle = \langle q, v_j \rangle$ \). These hyperplanes partition the query space into ranking regions.
+3. **Bounding the Number of Regions**: The number of regions in \( $\mathbb{R}^d$ \) is bounded by \( $O(n^{2d})$ \). For the top \( $K$ \) items, the number of regions is \( $O(n^{\min(K, 2d)})$ \).
 
 ## Example Scenario
 
-Consider three items in a 2D space (\( \mathbb{R}^2 \)):
+Consider three items in a 2D space (\( $\mathbb{R}^2$ \)):
 
 - Item 1: $( v_1 = (1, 0) )$
 - Item 2: $( v_2 = (0, 1) )$
@@ -133,7 +133,7 @@ These hyperplanes divide the query space into regions, where each region corresp
 
 ### Regions and Rankings
 
-The query space \( q \in \mathbb{R}^2 \) is divided into four regions by the three hyperplanes, each corresponding to a different ranking. For example:
+The query space \( $q \in \mathbb{R}^2$ \) is divided into four regions by the three hyperplanes, each corresponding to a different ranking. For example:
 
 - Region 1: $( q_1 > q_2 > 0 )$ results in the ranking **Item 1 > Item 3 > Item 2**.
 

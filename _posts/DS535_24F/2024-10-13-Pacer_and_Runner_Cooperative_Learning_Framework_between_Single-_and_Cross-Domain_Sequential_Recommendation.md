@@ -22,11 +22,11 @@ CDSR에서 이는 특히 도메인 간 관계가 약하거나 데이터 희소�
 
 CDSR은 여러 도메인의 정보를 활용하여 추천 성능을 향상시키는 것을 목표로 한다. 그러나 일부 도메인에서 CDSR이 SDSR보다 성능이 떨어지는 부정적 전이 문제가 발생할 수 있다. 이 논문은 이러한 부정적 전이 문제를 해결하고 모든 도메인에서 일관된 높은 성능을 달성하는 것을 목표로 한다.
 
-구체적으로, 주어진 시간 t까지의 크로스 도메인 시퀀스 X_1:t를 기반으로 다음 아이템 x^d_t+1을 예측하는 것이 목표이다:
+구체적으로, 주어진 시간 t까지의 크로스 도메인 시퀀스 $X_ {1:t}$를 기반으로 다음 아이템 $x^d_ {t+1}$을 예측하는 것이 목표이다:
 
-argmax_{x^d_t+1 ∈ V_d} P(x^d_t+1 | X_1:t)
+$argmax_ {x^d_ {t+1} ∈ V_ d} P(x^d_ {t+1} \vert X_ {1:t})$
 
-여기서 V_d는 도메인 d의 아이템 집합이다.
+여기서 $V_ {d}$는 도메인 d의 아이템 집합이다.
 
 ## 2. 동기
 
@@ -63,11 +63,11 @@ Figure 1은 Amazon 데이터셋의 Book, Clothing 도메인과 Telco 데이터�
 
 ACMoE의 수학적 formulation은 다음과 같다:
 
-(Y_d)_{single} = h_d(f_d(E_d))
+$(Y_ d)_ {single} = h_ d(f_ d(E_ d))$
 
-f_d(E_d) = \sum_{k=1}^j g_d(E_d)_k SG(f^k_{TRM}(E_d)) + \sum_{k=j+1}^K g_d(E_d)_k f^k_{TRM}(E_d)
+$f_ d(E_ d) = \sum_ {k=1}^j g_ d(E_ d)_ k SG(f^k_ {TRM}(E_ d)) + \sum_ {k=j+1}^K g_ d(E_ d)_ k f^k_ {TRM}(E_ d)$
 
-여기서 h_d는 도메인 d의 tower network, f_d는 sequential expert layer의 mixture, SG는 stop-gradient 연산을 나타낸다.
+여기서 $h_ d$는 도메인 d의 tower network, $f_ d$는 sequential expert layer의 mixture, SG는 stop-gradient 연산을 나타낸다.
 
 ### 3.3 Loss Correction with Negative Transfer Gap (LC-NTG)
 
@@ -76,16 +76,16 @@ f_d(E_d) = \sum_{k=1}^j g_d(E_d)_k SG(f^k_{TRM}(E_d)) + \sum_{k=j+1}^K g_d(E_d)_
 
 부정적 전이 간격(NTG)은 다음과 같이 정의된다:
 
-\phi_\pi(d) = \sum_{t=1}^T (l^d_t - l_t)
+$\phi_\pi(d) = \sum_ {t=1}^T (l^d_ t - l_ t)$
 
-여기서 l^d_t와 l_t는 각각 SDSR과 CDSR 태스크의 t 시점에서의 손실을 나타낸다.
+여기서 $l^d_ t$와 $l_ t$는 각각 SDSR과 CDSR 태스크의 t 시점에서의 손실을 나타낸다.
 
 ### 3.4 Single-Cross Mutual Information Maximization (SC-MIM)
 
 - SDSR과 CDSR 태스크에서 얻은 표현 간의 상호 정보를 최대화하는 보조 손실을 도입한다.
 - 이를 통해 두 태스크 간 유용한 정보 전달을 촉진한다.
 
-L^d_{SC-MIM} = \rho((Y_d)_{single}, (Y_d)_{cross}) - \log \sum_{u^-} \exp(\rho((Y_d)_{single^-}, (Y_d)_{cross}))
+$L^d_ {SC-MIM} = \rho((Y_ d)_ {single}, (Y_ d)_ {cross}) - \log \sum_ {u^-} \exp(\rho((Y_ d)_ {single^-}, (Y_ d)_ {cross}))$
 
 
 ![Figure 2: SyNCRec Architecture](https://i.postimg.cc/mkCd69My/figure2.png)

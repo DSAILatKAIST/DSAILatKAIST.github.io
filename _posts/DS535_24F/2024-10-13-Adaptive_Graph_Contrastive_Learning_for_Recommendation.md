@@ -2,10 +2,9 @@
 title:  "[KDD-23] Adaptive Graph Contrastive Learning for Recommendation"
 permalink: 2024-10-13-Adaptive_Graph_Contrastive_Learning_for_Recommendation.html
 tags: [reviews]
-use_math: true
+use_ math: true
 usemathjax: true
 ---
-
 
 # **AdaGCL**
 Yangqin Jiang / Adaptive Graph Contrastive Learning for Recommendation / KDD '23
@@ -40,7 +39,7 @@ Yangqin Jiang / Adaptive Graph Contrastive Learning for Recommendation / KDD '23
 
 예를 들어, SGL(Self-supervised Graph Learning)[^1] 모델은 사용자-아이템 상호작용 그래프에서 랜덤 노드 드롭아웃, 엣지 드롭아웃, 랜덤 워크 등의 기법을 사용하여 두 개의 뷰를 생성하고, 이를 통해 대조 학습을 수행합니다.
 
-![image_sample](https://i.postimg.cc/rpbHbTP0/sgl.png)
+![image_ sample](https://i.postimg.cc/rpbHbTP0/sgl.png)
 <p align="center"><em>Figure 1: SGL 모델의 전체 프레임워크</em></p>
 
 이러한 접근은 주어진 그래프의 구조와 무관하게 무작위로 데이터 증강을 수행하기 때문에 다음과 같은 문제가 발생할 수 있습니다:
@@ -56,21 +55,21 @@ Yangqin Jiang / Adaptive Graph Contrastive Learning for Recommendation / KDD '23
 
 ## **3. Method**
 
-  ![image_sample](https://i.postimg.cc/tg3zpHrm/adagcl-framework.png)
+  ![image_ sample](https://i.postimg.cc/tg3zpHrm/adagcl-framework.png)
 <p align="center"><em>Figure 2: AdaGCL 모델의 전체 프레임워크</em></p>
 
 AdaGCL은 두 가지의 적응형 대조 뷰 생성기를 사용하여 협업 필터링 모델을 개선합니다. 첫 번째 생성기는 그래프 생성 모델을 사용하여 그래프 분포를 기반으로 뷰를 생성하고, 두 번째 생성기는 그래프 노이즈 제거 모델을 사용하여 사용자-아이템 그래프의 노이즈를 줄입니다. 이 두 개의 적응형 대조 뷰는 모델 학습에 필요한 추가적인 학습 신호를 제공합니다.
 
   
 ### 3.0 Notation
-- 사용자 집합 $\mathcal{U} = \{u_i\}_{i=1}^I$, 아이템 집합 $\mathcal{V} = \{v_j\}_{j=1}^J$
+- 사용자 집합 $\mathcal{U} = \{u_  i\}_  {i=1}^I$, 아이템 집합 $\mathcal{V} = \{v_ j\}_ {j=1}^J$
 -- $I$: 사용자 수, $J$: 아이템 수
 
 - $\mathbf{R}\in\mathbb{R}^{I\times J}$: 상호작용을 나타내는 행렬 
 -- implicit interaction setting에서 구매된 제품은 1, 아니면 0으로 표시
 
-- $\mathcal{N}_x$: $x$ 노드와 상호작용한 노드들의 집합
--- $\mathcal{N}_x$는 상호작용 행렬 $\mathbf{R}$를 기반으로 정의됩니다 
+- $\mathcal{N}_ x$: $x$ 노드와 상호작용한 노드들의 집합
+-- $\mathcal{N}_ x$는 상호작용 행렬 $\mathbf{R}$를 기반으로 정의됩니다 
 
 - $\mathbf{E}^{(l)}\in\mathbb{R}^{(I+J)\times d}$: $l$번째 layer에 대한 사용자와 아이템의 임베딩 행렬
 -- $d$: 임베딩의 차원
@@ -78,20 +77,20 @@ AdaGCL은 두 가지의 적응형 대조 뷰 생성기를 사용하여 협업 �
 
 ### 3.1 Local Collaborative Relation Learning
 
-![image_sample](https://i.postimg.cc/K8Q7TdL9/local-collaborative-relation-learning.png)
+![image_ sample](https://i.postimg.cc/K8Q7TdL9/local-collaborative-relation-learning.png)
 <p align="center"><em>Figure 3: Local Collaborative Relation Learning의 작동 방식</em></p>
 
 Main task는 기존 interaction graph에서 GCN(graph convolutional network)을 적용하여 local collaborative relation이 반영된 각 노드의 임베딩을 얻고, 이를 바탕으로 사용자와 아이템 사이의 상호작용을 예측합니다. 이때 GCN에서의 임베딩 전파는 LightGCN[^2]과 유사한 방식으로 진행됩니다. (편의 상 논문의 표기가 아닌 LightGCN의 표기를 사용하였습니다.) 
 
 >GCN은 노드의 이웃 정보를 활용하여 노드 임베딩을 계산하는 모델로, LightGCN은 비선형 활성화 함수와 추가적인 파라미터를 제거하여 더 간단하고 효율적인 방식으로 임베딩을 학습하는 모델입니다. LightGCN의 그래프 컨볼루션 연산은 다음과 같이 정의됩니다:
 >
->$\mathbf{e}_u^{(l+1)} = \sum_{i\in\mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_u| |\mathcal{N}_i|}} \mathbf{e}_i^{(l)} \\ 
-\mathbf{e}_i^{(l+1)} = \sum_{u\in\mathcal{N}_i} \frac{1}{\sqrt{|\mathcal{N}_i| |\mathcal{N}_u|}} \mathbf{e}_u^{(l)}$
+>$\mathbf{e}_ u^{(l+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u \vert\mathcal{N}_ i\vert}} \mathbf{e}_ i^{(l)} \\ 
+\mathbf{e}_ i^{(l+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert \vert\mathcal{N}_ u\vert}} \mathbf{e}_ u^{(l)}$
 
 다만 본 논문에서는 레이어에 따라 self-aggregation을 적용한 방식으로 임베딩 전파를 수행합니다:
 
-$\mathbf{e}_u^{(l+1)} = \mathbf{e}_u^{(l)} + \sum_{i\in\mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_u| |\mathcal{N}_i|}} \mathbf{e}_i^{(l)} \\
-\mathbf{e}_i^{(l+1)} = \mathbf{e}_i^{(l)} + \sum_{u\in\mathcal{N}_i} \frac{1}{\sqrt{|\mathcal{N}_i| |\mathcal{N}_u|}} \mathbf{e}_u^{(l)}$
+$\mathbf{e}_ u^{(l+1)} = \mathbf{e}_ u^{(l)} + \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert \vert\mathcal{N}_ i\vert}} \mathbf{e}_ i^{(l)} \\
+\mathbf{e}_ i^{(l+1)} = \mathbf{e}_ i^{(l)} + \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert \vert\mathcal{N}_ u\vert}} \mathbf{e}_ u^{(l)}$
 
 이를 행렬 형태로 나타내면, user-item 그래프의 인접 행렬(adjacency matrix)을
 
@@ -101,9 +100,9 @@ $\mathbf{A} = \begin{bmatrix} \mathbf{0} & \mathbf{R} \\ \mathbf{R}^\top & \math
 
 $\mathbf{E}^{(l+1)} = (\mathbf{I} + \mathbf{D}^{-1/2} \mathbf{A} \mathbf{D}^{-1/2}) \mathbf{E}^{(l)}$
 
-여기서, degree matrix $\mathbf{D}$는 $(I+J) \times (I+J)$ 대각 행렬로, $D_{ii}$는 $i$번째 노드의 degree를 의미합니다. 마지막으로 노드의 임베딩을 계산할 때는 모든 레이어의 임베딩을 합산하며, 사용자 $i$와 아이템 $j$에 대한 선호도는 내적으로 예측합니다:
+여기서, degree matrix $\mathbf{D}$는 $(I+J) \times (I+J)$ 대각 행렬로, $D_ {ii}$는 $i$번째 노드의 degree를 의미합니다. 마지막으로 노드의 임베딩을 계산할 때는 모든 레이어의 임베딩을 합산하며, 사용자 $i$와 아이템 $j$에 대한 선호도는 내적으로 예측합니다:
 
-$\mathbf{E} = \sum_{l=0}^L \mathbf{E}^{(l)}, \quad \hat{y}_{i,j} = \mathbf{e}_i^\top \mathbf{e}_j$
+$\mathbf{E} = \sum_ {l=0}^L \mathbf{E}^{(l)}, \quad \hat{y}_ {i,j} = \mathbf{e}_ i^\top \mathbf{e}_ j$
 
 
 
@@ -111,7 +110,7 @@ $\mathbf{E} = \sum_{l=0}^L \mathbf{E}^{(l)}, \quad \hat{y}_{i,j} = \mathbf{e}_i^
 
 #### 3.2.1 Dual-View GCL Paradigm
 
-![image_sample](https://i.postimg.cc/zv7DpZNB/dual-view-gcl.png)
+![image_ sample](https://i.postimg.cc/zv7DpZNB/dual-view-gcl.png)
 <p align="center"><em>Figure 4: Dual-View GCL Paradigm</em></p>
 
 본 논문에서는 두 가지의 데이터 맞춤형 view generator를 제안합니다. 이때 두 가지 view가 동일한 분포에서 생성될 경우, model collapse가 발생하여 CL의 효과가 감소할 수 있습니다. 
@@ -121,16 +120,16 @@ $\mathbf{E} = \sum_{l=0}^L \mathbf{E}^{(l)}, \quad \hat{y}_{i,j} = \mathbf{e}_i^
 
 기존의 자기 지도 협업 필터링 방식과 마찬가지로, 동일한 노드에서 생성된 두 개의 다른 뷰는 positive pair로, 다른 노드에서 생성된 뷰들은 negative pair들로 간주합니다. 
 
-- **Positive pair**: $(\mathbf{e}'_i, \mathbf{e}''_i)$ for $u_i \in \mathcal{U}$
-- **Negative pairs**: $\{(\mathbf{e}'_i, \mathbf{e}''_{i'}) : u_i, u_{i'} \in \mathcal{U}, u_i \neq u_{i'}\}$
+- **Positive pair**: $(\mathbf{e}'_ i, \mathbf{e}''_ i)$ for $u_ i \in \mathcal{U}$
+- **Negative pairs**: $\{(\mathbf{e}'_ i, \mathbf{e}''_ {i'}) : u_ i, u_ {i'} \in \mathcal{U}, u_ i \neq u_ {i'}\}$
 
 Positive pair은 임베딩을 가깝게 하여 similarity를 높게 하고, negative pair들은 임베딩을 멀어지게 하여 similarity를 낮게 하면 모델이 각 노드의 고유한 특징을 잘 학습할 수 있게 됩니다. Loss는 CL에 많이 쓰이는 InfoNCE(information noise-contrastive estimation) loss을 사용합니다:
 
-$\mathcal{L}_{\mathrm{ssl}}^{\mathrm{user}} = \sum_{u_i \in \mathcal{U}} -\log \frac{\exp(s(\mathbf{e}_i', \mathbf{e}_i'') / \tau)}{\sum_{u_{i'} \in \mathcal{U}} \exp(s(\mathbf{e}_i', \mathbf{e}_{i'}'') / \tau)}$
+$\mathcal{L}_ {\mathrm{ssl}}^{\mathrm{user}} = \sum_ {u_ i \in \mathcal{U}} -\log \frac{\exp(s(\mathbf{e}_ {i'}, \mathbf{e}_ {i''}) / \tau)}{\sum_ {u_ {i'} \in \mathcal{U}} \exp(s(\mathbf{e}_ {i'}, \mathbf{e}_ {i'}'') / \tau)}$
 
-여기서 $s(\cdot)$는 cosine similarity를 의미하고, $\tau$는 softmax의 *temperature*로 불리는 hyperparameter입니다. 아이템에 대해서도 비슷한 방식으로 $\mathcal{L}_{\mathrm{ssl}}^{\mathrm{item}}$을 계산하고, 이 두 손실을 합하여 SSL의 목표 함수를 다음과 같이 정의합니다:
+여기서 $s(\cdot)$는 cosine similarity를 의미하고, $\tau$는 softmax의 *temperature*로 불리는 hyperparameter입니다. 아이템에 대해서도 비슷한 방식으로 $\mathcal{L}_ {\mathrm{ssl}}^{\mathrm{item}}$을 계산하고, 이 두 손실을 합하여 SSL의 목표 함수를 다음과 같이 정의합니다:
 
-$\mathcal{L}_{\mathrm{ssl}} = \mathcal{L}_{\mathrm{ssl}}^{\mathrm{user}} + \mathcal{L}_{\mathrm{ssl}}^{\mathrm{item}}$
+$\mathcal{L}_ {\mathrm{ssl}} = \mathcal{L}_ {\mathrm{ssl}}^{\mathrm{user}} + \mathcal{L}_ {\mathrm{ssl}}^{\mathrm{item}}$
 
 
 
@@ -138,7 +137,7 @@ $\mathcal{L}_{\mathrm{ssl}} = \mathcal{L}_{\mathrm{ssl}}^{\mathrm{user}} + \math
 
 #### 3.2.2 Graph Generative Model
 
-![image_sample](https://i.postimg.cc/mr2w6bBf/graph-generative-model.png)
+![image_ sample](https://i.postimg.cc/mr2w6bBf/graph-generative-model.png)
 <p align="center"><em>Figure 5: Graph Generative Model의 작동 방식</em></p>
 
 Graph generative model로는 VGAE[^3](variational graph auto-encoder)를 사용합니다.
@@ -150,7 +149,7 @@ Graph generative model로는 VGAE[^3](variational graph auto-encoder)를 사용�
 2. 두 개의 MLP(multi-layer perceptron)를 통해 각각 평균과 표준편차를 계산합니다. 
 3. 또 다른 MLP를 디코더로 사용해서 새로운 그래프를 생성합니다. 
 4. VGAE의 Loss는  노드 임베딩과 표준 Gaussian 분포 간의 KL(Kullback-Leibler) divergence, 기존 그래프와 새로 생성된 그래프 간의 차이를 측정하는 cross entropy loss의 합으로 설정합니다:
-$\mathcal{L}_{\mathrm{gen}} = \beta\mathcal{L}_{\mathrm{kl}} + \mathcal{L}_{\mathrm{dis}}.$
+$\mathcal{L}_ {\mathrm{gen}} = \beta\mathcal{L}_ {\mathrm{kl}} + \mathcal{L}_ {\mathrm{dis}}.$
 -- $\beta$는 KL divergence의 중요도를 조절하는 파라미터로, 논문에는 $\beta$가 명시되어 있지 않지만 코드에서는 $\beta=0.1$로 설정하였습니다.
 
 > 수식으로는 아래와 같이 나타낼 수 있습니다.
@@ -158,15 +157,15 @@ $\mathcal{L}_{\mathrm{gen}} = \beta\mathcal{L}_{\mathrm{kl}} + \mathcal{L}_{\mat
 > $\mathbf{E}=\mathrm{GCN}(\mathbf{R}, \mathbf{E}^{(0)})$
 > 
 > 2. 임베딩을 기반으로 평균과 표준편차 행렬을 MLP를 사용하여 계산합니다:
-> $\bm{\mu}=\mathrm{MLP}_{\bm{\mu}}(\mathbf{E})\in\mathbb{R}^{(I+J)\times d},\quad \log \bm{\sigma}=\mathrm{MLP}_{\bm{\sigma}} (\mathbf{E})\in\mathbb{R}^{(I+J)\times d}$
+> $\boldsymbol{\mu}=\mathrm{MLP}_ {\boldsymbol{\mu}}(\mathbf{E})\in\mathbb{R}^{(I+J)\times d},\quad \log \boldsymbol{\sigma}=\mathrm{MLP}_ {\boldsymbol{\sigma}} (\mathbf{E})\in\mathbb{R}^{(I+J)\times d}$
 > 
-> 3. Reparametrization trick으로 잠재 벡터 $\mathbf{z}_i$를 샘플링합니다:
-> $\mathbf{z}_i=\bm{\mu}_i+\bm{\sigma}_i\odot \bm{\epsilon}\in\mathbb{R}^d, \quad \bm{\epsilon} \sim \mathcal{N}(\mathbf{0},\mathbf{I})$
+> 3. Reparametrization trick으로 잠재 벡터 $\mathbf{z}_ i$를 샘플링합니다:
+> $\mathbf{z}_ i=\boldsymbol{\mu}_ i+\boldsymbol{\sigma}_ i\odot \boldsymbol{\epsilon}\in\mathbb{R}^d, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0},\mathbf{I})$
 >  이를 바탕으로 노드 간의 연결 여부를 MLP로 예측합니다:
->  $\hat{R}_{ij}=\mathrm{sigmoid}(\mathrm{MLP}_{\mathrm{decoder}}(\mathbf{z}_i \odot \mathbf{z}_j))$
+>  $\hat{R}_ {ij}=\mathrm{sigmoid}(\mathrm{MLP}_ {\mathrm{decoder}}(\mathbf{z}_ i \odot \mathbf{z}_ j))$
 >  4. Loss는 다음과 같이 계산합니다:
->  $\mathcal{L}_{\mathrm{kl}}=-\frac{1}{2}\sum_{i=1}^N\sum_{k=1}^d (1+\log {\sigma}_{i,k}^2-\mu_{i,k}^2-\sigma_{i,k}^2)$
->  $\mathcal{L}_{\mathrm{dis}}=-\sum_{(i, j)\in\mathcal{E}} \left( R_{ij}\log \hat{R}_{ij} + (1-R_{ij})\log(1-\hat{R}_{ij}) \right)$
+>  $\mathcal{L}_ {\mathrm{kl}}=-\frac{1}{2}\sum_ {i=1}^N\sum_ {k=1}^d (1+\log {\sigma}_ {i,k}^2-\mu_ {i,k}^2-\sigma_ {i,k}^2)$
+>  $\mathcal{L}_ {\mathrm{dis}}=-\sum_ {(i, j)\in\mathcal{E}} \left( R_ {ij}\log \hat{R}_ {ij} + (1-R_ {ij})\log(1-\hat{R}_ {ij}) \right)$
 
 
 
@@ -174,48 +173,48 @@ $\mathcal{L}_{\mathrm{gen}} = \beta\mathcal{L}_{\mathrm{kl}} + \mathcal{L}_{\mat
 
 
 #### 3.2.3 Graph Denoising Model
-![item_sample](https://i.postimg.cc/5225QNBh/adagcl-denoising.png)
+![item_ sample](https://i.postimg.cc/5225QNBh/adagcl-denoising.png)
 <p align="center"><em>Figure 6: Graph Denoising Model의 작동 방식</em></p>
 
 Graph denoising model은 그래프의 노이즈를 제거하는 과정으로, 이를 통해 더 정제된 임베딩을 학습할 수 있도록 도와줍니다. 이 모델은 GCN의 레이어마다 입력 그래프에 대한 필터링을 수행합니다. 
 
-1. 이진 행렬 $\mathbf{M}^{(l)}\in\{0,1\}^{|\mathcal{V}|\times|\mathcal{V}|}$을 사용해 noisy edge를 마스킹합니다:
+1. 이진 행렬 $\mathbf{M}^{(l)}\in\{0,1\}^{\vert\mathcal{V}\vert\times\vert\mathcal{V}\vert}$을 사용해 noisy edge를 마스킹합니다:
 -- $\mathbf{R}^{(l)}=\mathbf{R}\odot \mathbf{M}^{(l)}$
 -- 모든 edge가 아닌 *noisy* edge를 제거해야 하기 때문에, 제거된 엣지의 개수에 대한 패널티를 부여합니다:
-$\mathcal{L}_{\mathrm{penalty}}=\sum_{l=1}^L \lVert \mathbf{M}^{(l)}\rVert_0 = \sum_{l=1}^L \sum_{(i,j)\in\mathcal{E}} \mathbf{I}[m_{i,j}^{(l)} \neq 0]$
+$\mathcal{L}_ {\mathrm{penalty}}=\sum_ {l=1}^L \lVert \mathbf{M}^{(l)}\rVert_ 0 = \sum_ {l=1}^L \sum_ {(i,j)\in\mathcal{E}} \mathbf{I}[m_ {i,j}^{(l)} \neq 0]$
 -- 그러나 L0 norm은 non-differentiable하며, 계산적으로 다루기 어렵기 때문에 reparametrization trick을 사용합니다. 
 
-2. 이진 행렬의 원소 $m_{i,j}^{(l)}$가 베르누이 분포를 따른다고 가정합니다: 
--- $m_{i,j}^{(l)} \sim \mathrm{Bernoulli}(\pi_{i,j}^{(l)})$
+2. 이진 행렬의 원소 $m_ {i,j}^{(l)}$가 베르누이 분포를 따른다고 가정합니다: 
+-- $m_ {i,j}^{(l)} \sim \mathrm{Bernoulli}(\pi_ {i,j}^{(l)})$
 -- 하지만 이산적인 베르누이 분포는 미분할 수 없기 때문에, 이를 연속적으로 근사하는 Hard Concrete Distribution을 사용하여 학습이 가능하도록 만듭니다.
 >  Github 코드를 기반으로 수식을 전개해보면 다음과 같습니다.
-> 1. $\pi_{i,j}^{(l)}$은 $\mathbf{e}_{i}^{(l)}, \mathbf{e}_{j}^{(l)}$에 MLP를 통과한 값으로 설정합니다:
-> $\pi_{i,j}^{(l)}=\mathrm{MLP}_{\mathrm{att}}([\mathrm{MLP}_{\mathrm{nb}}(\mathbf{e}_{i}^{(l)})\parallel \mathrm{MLP}_{\mathrm{self}}(\mathbf{e}_{j}^{(l)})])$
-> -- $\mathrm{MLP}_{\mathrm{nb}}, \mathrm{MLP}_{\mathrm{self}}:\mathbb{R}^{d}\rightarrow \mathbb{R}^{d}$는 ReLU activation의 1-layer이며, $\mathrm{MLP}_{\mathrm{att}}: \mathbb{R}^{2d}\rightarrow \mathbb{R}$는 one linear layer입니다.
+> 1. $\pi_ {i,j}^{(l)}$은 $\mathbf{e}_ {i}^{(l)}, \mathbf{e}_ {j}^{(l)}$에 MLP를 통과한 값으로 설정합니다:
+> $\pi_ {i,j}^{(l)}=\mathrm{MLP}_ {\mathrm{att}}([\mathrm{MLP}_ {\mathrm{nb}}(\mathbf{e}_ {i}^{(l)})\parallel \mathrm{MLP}_ {\mathrm{self}}(\mathbf{e}_ {j}^{(l)})])$
+> -- $\mathrm{MLP}_ {\mathrm{nb}}, \mathrm{MLP}_ {\mathrm{self}}:\mathbb{R}^{d}\rightarrow \mathbb{R}^{d}$는 ReLU activation의 1-layer이며, $\mathrm{MLP}_ {\mathrm{att}}: \mathbb{R}^{2d}\rightarrow \mathbb{R}$는 one linear layer입니다.
 > 
 > 2. Uniform random noise를 샘플링합니다:
 > $\epsilon\sim\mathcal{U}(0,1)$
 > 
 > 3. 위 noise로부터 Gumbel-Max trick으로 Gumbel noise로 변환합니다:
-> $\tilde{\epsilon}=\log \epsilon - \log(1-\epsilon), \quad s_{i,j}^{(l)}={\tilde{\epsilon}+ \pi_{i,j}^{(l)}}$
+> $\tilde{\epsilon}=\log \epsilon - \log(1-\epsilon), \quad s_ {i,j}^{(l)}={\tilde{\epsilon}+ \pi_ {i,j}^{(l)}}$
 > 
 > 4. Sigmoid 함수로 값의 범위를 $[0,1]$로 압축합니다:
-> $\tilde{s}_{i,j}^{(l)}=\sigma(s_{i,j}^{(l)})=1/(1+e^{-s_{i,j}^{(l)}})$
+> $\tilde{s}_ {i,j}^{(l)}=\sigma(s_ {i,j}^{(l)})=1/(1+e^{-s_ {i,j}^{(l)}})$
 >
 > 5. 해당 값을 stretch하여 값의 범위를 $[\gamma, \zeta]$로 변환합니다:
-> $t_{i,j}^{(l)}=\tilde{s}_{i,j}^{(l)}\times(\zeta-\gamma)+\gamma$
+> $t_ {i,j}^{(l)}=\tilde{s}_ {i,j}^{(l)}\times(\zeta-\gamma)+\gamma$
 > -- $\gamma$와 $\zeta$는 Hard Concrete Distribution에서 값을 stretch할 때 사용되는 하이퍼파라미터입니다. 기본값은 $-0.45, 1.05$입니다.
 > 
 > 6. $[0,1]$ 범위를 넘지 않도록 clamp합니다.
->  $m_{i,j}^{(l)}=\min(\max(t_{i,j}^{(l)}, 0), 1)$ 
+>  $m_ {i,j}^{(l)}=\min(\max(t_ {i,j}^{(l)}, 0), 1)$ 
 
 3. Reparametrization trick을 이용하여 페널티를 다음과 같이 재정의하여, noisy edge가 적절하게 필터링되도록 합니다:
--- $\mathcal{L}_c = \sum_{l=1}^L \sum_{(u_i, v_j) \in \mathcal{E}} (1 - P_{\sigma(s_{i,j}^{(l)})}(0 \vert \theta^{(l)}))$
--- 여기서 $s_{i,j}^{(l)}$는 noise를 고려한 score이며, $P_{\sigma(s_{i,j}^{(l)})}$는 $\sigma(s_{i,j}^{(l)})$에 대한 누적 분포 함수를 나타냅니다.
+-- $\mathcal{L}_ c = \sum_ {l=1}^L \sum_ {(u_ i, v_ j) \in \mathcal{E}} (1 - P_ {\sigma(s_ {i,j}^{(l)})}(0 \vert \theta^{(l)}))$
+-- 여기서 $s_ {i,j}^{(l)}$는 noise를 고려한 score이며, $P_ {\sigma(s_ {i,j}^{(l)})}$는 $\sigma(s_ {i,j}^{(l)})$에 대한 누적 분포 함수를 나타냅니다.
 > -- 위 식에서의 $\sigma$는 sigmoid와 stretching을 포함합니다.
-> -- Github 코드를 참고할 때, $\mathcal{L}_c$는 다음과 같이 계산됩니다:
+> -- Github 코드를 참고할 때, $\mathcal{L}_ c$는 다음과 같이 계산됩니다:
 > 
-> $\mathcal{L}_c=\sum_{l=1}^{L} \sum_{(u_i, v_j)\in\mathcal{E}} \frac{1}{\lvert \mathcal{E} \rvert} \sigma\left( \pi_{i,j}^{(l)}- \log \left(\frac{-\gamma}{\zeta}\right) \right)$
+> $\mathcal{L}_ c=\sum_ {l=1}^{L} \sum_ {(u_ i, v_ j)\in\mathcal{E}} \frac{1}{\lvert \mathcal{E} \rvert} \sigma\left( \pi_ {i,j}^{(l)}- \log \left(\frac{-\gamma}{\zeta}\right) \right)$
 >
 > -- 여기서의 $\sigma(\cdot)$은 sigmoid 함수입니다.
 
@@ -225,17 +224,17 @@ $\mathcal{L}_{\mathrm{penalty}}=\sum_{l=1}^L \lVert \mathbf{M}^{(l)}\rVert_0 = \
 
 ### 3.3 Learning Task-aware View Generators
 
-두 가지의 생성된 뷰를 주요 CF 태스크에 맞게 조정하기 위해서, 추천 task에서 널리 사용되는 BPR(Bayesian Personalized Ranking) 손실을 도입합니다: $$ \mathcal{L}_{\mathrm{bpr}} = \sum_{(u,i,j) \in O} -\log\sigma(\hat{y}_{ui} - \hat{y}_{uj}), $$ 여기서 훈련 데이터 $O = \{(u, i, j) \mid (u, i) \in O^+, (u, j) \in O^-\}$는 관찰된 상호작용 $O^+$와 관찰되지 않은 상호작용 $O^- = (U \times I )/ O^+$ 의 쌍을 나타냅니다.  $\hat{y}_{ui}, \hat{y}_{uj}$는 사용자 $u$와 관찰된 아이템 $i$, 관찰되지 않은 아이템 $j$ 사이의 예측된 상호작용 점수이며, BPR 손실은 $\hat{y}_{ui}$와 $\hat{y}_{uj}$의 차이를 최대화하여 관찰된 상호작용이 더 높은 순위를 갖도록 유도합니다.
+두 가지의 생성된 뷰를 주요 CF 태스크에 맞게 조정하기 위해서, 추천 task에서 널리 사용되는 BPR(Bayesian Personalized Ranking) 손실을 도입합니다: $$ \mathcal{L}_ {\mathrm{bpr}} = \sum_ {(u,i,j) \in O} -\log\sigma(\hat{y}_ {ui} - \hat{y}_ {uj}), $$ 여기서 훈련 데이터 $O = \{(u, i, j) \mid (u, i) \in O^+, (u, j) \in O^-\}$는 관찰된 상호작용 $O^+$와 관찰되지 않은 상호작용 $O^- = (U \times I )/ O^+$ 의 쌍을 나타냅니다.  $\hat{y}_ {ui}, \hat{y}_ {uj}$는 사용자 $u$와 관찰된 아이템 $i$, 관찰되지 않은 아이템 $j$ 사이의 예측된 상호작용 점수이며, BPR 손실은 $\hat{y}_ {ui}$와 $\hat{y}_ {uj}$의 차이를 최대화하여 관찰된 상호작용이 더 높은 순위를 갖도록 유도합니다.
 
 Graph generative model은 노드 간의 관계를 복원하는 역할을 하며, 이를 통해 얻은 임베딩에 BPR 손실을 적용하여 예측된 선호도 차이를 학습합니다: 
 
-$\mathcal{L}_{\mathrm{gen}} = \mathcal{L}_{\mathrm{kl}} + \mathcal{L}_{\mathrm{dis}} + \mathcal{L}_{\mathrm{bpr}}^{\mathrm{gen}} + \lambda_2 \|\Theta\|_F^2$
+$\mathcal{L}_ {\mathrm{gen}} = \mathcal{L}_ {\mathrm{kl}} + \mathcal{L}_ {\mathrm{dis}} + \mathcal{L}_ {\mathrm{bpr}}^{\mathrm{gen}} + \lambda_ 2 \\vert\Theta\\vert_ F^2$
 
- 여기서 $\Theta$는 모델 파라미터 집합이며, $\lambda_2$는 weight decay로 정규화하는 hyperparameter입니다. 
+ 여기서 $\Theta$는 모델 파라미터 집합이며, $\lambda_ 2$는 weight decay로 정규화하는 hyperparameter입니다. 
 
 Graph denoising model은 noisy edge를 제거한 그래프에서 임베딩을 생성한 후, 동일하게 BPR 손실을 적용하여 학습됩니다: 
 
-$\mathcal{L}_{\mathrm{den}} = \mathcal{L}_c + \mathcal{L}_{\mathrm{bpr}}^{\mathrm{den}} + \lambda_2 \|\Theta\|_F^2$
+$\mathcal{L}_ {\mathrm{den}} = \mathcal{L}_ c + \mathcal{L}_ {\mathrm{bpr}}^{\mathrm{den}} + \lambda_ 2 \\vert\Theta\\vert_ F^2$
 
 이처럼 두 가지 view generator는 각각 Graph generative model과 Graph denoising model로 학습된 임베딩에 BPR 손실을 적용하여, 노이즈를 제거하고 더 정교한 추천을 수행할 수 있습니다.
 
@@ -243,13 +242,13 @@ $\mathcal{L}_{\mathrm{den}} = \mathcal{L}_c + \mathcal{L}_{\mathrm{bpr}}^{\mathr
 
 모델 학습은 두 단계로 나뉘며, 상위 수준 학습은 전체 추천 시스템의 성능을 개선하는 데 중점을 둡니다. 이 단계에서는 기존 추천 작업에 대한 BPR loss와 자기 지도 학습 작업에 대한 SSL loss를 공동으로 최적화합니다:
 
-$\mathcal{L}_{\text{upper}} = \mathcal{L}_{\text{BPR}} + \lambda_1 \mathcal{L}_{\text{ssl}} + \lambda_2 ||\Theta||^2_F$
+$\mathcal{L}_ {\text{upper}} = \mathcal{L}_ {\text{BPR}} + \lambda_ 1 \mathcal{L}_ {\text{ssl}} + \lambda_ 2 \vert\vert\Theta\vert\vert^2_ F$
 
-여기서 $\Theta$는 LightGCN의 사용자 및 아이템 임베딩을 포함한 매개변수 집합을 의미하고, $\lambda_1$과 $\lambda_2$는 각각 자기 지도 학습과 L2 정규화의 강도를 조절하는 hyperparameter입니다. 
+여기서 $\Theta$는 LightGCN의 사용자 및 아이템 임베딩을 포함한 매개변수 집합을 의미하고, $\lambda_ 1$과 $\lambda_ 2$는 각각 자기 지도 학습과 L2 정규화의 강도를 조절하는 hyperparameter입니다. 
 
 하위 수준 학습에서는 graph generative model, graph denoising model들을 최적화하는 작업이 포함되며, 이는 다음과 같이 표현됩니다:
 
-$\mathcal{L}_{\text{lower}} = \mathcal{L}_{\text{gen}} + \mathcal{L}_{\text{den}}$
+$\mathcal{L}_ {\text{lower}} = \mathcal{L}_ {\text{gen}} + \mathcal{L}_ {\text{den}}$
 
 이들은 서로 상호 보완적으로 작동합니다. 상위 수준 학습에서는 전체 추천 성능을 개선하는 데 집중하고, 하위 수준 학습에서는 각 view generator의 성능을 개별적으로 최적화하여, 두 학습 과정이 함께 모델의 최종 성능을 극대화합니다.
 
@@ -258,14 +257,14 @@ $\mathcal{L}_{\text{lower}} = \mathcal{L}_{\text{gen}} + \mathcal{L}_{\text{den}
 
 제안된 모델의 시간 복잡도는 다음과 같이 분석할 수 있습니다.
 
-1. **Local collaborative relation learning module**: $O(L \times |\mathcal{E}| \times d)$
--- $L$은 그래프 신경망 레이어의 수, $|\mathcal{E}|$는 사용자-아이템 상호작용 그래프의 엣지 수, $d$는 임베딩 차원입니다.
+1. **Local collaborative relation learning module**: $O(L \times \vert\mathcal{E}\vert \times d)$
+-- $L$은 그래프 신경망 레이어의 수, $\vert\mathcal{E}\vert$는 사용자-아이템 상호작용 그래프의 엣지 수, $d$는 임베딩 차원입니다.
 -- $L$개의 레이어를 사용하여 각 엣지에 대해 임베딩을 계산하는 과정.
 
-3. **Graph generative model (VGAE)**: $O(|\mathcal{E}| \times d^2)$
+3. **Graph generative model (VGAE)**: $O(\vert\mathcal{E}\vert \times d^2)$
 -- 각 엣지에 대해 임베딩을 계산하고 MLP를 거쳐 그래프를 재구성하는 과정.
 
-4.  **Graph denoising model**: $O(L \times |\mathcal{E}| \times d^2)$
+4.  **Graph denoising model**: $O(L \times \vert\mathcal{E}\vert \times d^2)$
 -- 각 레이어마다 MLP로 노이즈를 찾아내고, 엣지마다 연산을 수행하는 과정.
 
 5. **Contrastive learning**:  $O(L \times B \times (I + J) \times d)$
@@ -279,7 +278,7 @@ $\mathcal{L}_{\text{lower}} = \mathcal{L}_{\text{gen}} + \mathcal{L}_{\text{den}
  
 ### **4.1 Experiment setup**
 
-![image_sample](https://i.postimg.cc/XvV01jRg/data-statistics.png)
+![image_ sample](https://i.postimg.cc/XvV01jRg/data-statistics.png)
 <p align="center"><em>Figure 7: 실험 데이터셋들에 대한 정보</em></p>
 
 * **데이터셋**: LastFM, Yelp, BeerAdvocate 데이터셋에서 평가되었으며, 자세한 정보는 위의 표에 명시되어 있습니다. 
@@ -298,9 +297,9 @@ $\mathcal{L}_{\text{lower}} = \mathcal{L}_{\text{gen}} + \mathcal{L}_{\text{den}
 > **NDCG**(Normalized Discounted Cumulative Gain)는 추천된 아이템의 순서를 고려하여 추천 리스트의 품질을 평가하는 지표입니다. 
 > * **DCG**(Discounted Cumulative Gain)는 추천 리스트에서 순위에 따라 가중치를 부여한 누적 이득을 계산합니다: 
 > 
-> $\text{DCG@N} = \sum_{i=1}^{N} \frac{rel_i}{\log_2(i+1)}$
+> $\text{DCG@N} = \sum_ {i=1}^{N} \frac{rel_ i}{\log_ 2(i+1)}$
 > 
->  여기서, $rel_i$는 아이템 $i$의 관련성을 나타냅니다. 상위에 있는 아이템일수록 높은 가중치를 받습니다. 
+>  여기서, $rel_ i$는 아이템 $i$의 관련성을 나타냅니다. 상위에 있는 아이템일수록 높은 가중치를 받습니다. 
 >  
 > * **IDCG**(Ideal DCG)는 아이템들이 이상적으로 순위가 매겨졌을 때의 DCG입니다. 
 > 
@@ -328,23 +327,22 @@ $\mathcal{L}_{\text{lower}} = \mathcal{L}_{\text{gen}} + \mathcal{L}_{\text{den}
 -- **DirectAU**: 초구면 상에서 정렬과 균일성을 최적화한 방법.
 
 
+### **4.2 Overall Performance Comparison**
 
- ### **4.2 Overall Performance Comparison**
-
-![image_sample](https://i.postimg.cc/pL1WYx7h/performance-comparison.png)
+![image_ sample](https://i.postimg.cc/pL1WYx7h/performance-comparison.png)
 <p align="center"><em>Figure 8: LastFM, Yelp, BeerAdvocate 데이터셋에 대한 성능 비교</em></p>
 
 본 실험에서는 대조군들과 AdaGCL의 주요 성능을 비교하였고, Recall@20과 NDCG@20에서 각각 3개의 데이터셋에 대해 평균적으로 5~10%의 성능 향상을 보였습니다. AdaGCL은 두 개의 *적응형* view generator를 사용해 하나는 그래프 노이즈를 제거하고, 다른 하나는 그래프 구조를 복원하여 다양한 정보를 유지합니다. 이를 통해 model collapse를 방지하고, 서로 다른 관점에서 생성된 임베딩을 결합함으로써 더 정교한 추천을 가능하게 합니다.
 
 
 
- ### **4.3 Model Ablation Test**
-![image_sample](https://i.postimg.cc/4dpXgc3V/ablation-study.png)
+### **4.3 Model Ablation Test**
+![image_ sample](https://i.postimg.cc/4dpXgc3V/ablation-study.png)
 <p align="center"><em>Figure 9: AdaGCL의 구성 요소들에 대한 Ablation study</em></p>
 
 본 실험에서는 제안된 AdaGCL 모델의 구성 요소들이 성능에 얼마나 중요한 역할을 하는지 확인하기 위해 수행되었습니다. 각 요소를 제거하거나 대체했을 때 성능이 어떻게 변하는지 평가하였습니다. Ablation test는 세 가지 주요 실험 설정을 기반으로 진행되었습니다. 첫 번째로, BPR 손실을 제거한 **w/o Task** 실험에서 성능이 크게 저하되었습니다. 두 번째로, denoising view generator를 제거한 **Gen+Gen** 설정에서는 model collapse의 문제로 성능이 감소하였습니다. 마지막으로, 무작위 증강을 사용한 **EdgeD** 실험에서는 대조 뷰의 정보 손실로 인해 성능 저하가 발생했습니다.
 
-- **w/o Task**: $\mathcal{L}_{\mathrm{gen}} = \mathcal{L}_{\mathrm{kl}} + \mathcal{L}_{\mathrm{dis}} + \cancel{\mathcal{L}_{\mathrm{bpr}}^{\mathrm{gen}}} + \lambda_2 \|\Theta\|_F^2, \mathcal{L}_{\mathrm{den}} = \mathcal{L}_c + \cancel{\mathcal{L}_{\mathrm{bpr}}^{\mathrm{den}}} + \lambda_2 \|\Theta\|_F^2$
+- **w/o Task**: $\mathcal{L}_ {\mathrm{gen}} = \mathcal{L}_ {\mathrm{kl}} + \mathcal{L}_ {\mathrm{dis}} + \cancel{\mathcal{L}_ {\mathrm{bpr}}^{\mathrm{gen}}} + \lambda_ 2 \\vert\Theta\\vert_ F^2, \mathcal{L}_ {\mathrm{den}} = \mathcal{L}_ c + \cancel{\mathcal{L}_ {\mathrm{bpr}}^{\mathrm{den}}} + \lambda_ 2 \\vert\Theta\\vert_ F^2$
 
 BPR 손실이 없는 경우, view generator 학습이 적절히 안내되지 않기 때문에 추천 시스템에서 더 관련성 높은 사용자-아이템 상호작용 패턴을 포착하는 데 실패합니다. 이는 auto-encoding loss와 잡음 제거 loss만으로는 충분하지 않음을 의미합니다.
 
@@ -359,13 +357,13 @@ BPR 손실이 없는 경우, view generator 학습이 적절히 안내되지 않
 Ablation test를 통해 AdaGCL의 구성 요소들, 특히 BPR 손실과 두 가지 상이한 view generator의 결합이 성능에 필수적임을 확인할 수 있습니다.
 
 
- ### **4.4 Model Robustness Test**
+### **4.4 Model Robustness Test**
 
 본 실험의 목적은 AdaGCL이 다양한 데이터 잡음과 희소성 조건에서 얼마나 견고하게 작동하는지를 평가하는 것입니다. 이를 위해, 잡음 비율과 데이터 희소성에 따라 모델의 성능 변화를 살펴보았습니다.
 
 #### 4.4.1 Performance w.r.t. Data Noise Degree
 
-![image_sample](https://i.postimg.cc/kMcdvqRJ/noise-ratio.png)
+![image_ sample](https://i.postimg.cc/kMcdvqRJ/noise-ratio.png)
 <p align="center"><em>Figure 10: 잡음 비율에 따른 상대적인 성능 변화</em></p>
 
 - **실험 설정**: 실제 엣지의 일정 비율(5%, 10%, 15%, 20%, 25%)을 무작위로 가짜 엣지로 대체한 그래프를 입력으로 사용하여 모델을 재훈련했습니다.  AdaGCL의 성능을 LightGCN 및 SGL과 비교했으며, 잡음의 비율에 따른 *상대적인* 성능 변화를 비교했습니다.
@@ -373,7 +371,7 @@ Ablation test를 통해 AdaGCL의 구성 요소들, 특히 BPR 손실과 두 가
 
 #### 4.4.2 Performance w.r.t. Data Sparsity
 
-![image_sample](https://i.postimg.cc/76kpSWxJ/sparsity-degree.png)
+![image_ sample](https://i.postimg.cc/76kpSWxJ/sparsity-degree.png)
 <p align="center"><em>Figure 11: 사용자, 아이템의 희소성 정도에 따른 성능 변화</em></p>
 
 - **실험 설정**: 사용자와 아이템들을 훈련 데이터에서의 상호작용 수를 기준으로 나누었으며, 사용자 측과 아이템 측에서 그룹을 나누는 기준은 위 그림에 명시된 바와 같습니다. 이 실험 역시 LightGCN 및 SGL 모델들과 비교했습니다.
@@ -384,26 +382,26 @@ Ablation test를 통해 AdaGCL의 구성 요소들, 특히 BPR 손실과 두 가
 
 위 실험들을 통해 AdaGCL이 데이터 잡음과 희소성이 있는 상황에서도 높은 견고성을 유지하며, 다른 대조군에 비해 데이터 품질이 낮은 환경에서도 우수한 성능을 발휘함을 확인할 수 있었습니다.
 
- ### **4.5 Hyperparameter Analysis**
-본 실험에서는 AdaGCL이 대조 학습에 쓰이는 InfoNCE 손실에 대한 주요 하이퍼파라미터 $\lambda_1$에 얼마나 민감한지를 조사합니다. 이 값이 클수록 대조 학습이 더 강조되며, 작을수록 추천 작업에 대한 영향을 덜 받습니다.
+### **4.5 Hyperparameter Analysis**
+본 실험에서는 AdaGCL이 대조 학습에 쓰이는 InfoNCE 손실에 대한 주요 하이퍼파라미터 $\lambda_ 1$에 얼마나 민감한지를 조사합니다. 이 값이 클수록 대조 학습이 더 강조되며, 작을수록 추천 작업에 대한 영향을 덜 받습니다.
 
-![image_sample](https://i.postimg.cc/j54Bc45g/hyperparameter-analysis.png)
+![image_ sample](https://i.postimg.cc/j54Bc45g/hyperparameter-analysis.png)
 <p align="center"><em>Figure 12: Hyperparameter에 따른 성능 변화</em></p>
 
-- **실험 설정**: $\lambda_1$가 {1, 1e-1, 1e-2, 1e-3, 1e-4} 의 값에서 성능이 어떻게 변화하는지 확인합니다.
+- **실험 설정**: $\lambda_ 1$가 {1, 1e-1, 1e-2, 1e-3, 1e-4} 의 값에서 성능이 어떻게 변화하는지 확인합니다.
 
-- **실험 결과**: Yelp 데이터에서는 $\lambda_1=1$일 때, LastFM 데이터에서는 $\lambda_1=0.1$일 때 최고의 성능을 보이는 것을 알 수 있습니다. $\lambda_1$ 값이 너무 클 경우, 대조 학습이 추천 태스크보다 지나치게 강조되면서 사용자의 실제 선호도를 반영하지 못하는 결과를 초래할 수 있습니다. 이는 대조 뷰 간의 유사성 극대화에 집중하여 실제 추천 성능이 떨어지게 됩니다. 또한, Yelp 데이터는 상호작용이 상대적으로 많아 대조 학습의 비중을 더 크게 설정할 수 있었던 반면, LastFM 데이터는 상호작용이 적기 때문에 $\lambda_1$ 값을 적당히 낮춰 추천 작업을 더 강조하는 것이 성능을 높이는 데 유리했습니다.
+- **실험 결과**: Yelp 데이터에서는 $\lambda_ 1=1$일 때, LastFM 데이터에서는 $\lambda_ 1=0.1$일 때 최고의 성능을 보이는 것을 알 수 있습니다. $\lambda_ 1$ 값이 너무 클 경우, 대조 학습이 추천 태스크보다 지나치게 강조되면서 사용자의 실제 선호도를 반영하지 못하는 결과를 초래할 수 있습니다. 이는 대조 뷰 간의 유사성 극대화에 집중하여 실제 추천 성능이 떨어지게 됩니다. 또한, Yelp 데이터는 상호작용이 상대적으로 많아 대조 학습의 비중을 더 크게 설정할 수 있었던 반면, LastFM 데이터는 상호작용이 적기 때문에 $\lambda_ 1$ 값을 적당히 낮춰 추천 작업을 더 강조하는 것이 성능을 높이는 데 유리했습니다.
 
-결론적으로, AdaGCL은 $\lambda_1$ 값에 대해 일정한 민감성을 가지고 있으며, 적절한 $\lambda_1$ 값 설정을 통해 대조 학습과 추천 작업 간의 균형을 맞추는 것이 성능 향상에 중요합니다.
+결론적으로, AdaGCL은 $\lambda_ 1$ 값에 대해 일정한 민감성을 가지고 있으며, 적절한 $\lambda_ 1$ 값 설정을 통해 대조 학습과 추천 작업 간의 균형을 맞추는 것이 성능 향상에 중요합니다.
 
- ### **4.6 Embedding Visualization Analysis**
+### **4.6 Embedding Visualization Analysis**
 
 본 실험에서는 AdaGCL과 SGL의 임베딩을 시각화하여 모델의 이점을 분석했습니다.
 
-![image_sample](https://i.postimg.cc/SNv3gsSh/view-embedding-sgl.png)
+![image_ sample](https://i.postimg.cc/SNv3gsSh/view-embedding-sgl.png)
 <p align="center"><em>Figure 13: SGL에 대한 임베딩 시각화</em></p>
 
-![image_sample](https://i.postimg.cc/m2DK3MGj/view-embedding-adagcl.png)
+![image_ sample](https://i.postimg.cc/m2DK3MGj/view-embedding-adagcl.png)
 <p align="center"><em>Figure 14: AdaGCL에 대한 임베딩 시각화</em></p>
   
 

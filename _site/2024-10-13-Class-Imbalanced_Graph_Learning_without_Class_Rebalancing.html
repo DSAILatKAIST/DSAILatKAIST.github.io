@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -432,7 +446,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     <p>$\mathcal{V}_ {i} ^ {L}$: class $i$의 노드 중 라벨링이 된 노드의 집합</p>
   </li>
   <li>
-    <p>불균형 비율 (imbalance ratio, $\rho$) $\coloneqq  \frac{n_ {2}}{n_ {1}}$</p>
+    <p>불균형 비율 (imbalance ratio, $\rho$) $\colon=  \frac{n_ {2}}{n_ {1}}$</p>
   </li>
 </ul>
 
@@ -455,11 +469,11 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>노드 $\mathcal{u}$에 대한 $\mathcal{k}$-hop AMP 계수는 다음과 같이 정의된다.</p>
 
-<p>  $\alpha^ {k}(u) \coloneqq \frac{\vert {v\vert v \notin \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert}{\vert {v\vert v \in \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert}$</p>
+<p>  $\alpha^ {k}(u) \colon= \frac{\vert {v\vert v \notin \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert}{\vert {v\vert v \in \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert}$</p>
 
 <p>논문에서 정의한 AMP는 노드의 이웃 노드에 heterophilic한 노드의 비중을 나타내기 위한 지표라고 볼 수 있다. Heterophily란, 두 노드가 서로 다른 class에 속하는데 이웃하는 경우를 의미한다. 이는 하나의 그래프에 다수의 노드 class와 엣지 class가 존재한다는 heterogeneous와는 의미가 다르다. AMP 계수를 class 별로 구할 수도 있는데, class $i$에 대한 $k$-hop AMP 계수는 다음과 같다.</p>
 
-<p>  $\alpha^ {k} _ {i} \coloneqq \frac{\mathbb{E}_ {u \in \mathcal{V}_ {i}}[\vert {v\vert v \notin \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert]}{\mathbb{E}_ {u \in \mathcal{V}_ {i}}[\vert {v\vert v \in \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert]}$</p>
+<p>  $\alpha^ {k} _ {i} \colon= \frac{\mathbb{E}_ {u \in \mathcal{V}_ {i}}[\vert {v\vert v \notin \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert]}{\mathbb{E}_ {u \in \mathcal{V}_ {i}}[\vert {v\vert v \in \mathcal{V}_ {i}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k})} \vert]}$</p>
 
 <p>이를 기반으로 다음과 같이 정리할 수가 있으며, 자세한 증명은 논문을 참고하는 것을 추천한다.</p>
 
@@ -475,15 +489,15 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>노드 $\mathcal{u}$에 대한 $\mathcal{k}$-hop DMP 계수는 다음과 같이 정의된다.</p>
 
-<p>  $\delta^ {k}(u) \coloneqq \mathbb{1}{(L_ {i} ^ {k}(u)=0, \sum_ {j} L_ {j} ^ {k}(u) &gt; 0)}$, where $L_ {j} ^ {k}(u) = \vert {v \vert v \in \mathcal{V}_ {j} ^ {L}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k}) } \vert$</p>
+<p>  $\delta^ {k}(u) \colon= \mathbb{1}{(L_ {i} ^ {k}(u)=0, \sum_ {j} L_ {j} ^ {k}(u) &gt; 0)}$, where $L_ {j} ^ {k}(u) = \vert {v \vert v \in \mathcal{V}_ {j} ^ {L}, v \in \mathcal{H}(\mathcal{u}, \mathcal{k}) } \vert$</p>
 
 <p>논문에서 정의한 DMP는 타겟 노드의 class와 동일한 class의 노드이면서 라벨링이 된 노드가 얼마나 떨어져 있는지를 파악하기 위한 용도이다. DMP 계수 역시 class 별로 구할 수 있으며, class $i$에 대한 $k$-hop DMP 계수는 다음과 같다.</p>
 
-<p>  $\delta^ {k} _ {i} \coloneqq \mathbb{P}(\delta^ {k}(u) = 1)$, where $u \in \mathcal{V}_ {i}$</p>
+<p>  $\delta^ {k} _ {i} \colon= \mathbb{P}(\delta^ {k}(u) = 1)$, where $u \in \mathcal{V}_ {i}$</p>
 
 <p><strong>Theorem 2. 2</strong> (DMP로 인한 편향성)<strong>.</strong></p>
 
-<p>class $i$의 라벨링된 데이터의 비율을 $r_ {i} ^ {L} \coloneqq  \frac{\vert  \mathcal{V}_ {i} ^{L} \vert}{\vert  \mathcal{V}_ {i} \vert}$이고, 전체 노드 수 $n$이 충분히 클 때, majority class의 DMP 계수에 대한 minority class의 DMP 계수의 비는 불균형 비율($\rho$)에 exponentially 비례한다.</p>
+<p>class $i$의 라벨링된 데이터의 비율을 $r_ {i} ^ {L} \colon=  \frac{\vert  \mathcal{V}_ {i} ^{L} \vert}{\vert  \mathcal{V}_ {i} \vert}$이고, 전체 노드 수 $n$이 충분히 클 때, majority class의 DMP 계수에 대한 minority class의 DMP 계수의 비는 불균형 비율($\rho$)에 exponentially 비례한다.</p>
 
 <p> $\frac{\delta_ {1} ^ {k}}{\delta_ {2} ^ {k}} \approx \frac{1-r_ {1} ^ {L}}{1-r_{2} ^ {L}}e^ {(\rho-1)\beta} + O\left( \frac{1}{n} \right)$</p>
 
@@ -517,7 +531,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>$C$를 클래스의 개수, $F(\cdot; \Theta)$는 그래프를 증강하는 시점에서의 모델, $\mathbf{A}$는 그래프의 인접 행렬, $\mathbf{X}$는 노드의 feature 행렬, $\hat{\mathbf{\mathit{p}}}_ {v}=F(\mathbf{A}, \mathbf{X}; \Theta)$ 는 모델의 예측 결과, $\hat{y}_ {v}$를 예측된 레이블이라고 할때, 불확실성 점수(uncertainty score)는 다음과 같이 정의한다.</p>
 
-<p>$\mathbb{U}_ {\Theta}(v) \coloneqq d_ {TV}(\hat{\mathbf{\mathit{p}}}_ {v}, \mathbb{1}_ {\hat{y}_ {v}})=\frac{1}{2} \sum_ {j=1} ^ {C} \vert \hat{\mathbf{\mathit{p}}}_ {v} ^ {(j)} - \mathbb{1}_ {\hat{y}_ {v}} ^ {(j)} \vert \in [0, 1]$</p>
+<p>$\mathbb{U}_ {\Theta}(v) \colon= d_ {TV}(\hat{\mathbf{\mathit{p}}}_ {v}, \mathbb{1}_ {\hat{y}_ {v}})=\frac{1}{2} \sum_ {j=1} ^ {C} \vert \hat{\mathbf{\mathit{p}}}_ {v} ^ {(j)} - \mathbb{1}_ {\hat{y}_ {v}} ^ {(j)} \vert \in [0, 1]$</p>
 
 <p>논문에서는 거리 측정을 위해서 total variance 거리를 사용했는데, 거리 측정에 특정한 메트릭을 사용해야 한다는 제한은 없다.</p>
 
@@ -525,7 +539,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>위의 과정으로 구하는 불확실성 점수(uncertainty score)를 바로 사용하게 된다면 대부분의 minority-class 노드를 리스크가 높다고 판단할 수가 있다는 문제가 있다. 따라서 각 class 마다 라벨링이 된 노드의 상대적인 수에 따라서 불확실성 점수(uncertainty score)를 불균형 정도에 따라 스케일링을 해줄 필요가 있다. 노드 $v$에 대한 리스크는 아래와 같이 정의한다.</p>
 
-<p>$r_ {v} \coloneqq \frac{\mathbb{U}_ {\Theta}(v)}{\max_ {j=1} ^ {C} \vert \mathcal{V}_ {j} ^ {L} \vert / \vert \mathcal{V}_ {\hat{y}_ {v}} ^ {L} \vert} \in [0, 1]$</p>
+<p>$r_ {v} \colon= \frac{\mathbb{U}_ {\Theta}(v)}{\max_ {j=1} ^ {C} \vert \mathcal{V}_ {j} ^ {L} \vert / \vert \mathcal{V}_ {\hat{y}_ {v}} ^ {L} \vert} \in [0, 1]$</p>
 
 <p>위의 리스크 측정을 사용하여 minority-class가 라벨링된 노드가 적을수록 리스크 값이 더 작아지도록 한다고 이해할 수 있다. 아래 사진은 노드의 리스크 값에 따른 예측 성능의 변화를 보여주며, 일반적으로 리스크가 높을수록 예측 정확도가 떨어진다고 확인할 수 있다.</p>
 
@@ -539,7 +553,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>오직 모델이 예측한 확률 결과만을 사용하며, 그래프의 구조는 사용하지 않는 방법으로 class $j$에 노드 $v$가 속할 posterior likelihood $\hat{s}_ {v} ^ {(j)}$는 다음과 같이 정의된다.</p>
 
-<p>$\hat{s}_ {v} ^ {(j)} \coloneqq \mathbb{P}_ {y \sim\hat{\mathbf{\mathit{p}}}_ {v}}[y=j \vert y \neq \hat{y}_ {v}]=\begin{cases} \hat{p}_ {v} ^ {(j)} / (1-\hat{p}_ {v} ^ {(\hat{y}_ {v})}) &amp; \text{, if } j \neq \hat{y}_ {v} \ 0 &amp; \text{, otherwise.} \end{cases}$</p>
+<p>$\hat{s}_ {v} ^ {(j)} \colon= \mathbb{P}_ {y \sim\hat{\mathbf{\mathit{p}}}_ {v}}[y=j \vert y \neq \hat{y}_ {v}]=\begin{cases} \hat{p}_ {v} ^ {(j)} / (1-\hat{p}_ {v} ^ {(\hat{y}_ {v})}) &amp; \text{, if } j \neq \hat{y}_ {v} \ 0 &amp; \text{, otherwise.} \end{cases}$</p>
 
 <p>위의 연산을 수행하기 위해서는 각 노드마다 각 class에 해당하는 posterior likelihood를 구하기 위해서 $O(\vert \mathcal{V}\vert C )$의 복잡도를 가진다.</p>
 
@@ -547,7 +561,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>노드 $v$의 이웃 노드의 집합인 $\mathcal{N}(v)$에 대한 예측 결과를 활용하는 방법으로, $v$의 임의의 이웃 노드($v’ \sim  \mathcal{N}(v)$)가 homophily 특성이 강한 그래프에서 일반적으로 $v$와 같은 class일 가능성이 크다는 점을 활용하기 위한 방법으로 볼 수 있다. Class $j$에 노드 $v$가 속할 posterior likelihood $\hat{s}_ {v} ^ {(j)}$는 다음과 같이 정의된다.</p>
 
-<p>$\hat{s}_ {v} ^ {(j)} \coloneqq \mathbb{P}_ {v’ \sim \mathcal{N}_ {v}}[\hat{y}_ {v’}=j \vert \hat{y}_ {v’} \neq \hat{y}_ {v}]=\begin{cases} \frac{\vert { v’ \in \mathcal{N}(v) \vert \hat{y}_ {v’}=j } \vert}{\vert \mathcal{N}(v) \vert - \vert { v’ \in \mathcal{N}(v) \vert \hat{y}_ {v’}=\hat{y}_ {v} } \vert} &amp; \text{, if } j \neq \hat{y}_ {v} \ 0 &amp; \text{, otherwise.} \end{cases}$</p>
+<p>$\hat{s}_ {v} ^ {(j)} \colon= \mathbb{P}_ {v’ \sim \mathcal{N}_ {v}}[\hat{y}_ {v’}=j \vert \hat{y}_ {v’} \neq \hat{y}_ {v}]=\begin{cases} \frac{\vert { v’ \in \mathcal{N}(v) \vert \hat{y}_ {v’}=j } \vert}{\vert \mathcal{N}(v) \vert - \vert { v’ \in \mathcal{N}(v) \vert \hat{y}_ {v’}=\hat{y}_ {v} } \vert} &amp; \text{, if } j \neq \hat{y}_ {v} \ 0 &amp; \text{, otherwise.} \end{cases}$</p>
 
 <p>위의 연산을 수행하기 위해서는 거의 모든 엣지마다 각 class에 해당하는 posterior likelihood를 구하기 위해서 $O(\vert \mathcal{E}\vert C )$의 복잡도를 가진다.</p>
 
@@ -557,19 +571,19 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <h3 id="3-3-virtual-topology-augmentation"><strong>3. 3. Virtual Topology Augmentation</strong></h3>
 
-<p>BAT에서는 각 class 마다 대응되는 가상 노드를 만든다. 모델이 j class로 예측한 모델의 집합을 $\hat{\mathcal{V}}_ {j}$이라고 할 때, 다음과 같이 각 class j의 가상 노드(v_ {j} ^ {*})의 feature와 레이블을 설정한다.</p>
+<p>BAT에서는 각 class 마다 대응되는 가상 노드를 만든다. 모델이 j class로 예측한 모델의 집합을 $\hat{\mathcal{V}}_ {j}$이라고 할 때, 다음과 같이 각 class j의 가상 노드($v_ {j} ^ {*}$)의 feature와 레이블을 설정한다.</p>
 
-<p>  $\mathcal{x}_ {v_ {j} ^ {*}} \coloneqq \sum_ {v \in \hat{\mathcal{V}}_ {j}} \mathcal{x}_ {v} / \vert \hat{\mathcal{V}}_ {j} \vert$</p>
+<p>  $\mathcal{x}_ {v_ {j} ^ {*}} \colon= \sum_ {v \in \hat{\mathcal{V}}_ {j}} \mathcal{x}_ {v} / \vert \hat{\mathcal{V}}_ {j} \vert$</p>
 
-<p>  $y_ {v_ {j} ^ {*}} \coloneqq j$</p>
+<p>  $y_ {v_ {j} ^ {*}} \colon= j$</p>
 
 <p>생성한 가상 노드에 리스크가 높은 노드를 연결해줘야 하는데, 이 과정에서 앞서서 정의한 posterior likelihood에 비례하는 확률로 연결될 확률을 설정한다. 그러나 posterior likelihood를 바로 사용할 경우 불필요한 가상 엣지(virtual edge)가 리스크가 낮은 노드와 가상 노드 사이에 생길 수가 있다는 문제가 있다. 따라서 다음의 조건을 만족하는 할인율 $\gamma_ {v}$을 posterior likelihood $\hat{s}_ {v} ^ {(j)}$에 곱하여 사용하게 된다.</p>
 
-<p>  $min_ {\gamma \geq 0} \left( -\sum_ {v \in \mathcal{V}} (r_ {v} - \bar{r}_ {\hat{y}_ {v}})\gamma_ {v} + \frac{1}{2}\vert\vert \gamma \vert\vert_ {2} ^ {2} \right)$, where $\bar{r}_ {j} \coloneqq \sum_ {v \in \hat{\mathcal{V}}<em>{j}} \frac{r</em> {v}}{\vert \hat{\mathcal{V}}_{j} \vert}$</p>
+<p>  $min_ {\gamma \geq 0} \left( -\sum_ {v \in \mathcal{V}} (r_ {v} - \bar{r}_ {\hat{y}_ {v}})\gamma_ {v} + \frac{1}{2}\vert\vert \gamma \vert\vert_ {2} ^ {2} \right)$, where $\bar{r}_ {j} \colon= \sum_ {v \in \hat{\mathcal{V}}_ {j}} \frac{r_ {v}}{\vert \hat{\mathcal{V}}_ {j} \vert}$</p>
 
 <p>최종적으로 사용하는 $j$ class에 대응되는 가상 노드와 리스크가 높은 노드($v$)를 연결하는 가상 엣지를 생성하는 확률은 다음으로 정의된다.</p>
 
-<p>  $q_ {v} ^ {(j)} \coloneqq \gamma_ {v}\hat{s}_ {v} ^ {(j)}$</p>
+<p>  $q_ {v} ^ {(j)} \colon= \gamma_ {v}\hat{s}_ {v} ^ {(j)}$</p>
 
 <h2 id="4-experiments"><strong>4. Experiments</strong></h2>
 
@@ -731,7 +745,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

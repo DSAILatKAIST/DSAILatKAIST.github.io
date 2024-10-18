@@ -30,7 +30,7 @@ usemathjax: true
 	2) Lyapunov Stability - equilibirum $z_ e$에서 충분히 가까운 $z(0)$으로부터 시스템이 시작할 때, 이후 모든 시점 $t$에서의 $z(t)$ trajectory가 $z_ e$에 가깝게 유지된다면 해당 시스템은 Lyapunov Stable하다고 정의함. Formally, Lyapunov stable if for every $\epsilon > 0$, there exists $\delta > 0$ s.t. $\vert \vert z(0) - z_ {e} \vert \vert < \delta \implies \vert \vert z(t) - z_ {e} \vert \vert < \epsilon$ for all $t \geq 0$
 	3) Asymptotic Stability -  equilibrium $z_ e$에서 충분히 가까운 $z(0)$으로부터 시스템이 시작했을 때, $z(t)$가 Lyapunov stable 하고 최종적인 $z(t)$ trajectory (as t goes to infinity)가 $z_ e$에 무한히 가까워진다면 해당 시스템은 Asymptotic Stable하다고 정의함. Formally, Asymptotic stable if Lyapunov Stable & there exists $\delta' > 0$ s.t. $\vert \vert z(0) - z_ {e} \vert \vert < \delta' \implies lim_ {t \rightarrow \infty}\vert \vert z(t) - z_ {e} \vert \vert = 0$
 	
-		**equilibrium - $z$의 trajectory가 변화하지 않는 지점. Formally, $\frac{dz}{dt} = f_ {\theta}(z(t)) = 0$을 만족하는 $z$*
+	**equilibrium - $z$의 trajectory가 변화하지 않는 지점. Formally, $\frac{dz}{dt} = f_ {\theta}(z(t)) = 0$을 만족하는 $z$*
 - 관점 2. $f_ {\theta}$에 대한 attack, 즉 node가 아닌 시스템 자체의 변동이 생겼을 때 $z$의 trajectory가 안정적으로 유지되는가?
 	1) Structural Stability -  그래프 topology ($\theta$) 가 perturb 되었을 때의 $z(t)$를 perturb 되지 않았을 때의 $z(t)$로 매핑하는 homeomorphism이 존재한다면 해당 시스템은 Structural Stable하다고 정의함
 
