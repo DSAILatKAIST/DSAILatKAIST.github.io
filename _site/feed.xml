@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 18 Oct 2024 20:35:34 +0900</pubDate>
-        <lastBuildDate>Fri, 18 Oct 2024 20:35:34 +0900</lastBuildDate>
+        <pubDate>Fri, 18 Oct 2024 21:12:24 +0900</pubDate>
+        <lastBuildDate>Fri, 18 Oct 2024 21:12:24 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -1754,7 +1754,7 @@ $&lt;/p&gt;
 
 &lt;p&gt;GGM 문헌에서는 작은 데이터셋을 자주 사용하므로 &lt;strong&gt;샘플 효율성(sample efficiency)&lt;/strong&gt;이 중요하다. 이 실험에서는 랜덤 그래프 집합 $\mathbb{S}_g$를 실제 샘플 $\mathbb{S}_r$과 구별하는 데 필요한 최소 샘플 수를 찾아 각 지표의 샘플 효율성을 결정했다. 랜덤 그래프는 4.1절에서 설명한 동일한 프로세스를 사용하여 생성된 E-R 그래프이다.&lt;/p&gt;
 
-&lt;p&gt;$\mathbb{S}&lt;em&gt;r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_r’\vert = \vert\mathbb{S}_r’’\vert = \vert\mathbb{S}_g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}&lt;/em&gt; r’, \mathbb{S}_ r’’\right) &amp;lt; \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/p&gt;
+&lt;p&gt;$\mathbb{S}_ r$에서 서로소인 두 집합 $\mathbb{S}_ r’$과 $\mathbb{S}_ r’’$, 그리고 $\mathbb{S}_ g$에서 랜덤 그래프 집합 $\mathbb{S}_ g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_ r’\vert = \vert\mathbb{S}_ r’‘\vert = \vert\mathbb{S}_ g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ r’‘\right) &amp;lt; \hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_ r’‘$와 $\mathbb{S}_ g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/p&gt;
 
 &lt;h2 id=&quot;45-계산-효율성&quot;&gt;4.5 계산 효율성&lt;/h2&gt;
 

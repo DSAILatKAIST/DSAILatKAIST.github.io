@@ -1,5 +1,5 @@
 ---
-title:  "[SIGIAR-24] Diffusion Models for Generative Outfit Recommendation"
+title:  "[SIGIR-24] Diffusion Models for Generative Outfit Recommendation"
 permalink: 2024-10-13-Diffusion_Models_for_Generative_Outfit_Recommendation.html
 tags: [reviews]
 use_ math: true

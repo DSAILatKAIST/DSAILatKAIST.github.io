@@ -167,7 +167,7 @@ GNN feature 추출기: GGM 문헌에서는 작은 데이터셋을 자주 사용�
 
 ## 4.1 fidelity 측정
 
-지표의 가장 중요한 속성 중 하나는 생성된 샘플의 **fidelity**를 반영할 수 있는가 이다. 이들은 fidelity에 대한 지표를 테스트하기 위해 두 가지 실험을 구성했다. 첫 번째 실험은 실제 샘플에 다양한 양의 랜덤 샘플을 섞어 지표의 감지 능력을 테스트하고(Xu et al., 2018), 두 번째 실험은 Edge를 무작위로 재연결하여 그래프의 품질을 서서히 저하시켰다(O’Bray et al., 2022). 두 실험 모두 $\mathbb{S}_g$를 $\mathbb{S}_r$의 복사본으로 시작하며, $\mathbb{S}_r$ 자체는 데이터셋의 복사본이다.
+지표의 가장 중요한 속성 중 하나는 생성된 샘플의 **fidelity**를 반영할 수 있는가 이다. 이들은 fidelity에 대한 지표를 테스트하기 위해 두 가지 실험을 구성했다. 첫 번째 실험은 실제 샘플에 다양한 양의 랜덤 샘플을 섞어 지표의 감지 능력을 테스트하고(Xu et al., 2018), 두 번째 실험은 Edge를 무작위로 재연결하여 그래프의 품질을 서서히 저하시켰다(O'Bray et al., 2022). 두 실험 모두 $\mathbb{S}_g$를 $\mathbb{S}_r$의 복사본으로 시작하며, $\mathbb{S}_r$ 자체는 데이터셋의 복사본이다.
 
 첫 번째 실험에서는 $\mathbb{S}_ g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\vert\mathbb{S}_g\vert$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős & Rényi, 1960)이다.
 
@@ -197,7 +197,7 @@ mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으
 
 GGM 문헌에서는 작은 데이터셋을 자주 사용하므로 **샘플 효율성(sample efficiency)**이 중요하다. 이 실험에서는 랜덤 그래프 집합 $\mathbb{S}_g$를 실제 샘플 $\mathbb{S}_r$과 구별하는 데 필요한 최소 샘플 수를 찾아 각 지표의 샘플 효율성을 결정했다. 랜덤 그래프는 4.1절에서 설명한 동일한 프로세스를 사용하여 생성된 E-R 그래프이다.
 
-$\mathbb{S}_r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_r’\vert = \vert\mathbb{S}_r’’\vert = \vert\mathbb{S}_g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ r’’\right) < \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).
+$\mathbb{S}_ r$에서 서로소인 두 집합 $\mathbb{S}_ r'$과 $\mathbb{S}_ r''$, 그리고 $\mathbb{S}_ g$에서 랜덤 그래프 집합 $\mathbb{S}_ g'$를 샘플링했다. 여기서 $\vert\mathbb{S}_ r'\vert = \vert\mathbb{S}_ r''\vert = \vert\mathbb{S}_ g'\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_ r', \mathbb{S}_ r''\right) < \hat{\rho}\left(\mathbb{S}_ r', \mathbb{S}_ g'\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_ r''$와 $\mathbb{S}_ g'$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).
 
 ## 4.5 계산 효율성
 
