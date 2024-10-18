@@ -48,11 +48,11 @@ usemathjax: true
 
 이 과정을 거친 후 아이템의 *quantized representation*은 각 레벨에서 배정된 벡터들의 합으로 표현된다. 이러한 *quantized representation*은 디코더를 통과하여 최초 입력값을 재건하도록 학습된다. 이 전체 과정은 디코더를 통해 얻은 값과 인코더 간의 차이에 대한 *reconstruction loss*와 각 레벨에서의 입력값과 배정된 벡터 간의 차이에 대한 *RQ-VAE loss*로 학습된다. 이를 수식으로 표현하면 다음과 같다.
 
-$\mathcal{L}(x) := \mathcal{L}_{Recon} + \mathcal{L}_{RQ-VAE}$
+$\mathcal{L}(x) := \mathcal{L}_ {Recon} + \mathcal{L}_ {RQ-VAE}$
 
 $\mathcal{L}_{Recon} := \vert\vert x - \hat{x} \vert\vert ^2$
 
-$\mathcal{L}_{RQ-VAE} := \sum_{d=0}^{m-1} \vert\vert sg[r_i]-e_{c_i}\vert\vert^2 + \beta \vert\vert r_i-sg[e_{c_i}]\vert\vert^2$
+$\mathcal{L}_ {RQ-VAE} := \sum_ {d=0}^{m-1} \vert\vert sg\[r_ i\]-e_ {c_ i}\vert\vert^2 + \beta \vert\vert r_ i-sg\[e_ {c_ i}\]\vert\vert^2$
 
 이때 *sg*는 *stop gradient operation*을 의미한다.
 
@@ -80,7 +80,7 @@ $\mathcal{L}_{RQ-VAE} := \sum_{d=0}^{m-1} \vert\vert sg[r_i]-e_{c_i}\vert\vert^2
 
 본 논문은 식별자에 *collaborative signal*을 반영하기 위해 *quantized embedding*과 *CF embedding*을 *contrastive learning*을 통해 맞추는 *collaborative regularization*을 도입하였다. 잘 학습된 추천 모델(*SASRec, LightGCN*)을 활용하여 *CF embedding*을 구하고, 다음과 같은 *contrastive loss*를 활용한다.
 
-$\mathcal{L}_{CF} = -{1 \over B} \sum_{i=1}^{B} {exp(< \hat{z_i}, h_i >) \over \sum^B_{j=1} exp(< \hat{z_i}, h_j >) }$
+$\mathcal{L}_ {CF} = -{1 \over B} \sum_ {i=1}^{B} {exp(< \hat{z_ i}, h_ i >) \over \sum^B_ {j=1} exp(< \hat{z_ i}, h_ j >) }$
 
 이를 통해 기존 방법과는 달리 생성된 식별자가 사용자들의 선호도를 반영한다.
 
@@ -92,7 +92,7 @@ $\mathcal{L}_{CF} = -{1 \over B} \sum_{i=1}^{B} {exp(< \hat{z_i}, h_i >) \over \
 
 각 레벨의 코드북에 대해, 코드 임베딩을 *constrained K-means clustering*을 활용하여 *K*개의 그룹으로 나눈다. 이후 같은 클러스터에 속한 임베딩끼리는 가깝게 하고, 다른 클러스터에 속한 임베딩은 멀게 하도록 다음과 같은 *loss*를 사용한다.
 
-$\mathcal{L}_{Div} = -{1 \over B} \sum_{i=1}^{B} {exp(< e^i_{Cl}, e_+ >) \over \sum^{N-1}_{j=1} exp(< e^i_{Cl}, e_j >) }$
+$\mathcal{L}_ {Div} = -{1 \over B} \sum_ {i=1}^{B} {exp(< e^i_ {Cl}, e_ + >) \over \sum^{N-1}_ {j=1} exp(< e^i_ {Cl}, e_ j >) }$
 
 이때 e<sub>+</sub>는 같은 클러스터에서 임의로 뽑은 코드 임베딩이고, e<sup>i</sup><sub>Cl</sub> 은 아이템 *i*와 가장 가까운 코드 임베딩이다.
 
@@ -100,7 +100,7 @@ $\mathcal{L}_{Div} = -{1 \over B} \sum_{i=1}^{B} {exp(< e^i_{Cl}, e_+ >) \over \
 
 *LETTER*의 *training loss*는 다음과 같은 가중합으로 나타난다.
 
-$\mathcal{L}_{LETTER} = \mathcal{L}_{Recon} + \mathcal{L}_{RQ-VAE} + \alpha \mathcal{L}_{CF} + \beta \mathcal{L}_{Div}$
+$\mathcal{L}_ {LETTER} = \mathcal{L}_ {Recon} + \mathcal{L}_ {RQ-VAE} + \alpha \mathcal{L}_ {CF} + \beta \mathcal{L}_ {Div}$
 
 ### 2.5 Instantiation
 
@@ -108,9 +108,9 @@ $\mathcal{L}_{LETTER} = \mathcal{L}_{Recon} + \mathcal{L}_{RQ-VAE} + \alpha \mat
 
 기존의 대형 언어 모델 기반 생성형 추천 모델은 *generation loss*를 활용하여 대형 언어 모델을 학습하였다. 하지만 이러한 방식은 추천 시스템에 적합하지 않으며, 따라서 본 논문은 다음과 같은 *ranking-guided generation loss*를 도입하였다.
 
-$\mathcal{L}_{rank} = - \sum_{t=1}^{\vert y \vert} log P_{\theta}(y_t \vert y_{<t}, x)$
+$\mathcal{L}_ {rank} = - \sum_ {t=1}^{\vert y \vert} log P_ {\theta}(y_ t \vert y_ {<t}, x)$
 
-$P_{\theta}(y_t \vert y_{<t}, x) = {exp(p(y_t)/\tau) \over \sum_{v \in V} exp(p(v)/\tau)}$
+$P_ {\theta}(y_ t \vert y_ {<t}, x) = {exp(p(y_ t)/\tau) \over \sum_ {v \in V} exp(p(v)/\tau)}$
 
 ## 3. Experiments
 

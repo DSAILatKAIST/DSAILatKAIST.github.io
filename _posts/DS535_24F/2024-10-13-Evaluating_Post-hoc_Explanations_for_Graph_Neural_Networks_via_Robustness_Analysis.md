@@ -128,7 +128,7 @@ BA3, TR3, Mutagenicity, MNIST-sp와 같은 다양한 데이터셋에서 실험�
 첫 번째 질문에 대한 답으로서 paper에서는 새롭게 제시한 metric이 기존의 Recall과 얼마나 consistency를 가지는지 확인했다. 각 explainer별 수치를 줄세우기 했을 때 아래와 같이 정의된 consistency $\tau$의 수치를 확인해보았다. $\tau$ 값이 높을수록 explainer별로 metric value 크기 순서가 Recall과 일치한다고 이해할 수 있다. 아래의 Table 1과 Figure 3(a)를 통해서 우리는 OAR이 removal-based (RM)나 generation-based (DSE) 방식보다 Recall과 더 유사하다는 것을 확인했다. 추가로, SimOAR이 OAR에 비하여 성능 면에 있어 크게 뒤떨어지지 않는다는 것을 알 수 있다.
 
 $
-\tau \left( \{r^i\}_{i=1}^n, \{s^i\}_{i=1}^n \right) = \frac{2}{n(n+1)} \sum_{i < j} I \left( \text{sgn}(r^i - r^j) = \text{sgn}(s^i - s^j) \right),
+\tau \left( \{r^i\}_ {i=1}^n, \{s^i\}_ {i=1}^n \right) = \frac{2}{n(n+1)} \sum_{i < j} I \left( \text{sgn}(r^i - r^j) = \text{sgn}(s^i - s^j) \right),
 $
 
 ![Table1](https://i.postimg.cc/Jhy0HD39/2024-10-06-9-13-56.png)

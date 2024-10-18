@@ -2,7 +2,7 @@
 title:  "[SIGIAR-24] Diffusion Models for Generative Outfit Recommendation"
 permalink: 2024-10-13-Diffusion_Models_for_Generative_Outfit_Recommendation.html
 tags: [reviews]
-use_math: true
+use_ math: true
 usemathjax: true
 ---
 
@@ -26,61 +26,61 @@ usemathjax: true
 
 **Diffusion Models (DMs)** 은 이미지 합성을 위한 강력한 방법으로, 마르코프 체인을 기반으로 이미지에 점진적으로 노이즈를 추가하는 **forward process**와 노이즈를 제거하여 이미지를 복원하는 **reverse process**로 구성됩니다.
 
-- **Forward Process**: 주어진 이미지 $\mathbf{x}_0 \sim q(\mathbf{x}_0)$에 가우시안 노이즈를 단계적으로 추가하여 이미지를 점진적으로 파괴합니다.
-  $$
-  q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I})
-  $$
-  여기서 $\beta_t 는 각 단계 $t$에서 추가되는 노이즈의 크기를 제어하며, $t = 1, \dots, T$ 입니다. $T$가 커질수록 이미지 $\mathbf{x}_T$는 가우시안 노이즈로 수렴하게 됩니다.
+- **Forward Process**: 주어진 이미지 $\mathbf{x}_ 0 \sim q(\mathbf{x}_ 0)$에 가우시안 노이즈를 단계적으로 추가하여 이미지를 점진적으로 파괴합니다.
+  $
+  q(\mathbf{x}_ t \vert \mathbf{x}_ {t-1}) = \mathcal{N}(\mathbf{x}_ t; \sqrt{1 - \beta_ t} \mathbf{x}_ {t-1}, \beta_ t \mathbf{I})
+  $
+  여기서 $\beta_ t 는 각 단계 $t$에서 추가되는 노이즈의 크기를 제어하며, $t = 1, \dots, T$ 입니다. $T$가 커질수록 이미지 $\mathbf{x}_ T$는 가우시안 노이즈로 수렴하게 됩니다.
 
-- **Reverse Process**: 시작 이미지가 순수한 노이즈 $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$일 때, 노이즈 제거 과정을 통해 원본 이미지를 복원합니다.
-  $$
-  p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu_\theta(\mathbf{x}_t, t), \Sigma_\theta(\mathbf{x}_t, t))
-  $$
-  여기서 $\mu_\theta$와 $\Sigma_\theta$는 신경망으로 학습된 평균과 공분산입니다. 이 과정에서 학습 목표는 원래 이미지와 유사한 이미지를 점진적으로 생성하는 것입니다.
+- **Reverse Process**: 시작 이미지가 순수한 노이즈 $\mathbf{x}_ T \sim \mathcal{N}(0, \mathbf{I})$일 때, 노이즈 제거 과정을 통해 원본 이미지를 복원합니다.
+  $
+  p_ \theta(\mathbf{x}_ {t-1} \vert \mathbf{x}_ t) = \mathcal{N}(\mathbf{x}_ {t-1}; \mu_ \theta(\mathbf{x}_ t, t), \Sigma_ \theta(\mathbf{x}_ t, t))
+  $
+  여기서 $\mu_ \theta$와 $\Sigma_ \theta$는 신경망으로 학습된 평균과 공분산입니다. 이 과정에서 학습 목표는 원래 이미지와 유사한 이미지를 점진적으로 생성하는 것입니다.
 
 - **최적화**: DMs는 다음 손실 함수를 통해 학습됩니다.
-  $$
-  L_\theta = \mathbb{E}_{t, \epsilon \sim \mathcal{N}(0, \mathbf{I})} \left[ \Vert \epsilon - \epsilon_\theta(\mathbf{x}_t, t) \Vert_2^2 \right]
-  $$
-  여기서 $\epsilon_\theta$는 노이즈 예측 모델이며, $t$는 무작위로 샘플링된 시점입니다.
+  $
+  L_ \theta = \mathbb{E}_ {t, \epsilon \sim \mathcal{N}(0, \mathbf{I})} \left[ \Vert \epsilon - \epsilon_ \theta(\mathbf{x}_ t, t) \Vert_ 2^2 \right]
+  $
+  여기서 $\epsilon_ \theta$는 노이즈 예측 모델이며, $t$는 무작위로 샘플링된 시점입니다.
 
 - **이미지 생성**: 학습이 완료된 후, DMs는 순수한 노이즈에서 시작하여 단계별로 노이즈를 제거하며 이미지를 생성합니다.
 
 ## **4.1 Task Formulation**
 
-**Generative Outfit Recommendation (GOR)** 는 사용자의 개인 취향에 맞는 시각적으로 호환되는 새로운 패션 제품 이미지를 생성하여 코디를 구성하는 과제입니다. 공식적으로, 주어진 사용자 정보 $\mathbf{u}$ (예: 상호작용 내역, 사용자 특징)를 기반으로  $n$개의 패션 아이템 $\mathcal{O} = \{ \mathbf{i}_k \}_{k=1}^n$을 생성하는 문제로 정의됩니다. 여기서 각 아이템 $\mathbf{i}_k$는 아래 최적화 문제를 만족해야 합니다:
-$$
-\mathbf{u},\mathbf{\emptyset} \rightarrow \mathcal{O}=\{\mathbf{i}_k\}_{k=1}^n
-$$
-$$
-\text{s.t. } \mathbf{i}_k = \arg\max_{\mathbf{i}} P_\theta(\mathbf{i} | \mathcal{O}_k', \mathbf{u}), \quad k = 1, \dots, n
-$$
-여기서 $\mathcal{O}_k' = \mathcal{O} \setminus \{ \mathbf{i}_k \}$는 불완전한 코디이며, $P_\theta(\cdot)$는 각 아이템의 조건부 생성 확률을 나타냅니다.
+**Generative Outfit Recommendation (GOR)** 는 사용자의 개인 취향에 맞는 시각적으로 호환되는 새로운 패션 제품 이미지를 생성하여 코디를 구성하는 과제입니다. 공식적으로, 주어진 사용자 정보 $\mathbf{u}$ (예: 상호작용 내역, 사용자 특징)를 기반으로  $n$개의 패션 아이템 $\mathcal{O} = \{ \mathbf{i}_ k \}_ {k=1}^n$을 생성하는 문제로 정의됩니다. 여기서 각 아이템 $\mathbf{i}_ k$는 아래 최적화 문제를 만족해야 합니다:
+$
+\mathbf{u},\mathbf{\emptyset} \rightarrow \mathcal{O}=\{\mathbf{i}_ k\}_ {k=1}^n
+$
+$
+\text{s.t. } \mathbf{i}_ k = \arg\max_ {\mathbf{i}} P_ \theta(\mathbf{i} \vert \mathcal{O}_ k', \mathbf{u}), \quad k = 1, \dots, n
+$
+여기서 $\mathcal{O}_ k' = \mathcal{O} \setminus \{ \mathbf{i}_ k \}$는 불완전한 코디이며, $P_ \theta(\cdot)$는 각 아이템의 조건부 생성 확률을 나타냅니다.
 
-하지만 이 문제는 시작점이 명확하지 않고, 최적화 과정 중 계속 변하는 제약 조건 때문에 직접 풀기 어렵습니다. 따라서 이 문제를 해결하기 위해 순차적으로 생성하는 방식이 아닌, 여러 이미지를 병렬로 생성하는 방식으로 문제를 변환합니다. 이 과정에서 $\mathcal{O}_T = \{ \mathbf{i}_{k,T} \}_{k=1}^n$은 순수한 가우시안 노이즈에서 시작하여 각 단계 $t$에서 이미지를 생성하는 방식으로 문제를 해결할 수 있습니다.
+하지만 이 문제는 시작점이 명확하지 않고, 최적화 과정 중 계속 변하는 제약 조건 때문에 직접 풀기 어렵습니다. 따라서 이 문제를 해결하기 위해 순차적으로 생성하는 방식이 아닌, 여러 이미지를 병렬로 생성하는 방식으로 문제를 변환합니다. 이 과정에서 $\mathcal{O}_ T = \{ \mathbf{i}_ {k,T} \}_ {k=1}^n$은 순수한 가우시안 노이즈에서 시작하여 각 단계 $t$에서 이미지를 생성하는 방식으로 문제를 해결할 수 있습니다.
 
 ## **4.2 DiFashion**
 
 DiFashion은 사용자 정보에 기반해 다수의 패션 이미지를 병렬로 생성하여 코디를 구성하는 **generative outfit recommender model**입니다. 이 모델은 두 가지 중요한 과정을 포함합니다:
 
-1. **Forward Process**: 코디 이미지를 가우시안 노이즈로 점진적으로 파괴합니다. 각 이미지 $\mathbf{i}_{k,t}$는 서로 독립적으로 노이즈가 추가됩니다.
-   $$
-   q(\mathcal{O}_t | \mathcal{O}_{t-1}) = \prod_{k=1}^n q(\mathbf{i}_{k,t} | \mathbf{i}_{k,t-1}) = \prod_{k=1}^n \mathcal{N}(\mathbf{i}_{k,t}; \sqrt{1 - \beta_t} \mathbf{i}_{k,t-1}, \beta_t \mathbf{I})
-   $$
+1. **Forward Process**: 코디 이미지를 가우시안 노이즈로 점진적으로 파괴합니다. 각 이미지 $\mathbf{i}_ {k,t}$는 서로 독립적으로 노이즈가 추가됩니다.
+   $
+   q(\mathcal{O}_ t \vert \mathcal{O}_ {t-1}) = \prod_ {k=1}^n q(\mathbf{i}_ {k,t} \vert \mathbf{i}_ {k,t-1}) = \prod_ {k=1}^n \mathcal{N}(\mathbf{i}_ {k,t}; \sqrt{1 - \beta_ t} \mathbf{i}_ {k,t-1}, \beta_ t \mathbf{I})
+   $
 
-2. **Reverse Process**: DiFashion의 **reverse process**는 순수한 노이즈 $\mathcal{O}_T = \{ \mathbf{i}_{k,T} \}_{k=1}^n$에서 시작하여, 각 패션 아이템 이미지를 병렬로 복원하는 과정입니다. **U-Net**을 기반으로 하는 이 과정은 각 패션 아이템이 고유의 조건들에 맞게 복원될 수 있도록 설계되었습니다. Reverse process는 다음과 같은 확률 분포로 정의됩니다:
+2. **Reverse Process**: DiFashion의 **reverse process**는 순수한 노이즈 $\mathcal{O}_ T = \{ \mathbf{i}_ {k,T} \}_ {k=1}^n$에서 시작하여, 각 패션 아이템 이미지를 병렬로 복원하는 과정입니다. **U-Net**을 기반으로 하는 이 과정은 각 패션 아이템이 고유의 조건들에 맞게 복원될 수 있도록 설계되었습니다. Reverse process는 다음과 같은 확률 분포로 정의됩니다:
 
-$$
-p_\theta(\mathcal{O}_{t-1} | \mathcal{O}_t) = \prod_{k=1}^n p_\theta(\mathbf{i}_{k,t-1} | \mathcal{O}_t)
-$$
+$
+p_ \theta(\mathcal{O}_ {t-1} \vert \mathcal{O}_ t) = \prod_ {k=1}^n p_ \theta(\mathbf{i}_ {k,t-1} \vert \mathcal{O}_ t)
+$
 
 각 아이템에 대한 복원 과정은 다음과 같이 노이즈를 제거하는 가우시안 분포로 표현됩니다:
 
-$$
-p_\theta(\mathbf{i}_{k,t-1} | \mathcal{O}_t) = \mathcal{N}(\mathbf{i}_{k,t-1}; \mu_\theta(\mathcal{O}_t, t), \Sigma_\theta(\mathcal{O}_t, t))
-$$
+$
+p_ \theta(\mathbf{i}_ {k,t-1} \vert \mathcal{O}_ t) = \mathcal{N}(\mathbf{i}_ {k,t-1}; \mu_ \theta(\mathcal{O}_ t, t), \Sigma_ \theta(\mathcal{O}_ t, t))
+$
 
-여기서 $\mu_\theta$와 $\Sigma_\theta$는 U-Net을 통해 학습된 평균과 공분산입니다. Reverse process는 $T$부터 0까지 점진적으로 진행되며, 점점 더 노이즈가 제거된 패션 아이템 이미지를 생성합니다.
+여기서 $\mu_ \theta$와 $\Sigma_ \theta$는 U-Net을 통해 학습된 평균과 공분산입니다. Reverse process는 $T$부터 0까지 점진적으로 진행되며, 점점 더 노이즈가 제거된 패션 아이템 이미지를 생성합니다.
 
 ### **Condition Encoders**
 
@@ -93,43 +93,43 @@ DiFashion은 패션 아이템을 복원할 때 세 가지 중요한 조건을 �
 
 ### **Mutual Encoder**
 
-Mutual encoder는 동일한 코디 내 다른 패션 아이템들의 호환성을 고려하여 복원 과정에 반영하는 역할을 합니다. 이를 위해 각 아이템 $\mathbf{i}_{k,t}$는 나머지 아이템들의 평균 정보로부터 호환성 정보를 추출합니다. 이를 수식으로 표현하면 다음과 같습니다:
+Mutual encoder는 동일한 코디 내 다른 패션 아이템들의 호환성을 고려하여 복원 과정에 반영하는 역할을 합니다. 이를 위해 각 아이템 $\mathbf{i}_ {k,t}$는 나머지 아이템들의 평균 정보로부터 호환성 정보를 추출합니다. 이를 수식으로 표현하면 다음과 같습니다:
 
-$$
-\mathcal{O}_t' = \mathcal{O}_t \setminus \{ \mathbf{i}_{k,t} \}
-$$
+$
+\mathcal{O}_ t' = \mathcal{O}_ t \setminus \{ \mathbf{i}_ {k,t} \}
+$
 
-$$
-\mathbf{m}_{k,t} = f_\phi \left( \frac{1}{n-1} \sum_{v \neq k} \mathbf{i}_{v,t} \right)
-$$
+$
+\mathbf{m}_ {k,t} = f_ \phi \left( \frac{1}{n-1} \sum_ {v \neq k} \mathbf{i}_ {v,t} \right)
+$
 
-여기서 $f_\phi$는 multi-layer perceptron (MLP)이며, 다른 아이템들의 평균 영향을 계산한 후 mutual condition $\mathbf{m}_{k,t}$를 도출합니다. 이 mutual condition은 복원 중인 아이템에 다음과 같이 적용됩니다:
+여기서 $f_ \phi$는 multi-layer perceptron (MLP)이며, 다른 아이템들의 평균 영향을 계산한 후 mutual condition $\mathbf{m}_ {k,t}$를 도출합니다. 이 mutual condition은 복원 중인 아이템에 다음과 같이 적용됩니다:
 
-$$
-\mathbf{i}_{k,t}^\text{mutual} = (1 - \eta) \cdot \mathbf{i}_{k,t} + \eta \cdot \mathbf{m}_{k,t}
-$$
+$
+\mathbf{i}_ {k,t}^\text{mutual} = (1 - \eta) \cdot \mathbf{i}_ {k,t} + \eta \cdot \mathbf{m}_ {k,t}
+$
 
 여기서 $\eta$는 mutual condition의 영향을 조절하는 가중치입니다. 이 방식으로 mutual encoder는 코디 내 아이템 간의 호환성을 높입니다.
 
 ### **History Encoder**
 
-History encoder는 사용자의 과거 상호작용 데이터를 바탕으로 개인화된 패션 아이템을 복원하는 역할을 합니다. 각 사용자 $u$의 상호작용 기록에서 해당 카테고리 $c_k$에 대한 아이템들을 활용하여 history condition을 생성합니다:
+History encoder는 사용자의 과거 상호작용 데이터를 바탕으로 개인화된 패션 아이템을 복원하는 역할을 합니다. 각 사용자 $u$의 상호작용 기록에서 해당 카테고리 $c_ k$에 대한 아이템들을 활용하여 history condition을 생성합니다:
 
-$$
-\mathbf{u}_{c_k} = \{ \mathbf{i}_{r}^{c_k} \}_{r=1}^m
-$$
+$
+\mathbf{u}_ {c_ k} = \{ \mathbf{i}_ {r}^{c_ k} \}_ {r=1}^m
+$
 
-이를 통해 각 상호작용 아이템을 잠재 공간으로 압축한 후 평균을 취하여 history condition $\mathbf{h}_{c_k}$를 계산합니다:
+이를 통해 각 상호작용 아이템을 잠재 공간으로 압축한 후 평균을 취하여 history condition $\mathbf{h}_ {c_ k}$를 계산합니다:
 
-$$
-\mathbf{h}_{c_k} = \text{Avg}(E(\mathbf{u}_{c_k})) = \frac{1}{m} \sum_{r=1}^m E(\mathbf{i}_{r}^{c_k})
-$$
+$
+\mathbf{h}_ {c_ k} = \text{Avg}(E(\mathbf{u}_ {c_ k})) = \frac{1}{m} \sum_ {r=1}^m E(\mathbf{i}_ {r}^{c_ k})
+$
 
-여기서 $E$는 미리 학습된 인코더이며, $\mathbf{h}_{c_k}$는 해당 카테고리에서의 사용자 선호를 반영합니다. 이 history condition은 mutual condition과 결합되어 복원 과정에 사용됩니다:
+여기서 $E$는 미리 학습된 인코더이며, $\mathbf{h}_ {c_ k}$는 해당 카테고리에서의 사용자 선호를 반영합니다. 이 history condition은 mutual condition과 결합되어 복원 과정에 사용됩니다:
 
-$$
-[\mathbf{i}_{k,t}^\text{mutual}, \mathbf{h}_{c_k}]
-$$
+$
+[\mathbf{i}_ {k,t}^\text{mutual}, \mathbf{h}_ {c_ k}]
+$
 
 이렇게 결합된 정보가 U-Net의 입력으로 사용되며, 이를 통해 사용자 취향에 맞는 맞춤형 복원이 이루어집니다.
 
@@ -137,35 +137,35 @@ $$
 
 DiFashion의 학습 과정은 **Stable Diffusion** (SD)에서 사용하는 방식을 확장하여 세 가지 조건을 통합하는 방식으로 이루어집니다. 학습 목표는 U-Net이 각 아이템에 추가된 노이즈를 정확하게 예측하도록 하는 것입니다. 손실 함수는 다음과 같이 정의됩니다:
 
-$$
-L_{\theta, \phi} = \frac{1}{n} \sum_{k=1}^n \mathbb{E}_{t, \epsilon_k \sim \mathcal{N}(0, \mathbf{I})} \left[ \| \epsilon_k - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) \|_2^2 \right]
-$$
+$
+L_ {\theta, \phi} = \frac{1}{n} \sum_ {k=1}^n \mathbb{E}_ {t, \epsilon_ k \sim \mathcal{N}(0, \mathbf{I})} \left[ \\vert \epsilon_ k - \epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \mathbf{m}_ {k,t}, \mathbf{h}_ {c_ k}, t) \\vert_ 2^2 \right]
+$
 
-여기서 $\epsilon_{\theta, \phi}$는 노이즈 예측 모델이며, 학습 중 각 조건 (category prompt $\mathbf{t}_{c_k}$, mutual condition $\mathbf{m}_{k,t}$, history condition $\mathbf{h}_{c_k}$)이 주어진 상황에서 노이즈를 제거하는 능력을 학습합니다. 학습 과정에서 각 조건은 무작위로 마스킹되며, 모델이 다양한 조건에 대해 잘 대응할 수 있도록 합니다.
+여기서 $\epsilon_ {\theta, \phi}$는 노이즈 예측 모델이며, 학습 중 각 조건 (category prompt $\mathbf{t}_ {c_ k}$, mutual condition $\mathbf{m}_ {k,t}$, history condition $\mathbf{h}_ {c_ k}$)이 주어진 상황에서 노이즈를 제거하는 능력을 학습합니다. 학습 과정에서 각 조건은 무작위로 마스킹되며, 모델이 다양한 조건에 대해 잘 대응할 수 있도록 합니다.
 
 ### **Inference**
 
 학습이 완료된 후, DiFashion은 두 가지 주요 태스크를 수행할 수 있습니다:
-1. **PFITB (Personalized Fill-In-The-Blank)**: 불완전한 코디에서 누락된 패션 아이템을 개인화된 방식으로 생성합니다. 주어진 카테고리 $c_n$에 대한 category prompt $\mathbf{t}_{c_n}$, mutual condition $\mathbf{m}_n$, history condition $\mathbf{h}_{c_n}$을 활용하여, 노이즈 $\mathbf{i}_{n,T} \sim \mathcal{N}(0, \mathbf{I})$에서 시작해 아이템을 복원합니다.
-2. **GOR (Generative Outfit Recommendation)**: 지정된 카테고리 $\{c_k\}_{k=1}^n$에 맞는 전체 코디를 생성합니다. 초기 노이즈 $\mathcal{O}_T = \{ \mathbf{i}_{k,T} \}_{k=1}^n$에서 시작해 mutual condition $\{\mathbf{m}_{k,T}\}_{k=1}^n$과 history condition $\{\mathbf{h}_{c_k}\}_{k=1}^n$을 활용하여 모든 아이템을 복원합니다.
+1. **PFITB (Personalized Fill-In-The-Blank)**: 불완전한 코디에서 누락된 패션 아이템을 개인화된 방식으로 생성합니다. 주어진 카테고리 $c_ n$에 대한 category prompt $\mathbf{t}_ {c_ n}$, mutual condition $\mathbf{m}_ n$, history condition $\mathbf{h}_ {c_ n}$을 활용하여, 노이즈 $\mathbf{i}_ {n,T} \sim \mathcal{N}(0, \mathbf{I})$에서 시작해 아이템을 복원합니다.
+2. **GOR (Generative Outfit Recommendation)**: 지정된 카테고리 $\{c_ k\}_ {k=1}^n$에 맞는 전체 코디를 생성합니다. 초기 노이즈 $\mathcal{O}_ T = \{ \mathbf{i}_ {k,T} \}_ {k=1}^n$에서 시작해 mutual condition $\{\mathbf{m}_ {k,T}\}_ {k=1}^n$과 history condition $\{\mathbf{h}_ {c_ k}\}_ {k=1}^n$을 활용하여 모든 아이템을 복원합니다.
 
 Inference 과정에서는 다음과 같은 수식을 통해 생성이 이루어집니다:
 
-$$
-\tilde{\epsilon}_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) = \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \emptyset, \emptyset, \emptyset, t) + s_t \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \emptyset, \emptyset, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \emptyset, \emptyset, \emptyset, t)]
-$$
+$
+\tilde{\epsilon}_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \mathbf{m}_ {k,t}, \mathbf{h}_ {c_ k}, t) = \epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \emptyset, \emptyset, \emptyset, t) + s_ t \cdot [\epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \emptyset, \emptyset, t) - \epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \emptyset, \emptyset, \emptyset, t)]
+$
 
-$$
-+s_m \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \emptyset, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \emptyset, \emptyset, t)]
-$$
+$
++s_ m \cdot [\epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \mathbf{m}_ {k,t}, \emptyset, t) - \epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \emptyset, \emptyset, t)]
+$
 
-$$
-+s_h \cdot [\epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \mathbf{h}_{c_k}, t) - \epsilon_{\theta, \phi} (\mathbf{i}_{k,t}, \mathbf{t}_{c_k}, \mathbf{m}_{k,t}, \emptyset, t)]
-$$
+$
++s_ h \cdot [\epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \mathbf{m}_ {k,t}, \mathbf{h}_ {c_ k}, t) - \epsilon_ {\theta, \phi} (\mathbf{i}_ {k,t}, \mathbf{t}_ {c_ k}, \mathbf{m}_ {k,t}, \emptyset, t)]
+$
 
-여기서 $s_t$, $s_m$, $s_h$는 각 조건의 가이드 스케일이며, 이 값들은 inference 과정에서 최적화되어 각 조건이 적절히 반영된 이미지를 생성합니다. 아래의 이미지는 DiFashion의 Overall Structure입니다.
+여기서 $s_ t$, $s_ m$, $s_ h$는 각 조건의 가이드 스케일이며, 이 값들은 inference 과정에서 최적화되어 각 조건이 적절히 반영된 이미지를 생성합니다. 아래의 이미지는 DiFashion의 Overall Structure입니다.
 
-![DiFashion_Overall](https://i.postimg.cc/L5rtfHrW/Di-Fashion-Overall.png)
+![DiFashion_ Overall](https://i.postimg.cc/L5rtfHrW/Di-Fashion-Overall.png)
 
 ## **5. Experiments**
 
@@ -173,7 +173,7 @@ DiFashion의 성능을 평가하기 위해 다양한 실험을 수행했습니�
 
 1. **RQ1**: DiFashion은 PFITB (Personalized Fill-In-The-Blank)와 GOR (Generative Outfit Recommendation) 태스크에서 기존의 생성 모델 및 검색 기반 코디 추천 방법과 비교하여 어떤 성능을 보이는가?
 2. **RQ2**: DiFashion은 인간 평가 기준에서 기존 모델보다 더 나은 호환성과 개인화된 코디를 제공할 수 있는가?
-3. **RQ3**: DiFashion의 다양한 디자인 결정 (mutual influence ratio $\eta$, condition guidance scale $s_t$, $s_m$, $s_h$)이 성능에 어떤 영향을 미치는가?
+3. **RQ3**: DiFashion의 다양한 디자인 결정 (mutual influence ratio $\eta$, condition guidance scale $s_ t$, $s_ m$, $s_ h$)이 성능에 어떤 영향을 미치는가?
 
 ### **5.1 Experimental Settings**
 
@@ -251,7 +251,7 @@ Human Evaluation은 DiFashion과 두 가지 Stable Diffusion 모델 (v1.5, v2)�
 #### **5.4.1 Hyper-parameter Analysis**
 
 - **Mutual Influence Ratio $\eta$**: $\eta$ 값이 너무 작으면 호환성 지표가 저하되었으며, 너무 큰 값은 호환성이 지나치게 강조되어 다른 조건들의 영향을 감소시켰습니다.
-- **Guidance Scales $s_t$, $s_m$, $s_h$**: 세 가지 가이드 스케일을 변화시키며 성능을 분석한 결과, 각 조건의 적절한 가이드 스케일을 선택하는 것이 중요함을 확인했습니다. 특히 mutual condition의 가이드 스케일 $s_m$은 호환성에 큰 영향을 미쳤습니다.
+- **Guidance Scales $s_ t$, $s_ m$, $s_ h$**: 세 가지 가이드 스케일을 변화시키며 성능을 분석한 결과, 각 조건의 적절한 가이드 스케일을 선택하는 것이 중요함을 확인했습니다. 특히 mutual condition의 가이드 스케일 $s_ m$은 호환성에 큰 영향을 미쳤습니다.
 
 ![Ex5.4.1](https://i.postimg.cc/wj6BxCrc/Ex5-4-1.png)
 

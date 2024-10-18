@@ -25,6 +25,7 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[AAAI 2024] Exploring Large Language Model for Graph Data Understanding in Online Job Recommendations](/_posts/DS535_24F/2024-10-13-Exploring_Large_Language_Model_for_Graph_Data_Understanding_in_Online_Job_Recommendations.md)
 - [[AAAI-2024] Fine-Tuning Large Language Model Based Explainable Recommendation with Explainable Quality Reward](/_posts/DS535_24F/2024-10-13-Fine-Tuning_Large_Language_Model_Based_Explainable_Recommendation_with_Explainable_Quality_Reward.md)
 - [[KDD-24] Generative Flow Network for Listwise Recommendation](/_posts/DS535_24F/2024-10-13-Generative_Flow_Network_for_Listwise_Recommendation.md)
+- [[AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion](/_posts/DS535_24F/2024-10-13-GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion.md)
 - [[NeurIPS-22] Interaction Modeling with Multiplex Attention](/_posts/DS535_24F/2024-10-13-Interaction_Modeling_with_Multiplex_Attention.md)
 - [[AAAI-2024] Label Attentive Distillation for GNN-Based Graph Classification](/_posts/DS535_24F/2024-10-13-Label_Attentive_Distillation_for_GNN-Based_Graph_Classification.md)
 - [[NIPS-21] Language Models as Recommender Systems: Evaluations and Limitations](/_posts/DS535_24F/2024-10-13-Language_Models_as_Recommender_Systems_Evaluations_and_Limitations.md)
@@ -44,8 +45,6 @@ summary: We publish the extensive paper reviews about data mining (DM) and artif
 - [[ACL-24] Tree-of-Traversals: A Zero-Shot Reasoning Algorithm for Augmenting Black-box Language Models with Knowledge Graphs](/_posts/DS535_24F/2024-10-13-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.md)
 
 
-
-- [](/_posts/DS535_24F/)
 
 ## DS503 (2024S)
 - [[ICLR 2024] Large Language Models Are Not Robust Multiple Choice Selectors](/_posts/DS503_24S/2024-04-17-Large_Language_Models_Are_Not_Robust_Multiple_Choice_Selectors.md)

@@ -16,7 +16,7 @@ Venue : ICLR 2022
 **Graph(그래프)**는 **노드(Node)**와 **엣지(Edge)**로 이루어진 데이터 구조를 의미한다. 그래프는 현실 세계의 다양한 관계와 상호작용을 표현하는데 사용된다. 예컨대, 사람들 간의 소셜 네트워크나 인터넷의 링크 구조, 분자 내의 원자 간 결합, 도로망에서의 교차로와 길 등이 있다. 즉, node는 개체를 나타내고, edge는 그들 간의 관계를 나타낸다.
 
 
-![그래프 데이터의 예시](image-1.png)
+![그래프 데이터의 예시](../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-1.png)
 
 
 최근 노벨화학상을 수상한 단백질 구조 예측 관련 연구에서도 아미노산의 결합 구조를 모델링하는데 그래프 구조가 쓰이는 등 다양한 분야의 데이터를 나타낼 수 있다.
@@ -62,9 +62,9 @@ Venue : ICLR 2022
 
 샘플 기반 평가 지표는 실제 분포 $P_r$과 생성된 분포 $P_g$ 사이의 거리 $\rho$를 랜덤 샘플을 통해 추정한다 (Heusel et al., 2017; You et al., 2018; Bińkowski et al., 2018). 이는 다음과 같이 계산된다고 한다:
 
-$$
-\hat{\rho}\left(\mathbb{S}_g, \mathbb{S}_r\right) \approx \rho\left(P_g, P_r\right)
-$$
+$
+\hat{\rho}\left(\mathbb{S}_ g, \mathbb{S}_ r\right) \approx \rho\left(P_ g, P_ r\right)
+$
 
 여기서,
 
@@ -80,21 +80,21 @@ $$
 
 
 <figure>
-  <img src="167419716-bd7da8f8-0830-4c35-b2e3-2fc21bff657a.png" alt="alt text">
+  <img src="../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/167419716-bd7da8f8-0830-4c35-b2e3-2fc21bff657a.png" alt="alt text">
   <figcaption>MMD는 분포 사이의 거리를 각 분포의 평균 사이의 L2로 하는 metric이다</figcaption>
 </figure>
 
 
 
-$$
-\operatorname{MMD}\left(\mathbb{S}_g, \mathbb{S}_r\right) = \frac{1}{m^2} \sum_{i,j=1}^{m} k\left(\mathbf{x}_i^r, \mathbf{x}_j^r\right) + \frac{1}{n^2} \sum_{i,j=1}^{n} k\left(\mathbf{x}_i^g, \mathbf{x}_j^g\right) - \frac{2}{nm} \sum_{i=1}^{n} \sum_{j=1}^{m} k\left(\mathbf{x}_i^g, \mathbf{x}_j^r\right)
-$$
+$
+\operatorname{MMD}\left(\mathbb{S}_ g, \mathbb{S}_ r\right) = \frac{1}{m^2} \sum_ {i,j=1}^{m} k\left(\mathbf{x}_ i^r, \mathbf{x}_ j^r\right) + \frac{1}{n^2} \sum_ {i,j=1}^{n} k\left(\mathbf{x}_ i^g, \mathbf{x}_ j^g\right) - \frac{2}{nm} \sum_ {i=1}^{n} \sum_ {j=1}^{m} k\left(\mathbf{x}_ i^g, \mathbf{x}_ j^r\right)
+$
 
 여기서 $k(\cdot, \cdot)$는 일반적인 커널 함수이다. You et al. (2018)은 RBF 커널의 한 형태를 제안하였다:
 
-$$
-k\left(\mathbf{x}_i, \mathbf{x}_j\right) = \exp\left(-d\left(\mathbf{x}_i, \mathbf{x}_j\right) / 2\sigma^2\right)
-$$
+$
+k\left(\mathbf{x}_ i, \mathbf{x}_ j\right) = \exp\left(-d\left(\mathbf{x}_ i, \mathbf{x}_ j\right) / 2\sigma^2\right)
+$
 
 - $d(\cdot, \cdot)$는 쌍별 거리를 계산하며, 그 연구에서는 Wasserstein Distance (=EMD)를 선택하였다.
 - 이는 각 그래프 통계에 대해 세 가지 지표를 생성한다.
@@ -109,15 +109,15 @@ Moreno et al. (2018)은 You et al. (2018)이 제안한 것과 유사하게 node 
 
 ## 2.2 그래프 신경망 (GNN)
 
-그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = \{(i, j) \mid i, j \in \{1, \ldots, |\mathbb{V}|\}\}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.
+그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = \{(i, j) \mid i, j \in \{1, \ldots, \vert \mathbb{V}\vert\}\}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.
 
 많은 GNN 구조가 존재하지만 (Wu et al., 2020), 본 연구에서는 일반적인 GNN으로 Graph Isomorphism Networks (GINs)를 고려한다 (Xu et al., 2019). GIN은 $L$개의 전파 레이어와 그래프 Readout 레이어로 구성되어 $\mathbf{x}_i$를 얻는다.
 
 node $v \in \mathbb{V}$에 대해, 레이어 $l \in [1, L]$에서의 node 임베딩 $\mathbf{h}_v^{(l)}$는 다음과 같이 계산된다:
 
-$$
-\mathbf{h}_v^{(l)} = \operatorname{MLP}^{(l)}\left( \mathbf{h}_v^{(l-1)} + f^{(l)}\left( \left\{ \mathbf{h}_u^{(l-1)} : u \in \mathcal{N}(v) \right\} \right) \right)
-$$
+$
+\mathbf{h}_ v^{(l)} = \operatorname{MLP}^{(l)}\left( \mathbf{h}_ v^{(l-1)} + f^{(l)} \left( \lbrace \mathbf{h}_ u^{(l-1)} : u \in \mathcal{N}(v) \rbrace \right) \right)
+$
 
 - $\mathbf{h}_v^{(0)}$는 node $v$의 입력 feature이다.
 - $\mathbf{h}_v^{(l)} \in \mathbb{R}^d$는 $l$번째 레이어 이후의 node $v$의 $d$차원 임베딩이다.
@@ -128,9 +128,9 @@ $$
 
 그래프 Readout 레이어는 각 레이어 $l \in [1, L]$에서 모든 node의 feature을 aggregate하고, 이를 단일한 $L \cdot d$차원 벡터 $\mathbf{x}_i$로 연결한다 (Xu et al., 2019):
 
-$$
-\mathbf{x}_i = \operatorname{CONCAT}\left( \operatorname{READOUT}\left( \left\{ \mathbf{h}_v^{(l)} \mid v \in \mathbb{V} \right\} \right) \mid l = 1, 2, \ldots, L \right)
-$$
+$
+\mathbf{x}_ i = \operatorname{CONCAT}\left( \operatorname{READOUT}\left( \lbrace \mathbf{h}_ v^{(l)} \mid v \in \mathbb{V} \rbrace \right) \mid l = 1, 2, \ldots, L \right)
+$
 
 - 여기서 $\operatorname{READOUT}$은 $f^{(l)}$와 유사하며, 보통 합산, 평균 또는 최대값 연산을 선택한다.
 
@@ -150,13 +150,13 @@ $$
 
 저자들은 실험 절에서 GGM 평가 지표의 주요 속성을 설명하고, 각 지표를 이러한 속성에 대해 철저히 테스트했다. 이러한 속성에는 생성된 그래프의 **fidelity**와 **diversity**에 대한 지표의 상관성, 샘플 효율성(sample efficiency), 그리고 **계산 효율성(computational efficiency)**이 포함된다. 이러한 속성들은 강력한 평가 지표의 원하는 특성을 포착하고 GGMs의 신뢰할 수 있는 순위를 가능하게 한다고 판단된다.
 
-![alt text](image-3.png)
+![alt text](../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-3.png)
 
 데이터셋: 그래프 도메인 전반에 걸쳐 GGMs를 평가하는 능력을 테스트하기 위해 여섯 가지 다양한 그래프 데이터셋을 사용했다(표 1). 특히 Lobster, Grid, Proteins, Community, Ego와 같은 일반적인 GGM 데이터셋을 포함하였다(You et al., 2018; Liao et al., 2019; Dai et al., 2020). 또한, 각 지표가 node 및 edge feature 분포의 변화를 감지하는 능력을 보여주기 위해 분자 데이터셋 ZINC(Irwin et al., 2012)를 활용하였다.
 
 GNN feature 추출기: GGM 문헌에서는 작은 데이터셋을 자주 사용하므로, 각 지표의 샘플 효율성이 매우 중요하다. 그래프 임베딩 $\mathbf{x}$의 차원은 여러 지표에서 핵심 요소이므로, 구별 가능성을 유지하면서 $\mathbf{x}$의 길이를 최소화하는 것이 바람직하다. 식 (4)에서 볼 수 있듯이, 전파 라운드 수 $L$과 node 임베딩 크기 $d$는 $\mathbf{x}$의 차원을 직접 결정한다. You et al.(2020)은 $L$의 선택이 다양한 그래프 작업에서 성능에 가장 중요한 요소 중 하나임을 보여주었다.
 
-![alt text](image-4.png)
+![alt text](../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-4.png)
 
 
 실험에서는 $L \in [2, 3, \ldots, 7]$, $d \in [5, 10, \ldots, 40]$인 GIN 모델(식 3과 4)을 고려했다. 이 범위 내에서 20개의 아키텍처를 무작위로 선택하여 랜덤 초기화된 GIN과 사전 학습된 GIN 모두를 사용하여 실험을 진행했다. 사전 학습 과정에서는 각 네트워크에 그래프 분류 작업을 수행하도록 했으며, 방법론은 부록 B에 설명되어 있다. 개별 실험에서 사전 학습된 GIN을 사용하여 계산된 지표의 결과는 부록 C.1에 제시되었으며, 논의를 용이하게 하기 위해 이러한 결과를 표 3에 요약하였다. 랜덤 및 사전 학습된 네트워크 모두에서 구별 가능성을 향상시키는 방법으로 node 차수 feature을 정수로 표현하여 사용했다. 실제로는 초기화된 랜덤 네트워크에서 직교 가중치 초기화(Saxe et al., 2014)를 활용했는데, 이는 초기화 간 지표의 분산을 약간 줄여주기 때문이다.
@@ -169,12 +169,12 @@ GNN feature 추출기: GGM 문헌에서는 작은 데이터셋을 자주 사용�
 
 지표의 가장 중요한 속성 중 하나는 생성된 샘플의 **fidelity**를 반영할 수 있는가 이다. 이들은 fidelity에 대한 지표를 테스트하기 위해 두 가지 실험을 구성했다. 첫 번째 실험은 실제 샘플에 다양한 양의 랜덤 샘플을 섞어 지표의 감지 능력을 테스트하고(Xu et al., 2018), 두 번째 실험은 Edge를 무작위로 재연결하여 그래프의 품질을 서서히 저하시켰다(O’Bray et al., 2022). 두 실험 모두 $\mathbb{S}_g$를 $\mathbb{S}_r$의 복사본으로 시작하며, $\mathbb{S}_r$ 자체는 데이터셋의 복사본이다.
 
-첫 번째 실험에서는 $\mathbb{S}_g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\left|\mathbb{S}_g\right|$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős & Rényi, 1960)이다.
+첫 번째 실험에서는 $\mathbb{S}_ g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\vert\mathbb{S}_g\vert$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős & Rényi, 1960)이다.
 
 두 번째 실험에서는 $\mathbb{S}g$의 에지를 무작위로 재연결하여 $P_r$와 $P_g$ 사이의 거리를 증가시켰다. 여기서 perturbation 정도 $t$는 각 에지 $(i, j) \in E$를 재연결할 확률이다. 각 $G \in \mathbb{S}g$와 각 $(i, j) \in E$에 대해, $x{i,j} \sim \operatorname{Bernoulli}(t)$를 샘플링했다. $x{i,j} = 1$인 에지는 재연결되며, 또 다른 샘플 $y_{i,j} \sim \operatorname{Bernoulli}(0.5)$를 사용하여 에지의 두 node 중 하나 ${i, j}$를 선택하고, 이 에지의 새로운 연결은 $\mathbb{V}$에서 균일하게 선택된다.
 
 
-![alt text](image-2.png)
+![alt text](../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-2.png)
 
 결과: Recall과 Orbits MMD를 제외하면, 테스트한 대부분의 지표는 순위 상관 계수가 1.0에 가까워 이 실험에서 우수한 성능을 보였다(그림 3, 1행). 그러나 Recall은 $\mathbb{S}_g$의 다양성을 측정하도록 설계되었으므로, 여기서 fidelity에 대한 낮은 민감도는 예상된 결과이다. 놀랍게도 Coverage는 $\mathbb{S}_g$의 diversity을 측정하도록 설계되었음에도 불구하고 fidelity에 대한 강한 민감도를 보였다. 또한, GRAN(Li et al., 2018)이 생성한 그래프를 사용하여 혼합 실험을 반복했으며 유사한 결과를 얻었다고 한다.
 
@@ -185,7 +185,7 @@ GNN feature 추출기: GGM 문헌에서는 작은 데이터셋을 자주 사용�
 
 mode collapse시뮬레이션: 각 데이터 포인트를 해당 클러스터의 centroid로 점차 대체했다. perturbation 정도 $t$는 이러한 방식으로 collapse한 클러스터의 비율을 나타낸다.
 
-mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\left|\mathbb{S}_g\right|$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.
+mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\vert\mathbb{S}_g\vert$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.
 
 결과: mode collapse실험에서, 모든 고전적인 지표(You et al., 2018)는 순위 상관 계수가 0.5 미만으로 저조한 성능을 보였다(그림 3, 하단). 고전적인 지표는 mode dropping 실험에서 약간 더 나은 결과를 얻었지만 여전히 최적의 결과는 아니다. 예상대로 Recall과 Coverage는 $\mathbb{S}_g$의 diversity과 강한 양의 상관 관계를 보였으며, Precision과 Density는 음의 상관 관계를 보였다. 또한, MMD RBF와 F1 PR과 같은 몇몇 스칼라 지표는 $\mathbb{S}_g$의 diversity과 강한 상관 관계를 보였으며, 두 실험 모두에서 고전적인 지표보다 우수한 성능을 보였다.
 
@@ -197,7 +197,7 @@ mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으
 
 GGM 문헌에서는 작은 데이터셋을 자주 사용하므로 **샘플 효율성(sample efficiency)**이 중요하다. 이 실험에서는 랜덤 그래프 집합 $\mathbb{S}_g$를 실제 샘플 $\mathbb{S}_r$과 구별하는 데 필요한 최소 샘플 수를 찾아 각 지표의 샘플 효율성을 결정했다. 랜덤 그래프는 4.1절에서 설명한 동일한 프로세스를 사용하여 생성된 E-R 그래프이다.
 
-$\mathbb{S}_r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\left|\mathbb{S}_r’\right| = \left|\mathbb{S}_r’’\right| = \left|\mathbb{S}_g’\right| = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_r’’\right) < \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).
+$\mathbb{S}_r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_r’\vert = \vert\mathbb{S}_r’’\vert = \vert\mathbb{S}_g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ r’’\right) < \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).
 
 ## 4.5 계산 효율성
 

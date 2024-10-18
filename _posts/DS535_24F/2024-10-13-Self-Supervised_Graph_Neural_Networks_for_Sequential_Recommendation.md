@@ -48,25 +48,25 @@ patterns with long-term dependencies thus making the model robust to noisy data 
 Message Passing is the central process of Graph Convolution Networks (GCN)
 to encode graph information such as nodes~\cite{Kipf}. The core idea is to send *messages* of 
 information between the nodes to iteratively update the encoded node representations~\cite{Kipf}. In this paper (Lie et al. 2024)
-were inspired by LightGCN~\cite{LightGCN} where each user-node $\bm{e}_ {u}^{(k)}$ and item-node $\bm{e}_ {i}^{(k)}$ 
+were inspired by LightGCN~\cite{LightGCN} where each user-node $\boldsymbol{e}_ {u}^{(k)}$ and item-node $\boldsymbol{e}_ {i}^{(k)}$ 
 encoding are updated by the weighted sum of their neighboring nodes:
 
 $
-\bm{e}_ {u}^{(k+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert}\sqrt{\vert\mathcal{N}_ i\vert}}\bm{e}_ {i}^{(k)}
+\boldsymbol{e}_ {u}^{(k+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert}\sqrt{\vert\mathcal{N}_ i\vert}}\boldsymbol{e}_ {i}^{(k)}
 $
 
 $
-\bm{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\bm{e}_ {u}^{(k)}
+\boldsymbol{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\boldsymbol{e}_ {u}^{(k)}
 $
 
-Where $\bm{e}_ {u}^{(0)}$ and $\bm{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.  
+Where $\boldsymbol{e}_ {u}^{(0)}$ and $\boldsymbol{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.  
 ### *3.2 Self-Attention*
 Another key operation for propagating information which has seen increased popularity for graph-based learning is 
-self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\bm{X} \in \mathbb{R}^{n\times d}$ to 
-the *query*, *key* and *value* subspace using (the learned) projection matrices $\bm{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\bm{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\bm{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:
+self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\boldsymbol{X} \in \mathbb{R}^{n\times d}$ to 
+the *query*, *key* and *value* subspace using (the learned) projection matrices $\boldsymbol{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\boldsymbol{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\boldsymbol{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:
 
 $
-\text{Attn}(\bm{X}) = \text{Softmax}\left(\frac{\bm{XW}_ Q(\bm{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\bm{XW} _V = \text{Softmax}\left(\frac{\bm{QK}^\mathsf{T}}{\sqrt{d_ K}}\right)\bm{V} 
+\text{Attn}(\boldsymbol{X}) = \text{Softmax}\left(\frac{\boldsymbol{XW}_ {Q}(\boldsymbol{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{XW}_ V = \text{Softmax}\left(\frac{\boldsymbol{QK}^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{V} 
 $ 
 ### *3.3 Validation Metrics*
 To validate the effectiveness of their proposed method, (Liu et al. 2024) use the Hit Rate (HR)@N and Normalized
@@ -79,61 +79,61 @@ then normalize it using the Idealized discounted cumulative gain (IDCG) ([www.ev
 For a user with predicted item ranking-position order $p_ i$ and ground-truth item-relevance $r_ i$ DCG@N is computed as:
 
 $
-DCG@N = \sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}
+DCG@N = \sum_ {i = 1}^N \frac{r_ i}{\log (p_ {i} +1)}
 $
 
 The idea of NDCG is to normalize the DCG with the *ideal* discounted cumulative gain (IDCG). 
 The equation for IDCG is almost equivalent to that of DCG, however, we just assume
-that the item positions $p _i$ are ordered according to their relevance $r_ i$. This way,
+that the item positions $p_ i$ are ordered according to their relevance $r_ i$. This way,
 the IDCG represents the best possible ranking order the recommender could produce. With this in mind,
 the final equation for NDCG is:
 
 $
-NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p'_ i +1)}} \in [0,1]
+NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p'_ {i} +1)}} \in [0,1]
 $
 
 In the paper by Liu et al. they set $N = \{10,20\}$ for both HR@N and NDCG@N.
 ## **4. Method**
 Given the set of users $\mathcal{U} = \{u_ 1,\dots, u_ I\}$ with $\vert\mathcal{U}\vert = I$ and the set of 
 items $\mathcal{V} = \{v_ i,\dots,v_ J\}$ where $\vert\mathcal{V}\vert = J$ the time-dependent adjacency matrix
-$\bm{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
-discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t _b$ and $t_ e$ is the 
+$\boldsymbol{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
+discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t_ b$ and $t_ e$ is the 
 first (beginning) and last (end) observed time stamp. Thus in other words, ${\mathcal{A}}_ {t,i,j}$ is 
-set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving $\{\bm{\mathcal{A}}_ {t}| 1\leq t \leq T\}$ the objective
-is to predict future user-item interactions $\bm{\mathcal{A}_{T+1}}$. Formally, they define the objective as:
+set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving $\{\boldsymbol{\mathcal{A}}_ {t}| 1\leq t \leq T\}$ the objective
+is to predict future user-item interactions $\boldsymbol{\mathcal{A}_{T+1}}$. Formally, they define the objective as:
 
 $
-\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}_{recom}\left(\bm{\mathcal{\hat{A}}_ {T+1}},\bm{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\bm{E}_ s,\bm{E}_ l)
+\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}_ {recom}\left(\boldsymbol{\mathcal{\hat{A}}_ {T+1}},\boldsymbol{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\boldsymbol{E}_ s,\boldsymbol{E}_ l)
 $
 
 $
-\bm{\mathcal{\hat{A}}_ {T+1}} = f\left(\bm{E}_ s,\bm{E}_ l\right)\quad \bm{E}_ s,\bm{E}_ l = g(\{\bm{\mathcal{A}}_t\})
+\boldsymbol{\mathcal{\hat{A}}_ {T+1}} = f\left(\boldsymbol{E}_ s,\boldsymbol{E}_ l\right)\quad \boldsymbol{E}_ s,\boldsymbol{E}_ l = g(\{\boldsymbol{\mathcal{A}}_t\})
 $
 
-Where $\mathcal{L}_{recom}$ is the recommendation error between the true and predicted user-item interactions $\bm{\mathcal{A}_ {T+1}}$ and $\bm{\mathcal{\hat{A}}_ {T+1}}$, respectively.
-$\mathcal{L}_{att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\bm{E}_ l,\bm{E}_ s$ which are encoded using the sequential data and encoder $g$.
-Lastly, the estimated predictions $\bm{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.
+Where $\mathcal{L}_ {recom}$ is the recommendation error between the true and predicted user-item interactions $\boldsymbol{\mathcal{A}_ {T+1}}$ and $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$, respectively.
+$\mathcal{L}_ {att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\boldsymbol{E}_ l,\boldsymbol{E}_ s$ which are encoded using the sequential data and encoder $g$.
+Lastly, the estimated predictions $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.
 
 ### *4.1 Encoding Short-term user-item interactions*
 The model begins by modeling the short-term interactions as these will be used throughout the whole encoding process. Inspired by LightGCN~\cite{LightGCN}, they project
-each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\bm{e}_ {t,i}^{(u)}$, $\bm{e}_ {t,j}^{(v)}$ are assembled
-to the embedding matrices $\bm{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\bm{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
+each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\boldsymbol{e}_ {t,i}^{(u)}$, $\boldsymbol{e}_ {t,j}^{(v)}$ are assembled
+to the embedding matrices $\boldsymbol{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\boldsymbol{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
 following message passing method:
 
 $
-\bm{z}_ {t,i}^{(u)} = \text{LeakyReLU}\left(\mathcal{A}_{ti,{\*}}\cdot \bm{E}_ t^{(v)}\right), \quad \bm{z}_ {t,j}^{(v)} = \text{LeakyReLU}\left(\mathcal{A}_{tj,{\*}}\cdot \bm{E}_ t^{(u)}\right)
+\boldsymbol{z}_ {t,i}^{(u)} = \text{LeakyReLU} \left( \mathcal{A}_ {ti,{\*}} \cdot \boldsymbol{E}_ t^{(v)}\right), \quad \boldsymbol{z}_ {t,j}^{(v)} = \text{LeakyReLU} \left( \mathcal{A}_ {tj,{\*}} \cdot \boldsymbol{E}_ t^{(u)} \right)
 $
 
 This is repeated for $L$-layers with the embeddings in the $l$-th layer defined as:
 
 $
-\bm{e}_ {t,i,l}^{(u)} = \bm{z}_ {t,i,l}^{(u)}+\bm{e}_ {t,i,l-1}^{(u)},\quad \bm{e}_ {t,i,l}^{(v)} = \bm{z}_ {t,i,l}^{(v)}+\bm{e}_ {t,i,l-1}^{(v)}
+\boldsymbol{e}_ {t,i,l}^{(u)} = \boldsymbol{z}_ {t,i,l}^{(u)}+\boldsymbol{e}_ {t,i,l-1}^{(u)},\quad \boldsymbol{e}_ {t,i,l}^{(v)} = \boldsymbol{z}_ {t,i,l}^{(v)}+\boldsymbol{e}_ {t,i,l-1}^{(v)}
 $
 
-Finally, all embeddings for each layer are concatenated together to form the final short-term embeddings $\bm{e}_ {t,i}^{(u)}$ and $\bm{e}_ {t,j}^{(v)}$:
+Finally, all embeddings for each layer are concatenated together to form the final short-term embeddings $\boldsymbol{e}_ {t,i}^{(u)}$ and $\boldsymbol{e}_ {t,j}^{(v)}$:
 
 $
-\bm{e}_ {t,i}^{(u)} = \bm{e}_ {t,i,1}^{(u)}\| \dots\|  \bm{e}_ {t,i,L}^{(u)},\quad\bm{e}_ {t,j}^{(v)} = \bm{e}_ {t,j,1}^{(v)}\| \dots\|  \bm{e}_ {t,j,L}^{(v)}
+\boldsymbol{e}_ {t,i}^{(u)} = \boldsymbol{e}_ {t,i,1}^{(u)}\| \dots\|  \boldsymbol{e}_ {t,i,L}^{(u)},\quad\boldsymbol{e}_ {t,j}^{(v)} = \boldsymbol{e}_ {t,j,1}^{(v)}\| \dots\|  \boldsymbol{e}_ {t,j,L}^{(v)}
 $
 
 ### *4.2 Encoding Long-term user-item interactions*
@@ -143,32 +143,32 @@ capture dynamic changes from period to period by integrating the aforementioned 
 Second, the use *Instance-Level Sequential Pattern Modeling* which aims to learn the pairwise relations between specific item instances directly (Liu et al. 2024).
 
 **Interval-Level Sequential Pattern Modeling** To integrate short-term embeddings into long-term ones Liu et al. (2024) use the
-Gated Recurrent Unit (GRU) on the sequential short-term embeddings $\{\bm{e}_ {t,i}^{(u)}\}$ and $\{\bm{e}_ {t,j}^{(v)}\}$ for each user $u_ i$ and item $v_ j$. 
-More specifically, each hidden state $\bm{h}_ {t,i}^{(u)}$ and $\bm{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:
+Gated Recurrent Unit (GRU) on the sequential short-term embeddings $\{\boldsymbol{e}_ {t,i}^{(u)}\}$ and $\{\boldsymbol{e}_ {t,j}^{(v)}\}$ for each user $u_ i$ and item $v_ j$. 
+More specifically, each hidden state $\boldsymbol{h}_ {t,i}^{(u)}$ and $\boldsymbol{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:
 
 $
-S_ i^{interval} = \left(\bm{h}_ {1,i}^{(u)},\dots,\bm{h}_ {T,i}^{(u)}\right),\quad S_ j^{interval} = \left(\bm{h}_ {1,j}^{(v)},\dots,\bm{h}_ {T,j}^{(v)}\right)
+S_ i^{interval} = \left(\boldsymbol{h}_ {1,i}^{(u)},\dots,\boldsymbol{h}_ {T,i}^{(u)}\right),\quad S_ j^{interval} = \left(\boldsymbol{h}_ {1,j}^{(v)},\dots,\boldsymbol{h}_ {T,j}^{(v)}\right)
 $
 
 where:
 
 $
-\bm{h}_ {t,i}^{(u)} = \text{GRU}\left(\bm{e}_ {t,i}^{(u)},\bm{h}_ {t-1,i}^{(u)}\right)
-,\quad \bm{h}_ {t,j}^{(v)} = \text{GRU}\left(\bm{e}_ {t,j}^{(v)},\bm{h}_ {t-1,j}^{(v)}\right)
+\boldsymbol{h}_ {t,i}^{(u)} = \text{GRU}\left(\boldsymbol{e}_ {t,i}^{(u)},\boldsymbol{h}_ {t-1,i}^{(u)}\right)
+,\quad \boldsymbol{h}_ {t,j}^{(v)} = \text{GRU}\left(\boldsymbol{e}_ {t,j}^{(v)},\boldsymbol{h}_ {t-1,j}^{(v)}\right)
 $
 
 Then (multi-head dot-product) self-attention (Vaswani et al. 2017) is applied for the interval-level sequences to uncover the temporal patterns:
 
 $
-\bm{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \bm{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
+\boldsymbol{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \boldsymbol{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
 $
 Which finally, are summed across time:
 
 $
-\bm{\bar e}_ i^{(u)} = \sum_ {t=1}^T \bm{\bar H}_ {i,t}^{(u)},\quad \bm{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \bm{\bar H}_ {j,t}^{(v)}
+\boldsymbol{\bar e}_ i^{(u)} = \sum_ {t=1}^T \boldsymbol{\bar H}_ {i,t}^{(u)},\quad \boldsymbol{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \boldsymbol{\bar H}_ {j,t}^{(v)}
 $
 
-Where $\bm{\bar e}_ i,\bm{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
+Where $\boldsymbol{\bar e}_ i,\boldsymbol{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
 Note, that while the short-term embeddings are dependent on the given time-interval $t$ the long-term embeddings are independent of $t$ as 
 while the long-term as $t$ is effectively integrated out.
 
@@ -176,14 +176,14 @@ while the long-term as $t$ is effectively integrated out.
 **Instance-Level Sequential Pattern Modeling** However, interval-level embeddings are not the only long-term embeddings used in the SelfGNN.
 The model also uses instance-level sequential patterns by applying self-attention directly over
 sequences containing users' interacted item instances (Liu et al. 2024). Given a user $u_ i$ they denote
-the $m$'th interacted item for set user as $v _{i,m}$ for $m = \{1,\dots,M\}$ (for a set maximum interaction length $M$).
+the $m$'th interacted item for set user as $v_ {i,m}$ for $m = \{1,\dots,M\}$ (for a set maximum interaction length $M$).
 Then the sequences of items user $u_ i$ interacted with can be modeled as:
 
 $
-S_ {i,0}^{instance} = \left(\bm{\bar e}_ {v_ {i,1}}^{(v)}+ \bm{p}_ 1,\dots,\bm{\bar e}_ {v_ {i,M}}^{(v)} + \bm{p}_ M\right) 
+S_ {i,0}^{instance} = \left(\boldsymbol{\bar e}_ {v_ {i,1}}^{(v)}+ \boldsymbol{p}_ 1,\dots,\boldsymbol{\bar e}_ {v_ {i,M}}^{(v)} + \boldsymbol{p}_ M\right) 
 $
 
-Where $\bm{\bar e}_ {v_ {i,m}}^{(v)} \in\mathbb{R}^d$ is the aforementioned long-term embedding for item $v_ {i,m}$ and $\bm{p}_ m\in\mathbb{R}^d$ is learnable 
+Where $\boldsymbol{\bar e}_ {v_ {i,m}}^{(v)} \in\mathbb{R}^d$ is the aforementioned long-term embedding for item $v_ {i,m}$ and $\boldsymbol{p}_ m\in\mathbb{R}^d$ is learnable 
 position embeddings for the $m$-th position. Then $L_ {attn}$ layers of self-attention (with residual connections) are applied on the instance-level sequence $S_ {i,0}^{instance}$:
 
 $
@@ -193,23 +193,23 @@ $
 The final instance-level embedding is calculated by summing over the elements of the final sequence $S_ {i,L_ {attn}}^{instance}$:
 
 $
-\bm{\tilde e}_ i^{(u)} = \sum  S_ {i,L_ {attn}}^{instance} 
+\boldsymbol{\tilde e}_ i^{(u)} = \sum  S_ {i,L_ {attn}}^{instance} 
 $
 
 **Predicting Future user-item interactions** The prediction for new user-item interactions $\mathcal{\hat A}_ {T+1,i,j}$ for user $u_ i$ and item $v_ j$
 is now computed using the long-term embeddings (which implicitly uses the short-term embeddings):
 
 $
-\mathcal{\hat A}_ {T+1,i,j} = \left(\bm{\bar e}_ i^{(u)} + \bm{\tilde e}_ i^{(u)} \right)^{\mathsf{T}} \cdot \bm{\bar e}_ j^{(v)} 
+\mathcal{\hat A}_ {T+1,i,j} = \left(\boldsymbol{\bar e}_ i^{(u)} + \boldsymbol{\tilde e}_ i^{(u)} \right)^{\mathsf{T}} \cdot \boldsymbol{\bar e}_ j^{(v)} 
 $
 
 They optimize with the following loss function (to prevent predicted values from becoming arbitrarily large):
 
 $
-\mathcal{L}_{recom}\left(\mathcal{ A}_ {T+1,i,j},\mathcal{\hat A}_ {T+1,i,j}\right) = \sum_ {i = 1}^I\sum_ {k=1}^{N_ {pr}} \max\left(0,1 -\mathcal{\hat A}_ {T+1,i,p_ {k}} + \mathcal{\hat A}_ {T+1,i,n_ k} \right)
+\mathcal{L}_ {recom} \left(\mathcal{A}_ {T+1,i,j},\mathcal{\hat A}_ {T+1,i,j}\right) = \sum_ {i = 1}^I \sum_ {k=1}^{N_ {pr}} \max \left(0,1 -\mathcal{\hat A}_ {T+1,i,p_ {k}} + \mathcal{\hat A}_ {T+1,i,n_ k} \right)
 $
 
-where $N _{pr}$ is the number of samples and $p_ k$ and $n_ k$ is the $k$-th
+where $N_ {pr}$ is the number of samples and $p_ k$ and $n_ k$ is the $k$-th
 positive (user-interaction) and negative (no user-interaction) item index respectively. 
 
 ### 4.3 *Denoising short-term user-item interactions*
@@ -218,7 +218,7 @@ interaction patterns they often contain noisy data. Here *noise* refers to any t
 or misclicks, which cannot be considered as long-term user interests or new recent points of interest for predictions (Liu et al. 2024). An example of this is
 when an Aunt buys Modern Warfare III for their nephew for Christmas as this interaction does not reflect user $u_ {Aunt}$'s interests. Other examples are simple misclicks or situations where
 you click on something expecting it to be a different thing. Thus to *denoise* these noisy short-term user-item interactions Liu et al. (2024) propose to use filter them using long-term interactions.
-Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i'},v_ {j'})$ from the short-term graphs $\bm{\mathcal{A}}_t$ and calculate the likelihood $s_ {t,i,j}, \bar{s}_ {i,j},s_ {t,i',j'}, \bar{s}_ {i',j'} \in\mathbb{R}$ that user $u_ i$/$u_ {i'}$ interacts with item $v_ j$/$v _ {j'}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i',j'}, \bar{s}_ {i',j'}$ are calculated in the same way):
+Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i'},v_ {j'})$ from the short-term graphs $\boldsymbol{\mathcal{A}}_ {t}$ and calculate the likelihood $s_ {t,i,j}, \bar{s}_ {i,j},s_ {t,i',j'}, \bar{s}_ {i',j'} \in\mathbb{R}$ that user $u_ i$/$u_ {i'}$ interacts with item $v_ j$/$v _ {j'}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i',j'}, \bar{s}_ {i',j'}$ are calculated in the same way):
 
 $
 s_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(e_ {t,i,k}^{(u)}\cdot e_ {t,j,k}^{(v)}\right),\quad \bar{s}_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(\bar{e}_ {i,k}^{(u)}\cdot \bar{e}_ {t,j,k}^{(v)}\right) 
@@ -233,17 +233,17 @@ $
 With learnable stabilty weigths $w_ {t,i'},w_ {t,i'}\in\mathbb{R}$ calculated using the short and long-term embeddings:
 
 $
-w_ {t,i} = \text{Sigmoid}\left(\bm{\Gamma}_ {t,i} \cdot\bm{W}_2 + b_2\right)
+w_ {t,i} = \text{Sigmoid}\left(\boldsymbol{\Gamma}_ {t,i} \cdot\boldsymbol{W}_2 + b_2\right)
 $
 
 $
-\bm{\Gamma}_ {t,i} = \text{LeakyReLU}\left(\left(\bm{\bar{e}}^{(u)}_ i + \bm{{e}}^{(u)}_ {t,i} + \bm{\bar{e}}^{(u)}_ i\odot\bm{{e}}^{(u)}_ {t,i}  \right)\bm{W}_1 + \bm{b}_1\right)
+\boldsymbol{\Gamma}_ {t,i} = \text{LeakyReLU} \left( \left( \boldsymbol{\bar{e}}^{(u)}_ {i} + \boldsymbol{e}^{(u)}_ {t,i} + \boldsymbol{\bar{e}}^{(u)}_ {i} \odot \boldsymbol{e}^{(u)}_ {t,i}  \right) \boldsymbol{W}_ {1} + \boldsymbol{b}_ {1} \right)
 $
 
-With learnable parameters $\bm{W}_1\in\mathbb{R}^{d\times d_ {SSL}}$, $\bm{W}_2\in\mathbb{R}^{d_ {SSL}\times 1}$, $\bm{b}_1\in\mathbb{R}^{d_ {SSL}}$, and ${b}_2\in\mathbb{R}$. Thus the final learning objective becomes:
+With learnable parameters $\boldsymbol{W}_ {1}\in\mathbb{R}^{d\times d_ {SSL}}$, $\boldsymbol{W}_ {2}\in\mathbb{R}^{d_ {SSL}\times 1}$, $\boldsymbol{b}_ {1}\in\mathbb{R}^{d_ {SSL}}$, and ${b}_ {2}\in\mathbb{R}$. Thus the final learning objective becomes:
 
 $
-\mathcal{L} = \mathcal{L}_{recom} + \lambda_ 1\mathcal{L}_ {SSL} + \lambda_ 2\cdot \|\Theta\|_ F^2
+\mathcal{L} = \mathcal{L}_ {recom} + \lambda_ {1}\mathcal{L}_ {SSL} + \lambda_ {2}\cdot \vert \Theta\vert _ F^2
 $
 
 For weight-importance parameters $\lambda_1$ and $\lambda_2$. The complete procedure is shown in Figure 1.

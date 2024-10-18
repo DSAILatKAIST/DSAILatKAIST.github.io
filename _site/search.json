@@ -56,6 +56,15 @@
 ,
 
 {
+"title": "Paper reviews on DS535 (2024)",
+"tags": "",
+"keywords": "reviews",
+"url": "reviews_DS535_2024.html",
+"summary": "Archive to save the reviews from DS535 (2024F)"
+}
+,
+
+{
 "title": "Paper reviews on KSE801 (2022F)",
 "tags": "",
 "keywords": "reviews",
@@ -260,6 +269,16 @@
 "tags": "reviews",
 "keywords": "",
 "url": "2024-10-13-Generative_Flow_Network_for_Listwise_Recommendation.html",
+"summary": ""
+}
+,
+
+
+{
+"title": "[AAAI-24] GINSD Source Detection in Graphs with Incomplete Nodes via Positional Encoding and Attentive Fusion",
+"tags": "reviews",
+"keywords": "",
+"url": "2024-10-13-GINSD_Source_Detection_in_Graphs_with_Incomplete_Nodes_via_Positional_Encoding_and_Attentive_Fusion.html",
 "summary": ""
 }
 ,

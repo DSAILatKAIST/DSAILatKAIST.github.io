@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -538,7 +552,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>Meta-Feat Padding(MetaFP)은 raw features 주위에 padding을 함으로써 다양한 downstream dimension을 다룰 수 있게 하는 것을 목표로 하고 있고, 이는 노드 레벨 <strong>[5]</strong> 의 adversarial perturbation을 기반으로 하고 있습니다. 즉 MetaFP는 heterogenous dimension을 해결하기 위한 method로 볼 수 있습니다. 다음은 padding feature를 만드는 수식인데, (x,y)는 각각 downstream graph feature와 대응되는 label이며, 이들은 downstream data distribution을 따릅니다.</p>
 
-<p>$\min_{\delta_{\text{padding}}} \, \mathbb{E}<em>{(x, y) \sim \mathcal{D}} \left[ \mathcal{L}</em>{\text{downstream}} \left( \text{GNN}<em>{\text{pre-trained}} \left[ x \parallel \delta</em>{\text{padding}} \right], y \right) \right]$</p>
+<p>$\min_ {\delta_ {\text{padding}}} \, \mathbb{E}_ {(x, y) \sim \mathcal{D}} \left[ \mathcal{L}_ {\text{downstream}} \left( \text{GNN}_ {\text{pre-trained}} \left[ x \parallel \delta_ {\text{padding}} \right], y \right) \right]$</p>
 
 <p>Raw input feature인 x와 optimised padding feature를 concat하여 feature padding을 수행하고, label y와 비교하며 loss를 minimise함으로써 학습하게 됩니다. 즉 downstream task의 feature dimension을 pre-trained GNN model과 일치시킬 뿐만 아니라 loss function을 동시에 minimise 하기에, downstream performance를 향상시킬 수 있습니다. 참고로 저자는 optimised padding을 생성하는데까지 하나 혹은 몇 개의 epoch만이 필요하다고 하고 있습니다.</p>
 
@@ -546,18 +560,10 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>Edge-slimming 같은 경우, 엣지 레벨 <strong>[5]</strong> 의 adversarial perturbation을 기반으로 heterogenous(이질적인) 차원을 고려할 필요가 없을 때, homogenous(동질적인) 차원에서 접근하는 방식을 제안하는 방법입니다. 노드 수준의 방해 요소에서 벗어나, downstream graph data에서 raw node feature를 변경하지 않고 노드 연결을 수정함으로써 resource 측면에서의 효율적인 model reusing을 달성하는 것을 목표로 하고 있습니다. 다음 수식은 EdgSlim의 알고리즘 과정인데, 이를 최적화함으로써 downstream task의 손실을 줄일 수 있습니다.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$\min_{{u_i, v_i}<em>{i=1}^m} \sum</em>{i=1}^{m} \left</td>
-      <td>\frac{\partial \mathcal{L}<em>{\text{downstream}}}{\partial \alpha</em>{u_i, v_i}} \right</td>
-      <td>$</td>
-    </tr>
-  </tbody>
-</table>
+<p>$\min_ {{u_i, v_i}_ {i=1}^m} \sum_ {i=1}^{m} \left\vert \frac{\partial \mathcal{L}_ {\text{downstream}}}{\partial \alpha_ {u_i, v_i}} \right\vert$</p>
 
-<p>s.t : $\widetilde{\mathcal{G}} = \text{Modify} \left( \mathcal{G}, {\alpha_{u_i, v_i}}<em>{i=1}^m \right)$
-$= \left( \mathcal{G} \setminus {u_i, v_i} \right), \text{if} \, \frac{\partial \mathcal{L}</em>{\text{downstream}}}{\partial \alpha_{u_i, v_i}} &gt; 0$</p>
+<p>s.t : $\widetilde{\mathcal{G}} = \text{Modify} \left( \mathcal{G}, {\alpha_ {u_ i, v_ i}}_ {i=1}^m \right)$
+$= \left( \mathcal{G} \setminus {u_ i, v_ i} \right), \text{if} \, \frac{\partial \mathcal{L}_ {\text{downstream}}}{\partial \alpha_ {u_ i, v_ i}} &gt; 0$</p>
 
 <p>위 loss function을 $\alpha_{u_i, v_i}$ 에 대해 미분을 하는데 이는 edge gradient를 나타내며, 이때 0보다 큰 downstream graph에 있는 edge를 순차적으로 큰 순서대로 제거하게 됩니다. 단순히 불필요한 edge를 제거하는 것만으로도 downstream loss를 최소화할 수 있습니다. 또한 학습 속도 향상, 모델의 간소화 그리고 과적합 방지를 가능하게 하고, 반대로 0보다 작은 기울기를 제거하면 안 되는 이유는 noise나 모델을 향상시키기 위한 정보들을 놓칠 수 있기 때문입니다. EdgSlim 최적화 과정 또한 빠르게 수렴하기에 resource 측면에서 효율적이라고 볼 수 있습니다.</p>
 
@@ -581,7 +587,8 @@ $= \left( \mathcal{G} \setminus {u_i, v_i} \right), \text{if} \, \frac{\partial 
 
 <p>실험을 각각 살펴보기 앞서, 저자들은 진행되는 실험에 대해 State-Of-The-Art 성능을 달성하는 것이 목표가 아닌 한정된 계산 및 컨디션에서 최대한 다양한 downstream task에서 우수한 성능을 도출해 내는 것이 목표 라고 말하고 있습니다. 14개의 공개된 benchmarks를 소개하였는데, 세부사항은 다음과 같습니다.</p>
 
-<p><img src="https://i.postimg.cc/Nj4PM9MH/Screenshot-2024-10-03-at-6-50-58-PM.png" alt="benchmarks" /> &lt;p align="center"&gt;Table 1&lt;/p&gt;</p>
+<p><img src="https://i.postimg.cc/Nj4PM9MH/Screenshot-2024-10-03-at-6-50-58-PM.png" alt="benchmarks" /></p>
+<p align="center">Table 1</p>
 
 <p>또한 모든 실험은 NVIDIA GeForce RTX 2080 Ti GPU 한대를 사용하여 수행하고 있습니다.</p>
 
@@ -591,8 +598,9 @@ $= \left( \mathcal{G} \setminus {u_i, v_i} \right), \text{if} \, \frac{\partial 
 
 <p>첫번째는 node classification task에 대한 결과입니다.</p>
 
-<p><img src="https://i.postimg.cc/g0xqWn6d/2.png" alt="exp1" />&lt;p align="center"&gt;Table 2&lt;/p&gt;
-본 실험은 Citeseer dataset으로 사전 훈련을 하고, 다양한 heterogenous dimension을 가진 데이터셋에 대해 사전 훈련된 모델을 적용한 결과입니다. MetaFP는 모델을 retraining을 하지 않고 진행하였기 때문에, retraining을 한 모델들보다 성능이 살짝 못미치지만 비교할 수 있을 만한 성능을 보여주고 있습니다. 특히 MERE의 ReAgg approach를 더해준 결과, MetaFP만을 사용한 결과보다 평균적으로 2.3% 향상된 모습을 보여주고 있습니다. Cora 데이터셋 같은 경우 ReAgg 방법을 사용했을 시 결과가 조금 하락하는 것을 볼 수 있는데, 이는 Citseer와 Cora 데이터셋이 모두 computer science domain의 데이터 셋으로 domain 차이가 나지 않아 ReAgg 방법이 효과적이지 않는 것을 볼 수 있습니다.</p>
+<p><img src="https://i.postimg.cc/g0xqWn6d/2.png" alt="exp1" /></p>
+<p align="center">Table 2</p>
+<p>본 실험은 Citeseer dataset으로 사전 훈련을 하고, 다양한 heterogenous dimension을 가진 데이터셋에 대해 사전 훈련된 모델을 적용한 결과입니다. MetaFP는 모델을 retraining을 하지 않고 진행하였기 때문에, retraining을 한 모델들보다 성능이 살짝 못미치지만 비교할 수 있을 만한 성능을 보여주고 있습니다. 특히 MERE의 ReAgg approach를 더해준 결과, MetaFP만을 사용한 결과보다 평균적으로 2.3% 향상된 모습을 보여주고 있습니다. Cora 데이터셋 같은 경우 ReAgg 방법을 사용했을 시 결과가 조금 하락하는 것을 볼 수 있는데, 이는 Citseer와 Cora 데이터셋이 모두 computer science domain의 데이터 셋으로 domain 차이가 나지 않아 ReAgg 방법이 효과적이지 않는 것을 볼 수 있습니다.</p>
 
 <p><img src="https://i.postimg.cc/vmx9KkpZ/3.png" alt="exp2" /></p>
 <p align="center">Table 3</p>
@@ -709,7 +717,7 @@ $= \left( \mathcal{G} \setminus {u_i, v_i} \right), \text{if} \, \frac{\partial 
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

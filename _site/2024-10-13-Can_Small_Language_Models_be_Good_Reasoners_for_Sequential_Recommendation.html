@@ -338,6 +338,20 @@
           
           
           
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
       </ul>
    </li>
      
@@ -422,7 +436,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>Rationale을 사용하여 LLaMA 7B 모델을 Instruction Tuning을 하도록 합니다. Instruction Tuning은 language modeling을 할 때 사용하는 negative log-likelihood loss term을 사용하게 되 식은 아래와 같습니다.</p>
 
-<p>$\mathcal{L}<em>{\text{distill}} = \sum</em> {u \in \mathcal{U}’} \sum_ {t=1}^{\vert r’ <em>u\vert} \log \left( P</em> {\theta} \left( r’_ {u,t} \mid p’_ {u}, r’_ {u,&lt;t} \right) \right)$</p>
+<p>$\mathcal{L}_ {\text{distill}} = \sum_ {u \in \mathcal{U}’} \sum_ {t=1}^{\vert r’_ u\vert} \log \left( P_ {\theta} \left( r’_ {u,t} \mid p’_ {u}, r’_ {u,&lt;t} \right) \right)$</p>
 
 <p>위 식에서 $\mathcal{U}’$ user 전체의 subset, $\mathcal{r’_ u}$는 Teacher에게서 얻은 user $u$에 대한 rationale 결과, $r’_ {u,t}$는 rationale 에서의 t 번째 token. 그리고 $r’_ {u,&lt;t}$ 는 $r’_ {u,t}$ 이전의 token들을 의미합니다.</p>
 
@@ -458,7 +472,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 <p>$z_ i = g_ t(z_i^{text})$</p>
 
-<p>$s_ u = g_ t(s_ u^{text})$ㅇ</p>
+<p>$s_ u = g_ t(s_ u^{text})$</p>
 
 <p>위 식에서 $g_ t$ 는 transformer layer를 의미합니다.</p>
 
@@ -547,7 +561,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

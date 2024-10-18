@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 14 Oct 2024 17:43:38 +0900</pubDate>
-        <lastBuildDate>Mon, 14 Oct 2024 17:43:38 +0900</lastBuildDate>
+        <pubDate>Fri, 18 Oct 2024 20:35:34 +0900</pubDate>
+        <lastBuildDate>Fri, 18 Oct 2024 20:35:34 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -27,15 +27,15 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 
 &lt;ol&gt;
   &lt;li&gt;$initialize(q)$&lt;/li&gt;
-  &lt;li&gt;$get_relations(E_{selected})$&lt;/li&gt;
-  &lt;li&gt;$get_edges(E_{selected}, r)$&lt;/li&gt;
+  &lt;li&gt;$get$_$relations(E_{selected})$&lt;/li&gt;
+  &lt;li&gt;$get$_$edges(E_{selected}, r)$&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;$initialize(q)$는 query $q$가 입력으로 주어졌을 때, KG $K$에서 $q$에 포함된 entity를 추출하여 subgraph를 initialize하는 함수이다. 예를 들어 “What actor played in both Inception and Interstellar?”라는 query가 주어졌을 때, label이 ‘Inception’인 entity와 ‘Interstellar’인 entity를 추출하여 entity가 두 개인 subgraph를 생성한다.&lt;/p&gt;
 
-&lt;p&gt;다음으로 $get_relations(E_{selected})$는 entity set $E_{selected}$가 주어졌을 때, 해당 entity와 관련된 relation type을 추출하여 relation set $R_{options}$를 출력하는 함수이다. 수학적으로 $R_{options}={r\mid(s, r, o)\in T, s\in E_{selected}}$와 같이 표현할 수 있다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}가 주어졌을 때, {‘cast’, ‘director’}가 출력된다.&lt;/p&gt;
+&lt;p&gt;다음으로 $get$_$relations(E_{selected})$는 entity set $E_{selected}$가 주어졌을 때, 해당 entity와 관련된 relation type을 추출하여 relation set $R_{options}$를 출력하는 함수이다. 수학적으로 $R_{options}={r\mid(s, r, o)\in T, s\in E_{selected}}$와 같이 표현할 수 있다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}가 주어졌을 때, {‘cast’, ‘director’}가 출력된다.&lt;/p&gt;
 
-&lt;p&gt;마지막으로 $get_edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다.&lt;/p&gt;
+&lt;p&gt;마지막으로 $get$_$edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-action-state-machine-asm&quot;&gt;2.2 Action State Machine (ASM)&lt;/h3&gt;
 &lt;p&gt;LLM의 답변 과정에 KG의 지식을 고려하기 위해 과거에는 KG를 prompt에 함께 제공하는 in-context learning 기법을 시도했다. 하지만 LLM의 token 제한 때문에 크기가 큰 KG를 모두 prompt에 제공하기는 어려웠고, LLM이 KG에서 필요한 정보를 추출하는 데 어려움이 있었다. 이 문제를 해결하기 위해 본 논문에서는 KG subgraph를 추출하는데, 이때 단계별로 확장을 수행하고 각 단계마다 LLM의 판단을 거치며 KG를 점차 확장해나간다.&lt;/p&gt;
@@ -58,7 +58,7 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 &lt;p&gt;Chain-of-Traversals는 Tree-of-Traversals의 일종으로 k개의 action을 샘플링할 때 k가 1인 경우에 해당한다. 따라서 방문하지 않은 노드가 하나만 존재하게 되고, 노드 중에서 점수에 따라 선택하는 대신에 확정적으로 노드를 방문한다. 이후의 실험 결과에서 Chain-of-Traversals와 Tree-of-Traversals의 question answering 성능을 비교한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;24-tree-of-traversals-with-multiple-kgs&quot;&gt;2.4 Tree-of-Traversals with Multiple KGs&lt;/h3&gt;
-&lt;p&gt;Tree-of-Traversals 알고리즘에서 여러 개의 KG를 고려하기 위해 우선 각각의 KG에 KG interface를 만든다. 또한 알고리즘에 몇 가지 변화가 있다. 각각의 KG $initialize(q)$ 함수로부터 중복으로 동일한 entity가 추출되지 않도록 하고, $get_relations(E_{selected})$ 함수에서 모든 KG로부터 해당하는 relation이 출력되도록 하며 $get_edges(E_{selected}, r)$ 함수를 통해 새로운 노드가 추가될 때 기존 노드와 새로운 노드 간의 edge가 존재하는지 모든 KG에 대해 확인하도록 한다.&lt;/p&gt;
+&lt;p&gt;Tree-of-Traversals 알고리즘에서 여러 개의 KG를 고려하기 위해 우선 각각의 KG에 KG interface를 만든다. 또한 알고리즘에 몇 가지 변화가 있다. 각각의 KG $initialize(q)$ 함수로부터 중복으로 동일한 entity가 추출되지 않도록 하고, $get$_$relations(E_{selected})$ 함수에서 모든 KG로부터 해당하는 relation이 출력되도록 하며 $get$_$edges(E_{selected}, r)$ 함수를 통해 새로운 노드가 추가될 때 기존 노드와 새로운 노드 간의 edge가 존재하는지 모든 KG에 대해 확인하도록 한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-experiments&quot;&gt;3. Experiments&lt;/h2&gt;
 &lt;p&gt;Tree-of-Traversals 알고리즘에서 사용할 LLM으로는 Amazon Bedrock에서 API를 통해 이용할 수 있는 Claude-Instant, Llama2 70b, Llama2 13b를 사용한다. 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 question answering task를 수행한다. 이때 metric으로 Exact Match Included (EM-in)을 사용하는데, 생성한 답변에 정답 답변이 모두 포함되어 있으면 1, 그렇지 않다면 0이다. EM-in은 EM과 다르게 생성한 답변과 정답 답변이 완전히 일치하지 않아도 되는데, LLM이 응답을 생성할 때 다양한 문장 구조와 구문을 사용할 수 있다는 점과 일반적으로 LLM의 답변에 정답 이외에 부가 설명이 추가된다는 점을 고려할 때 더 적합한 metric이다.&lt;/p&gt;
@@ -142,25 +142,25 @@ patterns with long-term dependencies thus making the model robust to noisy data 
 &lt;p&gt;Message Passing is the central process of Graph Convolution Networks (GCN)
 to encode graph information such as nodes~\cite{Kipf}. The core idea is to send &lt;em&gt;messages&lt;/em&gt; of 
 information between the nodes to iteratively update the encoded node representations~\cite{Kipf}. In this paper (Lie et al. 2024)
-were inspired by LightGCN~\cite{LightGCN} where each user-node $\bm{e}_ {u}^{(k)}$ and item-node $\bm{e}_ {i}^{(k)}$ 
+were inspired by LightGCN~\cite{LightGCN} where each user-node $\boldsymbol{e}_ {u}^{(k)}$ and item-node $\boldsymbol{e}_ {i}^{(k)}$ 
 encoding are updated by the weighted sum of their neighboring nodes:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{e}_ {u}^{(k+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert}\sqrt{\vert\mathcal{N}_ i\vert}}\bm{e}_ {i}^{(k)}
+\boldsymbol{e}_ {u}^{(k+1)} = \sum_ {i\in\mathcal{N}_ u} \frac{1}{\sqrt{\vert\mathcal{N}_ u\vert}\sqrt{\vert\mathcal{N}_ i\vert}}\boldsymbol{e}_ {i}^{(k)}
 $&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\bm{e}_ {u}^{(k)}
+\boldsymbol{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\boldsymbol{e}_ {u}^{(k)}
 $&lt;/p&gt;
 
-&lt;p&gt;Where $\bm{e}_ {u}^{(0)}$ and $\bm{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.&lt;/p&gt;
+&lt;p&gt;Where $\boldsymbol{e}_ {u}^{(0)}$ and $\boldsymbol{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.&lt;/p&gt;
 &lt;h3 id=&quot;32-self-attention&quot;&gt;&lt;em&gt;3.2 Self-Attention&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;Another key operation for propagating information which has seen increased popularity for graph-based learning is 
-self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\bm{X} \in \mathbb{R}^{n\times d}$ to 
-the &lt;em&gt;query&lt;/em&gt;, &lt;em&gt;key&lt;/em&gt; and &lt;em&gt;value&lt;/em&gt; subspace using (the learned) projection matrices $\bm{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\bm{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\bm{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:&lt;/p&gt;
+self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\boldsymbol{X} \in \mathbb{R}^{n\times d}$ to 
+the &lt;em&gt;query&lt;/em&gt;, &lt;em&gt;key&lt;/em&gt; and &lt;em&gt;value&lt;/em&gt; subspace using (the learned) projection matrices $\boldsymbol{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\boldsymbol{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\boldsymbol{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:&lt;/p&gt;
 
 &lt;p&gt;$
-\text{Attn}(\bm{X}) = \text{Softmax}\left(\frac{\bm{XW}_ Q(\bm{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\bm{XW} &lt;em&gt;V = \text{Softmax}\left(\frac{\bm{QK}^\mathsf{T}}{\sqrt{d&lt;/em&gt; K}}\right)\bm{V} 
+\text{Attn}(\boldsymbol{X}) = \text{Softmax}\left(\frac{\boldsymbol{XW}_ {Q}(\boldsymbol{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{XW}_ V = \text{Softmax}\left(\frac{\boldsymbol{QK}^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{V} 
 $&lt;/p&gt;
 &lt;h3 id=&quot;33-validation-metrics&quot;&gt;&lt;em&gt;3.3 Validation Metrics&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;To validate the effectiveness of their proposed method, (Liu et al. 2024) use the Hit Rate (HR)@N and Normalized
@@ -173,61 +173,61 @@ then normalize it using the Idealized discounted cumulative gain (IDCG) (&lt;a h
 For a user with predicted item ranking-position order $p_ i$ and ground-truth item-relevance $r_ i$ DCG@N is computed as:&lt;/p&gt;
 
 &lt;p&gt;$
-DCG@N = \sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}
+DCG@N = \sum_ {i = 1}^N \frac{r_ i}{\log (p_ {i} +1)}
 $&lt;/p&gt;
 
 &lt;p&gt;The idea of NDCG is to normalize the DCG with the &lt;em&gt;ideal&lt;/em&gt; discounted cumulative gain (IDCG). 
 The equation for IDCG is almost equivalent to that of DCG, however, we just assume
-that the item positions $p &lt;em&gt;i$ are ordered according to their relevance $r&lt;/em&gt; i$. This way,
+that the item positions $p_ i$ are ordered according to their relevance $r_ i$. This way,
 the IDCG represents the best possible ranking order the recommender could produce. With this in mind,
 the final equation for NDCG is:&lt;/p&gt;
 
 &lt;p&gt;$
-NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p’_ i +1)}} \in [0,1]
+NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p’_ {i} +1)}} \in [0,1]
 $&lt;/p&gt;
 
 &lt;p&gt;In the paper by Liu et al. they set $N = {10,20}$ for both HR@N and NDCG@N.&lt;/p&gt;
 &lt;h2 id=&quot;4-method&quot;&gt;&lt;strong&gt;4. Method&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Given the set of users $\mathcal{U} = {u_ 1,\dots, u_ I}$ with $\vert\mathcal{U}\vert = I$ and the set of 
 items $\mathcal{V} = {v_ i,\dots,v_ J}$ where $\vert\mathcal{V}\vert = J$ the time-dependent adjacency matrix
-$\bm{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
-discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t &lt;em&gt;b$ and $t&lt;/em&gt; e$ is the 
+$\boldsymbol{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
+discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t_ b$ and $t_ e$ is the 
 first (beginning) and last (end) observed time stamp. Thus in other words, ${\mathcal{A}}_ {t,i,j}$ is 
-set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving ${\bm{\mathcal{A}}_ {t}| 1\leq t \leq T}$ the objective
-is to predict future user-item interactions $\bm{\mathcal{A}_{T+1}}$. Formally, they define the objective as:&lt;/p&gt;
+set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving ${\boldsymbol{\mathcal{A}}_ {t}| 1\leq t \leq T}$ the objective
+is to predict future user-item interactions $\boldsymbol{\mathcal{A}_{T+1}}$. Formally, they define the objective as:&lt;/p&gt;
 
 &lt;p&gt;$
-\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}&lt;em&gt;{recom}\left(\bm{\mathcal{\hat{A}}&lt;/em&gt; {T+1}},\bm{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\bm{E}_ s,\bm{E}_ l)
+\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}_ {recom}\left(\boldsymbol{\mathcal{\hat{A}}_ {T+1}},\boldsymbol{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\boldsymbol{E}_ s,\boldsymbol{E}_ l)
 $&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{\mathcal{\hat{A}}_ {T+1}} = f\left(\bm{E}_ s,\bm{E}_ l\right)\quad \bm{E}_ s,\bm{E}_ l = g({\bm{\mathcal{A}}_t})
+\boldsymbol{\mathcal{\hat{A}}_ {T+1}} = f\left(\boldsymbol{E}_ s,\boldsymbol{E}_ l\right)\quad \boldsymbol{E}_ s,\boldsymbol{E}_ l = g({\boldsymbol{\mathcal{A}}_t})
 $&lt;/p&gt;
 
-&lt;p&gt;Where $\mathcal{L}&lt;em&gt;{recom}$ is the recommendation error between the true and predicted user-item interactions $\bm{\mathcal{A}&lt;/em&gt; {T+1}}$ and $\bm{\mathcal{\hat{A}}_ {T+1}}$, respectively.
-$\mathcal{L}&lt;em&gt;{att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\bm{E}&lt;/em&gt; l,\bm{E}_ s$ which are encoded using the sequential data and encoder $g$.
-Lastly, the estimated predictions $\bm{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.&lt;/p&gt;
+&lt;p&gt;Where $\mathcal{L}_ {recom}$ is the recommendation error between the true and predicted user-item interactions $\boldsymbol{\mathcal{A}_ {T+1}}$ and $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$, respectively.
+$\mathcal{L}_ {att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\boldsymbol{E}_ l,\boldsymbol{E}_ s$ which are encoded using the sequential data and encoder $g$.
+Lastly, the estimated predictions $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.&lt;/p&gt;
 
 &lt;h3 id=&quot;41-encoding-short-term-user-item-interactions&quot;&gt;&lt;em&gt;4.1 Encoding Short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;The model begins by modeling the short-term interactions as these will be used throughout the whole encoding process. Inspired by LightGCN~\cite{LightGCN}, they project
-each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\bm{e}_ {t,i}^{(u)}$, $\bm{e}_ {t,j}^{(v)}$ are assembled
-to the embedding matrices $\bm{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\bm{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
+each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\boldsymbol{e}_ {t,i}^{(u)}$, $\boldsymbol{e}_ {t,j}^{(v)}$ are assembled
+to the embedding matrices $\boldsymbol{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\boldsymbol{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
 following message passing method:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{z}_ {t,i}^{(u)} = \text{LeakyReLU}\left(\mathcal{A}&lt;em&gt;{ti,{*}}\cdot \bm{E}&lt;/em&gt; t^{(v)}\right), \quad \bm{z}_ {t,j}^{(v)} = \text{LeakyReLU}\left(\mathcal{A}&lt;em&gt;{tj,{*}}\cdot \bm{E}&lt;/em&gt; t^{(u)}\right)
+\boldsymbol{z}_ {t,i}^{(u)} = \text{LeakyReLU} \left( \mathcal{A}_ {ti,{*}} \cdot \boldsymbol{E}_ t^{(v)}\right), \quad \boldsymbol{z}_ {t,j}^{(v)} = \text{LeakyReLU} \left( \mathcal{A}_ {tj,{*}} \cdot \boldsymbol{E}_ t^{(u)} \right)
 $&lt;/p&gt;
 
 &lt;p&gt;This is repeated for $L$-layers with the embeddings in the $l$-th layer defined as:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{e}_ {t,i,l}^{(u)} = \bm{z}_ {t,i,l}^{(u)}+\bm{e}_ {t,i,l-1}^{(u)},\quad \bm{e}_ {t,i,l}^{(v)} = \bm{z}_ {t,i,l}^{(v)}+\bm{e}_ {t,i,l-1}^{(v)}
+\boldsymbol{e}_ {t,i,l}^{(u)} = \boldsymbol{z}_ {t,i,l}^{(u)}+\boldsymbol{e}_ {t,i,l-1}^{(u)},\quad \boldsymbol{e}_ {t,i,l}^{(v)} = \boldsymbol{z}_ {t,i,l}^{(v)}+\boldsymbol{e}_ {t,i,l-1}^{(v)}
 $&lt;/p&gt;
 
-&lt;p&gt;Finally, all embeddings for each layer are concatenated together to form the final short-term embeddings $\bm{e}_ {t,i}^{(u)}$ and $\bm{e}_ {t,j}^{(v)}$:&lt;/p&gt;
+&lt;p&gt;Finally, all embeddings for each layer are concatenated together to form the final short-term embeddings $\boldsymbol{e}_ {t,i}^{(u)}$ and $\boldsymbol{e}_ {t,j}^{(v)}$:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{e}_ {t,i}^{(u)} = \bm{e}_ {t,i,1}^{(u)}| \dots|  \bm{e}_ {t,i,L}^{(u)},\quad\bm{e}_ {t,j}^{(v)} = \bm{e}_ {t,j,1}^{(v)}| \dots|  \bm{e}_ {t,j,L}^{(v)}
+\boldsymbol{e}_ {t,i}^{(u)} = \boldsymbol{e}_ {t,i,1}^{(u)}| \dots|  \boldsymbol{e}_ {t,i,L}^{(u)},\quad\boldsymbol{e}_ {t,j}^{(v)} = \boldsymbol{e}_ {t,j,1}^{(v)}| \dots|  \boldsymbol{e}_ {t,j,L}^{(v)}
 $&lt;/p&gt;
 
 &lt;h3 id=&quot;42-encoding-long-term-user-item-interactions&quot;&gt;&lt;em&gt;4.2 Encoding Long-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
@@ -237,46 +237,46 @@ capture dynamic changes from period to period by integrating the aforementioned 
 Second, the use &lt;em&gt;Instance-Level Sequential Pattern Modeling&lt;/em&gt; which aims to learn the pairwise relations between specific item instances directly (Liu et al. 2024).&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Interval-Level Sequential Pattern Modeling&lt;/strong&gt; To integrate short-term embeddings into long-term ones Liu et al. (2024) use the
-Gated Recurrent Unit (GRU) on the sequential short-term embeddings ${\bm{e}_ {t,i}^{(u)}}$ and ${\bm{e}_ {t,j}^{(v)}}$ for each user $u_ i$ and item $v_ j$. 
-More specifically, each hidden state $\bm{h}_ {t,i}^{(u)}$ and $\bm{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:&lt;/p&gt;
+Gated Recurrent Unit (GRU) on the sequential short-term embeddings ${\boldsymbol{e}_ {t,i}^{(u)}}$ and ${\boldsymbol{e}_ {t,j}^{(v)}}$ for each user $u_ i$ and item $v_ j$. 
+More specifically, each hidden state $\boldsymbol{h}_ {t,i}^{(u)}$ and $\boldsymbol{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:&lt;/p&gt;
 
 &lt;p&gt;$
-S_ i^{interval} = \left(\bm{h}_ {1,i}^{(u)},\dots,\bm{h}_ {T,i}^{(u)}\right),\quad S_ j^{interval} = \left(\bm{h}_ {1,j}^{(v)},\dots,\bm{h}_ {T,j}^{(v)}\right)
+S_ i^{interval} = \left(\boldsymbol{h}_ {1,i}^{(u)},\dots,\boldsymbol{h}_ {T,i}^{(u)}\right),\quad S_ j^{interval} = \left(\boldsymbol{h}_ {1,j}^{(v)},\dots,\boldsymbol{h}_ {T,j}^{(v)}\right)
 $&lt;/p&gt;
 
 &lt;p&gt;where:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{h}_ {t,i}^{(u)} = \text{GRU}\left(\bm{e}_ {t,i}^{(u)},\bm{h}_ {t-1,i}^{(u)}\right)
-,\quad \bm{h}_ {t,j}^{(v)} = \text{GRU}\left(\bm{e}_ {t,j}^{(v)},\bm{h}_ {t-1,j}^{(v)}\right)
+\boldsymbol{h}_ {t,i}^{(u)} = \text{GRU}\left(\boldsymbol{e}_ {t,i}^{(u)},\boldsymbol{h}_ {t-1,i}^{(u)}\right)
+,\quad \boldsymbol{h}_ {t,j}^{(v)} = \text{GRU}\left(\boldsymbol{e}_ {t,j}^{(v)},\boldsymbol{h}_ {t-1,j}^{(v)}\right)
 $&lt;/p&gt;
 
 &lt;p&gt;Then (multi-head dot-product) self-attention (Vaswani et al. 2017) is applied for the interval-level sequences to uncover the temporal patterns:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \bm{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
+\boldsymbol{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \boldsymbol{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
 $
 Which finally, are summed across time:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{\bar e}_ i^{(u)} = \sum_ {t=1}^T \bm{\bar H}_ {i,t}^{(u)},\quad \bm{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \bm{\bar H}_ {j,t}^{(v)}
+\boldsymbol{\bar e}_ i^{(u)} = \sum_ {t=1}^T \boldsymbol{\bar H}_ {i,t}^{(u)},\quad \boldsymbol{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \boldsymbol{\bar H}_ {j,t}^{(v)}
 $&lt;/p&gt;
 
-&lt;p&gt;Where $\bm{\bar e}_ i,\bm{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
+&lt;p&gt;Where $\boldsymbol{\bar e}_ i,\boldsymbol{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
 Note, that while the short-term embeddings are dependent on the given time-interval $t$ the long-term embeddings are independent of $t$ as 
 while the long-term as $t$ is effectively integrated out.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Instance-Level Sequential Pattern Modeling&lt;/strong&gt; However, interval-level embeddings are not the only long-term embeddings used in the SelfGNN.
 The model also uses instance-level sequential patterns by applying self-attention directly over
 sequences containing users’ interacted item instances (Liu et al. 2024). Given a user $u_ i$ they denote
-the $m$’th interacted item for set user as $v &lt;em&gt;{i,m}$ for $m = {1,\dots,M}$ (for a set maximum interaction length $M$).
-Then the sequences of items user $u&lt;/em&gt; i$ interacted with can be modeled as:&lt;/p&gt;
+the $m$’th interacted item for set user as $v_ {i,m}$ for $m = {1,\dots,M}$ (for a set maximum interaction length $M$).
+Then the sequences of items user $u_ i$ interacted with can be modeled as:&lt;/p&gt;
 
 &lt;p&gt;$
-S_ {i,0}^{instance} = \left(\bm{\bar e}_ {v_ {i,1}}^{(v)}+ \bm{p}_ 1,\dots,\bm{\bar e}_ {v_ {i,M}}^{(v)} + \bm{p}_ M\right) 
+S_ {i,0}^{instance} = \left(\boldsymbol{\bar e}_ {v_ {i,1}}^{(v)}+ \boldsymbol{p}_ 1,\dots,\boldsymbol{\bar e}_ {v_ {i,M}}^{(v)} + \boldsymbol{p}_ M\right) 
 $&lt;/p&gt;
 
-&lt;p&gt;Where $\bm{\bar e}_ {v_ {i,m}}^{(v)} \in\mathbb{R}^d$ is the aforementioned long-term embedding for item $v_ {i,m}$ and $\bm{p}_ m\in\mathbb{R}^d$ is learnable 
+&lt;p&gt;Where $\boldsymbol{\bar e}_ {v_ {i,m}}^{(v)} \in\mathbb{R}^d$ is the aforementioned long-term embedding for item $v_ {i,m}$ and $\boldsymbol{p}_ m\in\mathbb{R}^d$ is learnable 
 position embeddings for the $m$-th position. Then $L_ {attn}$ layers of self-attention (with residual connections) are applied on the instance-level sequence $S_ {i,0}^{instance}$:&lt;/p&gt;
 
 &lt;p&gt;$
@@ -286,23 +286,23 @@ $&lt;/p&gt;
 &lt;p&gt;The final instance-level embedding is calculated by summing over the elements of the final sequence $S_ {i,L_ {attn}}^{instance}$:&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{\tilde e}_ i^{(u)} = \sum  S_ {i,L_ {attn}}^{instance} 
+\boldsymbol{\tilde e}_ i^{(u)} = \sum  S_ {i,L_ {attn}}^{instance} 
 $&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Predicting Future user-item interactions&lt;/strong&gt; The prediction for new user-item interactions $\mathcal{\hat A}_ {T+1,i,j}$ for user $u_ i$ and item $v_ j$
 is now computed using the long-term embeddings (which implicitly uses the short-term embeddings):&lt;/p&gt;
 
 &lt;p&gt;$
-\mathcal{\hat A}_ {T+1,i,j} = \left(\bm{\bar e}_ i^{(u)} + \bm{\tilde e}_ i^{(u)} \right)^{\mathsf{T}} \cdot \bm{\bar e}_ j^{(v)} 
+\mathcal{\hat A}_ {T+1,i,j} = \left(\boldsymbol{\bar e}_ i^{(u)} + \boldsymbol{\tilde e}_ i^{(u)} \right)^{\mathsf{T}} \cdot \boldsymbol{\bar e}_ j^{(v)} 
 $&lt;/p&gt;
 
 &lt;p&gt;They optimize with the following loss function (to prevent predicted values from becoming arbitrarily large):&lt;/p&gt;
 
 &lt;p&gt;$
-\mathcal{L}&lt;em&gt;{recom}\left(\mathcal{ A}&lt;/em&gt; {T+1,i,j},\mathcal{\hat A}_ {T+1,i,j}\right) = \sum_ {i = 1}^I\sum_ {k=1}^{N_ {pr}} \max\left(0,1 -\mathcal{\hat A}_ {T+1,i,p_ {k}} + \mathcal{\hat A}_ {T+1,i,n_ k} \right)
+\mathcal{L}_ {recom} \left(\mathcal{A}_ {T+1,i,j},\mathcal{\hat A}_ {T+1,i,j}\right) = \sum_ {i = 1}^I \sum_ {k=1}^{N_ {pr}} \max \left(0,1 -\mathcal{\hat A}_ {T+1,i,p_ {k}} + \mathcal{\hat A}_ {T+1,i,n_ k} \right)
 $&lt;/p&gt;
 
-&lt;p&gt;where $N &lt;em&gt;{pr}$ is the number of samples and $p&lt;/em&gt; k$ and $n_ k$ is the $k$-th
+&lt;p&gt;where $N_ {pr}$ is the number of samples and $p_ k$ and $n_ k$ is the $k$-th
 positive (user-interaction) and negative (no user-interaction) item index respectively.&lt;/p&gt;
 
 &lt;h3 id=&quot;43-denoising-short-term-user-item-interactions&quot;&gt;4.3 &lt;em&gt;Denoising short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
@@ -311,7 +311,7 @@ interaction patterns they often contain noisy data. Here &lt;em&gt;noise&lt;/em&
 or misclicks, which cannot be considered as long-term user interests or new recent points of interest for predictions (Liu et al. 2024). An example of this is
 when an Aunt buys Modern Warfare III for their nephew for Christmas as this interaction does not reflect user $u_ {Aunt}$’s interests. Other examples are simple misclicks or situations where
 you click on something expecting it to be a different thing. Thus to &lt;em&gt;denoise&lt;/em&gt; these noisy short-term user-item interactions Liu et al. (2024) propose to use filter them using long-term interactions.
-Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i’},v_ {j’})$ from the short-term graphs $\bm{\mathcal{A}}&lt;em&gt;t$ and calculate the likelihood $s&lt;/em&gt; {t,i,j}, \bar{s}_ {i,j},s_ {t,i’,j’}, \bar{s}_ {i’,j’} \in\mathbb{R}$ that user $u_ i$/$u_ {i’}$ interacts with item $v_ j$/$v _ {j’}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i’,j’}, \bar{s}_ {i’,j’}$ are calculated in the same way):&lt;/p&gt;
+Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i’},v_ {j’})$ from the short-term graphs $\boldsymbol{\mathcal{A}}_ {t}$ and calculate the likelihood $s_ {t,i,j}, \bar{s}_ {i,j},s_ {t,i’,j’}, \bar{s}_ {i’,j’} \in\mathbb{R}$ that user $u_ i$/$u_ {i’}$ interacts with item $v_ j$/$v _ {j’}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i’,j’}, \bar{s}_ {i’,j’}$ are calculated in the same way):&lt;/p&gt;
 
 &lt;p&gt;$
 s_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(e_ {t,i,k}^{(u)}\cdot e_ {t,j,k}^{(v)}\right),\quad \bar{s}_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(\bar{e}_ {i,k}^{(u)}\cdot \bar{e}_ {t,j,k}^{(v)}\right) 
@@ -326,17 +326,17 @@ $&lt;/p&gt;
 &lt;p&gt;With learnable stabilty weigths $w_ {t,i’},w_ {t,i’}\in\mathbb{R}$ calculated using the short and long-term embeddings:&lt;/p&gt;
 
 &lt;p&gt;$
-w_ {t,i} = \text{Sigmoid}\left(\bm{\Gamma}_ {t,i} \cdot\bm{W}_2 + b_2\right)
+w_ {t,i} = \text{Sigmoid}\left(\boldsymbol{\Gamma}_ {t,i} \cdot\boldsymbol{W}_2 + b_2\right)
 $&lt;/p&gt;
 
 &lt;p&gt;$
-\bm{\Gamma}_ {t,i} = \text{LeakyReLU}\left(\left(\bm{\bar{e}}^{(u)}_ i + \bm^{(u)}_ {t,i} + \bm{\bar{e}}^{(u)}_ i\odot\bm^{(u)}_ {t,i}  \right)\bm{W}_1 + \bm{b}_1\right)
+\boldsymbol{\Gamma}_ {t,i} = \text{LeakyReLU} \left( \left( \boldsymbol{\bar{e}}^{(u)}_ {i} + \boldsymbol{e}^{(u)}_ {t,i} + \boldsymbol{\bar{e}}^{(u)}_ {i} \odot \boldsymbol{e}^{(u)}_ {t,i}  \right) \boldsymbol{W}_ {1} + \boldsymbol{b}_ {1} \right)
 $&lt;/p&gt;
 
-&lt;p&gt;With learnable parameters $\bm{W}&lt;em&gt;1\in\mathbb{R}^{d\times d&lt;/em&gt; {SSL}}$, $\bm{W}&lt;em&gt;2\in\mathbb{R}^{d&lt;/em&gt; {SSL}\times 1}$, $\bm{b}&lt;em&gt;1\in\mathbb{R}^{d&lt;/em&gt; {SSL}}$, and ${b}_2\in\mathbb{R}$. Thus the final learning objective becomes:&lt;/p&gt;
+&lt;p&gt;With learnable parameters $\boldsymbol{W}_ {1}\in\mathbb{R}^{d\times d_ {SSL}}$, $\boldsymbol{W}_ {2}\in\mathbb{R}^{d_ {SSL}\times 1}$, $\boldsymbol{b}_ {1}\in\mathbb{R}^{d_ {SSL}}$, and ${b}_ {2}\in\mathbb{R}$. Thus the final learning objective becomes:&lt;/p&gt;
 
 &lt;p&gt;$
-\mathcal{L} = \mathcal{L}&lt;em&gt;{recom} + \lambda&lt;/em&gt; 1\mathcal{L}_ {SSL} + \lambda_ 2\cdot |\Theta|_ F^2
+\mathcal{L} = \mathcal{L}_ {recom} + \lambda_ {1}\mathcal{L}_ {SSL} + \lambda_ {2}\cdot \vert \Theta\vert _ F^2
 $&lt;/p&gt;
 
 &lt;p&gt;For weight-importance parameters $\lambda_1$ and $\lambda_2$. The complete procedure is shown in Figure 1.&lt;/p&gt;
@@ -632,7 +632,7 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
             &lt;p&gt;Compute the weighted vote for class $c$ is: $q_ {i,c} = \sum_ {j \in N_ i} p_ {j,c}^m$&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
-            &lt;p&gt;Normalize to get the confidence $\hat{q}&lt;em&gt;{i,c}$ is : $\hat{q}&lt;/em&gt; {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$&lt;/p&gt;
+            &lt;p&gt;Normalize to get the confidence $\hat{q}_ {i,c}$ is : $\hat{q}_ {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$&lt;/p&gt;
           &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
@@ -668,7 +668,7 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://postimg.cc/TK6QdmW0&quot; alt=&quot;Image description&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Njynxks3/overall-method.jpg&quot; alt=&quot;Image description&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;45-final-objective&quot;&gt;4.5 Final Objective&lt;/h3&gt;
 
@@ -821,26 +821,26 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 &lt;h2 id=&quot;2-proposed-model-gred-layer&quot;&gt;2. Proposed Model: GRED Layer&lt;/h2&gt;
 &lt;p&gt;Graph Recurrent Encoding by Distance(GRED)는 long range interaction을 잘 포착하면서도 효율적인 구조로서 고안된 모델이다. Transformer 대신 linear RNN을 활용하고, multiset aggergation을 통해 RNN에 넣어줄 적절한 input을 shortest-path distance 기반으로 만들어 준다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;multiset-aggregation&quot;&gt;Multiset Aggregation&lt;/h3&gt;
 &lt;p&gt;이전 layer의 output $\boldsymbol h_{u}^{(l-1)}$에 대해서, GRED는 node의 각 hop 별 이웃들의 정보를 취합하는 multiset aggregation을 먼저 수행한다.
-\(\boldsymbol{x}_{v,k}^{(l)} =\mathrm{AGG}\left( \{\!\{ \boldsymbol h_{u}^{(l-1)}\;|\;u\in\mathcal N_{k}(v) \}\!\} \right)\)
-이 결과물 $\boldsymbol{x}&lt;em&gt;{v,k}^{(l)}$ 은 노드 $v$의 $k$-hop 이웃들의 정보를 담은 representation vector이며, 이를 $k=0,\dots,K$ 에 대해 수행하여 최종적으로 $(\boldsymbol{x}&lt;/em&gt;{v,0}^{(l)},\boldsymbol{x}&lt;em&gt;{v,1}^{(l)},\dots,\boldsymbol{x}&lt;/em&gt;{v,K}^{(l)})$ 의 형태의 sequence를 얻을 수 있다. 
+$\boldsymbol{x}_ {v,k}^{(l)} =\mathrm{AGG}\left( {!{ \boldsymbol h_ {u}^{(l-1)}\;|\;u\in\mathcal N_ {k}(v) }!} \right)$
+이 결과물 $\boldsymbol{x}_ {v,k}^{(l)}$ 은 노드 $v$의 $k$-hop 이웃들의 정보를 담은 representation vector이며, 이를 $k=0,\dots,K$ 에 대해 수행하여 최종적으로 $(\boldsymbol{x}_ {v,0}^{(l)},\boldsymbol{x}_ {v,1}^{(l)},\dots,\boldsymbol{x}_ {v,K}^{(l)})$ 의 형태의 sequence를 얻을 수 있다. 
 Aggregation은 permutation-invariant neural network(DeepSet이나 GIN)의 아이디어를 활용하여 sum aggregation을 사용하며, 실제로는 다음과 같은 식으로 계산된다.
-\(\boldsymbol{x}_{v,k}^{(l)} =\mathrm{MLP}_2\left( \sum_{u\in\mathcal N_k(v)}\mathrm{MLP}_1\left( \boldsymbol h_u^{(l-1)} \right) \right)\in\mathbb R^d\)&lt;/p&gt;
+\(\boldsymbol{x}_ {v,k}^{(l)} =\mathrm{MLP}_ {2}\left( \sum_ {u\in\mathcal N_k(v)}\mathrm{MLP}_ {1}\left( \boldsymbol h_ {u}^{(l-1)} \right) \right)\in\mathbb R^d\)&lt;/p&gt;
 
 &lt;h3 id=&quot;linear-recurrent-network&quot;&gt;Linear Recurrent Network&lt;/h3&gt;
 &lt;p&gt;Linear Recurrent Network(LRU)는 SSM에서 착안한 RNN 모델로, 기존 매 update마다 있던 activation함수를 제거하여 parallel한 processing이 가능하도록 하는 효율적인 모델이다. Multiset Aggregation에서 생성된 sequence는 LRU의 각 step으로 다음과 같이 입력된다.
-\(\boldsymbol{s}_{v,k}^{(l)}=\boldsymbol A\boldsymbol{s}_{v,k-1}^{(l)}+\boldsymbol B\boldsymbol{x}_{v,K-k}^{(l)}\)
-식에서 볼수 있듯이 $\boldsymbol{x}_{v,K}^{(l)}$ 부터 거꾸로 넣어주는데, 이는 멀리서 ($K$-hop)부터 타겟 노드 ($v$)까지 정보가 모여들기 때문이다.
-LRU에서와 같이, 위의 RNN연산을 $\boldsymbol A$를 대각화함으로써($\boldsymbol A=\boldsymbol V\bold{\Lambda}\boldsymbol V^{-1}$) 효율적인 형태로 바꾼다.
-\(\boldsymbol{s}_{v,k}^{(l)}=\bold {\Lambda}\boldsymbol{s}_{v,k-1}^{(l)}+\boldsymbol {W}_{\mathrm{in}}\boldsymbol{x}_{v,K-k}^{(l)}\rarr\boldsymbol{s}_{v,k}^{(l)}=\sum_{k=0}^{K}\bold {\Lambda}^k\boldsymbol {W}_{\mathrm{in}}\boldsymbol{x}_{v,k}^{(l)}\)
-결과적으로 $k$-hop에 있는 노드들의 representation은 $\bold {\Lambda}^k$ 가 곱해지고, 이를 타겟 노드로부터 $\bold {\Lambda}$로 “filter over hops”을 수행하는 것이라고 설명한다.&lt;/p&gt;
+$\boldsymbol{s}_ {v,k}^{(l)}=\boldsymbol A\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol B\boldsymbol{x}_ {v,K-k}^{(l)}$
+식에서 볼수 있듯이 $\boldsymbol{x}_ {v,K}^{(l)}$ 부터 거꾸로 넣어주는데, 이는 멀리서 ($K$-hop)부터 타겟 노드 ($v$)까지 정보가 모여들기 때문이다.
+LRU에서와 같이, 위의 RNN연산을 $\boldsymbol A$를 대각화함으로써($\boldsymbol A=\boldsymbol V \mathbf{\Lambda}\boldsymbol V^{-1}$) 효율적인 형태로 바꾼다.
+$\boldsymbol{s}_ {v,k}^{(l)}=\mathbf {\Lambda}\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,K-k}^{(l)}\rightarrow\boldsymbol{s}_ {v,k}^{(l)}=\sum_ {k=0}^{K}\mathbf {\Lambda}^k\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,k}^{(l)}$
+결과적으로 $k$-hop에 있는 노드들의 representation은 $\mathbf {\Lambda}^k$ 가 곱해지고, 이를 타겟 노드로부터 $\mathbf {\Lambda}$로 “filter over hops”을 수행하는 것이라고 설명한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;output-of-gred-layer&quot;&gt;Output of GRED Layer&lt;/h3&gt;
 &lt;p&gt;최종적으로는 LRU의 마지막 hidden state에 대하여 간단한 non-linear transform(MLP)를 적용하여 다음 GRED layer의 입력으로 넣어준다.
-\(\boldsymbol{h}_{v}^{(l)}=\mathrm{MLP}_3\left( \mathfrak {R}\left[\boldsymbol {W}_{\mathrm{out}}\boldsymbol{s}_{v,K}^{(l)}\right]  \right)\)
+$\boldsymbol{h}_ {v}^{(l)}=\mathrm{MLP}_ {3}\left( \mathfrak{R}\left[\boldsymbol {W}_ {\mathrm{out}}\boldsymbol{s}_ {v,K}^{(l)}\right]  \right)$
 GRED로 생성된 노드들의 representation을 활용하여 node classification, graph classificatino과 같은 다양한 graph task를 수행할 수  있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-expressiveness-analysis&quot;&gt;3. Expressiveness Analysis&lt;/h2&gt;
@@ -866,12 +866,12 @@ GRED로 생성된 노드들의 representation을 활용하여 node classificatio
 
 &lt;h3 id=&quot;benchmarking-gnns&quot;&gt;Benchmarking GNNs&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-1.png&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image-1.png&quot; alt=&quot;Alt text&quot; /&gt;
 (metric: accuracy)&lt;/p&gt;
 
 &lt;h3 id=&quot;zinc-12k-lrgb&quot;&gt;ZINC 12k, LRGB&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-2.png&quot; alt=&quot;Alt text&quot; /&gt; &lt;img src=&quot;image-3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image-2.png&quot; alt=&quot;Alt text&quot; /&gt; &lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image-3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Graph Transformer 모델들이 MPNN 모델보다 좋은 성능을 보이는 경향성이 있다.&lt;/li&gt;
@@ -880,13 +880,13 @@ GRED로 생성된 노드들의 representation을 활용하여 node classificatio
 
 &lt;h3 id=&quot;training-time&quot;&gt;Training Time&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image-4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;GRED의 효율성을 검증하기 위해, Graph Transformer의 SOTA 모델인 GRIT와 training time, GPU 메모리 소비량을 비교하였다. 데이터셋 종류에 따라 그 정도는 다르지만, GRED가 두 방면에서 모두 어느정도 효율적인 모델임을 확인할 수 있다. 다만, 큰 그래프 데이터(Peptides-func)에서는 오히려 두 모델 간의 차이가 크지 않기 때문에, 다양한 종류의 그래프에서 확실한 효율성 개선이 있는지는 추가적인 검증이 필요하다.&lt;/p&gt;
 
 &lt;h3 id=&quot;sequence-길이k에-대한-분석&quot;&gt;Sequence 길이($K$)에 대한 분석&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-5.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image-5.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;논문에서는 추가적으로 multiset aggregation에서 고려하는 최대 hop에 따라 성능이 어떻게 달라지는지 확인하였다. 가장 높은 성능을 보이는 $K$값은 데이터셋 종류에 따라 다른 경향을 보였는데, 이는 각 데이터셋마다 그래프의 크기, 지름과 같은 구조에 영향을 받는다고 해석할 수 있다. $K$가 그래프의 지름보다 커지게 되면, 같은 노드가 중복해서 등장하는 등 문제가 발생하기 때문에 논문에서는 $K$가 1과 그래프의 지름 사이에서 최적의 성능을 보인다고 분석한다.&lt;/p&gt;
 
@@ -925,8 +925,8 @@ GRED로 생성된 노드들의 representation을 활용하여 node classificatio
 &lt;p&gt;&lt;strong&gt;Figure 1&lt;/strong&gt; &lt;br /&gt;
 &lt;img src=&quot;https://github.com/user-attachments/assets/2fa1106c-3f37-4b25-973a-969fb3bc4935&quot; alt=&quot;Figure1&quot; /&gt;&lt;br /&gt;
 사용자의 과거 이력을 $x_u = \langle a_1, a_2, \ldots, a_{|x_u|} \rangle, a_* :=$ 소비한 아이템, 로 표현하면&lt;br /&gt;
-추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_i, a_j$ 에 대해 f(x_u, a_i) &amp;gt; f(x_u, a_j)$ 의 값을 부여하는 것을 목표로 한다.&lt;br /&gt;
-이때 임베딩 기반의 모델들은 $e_u = \text{encoder}&lt;em&gt;\text{user}(x_u), \space e_i = \text{encoder}&lt;/em&gt;\text{item}(a_i)$ 두 개의 임베딩을 구하고,&lt;br /&gt;
+추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_ {i}, a_ {j}$ 에 대해 $f(x_ {u}, a_ {i}) &amp;gt; f(x_ {u}, a_ {j})$ 의 값을 부여하는 것을 목표로 한다.&lt;br /&gt;
+이때 임베딩 기반의 모델들은 $e_ {u} = \text{encoder}_ \text{user}(x_ {u}), \space e_ {i} = \text{encoder}_ \text{item}(a_ {i})$ 두 개의 임베딩을 구하고,&lt;br /&gt;
 이들 간의 similarity 를 기반으로 선호도 점수를 예측한다.&lt;br /&gt;
 RecExplainer 는 이미 학습이 완료된 $f()$ 가 주어졌을 때, 이것과 잘 aligning 되도록 LLM $g()$ 을 fine-tuning 하여 $f()$ 의 출력을 $g()$ 로 설명하도록 한다.&lt;br /&gt;
 Fig. 1 에서 나타나 있듰이, 이때 $f()$ 은 frozen 이며 dimension projection 을 위한 MLP 와 $g()$ 만을 학습하며,&lt;br /&gt;
@@ -1238,18 +1238,11 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 
 &lt;p&gt;CDSR은 여러 도메인의 정보를 활용하여 추천 성능을 향상시키는 것을 목표로 한다. 그러나 일부 도메인에서 CDSR이 SDSR보다 성능이 떨어지는 부정적 전이 문제가 발생할 수 있다. 이 논문은 이러한 부정적 전이 문제를 해결하고 모든 도메인에서 일관된 높은 성능을 달성하는 것을 목표로 한다.&lt;/p&gt;
 
-&lt;p&gt;구체적으로, 주어진 시간 t까지의 크로스 도메인 시퀀스 X_1:t를 기반으로 다음 아이템 x^d_t+1을 예측하는 것이 목표이다:&lt;/p&gt;
+&lt;p&gt;구체적으로, 주어진 시간 t까지의 크로스 도메인 시퀀스 $X_ {1:t}$를 기반으로 다음 아이템 $x^d_ {t+1}$을 예측하는 것이 목표이다:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;argmax_{x^d_t+1 ∈ V_d} P(x^d_t+1&lt;/td&gt;
-      &lt;td&gt;X_1:t)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$argmax_ {x^d_ {t+1} ∈ V_ d} P(x^d_ {t+1} \vert X_ {1:t})$&lt;/p&gt;
 
-&lt;p&gt;여기서 V_d는 도메인 d의 아이템 집합이다.&lt;/p&gt;
+&lt;p&gt;여기서 $V_ {d}$는 도메인 d의 아이템 집합이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-동기&quot;&gt;2. 동기&lt;/h2&gt;
 
@@ -1294,11 +1287,11 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 
 &lt;p&gt;ACMoE의 수학적 formulation은 다음과 같다:&lt;/p&gt;
 
-&lt;p&gt;(Y_d)_{single} = h_d(f_d(E_d))&lt;/p&gt;
+&lt;p&gt;$(Y_ d)_ {single} = h_ d(f_ d(E_ d))$&lt;/p&gt;
 
-&lt;p&gt;f_d(E_d) = \sum_{k=1}^j g_d(E_d)&lt;em&gt;k SG(f^k&lt;/em&gt;{TRM}(E_d)) + \sum_{k=j+1}^K g_d(E_d)&lt;em&gt;k f^k&lt;/em&gt;{TRM}(E_d)&lt;/p&gt;
+&lt;p&gt;$f_ d(E_ d) = \sum_ {k=1}^j g_ d(E_ d)_ k SG(f^k_ {TRM}(E_ d)) + \sum_ {k=j+1}^K g_ d(E_ d)_ k f^k_ {TRM}(E_ d)$&lt;/p&gt;
 
-&lt;p&gt;여기서 h_d는 도메인 d의 tower network, f_d는 sequential expert layer의 mixture, SG는 stop-gradient 연산을 나타낸다.&lt;/p&gt;
+&lt;p&gt;여기서 $h_ d$는 도메인 d의 tower network, $f_ d$는 sequential expert layer의 mixture, SG는 stop-gradient 연산을 나타낸다.&lt;/p&gt;
 
 &lt;h3 id=&quot;33-loss-correction-with-negative-transfer-gap-lc-ntg&quot;&gt;3.3 Loss Correction with Negative Transfer Gap (LC-NTG)&lt;/h3&gt;
 
@@ -1309,9 +1302,9 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 
 &lt;p&gt;부정적 전이 간격(NTG)은 다음과 같이 정의된다:&lt;/p&gt;
 
-&lt;p&gt;\phi_\pi(d) = \sum_{t=1}^T (l^d_t - l_t)&lt;/p&gt;
+&lt;p&gt;$\phi_\pi(d) = \sum_ {t=1}^T (l^d_ t - l_ t)$&lt;/p&gt;
 
-&lt;p&gt;여기서 l^d_t와 l_t는 각각 SDSR과 CDSR 태스크의 t 시점에서의 손실을 나타낸다.&lt;/p&gt;
+&lt;p&gt;여기서 $l^d_ t$와 $l_ t$는 각각 SDSR과 CDSR 태스크의 t 시점에서의 손실을 나타낸다.&lt;/p&gt;
 
 &lt;h3 id=&quot;34-single-cross-mutual-information-maximization-sc-mim&quot;&gt;3.4 Single-Cross Mutual Information Maximization (SC-MIM)&lt;/h3&gt;
 
@@ -1320,7 +1313,7 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
   &lt;li&gt;이를 통해 두 태스크 간 유용한 정보 전달을 촉진한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;L^d_{SC-MIM} = \rho((Y_d)&lt;em&gt;{single}, (Y_d)&lt;/em&gt;{cross}) - \log \sum_{u^-} \exp(\rho((Y_d)&lt;em&gt;{single^-}, (Y_d)&lt;/em&gt;{cross}))&lt;/p&gt;
+&lt;p&gt;$L^d_ {SC-MIM} = \rho((Y_ d)_ {single}, (Y_ d)_ {cross}) - \log \sum_ {u^-} \exp(\rho((Y_ d)_ {single^-}, (Y_ d)_ {cross}))$&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/mkCd69My/figure2.png&quot; alt=&quot;Figure 2: SyNCRec Architecture&quot; /&gt;&lt;/p&gt;
 
@@ -1452,76 +1445,111 @@ Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다
 |GraphMixer(ICLR 2022)|Temporal graph attention(MLP mixer)|Temporal graph attention(MLP Mixer)|&lt;/p&gt;
 
 &lt;h2 id=&quot;transfomer-기반-gnns&quot;&gt;Transfomer 기반 GNNs&lt;/h2&gt;
-&lt;p&gt;최근에는 Transformer 구조를 사용해 Graph 구조를 파악하게 하는 연구들이 활발하게 진행되었는데, 대표적으로는 NeurIPS 2022에 발표된 &lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;가 있다. 이 논문에서는, vanila Transformer 구조에 Node, Edge와 같은 그래프 구성물들을 Node, Edge라고 표시해주는 Type identifier들만 추가하여 input으로 넣었을 때, 기존 Message Passing GNN에 기반한 SOTA 모델보다 좋은 성능을 냈다고 보고하고 있다.
-&lt;img src=&quot;image.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;최근에는 Transformer 구조를 사용해 Graph 구조를 파악하게 하는 연구들이 활발하게 진행되었는데, 대표적으로는 NeurIPS 2022에 발표된 &lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;가 있다. 이 논문에서는, vanila Transformer 구조에 Node, Edge와 같은 그래프 구성물들을 Node, Edge라고 표시해주는 Type identifier들만 추가하여 input으로 넣었을 때, 기존 Message Passing GNN에 기반한 SOTA 모델보다 좋은 성능을 냈다고 보고하고 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;proposed-approach&quot;&gt;Proposed Approach&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;image-1.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-1.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;temporal-ego-graph&quot;&gt;Temporal Ego-graph&lt;/h2&gt;
 &lt;p&gt;Dynamic graph의 특성상 Static graph를 다뤘던 이전 논문처럼 바로 Transformer에 Graph를 input으로 넣을 수 없기에, Temporal Ego-graph라는 subgraph을 Node마다 생성한다. Temporal Ego-graph는 Node  &lt;strong&gt;$v$&lt;/strong&gt; 가 다른 Node들과 상호작용한 기록이 담겨있는 Graph로, 수식으로 표시하면 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-2.png&quot; alt=&quot;alt text&quot; /&gt;
-$v^k_i$는 Node $v$가 Node $k$와 timestep $\tau$에 상호작용한 정보를 담고 있다($v_i, v_k, \tau$). training data $x_i$는 Node $i$에 대해 sequence length $w$만큼의 길이를 가지는 Temporal Ego-graph로, training data임을 Transformer model에 알려주기 위해 앞뒤로 &amp;lt;|hist|&amp;gt;와 &amp;lt;|endofhist|&amp;gt; token으로 감싸주었다. $y_i$는 Node i의 label data로, 상세 사항은 $x_i$와 같다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-2.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;$v^k_i$는 Node $v$가 Node $k$와 timestep $\tau$에 상호작용한 정보를 담고 있다($v_i, v_k, \tau$). training data $x_i$는 Node $i$에 대해 sequence length $w$만큼의 길이를 가지는 Temporal Ego-graph로, training data임을 Transformer model에 알려주기 위해 앞뒤로 &amp;lt;|hist|&amp;gt;와 &amp;lt;|endofhist|&amp;gt; token으로 감싸주었다. $y_i$는 Node i의 label data로, 상세 사항은 $x_i$와 같다.&lt;/p&gt;
 &lt;h2 id=&quot;temporal-alignment&quot;&gt;Temporal Alignment&lt;/h2&gt;
 &lt;p&gt;Transformer model이 자연적으로 sequence의 상대적 위치에 따라 temporality를 학습하기는 하지만, 서로 다른 Node 간에는 다른 time step을 따르는 맹점이 아직 남아있다. 다음과 같은 예시를 보자&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Node $u$는 24년 1월에 Graph에 추가되어 sequence가 $w_u$ = &amp;lt;$v_u^{24년 1월}$,$v_u^{24년 2월}$, …, $v_u^{24년 10월}$&amp;gt;이고,&lt;/li&gt;
-  &lt;li&gt;Node $k$는 23년 7월에 Graph에 추가되어 sequence가 $w_k$ = &amp;lt;$v_k^{23년 7월}$,$v_k^{23년 8월}$, …, $v_k^{24년 10월}$&amp;gt;이라면 
-Transformer model은 해당 sequence들만으로는 $v_u^{24년 1월}$와 $v_k^{23년 7월}$가 같은 time step에 일어났는지 판단할 수 없다.
-이에 저자들은 특정 time step마다 다른 Temporal token을 삽입하여, Node전체에 적용되는 universal timeline을 부여하고자 하였다.
-    &lt;h2 id=&quot;training-objectives&quot;&gt;Training objectives&lt;/h2&gt;
-    &lt;p&gt;생성한 Temporal Ego-graph에 Temporal Alignment과정을 통해 Temporal token을 추가한 sequence를 $R = &amp;lt;r_1, r_2, …, r_{|R|}&amp;gt;$이라고 하자($|R|$은 Sequence R의 길이). 해당 sequence의 joint probability는 아래와 같이 표현할 수 있다.
-&lt;img src=&quot;image-3.png&quot; alt=&quot;alt text&quot; /&gt;
-$p(r_i|R_{&amp;lt;i})$는 $R_{&amp;lt;i}$까지의 token이 주어졌을 때 step i에서의 token의 probability distribution이고, 아래와 같이 놓고 train할 수 있다.(LN은 Layer normalization)
-&lt;img src=&quot;image-4.png&quot; alt=&quot;alt text&quot; /&gt;
-결과적으로 이를 Negative log-likelihood 방식으로 바꾸면 아래와 같이 loss를 정의할 수 있다.
-&lt;img src=&quot;image-5.png&quot; alt=&quot;alt text&quot; /&gt;
-최종적인 학습 Process는 아래와 같다.
-&lt;img src=&quot;image-6.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-    &lt;h1 id=&quot;experiments&quot;&gt;Experiments&lt;/h1&gt;
-    &lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Node $k$는 23년 7월에 Graph에 추가되어 sequence가 $w_k$ = &amp;lt;$v_k^{23년 7월}$,$v_k^{23년 8월}$, …, $v_k^{24년 10월}$&amp;gt;이라면&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Transformer model은 해당 sequence들만으로는 $v_u^{24년 1월}$와 $v_k^{23년 7월}$가 같은 time step에 일어났는지 판단할 수 없다.
+이에 저자들은 특정 time step마다 다른 Temporal token을 삽입하여, Node전체에 적용되는 universal timeline을 부여하고자 하였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;training-objectives&quot;&gt;Training objectives&lt;/h2&gt;
+&lt;p&gt;생성한 Temporal Ego-graph에 Temporal Alignment과정을 통해 Temporal token을 추가한 sequence를 $R = &amp;lt;r_1, r_2, …, r_{|R|}&amp;gt;$이라고 하자($|R|$은 Sequence R의 길이). 해당 sequence의 joint probability는 아래와 같이 표현할 수 있다.
+&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$p(r_i&lt;/td&gt;
+      &lt;td&gt;R_{&amp;lt;i})$는 $R_{&amp;lt;i}$까지의 token이 주어졌을 때 step i에서의 token의 probability distribution이고, 아래와 같이 놓고 train할 수 있다.(LN은 Layer normalization)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-4.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;결과적으로 이를 Negative log-likelihood 방식으로 바꾸면 아래와 같이 loss를 정의할 수 있다.
+&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-5.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;최종적인 학습 Process는 아래와 같다.
+&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-6.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;experiments&quot;&gt;Experiments&lt;/h1&gt;
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+&lt;ul&gt;
   &lt;li&gt;UCI: SNS 상에서 user들간의 message 교환 기록이 있는 dataset&lt;/li&gt;
   &lt;li&gt;ML-10M: MovieLens dataset 중 하나로, user들이 각 영화들에 대해 어떤 tag를 부여했는지가 나와있는 dataset&lt;/li&gt;
   &lt;li&gt;Hepth: 고에너지 물리학 논문들의 citation network&lt;/li&gt;
-  &lt;li&gt;MMConv: Multi-turn task oriented dialogue dataset
-    &lt;h2 id=&quot;evaluation-metrics&quot;&gt;Evaluation Metrics&lt;/h2&gt;
-  &lt;/li&gt;
-  &lt;li&gt;NDCG@5: 추천시스템/검색 엔진 평가에 자주 쓰이는 Metric으로, Top 5개의 추천 항목을 기준으로 함&lt;/li&gt;
-  &lt;li&gt;Jaccard Similarity: 추천 set과 정답 set의 유사도를 측정하는 지표
-    &lt;h1 id=&quot;results&quot;&gt;Results&lt;/h1&gt;
-  &lt;/li&gt;
+  &lt;li&gt;MMConv: Multi-turn task oriented dialogue dataset&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-7.png&quot; alt=&quot;alt text&quot; /&gt;
-결과는 위의 그림과 같다. 4개 dataset 모두에서 NDCG@5와 Jaccard 모두 해당 논문의 방법론인 &lt;strong&gt;SimpleDyG&lt;/strong&gt;가 최고 성능을 보였다.&lt;/p&gt;
+&lt;h2 id=&quot;evaluation-metrics&quot;&gt;Evaluation Metrics&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;NDCG@5: 추천시스템/검색 엔진 평가에 자주 쓰이는 Metric으로, Top 5개의 추천 항목을 기준으로 함&lt;/li&gt;
+  &lt;li&gt;Jaccard Similarity: 추천 set과 정답 set의 유사도를 측정하는 지표&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;results&quot;&gt;Results&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-7.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;결과는 위의 그림과 같다. 4개 dataset 모두에서 NDCG@5와 Jaccard 모두 해당 논문의 방법론인 &lt;strong&gt;SimpleDyG&lt;/strong&gt;가 최고 성능을 보였다.&lt;/p&gt;
 
 &lt;h2 id=&quot;effect-of-extra-tokens&quot;&gt;Effect of Extra Tokens&lt;/h2&gt;
 &lt;h3 id=&quot;impact-of-special-tokens&quot;&gt;Impact of Special Tokens&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;image-8.png&quot; alt=&quot;alt text&quot; /&gt;
-Special tokens(“&amp;lt;|hist|&amp;gt;”, “&amp;lt;|endofhist|&amp;gt;”, “&amp;lt;|pred|&amp;gt;”, “&amp;lt;|endofpred|&amp;gt;”)와 같은 special token의 효과를 알아보기 위해 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-8.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Special tokens(“&amp;lt;|hist|&amp;gt;”, “&amp;lt;|endofhist|&amp;gt;”, “&amp;lt;|pred|&amp;gt;”, “&amp;lt;|endofpred|&amp;gt;”)와 같은 special token의 효과를 알아보기 위해 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;SimpleDyG: 원 모델, 각기 다른 special token 사용(ex: hist, endofhist, pred, endofpred)&lt;/li&gt;
   &lt;li&gt;same special: 같은 special token 사용(ex: x, x, x, x)&lt;/li&gt;
-  &lt;li&gt;no special: special token 미사용
-결과적으로는 dataset에 따라 SimpleDyG와 same special이 엎치락뒤치락하는 모습을 보여주었다.
-    &lt;h3 id=&quot;impact-of-temporal-tokens&quot;&gt;Impact of Temporal Tokens&lt;/h3&gt;
-    &lt;p&gt;&lt;img src=&quot;image-9.png&quot; alt=&quot;alt text&quot; /&gt;
-Temporal tokens의 효과를 알아보기 위해 역시 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;no special: special token 미사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;결과적으로는 dataset에 따라 SimpleDyG와 same special이 엎치락뒤치락하는 모습을 보여주었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;impact-of-temporal-tokens&quot;&gt;Impact of Temporal Tokens&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-9.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Temporal tokens의 효과를 알아보기 위해 역시 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+&lt;ul&gt;
   &lt;li&gt;SimpleDyG: 원 모델, 각기 다른 temporal token 사용(ex: 24년 1월, 24년 2월, …)&lt;/li&gt;
   &lt;li&gt;same time: 같은 temporal token 사용(ex: x, x, …)&lt;/li&gt;
-  &lt;li&gt;no time: temporal token 미사용
-결과를 보면, 의외로 same time이나 no time의 결과가 좋은데, 이는 transformer 모델에게 temporality를 자연스럽게 배우게 하는 것이 인위적인 temporal token을 부여하는 것보다 때때로 더 나을 수 있다고 해석할 수 있다.
-    &lt;h2 id=&quot;performance-of-multi-step-prediction&quot;&gt;Performance of Multi-step Prediction&lt;/h2&gt;
-    &lt;p&gt;&lt;img src=&quot;image-10.png&quot; alt=&quot;alt text&quot; /&gt;
-t시점에서 단순히 다음 time step인 t+1만 예측하는 것이 아닌, 그 이후를 예측하는 성능을 검증하기 위해 다른 baseline 모델과 비교 실험을 해본 결과이다. 당연하지만 t+3으로 갈수록 모델의 성능이 낮아지지만, SimpleDyG가 다른 baseline model인 TGAT과 GraphMixer보다 꾸준히 성능이 낫다는 것을 보여준다.&lt;/p&gt;
-    &lt;h2 id=&quot;hyper-parameter-analysis&quot;&gt;Hyper-parameter Analysis&lt;/h2&gt;
-    &lt;p&gt;&lt;img src=&quot;image-11.png&quot; alt=&quot;alt text&quot; /&gt;
-Hyper-parameter에 따른 성능 변화도 꽤나 robust한 결과를 보여주어, 특정한 setting에서만 성능이 좋은 것이 아니라는 것을 입증한다.&lt;/p&gt;
-    &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-    &lt;p&gt;본 논문은 그래프 분석에 Transformer를 도입하려는 최근의 연구흐름 속에서, Dynamic graph에의 적용을 다룬 논문이다. Dynamic graph의 특징인 Temporality를 도입하기 위해 저자들은 새로운 방법인 Temporal ego-graph과 Temporal alignment를 도입하였고, 4가지 dataset에서 기존 baseline model들보다 성능이 좋다는 것을 여러 실험으로 밝혔다. 저자들이 제안한 방법론은 vanila Transformer 구조를 사용해 구현이 쉽다는 장점이 있고, 추가적인 Transformer 구조의 수정 없이도 SOTA 성능을 보이는 것을 보여주어 Dynamic graph에서의 Transformer 적용가능성을 열었다.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;no time: temporal token 미사용&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;결과를 보면, 의외로 same time이나 no time의 결과가 좋은데, 이는 transformer 모델에게 temporality를 자연스럽게 배우게 하는 것이 인위적인 temporal token을 부여하는 것보다 때때로 더 나을 수 있다고 해석할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;performance-of-multi-step-prediction&quot;&gt;Performance of Multi-step Prediction&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-10.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;t시점에서 단순히 다음 time step인 t+1만 예측하는 것이 아닌, 그 이후를 예측하는 성능을 검증하기 위해 다른 baseline 모델과 비교 실험을 해본 결과이다. 당연하지만 t+3으로 갈수록 모델의 성능이 낮아지지만, SimpleDyG가 다른 baseline model인 TGAT과 GraphMixer보다 꾸준히 성능이 낫다는 것을 보여준다.&lt;/p&gt;
+
+&lt;h2 id=&quot;hyper-parameter-analysis&quot;&gt;Hyper-parameter Analysis&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-11.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hyper-parameter에 따른 성능 변화도 꽤나 robust한 결과를 보여주어, 특정한 setting에서만 성능이 좋은 것이 아니라는 것을 입증한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;본 논문은 그래프 분석에 Transformer를 도입하려는 최근의 연구흐름 속에서, Dynamic graph에의 적용을 다룬 논문이다. Dynamic graph의 특징인 Temporality를 도입하기 위해 저자들은 새로운 방법인 Temporal ego-graph과 Temporal alignment를 도입하였고, 4가지 dataset에서 기존 baseline model들보다 성능이 좋다는 것을 여러 실험으로 밝혔다. 저자들이 제안한 방법론은 vanila Transformer 구조를 사용해 구현이 쉽다는 장점이 있고, 추가적인 Transformer 구조의 수정 없이도 SOTA 성능을 보이는 것을 보여주어 Dynamic graph에서의 Transformer 적용가능성을 열었다.&lt;/p&gt;
 </description>
             <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
             <link>http://localhost:4000/2024-10-13-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</link>
@@ -1542,7 +1570,7 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Graph(그래프)&lt;/strong&gt;는 &lt;strong&gt;노드(Node)&lt;/strong&gt;와 &lt;strong&gt;엣지(Edge)&lt;/strong&gt;로 이루어진 데이터 구조를 의미한다. 그래프는 현실 세계의 다양한 관계와 상호작용을 표현하는데 사용된다. 예컨대, 사람들 간의 소셜 네트워크나 인터넷의 링크 구조, 분자 내의 원자 간 결합, 도로망에서의 교차로와 길 등이 있다. 즉, node는 개체를 나타내고, edge는 그들 간의 관계를 나타낸다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-1.png&quot; alt=&quot;그래프 데이터의 예시&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-1.png&quot; alt=&quot;그래프 데이터의 예시&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;최근 노벨화학상을 수상한 단백질 구조 예측 관련 연구에서도 아미노산의 결합 구조를 모델링하는데 그래프 구조가 쓰이는 등 다양한 분야의 데이터를 나타낼 수 있다.&lt;/p&gt;
 
@@ -1592,7 +1620,9 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;샘플 기반 평가 지표는 실제 분포 $P_r$과 생성된 분포 $P_g$ 사이의 거리 $\rho$를 랜덤 샘플을 통해 추정한다 (Heusel et al., 2017; You et al., 2018; Bińkowski et al., 2018). 이는 다음과 같이 계산된다고 한다:&lt;/p&gt;
 
-\[\hat{\rho}\left(\mathbb{S}_g, \mathbb{S}_r\right) \approx \rho\left(P_g, P_r\right)\]
+&lt;p&gt;$
+\hat{\rho}\left(\mathbb{S}_ g, \mathbb{S}_ r\right) \approx \rho\left(P_ g, P_ r\right)
+$&lt;/p&gt;
 
 &lt;p&gt;여기서,&lt;/p&gt;
 
@@ -1609,15 +1639,19 @@ Venue : ICLR 2022&lt;/p&gt;
 &lt;p&gt;그래프 통계에 기반한 지표는 GGM 평가에서 표준으로 사용된다 (You et al., 2018; Liao et al., 2019; Dai et al., 2020). 이러한 지표는 $\mathbf{x}_i$를 클러스터링 계수, node 차수, 또는 4-node 오빗 카운트 히스토그램으로 설정하고, 생성된 집합 $\mathbb{S}_g$와 참조 집합 $\mathbb{S}_r$ 사이의 경험적 MMD를 계산한다 (Gretton et al., 2006):&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;167419716-bd7da8f8-0830-4c35-b2e3-2fc21bff657a.png&quot; alt=&quot;alt text&quot; /&gt;
+  &lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/167419716-bd7da8f8-0830-4c35-b2e3-2fc21bff657a.png&quot; alt=&quot;alt text&quot; /&gt;
   &lt;figcaption&gt;MMD는 분포 사이의 거리를 각 분포의 평균 사이의 L2로 하는 metric이다&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-\[\operatorname{MMD}\left(\mathbb{S}_g, \mathbb{S}_r\right) = \frac{1}{m^2} \sum_{i,j=1}^{m} k\left(\mathbf{x}_i^r, \mathbf{x}_j^r\right) + \frac{1}{n^2} \sum_{i,j=1}^{n} k\left(\mathbf{x}_i^g, \mathbf{x}_j^g\right) - \frac{2}{nm} \sum_{i=1}^{n} \sum_{j=1}^{m} k\left(\mathbf{x}_i^g, \mathbf{x}_j^r\right)\]
+&lt;p&gt;$
+\operatorname{MMD}\left(\mathbb{S}_ g, \mathbb{S}_ r\right) = \frac{1}{m^2} \sum_ {i,j=1}^{m} k\left(\mathbf{x}_ i^r, \mathbf{x}_ j^r\right) + \frac{1}{n^2} \sum_ {i,j=1}^{n} k\left(\mathbf{x}_ i^g, \mathbf{x}_ j^g\right) - \frac{2}{nm} \sum_ {i=1}^{n} \sum_ {j=1}^{m} k\left(\mathbf{x}_ i^g, \mathbf{x}_ j^r\right)
+$&lt;/p&gt;
 
 &lt;p&gt;여기서 $k(\cdot, \cdot)$는 일반적인 커널 함수이다. You et al. (2018)은 RBF 커널의 한 형태를 제안하였다:&lt;/p&gt;
 
-\[k\left(\mathbf{x}_i, \mathbf{x}_j\right) = \exp\left(-d\left(\mathbf{x}_i, \mathbf{x}_j\right) / 2\sigma^2\right)\]
+&lt;p&gt;$
+k\left(\mathbf{x}_ i, \mathbf{x}_ j\right) = \exp\left(-d\left(\mathbf{x}_ i, \mathbf{x}_ j\right) / 2\sigma^2\right)
+$&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$d(\cdot, \cdot)$는 쌍별 거리를 계산하며, 그 연구에서는 Wasserstein Distance (=EMD)를 선택하였다.&lt;/li&gt;
@@ -1634,21 +1668,15 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;h2 id=&quot;22-그래프-신경망-gnn&quot;&gt;2.2 그래프 신경망 (GNN)&lt;/h2&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = {(i, j) \mid i, j \in {1, \ldots,&lt;/td&gt;
-      &lt;td&gt;\mathbb{V}&lt;/td&gt;
-      &lt;td&gt;}}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = {(i, j) \mid i, j \in {1, \ldots, \vert \mathbb{V}\vert}}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;많은 GNN 구조가 존재하지만 (Wu et al., 2020), 본 연구에서는 일반적인 GNN으로 Graph Isomorphism Networks (GINs)를 고려한다 (Xu et al., 2019). GIN은 $L$개의 전파 레이어와 그래프 Readout 레이어로 구성되어 $\mathbf{x}_i$를 얻는다.&lt;/p&gt;
 
 &lt;p&gt;node $v \in \mathbb{V}$에 대해, 레이어 $l \in [1, L]$에서의 node 임베딩 $\mathbf{h}_v^{(l)}$는 다음과 같이 계산된다:&lt;/p&gt;
 
-\[\mathbf{h}_v^{(l)} = \operatorname{MLP}^{(l)}\left( \mathbf{h}_v^{(l-1)} + f^{(l)}\left( \left\{ \mathbf{h}_u^{(l-1)} : u \in \mathcal{N}(v) \right\} \right) \right)\]
+&lt;p&gt;$
+\mathbf{h}_ v^{(l)} = \operatorname{MLP}^{(l)}\left( \mathbf{h}_ v^{(l-1)} + f^{(l)} \left( \lbrace \mathbf{h}_ u^{(l-1)} : u \in \mathcal{N}(v) \rbrace \right) \right)
+$&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$\mathbf{h}_v^{(0)}$는 node $v$의 입력 feature이다.&lt;/li&gt;
@@ -1662,7 +1690,9 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;그래프 Readout 레이어는 각 레이어 $l \in [1, L]$에서 모든 node의 feature을 aggregate하고, 이를 단일한 $L \cdot d$차원 벡터 $\mathbf{x}_i$로 연결한다 (Xu et al., 2019):&lt;/p&gt;
 
-\[\mathbf{x}_i = \operatorname{CONCAT}\left( \operatorname{READOUT}\left( \left\{ \mathbf{h}_v^{(l)} \mid v \in \mathbb{V} \right\} \right) \mid l = 1, 2, \ldots, L \right)\]
+&lt;p&gt;$
+\mathbf{x}_ i = \operatorname{CONCAT}\left( \operatorname{READOUT}\left( \lbrace \mathbf{h}_ v^{(l)} \mid v \in \mathbb{V} \rbrace \right) \mid l = 1, 2, \ldots, L \right)
+$&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;여기서 $\operatorname{READOUT}$은 $f^{(l)}$와 유사하며, 보통 합산, 평균 또는 최대값 연산을 선택한다.&lt;/li&gt;
@@ -1680,13 +1710,13 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;저자들은 실험 절에서 GGM 평가 지표의 주요 속성을 설명하고, 각 지표를 이러한 속성에 대해 철저히 테스트했다. 이러한 속성에는 생성된 그래프의 &lt;strong&gt;fidelity&lt;/strong&gt;와 &lt;strong&gt;diversity&lt;/strong&gt;에 대한 지표의 상관성, 샘플 효율성(sample efficiency), 그리고 &lt;strong&gt;계산 효율성(computational efficiency)&lt;/strong&gt;이 포함된다. 이러한 속성들은 강력한 평가 지표의 원하는 특성을 포착하고 GGMs의 신뢰할 수 있는 순위를 가능하게 한다고 판단된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;데이터셋: 그래프 도메인 전반에 걸쳐 GGMs를 평가하는 능력을 테스트하기 위해 여섯 가지 다양한 그래프 데이터셋을 사용했다(표 1). 특히 Lobster, Grid, Proteins, Community, Ego와 같은 일반적인 GGM 데이터셋을 포함하였다(You et al., 2018; Liao et al., 2019; Dai et al., 2020). 또한, 각 지표가 node 및 edge feature 분포의 변화를 감지하는 능력을 보여주기 위해 분자 데이터셋 ZINC(Irwin et al., 2012)를 활용하였다.&lt;/p&gt;
 
 &lt;p&gt;GNN feature 추출기: GGM 문헌에서는 작은 데이터셋을 자주 사용하므로, 각 지표의 샘플 효율성이 매우 중요하다. 그래프 임베딩 $\mathbf{x}$의 차원은 여러 지표에서 핵심 요소이므로, 구별 가능성을 유지하면서 $\mathbf{x}$의 길이를 최소화하는 것이 바람직하다. 식 (4)에서 볼 수 있듯이, 전파 라운드 수 $L$과 node 임베딩 크기 $d$는 $\mathbf{x}$의 차원을 직접 결정한다. You et al.(2020)은 $L$의 선택이 다양한 그래프 작업에서 성능에 가장 중요한 요소 중 하나임을 보여주었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-4.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-4.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;실험에서는 $L \in [2, 3, \ldots, 7]$, $d \in [5, 10, \ldots, 40]$인 GIN 모델(식 3과 4)을 고려했다. 이 범위 내에서 20개의 아키텍처를 무작위로 선택하여 랜덤 초기화된 GIN과 사전 학습된 GIN 모두를 사용하여 실험을 진행했다. 사전 학습 과정에서는 각 네트워크에 그래프 분류 작업을 수행하도록 했으며, 방법론은 부록 B에 설명되어 있다. 개별 실험에서 사전 학습된 GIN을 사용하여 계산된 지표의 결과는 부록 C.1에 제시되었으며, 논의를 용이하게 하기 위해 이러한 결과를 표 3에 요약하였다. 랜덤 및 사전 학습된 네트워크 모두에서 구별 가능성을 향상시키는 방법으로 node 차수 feature을 정수로 표현하여 사용했다. 실제로는 초기화된 랜덤 네트워크에서 직교 가중치 초기화(Saxe et al., 2014)를 활용했는데, 이는 초기화 간 지표의 분산을 약간 줄여주기 때문이다.&lt;/p&gt;
 
@@ -1698,19 +1728,11 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;지표의 가장 중요한 속성 중 하나는 생성된 샘플의 &lt;strong&gt;fidelity&lt;/strong&gt;를 반영할 수 있는가 이다. 이들은 fidelity에 대한 지표를 테스트하기 위해 두 가지 실험을 구성했다. 첫 번째 실험은 실제 샘플에 다양한 양의 랜덤 샘플을 섞어 지표의 감지 능력을 테스트하고(Xu et al., 2018), 두 번째 실험은 Edge를 무작위로 재연결하여 그래프의 품질을 서서히 저하시켰다(O’Bray et al., 2022). 두 실험 모두 $\mathbb{S}_g$를 $\mathbb{S}_r$의 복사본으로 시작하며, $\mathbb{S}_r$ 자체는 데이터셋의 복사본이다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;첫 번째 실험에서는 $\mathbb{S}_g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\left&lt;/td&gt;
-      &lt;td&gt;\mathbb{S}_g\right&lt;/td&gt;
-      &lt;td&gt;$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős &amp;amp; Rényi, 1960)이다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;첫 번째 실험에서는 $\mathbb{S}_ g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\vert\mathbb{S}_g\vert$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős &amp;amp; Rényi, 1960)이다.&lt;/p&gt;
 
 &lt;p&gt;두 번째 실험에서는 $\mathbb{S}g$의 에지를 무작위로 재연결하여 $P_r$와 $P_g$ 사이의 거리를 증가시켰다. 여기서 perturbation 정도 $t$는 각 에지 $(i, j) \in E$를 재연결할 확률이다. 각 $G \in \mathbb{S}g$와 각 $(i, j) \in E$에 대해, $x{i,j} \sim \operatorname{Bernoulli}(t)$를 샘플링했다. $x{i,j} = 1$인 에지는 재연결되며, 또 다른 샘플 $y_{i,j} \sim \operatorname{Bernoulli}(0.5)$를 사용하여 에지의 두 node 중 하나 ${i, j}$를 선택하고, 이 에지의 새로운 연결은 $\mathbb{V}$에서 균일하게 선택된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;image-2.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-2.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;결과: Recall과 Orbits MMD를 제외하면, 테스트한 대부분의 지표는 순위 상관 계수가 1.0에 가까워 이 실험에서 우수한 성능을 보였다(그림 3, 1행). 그러나 Recall은 $\mathbb{S}_g$의 다양성을 측정하도록 설계되었으므로, 여기서 fidelity에 대한 낮은 민감도는 예상된 결과이다. 놀랍게도 Coverage는 $\mathbb{S}_g$의 diversity을 측정하도록 설계되었음에도 불구하고 fidelity에 대한 강한 민감도를 보였다. 또한, GRAN(Li et al., 2018)이 생성한 그래프를 사용하여 혼합 실험을 반복했으며 유사한 결과를 얻었다고 한다.&lt;/p&gt;
 
@@ -1720,15 +1742,7 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;mode collapse시뮬레이션: 각 데이터 포인트를 해당 클러스터의 centroid로 점차 대체했다. perturbation 정도 $t$는 이러한 방식으로 collapse한 클러스터의 비율을 나타낸다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\left&lt;/td&gt;
-      &lt;td&gt;\mathbb{S}_g\right&lt;/td&gt;
-      &lt;td&gt;$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\vert\mathbb{S}_g\vert$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.&lt;/p&gt;
 
 &lt;p&gt;결과: mode collapse실험에서, 모든 고전적인 지표(You et al., 2018)는 순위 상관 계수가 0.5 미만으로 저조한 성능을 보였다(그림 3, 하단). 고전적인 지표는 mode dropping 실험에서 약간 더 나은 결과를 얻었지만 여전히 최적의 결과는 아니다. 예상대로 Recall과 Coverage는 $\mathbb{S}_g$의 diversity과 강한 양의 상관 관계를 보였으며, Precision과 Density는 음의 상관 관계를 보였다. 또한, MMD RBF와 F1 PR과 같은 몇몇 스칼라 지표는 $\mathbb{S}_g$의 diversity과 강한 상관 관계를 보였으며, 두 실험 모두에서 고전적인 지표보다 우수한 성능을 보였다.&lt;/p&gt;
 
@@ -1740,19 +1754,7 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;GGM 문헌에서는 작은 데이터셋을 자주 사용하므로 &lt;strong&gt;샘플 효율성(sample efficiency)&lt;/strong&gt;이 중요하다. 이 실험에서는 랜덤 그래프 집합 $\mathbb{S}_g$를 실제 샘플 $\mathbb{S}_r$과 구별하는 데 필요한 최소 샘플 수를 찾아 각 지표의 샘플 효율성을 결정했다. 랜덤 그래프는 4.1절에서 설명한 동일한 프로세스를 사용하여 생성된 E-R 그래프이다.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$\mathbb{S}_r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\left&lt;/td&gt;
-      &lt;td&gt;\mathbb{S}_r’\right&lt;/td&gt;
-      &lt;td&gt;= \left&lt;/td&gt;
-      &lt;td&gt;\mathbb{S}_r’’\right&lt;/td&gt;
-      &lt;td&gt;= \left&lt;/td&gt;
-      &lt;td&gt;\mathbb{S}_g’\right&lt;/td&gt;
-      &lt;td&gt;= n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_r’’\right) &amp;lt; \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;$\mathbb{S}&lt;em&gt;r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_r’\vert = \vert\mathbb{S}_r’’\vert = \vert\mathbb{S}_g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}&lt;/em&gt; r’, \mathbb{S}_ r’’\right) &amp;lt; \hat{\rho}\left(\mathbb{S}_r’, \mathbb{S}_g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/p&gt;
 
 &lt;h2 id=&quot;45-계산-효율성&quot;&gt;4.5 계산 효율성&lt;/h2&gt;
 
@@ -1855,8 +1857,9 @@ Venue : ICLR 2022&lt;/p&gt;
 \(\alpha_{vk} = \frac{\exp(e_{vk})}{\sum_{j \in N_v} \exp(e_{vj})}\)
 The final node embedding $\mathbf{h}_v’$ for node $v$ is updated by aggregating the normalized attention-weighted features from all its neighbors:
 \(\mathbf{h}&apos;_v = \sigma \left( \sum_{k \in N_v} \alpha_{vk} \mathbf{W}\mathbf{h}_k \right)\)
-where $\sigma$ is a non-linear activation function (e.g., ReLU).
-&lt;img src=&quot;./F2PGNN.png&quot; alt=&quot;img1&quot; /&gt;
+where $\sigma$ is a non-linear activation function (e.g., ReLU).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/F2PGNN.png&quot; alt=&quot;img1&quot; /&gt;
 &lt;em&gt;Figure 1: The overall structure of the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework.&lt;/em&gt;&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.3 Fairness-Aware Loss Function&lt;/b&gt;&lt;/font&gt;
@@ -1958,15 +1961,15 @@ In a movie recommendation system with two demographic groups (e.g., males and fe
 &lt;/ol&gt;
 
 &lt;p&gt;Below is a table summarizing the performance and fairness of F&lt;sup&gt;2&lt;/sup&gt;PGNN compared to F2MF in different datasets. G denotes Gender while A denotes Activity. 
-&lt;img src=&quot;./result.png&quot; alt=&quot;img2&quot; /&gt;
+&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/result.png&quot; alt=&quot;img2&quot; /&gt;
 &lt;em&gt;Figure 2: Performance vs Fairness comparison with different fairness budget $\beta$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Disparity vs. Epochs:&lt;/strong&gt; The experiments included a visualization of group disparity over time. The results showed that group disparity consistently decreased with F&lt;sup&gt;2&lt;/sup&gt;PGNN, particularly when a higher fairness budget ($\beta$) was used. This graph reinforced that the model is effective at reducing demographic bias as training progresses.
-&lt;img src=&quot;./disparity.png&quot; alt=&quot;img3&quot; /&gt;
+&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/disparity.png&quot; alt=&quot;img3&quot; /&gt;
 &lt;em&gt;Figure 3: &lt;strong&gt;Top Row:&lt;/strong&gt; Disparity vs epoch for different fairness budget $\beta$ on validation data. &lt;strong&gt;Bottom row:&lt;/strong&gt; % change in fairness (left y-axis) and % change in RMSE (right y-axis) w.r.t different $\beta$&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Privacy-Utility Trade-off:&lt;/strong&gt; Another experiment explored the trade-off between privacy and utility by varying the parameters of the LDP mechanism. Increasing the noise variance ($\lambda$) enhanced privacy by adding more noise to the model updates, but it slightly increased RMSE. However, with proper tuning of LDP parameters (e.g., the noise variance $\lambda$ and gradient clipping threshold $\delta$), the model achieved a good balance between privacy protection and utility.
-&lt;img src=&quot;./privacy.png&quot; alt=&quot;img4&quot; /&gt;
+&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/privacy.png&quot; alt=&quot;img4&quot; /&gt;
 &lt;em&gt;Figure 4: Privacy budget $\epsilon$ (left y-axis) and the personalization RMSE (right y-axis) w.r.t different clipping threshold $\delta$ and noise variance $\lambda.$&lt;/em&gt;&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;3px&quot;&gt;&lt;b&gt;5.4.1 Analysis of Results&lt;/b&gt;&lt;/font&gt;

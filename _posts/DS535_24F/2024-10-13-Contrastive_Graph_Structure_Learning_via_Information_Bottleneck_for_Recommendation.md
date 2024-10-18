@@ -1,4 +1,4 @@
-﻿---
+---
 title:  "[NeurIPS-2022] Contrastive Graph Structure Learning via Information Bottleneck for Recommendation"
 permalink: 2024-10-13-Contrastive_Graph_Structure_Learning_via_Information_Bottleneck_for_Recommendation.html
 tags: [reviews]
@@ -39,10 +39,10 @@ usemathjax: true
 ## 3. Method
 ![Framework of CGI](https://i.postimg.cc/q7fwJDLh/2024-09-28-10-11-55.png)
 ### 3.1 Preliminary
-1. Dataset
-	$U \text{(user set)} = \{u_{1}, u_2, u_3, .... , u_m\}$
-	$I \text{(item set)} = \{i_{1}, i_2, i_3, .... , i_n\}$
-	$R \text{(relation matrix)} \in \mathbb{R}^{m*n}$ 
+1. Dataset <br>
+	$U \text{(user set)} = \{u_{1}, u_2, u_3, .... , u_m\}$ <br>
+	$I \text{(item set)} = \{i_{1}, i_2, i_3, .... , i_n\}$ <br>
+	$R \text{(relation matrix)} \in \mathbb{R}^{m*n}$ <br>
 	$(r_{u,i}  = 1\text{ if there's an interaction between user } u \text{ and itme }j \text{ else 0})$
 	
 3. GNN encoder의 동작방식 **(LightGCN)**
@@ -58,9 +58,9 @@ $\mathbf{E}^{(l)} = GCN(\mathbf{E}^{(l-1)}, G)$
 	이때, 추천시스템에서는 초기 노드의 표현이 모델의 학습가능한 parameter로 주어집니다. ($\mathbf{E}^{(0)}$)
 
 	행렬 수식의 관점이 아닌 노드의 표현 관점에서 수식을 재정리하면 다음과 같습니다.
-	$e_{u}^{(l)} = f_{combine}(e_{u}^{(l-1)}, f_{aggregate}^{l}(\{e_{i}^{(l-1)}|i \in N(u)\})$
+	$e_ {u}^{(l)} = f_ {combine}(e_ {u}^{(l-1)}, f_ {aggregate}^{l}(\{e_ {i}^{(l-1)}|i \in N(u)\})$
 	
-	위 과정을 L번 거치는 동안 각 레이어의 표현을 저장해놓고, $f_{readout}$이라는 함수를 통해 최종 표현$(e)$을 만들어 냅니다. $e = f_{readout}(\{e^{l} | l = 0,1,2,...L\})$
+	위 과정을 L번 거치는 동안 각 레이어의 표현을 저장해놓고, $f_ {readout}$이라는 함수를 통해 최종 표현$(e)$을 만들어 냅니다. $e = f_ {readout}(\{e^{l} \vert l = 0,1,2,...L\})$
 
 	LightGCN의 경우 단순히 aggregation이 이웃 노드의 표현을 선형 결합하는 과정을 L번 반복해 각 레이어의 표현을 $f_{readout}$을 통과시켜 최종 표현을 얻어 냅니다. 이때 $f_{readout}$ 으로 단순히 평균이나 레이어 별 표현의 합 등이 사용되고, LightGCN의 레이어별 표현을 주어진 행렬 데이터로 다음과 같이 표현할 수 있습니다.
 	
@@ -74,7 +74,7 @@ $G_{ND}^{l} = (\{(v_{i} \odot  p_{i}^{l}|v_{i} \in V \}, E)$
 
 이렇게 레이어 별로 일부 노드가 제거된 그래프를 레이어별로 GCN 인코더에 적용해 각 레이어별 새로운 표현을 만들어내게 됩니다.
 
-$\mathbf{E}^{(l)}_{ND} = GCN(\mathbf{E}_{ND}^{(l-1)}, G_{ND}^{l})$
+$\mathbf{E}^{(l)}_ {ND} = GCN(\mathbf{E}_ {ND}^{(l-1)}, G_ {ND}^{l})$
 
 
 #### 3.2.2 Learnable Edge-Dropping
@@ -84,7 +84,7 @@ $G_{ED}^{l} = (V, \{(e_{ij} \odot  p_{ij}^{l}|e_{ij} \in E \})$
 
 마찬가지로, 이렇게 레이어 별로 일부 엣지가 제거된 그래프를 레이어별로 GCN 인코더에 적용해 각 레이어별 새로운 표현을 만들어내게 됩니다.
 
-$\mathbf{E}^{(l)}_{ED} = GCN(\mathbf{E}_{ED}^{(l-1)}, G_{ED}^{l})$
+$\mathbf{E}^{(l)}_ {ED} = GCN(\mathbf{E}_ {ED}^{(l-1)}, G_ {ED}^{l})$
 
 #### 3.2.3 $w_{i}^{l}, w_{ij}^{l}$ 계산 
 각각의 노드 및 엣지를 제거할 확률인 $w_{i}^{l}, w_{ij}^{l}$다음과 같이 l번째 레이어에서 노드 및 엣지를 구성하는 노드 표현($e_{i}^{l}, e_{j}^{l}$)을 다층 신경망을 통과시켜 계산하게 됩니다.
@@ -94,19 +94,19 @@ $w_{i}^{l} = MLP(e_{i}^{l}), w_{ij}^{l} = MLP(e_{i}^{l}, e_{j}^{l})$
 #### 3.2.4 Information Bottleneck에 기반한 Training
 이 논문에서는 기존 대조학습에 대해 활용하던 논문에는 없었던 새로운 목적함수를 제시합니다. 그 목적함수를 위해 사용하는 이론의 기반이 바로 정보이론에서 다루는 Information Bottleneck **(IB)** 입니다. IB에 기반해 이 논문의 메소드는 증강 데이터에 의한 표현과 기존 데이터의 표현 사이의 분산을 키우면서, 각각의 증강 데이터의 표현이 추천이라는 목적에 맞도록 학습방향을 조정할 수 있도록 합니다. 이를 수식으로 정리하면 다음과 같습니다.
 
-$\min_{E;\tilde{E}}\tilde{\mathcal{L}}_{Rec} + I(E;\tilde{E})$
-$I(E;\tilde{E})=I(E_{u};\tilde{E_{u}})+I(E_{i};\tilde{E}_{i})$
+$\min_ {E;\tilde{E}}\tilde{\mathcal{L}}_ {Rec} + I(E;\tilde{E})$
+$I(E;\tilde{E})=I(E_ {u};\tilde{E_ {u}})+I(E_ {i};\tilde{E}_ {i})$
 
 $I(;)$는 두 표현사이 상호 정보(mutual information)양.
 $\tilde{E}$는 $E_{ND}$, $E_{ED}$를 표현하는 표기방식(= 증강데이터를 활용해 만든 최종 노드 표현)
 
 다음 수식을 최소화하기 위해서 상호 정보에 대한 수식이 필요합니다. 일반적으로 InfoNCE 손실함수를 최소화 하는 것이 상호 정보양에 대한 하한값을 최대화하하는 역할을 합니다. 즉, 이를 역으로 이용해 negative InfoNCE 손실함수를 최소화하는 방향으로 상호정보 양의 하한을 최대화하는 방향으로 목적함수를 설정합니다. 즉 주어진 수식에서 $I(E;\tilde{E})$를 negative InfoNCE 손실함수로 대체해 사용합니다. 
 
-$I(E_{u};\tilde{E}_{u}) = -{\sum_{u \in U} \log \frac{\exp(\text{sim}(\mathrm{e}_{i}, \tilde{\mathrm{e}_{i}}) / \tau)}{\sum_{j\in U} \exp(\text{sim}(\mathrm{e}_{i}, \tilde{\mathrm{e}}_{j}) / \tau)}}$
+$I(E_ {u};\tilde{E}_ {u}) = -{\sum_ {u \in U} \log \frac{\exp(\text{sim}(\mathrm{e}_ {i}, \tilde{\mathrm{e}_ {i}}) / \tau)}{\sum_ {j\in U} \exp(\text{sim}(\mathrm{e}_ {i}, \tilde{\mathrm{e}}_ {j}) / \tau)}}$
 (sim = Cosine similarity, $\tau$= temperature(하이퍼파라미터))
 
 위 수식은 추천시스템의 목적함수와 함께 multi-task 최적화에 활용됩니다.
-$\mathcal{L} = \mathcal{L}_{rec} +\mathcal{L}_{rec}^{ND}++\mathcal{L}_{rec}^{ED} + \lambda(I(E;\tilde{E}_{ND})+I(E;\tilde{E}_{ED})) + \beta||\theta||^{2}_{2}$
+$\mathcal{L} = \mathcal{L}_ {rec} +\mathcal{L}_ {rec}^{ND}++\mathcal{L}_ {rec}^{ED} + \lambda(I(E;\tilde{E}_ {ND})+I(E;\tilde{E}_ {ED})) + \beta||\theta||^{2}_ {2}$
 ## 4. Experiment
 1. 실험데이터: Yelp2018, MovieLens-1M, Douban
 	(Training:Validation:Test = 8:1:1)

@@ -324,12 +324,15 @@ Please rename your file as follows: <code class="language-plaintext highlighter-
 Even if it looks good in the Markdown editor (<a href="https://stackedit.io/app#">StackEdit</a>), equations may break in the blog. To prevent equations from breaking in the blog, please note the following precautions when writing:</p>
 
 <ul>
-  <li>수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 $$는 작동하지 않습니다.<br />
-When writing equations, please use only one $ sign. $$ does not work on this blog.</li>
+  <li>수식을 작성하실 때 $ 하나만 사용해주시길 바랍니다. 본 블로그에서 $$는 작동하지 않습니다. 수식을 작성하실 때, 수식의 시작 또는 끝을 나타내기 위해 \(, \), \[, \]를 사용하지 마시길 바랍니다. $ 를 사용해주시길 바랍니다.<br />
+When writing equations, please use only one $ sign. $$ does not work on this blog. Also, do not use \(, \), \[, \] as start or end of equation. Use $ instead.</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$y=ax+b$$ (X)
-$y=ax+b$ (O)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\[ y=ax+b \] (X)
+\( y=ax+b \) (X)
+$$ y=ax+b $$ (X)
+$ y=ax+b $ (O)
+$ f\( x \)=ax+b $ (O)
 </code></pre></div></div>
 
 <ul>
@@ -357,6 +360,24 @@ When indicating a bar in an equation, please write it as \vert instead of the | 
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$|x|$ (X)
 $\vert x \vert$ (O)
+</code></pre></div></div>
+
+<ul>
+  <li>수식 안에 중괄호({})를 표기할 때 {, }가 아니라 \lbrace, \rbrace를 사용해주시길 바랍니다.<br />
+When indicating brace({}) in an equation, please write it as \lbrace and \rbrace instead of the {, }.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$\{ x \}$ (X)
+$\lbrace x \rbrace$ (O)
+</code></pre></div></div>
+
+<ul>
+  <li>수식 안에 화살표를 표기할 때 \rarr가 아니라 \rightarrow를 사용해주시길 바랍니다.<br />
+When indicating arrow in an equation, please write it as \rightarrow instead of the \rarr.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$x \rarr y$ (X)
+$x \rightarrow y$ (O)
 </code></pre></div></div>
 
 <h3 id="attach-image-file"><strong>Attach image file</strong></h3>
@@ -481,7 +502,7 @@ You can insert your image file using the converted image url as follows :
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
- Site last generated: Oct 14, 2024 <br />
+ Site last generated: Oct 18, 2024 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
