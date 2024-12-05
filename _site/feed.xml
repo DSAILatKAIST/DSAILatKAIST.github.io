@@ -5,8 +5,8 @@
         <description>Intended as a documentation theme based on Jekyll for technical writers documenting software and other technical products, this theme has all the elements you would need to handle multiple products with both multi-level sidebar navigation, tags, and other documentation features.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 18 Oct 2024 21:12:24 +0900</pubDate>
-        <lastBuildDate>Fri, 18 Oct 2024 21:12:24 +0900</lastBuildDate>
+        <pubDate>Thu, 05 Dec 2024 11:11:29 +0900</pubDate>
+        <lastBuildDate>Thu, 05 Dec 2024 11:11:29 +0900</lastBuildDate>
         <generator>Jekyll v3.9.2</generator>
         
         <item>
@@ -35,7 +35,7 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 
 &lt;p&gt;다음으로 $get$_$relations(E_{selected})$는 entity set $E_{selected}$가 주어졌을 때, 해당 entity와 관련된 relation type을 추출하여 relation set $R_{options}$를 출력하는 함수이다. 수학적으로 $R_{options}={r\mid(s, r, o)\in T, s\in E_{selected}}$와 같이 표현할 수 있다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}가 주어졌을 때, {‘cast’, ‘director’}가 출력된다.&lt;/p&gt;
 
-&lt;p&gt;마지막으로 $get$_$edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다.&lt;/p&gt;
+&lt;p&gt;마지막으로 $get$_$edges(E_{selected}, r)$는 entity set $E_{selected}$와 relation type $r$이 주어졌을 때, $E_{selected}$에서 한 entity를 source entity로 갖고  $r$을 relation type으로 갖는 edge를 추출하여 edge set $T_{added}$ 출력하는 함수이다. 수학적으로 $T_{added}={(s,r,o)\in T\mid s\in E_{selected}, r=r, o\in E}$으로 표현된다. 예를 들어 $E_{selected}$으로 {‘Inception’, ‘Interstellar’}, $r$로 ‘cast’가 주어졌을 때, (‘Inception’, ‘cast’, ‘Michael Caine’), (‘Interstellar’, ‘cast’, ‘Michael Caine’) 등의 edge가 출력된다.&lt;/p&gt;
 
 &lt;h3 id=&quot;22-action-state-machine-asm&quot;&gt;2.2 Action State Machine (ASM)&lt;/h3&gt;
 &lt;p&gt;LLM의 답변 과정에 KG의 지식을 고려하기 위해 과거에는 KG를 prompt에 함께 제공하는 in-context learning 기법을 시도했다. 하지만 LLM의 token 제한 때문에 크기가 큰 KG를 모두 prompt에 제공하기는 어려웠고, LLM이 KG에서 필요한 정보를 추출하는 데 어려움이 있었다. 이 문제를 해결하기 위해 본 논문에서는 KG subgraph를 추출하는데, 이때 단계별로 확장을 수행하고 각 단계마다 LLM의 판단을 거치며 KG를 점차 확장해나간다.&lt;/p&gt;
@@ -51,9 +51,27 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Bb3vJDFP/tree-of-traversals-algorithm.png&quot; alt=&quot;Algorithm&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Algorithm 1은 트리 탐색 알고리즘을 자세히 나타낸 것이다. 먼저 query $q$에 대해서 $initialize(q)$를 수행하면 &lt;em&gt;default&lt;/em&gt; state의 루트 노드가 생성된다. 루트 노드에 대해서 k개의 action을 샘플링하면 각각의 action을 수행한 결과를 자식 노드로 추가하게 된다. 루트 노드를 한 번 방문한 후에는 다시 방문하지 않고, 방문하지 않은 노드 중에서 방문할 노드를 선택한다. 이때 점수가 가장 높은 노드, 점수가 동일할 경우에는 depth가 큰 노드를 선택한다. 선택한 노드에 대해서 마찬가지로 k개의 action을 샘플링하고 자식 노드를 추가한다. 이 과정을 반복하여 search tree를 확장하고, &lt;em&gt;Answer&lt;/em&gt; state 노드의 점수가 특정 threshold를 넘으면 해당 노드의 답변이 최종 답변으로 사용된다. 또한 search tree가 무한히 확장하는 것을 방지하기 위해 &lt;em&gt;max depth&lt;/em&gt;, &lt;em&gt;max expansions&lt;/em&gt;의 두 가지 stopping criteria를 설정한다. &lt;em&gt;max depth&lt;/em&gt;에 도달하면 알고리즘이 강제로 &lt;em&gt;done&lt;/em&gt; state로 이동하여 답변을 생성하고, &lt;em&gt;max expansions&lt;/em&gt;에 도달하면 모델이 “Cannot find answer”을 답변으로 내놓는다.&lt;/p&gt;
+&lt;p&gt;Algorithm 1은 트리 탐색 알고리즘을 자세히 나타낸 것이다.&lt;/p&gt;
 
-&lt;p&gt;Tree-of-Traversals 알고리즘에서 search tree 상에 존재하는 노드의 점수를 산정하기 위해서 LLM을 사용한다. LLM에 특정 양식에 맞춰 prompt를 작성하는데, prompt에는 현재의 원래 query, KG subgraph, 이전에 수행한 action 목록과 점수 산정을 위한 instruction이 포함된다. 점수를 산정할 때 일반 노드와 &lt;em&gt;Answer&lt;/em&gt; state 노드에 서로 다른 prompt를 사용한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;먼저 빈 tree $T$와 빈 answer set $Y$를 정의한다.&lt;/li&gt;
+  &lt;li&gt;query $q$에 대해서 $initialize(q)$를 수행하면 &lt;em&gt;default&lt;/em&gt; state를 갖는 노드가 생성되고, 이 노드는 tree $T$의 루트 노드가 된다.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;루트 노드에 대해서 k개의 action을 샘플링한다. 구체적으로 &lt;em&gt;default&lt;/em&gt; state에서는 &lt;em&gt;Think, Answer, ExpandKG&lt;/em&gt;의 세 가지 action을 취할 수 있으므로 이 중에 샘플링하게 되고, 샘플링은 LLM에 특정 템플릿의 prompt를 입력하여 진행된다. 이때 LLM의 temperature를 조절하여 매 샘플링마다 서로 다른 랜덤한 action을 샘플링할 수 있다. 따라서 각각의 state마다 prompt 템플릿이 존재하고, 아래 그림은 &lt;em&gt;default&lt;/em&gt; state의 템플릿의  예시를 나타낸 것이다.
+&lt;img src=&quot;https://i.postimg.cc/fLhHKFLN/prompt-for-default.jpg&quot; alt=&quot;Algorithm&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;각각의 샘플링 결과에 대해, transition 함수를 적용하여 action을 수행한 결과를 구한다. 예를 들어 &lt;em&gt;default&lt;/em&gt; state에서 &lt;em&gt;ExpandKG&lt;/em&gt; action을 수행한 후에는 &lt;em&gt;selecting-entities&lt;/em&gt; state로 이동하게 된다.&lt;/li&gt;
+  &lt;li&gt;k개의 수행 결과는 루트 노드의 자식 노드로 추가되고, value function을 이용하여 각각의 노드의 value를 평가한다. value function은 LLM prompt를 이용하여 평가할 수 있다.&lt;/li&gt;
+  &lt;li&gt;루트 노드를 한 번 방문한 후에는 다시 방문하지 않고, 방문하지 않은 노드 중에서 방문할 노드를 선택한다. 이때 점수가 가장 높은 노드, 점수가 동일할 경우에는 depth가 큰 노드를 선택한다.&lt;/li&gt;
+  &lt;li&gt;선택한 노드에 대해서 마찬가지로 k개의 action을 샘플링하고 자식 노드를 추가한다.&lt;/li&gt;
+  &lt;li&gt;이처럼 노드를 선택하고 k개의 action을 샘플링하는 과정을 반복하여 search tree를 확장하고, 추가된 &lt;em&gt;Answer&lt;/em&gt; state 노드의 점수가 특정 threshold를 넘으면 해당 노드의 답변이 최종 답변으로 사용된다.&lt;/li&gt;
+  &lt;li&gt;또한 search tree가 무한히 확장하는 것을 방지하기 위해 &lt;em&gt;max depth&lt;/em&gt;, &lt;em&gt;max expansions&lt;/em&gt;의 두 가지 stopping criteria를 설정한다. &lt;em&gt;max depth&lt;/em&gt;에 도달하면 알고리즘이 강제로 &lt;em&gt;done&lt;/em&gt; state로 이동하여 답변을 생성하고, &lt;em&gt;max expansions&lt;/em&gt;에 도달하면 모델이 “Cannot find answer”을 답변으로 내놓는다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Tree-of-Traversals 알고리즘에서 search tree 상에 존재하는 노드의 점수를 산정하기 위해서 LLM을 사용한다. LLM에 특정 템플릿에 맞춰 prompt를 작성하는데, prompt에는 현재의 원래 query, KG subgraph, 이전에 수행한 action 목록과 점수 산정을 위한 instruction이 포함된다. 점수를 산정할 때 일반 노드와 &lt;em&gt;Answer&lt;/em&gt; state 노드에 서로 다른 prompt를 사용한다. 아래 그림은 일반 노드 및 &lt;em&gt;Answer&lt;/em&gt; state 노드의 prompt의 예시를 각각 나타낸 것이다.
+&lt;img src=&quot;https://i.postimg.cc/MH866sXK/general-prompt-for-evaluate.jpg&quot; alt=&quot;Algorithm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Dy8jf2k0/prompt-for-evaluate-on-answer.jpg&quot; alt=&quot;Algorithm&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Chain-of-Traversals는 Tree-of-Traversals의 일종으로 k개의 action을 샘플링할 때 k가 1인 경우에 해당한다. 따라서 방문하지 않은 노드가 하나만 존재하게 되고, 노드 중에서 점수에 따라 선택하는 대신에 확정적으로 노드를 방문한다. 이후의 실험 결과에서 Chain-of-Traversals와 Tree-of-Traversals의 question answering 성능을 비교한다.&lt;/p&gt;
 
@@ -61,15 +79,52 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
 &lt;p&gt;Tree-of-Traversals 알고리즘에서 여러 개의 KG를 고려하기 위해 우선 각각의 KG에 KG interface를 만든다. 또한 알고리즘에 몇 가지 변화가 있다. 각각의 KG $initialize(q)$ 함수로부터 중복으로 동일한 entity가 추출되지 않도록 하고, $get$_$relations(E_{selected})$ 함수에서 모든 KG로부터 해당하는 relation이 출력되도록 하며 $get$_$edges(E_{selected}, r)$ 함수를 통해 새로운 노드가 추가될 때 기존 노드와 새로운 노드 간의 edge가 존재하는지 모든 KG에 대해 확인하도록 한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-experiments&quot;&gt;3. Experiments&lt;/h2&gt;
-&lt;p&gt;Tree-of-Traversals 알고리즘에서 사용할 LLM으로는 Amazon Bedrock에서 API를 통해 이용할 수 있는 Claude-Instant, Llama2 70b, Llama2 13b를 사용한다. 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 question answering task를 수행한다. 이때 metric으로 Exact Match Included (EM-in)을 사용하는데, 생성한 답변에 정답 답변이 모두 포함되어 있으면 1, 그렇지 않다면 0이다. EM-in은 EM과 다르게 생성한 답변과 정답 답변이 완전히 일치하지 않아도 되는데, LLM이 응답을 생성할 때 다양한 문장 구조와 구문을 사용할 수 있다는 점과 일반적으로 LLM의 답변에 정답 이외에 부가 설명이 추가된다는 점을 고려할 때 더 적합한 metric이다.&lt;/p&gt;
 
-&lt;p&gt;Tree-of-Traversals 알고리즘의 성능과 비교하기 위한 baseline으로는 Chain-of-Thought (CoT) prompting, ReAct, FLARe와 같이 black-box LLM에서 동작하는 알고리즘을 사용한다. Tree-of-Traversals 알고리즘을 적용한 모델은 두 가지 사용하는데, &lt;em&gt;branching factor&lt;/em&gt; k=1인 특수한 경우를 Chain-of-Traversals, k=3인 경우를 Tree-of-Traversals라고 칭한다. 알고리즘을 수행할 때 search tree가 무한히 확장하는 걸 방지하기 위한 hyperparameter로서 &lt;em&gt;max depth&lt;/em&gt;는 7, &lt;em&gt;max expansions&lt;/em&gt;는 20으로 설정한다. 또한 최종 답변을 결정하기 위한 threshold를 0.8로 설정하여 실험을 진행한다.&lt;/p&gt;
+&lt;p&gt;Tree-of-Traversals 알고리즘에서 사용할 LLM으로는 Amazon Bedrock에서 API를 통해 이용할 수 있는 Claude-Instant, Llama2 70b, Llama2 13b를 사용한다. 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 question answering task를 수행한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Metric
+    &lt;ul&gt;
+      &lt;li&gt;Exact Match Included (EM-in)을 사용하는데, 생성한 답변에 정답 답변이 모두 포함되어 있으면 1, 그렇지 않다면 0이다.&lt;/li&gt;
+      &lt;li&gt;EM-in은 EM과 다르게 생성한 답변과 정답 답변이 완전히 일치하지 않아도 되는데, LLM이 응답을 생성할 때 다양한 문장 구조와 구문을 사용할 수 있다는 점과 일반적으로 LLM의 답변에 정답 이외에 부가 설명이 추가된다는 점을 고려할 때 더 적합한 metric이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Baseline
+    &lt;ul&gt;
+      &lt;li&gt;Tree-of-Traversals 알고리즘의 성능과 비교하기 위한 baseline으로는 Chain-of-Thought (CoT) prompting, ReAct, FLARe와 같이 black-box LLM에서 동작하는 알고리즘을 사용한다.&lt;/li&gt;
+      &lt;li&gt;Tree-of-Traversals 알고리즘을 적용한 모델은 두 가지 사용하는데, &lt;em&gt;branching factor&lt;/em&gt; k=1인 특수한 경우를 Chain-of-Traversals, k=3인 경우를 Tree-of-Traversals라고 칭한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Hyperparameter setting
+    &lt;ul&gt;
+      &lt;li&gt;알고리즘을 수행할 때 search tree가 무한히 확장하는 걸 방지하기 위한 hyperparameter로서 &lt;em&gt;max depth&lt;/em&gt;는 7, &lt;em&gt;max expansions&lt;/em&gt;는 20으로 설정한다.&lt;/li&gt;
+      &lt;li&gt;또한 최종 답변을 결정하기 위한 threshold를 0.8로 설정하여 실험을 진행한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
+&lt;h3 id=&quot;31-question-anwering-task&quot;&gt;3.1 Question Anwering Task&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/pdnV8kYn/experiment-result.png&quot; alt=&quot;Result&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위 테이블은 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 baseline과 Tree-of-Traversals 알고리즘의 성능을 나타낸 것이다. 먼저 2WikiMultiHop의 경우, 사용한 세 가지 LLM에서 모두 Tree-of-Traversals의 성능이 가장 높게 나타났고, 이 성능은 zero-shot 세팅에서 state-of-the-art에 해당한다. Chain-of-Traversals도 baseline보다 좋은 성능을 보인다는 점에서 ASM을 따라 action을 선택하며 KG subgraph를 추출하는 방식이 효과적이라는 점을 확인할 수 있다. Tree-of-Traversals는 Chain-of-Traversals와 달리 확정적으로 하나의 action을 선택하는 것이 아니라, 가능한 다양한 action 중에서 점수가 높은 action을 선택하여 subgraph를 확장하는 방식으로 최적의 KG subgraph를 추출하기 때문에 두 데이터셋에서 모두 Chain-of-Traversals보다 확연히 좋은 성능을 보였다. QALD-10 데이터셋의 경우에도 Llama2-13b를 사용한 경우를 제외하면 Tree-of-Traversals와 Chain-of-Traversals가 baseline보다 좋은 성능을 보였다.&lt;/p&gt;
+&lt;p&gt;위 테이블은 2WikiMultiHop 데이터셋과 QALD-10 데이터셋에서 baseline과 Tree-of-Traversals 알고리즘의 성능을 나타낸 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2WikiMultiHop
+세 가지 LLM에서 모두 Tree-of-Traversals의 성능이 가장 높게 나타났고, 이 성능은 zero-shot 세팅에서 state-of-the-art에 해당한다. Chain-of-Traversals도 baseline보다 좋은 성능을 보인다는 점에서 ASM을 따라 action을 선택하며 KG subgraph를 추출하는 방식이 효과적이라는 점을 확인할 수 있다. Tree-of-Traversals는 Chain-of-Traversals와 달리 확정적으로 하나의 action을 선택하는 것이 아니라, 가능한 다양한 action 중에서 점수가 높은 action을 선택하여 subgraph를 확장하는 방식으로 최적의 KG subgraph를 추출하기 때문에 두 데이터셋에서 모두 Chain-of-Traversals보다 확연히 좋은 성능을 보였다.&lt;/li&gt;
+  &lt;li&gt;QALD-10
+Llama2-13b를 사용한 경우를 제외하면 Tree-of-Traversals와 Chain-of-Traversals가 baseline보다 좋은 성능을 보였다.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;또한 한 가지 확인할 수 있는 것은 LLM 모델에 따라서도 question anwering 성능에 차이가 발생했다. 이는 Llama-70b와 Llama-13b의 차이에서 확인 가능한데, Tree-of-Traversals 알고리즘의 성능은 LLM의 성능에 비례한다는 점을 알 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;32-ablation-studies&quot;&gt;3.2 Ablation Studies&lt;/h3&gt;
+&lt;p&gt;만약 value function의 value가 랜덤한 값이었다면, Tree-of-Traversals는 Chain-of-Traversal보다 더 나은 결과를 보이지 못했을 것이다. 이러한 측면에서 value function의 효과를 확인하기 위해 value function에 대한 ablation study가 진행됐다.&lt;/p&gt;
+
+&lt;p&gt;왼쪽 그래프는 모델이 0.0 또는 1.0의 value로 평가한 답변에 대한 EM-in 결과를 나타낸 것이다. 이는 0.0의 value를 가진 답변보다 1.0의 value를 가진 답변을 선택할 때 더 정확한 답변이 생성된다는 것을 의미한다.&lt;/p&gt;
+
+&lt;p&gt;다음으로 Tree-of-Traversals 알고리즘이 수행하는 backtracking의 효과를 보이기 위한 ablation study의 결과이다. 2WikiMultiHop의 질문 중에서 실제로 Tree-of-Traversals 알고리즘이 답변을 생성하는 과정에서 backtracking이 발생하는 케이스만 선별하여 backtracking을 제한했을 때와 제한하지 않았을 때의 답변을 비교했다. 오른쪽 그래프는 각각의 답변에 대한 EM-in 결과를 나타낸 것이다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로 backtracking을 허용했을 때 성능 향상이 있었고, Chain-of-Traversals 알고리즘과 달리 backtracking이 가능한 Tree-of-Traversals 알고리즘의 우수성을 입증한다.
+&lt;img src=&quot;https://i.postimg.cc/7ZSVs9TM/ablation-studies.jpg&quot; alt=&quot;Result&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;4-conclusion&quot;&gt;4. Conclusion&lt;/h2&gt;
 &lt;p&gt;Tree-of-Traversals는 LLM이 question answering과 같이 지식을 기반으로 하는 task에서 한계가 있다는 점을 해결하기 위해 고안된 알고리즘으로, 별개의 학습 없이 LLM이 KG를 기반으로 더 정확한 답변을 생성할 수 있도록 한다. 기존의 KG-augmented LLM은 LLM의 pre-training이나 fine-tuning과 같이 LLM의 parameter를 직접적으로 학습하는 경우가 많았는데, 연산량이 매우 많을 뿐만 아니라 많은 LLM이 모델 구조와 parameter를 공개하지 않는 black-box 형태이기 때문에, 학습이 없고 LLM의 API만을 사용하여 구현 가능한 Tree-of-Traversals 알고리즘이 유용하다. 질문 query와 관련된 정보를 KG에서 추출하는 과정에서 Tree-of-Thoughts의 접근법을 차용한 알고리즘으로, 선택 가능한 다양한 KG subgraph 중에서 가장 유용한 subgraph를 선택하여 정확한 답변을 생성할 수 있다. 실제로 다양한 실험에서 기존 baseline 모델보다 좋은 성능을 나타냄으로써 그 효과를 입증했다.&lt;/p&gt;
@@ -89,9 +144,9 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
   &lt;li&gt;Yao, Shunyu, et al. “Tree of thoughts: Deliberate problem solving with large language models.” &lt;em&gt;Advances in Neural Information Processing Systems&lt;/em&gt; 36 (2024).&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-Tree-of-Traversals_A_Zero-Shot_Reasoning_Algorithm_for_Augmenting_Black-box_Language_Models_with_Knowledge_Graphs.html</guid>
             
             <category>reviews</category>
             
@@ -100,49 +155,18 @@ KG에서 필요한 정보를 추출할 때는 다음과 같이 세 가지의 명
         
         <item>
             <title>[SIGIR-24] SelfGNN: Self-Supervised Graph Neural Networks for Sequential Recommendation</title>
-            <description>&lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
+            <description>&lt;h2 id=&quot;1-introduction-and-motivation&quot;&gt;&lt;strong&gt;1. Introduction and Motivation&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Recommender systems play a critical role in modern digital platforms, enabling personalized content delivery on services like Amazon, TikTok, and YouTube. A significant branch of this field is sequential recommendation, which models user-item interactions over time to predict future behaviors. For instance, predicting the next movie a user might watch based on their viewing history. Sequential recommendation hinges on capturing both short-term interests and long-term preferences. However, existing approaches often fall short by focusing on either temporal dynamics (e.g., GRU4Rec, SASRec, and Bert4Rec) or collaborative relationships (e.g., NGCF and LightGCN), neglecting their integration (Hidasi et al. 2016; Kang and McAuley 2018; Liu et al. 2019; Wang et al. 2019; He et al. 2020).&lt;/p&gt;
 
-&lt;p&gt;In Liu et. al (2024) they propose a self-supervised method for modeling long and short-term interaction sequences
-for user-item recommendation. They call this method Self-Supervised Graph Neural Network (SelfGNN) 
-which they analize with the following research questions (RQ):&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;How does SelfGNN perform w.r.t top-k recommendation as
-compared with the state-of-the-art models?&lt;/li&gt;
-  &lt;li&gt;What are the benefits of the components proposed?&lt;/li&gt;
-  &lt;li&gt;How does SelfGNN perform in the data noise issues?&lt;/li&gt;
-  &lt;li&gt;How do the key hyperparameters influence SelfGNN?&lt;/li&gt;
-  &lt;li&gt;In real cases, how can the designed self-augmented learning
-in SelfGNN provide useful interpretations?&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Self-supervised learning (SSL) has emerged as a promising paradigm in recommender systems, leveraging unlabeled data to address challenges like data sparsity. However, SSL-based sequential models often depend heavily on high-quality data, making them vulnerable to noise in real-world user interactions, such as misclicks or temporary intents (Xia et al. 2023).&lt;/p&gt;
 
-&lt;h2 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;As stated by the paper (Liu et. al) recommender systems are an important field of research
-for addressing user-item interactions benefitting service providers such as Amazon
-(Ge et al. 2020) but also digital platforms such as TikTok, YouTube and Facebook (Wei et al. 2023; Zhang et al. 2021). 
-Furthermore, self-supervised learning (SSL) have become very attractive for recommender systems and graph learning as 
-they additional graphical structure compensates for the lack of labelled data. SSL methods are only limited to a few
-labeled data points thus enabling usages for many more applications.&lt;/p&gt;
+&lt;p&gt;Liu et al. (2024) address these limitations with SelfGNN, a novel self-supervised framework for sequential recommendation. SelfGNN integrates short-term collaborative relationships and long-term user preferences while mitigating noise through personalized self-augmented learning. By effectively encoding and denoising interaction sequences, SelfGNN sets a new standard for robust and accurate sequential recommendations.&lt;/p&gt;
 
-&lt;p&gt;An important branch of recommender systems is &lt;em&gt;sequential recommendation&lt;/em&gt;, which models user interactions over 
-time (as a sequence of actions in time). Thus, by analyzing the temporal interaction patterns the model can predict future user actions. Examples of sequential recommendation could be the task of predicting the next movie
-a user wants to watch given the ordered list of previously watched movies (as presented in the lectures). Modeling sequential patterns
-can be crucial recommender systems as they relay chronological patterns giving insights into both short and 
-long-term user preferences (Liu et al.). Thus many studies have analyzed how to incorporate temporal information to the
-recommender system such as DGSR (Zhang et al. 2023), SURGE (Chang et al. 2021), GRU4Rec (Hidasi et al. 2016), SASRec (Kang and McAuley 2018), Bert4Rec (Liu et al. 2019), TiSASRec (Li et al. 2020)
-and MBHT~\cite{MBHT} (where the last four methods are based on Transformers (Vaswani et al. 2017)). However, while these models manage to model dynamic user-interactions
-they fail to effectivly integrate both long and short-term interaction or overlook important periodical collaborative relationships between users by 
-only encoding single-user sequences (Liu et al. 2024). Furthermore, previous SSL methods for sequential recommendation like CLSR~\cite{CLSR}, are extremely dependent on
-high-quality data. This means they lack the natural robustness to noisy data which is present in real-world data as the noise will propagate through the model (Lie et al. 2024).&lt;/p&gt;
-
-&lt;p&gt;With these issues in mind, SelfGNN was designed to effectively encode both long and short-term interaction while &lt;em&gt;denoising&lt;/em&gt; the short-term
-patterns with long-term dependencies thus making the model robust to noisy data (Liu et al. 2024).&lt;/p&gt;
-
-&lt;h2 id=&quot;3-preliminary&quot;&gt;&lt;strong&gt;3. Preliminary&lt;/strong&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;31-message-passing&quot;&gt;&lt;em&gt;3.1 Message Passing&lt;/em&gt;&lt;/h3&gt;
+&lt;h2 id=&quot;2-preliminary&quot;&gt;&lt;strong&gt;2. Preliminary&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;21-message-passing&quot;&gt;&lt;em&gt;2.1 Message Passing&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;Message Passing is the central process of Graph Convolution Networks (GCN)
-to encode graph information such as nodes~\cite{Kipf}. The core idea is to send &lt;em&gt;messages&lt;/em&gt; of 
-information between the nodes to iteratively update the encoded node representations~\cite{Kipf}. In this paper (Lie et al. 2024)
-were inspired by LightGCN~\cite{LightGCN} where each user-node $\boldsymbol{e}_ {u}^{(k)}$ and item-node $\boldsymbol{e}_ {i}^{(k)}$ 
+in order to encode graph structural information (Kipf and Welling 2017). The core idea is to send &lt;em&gt;messages&lt;/em&gt; of 
+information between the nodes to iteratively update the encoded node representations. Specifically, Liu et al. were inspired by LightGCN (He et al. 2017) where each user-node $\boldsymbol{e}_ {u}^{(k)}$ and item-node $\boldsymbol{e}_ {i}^{(k)}$ 
 encoding are updated by the weighted sum of their neighboring nodes:&lt;/p&gt;
 
 &lt;p&gt;$
@@ -153,23 +177,27 @@ $&lt;/p&gt;
 \boldsymbol{e}_ {i}^{(k+1)} = \sum_ {u\in\mathcal{N}_ i} \frac{1}{\sqrt{\vert\mathcal{N}_ i\vert}\sqrt{\vert\mathcal{N}_ u\vert}}\boldsymbol{e}_ {u}^{(k)}
 $&lt;/p&gt;
 
-&lt;p&gt;Where $\boldsymbol{e}_ {u}^{(0)}$ and $\boldsymbol{e}_ {u}^{(0)}$ are the inital ID embedding for the user and item respectivly.&lt;/p&gt;
-&lt;h3 id=&quot;32-self-attention&quot;&gt;&lt;em&gt;3.2 Self-Attention&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;Another key operation for propagating information which has seen increased popularity for graph-based learning is 
-self-attention (Vaswani et al. 2017). The idea of self-attention is to project the input $\boldsymbol{X} \in \mathbb{R}^{n\times d}$ to 
-the &lt;em&gt;query&lt;/em&gt;, &lt;em&gt;key&lt;/em&gt; and &lt;em&gt;value&lt;/em&gt; subspace using (the learned) projection matrices $\boldsymbol{W}_ Q\in\mathbb{R}^{d\times d_ Q}$, $\boldsymbol{W}_ K\in\mathbb{R}^{d\times d_ K}$, and $\boldsymbol{W}_ V\in\mathbb{R}^{d\times d_ V}$, respectivly (where $d_ K = d_ Q$). Then (single-head) attention is computed by:&lt;/p&gt;
+&lt;p&gt;Where $\boldsymbol{e}_ {u}^{(0)}$ and $\boldsymbol{e}_ {i}^{(0)}$ are the initial ID embedding for the user and item respectively.&lt;/p&gt;
+&lt;h3 id=&quot;22-self-attention&quot;&gt;&lt;em&gt;2.2 Self-Attention&lt;/em&gt;&lt;/h3&gt;
+
+&lt;p&gt;Another key operation for propagating information, which has gained significant popularity in graph-based learning, is &lt;strong&gt;self-attention&lt;/strong&gt; (Vaswani et al. 2017). Self-attention is particularly effective at capturing relationships in temporal or sequential data due to its ability to focus on relevant parts of the input sequence, regardless of their position.&lt;/p&gt;
+
+&lt;p&gt;The core idea of self-attention is to project the input matrix $\boldsymbol{X} \in \mathbb{R}^{n \times d}$ into the &lt;em&gt;query&lt;/em&gt;, &lt;em&gt;key&lt;/em&gt;, and &lt;em&gt;value&lt;/em&gt; subspaces using learnable projection matrices $\boldsymbol{W}_ Q \in \mathbb{R}^{d \times d_ Q}$, $\boldsymbol{W}_ K \in \mathbb{R}^{d \times d_ K}$, and $\boldsymbol{W}_ V \in \mathbb{R}^{d \times d_ V}$, respectively (where $d_ K = d_ Q$). These projections allow the model to compare elements of the input sequence and determine which parts to focus on.&lt;/p&gt;
+
+&lt;p&gt;The (single-head) attention is then computed as:&lt;/p&gt;
 
 &lt;p&gt;$
 \text{Attn}(\boldsymbol{X}) = \text{Softmax}\left(\frac{\boldsymbol{XW}_ {Q}(\boldsymbol{XW}_ K)^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{XW}_ V = \text{Softmax}\left(\frac{\boldsymbol{QK}^\mathsf{T}}{\sqrt{d_ K}}\right)\boldsymbol{V} 
 $&lt;/p&gt;
-&lt;h3 id=&quot;33-validation-metrics&quot;&gt;&lt;em&gt;3.3 Validation Metrics&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;To validate the effectiveness of their proposed method, (Liu et al. 2024) use the Hit Rate (HR)@N and Normalized
-Discounted Cumulative Gain (NDCG)@N (&lt;a href=&quot;https://www.evidentlyai.com/ranking-metrics/evaluating-recommender-systems&quot;&gt;www.evidentlyai.com&lt;/a&gt;). 
-To calculate the Hit Rate for top $N$ recommendations, each user gets a score of either 0 or 1 depending on if they were recommended a
-relevant item in their top $N$ recommendations. Then we calculate the average score for all users, which is the final validation metric.&lt;/p&gt;
+
+&lt;p&gt;By learning dynamic weights through attention, this mechanism excels at modeling long-range dependencies and temporal relationships, making it well-suited for sequential and temporal data such as sequential recommendation, where contextual relevance across time steps is critical.&lt;/p&gt;
+
+&lt;h3 id=&quot;23-validation-metrics&quot;&gt;&lt;em&gt;2.3 Validation Metrics&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;To validate the effectiveness of their proposed method they used the Hit Rate (HR)@N and Normalized
+Discounted Cumulative Gain (NDCG)@N where the Hit Rate at $N$ is the fraction of users whose top $N$ recommendations include at least one relevant item.&lt;/p&gt;
 
 &lt;p&gt;To calculate the Normalized Discounted Cumulative Gain, we first calculate the Discounted Cumulative Gain (DCG) and 
-then normalize it using the Idealized discounted cumulative gain (IDCG) (&lt;a href=&quot;https://www.evidentlyai.com/ranking-metrics/ndcg-metric&quot;&gt;www.evidentlyai.com&lt;/a&gt;).
+then normalize it using the Idealized discounted cumulative gain (IDCG).
 For a user with predicted item ranking-position order $p_ i$ and ground-truth item-relevance $r_ i$ DCG@N is computed as:&lt;/p&gt;
 
 &lt;p&gt;$
@@ -186,31 +214,31 @@ the final equation for NDCG is:&lt;/p&gt;
 NDCG@N = \frac{DCG@N}{IDCG@N} = \frac{\sum_ {i = 1}^N \frac{r_ i}{\log (p_ i +1)}}{\sum_ {i = 1}^N \frac{r_ i}{\log (p’_ {i} +1)}} \in [0,1]
 $&lt;/p&gt;
 
-&lt;p&gt;In the paper by Liu et al. they set $N = {10,20}$ for both HR@N and NDCG@N.&lt;/p&gt;
-&lt;h2 id=&quot;4-method&quot;&gt;&lt;strong&gt;4. Method&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Given the set of users $\mathcal{U} = {u_ 1,\dots, u_ I}$ with $\vert\mathcal{U}\vert = I$ and the set of 
-items $\mathcal{V} = {v_ i,\dots,v_ J}$ where $\vert\mathcal{V}\vert = J$ the time-dependent adjacency matrix
+&lt;p&gt;In the paper, they set $N = \lbrace 0,20 \rbrace$ for both HR@N and NDCG@N.&lt;/p&gt;
+&lt;h2 id=&quot;3-method&quot;&gt;&lt;strong&gt;3. Method&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Given the set of users $\mathcal{U} = \lbrace u_ 1,\dots, u_ I\rbrace$ with $\vert\mathcal{U}\vert = I$ and the set of 
+items, $\mathcal{V} = \lbrace v_ i,\dots,v_ J\rbrace$ where $\vert\mathcal{V}\vert = J$ the time-dependent adjacency matrix
 $\boldsymbol{\mathcal{A}}_ {t} \in\mathbb{R}^{I\times J}$ represents the user-item interaction at time $t$. Here, the time $t$ is
-discretized by the hyperparameter $T$ such that each time-interval has length $(t_ e - t_ b)/T$ where $t_ b$ and $t_ e$ is the 
+discretized by the hyperparameter $T$ such that each time interval has length $(t_ e - t_ b)/T$ where $t_ b$ and $t_ e$ are the 
 first (beginning) and last (end) observed time stamp. Thus in other words, ${\mathcal{A}}_ {t,i,j}$ is 
-set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then giving ${\boldsymbol{\mathcal{A}}_ {t}| 1\leq t \leq T}$ the objective
+set to 1 if user $u_ i$ interacted with item $v_ j$ at time $t$. Then, giving $\lbrace \boldsymbol{\mathcal{A}}_ {t}| 1\leq t \leq T\rbrace$ the objective
 is to predict future user-item interactions $\boldsymbol{\mathcal{A}_{T+1}}$. Formally, they define the objective as:&lt;/p&gt;
 
 &lt;p&gt;$
-\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}_ {recom}\left(\boldsymbol{\mathcal{\hat{A}}_ {T+1}},\boldsymbol{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SSL}(\boldsymbol{E}_ s,\boldsymbol{E}_ l)
+\arg\min_ {\Theta_ f,\Theta_ g} \mathcal{L}_ {recom}\left(\boldsymbol{\mathcal{\hat{A}}_ {T+1}},\boldsymbol{\mathcal{A}_ {T+1}}\right) + \mathcal{L}_ {SAL}(\boldsymbol{E}_ s,\boldsymbol{E}_ l)
 $&lt;/p&gt;
 
 &lt;p&gt;$
-\boldsymbol{\mathcal{\hat{A}}_ {T+1}} = f\left(\boldsymbol{E}_ s,\boldsymbol{E}_ l\right)\quad \boldsymbol{E}_ s,\boldsymbol{E}_ l = g({\boldsymbol{\mathcal{A}}_t})
+\boldsymbol{\mathcal{\hat{A}}_ {T+1}} = f\left(\boldsymbol{E}_ s,\boldsymbol{E}_ l\right)\quad \boldsymbol{E}_ s,\boldsymbol{E}_ l = g(\lbrace\boldsymbol{\mathcal{A}}_t\rbrace)
 $&lt;/p&gt;
 
 &lt;p&gt;Where $\mathcal{L}_ {recom}$ is the recommendation error between the true and predicted user-item interactions $\boldsymbol{\mathcal{A}_ {T+1}}$ and $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$, respectively.
-$\mathcal{L}_ {att}$ is the self-attention loss (regularizer) which uses the long and short-term embeddings $\boldsymbol{E}_ l,\boldsymbol{E}_ s$ which are encoded using the sequential data and encoder $g$.
+$\mathcal{L}_ {SAL}$ is the self-augmentation learning (SAL) loss which uses the long and short-term embeddings $\boldsymbol{E}_ l,\boldsymbol{E}_ s$ which are encoded using the sequential data and encoder $g$.
 Lastly, the estimated predictions $\boldsymbol{\mathcal{\hat{A}}_ {T+1}}$ is also calculated using these embeddings and prediction function $f$.&lt;/p&gt;
 
-&lt;h3 id=&quot;41-encoding-short-term-user-item-interactions&quot;&gt;&lt;em&gt;4.1 Encoding Short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;The model begins by modeling the short-term interactions as these will be used throughout the whole encoding process. Inspired by LightGCN~\cite{LightGCN}, they project
-each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space (using the ID). These embeddings $\boldsymbol{e}_ {t,i}^{(u)}$, $\boldsymbol{e}_ {t,j}^{(v)}$ are assembled
+&lt;h3 id=&quot;31-encoding-short-term-user-item-interactions&quot;&gt;&lt;em&gt;3.1 Encoding Short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;The model begins by modeling the short-term interactions, which are essential to the encoding process. Inspired by LightGCN (He et al. 2017), they project
+each user $u_ i$ and item $v_ j$ for each timestep $t$ into a $d$-dimensional latent space using their IDs. These embeddings $\boldsymbol{e}_ {t,i}^{(u)}$, $\boldsymbol{e}_ {t,j}^{(v)}$ are assembled
 to the embedding matrices $\boldsymbol{E}_ t^{(u)}\in\mathbb{R}^{I\times d}$,$\boldsymbol{E}_ t^{(v)} \in\mathbb{R}^{J\times d}$ which are then updated through the 
 following message passing method:&lt;/p&gt;
 
@@ -230,14 +258,12 @@ $&lt;/p&gt;
 \boldsymbol{e}_ {t,i}^{(u)} = \boldsymbol{e}_ {t,i,1}^{(u)}| \dots|  \boldsymbol{e}_ {t,i,L}^{(u)},\quad\boldsymbol{e}_ {t,j}^{(v)} = \boldsymbol{e}_ {t,j,1}^{(v)}| \dots|  \boldsymbol{e}_ {t,j,L}^{(v)}
 $&lt;/p&gt;
 
-&lt;h3 id=&quot;42-encoding-long-term-user-item-interactions&quot;&gt;&lt;em&gt;4.2 Encoding Long-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;The long-term user-item information is encoded in two different ways which in the end
-are combined for the final prediction. First, we have what they call &lt;em&gt;Interval-Level Sequential Pattern Modeling&lt;/em&gt; which aims to
-capture dynamic changes from period to period by integrating the aforementioned short-term embeddings into long-term embeddings using temporal attention. 
-Second, the use &lt;em&gt;Instance-Level Sequential Pattern Modeling&lt;/em&gt; which aims to learn the pairwise relations between specific item instances directly (Liu et al. 2024).&lt;/p&gt;
+&lt;h3 id=&quot;32-encoding-long-term-user-item-interactions&quot;&gt;&lt;em&gt;3.2 Encoding Long-term user-item Interactions&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;The long-term user-item information is encoded in two different ways, which
+are combined for the final prediction in the end. First, they introduce &lt;em&gt;Interval-Level Sequential Pattern Modeling&lt;/em&gt; which aims to capture dynamic changes from period to period by integrating the aforementioned short-term embeddings into long-term embeddings using temporal attention. 
+Second, they define &lt;em&gt;Instance-Level Sequential Pattern Modeling&lt;/em&gt; which learns the pairwise relations between specific item instances directly (Liu et al. 2024).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Interval-Level Sequential Pattern Modeling&lt;/strong&gt; To integrate short-term embeddings into long-term ones Liu et al. (2024) use the
-Gated Recurrent Unit (GRU) on the sequential short-term embeddings ${\boldsymbol{e}_ {t,i}^{(u)}}$ and ${\boldsymbol{e}_ {t,j}^{(v)}}$ for each user $u_ i$ and item $v_ j$. 
+&lt;p&gt;&lt;strong&gt;Interval-Level Sequential Pattern Modeling&lt;/strong&gt; To integrate short-term embeddings into long-term ones they use the Gated Recurrent Unit (GRU) (Cho et al. 2014) on the sequential short-term embeddings $\lbrace\boldsymbol{e}_ {t,i}^{(u)}\rbrace$ and $\lbrace\boldsymbol{e}_ {t,j}^{(v)}\rbrace$ for each user $u_ i$ and item $v_ j$. 
 More specifically, each hidden state $\boldsymbol{h}_ {t,i}^{(u)}$ and $\boldsymbol{h}_ {t,j}^{(v)}$ of the GRU model is collected to interval-level sequences $S_ i^{interval}$ and $S_ j^{interval}$:&lt;/p&gt;
 
 &lt;p&gt;$
@@ -251,25 +277,25 @@ $&lt;/p&gt;
 ,\quad \boldsymbol{h}_ {t,j}^{(v)} = \text{GRU}\left(\boldsymbol{e}_ {t,j}^{(v)},\boldsymbol{h}_ {t-1,j}^{(v)}\right)
 $&lt;/p&gt;
 
-&lt;p&gt;Then (multi-head dot-product) self-attention (Vaswani et al. 2017) is applied for the interval-level sequences to uncover the temporal patterns:&lt;/p&gt;
+&lt;p&gt;Then (multi-head dot-product) self-attention is applied for the interval-level sequences to uncover the temporal patterns:&lt;/p&gt;
 
 &lt;p&gt;$
 \boldsymbol{\bar H}_ i^{(u)} = \text{Self-Att}\left(S_ i^{interval} \right),\quad \boldsymbol{\bar H}_ j^{(v)} = \text{Self-Att}\left(S_ j^{interval} \right),
-$
-Which finally, are summed across time:&lt;/p&gt;
+$&lt;/p&gt;
+
+&lt;p&gt;Which finally, are summed across time:&lt;/p&gt;
 
 &lt;p&gt;$
 \boldsymbol{\bar e}_ i^{(u)} = \sum_ {t=1}^T \boldsymbol{\bar H}_ {i,t}^{(u)},\quad \boldsymbol{\bar e}_ j^{(v)}  = \sum_ {t=1}^T \boldsymbol{\bar H}_ {j,t}^{(v)}
 $&lt;/p&gt;
 
 &lt;p&gt;Where $\boldsymbol{\bar e}_ i,\boldsymbol{\bar e}_ j\in\mathbb{R}^{d}$ is final the long-term (interval-level) embeddings for user $u_ i$ and item $v_ j$. 
-Note, that while the short-term embeddings are dependent on the given time-interval $t$ the long-term embeddings are independent of $t$ as 
-while the long-term as $t$ is effectively integrated out.&lt;/p&gt;
+Note that while short-term embeddings depend on the time interval $t$, long-term embeddings are independent of $t$, as it is effectively integrated out.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Instance-Level Sequential Pattern Modeling&lt;/strong&gt; However, interval-level embeddings are not the only long-term embeddings used in the SelfGNN.
 The model also uses instance-level sequential patterns by applying self-attention directly over
-sequences containing users’ interacted item instances (Liu et al. 2024). Given a user $u_ i$ they denote
-the $m$’th interacted item for set user as $v_ {i,m}$ for $m = {1,\dots,M}$ (for a set maximum interaction length $M$).
+sequences containing users’ interacted item instances. Given a user $u_ i$ they denote
+the $m$’th interacted item for that user as $v_ {i,m}$ for $m = \lbrace 1,\dots,M\rbrace$ (for a set maximum interaction length $M$).
 Then the sequences of items user $u_ i$ interacted with can be modeled as:&lt;/p&gt;
 
 &lt;p&gt;$
@@ -305,22 +331,22 @@ $&lt;/p&gt;
 &lt;p&gt;where $N_ {pr}$ is the number of samples and $p_ k$ and $n_ k$ is the $k$-th
 positive (user-interaction) and negative (no user-interaction) item index respectively.&lt;/p&gt;
 
-&lt;h3 id=&quot;43-denoising-short-term-user-item-interactions&quot;&gt;4.3 &lt;em&gt;Denoising short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;33-denoising-short-term-user-item-interactions&quot;&gt;3.3 &lt;em&gt;Denoising short-term user-item interactions&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;While short-term user interactions are important for modeling sequential user-item 
 interaction patterns they often contain noisy data. Here &lt;em&gt;noise&lt;/em&gt; refers to any temporary intents 
-or misclicks, which cannot be considered as long-term user interests or new recent points of interest for predictions (Liu et al. 2024). An example of this is
-when an Aunt buys Modern Warfare III for their nephew for Christmas as this interaction does not reflect user $u_ {Aunt}$’s interests. Other examples are simple misclicks or situations where
-you click on something expecting it to be a different thing. Thus to &lt;em&gt;denoise&lt;/em&gt; these noisy short-term user-item interactions Liu et al. (2024) propose to use filter them using long-term interactions.
-Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$  and $(u_ {i’},v_ {j’})$ from the short-term graphs $\boldsymbol{\mathcal{A}}_ {t}$ and calculate the likelihood $s_ {t,i,j}, \bar{s}_ {i,j},s_ {t,i’,j’}, \bar{s}_ {i’,j’} \in\mathbb{R}$ that user $u_ i$/$u_ {i’}$ interacts with item $v_ j$/$v _ {j’}$ at time-step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i’,j’}, \bar{s}_ {i’,j’}$ are calculated in the same way):&lt;/p&gt;
+or misclicks, which cannot be considered as long-term user interests or recent interests for predictions (Liu et al. 2024). An example of this is
+when an aunt buys Modern Warfare III for her nephew for Christmas because this interaction does not reflect the user $u_ {aunt}$’s interests. Other examples are simple misclicks or situations where
+a user clicks on something expecting it to be a different thing. Thus to &lt;em&gt;denoise&lt;/em&gt; these noisy short-term user-item interactions they propose to filter them using long-term interactions.
+Specifically, for each training sample of the denoising SSL, they sample two observed user-item edges $(u_ i,v_ j)$ and $(u_ {i’},v_ {j’})$ from the short-term graphs $\boldsymbol{\mathcal{A}}_ {t}$ and calculate the likelihood $s_ {t,i,j}, \bar{s}_ {i,j}, s_ {t,i’,j’}, \bar{s}_ {i’,j’} \in\mathbb{R}$ that user $u_ i$/$u_ {i’}$ interacts with item $v_ j$/$v _ {j’}$ at time step $t$ and in the long-term, respectively. For $(u_ i,v_ j)$ the likelihoods are ($s_ {t,i’,j’}, \bar{s}_ {i’,j’}$ are calculated in the same way):&lt;/p&gt;
 
 &lt;p&gt;$
 s_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(e_ {t,i,k}^{(u)}\cdot e_ {t,j,k}^{(v)}\right),\quad \bar{s}_ {t,i,j} = \sum_ {k= 1}^d \text{LeakyReLU}\left(\bar{e}_ {i,k}^{(u)}\cdot \bar{e}_ {t,j,k}^{(v)}\right) 
 $&lt;/p&gt;
 
-&lt;p&gt;Where $e_ {t,i,k}^{(u)},e_ {t,j,k}^{(v)},\bar{e}_ {i,k}^{(u)},\bar{e}_ {t,j,k}^{(v)}\in\mathbb{R}$ is the element value of the $k$-th embedding dimension. Thus the SSL objective functions become:&lt;/p&gt;
+&lt;p&gt;Where $e_ {t,i,k}^{(u)},e_ {t,j,k}^{(v)},\bar{e}_ {i,k}^{(u)},\bar{e}_ {t,j,k}^{(v)}\in\mathbb{R}$ are the element values of the $k$-th embedding dimension. Thus the SAL objective functions become:&lt;/p&gt;
 
 &lt;p&gt;$
-\mathcal{L}_ {SSL} = \sum_ {t=1}^T\sum_ {(u_ {i},v_ {j}),(u_ {i’},v_ {j’})} \max\left(0,1- (w_ {t,i}\bar{s}_ {t,i,j} - w_ {t,i’}\bar{s}_ {t,i’,j’})\cdot (s_ {t,i,j} -s_ {t,i’,j’} )\right)
+\mathcal{L}_ {SAL} = \sum_ {t=1}^T\sum_ {(u_ {i},v_ {j}),(u_ {i’},v_ {j’})} \max\left(0,1- (w_ {t,i}\bar{s}_ {t,i,j} - w_ {t,i’}\bar{s}_ {t,i’,j’})\cdot (s_ {t,i,j} -s_ {t,i’,j’} )\right)
 $&lt;/p&gt;
 
 &lt;p&gt;With learnable stabilty weigths $w_ {t,i’},w_ {t,i’}\in\mathbb{R}$ calculated using the short and long-term embeddings:&lt;/p&gt;
@@ -333,10 +359,10 @@ $&lt;/p&gt;
 \boldsymbol{\Gamma}_ {t,i} = \text{LeakyReLU} \left( \left( \boldsymbol{\bar{e}}^{(u)}_ {i} + \boldsymbol{e}^{(u)}_ {t,i} + \boldsymbol{\bar{e}}^{(u)}_ {i} \odot \boldsymbol{e}^{(u)}_ {t,i}  \right) \boldsymbol{W}_ {1} + \boldsymbol{b}_ {1} \right)
 $&lt;/p&gt;
 
-&lt;p&gt;With learnable parameters $\boldsymbol{W}_ {1}\in\mathbb{R}^{d\times d_ {SSL}}$, $\boldsymbol{W}_ {2}\in\mathbb{R}^{d_ {SSL}\times 1}$, $\boldsymbol{b}_ {1}\in\mathbb{R}^{d_ {SSL}}$, and ${b}_ {2}\in\mathbb{R}$. Thus the final learning objective becomes:&lt;/p&gt;
+&lt;p&gt;With learnable parameters $\boldsymbol{W}_ {1}\in\mathbb{R}^{d\times d_ {SAL}}$, $\boldsymbol{W}_ {2}\in\mathbb{R}^{d_ {SAL}\times 1}$, $\boldsymbol{b}_ {1}\in\mathbb{R}^{d_ {SAL}}$, and ${b}_ {2}\in\mathbb{R}$. Thus the final learning objective becomes:&lt;/p&gt;
 
 &lt;p&gt;$
-\mathcal{L} = \mathcal{L}_ {recom} + \lambda_ {1}\mathcal{L}_ {SSL} + \lambda_ {2}\cdot \vert \Theta\vert _ F^2
+\mathcal{L} = \mathcal{L}_ {recom} + \lambda_ {1}\mathcal{L}_ {SAL} + \lambda_ {2}\cdot \vert \Theta\vert _ F^2
 $&lt;/p&gt;
 
 &lt;p&gt;For weight-importance parameters $\lambda_1$ and $\lambda_2$. The complete procedure is shown in Figure 1.&lt;/p&gt;
@@ -344,47 +370,55 @@ $&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/0jBdgs4G/image.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Figure 1: Overview of the SelfGNN framework&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;5-experiment&quot;&gt;&lt;strong&gt;5. Experiment&lt;/strong&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;51-experiment-setup&quot;&gt;&lt;em&gt;5.1 Experiment setup&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;As mentioned in the beginning, the following experiments are designed to answer the aforementioned research questions.&lt;/p&gt;
+&lt;h2 id=&quot;4-experiment&quot;&gt;&lt;strong&gt;4. Experiment&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;41-objective&quot;&gt;&lt;em&gt;4.1 Objective&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;The primary objective of the experiments was to compare SelfGNN with state-of-the-art models in top-$N$ recommendation. Additionally, an ablation study was conducted to evaluate the impact of removing or altering different model modules. To evaluate the model’s robustness, they performed a separate experiment injecting varying levels of noise into the data. Finally, a case study examined how the model identifies potentially noisy items for a specific user.&lt;/p&gt;
+&lt;h3 id=&quot;42-experiment-setup&quot;&gt;&lt;em&gt;4.2 Experiment setup&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Data sets&lt;/strong&gt; The SelfGNN model is tested using an Amazon-book dataset (user ratings of books by Amazon) (He and McAuley 2016), Gowalla dataset (user geolocation check-ins) (Cho et al. 2011), Movielens dataset (users’ ratings for movies from 2002 to 2009)(Harper and Konstant 2015), and Yelp data set (venue reviews sampled from 2009 to 2019) (Liu et al. 2024). Furthermore, the &lt;em&gt;5-core setting&lt;/em&gt; is applied which removes all users and items with less than 5 interactions.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Data sets&lt;/strong&gt; The SelfGNN model is tested using an Amazon-book dataset (user ratings of Amazon books) (He and McAuley 2016), Gowalla dataset (user geolocation check-ins) (Cho et al. 2011), Movielens dataset (users’ ratings for movies from 2002 to 2009)(Harper and Konstant 2015), and Yelp data set (venue reviews sampled from 2009 to 2019) (Liu et al. 2024). Furthermore the &lt;em&gt;5-core setting&lt;/em&gt; is applied which removes all users and items with less than 5 interactions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Baselines&lt;/strong&gt; They test their method against a variety of methods. This includes BiasMF (Koren et al. 2009), NCF (He et al. 2017), GRU4Rec (Hidasi et al. 2016), SASRec (Kang and McAuley 2018), TiSASRec (Li et al. 2020), Bert4Rec (Liu et al. 2019), NGCF (Wang et al. 2019), LightGCN (He et al. 2017), SRGNN (Wu et al. 2019), GCE-GNN (Wang et al. 2020), SURGE (Chang et al. 2021), ICLRec (Chen et al. 2022), CoSeRec(Liu et al. 2021), CoTRec (Xia et al. 2021), and CLSR (Zheng et al. 2022).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Baselines&lt;/strong&gt; They test their method against a plethora of methods. This includes BiasMF (Koren et al. 2009), NCF (He et al. 2017), GRU4Rec (Hidasi et al. 2016), SASRec (Kang and McAuley 2018), TiSASRec (Li et al. 2020), Bert4Rec (Liu et al. 2019), NGCF (Wang et al. 2019), LightGCN~\cite{}, SRGNN~\cite{}, GCE-GNN~\cite{}, SURGE (Chang et al. 2021), ICLRec~\cite{}, CoSeRec~\cite{}, CoTRec~\cite{}, and CLSR~\cite{}.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Evaluation&lt;/strong&gt; For evaluation, the data sets were split by time such that the most recent observations were used for testing, the earliest observations were used for training, and the remaining (middle) observations were used for validation. Furthermore, 10.000 users were sampled as test users for which negative samples were created by selecting 999 items the test user had not interacted with. Lastly, they use Hit rate (HR)@N and Normalized Discounted Cumulative Gain (NDCG)@N for $N = \lbrace 10,20\rbrace$ as their evaluation metrics.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Evaluation&lt;/strong&gt; For evaluation the data sets were split by time such that the most recent observations were used for testing, the earliest observations were used for training, and the remaining (middle) observations were used for validation. Furthermore, 10.000 users were sampled as test users for which negative samples were sampled by selecting 999 items the test user had not interacted with. Lastly, they use Hit rate (HR)@N and Normalized Discounted Cumulative Gain (NDCG)@N for $N = {10,20}$ as their evaluation metrics.&lt;/p&gt;
-
-&lt;h3 id=&quot;52-results&quot;&gt;&lt;em&gt;5.2 Results&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;The main results are presented in Figure 2:&lt;/p&gt;
+&lt;h3 id=&quot;43-results&quot;&gt;&lt;em&gt;4.3 Results&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Performance&lt;/strong&gt; The main results are presented in Figure 2:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/LsGqL3WT/image.png&quot; alt=&quot;table of results&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Figure 2: Results for the top 10 and top 20 recommendations for the SelfGNN and the baselines&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;From Figure 2, it is clear that the SelfGNN is able to outperform the previous recommender methods on the top 10 and top 20 recommendations.&lt;/p&gt;
+&lt;p&gt;These results confirm that SelfGNN consistently outperforms state-of-the-art baselines across multiple datasets. It demonstrates that the model is successfully able to integrate short-term collaborative patterns with long-term temporal sequences while mitigating the impact of noisy interactions. For example, unlike SASRec and Bert4Rec, which primarily model sequential patterns, or NGCF and LightGCN, which focus on collaborative filtering, SelfGNN bridges these approaches with its personalized self-augmented learning framework. This design enables it to capture user behavior comprehensively and adapt to diverse interaction scenarios, including noisy or sparse environments.&lt;/p&gt;
 
-&lt;p&gt;Furthermore, they perform an ablation study on the different modules of the SelfGNN model to see what happens to the performance when different parts of the model are changed. The results are shown in Figure 3.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ablation study&lt;/strong&gt; The ablation study focuses on the techniques for &lt;em&gt;Short-term Learning&lt;/em&gt;, &lt;em&gt;Long-term Learning&lt;/em&gt; and &lt;em&gt;Long and Short-term Personalized Self-Augmented Learning&lt;/em&gt;.  The results are shown in Figure 3.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/C5SxsPsj/image.png&quot; alt=&quot;ablation study table&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Figure 3: Module ablation study of the SelfGNN model.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;From the figure, we see how the performance changes when different parts of the model are either removed or changed. Notably, we see how much the performance drops when the collaborative filtering &lt;em&gt;-CF&lt;/em&gt; is dropped.&lt;/p&gt;
+&lt;p&gt;Notably, the performance drop is greatest when the GRU-attention is replaced with a feature fusion method based on summation (-&lt;em&gt;GAT&lt;/em&gt;) and when the collaborative filtering is removed (-&lt;em&gt;CF&lt;/em&gt;) for long-term learning. This demonstrates the importance of encoding long-term user information using sequential encoders and collaborative filtering. Importantly, SelfGNN demonstrates the highest performance among the ablations.&lt;/p&gt;
 
-&lt;p&gt;Lastly, to analyze the SelfGNN robustness against noise they conducted experiments where they randomly replaced some of the real item interactions with randomly generated fake ones. Figure 4 shows the performance of the SelfGNN and the top baselines on the Amazon and Movielens data set as the percentage of fake items increased.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Injecting Noise&lt;/strong&gt; To analyze the SelfGNN robustness against noise, they conducted experiments where they injected noise into the data by randomly replacing &lt;em&gt;real&lt;/em&gt; item interactions with randomly generated fake ones. Figure 4 shows the performance of the SelfGNN and the top baselines (Surge, CoSeTec, Bert4Rec) on the Amazon and Movielens data set as the percentage of fake items increased.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/d35wmq1Y/image.png&quot; alt=&quot;Noise study&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Figure 4: Relative HR@10 as a function of noise ratio for the SelfGNN and top baselines on the Amazon (a) and Movielens (b) data set&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;From the figure, it is also clear that the performance of the SelfGNN is much more stable as more and more noise is injected into the data.&lt;/p&gt;
+&lt;p&gt;From the figure, we observe that performance decreases for all models as noise increases; however, the decline is much slower for SelfGNN, indicating that it is more stable and robust to noise. Notably, the relative HR@10 drop is significantly higher for the other models on the Movielens dataset when only 5% of the data is replaced with noise. Interestingly, the relative performance drop of SURGE for NDCG@10 on the Amazon dataset is slightly less than that of SelfGNN at 15%. However, when noise increases to 20%, the relative performance drop of SURGE becomes the worst among all models. This is likely because the Amazon dataset is sparse, which naturally amplifies the impact of injected noise.&lt;/p&gt;
 
-&lt;h2 id=&quot;6-conclusion&quot;&gt;&lt;strong&gt;6. Conclusion&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Liu et al (2024) propose a novel method to encode short and long-term user-item interactions for self-supervised learning by integrating the short-term embeddings into long-term ones. They further empirically show, that their method outperforms state-of-the-art recommender system methods in top 10 and top 20 recommendations.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Case Study&lt;/strong&gt;: Lastly, they examine the effect of personal self-augmentation learning for user-item recommendations. They begin by sampling a user $u_ a$ (6128) and a portion of their item interaction sequence. Then, they randomly select another user $u_ b$ (824) who shares at least 20 item interactions in common with $u_ a$. They calculate the user-item similarity scores $\mathcal{\hat{A}}_ {T+1, i, j}$ for $u_ a$ and the items in their interaction sequence, both with (w-score) and without (wo-score) self-augmented learning (see Figure 5).&lt;/p&gt;
 
-&lt;p&gt;Importantly, they propose to &lt;em&gt;denoise&lt;/em&gt; the short-term information for self-supervised learning by filtering using long-term embeddings. This is quite logical, as we would expect long-term patterns to shape individual user preferences. Thus short-term instances that deviate too much from the long-term patterns can safely be assumed to be noise.&lt;/p&gt;
+&lt;p&gt;Interestingly, the score for item $v_ a$ (6282) drops from 0.8239 to 0.3686 when personal self-augmentation learning is applied. This suggests that the interaction between $u_ a$ and item $v_ a$ may be noise. This hypothesis is supported by the fact that item $v_ a$ belongs to a different category, &lt;em&gt;Mystery&lt;/em&gt;, whereas the other items (shown in blue) belong to the &lt;em&gt;Action &amp;amp; Adventure&lt;/em&gt; category. Furthermore, user $u_ b$, who shares multiple items with $u_ a$, has not interacted with $v_ a$.&lt;/p&gt;
 
-&lt;p&gt;Possible direction for future research could be making the time-series continuous instead of discretized time-intervals using things such as ordinary differential equations.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/NMXmnDT3/image.png&quot; alt=&quot;Case study&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Figure 5: user-item scores for user $u_ a$ (6128) for specific behavior sequence with (w-score) and without (wo-score) self-augmented learning.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Liu et al (2024) propose a novel method to encode short and long-term user-item interactions for self-supervised learning by integrating the short-term embeddings into long-term ones. They further empirically show that their method outperforms state-of-the-art recommender system methods in top 10 and top 20 recommendations.&lt;/p&gt;
+
+&lt;p&gt;Importantly, they propose &lt;em&gt;denoising&lt;/em&gt; short-term information for self-supervised learning by filtering it through long-term embeddings. This is intuitive, as we would expect long-term patterns to shape individual user preferences. Thus, short-term instances that deviate too much from the long-term patterns can safely be assumed to be noise.&lt;/p&gt;
+
+&lt;p&gt;A possible direction for future research could be making the time series continuous instead of discretized time intervals using methods like ordinary differential equations.&lt;/p&gt;
 
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
 
@@ -457,11 +491,60 @@ ICLR&lt;/li&gt;
 &lt;p&gt;Xiang Wang, Xiangnan He, Meng Wang, Fuli Feng, and Tat-Seng Chua. 2019.
 Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;More references is to be cited where \cite{} is presented but I ran out of time…&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Xiangnan He, Kuan Deng, Xiang Wang, Yan Li, YongDong Zhang, and Meng
+Wang. 2020. LightGCN: Simplifying and Powering Graph Convolution Network
+for Recommendation. In SIGIR.&lt;/p&gt;
+
+&lt;p&gt;Shu Wu, Yuyuan Tang, Yanqiao Zhu, Liang Wang, Xing Xie, and Tieniu Tan. 2019.
+Session-based recommendation with graph neural networks. In AAAI, Vol. 33.
+346–353.&lt;/p&gt;
+
+&lt;p&gt;Ziyang Wang, Wei Wei, Gao Cong, Xiao-Li Li, Xian-Ling Mao, and Minghui
+Qiu. 2020. Global context enhanced graph neural networks for session-based
+recommendation. In SIGIR. 169–178&lt;/p&gt;
+
+&lt;p&gt;Yongjun Chen, Zhiwei Liu, Jia Li, Julian McAuley, and Caiming Xiong. 2022. Intent
+Contrastive Learning for Sequential Recommendation. In WWW. 2172–2182.&lt;/p&gt;
+
+&lt;p&gt;Xiaohan Li, Mengqi Zhang, Shu Wu, Zheng Liu, Liang Wang, and S Yu Philip.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Dynamic Graph Collaborative Filtering. In ICDM. IEEE, 322–331.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Ziwei Fan, Zhiwei Liu, Jiawei Zhang, Yun Xiong, Lei Zheng, and Philip S. Yu.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Continuous-Time Sequential Recommendation with Temporal Graph
+Collaborative Transformer. In CIKM. 433–442&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Jiancan Wu, Xiang Wang, Fuli Feng, Xiangnan He, Liang Chen, Jianxun Lian, and
+Xing Xie. 2021. Self-supervised graph learning for recommendation. In SIGIR.
+726–735.&lt;/p&gt;
+
+&lt;p&gt;Zhiwei Liu, Yongjun Chen, Jia Li, Philip S Yu, Julian McAuley, and Caiming
+Xiong. 2021. Contrastive Self-supervised Sequential Recommendation with
+Robust Augmentation&lt;/p&gt;
+
+&lt;p&gt;Xin Xia, Hongzhi Yin, Junliang Yu, Yingxia Shao, and Lizhen Cui. 2021. SelfSupervised Graph Co-Training for Session-based Recommendation. In CIKM.
+2180–2190.&lt;/p&gt;
+
+&lt;p&gt;Yu Zheng, Chen Gao, Jianxin Chang, Yanan Niu, Yang Song, Depeng Jin, and
+Yong Li. 2022. Disentangling Long and Short-Term Interests for Recommendation.
+In WWW. 2256–2267.&lt;/p&gt;
+
+&lt;p&gt;Yuhao Yang, Chao Huang, Lianghao Xia, Yuxuan Liang, Yanwei Yu, and Chenliang
+Li. 2022. Multi-Behavior Hypergraph-Enhanced Transformer for Sequential
+Recommendation. In KDD. 2263–2274.&lt;/p&gt;
+
+&lt;p&gt;Kipf, Thomas N., and Max Welling. “Semi-supervised classification with graph convolutional networks.” arXiv preprint arXiv:1609.02907 (2016).&lt;/p&gt;
+
+&lt;p&gt;Cho, Kyunghyun. “Learning phrase representations using RNN encoder-decoder for statistical machine translation.” arXiv preprint arXiv:1406.1078 (2014).&lt;/p&gt;
+
+&lt;p&gt;Xia, Lianghao, et al. “Automated self-supervised learning for recommendation.” Proceedings of the ACM Web Conference 2023. 2023.&lt;/p&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-Self-Supervised_Graph_Neural_Networks_for_Sequential_Recommendation.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-Self-Supervised_Graph_Neural_Networks_for_Sequential_Recommendation.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-Self-Supervised_Graph_Neural_Networks_for_Sequential_Recommendation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-Self-Supervised_Graph_Neural_Networks_for_Sequential_Recommendation.html</guid>
             
             <category>reviews</category>
             
@@ -472,7 +555,7 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
             <title>[NeurIPS-24] SPA: A Graph Spectral Alignment Perspective for Domain Adaptation</title>
             <description>&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
 
-&lt;p&gt;This paper introduces &lt;strong&gt;SPA (graph SPectral Alignment Perspective)&lt;/strong&gt;, an innovative method for &lt;strong&gt;Unsupervised Domain Adaptation (UDA)&lt;/strong&gt; that leverages graph spectral alignment. &lt;strong&gt;UDA&lt;/strong&gt; addresses the challenge of adapting a model trained on a labeled source domain to perform well on an unlabeled target domain with different data distributions. Traditional UDA methods mainly focus on aligning features between domains and often overlook the rich intra-domain structures within each domain, therefore reducing the model’s ability to discriminate between classes. SPA offers a hierarchical framework that combines coarse graph alignment using spectral regularization with fine-grained message propagation through a neighbor-aware self-training mechanism. By doing so, SPA effectively balances the transfer of features across domains while maintaining discriminability within the target domain.&lt;/p&gt;
+&lt;p&gt;This paper introduces &lt;strong&gt;SPA (graph SPectral Alignment perspective)&lt;/strong&gt;, an innovative method for &lt;strong&gt;Unsupervised Domain Adaptation (UDA)&lt;/strong&gt; that leverages graph spectral alignment. &lt;strong&gt;UDA&lt;/strong&gt; addresses the challenge of adapting a model trained on a labeled source domain to perform well on an unlabeled target domain with different data distributions. Traditional UDA methods mainly focus on aligning features between domains and often overlook the rich intra-domain structures within each domain, therefore reducing the model’s ability to discriminate between classes. SPA offers a hierarchical framework that combines coarse graph alignment using spectral regularization with fine-grained message propagation through a neighbor-aware self-training mechanism. By doing so, SPA effectively balances the transfer of features across domains while maintaining discriminability within the target domain.&lt;/p&gt;
 
 &lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
 
@@ -529,21 +612,16 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 
 &lt;h3 id=&quot;41-adversarial-domain-adaptation-framework&quot;&gt;4.1 Adversarial Domain Adaptation Framework&lt;/h3&gt;
 
-&lt;p&gt;SPA contains an adversarial domain adaptation framework, which includes:&lt;/p&gt;
+&lt;p&gt;SPA contains an adversarial domain adaptation framework, which includes a &lt;strong&gt;feature encoder&lt;/strong&gt; $F(\cdot)$, a &lt;strong&gt;classifier&lt;/strong&gt; $C(\cdot)$, and a &lt;strong&gt;domain classifier&lt;/strong&gt; $D(\cdot)$. The feature encoder extracts features from input data, the classifier predicts class labels based on these features, and the domain classifier distinguishes between source and target domain features.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Feature Encoder&lt;/strong&gt; $F(\cdot)$: Extracts features from input data.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Classifier&lt;/strong&gt; $C(\cdot)$: Predicts class labels based on extracted features.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Domain Classifier&lt;/strong&gt; $D(\cdot)$: Distinguishes between source and target domain features.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;!-- 
+-  **Feature Encoder** $F(\cdot)$: Extracts features from input data.
 
-&lt;p&gt;&lt;strong&gt;Objective Functions&lt;/strong&gt;:&lt;/p&gt;
+-  **Classifier** $C(\cdot)$: Predicts class labels based on extracted features.
+
+-  **Domain Classifier** $D(\cdot)$: Distinguishes between source and target domain features. --&gt;
+
+&lt;!-- **Objective Functions**: --&gt;
 
 &lt;p&gt;There are four objective functions parallely optimized. The supervised loss and adversarial loss components are defined as follows. The supervised loss component trains the model to learn the label information and the adversarial loss helps regularize this information to be domain invariant.&lt;/p&gt;
 
@@ -558,7 +636,10 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 
 &lt;h3 id=&quot;42-dynamic-graph-construction&quot;&gt;4.2 Dynamic Graph Construction&lt;/h3&gt;
 
-&lt;p&gt;To capture intra-domain relations, SPA constructs self-correlation graphs for both the source and target domains:&lt;/p&gt;
+&lt;p&gt;In order to model relationships between different samples within a give domain, SPA constructs self-correlation graphs for both the source and target domains. The nodes in the graph represent the feature embeddings of the samples from the feature encoder. The edges are weighted similarity between the node features, based on a similarity function such as cosine similarity. The graphs are dynamic in nature as they evolve as the feature encoder updates during training.&lt;/p&gt;
+
+&lt;!-- 
+To capture intra-domain relations, SPA constructs self-correlation graphs for both the source and target domains: --&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -577,15 +658,17 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
     &lt;p&gt;&lt;strong&gt;Edges&lt;/strong&gt;: Edges are weighted based on a similarity function $\delta(f_ i, f_ j)$, such as cosine similarity.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Dynamic Nature&lt;/strong&gt;: The graphs are dynamic because they evolve as the feature encoder $F$ updates during training.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Dynamic Nature&lt;/strong&gt;: The graphs are dynamic because $f_ i^s$ and $f_ i^t$ evolve as the feature encoder $F$ updates during training.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;43-graph-spectral-alignment&quot;&gt;4.3 Graph Spectral Alignment&lt;/h3&gt;
 
+&lt;p&gt;Based on the constructed correlation graphs, the domain alignment could be phrased as a graph alignment problem. The graph spectral alignment is achieved by minimizing the spectral distance between the Laplacian eigenvalues of the source and target domain graphs. This implicit alignment avoids the need for explicit, restrictive point-wise matching.&lt;/p&gt;
+
 &lt;p&gt;SPA introduces a spectral regularizer to align the source and target graphs:&lt;/p&gt;
 
-&lt;ul&gt;
+&lt;ol&gt;
   &lt;li&gt;
     &lt;p&gt;Compute the &lt;strong&gt;graph Laplacian&lt;/strong&gt; $L$ for each graph.&lt;/p&gt;
   &lt;/li&gt;
@@ -595,46 +678,30 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
   &lt;li&gt;
     &lt;p&gt;Define the &lt;strong&gt;Spectral Distance&lt;/strong&gt;: $L_ {\text{gsa}} = \left\vert  \Lambda^s - \Lambda^t \right\vert_ p$ ,where $\left\vert  \cdot  \right\vert_ p$ denotes the $L_ p$ norm.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Objective&lt;/strong&gt;: Minimize $L_ {\text{gsa}}$ to encourage the source and target graphs to have similar spectral properties, aligning them in the eigenspace.&lt;/p&gt;
-  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Objective&lt;/strong&gt;: Minimize $L_ {\text{gsa}}$ to encourage the source and target graphs to have similar spectral properties, aligning them in the eigenspace.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;This implicit alignment avoids the need for explicit, restrictive point-wise matching.&lt;/p&gt;
+&lt;!-- This implicit alignment avoids the need for explicit, restrictive point-wise matching.  --&gt;
 
 &lt;h3 id=&quot;44-neighbor-aware-propagation-mechanism&quot;&gt;4.4 Neighbor-aware Propagation Mechanism&lt;/h3&gt;
 
-&lt;p&gt;To enhance discriminability within the target domain, SPA introduces a neighbor-aware self-training mechanism:&lt;/p&gt;
+&lt;p&gt;After the spectral alignment, rich topological information is transfered to the target domain. In order to enhance discriminability within the target domain, SPA introduces a neighbor-aware self-training mechanism. This mechanism generates pseudo-labels for each target sample based on the top k nearest labelled samples using K-Nearest Neighbor (KNN) algorithm.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Pseudo-label Generation&lt;/strong&gt;:&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Pseudo-label Generation&lt;/strong&gt;: Let $p_ i = C(F(x_ i))$ denote prediction probabilities for target samples $x_ i^t$, and $p _i^m$ denote the mapped probability stored in the memory bank.&lt;/p&gt;
 
-    &lt;ul&gt;
-      &lt;li&gt;The pseudo label generation is is   a weighted K-Nearest Neighbors (kNN) algorithm to assign pseudo-labels to target samples.&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;&lt;!-- - The pseudo label generation is a weighted K-Nearest Neighbors (kNN) algorithm to assign pseudo-labels to target samples. --&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Voting Mechanism&lt;/strong&gt;:&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Voting Mechanism&lt;/strong&gt;: Each target sample $x_ i^t$ considers its $k$ nearest neighbors $N_ i$. The neighbors of the node vote for the class labels, weighted by their predicted probabilities.&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;Each target sample $x_ i^t$ considers its $k$ nearest neighbors $N_ i$.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Neighbors vote for the class labels, weighted by their predicted probabilities.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;&lt;strong&gt;Confidence Weighting&lt;/strong&gt;:&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;Compute the weighted vote for class $c$ is: $q_ {i,c} = \sum_ {j \in N_ i} p_ {j,c}^m$&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;Normalize to get the confidence $\hat{q}_ {i,c}$ is : $\hat{q}_ {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
+        &lt;p&gt;Compute the weighted vote for class $c$ as $q_ {i,c} = \sum_ {j \in N_ i} p_ {j,c}^m$ and normalize to get the confidence $\hat{q}_ {i,c}$, which is computed as $\hat{q}_ {i,c} = \frac{q_ {i,c}}{\sum_ {m=1}^{C_ t} q_ {i,m}}$&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;p&gt;Assign the pseudo-label: $\hat{y}_ i = \arg\max_ c \hat{q}_ {i,c}$&lt;/p&gt;
@@ -642,20 +709,14 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Memory Bank&lt;/strong&gt;:&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Memory Bank&lt;/strong&gt;: The Memory Bank plays a vital role in the neighbor-aware propagation mechanism by storing sharpened predictions and normalized features for target samples. Sharpening is achieved through the equation:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;The Memory Bank plays a vital role in the neighbor-aware propagation mechanism by storing sharpened predictions and normalized features for target samples. Sharpening is achieved through the equation:&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;&lt;strong&gt;Sharpening&lt;/strong&gt; reduces prediction ambiguity: $\tilde{p}_ {j,c} = \frac{p_ {j,c}^{1/\tau}}{\sum_ {x=1}^{C_ t} p_ {j,x}^{1/\tau}}$, where $\tau$ is the temperature parameter.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;&lt;strong&gt;Exponential Moving Average (EMA)&lt;/strong&gt; updates the stored predictions and features over iterations.&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
+        &lt;p&gt;&lt;strong&gt;Sharpening&lt;/strong&gt; reduces prediction ambiguity: $\tilde{p}_ {j,c} = \frac{p_ {j,c}^{1/\tau}}{\sum_ {x=1}^{C_ t} p_ {j,x}^{1/\tau}}$, where $\tau$ is the temperature parameter.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Exponential Moving Average (EMA)&lt;/strong&gt; updates the stored predictions and features over iterations.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -747,7 +808,21 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 
 &lt;h3 id=&quot;52-results&quot;&gt;5.2 Results&lt;/h3&gt;
 
-&lt;p&gt;In the  &lt;strong&gt;DomainNet&lt;/strong&gt; dataset, SPA achieved an 8.6% improvement in accuracy over previous state-of-the-art methods, demonstrating superior performance in handling large-scale datasets with significant domain gaps. On the &lt;strong&gt;OfficeHome&lt;/strong&gt; dataset, SPA showed approximately a 2.6% improvement in accuracy over existing methods, consistently outperforming competitors in all 12 adaptation scenarios. For the &lt;strong&gt;Office31 and VisDA2017&lt;/strong&gt; datasets, SPA performed on par with or better than state-of-the-art methods, showcasing its robustness and effectiveness across all domain pairs and tasks. In terms of evaluation metrics, classification accuracy on target domains was used, and SPA consistently showed improvements when compared to methods like DANN, CDAN, and MDD across all datasets.&lt;/p&gt;
+&lt;p&gt;In the  &lt;strong&gt;DomainNet&lt;/strong&gt; dataset, Table 1, SPA achieved an 8.6% improvement in accuracy over previous state-of-the-art methods, demonstrating superior performance in handling large-scale datasets with significant domain gaps.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/fT8t142r/Table1.jpg&quot; alt=&quot;Image description&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the &lt;strong&gt;OfficeHome&lt;/strong&gt; dataset, SPA showed approximately a 2.6% improvement in accuracy over existing methods, consistently outperforming competitors in all 12 adaptation scenarios. The results are presented in Table 2.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/15mVWRHF/Table-2.jpg&quot; alt=&quot;Image description&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For the &lt;strong&gt;Office31 and VisDA2017&lt;/strong&gt; datasets, SPA performed on par with or better than state-of-the-art methods, showcasing its robustness and effectiveness across all domain pairs and tasks. In terms of evaluation metrics, classification accuracy on target domains was used, and SPA consistently showed improvements when compared to methods like DANN, CDAN, and MDD across all datasets. Refer to Table 3 for detailed results.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/6pT2XHF5/Table-3.jpg&quot; alt=&quot;Image description&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The authors also conduct t-SNE visualization to show the learning ability of SPA. They present the embeddings of source and target domain performed by SPA and three Baseline models DANN[1], BSP[3], and NPL[4] in figure 2. The authors claim that (i) embedding clusters by SPA are more compact, signifying the better discriminability achieved, and (ii) the source and target domain embeddings are more aligned in SPA, the red markers are closer to the blue markers, indicating better transferability. &lt;strong&gt;However, the authors do not present any quantitative evidence to support these claims, leaving their conclusions open to question.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/8zWtVQsN/Figure2.jpg&quot; alt=&quot;Image description&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;6-discussion-and-conclusion&quot;&gt;6. Discussion and Conclusion&lt;/h2&gt;
 
@@ -793,15 +868,16 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;[2] Baochen Sun and Kate Saenko. Deep coral: Correlation alignment for deep domain adaptation. In ECCV 2016 Workshops, 2016.&lt;/li&gt;
       &lt;li&gt;[3] Xinyang Chen, Sinan Wang, Mingsheng Long, and Jianmin Wang. Transferability vs. discriminability: Batch spectral penalization for adversarial domain adaptation. In Proceedings of the 36th International Conference on Machine Learning (ICML), pages 1081–1090. PMLR, 2019.&lt;/li&gt;
+      &lt;li&gt;[4] Lee, Dong-Hyun. “Pseudo-label: The simple and efficient semi-supervised learning method for deep neural networks.” Workshop on challenges in representation learning, ICML. Vol. 3. No. 2. 2013.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-SPA_A_Graph_Spectral_Alignment_Perspective_for_Domain_Adaptation.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-SPA_A_Graph_Spectral_Alignment_Perspective_for_Domain_Adaptation.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-SPA_A_Graph_Spectral_Alignment_Perspective_for_Domain_Adaptation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-SPA_A_Graph_Spectral_Alignment_Perspective_for_Domain_Adaptation.html</guid>
             
             <category>reviews</category>
             
@@ -819,28 +895,31 @@ Neural graph collaborative filtering. In SIGIR. 165–174.&lt;/p&gt;
 &lt;p&gt;GTs는 MPNNs가 해결하지 못하는 long range interaction을 잘 포착하고자 고안된 모델이다. GTs는 모든 노드에 대해 global attention을 적용하여, 모든 노드 쌍에 대한 관계를 포착할 수 있다. 그그러나 global attention에서 노드 수의 제곱에 비례하는 quadratic complexity를 요구하기 때문에, 효율성 측면에서 부족하다.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-proposed-model-gred-layer&quot;&gt;2. Proposed Model: GRED Layer&lt;/h2&gt;
-&lt;p&gt;Graph Recurrent Encoding by Distance(GRED)는 long range interaction을 잘 포착하면서도 효율적인 구조로서 고안된 모델이다. Transformer 대신 linear RNN을 활용하고, multiset aggergation을 통해 RNN에 넣어줄 적절한 input을 shortest-path distance 기반으로 만들어 준다.&lt;/p&gt;
+&lt;p&gt;Graph Recurrent Encoding by Distance(GRED)는 long range interaction을 잘 포착하면서도 효율적인 구조로서 고안된 모델이다. Transformer 대신 Linear Recurrent Network(RNN)을 활용하고, multiset aggergation을 통해 RNN에 넣어줄 적절한 input을 shortest-path distance 기반으로 만들어 준다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/Recurrent_Distance_Filtering_for_Graph_Representation_Learning/image.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;multiset-aggregation&quot;&gt;Multiset Aggregation&lt;/h3&gt;
-&lt;p&gt;이전 layer의 output $\boldsymbol h_{u}^{(l-1)}$에 대해서, GRED는 node의 각 hop 별 이웃들의 정보를 취합하는 multiset aggregation을 먼저 수행한다.
-$\boldsymbol{x}_ {v,k}^{(l)} =\mathrm{AGG}\left( {!{ \boldsymbol h_ {u}^{(l-1)}\;|\;u\in\mathcal N_ {k}(v) }!} \right)$
-이 결과물 $\boldsymbol{x}_ {v,k}^{(l)}$ 은 노드 $v$의 $k$-hop 이웃들의 정보를 담은 representation vector이며, 이를 $k=0,\dots,K$ 에 대해 수행하여 최종적으로 $(\boldsymbol{x}_ {v,0}^{(l)},\boldsymbol{x}_ {v,1}^{(l)},\dots,\boldsymbol{x}_ {v,K}^{(l)})$ 의 형태의 sequence를 얻을 수 있다. 
-Aggregation은 permutation-invariant neural network(DeepSet이나 GIN)의 아이디어를 활용하여 sum aggregation을 사용하며, 실제로는 다음과 같은 식으로 계산된다.
-\(\boldsymbol{x}_ {v,k}^{(l)} =\mathrm{MLP}_ {2}\left( \sum_ {u\in\mathcal N_k(v)}\mathrm{MLP}_ {1}\left( \boldsymbol h_ {u}^{(l-1)} \right) \right)\in\mathbb R^d\)&lt;/p&gt;
+&lt;p&gt;이전 layer의 output $\boldsymbol h_{u}^{(l-1)}$에 대해서, GRED는 node의 각 hop 별 이웃들의 정보를 취합하는 multiset aggregation을 먼저 수행한다. &lt;br /&gt;&lt;br /&gt;
+$\boldsymbol{x}_ {v,k}^{(l)} =\mathrm{AGG}\left( {!{ \boldsymbol h_ {u}^{(l-1)}\;|\;u\in\mathcal N_ {k}(v) }!} \right)$&lt;br /&gt;&lt;br /&gt;
+이 결과물 $\boldsymbol{x}_{v,k}^{(l)}$ 은 노드 $v$의 $k$-hop 이웃들의 정보를 담은 representation vector이며, 이를 $k=0,\dots,K$ 에 대해 수행한다.
+Aggregation은 permutation-invariant neural network(DeepSet이나 GIN)의 아이디어를 활용하여 sum aggregation을 사용하며, 실제로는 다음과 같은 식으로 계산된다. &lt;br /&gt;&lt;br /&gt; 
+$\boldsymbol{x} _{v,k}^{(l)} =\mathrm{MLP} _2\left( \sum _{u\in\mathcal N _k(v)}\mathrm{MLP} _1\left( \boldsymbol h _u^{(l-1)} \right) \right)\in\mathbb R^d$  &lt;br /&gt; 
+Multiset aggregation을 하면, 각 노드마다 거리 $K$까지의 정보를 담은 sequence가 생성된다. 최종적으로 다음 형태의 sequence를 얻을 수 있다. &lt;br /&gt;&lt;br /&gt;
+$(\boldsymbol{x} _{v,0}^{(l)},\boldsymbol{x} _{v,1}^{(l)},\dots,\boldsymbol{x} _{v,K}^{(l)})$&lt;/p&gt;
 
 &lt;h3 id=&quot;linear-recurrent-network&quot;&gt;Linear Recurrent Network&lt;/h3&gt;
-&lt;p&gt;Linear Recurrent Network(LRU)는 SSM에서 착안한 RNN 모델로, 기존 매 update마다 있던 activation함수를 제거하여 parallel한 processing이 가능하도록 하는 효율적인 모델이다. Multiset Aggregation에서 생성된 sequence는 LRU의 각 step으로 다음과 같이 입력된다.
-$\boldsymbol{s}_ {v,k}^{(l)}=\boldsymbol A\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol B\boldsymbol{x}_ {v,K-k}^{(l)}$
+&lt;p&gt;Linear Recurrent Network(Linear Recurrent Unit, LRU)는 State Space Model(SSM)에서 착안한 RNN 모델로, 기존 매 update마다 있던 activation함수를 제거하여 parallel한 processing이 가능하도록 하는 효율적인 모델이다.
+LRU는 Graph Transformer와 다르게 모든 노드에 대한 pairwise한 관계를 계산하는 것이 아니라, 앞서 생성된 각 노드에 대한 sequence를 processing하여 정보를 수집한다. 따라서 각 노드마다 노드 전체의 representation이 아닌, 거리에 기반하여 앞서 생성한 $K$개의 representation만 확인하면 된다. Multiset Aggregation에서 생성된 sequence는 LRU의 각 step으로 다음과 같이 입력된다. &lt;br /&gt;&lt;br /&gt; 
+$\boldsymbol{s}_ {v,k}^{(l)}=\boldsymbol A\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol B\boldsymbol{x}_ {v,K-k}^{(l)}$ &lt;br /&gt;&lt;br /&gt;
 식에서 볼수 있듯이 $\boldsymbol{x}_ {v,K}^{(l)}$ 부터 거꾸로 넣어주는데, 이는 멀리서 ($K$-hop)부터 타겟 노드 ($v$)까지 정보가 모여들기 때문이다.
-LRU에서와 같이, 위의 RNN연산을 $\boldsymbol A$를 대각화함으로써($\boldsymbol A=\boldsymbol V \mathbf{\Lambda}\boldsymbol V^{-1}$) 효율적인 형태로 바꾼다.
-$\boldsymbol{s}_ {v,k}^{(l)}=\mathbf {\Lambda}\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,K-k}^{(l)}\rightarrow\boldsymbol{s}_ {v,k}^{(l)}=\sum_ {k=0}^{K}\mathbf {\Lambda}^k\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,k}^{(l)}$
+LRU에서와 같이, 위의 RNN연산을 $\boldsymbol A$를 대각화함으로써($\boldsymbol A=\boldsymbol V \mathbf{\Lambda}\boldsymbol V^{-1}$) 효율적인 형태로 바꾼다. &lt;br /&gt;&lt;br /&gt;
+$\boldsymbol{s}_ {v,k}^{(l)}=\mathbf {\Lambda}\boldsymbol{s}_ {v,k-1}^{(l)}+\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,K-k}^{(l)}\rightarrow\boldsymbol{s}_ {v,k}^{(l)}=\sum_ {k=0}^{K}\mathbf {\Lambda}^k\boldsymbol {W}_ {\mathrm{in}}\boldsymbol{x}_ {v,k}^{(l)}$ &lt;br /&gt;&lt;br /&gt;
 결과적으로 $k$-hop에 있는 노드들의 representation은 $\mathbf {\Lambda}^k$ 가 곱해지고, 이를 타겟 노드로부터 $\mathbf {\Lambda}$로 “filter over hops”을 수행하는 것이라고 설명한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;output-of-gred-layer&quot;&gt;Output of GRED Layer&lt;/h3&gt;
-&lt;p&gt;최종적으로는 LRU의 마지막 hidden state에 대하여 간단한 non-linear transform(MLP)를 적용하여 다음 GRED layer의 입력으로 넣어준다.
-$\boldsymbol{h}_ {v}^{(l)}=\mathrm{MLP}_ {3}\left( \mathfrak{R}\left[\boldsymbol {W}_ {\mathrm{out}}\boldsymbol{s}_ {v,K}^{(l)}\right]  \right)$
+&lt;p&gt;최종적으로는 LRU의 마지막 hidden state에 대하여 간단한 non-linear transform(MLP)를 적용하여 다음 GRED layer의 입력으로 넣어준다. &lt;br /&gt;&lt;br /&gt;
+$\boldsymbol{h}_ {v}^{(l)}=\mathrm{MLP}_ {3}\left( \mathfrak{R}\left[\boldsymbol {W}_ {\mathrm{out}}\boldsymbol{s}_ {v,K}^{(l)}\right]  \right)$ &lt;br /&gt;&lt;br /&gt;
 GRED로 생성된 노드들의 representation을 활용하여 node classification, graph classificatino과 같은 다양한 graph task를 수행할 수  있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-expressiveness-analysis&quot;&gt;3. Expressiveness Analysis&lt;/h2&gt;
@@ -897,9 +976,9 @@ GRED로 생성된 노드들의 representation을 활용하여 node classificatio
   &lt;li&gt;그래프 머신러닝에서 MPNN이나 Transformer을 기반으로 한 것이 아닌 새로운 approach를 제시하였다.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-Recurrent_Distance_Filtering_for_Graph_Representation_Learning.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-Recurrent_Distance_Filtering_for_Graph_Representation_Learning.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-Recurrent_Distance_Filtering_for_Graph_Representation_Learning.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-Recurrent_Distance_Filtering_for_Graph_Representation_Learning.html</guid>
             
             <category>reviews</category>
             
@@ -909,81 +988,85 @@ GRED로 생성된 노드들의 representation을 활용하여 node classificatio
         <item>
             <title>[KDD 2024] RecExplainer: Aligning Large Language Models for Explaining Recommendation Models</title>
             <description>&lt;h2 id=&quot;1-motivation&quot;&gt;&lt;strong&gt;1. Motivation&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;추천 시스템이란 사용자의 과거 이력을 토대로 성향을 분석하여 소비할 확률이 높은 상품을 추천하는 모델이며, 영화, 음악, 쇼핑 등 우리 생활에 깊게 녹아들어 있다.&lt;br /&gt;
-이를 위해 임베딩 기반의 collaborative filtering, graph neural network 등의  black-box 모델들이 연구되어 왔다.&lt;br /&gt;
-하지만 이러한 black-box 모델들은 신뢰있고 이해되는 결과가 필요한 추천 시스템의 특성과는 달리 출력된 결과에 대한 설명을 제공하기 어렵다는 단점이 있다.&lt;br /&gt;
-기존 연구들은 이를 위해 sparse linear model, decision tree 등의 별도의 surrogate 모델을 두어 이를 해결하려 했지만, &lt;br /&gt;
-그것들의 단순한 구조로 인해 사람이 이해하기 쉬운 결과들이 나오기 어려웠다. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;추천 시스템이란 사용자의 과거 이력을 토대로 성향을 분석하여 소비할 확률이 높은 상품을 추천하는 모델이며, 영화, 음악, 쇼핑 등 우리 생활에 깊게 녹아들어 있다. 
+이를 위해 임베딩 기반의 collaborative filtering, graph neural network 등의  black-box 모델들이 연구되어 왔다. 
+하지만 이러한 black-box 모델들은 신뢰있고 이해되는 결과가 필요한 추천 시스템의 특성과는 달리 출력된 결과에 대한 설명을 제공하기 어렵다는 단점이 있다. 
+기존 연구들은 이를 위해 sparse linear model, decision tree 등의 별도의 surrogate 모델을 두어 이를 해결하려 했지만, 
+그것들의 단순한 구조로 인해 사람이 이해하기 쉬운 결과들이 나오기 어려웠다.&lt;/p&gt;
 
-&lt;p&gt;최근들어 large language model (LLM) 이 등장하고 이것의 논리 추론 능력이 연구됨에 따라 다양한 AI 분야에서 활용되기 시작했다.&lt;br /&gt;
-그 중에 LLM 의 뛰어난 언어 능력에 접목하여 설명 가능한 인공지능 (XAI) 으로써의 활용 또한 연구가 되고 있다.&lt;br /&gt;
-해당 논문은 이에 주목하여 LLM 을 surrogate 모델로 두어 설명 가능한 추천 시스템인 RecExplainer 을 제안한다.&lt;br /&gt;
-즉 LLM 은 추천 자체에 쓰이기 보다는, 학습된 별도의 추천 시스템 모델과의 aligning 을 통해 &lt;br /&gt;
-해당 모델들의 출력한 결과에 대한 설명을 제공하는 중간자 역할로써 활용된다. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;최근들어 large language model (LLM) 이 등장하고 이것의 논리 추론 능력이 연구됨에 따라 다양한 AI 분야에서 활용되기 시작했다. 
+그 중에 LLM 의 뛰어난 언어 능력에 접목하여 설명 가능한 인공지능 (XAI) 으로써의 활용 또한 연구가 되고 있다. 
+해당 논문은 이에 주목하여 LLM 을 surrogate 모델로 두어 설명 가능한 추천 시스템인 RecExplainer 을 제안한다. 
+즉 LLM 은 추천 자체에 쓰이기 보다는, 학습된 별도의 추천 시스템 모델과의 aligning 을 통해 해당 모델들의 출력한 결과에 대한 설명을 제공하는 중간자 역할로써 활용된다.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-problem-formulation&quot;&gt;&lt;strong&gt;2. Problem Formulation&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Figure 1&lt;/strong&gt; &lt;br /&gt;
 &lt;img src=&quot;https://github.com/user-attachments/assets/2fa1106c-3f37-4b25-973a-969fb3bc4935&quot; alt=&quot;Figure1&quot; /&gt;&lt;br /&gt;
-사용자의 과거 이력을 $x_u = \langle a_1, a_2, \ldots, a_{|x_u|} \rangle, a_* :=$ 소비한 아이템, 로 표현하면&lt;br /&gt;
-추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_ {i}, a_ {j}$ 에 대해 $f(x_ {u}, a_ {i}) &amp;gt; f(x_ {u}, a_ {j})$ 의 값을 부여하는 것을 목표로 한다.&lt;br /&gt;
-이때 임베딩 기반의 모델들은 $e_ {u} = \text{encoder}_ \text{user}(x_ {u}), \space e_ {i} = \text{encoder}_ \text{item}(a_ {i})$ 두 개의 임베딩을 구하고,&lt;br /&gt;
-이들 간의 similarity 를 기반으로 선호도 점수를 예측한다.&lt;br /&gt;
-RecExplainer 는 이미 학습이 완료된 $f()$ 가 주어졌을 때, 이것과 잘 aligning 되도록 LLM $g()$ 을 fine-tuning 하여 $f()$ 의 출력을 $g()$ 로 설명하도록 한다.&lt;br /&gt;
-Fig. 1 에서 나타나 있듰이, 이때 $f()$ 은 frozen 이며 dimension projection 을 위한 MLP 와 $g()$ 만을 학습하며,&lt;br /&gt;
-$g()$ 은 전체 가중치가 아닌 parameter-efficient 하게 LoRA 를 활용한다.&lt;br /&gt;&lt;/p&gt;
+사용자의 과거 이력을 $x_ u = \langle a_1, a_2, \ldots, a_{\vert x_ u\vert } \rangle, a_* :=$ 소비한 아이템, 로 표현하면 
+추천 모델 $f()$ 은 후에 소비할 확률이 높은 아이템과 낮은 아이템 $a_i, a_j$ 에 대해 $ f(x_u, a_i) &amp;gt; f(x_u, a_j)$ 의 값을 부여하는 것을 목표로 한다. 
+이때 임베딩 기반의 모델들은 $e_ u = \text{encoder}_ \text{user}(x_ u), \space e_ i = \text{encoder}_ \text{item}(a_ i)$ 두 개의 임베딩을 구하고, 
+이들 간의 similarity 를 기반으로 선호도 점수를 예측한다. 
+RecExplainer 는 이미 학습이 완료된 $f()$ 가 주어졌을 때, 이것과 잘 aligning 되도록 LLM $g()$ 을 fine-tuning 하여 $f()$ 의 출력을 $g()$ 로 설명하도록 한다. 
+Fig. 1 에서 나타나 있듯이, 이때 $f()$ 은 frozen 이며 dimension projection 을 위한 MLP 와 $g()$ 만을 학습하며, 
+$g()$ 은 전체 가중치가 아닌 parameter-efficient 하게 LoRA 를 활용한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;tasks&quot;&gt;&lt;strong&gt;Tasks&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;저자들은 LLM $g()$ 을 fine-tuning 할 여섯 가지의 task 를 정의한다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Figure 2&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/90e0b03b-8630-4f2f-9bec-cb72adb1182a&quot; alt=&quot;Figure2&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;저자들은 LLM $g()$ 을 fine-tuning 할 여섯 가지의 task 를 정의한다&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Next item retrieval: 유저의 기록이 주어졌을 때 다음에 이용할 아이템을 찾는 작업이다.&lt;/li&gt;
   &lt;li&gt;Item ranking: 아이템 목록이 주어졌을 때 유저의 선호도 순위를 매기는 작업이다.&lt;/li&gt;
   &lt;li&gt;Interest classification: 유저의 사용 기록이 주어졌을 때 특정 아이템의 선호 여부를 예측하는 작업이다.&lt;/li&gt;
-  &lt;li&gt;Item discrimination: 아이템 제목이 주어졌을 때 설명을 생성하고 유사한 아이템을 찾는 작업이다. &lt;br /&gt;
+  &lt;li&gt;Item discrimination: 아이템 제목이 주어졌을 때 설명을 생성하고 유사한 아이템을 찾는 작업이다. 
 이는 활용할 LLM 의 pretraining 시에 접하지 못했던 아이템들에 대한 이해력을 얻게 해준다.&lt;/li&gt;
-  &lt;li&gt;ShareGPT training: LLM fine-tuning 시에 언어적 능력을 상실하는 catastrophic forgetting 을 방지하기 위한 작업이다.&lt;br /&gt;
+  &lt;li&gt;ShareGPT training: LLM fine-tuning 시에 언어적 능력을 상실하는 catastrophic forgetting 을 방지하기 위한 작업이다. 
 사람과 ChatGPT 간의 대화가 저장된 ShareGPT API 를 활용해 $g()$ 의 어휘 역량을 잃지 않도록 한다.&lt;/li&gt;
-  &lt;li&gt;History reconstruction: 유저의 임베딩이 주어졌을 때 해당 유저의 아이템 사용 기록을 복원하는 작업이다.&lt;br /&gt;
-이를 통해 입력된 유저에 대한 정보를 얼마나 추출할 수 있는지 확인할 수 있다.&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;History reconstruction: 유저의 임베딩이 주어졌을 때 해당 유저의 아이템 사용 기록을 복원하는 작업이다. 
+이를 통해 입력된 유저에 대한 정보를 얼마나 추출할 수 있는지 확인할 수 있다&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;이때 추천과 연관된 task 들의 경우, 학습 데이터의 label 은 ground truth 값이 아닌 $f()$ 이 생성한 결과가 된다.&lt;br /&gt;
-그 이유는 $g()$ 가 $f()$ 가 내놓은 결과에 대한 설명을 제공하기를 바라는 것이지, 추천 자체를 하기를 목표하는 것이 아니기 때문이다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Fig. 2 는 위의 여섯 가지 task 들을 어떻게 학습하는 지 도식화한 것이다. Task 1-3 의 경우 (a) 유저나 아이템의 정보가 주어졌을 때, LLM 과 추천 모델의 예측값이 같게 하도록 한다. 
+즉, LLM 의 학습 데이터 label 은 ground truth 값이 아닌 $f()$ 가 생성한 결과가 된다. 이는 $g()$ 가 $f()$ 가 내놓은 결과에 대한 설명을 
+제공하기를 바라는 것이지, 추천 자체를 하기를 목표하는 것이 아니기 때문이다. Task 4의 경우는 (b) LLM 의 아이템들에 대한 이해력을 높이기 위한 
+task 이기 때문에 LLM 이 생성한 item 에 대한 특성을 실제 database 에 저장된 값과 비교를 하며, (c) 에선 임베딩 공간의 alignment 를 위한 task 4 와 6 을 그린 것이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-methodology&quot;&gt;&lt;strong&gt;3. Methodology&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;RecExplainer 는 fine-tuning 할 $g()$ 와 pretrained 추천 모델 $f()$ 간의 aligning 을 아래 세 가지 방법을 통해 진행하며, &lt;br /&gt;
-각각의 방법론을 적용한 모델을 순서대로 RecExplainer-B, RecExplainer-I, RecExplainer-H 라 표기한다. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;RecExplainer 는 fine-tuning 할 $g()$ 와 pretrained 추천 모델 $f()$ 간의 aligning 을 아래 세 가지 방법을 통해 진행하며, 
+각각의 방법론을 적용한 모델을 순서대로 RecExplainer-B, RecExplainer-I, RecExplainer-H 라 표기한다.&lt;/p&gt;
 &lt;h3 id=&quot;behavior-alignment&quot;&gt;&lt;strong&gt;Behavior Alignment&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Behavior alignment 는 teacher-student architecture 에서 knowledge distillation 과 어느 정도 유사한 방법론으로, &lt;br /&gt;
-$g()$ 의 prediction 이 $f()$ 의 prediction 과 일치하면 그것의 생성 로직 또한 모방할 수 있고 결국 설명 능력도 생길 것이라고 가정한다.&lt;br /&gt;
-이때 $g()$ 의 학습 과정에선 임베딩을 활용하지 않으므로 학습은 task 1~5 로만 진행한다. &lt;br /&gt;
+&lt;p&gt;Behavior alignment 는 teacher-student architecture 에서 knowledge distillation 과 어느 정도 유사한 방법론으로, 
+$g()$ 의 prediction 이 $f()$ 의 prediction 과 일치하면 그것의 생성 로직 또한 모방할 수 있고 결국 설명 능력도 생길 것이라고 가정한다. 
+이때 $g()$ 의 학습 과정에선 임베딩을 활용하지 않으므로 학습은 task 1~5 로만 진행한다. 
 활용된 prompt 의 예시는 아래와 같다. &lt;br /&gt;
-“Given a user with history: ($item_1$, $item_2$, …), what item will you recommend to the user and why?”&lt;br /&gt;&lt;/p&gt;
+“Given a user with history: ($item_1$, $item_2$, …), what item will you recommend to the user and why?”&lt;/p&gt;
 &lt;h3 id=&quot;intention-alignment&quot;&gt;&lt;strong&gt;Intention Alignment&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;하지만 Behavior alignment 는 $f()$ 가 실제로 어떻게 입력을 인지하는 지보단 prediction 결과에만 의존한다는 단점이 있다.&lt;br /&gt;
-Intention alignment 는 현재 여러 Multi-modal Language Model (MLM) 에서 활용하는 방법론을 차용하여, &lt;br /&gt; 
-user 와 item embedding 을 별도의 modality 로 취급해 각각이 LLM 의 language space 에 align 되도록 하는 방법론이다. &lt;br /&gt;
-이를 통해 $g()$ 가 $f()$ 로부터 생성된 임베딩 공간을 학습하게 되어 설명 능력을 갖게 될 것이라 저자들은 주장한다.&lt;br /&gt;
-학습은 task 1~6 모두 진행하며, Fig. 1 처럼 필요한 projecting 된 임베딩 벡터를 아이템의 이름대신 프롬프트에 추가하여 답을 얻는다.&lt;br /&gt;
+&lt;p&gt;하지만 Behavior alignment 는 $f()$ 가 실제로 어떻게 입력을 인지하는 지보단 prediction 결과에만 의존한다는 단점이 있다. 
+Intention alignment 는 현재 여러 Multi-modal Language Model (MLM) 에서 활용하는 방법론을 차용하여, 
+user 와 item embedding 을 별도의 modality 로 취급해 각각이 LLM 의 language space 에 align 되도록 하는 방법론이다. 
+이를 통해 $g()$ 가 $f()$ 로부터 생성된 임베딩 공간을 학습하게 되어 설명 능력을 갖게 될 것이라 저자들은 주장한다. 
+학습은 task 1~6 모두 진행하며, Fig. 1 처럼 필요한 projecting 된 임베딩 벡터를 아이템의 이름대신 프롬프트에 추가하여 답을 얻는다. 
 활용된 prompt 의 예시는 아래와 같다. &lt;br /&gt;
-“Given a user: (user_embedding), what item will you recommend to the user and why?”&lt;br /&gt;&lt;/p&gt;
+“Given a user: (user_embedding), what item will you recommend to the user and why?”&lt;/p&gt;
 &lt;h3 id=&quot;hybrid-alignment&quot;&gt;&lt;strong&gt;Hybrid Alignment&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Hybrid alignment 는 behavior alignment 와 intention alignment 을 합친 것으로, 아이템의 제목과 임베딩 벡터 모두 프롬프트에 추가한 방법론이다.&lt;br /&gt;
-따라서 활용된 prompt 의 예시는 아래와 같다.&lt;br /&gt;
-“Given a user with history: (user_embedding), ($item_1$, $item_2$, …), what item will you recommend to the user and why?”&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Hybrid alignment 는 behavior alignment 와 intention alignment 을 합친 것으로, 아이템의 제목과 임베딩 벡터 모두 프롬프트에 추가한 방법론이다. 
+따라서 활용된 prompt 의 예시는 아래와 같다. &lt;br /&gt;
+“Given a user with history: (user_embedding), ($item_1$, $item_2$, …), what item will you recommend to the user and why?”&lt;/p&gt;
 
 &lt;h2 id=&quot;4-experiments&quot;&gt;&lt;strong&gt;4. Experiments&lt;/strong&gt;&lt;/h2&gt;
 &lt;h3 id=&quot;metrics&quot;&gt;&lt;strong&gt;Metrics&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;RecExplainer 는 실험의 평가 지표로 두 가지를 제시한다. &lt;br /&gt;
-우선 $f()$ 와 $g()$ 가 얼마나 잘 aligning 됐는지 평가하는 수치를 제공하며, 이는 기존 추천 시스템에서 널리 활용되는 leave-one-out strategy 를 차용한다.&lt;br /&gt;
-이는 사용자들의 interaction 기록에서 마지막 item 을 제거하고 복원하는 task 로, 얼마나 그 사용자의 특성을 잘 파악했는지 알 수 있는 방법이다.&lt;br /&gt;
-하지만 RecExplainer 에서 LLM 은 추천 모델이 아닌 설명 모델로 활용되므로, ground truth 가 아닌 제공된 추천 모델 $f()$ 의 출력을 label 로 지정한다.&lt;br /&gt;
-이를 토대로 $g()$ 가 얼마나 $f()$ 를 잘 모방하였는지 확인할 수 있다.&lt;br /&gt;
-&lt;strong&gt;Figure 2&lt;/strong&gt; &lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/0cd70216-3f43-4d5b-b4dc-9b6cc20ea4b7&quot; alt=&quot;Figure2&quot; /&gt;&lt;br /&gt;
-또한 Explainable AI 를 목표로 하기 때문에 제공한 설명의 타당성에 대한 평가도 제공한다.&lt;br /&gt;
-하지만 “설명” 이라는 것의 특성상 유일한 정답이 존재하지 않으며, 일일이 사람이 hand-labeling 하는 것은 막대한 비용을 초래한다.&lt;br /&gt;
-따라서 저자들은 human-labeling 뿐만 아니라 추론 능력이 뛰어난 GPT-4 모델을 활용하는데, &lt;br /&gt;
-Fig. 2 와 같은 프롬프트를 통해 $g()$ 가 생성한 설명의 타당성을 네 개의 criteria 로 분류한다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;RecExplainer 는 실험의 평가 지표로 두 가지를 제시한다. 
+우선 $f()$ 와 $g()$ 가 얼마나 잘 aligning 됐는지 평가하는 수치를 제공하며, 이는 기존 추천 시스템에서 널리 활용되는 leave-one-out strategy 를 차용한다. 
+이는 사용자들의 interaction 기록에서 마지막 item 을 제거하고 복원하는 task 로, 얼마나 그 사용자의 특성을 잘 파악했는지 알 수 있는 방법이다. 
+하지만 RecExplainer 에서 LLM 은 추천 모델이 아닌 설명 모델로 활용되므로, ground truth 가 아닌 제공된 추천 모델 $f()$ 의 출력을 label 로 지정한다. 
+이를 토대로 $g()$ 가 얼마나 $f()$ 를 잘 모방하였는지 확인할 수 있다. &lt;br /&gt;
+&lt;strong&gt;Figure 3&lt;/strong&gt; &lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/0cd70216-3f43-4d5b-b4dc-9b6cc20ea4b7&quot; alt=&quot;Figure3&quot; /&gt;&lt;br /&gt;
+또한 Explainable AI 를 목표로 하기 때문에 제공한 설명의 타당성에 대한 평가도 제공한다. 
+하지만 “설명” 이라는 것의 특성상 유일한 정답이 존재하지 않으며, 일일이 사람이 hand-labeling 하는 것은 막대한 비용을 초래한다. 
+따라서 저자들은 human-labeling 뿐만 아니라 추론 능력이 뛰어난 GPT-4 모델을 활용하는데, 
+Fig. 3 와 같은 프롬프트를 통해 $g()$ 가 생성한 설명의 타당성을 네 개의 criteria 로 분류한다.&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Rating-0: 틀린 답안&lt;/li&gt;
   &lt;li&gt;Rating-1: 올바른 답안, 부족한 설명&lt;/li&gt;
@@ -991,10 +1074,10 @@ Fig. 2 와 같은 프롬프트를 통해 $g()$ 가 생성한 설명의 타당성
   &lt;li&gt;Rating-3: 올바른 답안, 적절한 설명&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;이때 답안의 정확도는 RecExplainer 가 제공된 설명이 $f()$ 의 출력과 일맥상통한지 판별하는 것으로, $g()$ 가 정말 $f()$ 의 결과를 토대로 설명을 제공했는 지 평가한다.&lt;br /&gt;
-아쉬운 점은 저자들이 각 rating 에 대한 예시없이 최종 수치 분포만 제공하여 직관적인 이해에 어려움이 있었다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;이때 답안의 정확도는 RecExplainer 가 제공된 설명이 $f()$ 의 출력과 일맥상통한지 판별하는 것으로, $g()$ 가 정말 $f()$ 의 결과를 토대로 설명을 제공했는 지 평가한다. 
+개인적으로 논문에는 저자들이 각 rating 에 대한 예시없이 최종 수치 분포만 제공하여 직관적인 이해가 어려워 아쉬웠다.&lt;/p&gt;
 &lt;h3 id=&quot;experimental-setup&quot;&gt;&lt;strong&gt;Experimental Setup&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Datasets&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;Datasets&lt;/strong&gt;&lt;br /&gt;
 실험은 아래 세 개의 public dataset 을 활용하여 진행한다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Video Games&lt;/li&gt;
@@ -1002,14 +1085,14 @@ Fig. 2 와 같은 프롬프트를 통해 $g()$ 가 생성한 설명의 타당성
   &lt;li&gt;Steam&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;각 dataset 에 대한 정보와 train/test split 은 다음과 같다.&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/20e0f0cc-4ed9-468f-a4df-f919c85a6174&quot; alt=&quot;Figure3&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/9172860b-086e-4091-9530-9fbe4089fd87&quot; alt=&quot;Figure4&quot; /&gt;&lt;br /&gt;
-&lt;strong&gt;Implementation details&lt;/strong&gt;
-RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 의 ZeRO-2 를 통한 분산 학습을 진행했다.&lt;br /&gt;
-또한 설명의 대상이 되는 추천 모델로는 트랜스포머 기반인 SASRec 을 차용하였고, 각 dataset 에 알맞게 fine-tuning 을 추가적으로 진행하였다.&lt;br /&gt;
+&lt;p&gt;각 dataset 에 대한 정보와 train/test split 은 다음과 같다. &lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/20e0f0cc-4ed9-468f-a4df-f919c85a6174&quot; alt=&quot;Figure4&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/9172860b-086e-4091-9530-9fbe4089fd87&quot; alt=&quot;Figure5&quot; /&gt;&lt;br /&gt;
+&lt;strong&gt;Implementation details&lt;/strong&gt;&lt;br /&gt;
+RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 의 ZeRO-2 를 통한 분산 학습을 진행했다. 
+또한 설명의 대상이 되는 추천 모델로는 트랜스포머 기반인 SASRec 을 차용하였고, 각 dataset 에 알맞게 fine-tuning 을 추가적으로 진행하였다. 
 &lt;strong&gt;Baselines&lt;/strong&gt;
-위에서 정의한 두 가지 평가 지표에 대한 baseline 모델들은 다음과 같다.&lt;br /&gt;
+위에서 정의한 두 가지 평가 지표에 대한 baseline 모델들은 다음과 같다. 
 우선 alignment effect 에 대해선,&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Random: k 개의 아이템을 uniform distribution 에서 추출하고 random shuffling 으로 우선순위를 지정한다.&lt;/li&gt;
@@ -1028,7 +1111,7 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 
 &lt;h3 id=&quot;results&quot;&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Alignment Effect&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/4d837990-c45b-470d-98eb-b8b6dca16c6a&quot; alt=&quot;Figure5&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/4d837990-c45b-470d-98eb-b8b6dca16c6a&quot; alt=&quot;Figure6&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;H@5: 5개의 추천 목록에 올바른 품목들이 들어갔는가&lt;/li&gt;
   &lt;li&gt;$N@5: 5개의 추천 목록이 얼마나 잘 배치됐는가&lt;/li&gt;
@@ -1036,38 +1119,42 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
   &lt;li&gt;$HCR: Label sequence 과 prediction 이 얼마나 겹치는가&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;위 테이블은 Alignment 분야에서의 성능 평가를 나타낸 표다.&lt;br /&gt;
-이때 세 가지 alignment variation 모두 별도의 aligning 없이 LLM 만을 활용한 실험들과 비교해서 &lt;br /&gt;
-월등한 성능 차이가 나타나는 것을 통해 RecExplainer 에서 alignment 의 중요성을 확인할 수 있다. &lt;br /&gt;
-또한 prediction 결과만을 통해 모방하는 RecExplainer-B 보단 좀 더 포괄적인 이해를 목표하는 RecExplainer-I/H 가 더 좋은 성능을 기록한 것을 확인할 수 있다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;위 테이블은 Alignment 분야에서의 성능 평가를 나타낸 표다.
+이때 세 가지 alignment variation 모두 별도의 aligning 없이 LLM 만을 활용한 실험들과 비교해서 월등한 성능 차이가 나타나는 것을 통해 RecExplainer 에서 alignment 의 중요성을 확인할 수 있다.
+또한 prediction 결과만을 통해 모방하는 RecExplainer-B 보단 좀 더 포괄적인 이해를 목표하는 RecExplainer-I/H 가 더 좋은 성능을 기록한 것을 확인할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Explainability&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/953be1d0-9b0a-4ef5-b153-6af7759d8358&quot; alt=&quot;Figure6&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/209aec56-c377-42c1-bc01-6f11d5bf71b0&quot; alt=&quot;Figure7&quot; /&gt;&lt;br /&gt;
-위 표와 Figure 는 순서대로 GPT-4 와 Human expert 가 평가한 생성된 설명에 대한 rating 의 평균과 분포다.&lt;br /&gt;
-이를 통해 RecExplainer-H 가 다른 모델들에 비해 수준 높은 설명을 생성하는 것을 확인할 수 있다.
-저자들은 기존 LLM 들은 아이템들에 대한 학습이 이뤄지지 않았기 때문에 대부분의 설명들이 모호하고 평이해 Rating-2 에 분포하게 된다고 주장한다.&lt;br /&gt;
-주목할 만한 점은 RecExplainer-I 의 성능이 매우 낮게 나왔다는 것인데, 저자들은 분석 결과 이것이 생성한 답변들에 hallucination 현상이 다반사로 발생하는 것을 확인하였다.&lt;br /&gt;
-그들은 HCR 점수가 낮은 것을 종합하였을 때, 임베딩만 주어졌을 때 문자 형태의 정보를 복원하는 능력이 부족해 이런 현상이 발생한 것이라 추측한다.&lt;br /&gt;
-또한 저자들은 RecExplainer 가 생성한 설명들이 기존의 모델들의 것들과 명확히 다른지, 즉 설명 능력이 정말 fine-tuning 의 영향을 받는지 보여주는 실험 결과를 제공한다.&lt;br /&gt;
-이는 Vicuna-7b, ChatGPT, RecExplainer-H 각각으로 2500 개의 설명을 생성하고, 하나의 discriminator 을 둬서 각 2000 개로 생성한 답변이 어느 모델로부터 생성했는지 분류하게 학습한다.&lt;br /&gt;
-그 후 남은 500개로 다시 분류하는데, 아래의 결과를 통해 각 모델들의 설명들 모두 구분됨을 확인할 수 있고, 이를 토대로 저자들은 별도의 학습이 설명 생성에 영향을 주었다고 말한다.&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/76c2b787-f854-44e7-be05-29bff868e803&quot; alt=&quot;Figure10&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/953be1d0-9b0a-4ef5-b153-6af7759d8358&quot; alt=&quot;Figure7&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/209aec56-c377-42c1-bc01-6f11d5bf71b0&quot; alt=&quot;Figure8&quot; /&gt;&lt;br /&gt;
+위 표와 Figure 는 순서대로 GPT-4 와 Human expert 가 평가한 생성된 설명에 대한 rating 의 평균과 분포다. 
+이를 통해 RecExplainer-H 가 다른 모델들에 비해 수준 높은 설명을 생성하는 것을 확인할 수 있다. 
+저자들은 기존 LLM 들은 아이템들에 대한 학습이 이뤄지지 않았기 때문에 대부분의 설명들이 모호하고 평이해 Rating-2 에 분포하게 된다고 주장한다. 
+주목할 만한 점은 RecExplainer-I 의 성능이 매우 낮게 나왔다는 것인데, 저자들은 분석 결과 이것이 생성한 답변들에 hallucination 현상이 다반사로 발생하는 것을 확인하였다. 
+그들은 HCR 점수가 낮은 것을 종합하였을 때, 임베딩만 주어졌을 때 문자 형태의 정보를 복원하는 능력이 부족해 이런 현상이 발생한 것이라 추측한다. 
+또한 저자들은 RecExplainer 가 생성한 설명들이 기존의 모델들의 것들과 명확히 다른지, 즉 설명 능력이 정말 fine-tuning 의 영향을 받는지 보여주는 실험 결과를 제공한다. 
+이는 Vicuna-7b, ChatGPT, RecExplainer-H 각각으로 2500 개의 설명을 생성하고, 하나의 discriminator 을 둬서 각 2000 개로 생성한 답변이 어느 모델로부터 생성했는지 분류하게 학습한다. 
+그 후 남은 500개로 다시 분류하는데, 아래의 결과를 통해 각 모델들의 설명들 모두 구분됨을 확인할 수 있고, 이를 토대로 저자들은 별도의 학습이 설명 생성에 영향을 주었다고 말한다. &lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/76c2b787-f854-44e7-be05-29bff868e803&quot; alt=&quot;Figure9&quot; /&gt;&lt;br /&gt;
 &lt;strong&gt;Case Study&lt;/strong&gt;&lt;br /&gt;
-아래는 실제 설명 생성의 예시 사례를 보여주며, 올바른 설명은 초록색으로, 틀린 설명은 빨간색으로 표기하였다.&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/b4716f09-b146-4008-b3b1-62b8cc3174df&quot; alt=&quot;Figure8&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/3a290ed9-8337-4136-8f6c-da6f478e2596&quot; alt=&quot;Figure9&quot; /&gt;&lt;br /&gt;
-또한 LLM 의 통한 설명의 장점은 원하는 시야에서 설명을 생성할 수 있다는 것이 있다.&lt;br /&gt;
-저자들은 RecExplainer-H 를 통해 두 가지 측면에서 생성한 설명의 예시를 다음과 같이 제공한다.&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/3de1694d-3169-4310-9245-71c65e3b3326&quot; alt=&quot;Figure11&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/user-attachments/assets/79ad6aa0-7e6a-4b5d-91d4-a5e18c195c81&quot; alt=&quot;Figure12&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+아래는 실제 설명 생성의 예시 사례를 보여주며, 올바른 설명은 초록색으로, 틀린 설명은 빨간색으로 표기하였다. &lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/b4716f09-b146-4008-b3b1-62b8cc3174df&quot; alt=&quot;Figure10&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/3a290ed9-8337-4136-8f6c-da6f478e2596&quot; alt=&quot;Figure11&quot; /&gt;&lt;br /&gt;
+또한 LLM 의 통한 설명의 장점은 원하는 시야에서 설명을 생성할 수 있다는 것이 있다. 
+저자들은 RecExplainer-H 를 통해 두 가지 측면에서 생성한 설명의 예시를 다음과 같이 제공한다. &lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/3de1694d-3169-4310-9245-71c65e3b3326&quot; alt=&quot;Figure12&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/user-attachments/assets/79ad6aa0-7e6a-4b5d-91d4-a5e18c195c81&quot; alt=&quot;Figure13&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;5-conclusion&quot;&gt;&lt;strong&gt;5. Conclusion&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;이 논문은 LLM 을 적절한 alignment 를 통해 기존의 black-box 추천 모델들을 설명할 수 있는 방법론을 제안한다.&lt;br /&gt;
-이와 같이 LLM 의 성능이 나날히 증가하며 다양한 분야에서 zero-shot 능력이 입증됨에 따라 이를 활용한 추천 시스템 연구들이 많이 진행되고 있다. &lt;br /&gt;
-그 중에서 위 논문과 비슷하게 LLM 과 collaborative model 의 aligning 을 통해 두 모델의 장점을 모두 취하여 추천하는 연구 [1] 또한 KDD 2024 에 발표됐다. &lt;br /&gt;
-반면 RecExplainer 는 LLM 의 추천 능력에 집중하기 보다는 설명 능력에 중점을 둔 것으로, 성능 평가 또한 ground truth 가 아닌 target model 의 output 을 기준으로 진행된다.&lt;br /&gt;
-두 논문을 통해 방법론이 비슷하더라도 다른 motivation 을 설정하여 문제를 해결할 수 있음을 확인할 수 있어 흥미로웠다.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;RecExplainer 은 LLM 을 behavior/intention/hybrid alignment 를 통해 기존의 black-box 추천 모델들을 설명할 수 있는 방법론을 제안한다.
+이를 통해 추천 시스템과 같이 사람들이 이해하기 쉬운 explainability 가 중요한 분야에 대해 새로운 해결책으로 작용할 수 있을 것이다. 
+비록 논문은 다양한 방법론과 실험들을 제공했지만, 내용적인 측면에서 부족한 점들이 있는 것 같다.
+예컨대 intention alignment 의 낮은 성능은 hallucination 으로 인한 것이라 저자들은 분석하였지만, 왜 해당 현상이 intention alignment 에서만 일어나고 실제로 alignment 자체는 잘 되고 있는지 확인하는 실험이 있어야 된다 생각한다.
+또한 저자들은 LLM 의 model-dependent 한 설명을 생성할 것을 목표로 했기 때문에 SASRec 이외의 다른 다양한 모델들과의 aligning 을 했을 경우들에 대한 실험들이 추가돼야 했을 것 같다.&lt;/p&gt;
+
+&lt;p&gt;현재 LLM 의 성능이 나날히 증가함에 따라 다양한 분야에서 zero-shot 능력이 입증됨에 따라 이를 활용한 추천 시스템 연구들이 많이 진행되고 있다.
+그 중에서 RecExplainer 와 비슷하게 LLM 과 collaborative model 의 aligning 을 통해 두 모델의 장점을 모두 취하여 추천하는 연구 [1] 또한 KDD 2024 에 발표됐다.
+반면 RecExplainer 는 LLM 의 추천 능력에 집중하기 보다는 설명 능력에 중점을 둔 것으로, 성능 평가 또한 ground truth 가 아닌 target model 의 output 을 기준으로 진행된다. 
+두 논문을 통해 방법론이 비슷하더라도 다른 motivation 을 설정하여 문제를 해결할 수 있음을 확인할 수 있어 흥미로웠다.&lt;/p&gt;
 
 &lt;h2 id=&quot;6-author-information&quot;&gt;&lt;strong&gt;6. Author Information&lt;/strong&gt;&lt;/h2&gt;
 &lt;ul&gt;
@@ -1085,11 +1172,11 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 &lt;p&gt;https://github.com/microsoft/RecAI/tree/main/RecExplainer&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;references&quot;&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;[1] Kim, S., Kang, H., Choi, S., Kim, D., Yang, M., &amp;amp; Park, C. (2024, August). Large Language Models meet Collaborative Filtering: An Efficient All-round LLM-based Recommender System. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (pp. 1395-1406).&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;[1] Kim, S., Kang, H., Choi, S., Kim, D., Yang, M., &amp;amp; Park, C. (2024, August). Large Language Models meet Collaborative Filtering: An Efficient All-round LLM-based Recommender System. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (pp. 1395-1406)&lt;/p&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-RecExplainer_Aligning_Large_Models_for_Explaining_Recomendation_Models.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-RecExplainer_Aligning_Large_Models_for_Explaining_Recomendation_Models.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-RecExplainer_Aligning_Large_Models_for_Explaining_Recomendation_Models.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-RecExplainer_Aligning_Large_Models_for_Explaining_Recomendation_Models.html</guid>
             
             <category>reviews</category>
             
@@ -1104,7 +1191,7 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 
 &lt;p&gt;&lt;strong&gt;[Figure 1] 아이템의 인기에 따른 추천 성능 차이 및 아이템 임베딩의 분리&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Collaborative Fitlering 기반의 방법들은 인기 없는 아이템의 경우, 사용자와 interaction이 적기 때문에 인기 있는 아이템의 supervisory로 학습이 된다. 이러한 Popularity bias로 인해 Figure1에 나타난 것처럼 인기 있는 아이템과 인기 없는 아이템 사이에서 추천 성능이 차이가 나며, 임베딩 표현도 벌어지게 된다.&lt;/p&gt;
+&lt;p&gt;Collaborative Fitlering 기반의 방법들은 인기 없는 아이템의 경우, 사용자와 interaction이 적기 때문에 인기 있는 아이템의 supervisory로 학습이 된다. 이러한 Popularity bias로 인해 Figure1에 나타난 것처럼 인기 있는 아이템과 인기 없는 아이템 사이에서 추천 성능이 차이가 나며, 임베딩 표현도 멀어지게 된다.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-motivation&quot;&gt;2. Motivation&lt;/h2&gt;
 &lt;p&gt;본 논문에서는 두 가지 모듈을 활용해 unpopoular item에 대한 표현성을 향상시키고자 하였다. 기존의 방법들은 contarstive learning을 통해 popularity bias를 완화시키고자 하였으나, 이러한 방법은 popular, unpopular item 사이의 representation sepration을 심화시킨다. 본 논문에서 제안한 PAAC의 경우는 contrastive loss에서 가중치를 조절하여 popular item과 unpopular item의 representation이 너무 분리되지 않도록 하였다.&lt;/p&gt;
@@ -1123,12 +1210,13 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/NjKbyTxR/five.png&quot; width=&quot;250&quot; height=&quot;45&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;32-re-weighting-contrast-module&quot;&gt;3.2 Re-weighting Contrast Module&lt;/h3&gt;
-&lt;p&gt;본 논문에서는 상위 50% item을 popular item으로 정의하고, 하위 50%의 item을 unpopular item으로 정의하였다. Contrastive loss를 계산할 때 popular item에 대해서 unpopular item이 negative sample로 뽑히거나, unpopular item에 대해서 popular item이 negative sample로 뽑히게 되면 representation separation이 심화된다. 따라서 본 논문에서는 아래의 식처럼 contrastive loss를 계산할 때 가중치를 주어 negative sample을 지나치게 밀어내는 것을 막도록 하였다.
-&lt;img src=&quot;https://i.postimg.cc/1XGVt6Bc/cl.png&quot; width=&quot;300&quot; height=&quot;40&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;본 논문에서는 상위 50% item을 popular item으로 정의하고, 하위 50%의 item을 unpopular item으로 정의하였다. Contrastive loss를 계산할 때 popular item에 대해서 unpopular item이 negative sample로 뽑히거나, unpopular item에 대해서 popular item이 negative sample로 뽑히게 되면 representation separation이 심화된다. 따라서 본 논문에서는 아래의 식처럼 contrastive loss를 계산할 때 가중치를 주어 Popular Item에 대하여 Unpopular Item이 negative sample로 뽑힌 경우와, 그 반대의 경우에 대해서 Loss를 완화하였고, 이를 통해 representation separation을 완화시켰다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Gm6J83Kt/8.png&quot; width=&quot;300&quot; height=&quot;50&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/1XGVt6Bc/cl.png&quot; width=&quot;300&quot; height=&quot;40&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Gm6J83Kt/8.png&quot; width=&quot;300&quot; height=&quot;50&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Gm6J83Kt/8.png&quot; width=&quot;400&quot; height=&quot;50&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/hjP2Fryr/dddd.png&quot; width=&quot;400&quot; height=&quot;50&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;4-experiment&quot;&gt;4. Experiment&lt;/h2&gt;
 
@@ -1191,7 +1279,7 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 &lt;h2 id=&quot;5-conclusion&quot;&gt;5. Conclusion&lt;/h2&gt;
 
 &lt;p&gt;본 논문에서는 popularity bias 해결을 위해 PAAC를 제안하였다. 같은 user를 공유하는 item들은 비슷한 특성을 가졌을 거라는 가정하에서, popularity-aware supervised alignment approach를 고안하고 contrastive learning 기반의 모델에서 representation separation을 방지하기 위하여 popularity level에 따라서 loss의 weight를 조절하였다. 이러한 방법으로 개선된 PAAC는 다양한 데이터셋에서 성능이 개선되는 것으로 증명되었다.
-  창의적인 솔루션이 아니더라도, 문제의 존재를 명확히 밝히고 개선의 여지를 보일 수 있는 것 또한 좋은 연구라는 생각이 들었습니다.&lt;/p&gt;
+  창의적인 솔루션이 아니더라도, 문제의 존재를 명확히 밝히고 개선의 여지를 보일 수 있는 것 또한 좋은 연구라는 생각이 들었다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -1211,9 +1299,9 @@ RecExplainer 은 Vicuna-v1.3-7b 을 backbone LLM 으로 활용하며, DeepSpeed 
 &lt;p&gt;- Github Implementation : https://github.com/miaomiao-cai2/KDD2024-PAAC.&lt;/p&gt;
 
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-Popularity-Aware_Alignment_and_Contrast_for_Mitigating_Popularity_Bias.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-Popularity-Aware_Alignment_and_Contrast_for_Mitigating_Popularity_Bias.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-Popularity-Aware_Alignment_and_Contrast_for_Mitigating_Popularity_Bias.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-Popularity-Aware_Alignment_and_Contrast_for_Mitigating_Popularity_Bias.html</guid>
             
             <category>reviews</category>
             
@@ -1404,9 +1492,9 @@ SyNCRec은 SDSR과 CDSR 태스크 간의 협력적 학습을 통해 모든 도�
   &lt;li&gt;Chenglin Li, Yuanzhen Xie, Chenyun Yu, Bo Hu, Zang Li, Guoqiang Shu, Xiaohu Qie, and Di Niu. 2023. One for All, All for One: Learning and Transferring User Embeddings for Cross-Domain Recommendation. In Proceedings of the Sixteenth ACM International Conference on Web Search and Data Mining. 366–374.&lt;/li&gt;
 &lt;/ol&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-Pacer_and_Runner_Cooperative_Learning_Framework_between_Single-_and_Cross-Domain_Sequential_Recommendation.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-Pacer_and_Runner_Cooperative_Learning_Framework_between_Single-_and_Cross-Domain_Sequential_Recommendation.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-Pacer_and_Runner_Cooperative_Learning_Framework_between_Single-_and_Cross-Domain_Sequential_Recommendation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-Pacer_and_Runner_Cooperative_Learning_Framework_between_Single-_and_Cross-Domain_Sequential_Recommendation.html</guid>
             
             <category>reviews</category>
             
@@ -1416,7 +1504,9 @@ SyNCRec은 SDSR과 CDSR 태스크 간의 협력적 학습을 통해 모든 도�
         <item>
             <title>[WWW-2024] On the Feasibility of Simple Transformer for Dynamic Graph Modeling</title>
             <description>&lt;p&gt;===&lt;/p&gt;
+
 &lt;h1 id=&quot;세줄-요약&quot;&gt;세줄 요약&lt;/h1&gt;
+
 &lt;ul&gt;
   &lt;li&gt;기존 Message passing GNNs(GAT, GCN)들은 모델 구조가 복잡해질수록 Over-smoothing, Over-squashing의 문제가 존재한다.&lt;/li&gt;
   &lt;li&gt;최근 Transformer 기반 모델들이 &lt;strong&gt;Static graph (t = T)&lt;/strong&gt; 에 대해서 이 문제들을 잘 해결하고, 좋은 성능을 나타내고 있다.&lt;/li&gt;
@@ -1426,71 +1516,98 @@ SyNCRec은 SDSR과 CDSR 태스크 간의 협력적 학습을 통해 모든 도�
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;h2 id=&quot;기존-message-passing-gnn의-단점&quot;&gt;기존 Message Passing GNN의 단점&lt;/h2&gt;
-&lt;p&gt;GNN의 장점은 특정 node에 대해 이웃 node들이 미치는 네트워크 효과를 잘 포착한다는 점이다. 이를 위해 Graph Convolution Network(GCN), Graph Attention Network(GAT)와 같은 모델을 통해 주변 node에서 정보를 추출하는 방법론이 제시되었고, 최근까지 좋은 성능을 보여주었다. 하지만 해당 방법들은 주변 Node에서 정보를 추출하는 과정에서 GNN의 Layer가 증가하여 각 Node의 Embedding이 동일해지는 현상(&lt;strong&gt;Over-Smoothing&lt;/strong&gt;)과 먼 Node에서 정보를 가져오는 과정에서 해당 정보가 손실되는 현상(&lt;strong&gt;Over-Squashing&lt;/strong&gt;)의 단점이 관찰되었다.&lt;/p&gt;
+
+&lt;p&gt;GNN의 장점은 특정 node에 대해 이웃 node들이 미치는 네트워크 효과를 잘 포착한다는 점이다. 이를 위해 Graph Convolution Network(GCN), Graph Attention Network(GAT)와 같은 모델을 통해 주변 node에서 정보를 추출하는 방법론이 제시되었고, 최근까지 좋은 성능을 보여주었다. 하지만 해당 방법들은 주변 Node에서 정보를 추출하는 과정에서 GNN의 Layer가 증가하여 각 Node의 Embedding이 동일해지는 현상(&lt;strong&gt;Over-Smoothing&lt;/strong&gt;)과 먼 Node에서 정보를 가져오는 과정에서 해당 정보가 손실되는 현상(&lt;strong&gt;Over-Squashing&lt;/strong&gt;)의 단점이 관찰되었다.
+&lt;img src=&quot;https://i.postimg.cc/0QRtXjNY/image-12.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;temporality-with-transformer&quot;&gt;Temporality with Transformer&lt;/h2&gt;
-&lt;p&gt;기존 GNN 방법론들에서 Dynamic Graph의 temporality를 다루는 방법에는 크게 두 가지가 있다. &lt;strong&gt;Discrete time step GNN&lt;/strong&gt;은 시간/일/월 등 특정한 시간 단위로 Snapshot을 찍은 후(ex: 1월 snapshot, 2월 snapshot, …) 그에 맞게 Graph를 나누어 다루는 방법이고, &lt;strong&gt;Continuous time step GNN&lt;/strong&gt;은 말 그대로 연속적인 Graph의 변화를 보는 방법이다. 
-Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다루기가 쉽다는 장점이 있지만, 해당 시간대 이하에서 나타나는 fine-grained temporality를 포착하기 어렵다는 단점이 있다. Continuous는 세부적인 temporality를 잃지 않는 장점이 있지만, 모델이 더 복잡해지고 Gradient vanishing 문제가 발생하여 Graph의 Long-term dependency를 잘 포착하지 못한다고 알려져있다. 
-&lt;strong&gt;Transformer&lt;/strong&gt;를 사용하면 1. continous의 장점인 fine-grained temporality를 놓치지 않을 수 있고, 2. self-attention을 통해 long-term dependency의 성능이 향상된다. 3. Message passing GNNs의 단점인 Over-smoothing과 Over-squashing의 문제도 덜하다는 장점이 있다.&lt;/p&gt;
+
+&lt;p&gt;기존 GNN 방법론들에서 Dynamic Graph의 temporality를 다루는 방법에는 크게 두 가지가 있다. &lt;strong&gt;Discrete time step GNN&lt;/strong&gt;은 시간/일/월 등 특정한 시간 단위로 Snapshot을 찍은 후(ex: 1월 snapshot, 2월 snapshot, …) 그에 맞게 Graph를 나누어 다루는 방법이고, &lt;strong&gt;Continuous time step GNN&lt;/strong&gt;은 말 그대로 연속적인 Graph의 변화를 보는 방법이다.&lt;/p&gt;
+
+&lt;p&gt;Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다루기가 쉽다는 장점이 있지만, 해당 시간대 이하에서 나타나는 fine-grained temporality를 포착하기 어렵다는 단점이 있다. Continuous는 세부적인 temporality를 잃지 않는 장점이 있지만, 모델이 더 복잡해지고 Gradient vanishing 문제가 발생하여 Graph의 Long-term dependency를 잘 포착하지 못한다고 알려져있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Transformer&lt;/strong&gt;를 사용하면 1. continous의 장점인 fine-grained temporality를 놓치지 않을 수 있고, 2. self-attention을 통해 long-term dependency의 성능이 향상된다. 3. Message passing GNNs의 단점인 Over-smoothing과 Over-squashing의 문제도 덜하다는 장점이 있다.&lt;/p&gt;
 
 &lt;h1 id=&quot;related-works&quot;&gt;Related Works&lt;/h1&gt;
+
 &lt;h2 id=&quot;dynamic-graph-learning&quot;&gt;Dynamic Graph Learning&lt;/h2&gt;
-&lt;p&gt;Dynamic graph를 다루기 위해 제시된 주요 방법론은 다음과 같다.
-|방법론|Graph Structure|Temporal Structure|
-|——|—|—|
-|DySAT(WSDM 2020)|GAT|Self-attention|
-|EvolveGCN(AAAI 2020)|GCN|RNN|
-|TGAT(ICLR 2020)|Temporal graph attention|Temporal graph attention|
-|TGN(ICML 2020)|Temporal graph attention|Temporal graph attention|
-|GraphMixer(ICLR 2022)|Temporal graph attention(MLP mixer)|Temporal graph attention(MLP Mixer)|&lt;/p&gt;
 
-&lt;h2 id=&quot;transfomer-기반-gnns&quot;&gt;Transfomer 기반 GNNs&lt;/h2&gt;
-&lt;p&gt;최근에는 Transformer 구조를 사용해 Graph 구조를 파악하게 하는 연구들이 활발하게 진행되었는데, 대표적으로는 NeurIPS 2022에 발표된 &lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;가 있다. 이 논문에서는, vanila Transformer 구조에 Node, Edge와 같은 그래프 구성물들을 Node, Edge라고 표시해주는 Type identifier들만 추가하여 input으로 넣었을 때, 기존 Message Passing GNN에 기반한 SOTA 모델보다 좋은 성능을 냈다고 보고하고 있다.&lt;/p&gt;
+&lt;p&gt;Dynamic graph를 다루기 위해 제시된 주요 방법론은 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
+&lt;!-- \vert 방법론\vert Graph Structure\vert Temporal Structure\vert
+\vert ------\vert ---\vert ---\vert
+\vert DySAT(WSDM 2020)\vert GAT\vert Self-attention\vert
+\vert EvolveGCN(AAAI 2020)\vert GCN\vert RNN\vert
+\vert TGAT(ICLR 2020)\vert Temporal graph attention\vert Temporal graph attention\vert
+\vert TGN(ICML 2020)\vert Temporal graph attention\vert Temporal graph attention\vert
+\vert GraphMixer(ICLR 2022)\vert Temporal graph attention(MLP mixer)\vert Temporal graph attention(MLP Mixer)\vert  --&gt;
 
-&lt;h1 id=&quot;proposed-approach&quot;&gt;Proposed Approach&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-1.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;temporal-ego-graph&quot;&gt;Temporal Ego-graph&lt;/h2&gt;
-&lt;p&gt;Dynamic graph의 특성상 Static graph를 다뤘던 이전 논문처럼 바로 Transformer에 Graph를 input으로 넣을 수 없기에, Temporal Ego-graph라는 subgraph을 Node마다 생성한다. Temporal Ego-graph는 Node  &lt;strong&gt;$v$&lt;/strong&gt; 가 다른 Node들과 상호작용한 기록이 담겨있는 Graph로, 수식으로 표시하면 아래와 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-2.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;$v^k_i$는 Node $v$가 Node $k$와 timestep $\tau$에 상호작용한 정보를 담고 있다($v_i, v_k, \tau$). training data $x_i$는 Node $i$에 대해 sequence length $w$만큼의 길이를 가지는 Temporal Ego-graph로, training data임을 Transformer model에 알려주기 위해 앞뒤로 &amp;lt;|hist|&amp;gt;와 &amp;lt;|endofhist|&amp;gt; token으로 감싸주었다. $y_i$는 Node i의 label data로, 상세 사항은 $x_i$와 같다.&lt;/p&gt;
-&lt;h2 id=&quot;temporal-alignment&quot;&gt;Temporal Alignment&lt;/h2&gt;
-&lt;p&gt;Transformer model이 자연적으로 sequence의 상대적 위치에 따라 temporality를 학습하기는 하지만, 서로 다른 Node 간에는 다른 time step을 따르는 맹점이 아직 남아있다. 다음과 같은 예시를 보자&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;Node $u$는 24년 1월에 Graph에 추가되어 sequence가 $w_u$ = &amp;lt;$v_u^{24년 1월}$,$v_u^{24년 2월}$, …, $v_u^{24년 10월}$&amp;gt;이고,&lt;/li&gt;
-  &lt;li&gt;Node $k$는 23년 7월에 Graph에 추가되어 sequence가 $w_k$ = &amp;lt;$v_k^{23년 7월}$,$v_k^{23년 8월}$, …, $v_k^{24년 10월}$&amp;gt;이라면&lt;/li&gt;
+  &lt;li&gt;DySAT (WSDM 2020): GAT, Self-attention&lt;/li&gt;
+  &lt;li&gt;EvolveGCN (AAAI 2020): GCN, RNN&lt;/li&gt;
+  &lt;li&gt;TGAT (ICLR 2020): Temporal graph attention&lt;/li&gt;
+  &lt;li&gt;TGN (ICML 2020): Temporal graph attention&lt;/li&gt;
+  &lt;li&gt;GraphMixer (ICLR 2022): Temporal graph attention(MLP mixer)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Transformer model은 해당 sequence들만으로는 $v_u^{24년 1월}$와 $v_k^{23년 7월}$가 같은 time step에 일어났는지 판단할 수 없다.
-이에 저자들은 특정 time step마다 다른 Temporal token을 삽입하여, Node전체에 적용되는 universal timeline을 부여하고자 하였다.&lt;/p&gt;
+&lt;h2 id=&quot;transfomer-기반-gnns&quot;&gt;Transfomer 기반 GNNs&lt;/h2&gt;
+
+&lt;p&gt;최근에는 Transformer 구조를 사용해 Graph 구조를 파악하게 하는 연구들이 활발하게 진행되었는데, 대표적으로는 NeurIPS 2022에 발표된 &lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;가 있다. 이 논문에서는, vanila Transformer 구조에 Node, Edge와 같은 그래프 구성물들을 Node, Edge라고 표시해주는 Type identifier들만 추가하여 input으로 넣었을 때, 기존 Message Passing GNN에 기반한 SOTA 모델보다 좋은 성능을 냈다고 보고하고 있다.
+&lt;img src=&quot;https://i.postimg.cc/zGGVsFQ7/image.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;proposed-approach&quot;&gt;Proposed Approach&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/W3wVpQFk/image-1.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;temporal-ego-graph&quot;&gt;Temporal Ego-graph&lt;/h2&gt;
+
+&lt;p&gt;Dynamic graph의 특성상 Static graph를 다뤘던 이전 논문 (&lt;strong&gt;Pure Transformers are Powerful Graph Learners&lt;/strong&gt;)처럼 바로 Transformer에 Graph를 input으로 넣을 수 없기에, Temporal Ego-graph라는 subgraph을 Node마다 생성한다. Temporal Ego-graph는 Node &lt;strong&gt;$v$&lt;/strong&gt; 가 다른 Node들과 상호작용한 기록이 담겨있는 Graph로, 수식으로 표시하면 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/k5NzWWJr/image-2.png&quot; alt=&quot;alt text&quot; /&gt;
+$v^k_i$는 Node $v$가 Node $k$와 timestep $\tau$에 상호작용한 정보를 담고 있다($v_i, v_k, \tau$). training data $x_i$는 Node $i$에 대해 sequence length $w$만큼의 길이를 가지는 Temporal Ego-graph로, training data임을 Transformer model에 알려주기 위해 앞뒤로 $&amp;lt;\vert hist \vert &amp;gt;$와 $&amp;lt;\vert endofhist \vert &amp;gt;$ token으로 감싸주었다. $y_i$는 Node i의 label data로, 상세 사항은 $x_i$와 같다.&lt;/p&gt;
+
+&lt;h2 id=&quot;temporal-alignment&quot;&gt;Temporal Alignment&lt;/h2&gt;
+
+&lt;p&gt;Transformer model이 자연적으로 sequence의 상대적 위치에 따라 temporality를 학습하기는 하지만, 서로 다른 Node 간에는 다른 time step을 따르는 맹점이 아직 남아있다. 다음과 같은 예시를 보자&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Node $u$는 24년 1월에 Graph에 추가되어 sequence가 $w_u$ = &amp;lt;$v_u^{24년 1월}$,$v_u^{24년 2월}$, …, $v_u^{24년 10월}$&amp;gt;이고,&lt;/li&gt;
+  &lt;li&gt;Node $k$는 23년 7월에 Graph에 추가되어 sequence가 $w_k$ = &amp;lt;$v_k^{23년 7월}$,$v_k^{23년 8월}$, …, $v_k^{24년 10월}$&amp;gt;이라면
+Transformer model은 해당 sequence들만으로는 $v_u^{24년 1월}$와 $v_k^{23년 7월}$가 같은 time step에 일어났는지 판단할 수 없다.
+이에 저자들은 특정 time step마다 다른 Temporal token을 삽입하여, Node전체에 적용되는 universal timeline을 부여하고자 하였다.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;training-objectives&quot;&gt;Training objectives&lt;/h2&gt;
-&lt;p&gt;생성한 Temporal Ego-graph에 Temporal Alignment과정을 통해 Temporal token을 추가한 sequence를 $R = &amp;lt;r_1, r_2, …, r_{|R|}&amp;gt;$이라고 하자($|R|$은 Sequence R의 길이). 해당 sequence의 joint probability는 아래와 같이 표현할 수 있다.
-&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$p(r_i&lt;/td&gt;
-      &lt;td&gt;R_{&amp;lt;i})$는 $R_{&amp;lt;i}$까지의 token이 주어졌을 때 step i에서의 token의 probability distribution이고, 아래와 같이 놓고 train할 수 있다.(LN은 Layer normalization)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;h3 id=&quot;joint-probability-정의&quot;&gt;Joint Probability 정의&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-4.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;생성한 Temporal Ego-graph에 Temporal Alignment과정을 통해 Temporal token을 추가한 sequence를 $R = &amp;lt;r_1, r_2, …, r_{\vert R \vert }&amp;gt;$이라고 하자($\vert R \vert $은 Sequence R의 길이). 해당 sequence의 joint probability는 아래와 같이 표현할 수 있다.
+&lt;img src=&quot;https://i.postimg.cc/kXkpZTD3/image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;결과적으로 이를 Negative log-likelihood 방식으로 바꾸면 아래와 같이 loss를 정의할 수 있다.
-&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-5.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;conditional-probability-and-loss&quot;&gt;Conditional Probability and Loss&lt;/h3&gt;
 
-&lt;p&gt;최종적인 학습 Process는 아래와 같다.
-&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-6.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;$p(r_i \vert R_{&amp;lt;i})$는 $R_{&amp;lt;i}$까지의 token이 주어졌을 때 step i에서의 token의 probability distribution이다. 이 때 중요한 것은 i번째 token을 예측할 때 미래참조편향을 방지하기 위해 i 혹은 i보다 뒤에 오는 token들은 masking을 한 채로 probability distribution을 생성해야한다는 것이다. 그 결과 아래 식과 같이 놓고 train할 수 있다. $R^l_&amp;lt;i$는 i번째 token 전까지 generated 된 token들의 transformer 속 hidden layer이고, 여기에 learnable matrix인 $W_{vocab}$을 곱해준다.
+&lt;img src=&quot;https://i.postimg.cc/G90xMSKX/image-4.png&quot; alt=&quot;alt text&quot; /&gt;
+결과적으로 이를 Negative log-likelihood 방식으로 바꾸면 아래와 같이 loss를 정의할 수 있다.
+&lt;img src=&quot;https://i.postimg.cc/mr03ZnfB/image-5.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;overall-algorithm&quot;&gt;Overall Algorithm&lt;/h3&gt;
+
+&lt;p&gt;위와 같이 정의한 Probability distribution을 활용한 Training algorithm은 다음과 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Traning sample에서 batch를 고른다.&lt;/li&gt;
+  &lt;li&gt;i 직전까지의 generated token을 Masked Transformer를 통과시켜 $R_&amp;lt;i$를 얻는다.&lt;/li&gt;
+  &lt;li&gt;위에 보인 식들을 활용해 joint probability를 얻는다.&lt;/li&gt;
+  &lt;li&gt;loss를 구하고 반복한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/RhvHN5P5/image-6.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;experiments&quot;&gt;Experiments&lt;/h1&gt;
+
 &lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
 &lt;ul&gt;
   &lt;li&gt;UCI: SNS 상에서 user들간의 message 교환 기록이 있는 dataset&lt;/li&gt;
   &lt;li&gt;ML-10M: MovieLens dataset 중 하나로, user들이 각 영화들에 대해 어떤 tag를 부여했는지가 나와있는 dataset&lt;/li&gt;
@@ -1499,6 +1616,9 @@ Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;evaluation-metrics&quot;&gt;Evaluation Metrics&lt;/h2&gt;
+
+&lt;p&gt;저자들은 위의 Dataset을 기반으로, given time step에 link prediction task를 진행하였다. 모델이 제시한 예상 node 결과와 ground truth의 ranking performance, similarity를 분석하기 위해 아래와 같은 두 가지 evaluation metric을 사용하였다.&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;NDCG@5: 추천시스템/검색 엔진 평가에 자주 쓰이는 Metric으로, Top 5개의 추천 항목을 기준으로 함&lt;/li&gt;
   &lt;li&gt;Jaccard Similarity: 추천 set과 정답 set의 유사도를 측정하는 지표&lt;/li&gt;
@@ -1506,54 +1626,79 @@ Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다
 
 &lt;h1 id=&quot;results&quot;&gt;Results&lt;/h1&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-7.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;결과는 위의 그림과 같다. 4개 dataset 모두에서 NDCG@5와 Jaccard 모두 해당 논문의 방법론인 &lt;strong&gt;SimpleDyG&lt;/strong&gt;가 최고 성능을 보였다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/90XDcPMc/image-7.png&quot; alt=&quot;alt text&quot; /&gt;
+왼쪽이 baseline과 simpleDyG 등 모델, 위쪽이 Dataset의 종류이다.
+4개 dataset 모두에서 NDCG@5와 Jaccard 모두 해당 논문의 방법론인 &lt;strong&gt;SimpleDyG&lt;/strong&gt;가 최고 성능을 보였다.&lt;/p&gt;
 
 &lt;h2 id=&quot;effect-of-extra-tokens&quot;&gt;Effect of Extra Tokens&lt;/h2&gt;
-&lt;h3 id=&quot;impact-of-special-tokens&quot;&gt;Impact of Special Tokens&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-8.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Special tokens(“&amp;lt;|hist|&amp;gt;”, “&amp;lt;|endofhist|&amp;gt;”, “&amp;lt;|pred|&amp;gt;”, “&amp;lt;|endofpred|&amp;gt;”)와 같은 special token의 효과를 알아보기 위해 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+&lt;h3 id=&quot;impact-of-special-tokens&quot;&gt;Impact of Special Tokens&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/mgWGMLYH/image-8.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Special tokens(“&amp;lt;$\vert$ hist $\vert$ &amp;gt;”, “&amp;lt;$\vert$ endofhist $\vert$ &amp;gt;”, “&amp;lt;$\vert$ pred $\vert$ &amp;gt;”, “&amp;lt;$\vert$ endofpred $\vert$ &amp;gt;”)와 같은 special token의 효과를 알아보기 위해 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;SimpleDyG: 원 모델, 각기 다른 special token 사용(ex: hist, endofhist, pred, endofpred)&lt;/li&gt;
   &lt;li&gt;same special: 같은 special token 사용(ex: x, x, x, x)&lt;/li&gt;
-  &lt;li&gt;no special: special token 미사용&lt;/li&gt;
+  &lt;li&gt;no special: special token 미사용
+결과적으로는 dataset에 따라 SimpleDyG와 same special이 엎치락뒤치락하는 모습을 보여주었다.
+특이하게도 Hepth dataset에서는 no special 모델이 가장 좋은 성능을 보였는데, 이는 scientific paper citation network인 Hepth dataset의 특징 때문이라고 생각된다. Test set의 ego-node가 새로운 node(newly published paper)여서, historical information이 큰 영향을 미치지 못했다고 해석할 수 있다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;결과적으로는 dataset에 따라 SimpleDyG와 same special이 엎치락뒤치락하는 모습을 보여주었다.&lt;/p&gt;
-
 &lt;h3 id=&quot;impact-of-temporal-tokens&quot;&gt;Impact of Temporal Tokens&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-9.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Temporal tokens의 효과를 알아보기 위해 역시 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/prDMc3xT/image-9.png&quot; alt=&quot;alt text&quot; /&gt;
+Temporal tokens의 효과를 알아보기 위해 역시 두 가지 Ablation 실험을 진행하였다.&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;SimpleDyG: 원 모델, 각기 다른 temporal token 사용(ex: 24년 1월, 24년 2월, …)&lt;/li&gt;
   &lt;li&gt;same time: 같은 temporal token 사용(ex: x, x, …)&lt;/li&gt;
-  &lt;li&gt;no time: temporal token 미사용&lt;/li&gt;
+  &lt;li&gt;no time: temporal token 미사용
+결과를 보면, 의외로 same time이나 no time의 결과가 좋은데, 이는 transformer 모델에게 temporality를 자연스럽게 배우게 하는 것이 인위적인 temporal token을 부여하는 것보다 때때로 더 나을 수 있다고 해석할 수 있다.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;결과를 보면, 의외로 same time이나 no time의 결과가 좋은데, 이는 transformer 모델에게 temporality를 자연스럽게 배우게 하는 것이 인위적인 temporal token을 부여하는 것보다 때때로 더 나을 수 있다고 해석할 수 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;performance-of-multi-step-prediction&quot;&gt;Performance of Multi-step Prediction&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-10.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;t시점에서 단순히 다음 time step인 t+1만 예측하는 것이 아닌, 그 이후를 예측하는 성능을 검증하기 위해 다른 baseline 모델과 비교 실험을 해본 결과이다. 당연하지만 t+3으로 갈수록 모델의 성능이 낮아지지만, SimpleDyG가 다른 baseline model인 TGAT과 GraphMixer보다 꾸준히 성능이 낫다는 것을 보여준다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/0NbR1zxh/image-10.png&quot; alt=&quot;alt text&quot; /&gt;
+t시점에서 단순히 다음 time step인 t+1만 예측하는 것이 아닌, 그 이후를 예측하는 성능을 검증하기 위해 다른 baseline 모델과 비교 실험을 해본 결과이다. 당연하지만 t+3으로 갈수록 모델의 성능이 낮아지지만, SimpleDyG가 다른 baseline model인 TGAT과 GraphMixer보다 꾸준히 성능이 낫다는 것을 보여준다.&lt;/p&gt;
 
 &lt;h2 id=&quot;hyper-parameter-analysis&quot;&gt;Hyper-parameter Analysis&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling/image-11.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hyper-parameter에 따른 성능 변화도 꽤나 robust한 결과를 보여주어, 특정한 setting에서만 성능이 좋은 것이 아니라는 것을 입증한다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/9QgKbcTb/image-11.png&quot; alt=&quot;alt text&quot; /&gt;
+Hyper-parameter에 따른 성능 변화도 꽤나 robust한 결과를 보여주어, 특정한 setting에서만 성능이 좋은 것이 아니라는 것을 입증한다.&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;본 논문은 그래프 분석에 Transformer를 도입하려는 최근의 연구흐름 속에서, Dynamic graph에의 적용을 다룬 논문이다. Dynamic graph의 특징인 Temporality를 도입하기 위해 저자들은 새로운 방법인 Temporal ego-graph과 Temporal alignment를 도입하였고, 4가지 dataset에서 기존 baseline model들보다 성능이 좋다는 것을 여러 실험으로 밝혔다. 저자들이 제안한 방법론은 vanila Transformer 구조를 사용해 구현이 쉽다는 장점이 있고, 추가적인 Transformer 구조의 수정 없이도 SOTA 성능을 보이는 것을 보여주어 Dynamic graph에서의 Transformer 적용가능성을 열었다.&lt;/p&gt;
+&lt;p&gt;본 논문은 그래프 분석에 Transformer를 도입하려는 최근의 연구흐름 속에서 Dynamic graph에의 적용을 다룬 논문이다. Dynamic graph의 특징인 Temporality를 도입하기 위해 저자들은 새로운 방법인 Temporal ego-graph과 Temporal alignment를 도입하였고, 4가지 dataset에서 기존 baseline model들보다 성능이 좋다는 것을 여러 실험으로 밝혔다.&lt;/p&gt;
+
+&lt;p&gt;저자들이 제안한 방법론은 vanila Transformer 구조를 사용해 구현이 쉽다는 장점이 있고, 추가적인 Transformer 구조의 수정 없이도 SOTA 성능을 보이는 것을 보여주어 Dynamic graph에서의 Transformer 적용가능성을 열었다.&lt;/p&gt;
+
+&lt;p&gt;하지만, Temporal ego-graph 구조가 다른 graph dataset에서도 알맞은 구조인지와 Ablation에서 보았듯이 Temporal alignment 구조가 꼭 필요한지에 대한 의문이 있다. 추가로 heterogeneous graph나 knowledge graph와 같은 복잡한 graph에서도 적용가능한지 후속연구가 필요하다.&lt;/p&gt;
+
+&lt;h1 id=&quot;author-information&quot;&gt;Author Information&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Donggyu Lee
+    &lt;ul&gt;
+      &lt;li&gt;Affiliation: Graduate School of Data Science, advised by Jihee Kim&lt;/li&gt;
+      &lt;li&gt;Research Topic: NLP, GIS, Economics, Finance&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;reference--additional-materials&quot;&gt;Reference &amp;amp; Additional materials&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Arxiv page: https://arxiv.org/abs/2401.14009&lt;/li&gt;
+  &lt;li&gt;Github repo: https://github.com/YuxiaWu/SimpleDyG&lt;/li&gt;
+  &lt;li&gt;OpenReview page of paper: https://openreview.net/forum?id=6nnkyxQayj&amp;amp;referrer=%5Bthe%20profile%20of%20Yuxia%20Wu%5D(%2Fprofile%3Fid%3D~Yuxia_Wu1)&lt;/li&gt;
+  &lt;li&gt;Author’s presentation: https://www.youtube.com/watch?v=7sS0yVRS_jM&lt;/li&gt;
+&lt;/ul&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-On_the_Feasibility_of_Simple_Transformer_for_Dynamic_Graph_Modeling.html</guid>
             
             <category>reviews</category>
             
@@ -1562,11 +1707,7 @@ Discrete의 경우에는 Graph가 특정 시간대로 나뉘어 데이터를 다
         
         <item>
             <title>[ICLR-22] On Evaluation Metrics For Graph Generative Models</title>
-            <description>&lt;p&gt;Title : On Evaluation Metrics For Graph Generative Models
-Aurthor : R. Thompson et al.
-Venue : ICLR 2022&lt;/p&gt;
-
-&lt;h3 id=&quot;1-graph-generation-task는-무엇인가&quot;&gt;1. Graph Generation Task는 무엇인가?&lt;/h3&gt;
+            <description>&lt;h3 id=&quot;1-graph-generation-task는-무엇인가&quot;&gt;1. Graph Generation Task는 무엇인가?&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Graph(그래프)&lt;/strong&gt;는 &lt;strong&gt;노드(Node)&lt;/strong&gt;와 &lt;strong&gt;엣지(Edge)&lt;/strong&gt;로 이루어진 데이터 구조를 의미한다. 그래프는 현실 세계의 다양한 관계와 상호작용을 표현하는데 사용된다. 예컨대, 사람들 간의 소셜 네트워크나 인터넷의 링크 구조, 분자 내의 원자 간 결합, 도로망에서의 교차로와 길 등이 있다. 즉, node는 개체를 나타내고, edge는 그들 간의 관계를 나타낸다.&lt;/p&gt;
 
@@ -1616,12 +1757,14 @@ Venue : ICLR 2022&lt;/p&gt;
 
 &lt;p&gt;그러나 auto regressive GGM의 log likelihood를 비교하는 것은 모든 가능한 node 순서를 marginalize 해야 하므로 계산이 불가능하다 (Chen et al., 2021). 최근 연구에서는 최적의 순서를 학습하고 이를 추정하려고 하지만 (Chen et al., 2021), likelihood가 생성된 그래프의 품질을 나타내지 않을 수 있다는 사실을 고려한다는 점을 반영했다(Theis et al., 2016).&lt;/p&gt;
 
+&lt;p&gt;또, Naeem et al, 2020. 에 따르면 생성된 그래프의 Fidelity와 Diversity는 다른 생성 Task와 마찬가지로 Precision 과 Recall을 통해 각각 측정되곤 했는데, 이러한 방법들로는 실제 데이터와 생성된 데이터의 분포가 동일한 경우 감지되기 어렵다는 점, 이상치에 민감하여 결과의 신뢰성이 낮아진다는 점이 한계로 꼽힌다. 뿐만 아니라 특정 데이터 카테고리가 아예 생성되지 않는 mode collapse 문제를 포착하는 것에도 한계가 있다. 만약 mode가 하나씩 점진적으로 사라지는 경우에는 Recall과 Precision이 모두 감소하면서 diversity가 감소하며 다양성 저하가 잘 반영되지만, mode들이 동시에 사라지는 경우 recall은 1개의 mode만 남을 때 까지 감소되지 않다가 특정 시점에서 급격하게 감소하는 등의 문제가 실험을 통해 밝혀진 것이다.&lt;/p&gt;
+
 &lt;h3 id=&quot;샘플-기반-평가-지표&quot;&gt;샘플 기반 평가 지표&lt;/h3&gt;
 
 &lt;p&gt;샘플 기반 평가 지표는 실제 분포 $P_r$과 생성된 분포 $P_g$ 사이의 거리 $\rho$를 랜덤 샘플을 통해 추정한다 (Heusel et al., 2017; You et al., 2018; Bińkowski et al., 2018). 이는 다음과 같이 계산된다고 한다:&lt;/p&gt;
 
 &lt;p&gt;$
-\hat{\rho}\left(\mathbb{S}_ g, \mathbb{S}_ r\right) \approx \rho\left(P_ g, P_ r\right)
+\hat{\rho}(\mathbb{S}_ g, \mathbb{S}_ r) \approx \rho(P_ g, P_ r)
 $&lt;/p&gt;
 
 &lt;p&gt;여기서,&lt;/p&gt;
@@ -1636,7 +1779,7 @@ $&lt;/p&gt;
 
 &lt;h2 id=&quot;21-기존의-평가-지표&quot;&gt;2.1 기존의 평가 지표&lt;/h2&gt;
 
-&lt;p&gt;그래프 통계에 기반한 지표는 GGM 평가에서 표준으로 사용된다 (You et al., 2018; Liao et al., 2019; Dai et al., 2020). 이러한 지표는 $\mathbf{x}_i$를 클러스터링 계수, node 차수, 또는 4-node 오빗 카운트 히스토그램으로 설정하고, 생성된 집합 $\mathbb{S}_g$와 참조 집합 $\mathbb{S}_r$ 사이의 경험적 MMD를 계산한다 (Gretton et al., 2006):&lt;/p&gt;
+&lt;p&gt;그래프 통계에 기반한 지표는 GGM 평가에서 표준으로 사용된다 (You et al., 2018; Liao et al., 2019; Dai et al., 2020). 이러한 지표는 $\mathbf{x}_ i$를 클러스터링 계수, node 차수, 또는 4-node 오빗 카운트 히스토그램으로 설정하고, 생성된 집합 $\mathbb{S}_ g$와 참조 집합 $\mathbb{S}_ r$ 사이의 경험적 MMD를 계산한다 (Gretton et al., 2006):&lt;/p&gt;
 
 &lt;figure&gt;
   &lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/167419716-bd7da8f8-0830-4c35-b2e3-2fc21bff657a.png&quot; alt=&quot;alt text&quot; /&gt;
@@ -1650,7 +1793,7 @@ $&lt;/p&gt;
 &lt;p&gt;여기서 $k(\cdot, \cdot)$는 일반적인 커널 함수이다. You et al. (2018)은 RBF 커널의 한 형태를 제안하였다:&lt;/p&gt;
 
 &lt;p&gt;$
-k\left(\mathbf{x}_ i, \mathbf{x}_ j\right) = \exp\left(-d\left(\mathbf{x}_ i, \mathbf{x}_ j\right) / 2\sigma^2\right)
+k(\mathbf{x}_ i, \mathbf{x}_ j) = \exp(-d(\mathbf{x}_ i, \mathbf{x}_ j) / 2\sigma^2)
 $&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1664,18 +1807,34 @@ $&lt;/p&gt;
 
 &lt;p&gt;Moreno et al. (2018)은 You et al. (2018)이 제안한 것과 유사하게 node 차수, 클러스터링 계수, 지오데식 거리와 같은 그래프 구조 특성을 추출하였다. 그러나 이러한 특성들은 Kolmogorov-Smirnov (KS) 다차원 거리 (Justel et al., 1997)를 통해 스칼라 지표로 결합된다. 본 연구에서는 KS를 edge와 node feature을 통합할 수 없기 때문에 실험에서 제외하였다.&lt;/p&gt;
 
-&lt;p&gt;마지막으로, “유효한 그래프의 비율”과 같은 도메인 특화 지표도 존재한다. 우리의 목표는 이러한 지표를 통합하거나 제거하거나 평가하는 것이 아니다; 그것들은 생성된 그래프의 특성이며, 위에서 설명한 지표들과 달리 참조 분포와의 비교를 제공하지 않는다. 이러한 지표들은 GGM 평가에서 여전히 유용한 정보를 제공할 수 있다고 믿는다.&lt;/p&gt;
+&lt;p&gt;또한, “유효한 그래프의 비율”과 같은 도메인 특화 지표도 존재한다. 우리의 목표는 이러한 지표를 통합하거나 제거하거나 평가하는 것이 아니다; 그것들은 생성된 그래프의 특성이며, 위에서 설명한 지표들과 달리 참조 분포와의 비교를 제공하지 않는다. 이러한 지표들은 GGM 평가에서 여전히 유용한 정보를 제공할 수 있다고 여겨진다.&lt;/p&gt;
+
+&lt;p&gt;GGM에서 MMD의 활용의 한계에 대한 또다른 연구인 O’Bray et al., 2022는 다음과 같은 한계점을 지적하기도 하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;21a-커널-및-하이퍼파라미터-설정에-대한-민감성&quot;&gt;2.1.a. 커널 및 하이퍼파라미터 설정에 대한 민감성&lt;/h3&gt;
+
+&lt;p&gt;MMD는 어떤 kernel 함수와 hyperparameter(i.e. \sigma) 를 선택하느냐에 따라 크게 다른 결과를 보인다. 이는 평가 지표로 할용되기에 MMD가 가지고 있는 불안정성을 보여준다.&lt;/p&gt;
+
+&lt;h3 id=&quot;21b-스케일에-대한-부재&quot;&gt;2.1.b. 스케일에 대한 부재&lt;/h3&gt;
+
+&lt;p&gt;MMD 값은 적절한 척도를 가지고 있지 않아, 계산된 값이 의미하는 바를 해석하기 어렵다. 가령 0.1과 0.01이라는 값이 있을 때, 이 둘이 얼만큼의 차이를 의미한다는 것인지는 해당 Graph의 Context 없이 직관적으로 이해하기 어렵다. 이 역시 평가지표로써 MMD가 가지고 있는 한계로 여겨진다.&lt;/p&gt;
+
+&lt;h3 id=&quot;21c-비단조성&quot;&gt;2.1.c. 비단조성&lt;/h3&gt;
+
+&lt;p&gt;만약 두 graph가 dissimilar 한 정도가 증가한다면, 둘 사이의 MMD 역시 단조적으로 증가해야 마땅할 것이나 MMD는 비단조적으로 증가하는 특성을 보인다는 점에서, metric으로써 충분치 않다는 단점을 보인다. 이는 아래 figure에서 잘 드러난다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/On_Evaluation_Metrics_For_Graph_Generative_Models/image-5.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;22-그래프-신경망-gnn&quot;&gt;2.2 그래프 신경망 (GNN)&lt;/h2&gt;
 
-&lt;p&gt;그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = {(i, j) \mid i, j \in {1, \ldots, \vert \mathbb{V}\vert}}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.&lt;/p&gt;
+&lt;p&gt;그래프를 $\mathcal{G} = (\mathbb{V}, E)$로 정의하며, 여기서 $\mathbb{V}$는 node들의 집합, $E = {(i, j) \mid i, j \in {1, \ldots, \vert\mathbb{V}\vert}}$는 edge들의 집합이다. GNN은 임의의 그래프 $G_i$로부터 고정 크기의 표현 $\mathbf{x}_i$를 추출할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;많은 GNN 구조가 존재하지만 (Wu et al., 2020), 본 연구에서는 일반적인 GNN으로 Graph Isomorphism Networks (GINs)를 고려한다 (Xu et al., 2019). GIN은 $L$개의 전파 레이어와 그래프 Readout 레이어로 구성되어 $\mathbf{x}_i$를 얻는다.&lt;/p&gt;
 
 &lt;p&gt;node $v \in \mathbb{V}$에 대해, 레이어 $l \in [1, L]$에서의 node 임베딩 $\mathbf{h}_v^{(l)}$는 다음과 같이 계산된다:&lt;/p&gt;
 
 &lt;p&gt;$
-\mathbf{h}_ v^{(l)} = \operatorname{MLP}^{(l)}\left( \mathbf{h}_ v^{(l-1)} + f^{(l)} \left( \lbrace \mathbf{h}_ u^{(l-1)} : u \in \mathcal{N}(v) \rbrace \right) \right)
+\mathbf{h}&lt;em&gt;v^{(l)} = \operatorname{MLP}^{(l)}( \mathbf{h}&lt;/em&gt; v^{(l-1)} + f^{(l)}( { \mathbf{h}_ u^{(l-1)} : u \in \mathcal{N}(v) } ) )
 $&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1691,7 +1850,7 @@ $&lt;/p&gt;
 &lt;p&gt;그래프 Readout 레이어는 각 레이어 $l \in [1, L]$에서 모든 node의 feature을 aggregate하고, 이를 단일한 $L \cdot d$차원 벡터 $\mathbf{x}_i$로 연결한다 (Xu et al., 2019):&lt;/p&gt;
 
 &lt;p&gt;$
-\mathbf{x}_ i = \operatorname{CONCAT}\left( \operatorname{READOUT}\left( \lbrace \mathbf{h}_ v^{(l)} \mid v \in \mathbb{V} \rbrace \right) \mid l = 1, 2, \ldots, L \right)
+\mathbf{x}_i = \operatorname{CONCAT}( \operatorname{READOUT}( { \mathbf{h}_v^{(l)} \mid v \in \mathbb{V} } ) \mid l = 1, 2, \ldots, L )
 $&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1728,7 +1887,7 @@ $&lt;/p&gt;
 
 &lt;p&gt;지표의 가장 중요한 속성 중 하나는 생성된 샘플의 &lt;strong&gt;fidelity&lt;/strong&gt;를 반영할 수 있는가 이다. 이들은 fidelity에 대한 지표를 테스트하기 위해 두 가지 실험을 구성했다. 첫 번째 실험은 실제 샘플에 다양한 양의 랜덤 샘플을 섞어 지표의 감지 능력을 테스트하고(Xu et al., 2018), 두 번째 실험은 Edge를 무작위로 재연결하여 그래프의 품질을 서서히 저하시켰다(O’Bray et al., 2022). 두 실험 모두 $\mathbb{S}_g$를 $\mathbb{S}_r$의 복사본으로 시작하며, $\mathbb{S}_r$ 자체는 데이터셋의 복사본이다.&lt;/p&gt;
 
-&lt;p&gt;첫 번째 실험에서는 $\mathbb{S}_ g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\vert\mathbb{S}_g\vert$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős &amp;amp; Rényi, 1960)이다.&lt;/p&gt;
+&lt;p&gt;첫 번째 실험에서는 $\mathbb{S}_g$의 품질에 영향을 주기 위해 랜덤 그래프를 활용했다. $\mathbb{S}_r$와 $\mathbb{S}_g$ 사이의 유사성을 감소시키기 위해, $\mathbb{S}_g(t)$에서 랜덤 그래프를 실제 그래프와 섞는 비율 $t$를 서서히 증가시켰다. 동시에 실제 그래프를 제거하여 $\vert \mathbb{S}_g \vert$가 전체적으로 일정하게 유지되도록 했다. 랜덤 그래프는 $\mathbb{S}_r$와 유사하도록 크기와 $p$ 값을 선택한 Erdős-Rényi(E-R) 그래프(Erdős &amp;amp; Rényi, 1960)이다.&lt;/p&gt;
 
 &lt;p&gt;두 번째 실험에서는 $\mathbb{S}g$의 에지를 무작위로 재연결하여 $P_r$와 $P_g$ 사이의 거리를 증가시켰다. 여기서 perturbation 정도 $t$는 각 에지 $(i, j) \in E$를 재연결할 확률이다. 각 $G \in \mathbb{S}g$와 각 $(i, j) \in E$에 대해, $x{i,j} \sim \operatorname{Bernoulli}(t)$를 샘플링했다. $x{i,j} = 1$인 에지는 재연결되며, 또 다른 샘플 $y_{i,j} \sim \operatorname{Bernoulli}(0.5)$를 사용하여 에지의 두 node 중 하나 ${i, j}$를 선택하고, 이 에지의 새로운 연결은 $\mathbb{V}$에서 균일하게 선택된다.&lt;/p&gt;
 
@@ -1742,7 +1901,7 @@ $&lt;/p&gt;
 
 &lt;p&gt;mode collapse시뮬레이션: 각 데이터 포인트를 해당 클러스터의 centroid로 점차 대체했다. perturbation 정도 $t$는 이러한 방식으로 collapse한 클러스터의 비율을 나타낸다.&lt;/p&gt;
 
-&lt;p&gt;mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\vert\mathbb{S}_g\vert$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.&lt;/p&gt;
+&lt;p&gt;mode dropping 시뮬레이션: $\mathbb{S}_g$에서 클러스터를 점진적으로 제거했다. $\vert \mathbb{S}_g \vert$를 일정하게 유지하기 위해, 남은 클러스터에서 샘플을 무작위로 선택하여 중복했다. 이 실험에서 perturbation 정도 $t$는 $\mathbb{S}_g$에서 삭제된 클러스터의 비율이다.&lt;/p&gt;
 
 &lt;p&gt;결과: mode collapse실험에서, 모든 고전적인 지표(You et al., 2018)는 순위 상관 계수가 0.5 미만으로 저조한 성능을 보였다(그림 3, 하단). 고전적인 지표는 mode dropping 실험에서 약간 더 나은 결과를 얻었지만 여전히 최적의 결과는 아니다. 예상대로 Recall과 Coverage는 $\mathbb{S}_g$의 diversity과 강한 양의 상관 관계를 보였으며, Precision과 Density는 음의 상관 관계를 보였다. 또한, MMD RBF와 F1 PR과 같은 몇몇 스칼라 지표는 $\mathbb{S}_g$의 diversity과 강한 상관 관계를 보였으며, 두 실험 모두에서 고전적인 지표보다 우수한 성능을 보였다.&lt;/p&gt;
 
@@ -1754,7 +1913,7 @@ $&lt;/p&gt;
 
 &lt;p&gt;GGM 문헌에서는 작은 데이터셋을 자주 사용하므로 &lt;strong&gt;샘플 효율성(sample efficiency)&lt;/strong&gt;이 중요하다. 이 실험에서는 랜덤 그래프 집합 $\mathbb{S}_g$를 실제 샘플 $\mathbb{S}_r$과 구별하는 데 필요한 최소 샘플 수를 찾아 각 지표의 샘플 효율성을 결정했다. 랜덤 그래프는 4.1절에서 설명한 동일한 프로세스를 사용하여 생성된 E-R 그래프이다.&lt;/p&gt;
 
-&lt;p&gt;$\mathbb{S}_ r$에서 서로소인 두 집합 $\mathbb{S}_ r’$과 $\mathbb{S}_ r’’$, 그리고 $\mathbb{S}_ g$에서 랜덤 그래프 집합 $\mathbb{S}_ g’$를 샘플링했다. 여기서 $\vert\mathbb{S}_ r’\vert = \vert\mathbb{S}_ r’‘\vert = \vert\mathbb{S}_ g’\vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ r’‘\right) &amp;lt; \hat{\rho}\left(\mathbb{S}_ r’, \mathbb{S}_ g’\right)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_ r’‘$와 $\mathbb{S}_ g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/p&gt;
+&lt;p&gt;$\mathbb{S}_r$에서 서로소인 두 집합 $\mathbb{S}_r’$과 $\mathbb{S}_r’’$, 그리고 $\mathbb{S}_g$에서 랜덤 그래프 집합 $\mathbb{S}_g’$를 샘플링했다. 여기서 $\vert \mathbb{S}_r’ \vert = \vert \mathbb{S}_r’’ \vert = \vert \mathbb{S}_g’ \vert = n$이고 $n$은 작다. 샘플 효율성이 높은 지표는 작은 $n$으로 $\hat{\rho}(\mathbb{S}_r’, \mathbb{S}_r’’) &amp;lt; \hat{\rho}(\mathbb{S}_r’, \mathbb{S}_g’)$를 만족해야 한다. 이 실험에서는 순위 상관 계수를 사용하지 않고, 이 조건을 만족하는 가장 작은 $n$을 각 지표의 샘플 효율성으로 기록했다. $K$-최근접 이웃에 기반한 모든 지표와 많은 고전적인 지표는 높은 샘플 효율성을 보였으며, $\mathbb{S}_r’’$와 $\mathbb{S}_g’$을 올바르게 구별하는 데 최소한의 샘플만 필요로 했다(표 3).&lt;/p&gt;
 
 &lt;h2 id=&quot;45-계산-효율성&quot;&gt;4.5 계산 효율성&lt;/h2&gt;
 
@@ -1787,9 +1946,9 @@ $&lt;/p&gt;
 &lt;p&gt;이 논문은 여러 가지 흥미로운 연구 방향을 제시하고 있다. 특히, 향후 연구에서는 더 정교한 GNN 구조를 탐구하여 랜덤 GNN의 성능을 향상시키는 방법을 찾는 것이 중요하다. 또한, 실험적 성능을 뒷받침하는 이론적 근거를 마련하는 작업이 필요하며, 랜덤 GNN의 다양한 변형을 실험하여 그래프 생성 모델 평가에서 최적의 메트릭을 찾아낼 수 있을 것이다.&lt;/p&gt;
 
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-On_Evaluation_Metrics_For_Graph_Generative_Models.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-On_Evaluation_Metrics_For_Graph_Generative_Models.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-On_Evaluation_Metrics_For_Graph_Generative_Models.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-On_Evaluation_Metrics_For_Graph_Generative_Models.html</guid>
             
             <category>reviews</category>
             
@@ -1799,238 +1958,361 @@ $&lt;/p&gt;
         <item>
             <title>[AAAI-24] No prejudice! Fair Federated Graph Neural Networks for Personalized Recommendation</title>
             <description>&lt;h2 id=&quot;1-problem-definition&quot;&gt;&lt;strong&gt;1. Problem Definition&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;The primary issue addressed by this paper is the challenge of achieving &lt;strong&gt;fairness across demographic groups&lt;/strong&gt; in Federated Learning (FL)-based recommendation systems (RSs), particularly while ensuring &lt;strong&gt;user privacy&lt;/strong&gt;. Traditional, centralized recommendation systems tend to produce biased recommendations that favor certain demographic groups (e.g., gender or age), while also violating user privacy by gathering sensitive data on central servers. FL provides a solution to the privacy issue by decentralizing data processing, but ensuring fairness without access to users’ demographic information is an unresolved problem. The goal of this paper is to develop a recommendation system that mitigates demographic biases within FL environments using Graph Neural Networks (GNNs), while preserving the privacy of sensitive user information and maintaining high utility for recommendations.&lt;/p&gt;
+
+&lt;p&gt;The primary issue addressed by this paper is the challenge of achieving &lt;strong&gt;fairness across demographic groups&lt;/strong&gt; in Federated Learning (FL)-based recommendation systems (RSs), particularly while ensuring &lt;strong&gt;user privacy&lt;/strong&gt;. Traditional, centralized recommendation systems tend to produce biased recommendations that favor certain demographic groups (e.g., gender or age), while also violating user privacy by gathering sensitive data on central servers. FL addresses privacy by decentralizing data processing, but ensuring fairness without demographic information remains unresolved. The goal of this paper is to develop a recommendation system that mitigates demographic biases within FL environments using Graph Neural Networks (GNNs), while preserving the privacy of sensitive user information and maintaining high utility for recommendations.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-motivation&quot;&gt;&lt;strong&gt;2. Motivation&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;2.1 Limitations and Challenges&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;The use of recommendation systems has grown significantly in various industries such as e-commerce, healthcare, and entertainment. However, the following challenges remain unresolved:&lt;/p&gt;
+
+&lt;p&gt;Recommendation systems are widely used in industries like e-commerce and healthcare, but key challenges persist:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Privacy and Security:&lt;/strong&gt; Traditional RSs rely on centralized data collection, where sensitive user information is stored and processed, leading to privacy violations [2].&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Fairness Concerns:&lt;/strong&gt; FL allows for the decentralized training of models on local devices and transmitting the updated model back to the sever, to preserve user privacy. However, FL fail to ensure fairness across demographic groups [1] when sensitive data like gender or race, is unavailable for analysis [3].&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Fairness Concerns:&lt;/strong&gt; FL allows for the decentralized training of models on local devices and transmitting the updated model back to the server, to preserve user privacy. However, FL fails to ensure fairness across demographic groups [1] when sensitive data like gender or race, is unavailable for analysis [3].&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Amplified Bias:&lt;/strong&gt; GNNs are effective at modeling user-item interactions in RSs but can inherit and  exacerbate existing biases in the data, making fairness even harder to achieve in FL environments [4].&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Amplified Bias:&lt;/strong&gt; GNNs are effective at modeling user-item interactions in RSs but can inherit and exacerbate existing biases in the data, making fairness even harder to achieve in FL environments [4].&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;2.2 Proposed Approch&lt;/b&gt;&lt;/font&gt;
+
 &lt;p&gt;The authors introduce F&lt;sup&gt;2&lt;/sup&gt;PGNN (Fair Federated Personalized Graph Neural Network), a novel framework that addresses these issues through three key pillars:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Fairness:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN ensures fairness in recommendations without requiring access to sensitive demographic information.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Privacy:&lt;/strong&gt; By using &lt;strong&gt;Local Differential Privacy (LDP)&lt;/strong&gt;, the model maintains user privacy while sharing group-level statistics.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Personalization:&lt;/strong&gt; The system captures both higher-order and explicit user-item interactions through a GNN model, improving recommendation accuracy while reducing bias.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Fairness:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN ensures fairness in recommendations without requiring access to sensitive demographic information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Privacy:&lt;/strong&gt; By using &lt;strong&gt;Local Differential Privacy (LDP)&lt;/strong&gt;, the model maintains user privacy while sharing group-level statistics.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Personalization:&lt;/strong&gt; The system captures both higher-order and explicit user-item interactions through a GNN model, improving recommendation accuracy while reducing bias.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;3-related-work&quot;&gt;&lt;strong&gt;3. Related Work&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Research on fairness in recommendation systems and federated learning has been extensive, but integrating fairness with privacy-preserving techniques in federated settings is still a challenging area. Previous studies on fairness in centralized recommendation systems, such as those by Yao and Huang (2017) [5] and Li et al. (2021) [6], focus on mitigating bias using demographic data. However, these methods require access to centralized data, which violates privacy norms.&lt;/p&gt;
 
-&lt;p&gt;In the federated learning domain, models like &lt;strong&gt;FedMF&lt;/strong&gt; [7] and &lt;strong&gt;FedPerGNN&lt;/strong&gt; [8] have integrated fairness into federated settings, but they either rely on &lt;strong&gt;Matrix Factorization&lt;/strong&gt;, which lacks the ability to model higher-order interactions, or introduce significant computational overhead with encryption techniques.&lt;/p&gt;
+&lt;p&gt;Extensive research exists on fairness in recommendation systems and FL, but combining fairness with privacy-preserving techniques in FL remains challenging. Previous studies on fairness in centralized recommendation systems, such as those by Yao and Huang (2017) [5] and Li et al. (2021) [6], focus on mitigating bias using demographic data. However, these methods require access to centralized data, which violates privacy norms.&lt;/p&gt;
+
+&lt;p&gt;In the federated learning domain, models like &lt;strong&gt;FedMF&lt;/strong&gt;  [7] and &lt;strong&gt;FedPerGNN&lt;/strong&gt;  [8] have integrated fairness into federated settings, but they either rely on &lt;strong&gt;Matrix Factorization&lt;/strong&gt;, which lacks the ability to model higher-order interactions, or introduce significant computational overhead with encryption techniques.&lt;/p&gt;
 
 &lt;p&gt;This paper builds on existing works but proposes a more efficient and scalable solution by utilizing GNNs for recommendation and adding privacy constraints through LDP, ensuring fairness while preserving privacy.&lt;/p&gt;
 
 &lt;h2 id=&quot;4-methodology&quot;&gt;&lt;strong&gt;4. Methodology&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;The proposed F&lt;sup&gt;2&lt;/sup&gt;PGNN  is designed to ensure fairness in federated recommendation systems by leveraging GNNs, which allow users to train models locally while preserving privacy. Below are the core components of this framework:&lt;/p&gt;
+
+&lt;p&gt;The proposed F&lt;sup&gt;2&lt;/sup&gt;PGNN is designed to ensure fairness in federated recommendation systems by leveraging GNNs, which allow users to train models locally while preserving privacy. Below are the core components of this framework:&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.1 Inductive Graph Expansion Algorithm&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;One of the key innovations in the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework is the &lt;strong&gt;Inductive Graph Expansion&lt;/strong&gt; algorithm, which allows users to incorporate higher-order interactions into their local user-item interaction graphs. Higher-order interactions refer to indirect relationships between users and items that may not be immediately apparent but can be inferred from the broader graph structure. For instance, users who have interacted with similar items can be connected, thus uncovering latent relationships and improving the quality of recommendations.&lt;/p&gt;
+
+&lt;p&gt;One of the key innovations in the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework is the &lt;strong&gt;Inductive Graph Expansion&lt;/strong&gt; algorithm, which allows users to incorporate higher-order interactions into their local user-item interaction graphs. Higher-order interactions uncover latent relationships by connecting users who interacted with similar items, improving recommendation quality.&lt;/p&gt;
 
 &lt;p&gt;The steps in this algorithm are:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Users encrypt their item IDs using a public key.&lt;/li&gt;
-  &lt;li&gt;These encrypted IDs are sent to a server, which matches them across different users to find co-interacted items (i.e., items that have been rated by multiple users).&lt;/li&gt;
-  &lt;li&gt;The server provides anonymous embeddings for users who share interactions with the same items, allowing users to expand their graphs while maintaining privacy.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Users encrypt their item IDs using a public key.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These encrypted IDs are sent to a server, which matches them across different users to find co-interacted items (i.e., items that have been rated by multiple users).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The server provides anonymous embeddings for users who share interactions with the same items, allowing users to expand their graphs while maintaining privacy.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;These expanded subgraphs enable each client to capture higher-order interactions, significantly improving recommendation quality.&lt;/p&gt;
+&lt;p&gt;These expanded subgraphs allow clients to incorporate higher-order interactions, which significantly enhance recommendation quality.&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.2 Local GNN Training&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;Once users have expanded their local subgraphs, they train a &lt;strong&gt;Graph Attention Network (GAT)&lt;/strong&gt; locally. GATs are particularly suited to recommendation systems as they allow the model to assign varying levels of importance to neighboring nodes (users or items), depending on the strength of their connections. The GAT model updates user and item embeddings by aggregating information from neighboring nodes, with the attention mechanism determining how much influence each neighbor has on the final embedding.&lt;/p&gt;
 
-&lt;p&gt;Mathematically, the attention coefficient between a user node $v$ and its neighbor $k$ is calculated as:
-\(e_{vk} = \text{LeakyReLU}(\mathbf{a}^\top [\mathbf{W}\mathbf{h}_v \| \mathbf{W}\mathbf{h}_k])\)&lt;/p&gt;
+&lt;p&gt;Once users have expanded their local subgraphs, they train a &lt;strong&gt;Graph Attention Network (GAT)&lt;/strong&gt; locally. GATs are particularly suited to recommendation systems as they allow the model to assign varying levels of importance to neighboring nodes (users or items), depending on the strength of their connections. GAT updates embeddings by aggregating information from neighbors, with attention mechanisms determining influence.&lt;/p&gt;
 
-&lt;p&gt;Here, $h_v$ and $h_k$ are the feature vectors of nodes $v$ and $k$, respectively, and $\mathbf{W}$ is the weight matrix. The operator $||$ denotes concatenation, and $\mathbf{a}$ is the attention weight vector that learns the relative importance of neighboring nodes. This attention score is then normalized across all neighbors $j \in \mathcal{N}_v$ of node $v$:
-\(\alpha_{vk} = \frac{\exp(e_{vk})}{\sum_{j \in N_v} \exp(e_{vj})}\)
-The final node embedding $\mathbf{h}_v’$ for node $v$ is updated by aggregating the normalized attention-weighted features from all its neighbors:
-\(\mathbf{h}&apos;_v = \sigma \left( \sum_{k \in N_v} \alpha_{vk} \mathbf{W}\mathbf{h}_k \right)\)
-where $\sigma$ is a non-linear activation function (e.g., ReLU).&lt;/p&gt;
+&lt;p&gt;Mathematically, the attention coefficient between a user node $v$ and its neighbor $k$ is calculated as:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/F2PGNN.png&quot; alt=&quot;img1&quot; /&gt;
-&lt;em&gt;Figure 1: The overall structure of the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;$e_ {vk} = \text{LeakyReLU}(\mathbf{a}^\top [\mathbf{W}\mathbf{h}_ v \vert \mathbf{W}\mathbf{h}_ k])$&lt;/p&gt;
+
+&lt;p&gt;Here, $h_ v$ and $h_ k$ are the feature vectors of nodes $v$ and $k$, respectively, and $\mathbf{W}$ is the weight matrix. The operator $\vert\vert$ denotes concatenation, and $\mathbf{a}$ is the attention weight vector that learns the relative importance of neighboring nodes. This attention score is then normalized across all neighbors $j \in  \mathcal{N}_ v$ of node $v$:&lt;/p&gt;
+
+&lt;p&gt;$\alpha_ {vk} = \frac{\exp(e_ {vk})}{\sum_ {j \in N_v} \exp(e_ {vj})}$&lt;/p&gt;
+
+&lt;p&gt;The final node embedding $\mathbf{h}_ v’$ for node $v$ is updated by aggregating the normalized attention-weighted features from all its neighbors:&lt;/p&gt;
+
+&lt;p&gt;$\mathbf{h}’_ v = \sigma  ( \sum_ {k \in N_ v} \alpha_ {vk} \mathbf{W}\mathbf{h}_ k )$&lt;/p&gt;
+
+&lt;p&gt;where $\sigma$ is a non-linear activation function (e.g., ReLU).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/F2PGNN.png&quot; alt=&quot;img1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 1: The overall structure of the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework.&lt;/em&gt;&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.3 Fairness-Aware Loss Function&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;A core innovation of F&lt;sup&gt;2&lt;/sup&gt;PGNN is its &lt;strong&gt;fairness-aware loss function&lt;/strong&gt;, designed to ensure equitable recommendations across different demographic groups. The function balances two objectives: utility (i.e., recommendation accuracy) and fairness (i.e., reducing bias between demographic groups).&lt;/p&gt;
 
-&lt;p&gt;The overall loss function is defined as:
-\(L = L_{util} + \beta L_{fair}\)
-Here, $L_{util}$ is the utility loss, which can be the mean squared error (MSE) between the predicted and true ratings, and $L_{fair}$ is the fairness loss, which penalizes the model for disparities in performance across different demographic groups. The parameter $\beta$ ontrols the trade-off between utility and fairness, with higher values of $\beta$ placing more emphasis on fairness.&lt;/p&gt;
+&lt;p&gt;A core innovation of F&lt;sup&gt;2&lt;/sup&gt;PGNN is its &lt;strong&gt;fairness-aware loss function&lt;/strong&gt;, designed to ensure equitable recommendations across different demographic groups. The function balances utility (recommendation accuracy) and fairness (reducing demographic bias).&lt;/p&gt;
 
-&lt;p&gt;The fairness loss is defined as the absolute difference in the average performance of the model between two demographic groups $S_0$ (e.g., males) and $S_1$ (e.g., females):
-\(L_{fair}(M, S_0. S_1) = |\frac{1}{S_0}\sum_{u \in S_0}\mathcal{M}(u)-\frac{1}{S_0}\sum_{u \in S_1}\mathcal{M}(u)|^\alpha\)
-where $\mathcal{M}(u)$  is the performance metric for user $u$ (e.g., the negative loss for user $u$) and $\alpha$ is an exponent that determines the severity of the fairness penalty (typically set to 1 or 2).&lt;/p&gt;
+&lt;p&gt;The overall loss function is defined as:&lt;/p&gt;
+
+&lt;p&gt;$L = L_{util} + \beta L_{fair}$&lt;/p&gt;
+
+&lt;p&gt;Here, $L_{util}$ is the utility loss, which can be the mean squared error (MSE) between the predicted and true ratings, and $L_{fair}$ is the fairness loss, which penalizes the model for disparities in performance across different demographic groups. The parameter $\beta$ controls the trade-off between utility and fairness, with higher values of $\beta$ placing more emphasis on fairness.&lt;/p&gt;
+
+&lt;p&gt;The fairness loss is defined as the absolute difference in the average performance of the model between two demographic groups $S_0$ (e.g., males) and $S_1$ (e.g., females):&lt;/p&gt;
+
+&lt;p&gt;$L_ {fair}(M, S_ 0. S_ 1) = \vert\frac{1}{S_ 0}\sum_ {u \in S_ 0}\mathcal{M}(u)-\frac{1}{S_ 0}\sum_ {u \in S_ 1}\mathcal{M}(u)\vert^\alpha$&lt;/p&gt;
+
+&lt;p&gt;where $\mathcal{M}(u)$ is the performance metric for user $u$ (e.g., the negative loss for user $u$) and $\alpha$ is an exponent that determines the severity of the fairness penalty (typically set to 1 or 2).&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.4 Fairness-Aware Gradient Adjustment&lt;/b&gt;&lt;/font&gt;
+
 &lt;p&gt;To incorporate fairness into the training process, the gradients of the model are adjusted based on the fairness loss. This is crucial because it allows the model to reduce bias during training by controlling the learning speed for different groups.&lt;/p&gt;
 
-&lt;p&gt;Specifically, if a user belongs to an overperforming demographic group, their learning rate is scaled down, whereas the learning rate is increased for underperforming groups, promoting fairness throughout training.&lt;/p&gt;
+&lt;p&gt;Overperforming groups have reduced learning rates, while underperforming groups receive increased rates to promote fairness.&lt;/p&gt;
 
-&lt;p&gt;The adjusted gradient for user $u$ is computed using the following formula:
-\(\nabla \Theta_u = (1 - \beta R|P - Q|^{\alpha-1}) \frac{\partial L^u_\text{util}}{\partial \Theta_u}\)
-where $\nabla \Theta_u$ represents the gradient update for user $u$, $\beta$ is the fairness budget determining how much weight is given to fairness during training. $R$ is a scalar determined by the difference in performance between groups and user group membership:
-\(R = \alpha \cdot (-1)^{1(P&amp;lt;Q)} \cdot (-1)^{1(u \notin S_0)}\)
-$P$ and $Q$ represent the average performance metrics (e.g., accuracy or utility) for groups $S_0$ and $S_1$ respectively:
-\(P = \frac{1}{|S_0|} \sum_{u \in S_0} \mathcal{M(u)}, \quad Q = \frac{1}{|S_1|} \sum_{u \in S_1} \mathcal{M(u)}\)
-Here, $\mathcal{M(u)}$ represents the utility metric for user $u$, such as the recommendation accuracy.&lt;/p&gt;
+&lt;p&gt;The adjusted gradient for user $u$ is computed using the following formula:&lt;/p&gt;
+
+&lt;p&gt;$\nabla  \Theta_ u = (1 - \beta R\vert P - Q\vert^{\alpha-1}) \frac{\partial L^u_ \text{util}}{\partial  \Theta_ u}$&lt;/p&gt;
+
+&lt;p&gt;where $\nabla  \Theta_ u$ represents the gradient update for user $u$, $\beta$ is the fairness budget determining how much weight is given to fairness during training. $R$ is a scalar determined by the difference in performance between groups and user group membership:&lt;/p&gt;
+
+&lt;p&gt;$R = \alpha  \cdot (-1)^{1(P&amp;lt;Q)} \cdot (-1)^{1(u \notin S_0)}$&lt;/p&gt;
+
+&lt;p&gt;$P$ and $Q$ represent the average performance metrics (e.g., accuracy or utility) for groups $S_0$ and $S_1$ respectively:&lt;/p&gt;
+
+&lt;p&gt;$P = \frac{1}{\vert S_ 0\vert} \sum_ {u \in S_ 0} \mathcal{M(u)}, \quad Q = \frac{1}{\vert S_ 1\vert} \sum_ {u \in S_ 1} \mathcal{M(u)}$&lt;/p&gt;
+
+&lt;p&gt;Here, $\mathcal{M(u)}$ represents the utility metric for user $u$, such as the recommendation accuracy.&lt;/p&gt;
 
 &lt;p&gt;The adjusted gradient ensures that:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Overperforming users (i.e., those in group $S_0$ if $P&amp;gt;Q$) experience slower learning, reducing potential biases toward their group.&lt;/li&gt;
-  &lt;li&gt;Underperforming users (i.e., those in group $S_1$ if $P&amp;lt;Q$) experience faster learning, helping to close the performance gap.
-Thus, fairness is promoted by adjusting the learning rates dynamically, ensuring that both groups are treated equitably during the training process.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overperforming users (i.e., those in group $S_0$ if $P&amp;gt;Q$) experience slower learning, reducing potential biases toward their group.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Underperforming users (i.e., those in group $S_1$ if $P&amp;lt;Q$) experience faster learning, helping to close the performance gap.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;Thus, fairness is promoted by adjusting the learning rates dynamically, ensuring that both groups are treated equitably during the training process.&lt;/p&gt;
+
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.5 Local Differential Privacy (LDP)&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;To ensure privacy, F&lt;sup&gt;2&lt;/sup&gt;PGNN employs LDP. This mechanism ensures that sensitive information (such as individual interactions or group membership) is obfuscated during model updates. LDP is applied both to the model gradients and to the group statistics (i.e., the information used to adjust the model based on fairness).
-&lt;strong&gt;Model Updates:&lt;/strong&gt; After computing the adjusted gradients, each user applies gradient clipping to ensure that the updates are bounded, followed by adding noise to the gradients using the Laplace mechanism. This results in differentially private gradient updates, which protect the user’s data even from inference attacks.
-The clipped and noisy gradient is computed as follows:
-\(\nabla \Theta_u^\text{LDP} = \text{clip}(\nabla \Theta_u, \delta) + \text{Laplace}(0, \lambda)\)
-where $\text{clip}(\nabla \Theta_u, \delta)$ ensures that the gradient norm is bounded by $\delta$, and $\lambda$ controls the variance of the Laplace noise, with larger values of $\lambda$ providing stronger privacy but potentially reducing model accuracy.&lt;/p&gt;
+
+&lt;p&gt;To ensure privacy, F&lt;sup&gt;2&lt;/sup&gt;PGNN employs LDP. This mechanism ensures that sensitive information (such as individual interactions or group membership) is obfuscated during model updates. LDP protects model gradients and group statistics used for fairness adjustments.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Model Updates:&lt;/strong&gt; After computing the adjusted gradients, each user applies gradient clipping to ensure that the updates are bounded, followed by adding noise to the gradients using the Laplace mechanism. This results in differentially private gradient updates, which protect the user’s data even from inference attacks.&lt;/p&gt;
+
+&lt;p&gt;The clipped and noisy gradient is computed as follows:&lt;/p&gt;
+
+&lt;p&gt;$\nabla  \Theta_u^\text{LDP} = \text{clip}(\nabla  \Theta_u, \delta) + \text{Laplace}(0, \lambda)$&lt;/p&gt;
+
+&lt;p&gt;where $\text{clip}(\nabla \Theta_u, \delta)$ ensures that the gradient norm is bounded by $\delta$, and $\lambda$ controls the variance of the Laplace noise, with larger values of $\lambda$ providing stronger privacy but potentially reducing model accuracy.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Group Statistics Updates:&lt;/strong&gt; To ensure fairness, the server needs to know the group-level statistics (i.e.,$P$ and $Q$) that measure the performance of different demographic groups. However, directly uploading these statistics could reveal sensitive group membership information. To address this, LDP is also applied to the group statistics updates.&lt;/p&gt;
 
-&lt;p&gt;For each user $u$ the server receives the following noisy updates:
-\(P_u^\text{perf} = \mathbb{I}(u \in S_0)\mathcal{M(u)} + \epsilon_1, \quad Q_u^\text{perf} = \mathbb{I}(u \in S_1)\mathcal{M(u)} + \epsilon_2\)&lt;/p&gt;
+&lt;p&gt;For each user $u$ the server receives the following noisy updates:&lt;/p&gt;
 
-&lt;p&gt;\(P_u^\text{count} = \mathbb{I}(u \in S_0) + \epsilon_3, \quad Q_u^\text{count} = \mathbb{I}(u \in S_1) + \epsilon_4\)
-where:&lt;/p&gt;
+&lt;p&gt;$P_u^\text{perf} = \mathbb{I}(u \in S_0)\mathcal{M(u)} + \epsilon_1, \quad Q_u^\text{perf} = \mathbb{I}(u \in S_1)\mathcal{M(u)} + \epsilon_2$&lt;/p&gt;
+
+&lt;p&gt;$P_u^\text{count} = \mathbb{I}(u \in S_0) + \epsilon_3, \quad Q_u^\text{count} = \mathbb{I}(u \in S_1) + \epsilon_4$&lt;/p&gt;
+
+&lt;p&gt;where:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;$\mathbb{I}(u \in S_0)$ is an indicator function that equals 1 if user $u$ belongs to group $S_0$ and 0 otherwise.&lt;/li&gt;
-  &lt;li&gt;$\epsilon_1, \epsilon_2, \epsilon_3, \epsilon_4 \sim \mathcal{N}(0, \sigma^2)$ re noise terms drawn from a normal distribution with variance $\sigma^2$, ensuring privacy.&lt;/li&gt;
-  &lt;li&gt;By adding noise to the group statistics, the server cannot accurately infer which users belong to each group, thus preserving privacy.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\mathbb{I}(u \in S_0)$ is an indicator function that equals 1 if user $u$ belongs to group $S_0$ and 0 otherwise.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\epsilon_1, \epsilon_2, \epsilon_3, \epsilon_4  \sim  \mathcal{N}(0, \sigma^2)$ re noise terms drawn from a normal distribution with variance $\sigma^2$, ensuring privacy.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;By adding noise to the group statistics, the server cannot accurately infer which users belong to each group, thus preserving privacy.&lt;/p&gt;
+
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;4.6 Training Process&lt;/b&gt;&lt;/font&gt;
+
 &lt;p&gt;The overall training process involves the following steps during each communication round:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Users receive the global model parameters and group statistics.&lt;/li&gt;
-  &lt;li&gt;Each user expands their local graph using the Inductive Graph Expansion algorithm and trains their GNN on the expanded subgraph.&lt;/li&gt;
-  &lt;li&gt;Users compute adjusted gradients that incorporate fairness scaling.&lt;/li&gt;
-  &lt;li&gt;LDP is applied to both gradients and group statistics to preserve privacy.&lt;/li&gt;
-  &lt;li&gt;Updated parameters and statistics are sent back to the server.&lt;/li&gt;
-  &lt;li&gt;The server aggregates these updates, computes new global model parameters, and rebroadcasts them to the users.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Users receive the global model parameters and group statistics.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each user expands their local graph using the Inductive Graph Expansion algorithm and trains their GNN on the expanded subgraph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Users compute adjusted gradients that incorporate fairness scaling.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LDP is applied to both gradients and group statistics to preserve privacy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Updated parameters and statistics are sent back to the server.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The server aggregates these updates, computes new global model parameters, and rebroadcasts them to the users.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;:
-In a movie recommendation system with two demographic groups (e.g., males and females), if the average recommendation accuracy for males is higher, the fairness-aware gradient adjustment will slow the learning rate for male users and increase it for female users to reduce group disparity.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;In a movie recommendation system with two demographic groups (e.g., males and females), if the average recommendation accuracy for males is higher, the fairness-aware gradient adjustment will slow the learning rate for male users and increase it for female users to reduce group disparity.&lt;/p&gt;
 
 &lt;h2 id=&quot;5-experiment&quot;&gt;&lt;strong&gt;5. Experiment&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;5.1 Experiment Setup&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;The experimental evaluation of the F&lt;sup&gt;2&lt;/sup&gt;PGNN framework  was conducted using three well-known real-world datasets commonly used in recommendation tasks:&lt;/p&gt;
+
+&lt;p&gt;The experiments used three real-world datasets for recommendation tasks:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;MovieLens-100K (ML-100K): Contains 100,000 ratings from 943 users on 1,682 movies. This dataset is frequently used in recommendation research due to its manageable size and well-documented structure.&lt;/li&gt;
-  &lt;li&gt;MovieLens-1M (ML-1M): A larger dataset with 1 million ratings from 6,040 users on 3,706 movies. It provides richer interactions, allowing for more thorough analysis of performance across different user types.&lt;/li&gt;
-  &lt;li&gt;Amazon-Movies: A large-scale dataset with approximately 500,000 ratings from 5,515 users on 13,509 movies. Its diversity and sparse interactions make it a challenging benchmark for recommendation models.&lt;/li&gt;
+  &lt;li&gt;MovieLens-100K (ML-100K): Contains 100,000 ratings from 943 users on 1,682 movies.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MovieLens-1M (ML-1M): A larger dataset with 1 million ratings from 6,040 users on 3,706 movies.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Amazon-Movies: A large-scale dataset with approximately 500,000 ratings from 5,515 users on 13,509 movies.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;In the experiments, two types of sensitive attributes were considered:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Gender (G): Users were categorized as male or female based on available metadata. This was used to test how well F&lt;sup&gt;2&lt;/sup&gt;PGNN mitigates gender bias in recommendations.&lt;/li&gt;
-  &lt;li&gt;Activity Level (A): Users were classified as either “active” or “inactive” based on the number of ratings they provided. This tested the model’s ability to ensure fairness across users with varying levels of engagement.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Gender (G):&lt;/strong&gt; Used to test gender bias mitigation.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Activity Level (A):&lt;/strong&gt; Evaluated fairness for users with different engagement levels.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;5.2 Baseline&lt;/b&gt;&lt;/font&gt;
+
 &lt;p&gt;The authors compare F&lt;sup&gt;2&lt;/sup&gt;PGNN against the &lt;strong&gt;F2MF&lt;/strong&gt; (Fair Federated Matrix Factorization) model, a federated recommendation system that also incorporates fairness constraints. However, F2MF does not utilize the graph structure of user-item interactions, which limits its ability to capture higher-order relationships. The comparison between these models aims to highlight the advantages of GNNs in federated learning environments, particularly in terms of balancing fairness and utility.&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;5.3 Evaluation Metrics&lt;/b&gt;&lt;/font&gt;
+
 &lt;p&gt;Two key metrics were used to evaluate the performance of the model:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Utility Metric:&lt;/strong&gt; The accuracy of the recommendations was measured using &lt;strong&gt;Root Mean Square Error (RMSE)&lt;/strong&gt;. A lower RMSE indicates better prediction accuracy.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Fairness Metric:&lt;/strong&gt; Fairness was measured using &lt;strong&gt;group unfairness&lt;/strong&gt;, which calculates the absolute difference in average performance (RMSE) between demographic groups. Lower group unfairness scores indicate more equitable treatment of different user groups.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Utility Metric:&lt;/strong&gt; The accuracy of the recommendations was measured using &lt;strong&gt;Root Mean Square Error (RMSE)&lt;/strong&gt;. A lower RMSE indicates better prediction accuracy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Fairness Metric:&lt;/strong&gt; Fairness was measured using &lt;strong&gt;group unfairness&lt;/strong&gt;, which calculates the absolute difference in average performance (RMSE) between demographic groups. Lower group unfairness scores indicate more equitable treatment of different user groups.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;5.4 Results&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;The experimental results demonstrated the effectiveness of F&lt;sup&gt;2&lt;/sup&gt;PGNN in improving fairness while maintaining high utility across all datasets. The key findings can be summarized as follows:&lt;/p&gt;
+
+&lt;p&gt;The experiments highlight the following findings:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Fairness Improvement:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN &lt;strong&gt;significantly reduced group disparity&lt;/strong&gt; compared to the F2MF baseline in all datasets. For example, when gender was used as the sensitive attribute in the MovieLens-1M dataset, F&lt;sup&gt;2&lt;/sup&gt;PGNN reduced group disparity by up to 84% compared to F2MF. This improvement showcases the strength of incorporating fairness-aware loss functions and fairness-driven gradient adjustments in GNN-based federated recommendation systems.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Utility Preservation:&lt;/strong&gt; Despite focusing on fairness, F&lt;sup&gt;2&lt;/sup&gt;PGNN &lt;strong&gt;maintained comparable or even better RMSE scores&lt;/strong&gt; compared to the baseline. For instance, in the MovieLens-100K dataset, F&lt;sup&gt;2&lt;/sup&gt;PGNN achieved a lower RMSE than F2MF, demonstrating that the accuracy of recommendations was not compromised by introducing fairness constraints. In some cases, the RMSE slightly increased, especially when fairness constraints were stronger, but the increase was justifiable by the significant improvements in fairness.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Effect of Fairness Budget ($\beta$):&lt;/strong&gt;  The fairness budget parameter ($\beta$) controlled the trade-off between fairness and utility. Increasing $\beta$ improved fairness by reducing group disparity, with only a minimal impact on RMSE in most cases. This trade-off makes F&lt;sup&gt;2&lt;/sup&gt;PGNN adaptable to real-world applications where fairness is a critical requirement, such as personalized recommendation systems for e-commerce or healthcare.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Fairness Improvement:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN significantly reduced group disparity across all datasets, with improvements up to 84% over the baseline (e.g., gender bias in MovieLens-1M).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Utility Preservation:&lt;/strong&gt; The model achieved competitive RMSE scores compared to F2MF, with only minor trade-offs under stronger fairness constraints.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Fairness-Utility Trade-off:&lt;/strong&gt; Customizable trade-offs were enabled through the fairness budget ($\beta$), making F&lt;sup&gt;2&lt;/sup&gt;PGNN adaptable for fairness-critical applications like healthcare and e-commerce.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Below is a table summarizing the performance and fairness of F&lt;sup&gt;2&lt;/sup&gt;PGNN compared to F2MF in different datasets. G denotes Gender while A denotes Activity. 
-&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/result.png&quot; alt=&quot;img2&quot; /&gt;
-&lt;em&gt;Figure 2: Performance vs Fairness comparison with different fairness budget $\beta$.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The table below summarizes F&lt;sup&gt;2&lt;/sup&gt;PGNN’s performance and fairness compared to F2MF across datasets. _G denotes Gender, A denotes Activity.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Disparity vs. Epochs:&lt;/strong&gt; The experiments included a visualization of group disparity over time. The results showed that group disparity consistently decreased with F&lt;sup&gt;2&lt;/sup&gt;PGNN, particularly when a higher fairness budget ($\beta$) was used. This graph reinforced that the model is effective at reducing demographic bias as training progresses.
-&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/disparity.png&quot; alt=&quot;img3&quot; /&gt;
-&lt;em&gt;Figure 3: &lt;strong&gt;Top Row:&lt;/strong&gt; Disparity vs epoch for different fairness budget $\beta$ on validation data. &lt;strong&gt;Bottom row:&lt;/strong&gt; % change in fairness (left y-axis) and % change in RMSE (right y-axis) w.r.t different $\beta$&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/result.png&quot; alt=&quot;img2&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Privacy-Utility Trade-off:&lt;/strong&gt; Another experiment explored the trade-off between privacy and utility by varying the parameters of the LDP mechanism. Increasing the noise variance ($\lambda$) enhanced privacy by adding more noise to the model updates, but it slightly increased RMSE. However, with proper tuning of LDP parameters (e.g., the noise variance $\lambda$ and gradient clipping threshold $\delta$), the model achieved a good balance between privacy protection and utility.
-&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/privacy.png&quot; alt=&quot;img4&quot; /&gt;
-&lt;em&gt;Figure 4: Privacy budget $\epsilon$ (left y-axis) and the personalization RMSE (right y-axis) w.r.t different clipping threshold $\delta$ and noise variance $\lambda.$&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Figure 2: Performance vs Fairness comparison with different fairness budget $\beta$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Disparity vs. Epochs:&lt;/strong&gt; Group disparity consistently decreased with F&lt;sup&gt;2&lt;/sup&gt;PGNN, especially under higher $\beta$, as shown in the graph below. This highlights its effectiveness in reducing demographic bias over time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/disparity.png&quot; alt=&quot;img3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;*Figure 3: &lt;strong&gt;Top:&lt;/strong&gt; Disparity vs. epochs for different fairness budgets ($\beta$). &lt;strong&gt;Bottom:&lt;/strong&gt; % change in fairness and RMSE with varying $\beta$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Privacy-Utility Trade-off:&lt;/strong&gt; Varying LDP mechanism parameters, such as noise variance ($\lambda$), demonstrated a balance between privacy and utility. While higher $\lambda$ increased privacy through noise, it slightly raised RMSE. Proper tuning of $\lambda$ and the clipping threshold ($\delta$) allowed for effective privacy protection with minimal utility loss.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/DS535_24F/No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation/privacy.png&quot; alt=&quot;img4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;*Figure 4: Privacy budget ($\epsilon$) and personalization RMSE under varying $\delta$ and $\lambda$.&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;3px&quot;&gt;&lt;b&gt;5.4.1 Analysis of Results&lt;/b&gt;&lt;/font&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Fairness vs. Utility:&lt;/strong&gt; The results demonstrate that F&lt;sup&gt;2&lt;/sup&gt;PGNN achieves substantial improvements in fairness without a significant loss of utility. The framework provides flexibility in adjusting the fairness budget ($\beta$), allowing practitioners to prioritize fairness or accuracy based on the specific requirements of their application. This flexibility is crucial for practical implementations in industries where both fairness and recommendation accuracy are important.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Privacy Protection:&lt;/strong&gt; The use of LDP ensures that sensitive user data, such as gender or activity level, remains protected. Even with the added noise from LDP, F&lt;sup&gt;2&lt;/sup&gt;PGNN was able to maintain high utility, proving that privacy, fairness, and utility can be effectively balanced in a federated learning setup.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Fairness vs. Utility:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN improves fairness significantly while maintaining high utility. Its flexible fairness budget ($\beta$) enables tailored prioritization of fairness or accuracy, making it practical for industries requiring both.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Privacy Protection:&lt;/strong&gt; The integration of LDP safeguards sensitive user data (e.g., gender, activity) while preserving utility. This demonstrates that privacy, fairness, and utility can be effectively balanced in federated learning setups.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;6-conclusion&quot;&gt;&lt;strong&gt;6. Conclusion&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;6.1 Summary&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;The paper introduces F&lt;sup&gt;2&lt;/sup&gt;PGNN, a novel framework that incorporates fairness into federated GNN-based RSs while preserving user privacy. By leveraging GNNs and incorporating a fairness-aware loss function, F&lt;sup&gt;2&lt;/sup&gt;PGNN is able to reduce demographic biases without requiring access to sensitive user attributes such as gender or activity level. The framework uses LDP to protect both model updates and group statistics, ensuring that privacy regulations are adhered to while still delivering fair recommendations.&lt;/p&gt;
+
+&lt;p&gt;This paper introduces F&lt;sup&gt;2&lt;/sup&gt;PGNN, a groundbreaking framework that integrates fairness into federated GNN-based recommendation systems (RSs) while safeguarding user privacy. By employing GNNs alongside a fairness-aware loss function, the framework mitigates demographic biases without accessing sensitive user attributes. Additionally, it uses Local Differential Privacy (LDP) to protect model updates and group statistics, ensuring compliance with privacy regulations.&lt;/p&gt;
 
 &lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;6.2 Key Contributions&lt;/b&gt;&lt;/font&gt;
+
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Fair Federated GNNs:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN is the first framework to address fairness in federated GNN-based recommendation systems, providing significant improvements in reducing group disparity and promoting equitable treatment across demographic groups.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Fair Federated GNNs:&lt;/strong&gt; F&lt;sup&gt;2&lt;/sup&gt;PGNN is the first framework to address fairness in federated GNN-based RSs, significantly reducing group disparity and ensuring equitable treatment across demographic groups.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Privacy-Preserving Techniques:&lt;/strong&gt; By using LDP for both model updates and group statistics, F&lt;sup&gt;2&lt;/sup&gt;PGNN adheres to strict privacy regulations, making it applicable in scenarios where privacy is of paramount importance.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Privacy-Preserving Techniques:&lt;/strong&gt; Leveraging LDP for both model updates and group statistics, F&lt;sup&gt;2&lt;/sup&gt;PGNN complies with stringent privacy regulations, making it suitable for applications where privacy is critical.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Practical Effectiveness:&lt;/strong&gt; The framework achieves fairness improvements without incurring major utility losses, demonstrating its scalability and adaptability for large datasets. Its flexibility to incorporate various sensitive attributes (e.g., gender, activity level) further underscores its practical value.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Practical Effectiveness:&lt;/strong&gt; The framework demonstrates substantial fairness improvements with minimal utility loss, proving scalable and adaptable to large datasets. Its ability to incorporate various sensitive attributes, such as gender and activity levels, enhances its practical applicability.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;6.3 Take-Home Messages&lt;/b&gt;&lt;/font&gt;
-&lt;p&gt;F&lt;sup&gt;2&lt;/sup&gt;PGNN demonstrates that integrating fairness into federated GNN-based recommendation systems is both feasible and beneficial. By carefully designing the loss function and applying privacy-preserving techniques, the framework effectively mitigates demographic biases without sacrificing recommendation quality or violating user privacy. This work provides a foundation for future developments in fair federated learning with GNNs, particularly in sensitive domains such as healthcare and finance.&lt;/p&gt;
+&lt;font color=&quot;red&quot; size=&quot;4px&quot;&gt;&lt;b&gt;6.3 Perceived Limitations&lt;/b&gt;&lt;/font&gt;
+&lt;p&gt;Despite its advancements, F&lt;sup&gt;2&lt;/sup&gt;PGNN has a few limitations:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Privacy-Utility Trade-off:&lt;/strong&gt; The use of LDP introduces noise, which can slightly reduce recommendation accuracy. Further research is needed to optimize this balance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Scalability Challenges:&lt;/strong&gt; Its performance on highly heterogeneous or large-scale federated networks remains untested, limiting applicability to certain real-world systems.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Bias Generalization:&lt;/strong&gt; While effective for specific fairness metrics, the framework’s ability to address diverse fairness definitions, such as intersectional biases, requires further investigation.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;author-information&quot;&gt;&lt;strong&gt;Author Information&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Qiuli Jin
-    &lt;ul&gt;
-      &lt;li&gt;Affiliation: KAIST, &lt;a href=&quot;https://hfel.kaist.ac.kr/&quot;&gt;Human Factors and Ergonomics Lab&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Research Topics: Virtual Reality; Data science&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Qiuli Jin&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Affiliation: KAIST, &lt;a href=&quot;https://hfel.kaist.ac.kr/&quot;&gt;Human Factors and Ergonomics Lab&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Research Topics: Virtual Reality; Data science&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;7-references&quot;&gt;&lt;strong&gt;7. References&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;[1] Gupta, Manjul, Carlos M. Parra, and Denis Dennehy. “Questioning racial and gender bias in AI-based recommendations: Do espoused national cultural values matter?.” Information Systems Frontiers 24.5 (2022): &lt;a href=&quot;https://doi.org/10.1007/s10796-021-10156-2&quot;&gt;1465-1481&lt;/a&gt;.
-[2] Himeur, Yassine, et al. “Latest trends of security and privacy in recommender systems: a comprehensive review and future perspectives.” Computers &amp;amp; Security 118 (2022): &lt;a href=&quot;https://doi.org/10.1016/j.cose.2022.102746&quot;&gt;102746&lt;/a&gt;.
-[3] Kairouz, Peter, et al. “Advances and open problems in federated learning.” Foundations and trends® in machine learning 14.1–2 (2021): &lt;a href=&quot;https://www.nowpublishers.com/article/Details/MAL-083&quot;&gt;1-210&lt;/a&gt;.
-[4] Wu, Chuhan, et al. “A federated graph neural network framework for privacy-preserving personalization.” Nature Communications 13.1 (2022): &lt;a href=&quot;https://doi.org/10.1038/s41467-022-30714-9&quot;&gt;3091.&lt;/a&gt;
-[5] Lyu, He, et al. “Advances in neural information processing systems.” Advances in neural information processing systems 32 (2019): &lt;a href=&quot;https://par.nsf.gov/biblio/10195511&quot;&gt;1049-5258&lt;/a&gt;.
-[6] Li, Yunqi, et al. “User-oriented fairness in recommendation.” Proceedings of the web conference 2021. (2021): &lt;a href=&quot;https://dl.acm.org/doi/abs/10.1145/3442381.3449866&quot;&gt;624-632&lt;/a&gt;.
-[7] Chai, Di, et al. “Secure federated matrix factorization.” IEEE Intelligent Systems 36.5 (2020): &lt;a href=&quot;https://ieeexplore.ieee.org/abstract/document/9162459&quot;&gt;11-20&lt;/a&gt;.
-[8] Wu, Shiwen, et al. “Graph neural networks in recommender systems: a survey.” ACM Computing Surveys 55.5 (2022): &lt;a href=&quot;https://dl.acm.org/doi/full/10.1145/3535101&quot;&gt;1-37&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;8additional-materials&quot;&gt;&lt;strong&gt;8.Additional materials&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;[1] Gupta, Manjul, Carlos M. Parra, and Denis Dennehy. “Questioning racial and gender bias in AI-based recommendations: Do espoused national cultural values matter?.” Information Systems Frontiers 24.5 (2022): &lt;a href=&quot;https://doi.org/10.1007/s10796-021-10156-2&quot;&gt;1465-1481&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[2] Himeur, Yassine, et al. “Latest trends of security and privacy in recommender systems: a comprehensive review and future perspectives.” Computers &amp;amp; Security 118 (2022): &lt;a href=&quot;https://doi.org/10.1016/j.cose.2022.102746&quot;&gt;102746&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[3] Kairouz, Peter, et al. “Advances and open problems in federated learning.” Foundations and trends® in machine learning 14.1–2 (2021): &lt;a href=&quot;https://www.nowpublishers.com/article/Details/MAL-083&quot;&gt;1-210&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[4] Wu, Chuhan, et al. “A federated graph neural network framework for privacy-preserving personalization.” Nature Communications 13.1 (2022): &lt;a href=&quot;https://doi.org/10.1038/s41467-022-30714-9&quot;&gt;3091.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[5] Lyu, He, et al. “Advances in neural information processing systems.” Advances in neural information processing systems 32 (2019): &lt;a href=&quot;https://par.nsf.gov/biblio/10195511&quot;&gt;1049-5258&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[6] Li, Yunqi, et al. “User-oriented fairness in recommendation.” Proceedings of the web conference 2021. (2021): &lt;a href=&quot;https://dl.acm.org/doi/abs/10.1145/3442381.3449866&quot;&gt;624-632&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[7] Chai, Di, et al. “Secure federated matrix factorization.” IEEE Intelligent Systems 36.5 (2020): &lt;a href=&quot;https://ieeexplore.ieee.org/abstract/document/9162459&quot;&gt;11-20&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[8] Wu, Shiwen, et al. “Graph neural networks in recommender systems: a survey.” ACM Computing Surveys 55.5 (2022): &lt;a href=&quot;https://dl.acm.org/doi/full/10.1145/3535101&quot;&gt;1-37&lt;/a&gt;.&lt;/p&gt;
+
 &lt;h2 id=&quot;8-additional-materials&quot;&gt;&lt;strong&gt;8. Additional Materials&lt;/strong&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/abs/2312.10080&quot;&gt;Paper Link&lt;/a&gt;:&lt;/strong&gt; Access the full paper on arXiv.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/nimeshagrawal/F2PGNN-AAAI24&quot;&gt;GitHub Implementation&lt;/a&gt;:&lt;/strong&gt; Explore the implementation of F&lt;sup&gt;2&lt;/sup&gt;PGNN on GitHub.&lt;/li&gt;
-&lt;/ul&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/abs/2312.10080&quot;&gt;Paper Link&lt;/a&gt;:&lt;/strong&gt; Access the full paper on arXiv.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/nimeshagrawal/F2PGNN-AAAI24&quot;&gt;GitHub Implementation&lt;/a&gt;:&lt;/strong&gt; Explore the implementation of F&lt;sup&gt;2&lt;/sup&gt;PGNN on GitHub.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </description>
-            <pubDate>Sun, 13 Oct 2024 00:00:00 +0900</pubDate>
-            <link>http://localhost:4000/2024-10-13-No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation.html</link>
-            <guid isPermaLink="true">http://localhost:4000/2024-10-13-No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation.html</guid>
+            <pubDate>Sun, 24 Nov 2024 00:00:00 +0900</pubDate>
+            <link>http://localhost:4000/2024-11-24-No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation.html</link>
+            <guid isPermaLink="true">http://localhost:4000/2024-11-24-No_prejudice!_Fair_Federated_Graph_Neural_Networks_for_Personalized_Recommendation.html</guid>
             
             <category>reviews</category>
             

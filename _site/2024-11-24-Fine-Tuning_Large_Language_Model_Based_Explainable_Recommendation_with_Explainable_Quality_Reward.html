@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-site-verification" content="1tAPTdgw0-t8G2Bya463OpBtYUbj9Um93gfnsowYKLw" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV4PTXQSTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CV4PTXQSTW');
+</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="reviews,  ">
+<title>[AAAI-2024] Fine-Tuning Large Language Model Based Explainable Recommendation with Explainable Quality Reward | Awesome Reviews</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="DSAILatKAIST.github.io" href="http://localhost:4000/feed.xml">
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	TeX: {
+		equationNumbers: {
+		autoNumber: "AMS"
+		}
+	},
+	tex2jax: {
+		inlineMath: [ ['$', '$'] ],
+		displayMath: [ ['$$', '$$'] ],
+		processEscapes: true,
+		}
+	});
+	MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+		alert("Math Processing Error: "+message[1]);
+	});
+	
+</script>
+
+<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+<script type="text/javascript" async
+ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Awesome Reviews</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="introduction">Introduction</a></li>
+                
+                
+                
+                <li><a href="https://statistics.kaist.ac.kr/" target="_blank" rel="noopener">KAIST ISysE</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="reviews_kse801_2022.html">KSE801 (2022)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2023.html">DS503 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS535_2023.html">DS535 (2023)</a></li>
+                        
+                        
+                        
+                        <li><a href="reviews_DS503_2024.html">DS503 (2024)</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:swkim@kaist.ac.kr?subject=Question about reviews feedback&body=I have some feedback about the [AAAI-2024] Fine-Tuning Large Language Model Based Explainable Recommendation with Explainable Quality Reward page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="[AAAI-2024] Fine-Tuning Large Language Model Based Explainable Recommendation with Explainable Quality Reward">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a title="How to contribute" href="#">How to contribute</a>
+      <ul>
+          
+          
+          
+          <li><a title="How to contribute?" href="how_to_contribute.html">How to contribute?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Review template (Example)" href="template.html">Review template (Example)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Reviews" href="#">Reviews</a>
+      <ul>
+          
+          
+          
+          <li><a title="KSE801 (2022F)" href="reviews_kse801_2022.html">KSE801 (2022F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2023S)" href="reviews_DS503_2023.html">DS503 (2023S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2023F)" href="reviews_DS535_2023.html">DS535 (2023F)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS503 (2024S)" href="reviews_DS503_2024.html">DS503 (2024S)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="DS535 (2024F)" href="reviews_DS535_2024.html">DS535 (2024F)</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/math...">
+</script>
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">[AAAI-2024] Fine-Tuning Large Language Model Based Explainable Recommendation with Explainable Quality Reward</h1>
+        <p class="post-meta"><time datetime="2024-11-24T00:00:00+09:00" itemprop="datePublished">Nov 24, 2024</time> /
+            
+            
+            
+            
+            
+
+        </p>
+
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+
+        
+
+        <h2 id="1-problem-definition"><strong>1. Problem Definition</strong></h2>
+
+<p>설명 가능한 추천 시스템의 기존 방식은 다음과 같은 문제점을 갖고 있습니다.</p>
+
+<p><strong>1. 개인화 부족</strong>: LLM 기반 설명 추천 시스템은 대개 일반적인 데이터를 기반으로 학습되기 때문에 개인화된 정보가 부족합니다. 이로 인해 아래의 예시 그림처럼 사용자 맞춤형 설명을 생성하지 못하며, 사용자 선호도와 일치하지 않는 설명이 생성될 수 있습니다.</p>
+
+<p><img src="https://i.postimg.cc/rpbCLnYf/Aspose-Words-0249c0f3-4058-4d01-9481-a15a6217b858-001.png" alt="Aspose.Words.0249c0f3-4058-4d01-9481-a15a6217b858.001" /></p>
+
+<p><strong>2. 일관성 문제</strong>: LLM이 생성하는 설명은 정보가 과부하된 경향이 있으며, 사용자가 관심 없는 항목에 대한 불필요한 정보도 포함될 수 있습니다. 이로 인해 설명의 일관성이 떨어지고, 사용자 경험이 저하될 수 있습니다.</p>
+
+<p><strong>3. 품질 낮은 설명 데이터</strong>: LLM을 추천 시스템 작업에 잘 적응시키기 위해서는 설명 데이터로 미세 조정이 필요하지만, 기존 데이터는 품질이 낮거나 충분하지 않습니다. 사용자 리뷰는 때때로 부실하며, 이러한 리뷰 데이터를 기반으로 모델을 학습시키는 것은 설득력 있는 설명을 생성하는 데 한계가 있습니다.</p>
+
+<p>이 문제들을 해결하기 위해 저자들은 강화 학습을 사용하여 설명 품질 보상 모델을 설계하고, 이를 통해 더 높은 품질의 개인화되고 일관성 있는 설명을 생성할 수 있는 <strong>LLM2ER-EQR</strong> 모델을 제안합니다.</p>
+
+<h2 id="2-motivation"><strong>2. Motivation</strong></h2>
+
+<h3 id="기존-연구와의-비교"><strong>기존 연구와의 비교</strong></h3>
+
+<p>기존의 LLM 기반 설명 가능한 추천(ER) 모델들은 주로 프롬프트 설계를 통해 LLM이 직접 설명을 생성하도록 하는 접근법을 사용했습니다. 예를 들어, <strong>PETER</strong>는 개인화된 정보를 포함한 프롬프트를 설계하여 설명 생성 성능을 향상시키려 했습니다. 그러나 이러한 방법들은 여전히 개인화 정도가 제한적이며, 사용자 선호도와 아이템 특성을 동시에 반영하는 데 한계가 있었습니다.</p>
+
+<p>또한, <strong>ReXPlug</strong>와 같은 일부 연구는 제어된 텍스트 생성을 통해 품질 낮은 리뷰 데이터와 개인화 문제를 부분적으로 해결하려 했습니다. 그러나 여전히 설명의 일관성과 정보 과부하 문제를 완전히 해결하지는 못했습니다.</p>
+
+<h3 id="본-연구의-차별성"><strong>본 연구의 차별성</strong></h3>
+
+<p>이러한 한계점을 극복하기 위해 본 논문에서는 다음과 같은 새로운 접근법을 제안합니다:</p>
+
+<ul>
+  <li>
+    <p><strong>개념 그래프 활용</strong>: 사용자와 아이템의 상호작용과 관련된 개념들을 추출하여 <strong>개념 그래프</strong>를 구축하고, 이를 통해 사용자 선호도와 아이템 특성을 효과적으로 반영합니다.</p>
+  </li>
+  <li>
+    <p><strong>강화 학습 기반 미세 조정</strong>: 인간의 피드백 없이도 모델이 설명의 품질을 자체적으로 개선할 수 있도록 강화 학습을 적용합니다.</p>
+  </li>
+  <li>
+    <p><strong>설명 품질 보상 모델</strong>: <strong>개념 일관성 보상 모델(CCR)</strong>과 <strong>고품질 정렬 보상 모델(HQAR)</strong>을 설계하여 설명의 일관성과 품질을 동시에 향상시킵니다.</p>
+  </li>
+</ul>
+
+<p>이로써 기존 모델들이 가진 <strong>개인화 부족</strong>, <strong>일관성 문제</strong>, <strong>품질 낮은 데이터</strong>의 한계를 동시에 해결하고자 합니다.</p>
+
+<h2 id="3-method"><strong>3. Method</strong></h2>
+
+<p><img src="https://i.postimg.cc/5tHLp5NL/Aspose-Words-0249c0f3-4058-4d01-9481-a15a6217b858-002.png" alt="Aspose.Words.0249c0f3-4058-4d01-9481-a15a6217b858.002" /></p>
+
+<p>본 논문에서 제안하는 방법론은 <strong>LLM2ER</strong>라는 대형 언어 모델 기반 설명 추천 시스템을 강화 학습 기법으로 미세 조정하여 <strong>LLM2ER-EQR</strong> 모델을 구축하는 과정입니다. 이 과정에서 설명의 개인화와 일관성을 보장하고, 고품질 설명 데이터를 기반으로 학습할 수 있도록 여러 모델을 사용합니다.</p>
+
+<h3 id="1-llm2er-backbone"><strong>1) LLM2ER Backbone</strong></h3>
+
+<p>LLM2ER는 기본적으로 사용자와 아이템 간의 상호작용을 반영하여 개인화된 설명을 생성하는 시스템입니다. 이를 위해 다음과 같은 두 가지 주요 모듈을 사용합니다.</p>
+
+<h4 id="a-협력적-개념-기반-평가-예측-모듈"><strong>(a) 협력적 개념 기반 평가 예측 모듈</strong></h4>
+
+<p>사용자의 선호도와 아이템의 특성을 반영한 <strong>개념 그래프</strong>를 구축하여 평가를 예측합니다. 개념 그래프는 사용자, 아이템, 그리고 이들과 관련된 개념들로 구성된 <strong>이질적인 그래프</strong>입니다.</p>
+
+<ul>
+  <li>
+    <p><strong>이질적인 그래프 변환기(HGT)</strong>: 이 그래프의 복잡한 구조를 학습하기 위해 HGT를 사용하여 각 노드(사용자, 아이템, 개념)의 임베딩을 학습합니다.</p>
+
+    <p>HGT는 각 노드와 에지의 타입을 고려하여 메시지 전달을 수행하며, 노드의 표현을 업데이트합니다.</p>
+  </li>
+  <li>
+    <p><strong>평가 예측</strong>: 학습된 사용자 임베딩 $\mathbf{h}_ u$와 아이템 임베딩 $\mathbf{h}_ v$를 결합하여 예측된 평가 점수 $\hat{r}_ {u,v}$를 계산합니다.</p>
+
+    <p>$ \hat{r}_{u,v} = \text{MLP}([\mathbf{h}_u, \mathbf{h}_v]) $</p>
+
+    <p>여기서 $\text{MLP}$는 다층 퍼셉트론, $[\cdot]$는 벡터 결합(concatenation)을 의미합니다.</p>
+  </li>
+  <li>
+    <p><strong>손실 함수</strong>: 실제 평가 점수 $r_{u,v}$와 예측된 평가 점수 $\hat{r}_{u,v}$ 간의 차이를 최소화하기 위해 평균 제곱 오차(MSE) 손실을 사용합니다.</p>
+
+    <p>$ L_ r = \frac{1}{\vert \Omega_ {\text{train}} \vert} \sum_ {(u,v) \in \Omega_ {\text{train}}} (r_ {u,v} - \hat{r}_ {u,v})^2 $</p>
+  </li>
+</ul>
+
+<h4 id="b-개인화된-프롬프트-학습-모듈"><strong>(b) 개인화된 프롬프트 학습 모듈</strong></h4>
+
+<p>개인화된 정보를 LLM에 효과적으로 전달하기 위해 프롬프트를 구성합니다. 프롬프트는 다음의 요소들로 구성됩니다.</p>
+
+<ul>
+  <li>
+    <p><strong>프롬프트 헤드</strong> $I$: 설명 생성에 대한 지침을 자연어로 제공합니다.</p>
+  </li>
+  <li>
+    <p><strong>사용자 및 아이템 임베딩</strong> $(\mathbf{p}_u, \mathbf{q}_v)$: 학습된 임베딩을 LLM의 토큰 임베딩 차원에 맞게 선형 변환합니다.</p>
+
+    <p>$ (\mathbf{p}_u, \mathbf{q}_v) = (\text{Linear}(\mathbf{h}_u), \text{Linear}(\mathbf{h}_v)) $</p>
+  </li>
+  <li>
+    <p><strong>감정 표현</strong> $s_{u,v}$: 예측된 평가 점수를 기반으로 긍정 또는 부정의 감정을 나타냅니다. 5점 척도의 평점을 기준으로 3점 이상은 긍정, 미만은 부정으로 매핑합니다.</p>
+  </li>
+  <li>
+    <p><strong>후보 개념 집합</strong> ${c}_{u,v}$: 개념 그래프에서 추출한 사용자와 아이템 간의 상호작용을 나타내는 개념들의 집합입니다. <strong>빔 서치(beam search)</strong>를 통해 상위 $l$개의 경로를 선택하고, 해당 경로에 포함된 개념들을 후보로 사용합니다.</p>
+  </li>
+</ul>
+
+<p>최종적으로, 개인화된 프롬프트 $x_{u,v}$는 다음과 같이 구성됩니다.</p>
+
+<p>$ x_ {u,v} = [I, \mathbf{p}_ u, \mathbf{q}_ v, s_ {u,v}, {c}_ {u,v}] $</p>
+
+<h4 id="c-설명-생성-모듈"><strong>(c) 설명 생성 모듈</strong></h4>
+
+<p>프롬프트 $x_{u,v}$를 입력으로 받아, 사전 학습된 언어 모델(예: GPT-2)을 사용하여 설명 $\hat{e}_{u,v}$를 생성합니다.</p>
+
+<p>생성 과정은 다음과 같습니다.</p>
+
+<p>$ \hat{e}_ {u,v,i} = \arg\max_ {e_ {u,v,i}} P_ {\text{LM}}(e_ {u,v,i} \vert x_ {u,v}, \hat{e}_ {u,v,&lt;i}) $</p>
+
+<p>여기서 $\hat{e}_ {u,v,&lt;i}$는 이전에 생성된 단어들의 시퀀스입니다.</p>
+
+<p><strong>손실 함수</strong>: 실제 설명 $e_ {u,v}$와 생성된 설명 $\hat{e}_ {u,v}$ 간의 차이를 최소화하기 위해 음의 로그 우도(NLL) 손실을 사용합니다.</p>
+
+<p>$ L_ e = \frac{1}{\vert\Omega_ {\text{train}}\vert} \sum_ {(u,v) \in \Omega_ {\text{train}}} \frac{1}{n} \sum_ {t=1}^{n} -\log P(e_ {u,v,t}) $</p>
+
+<h3 id="2-강화-학습을-통한-미세-조정"><strong>2) 강화 학습을 통한 미세 조정</strong></h3>
+
+<p>강화 학습을 통해 모델이 설명의 품질을 자체적으로 개선할 수 있도록 합니다. 이를 위해 두 가지 보상 모델을 설계합니다.</p>
+
+<h4 id="a-개념-일관성-보상-모델-concept-consistent-reward-model-ccr"><strong>(a) 개념 일관성 보상 모델 (Concept Consistent Reward Model, CCR)</strong></h4>
+
+<p>CCR은 생성된 설명 $\hat{e}_ {u,v}$와 후보 개념 ${c}_ {u,v}$ 간의 의미적 유사도를 측정하여 보상을 제공합니다.</p>
+
+<ul>
+  <li>
+    <p><strong>BERT 임베딩</strong>: 생성된 설명과 후보 개념들을 <strong>BERT</strong>를 사용하여 임베딩합니다.</p>
+  </li>
+  <li>
+    <p><strong>코사인 유사도 계산</strong>: 두 임베딩의 평균 벡터 간의 코사인 유사도를 계산합니다.</p>
+
+    <p>$ R_ {\text{CCR}}(\hat{e}_ {u,v}, {c}_ {u,v}) = \cos\left( \text{avg}(\text{BERT}(\hat{e}_ {u,v})), \text{avg}(\text{BERT}({c}_ {u,v})) \right) $</p>
+  </li>
+  <li>
+    <p><strong>보상 학습</strong>: 긍정 샘플(타겟 사용자-아이템 쌍의 생성된 설명과 후보 개념)과 부정 샘플(다른 사용자-아이템 쌍의 생성된 설명과 후보 개념)을 사용하여 <strong>대조 학습(Contrastive Learning)</strong>을 수행합니다. 손실 함수는 다음과 같습니다.</p>
+
+    <p>$ L_ c = \frac{1}{\vert\Omega_{\text{train}}\vert} \sum_ {(u,v) \in \Omega_ {\text{train}}} \log \frac{\exp(R_ {\text{CCR}}(\hat{e}_ {u,v}, {c}_ {u,v}))}{\sum_ {(u’,v’) \in N_ {u,v}} \exp(R_ {\text{CCR}}(\hat{e}_ {u’,v’}, {c}_ {u’,v’}))} $</p>
+
+    <p>여기서 $N_{u,v}$는 부정 샘플의 집합입니다.</p>
+  </li>
+</ul>
+
+<h4 id="b-고품질-정렬-보상-모델-high-quality-alignment-reward-model-hqar"><strong>(b) 고품질 정렬 보상 모델 (High-Quality Alignment Reward Model, HQAR)</strong></h4>
+
+<p>HQAR은 생성된 설명이 고품질 설명 데이터와 얼마나 일치하는지를 평가합니다.</p>
+
+<ul>
+  <li>
+    <p><strong>고품질 설명 데이터셋</strong> $H$ 구축: 개념 포함 비율이 일정 임계값 이상인 설명들을 선택하여 고품질 데이터셋을 만듭니다.</p>
+  </li>
+  <li>
+    <p><strong>판별자(Discriminator)</strong>: 생성된 설명 $\hat{e}_{u,v}$와 고품질 설명 $h \in H$를 입력으로 받아, 해당 설명이 고품질인지 여부를 예측합니다.</p>
+  </li>
+  <li>
+    <p><strong>보상 계산</strong>: 생성된 설명이 고품질 설명으로 분류되지 않을 확률의 로그에 음수를 취하여 보상으로 사용합니다.</p>
+
+    <p>$ R_ {\text{HQAR}}(\hat{e}_ {u,v}) = -\sum_ {i=1}^{n} \log(1 - p_ {\hat{e}_ {u,v,i}}) $</p>
+
+    <p>여기서 $p_ {\hat{e}_ {u,v,i}}$는 판별자가 $\hat{e}_ {u,v,i}$가 고품질 설명으로부터 생성되었을 확률입니다.</p>
+  </li>
+  <li>
+    <p><strong>손실 함수</strong>: 판별자를 학습하기 위해 <strong>이진 교차 엔트로피 손실</strong>을 사용합니다.</p>
+
+    <p>$ L_ d = -\frac{1}{\vert\Omega_{\text{train}}\vert + \vert H \vert} \left( \sum_ {(u,v) \in \Omega_ {\text{train}}} \sum_{i=1}^{n} \log(1 - p_ {\hat{e}_ {u,v,i}}) + \sum_ {h \in H} \sum_ {i=1}^{n} \log p_ {h_ i} \right) $</p>
+  </li>
+</ul>
+
+<h3 id="3-모델-훈련-과정"><strong>3) 모델 훈련 과정</strong></h3>
+
+<p>모델 훈련은 다음의 단계로 이루어집니다.</p>
+
+<ol>
+  <li>
+    <p><strong>평가 예측 모듈 학습</strong>: $L_r$을 최소화하여 사용자와 아이템의 임베딩을 학습합니다.</p>
+  </li>
+  <li>
+    <p><strong>설명 생성 모듈 학습</strong>: $L_e$를 최소화하여 LLM이 실제 설명을 잘 생성하도록 학습합니다.</p>
+  </li>
+  <li>
+    <p><strong>보상 모델 학습</strong>: CCR과 HQAR을 학습하여 보상 함수를 구성합니다.</p>
+  </li>
+  <li>
+    <p><strong>강화 학습을 통한 미세 조정</strong>: 보상 함수를 최대화하도록 LLM을 미세 조정합니다. 최종 목표 함수는 다음과 같습니다.</p>
+
+    <p>$ R(x_ {u,v}, \hat{e}_ {u,v}) = \lambda_ {\text{CCR}} R_ {\text{CCR}}(\hat{e}_ {u,v}, {c}_ {u,v}) + \lambda_ {\text{HQAR}} R_ {\text{HQAR}}(\hat{e}_ {u,v}) $</p>
+
+    <p>여기서 $\lambda_ {\text{CCR}}$, $\lambda_ {\text{HQAR}}$는 보상 함수의 중요도를 조절하는 하이퍼파라미터입니다.</p>
+
+    <p>강화 학습 알고리즘으로는 <strong>Proximal Policy Optimization (PPO)</strong>를 사용하여 정책을 업데이트합니다.</p>
+  </li>
+</ol>
+
+<h3 id="4-용어-설명-및-수식-유도"><strong>4) 용어 설명 및 수식 유도</strong></h3>
+
+<ul>
+  <li>
+    <p><strong>이질적인 그래프 변환기(HGT)</strong>: 다양한 유형의 노드와 에지가 있는 이질적인 그래프에서 각 노드의 표현을 학습하는 모델입니다. HGT는 노드와 에지의 타입을 고려하여 메시지 패싱을 수행합니다.</p>
+  </li>
+  <li>
+    <p><strong>대조 학습(Contrastive Learning)</strong>: 긍정 및 부정 샘플 쌍을 사용하여 임베딩 공간에서 유사한 샘플은 가깝게, 다른 샘플은 멀어지도록 학습하는 방법입니다. CCR의 손실 함수 $L_c$는 <strong>InfoNCE (Information Noise Contrastive Estimation)</strong> 손실을 기반으로 합니다.</p>
+  </li>
+  <li>
+    <p><strong>판별자(Discriminator)</strong>: 생성된 샘플이 실제 데이터에서 온 것인지 생성된 것인지 구분하는 모델로, 생성자(Generator)와 함께 <strong>GAN (Generative Adversarial Network)</strong>을 구성합니다. HQAR에서 판별자는 고품질 설명과 생성된 설명을 구분하는 역할을 합니다.</p>
+  </li>
+  <li>
+    <p><strong>Proximal Policy Optimization (PPO)</strong>: 강화 학습에서 정책을 업데이트하기 위한 알고리즘으로, 큰 정책 변화로 인한 성능 저하를 방지합니다.</p>
+  </li>
+</ul>
+
+<h2 id="4-experiment"><strong>4. Experiment</strong></h2>
+
+<h3 id="1-dataset"><strong>1) Dataset</strong></h3>
+
+<p>실험에는 세 가지 공공 추천 데이터셋이 사용되었습니다:</p>
+
+<ul>
+  <li>
+    <p><strong>Amazon (Movies &amp; TV)</strong>: 영화 및 TV 프로그램에 대한 리뷰와 평점을 포함합니다.</p>
+  </li>
+  <li>
+    <p><strong>Yelp (2019)</strong>: 다양한 비즈니스에 대한 리뷰와 평점을 포함합니다.</p>
+  </li>
+  <li>
+    <p><strong>TripAdvisor</strong>: 여행 및 호텔에 대한 리뷰와 평점을 포함합니다.</p>
+  </li>
+</ul>
+
+<p>데이터셋 통계는 다음과 같습니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dataset</th>
+      <th># Users</th>
+      <th># Items</th>
+      <th># Explanations</th>
+      <th># Concepts</th>
+      <th># Triplets</th>
+      <th>Avg. # Explanations/User</th>
+      <th>Avg. # Explanations/Item</th>
+      <th>Avg. # Concepts/Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Amazon (Movies &amp; TV)</td>
+      <td>7,506</td>
+      <td>7,316</td>
+      <td>432,075</td>
+      <td>10,141</td>
+      <td>7,223,673</td>
+      <td>57.56</td>
+      <td>59.06</td>
+      <td>7.33</td>
+    </tr>
+    <tr>
+      <td>Yelp (2019)</td>
+      <td>27,147</td>
+      <td>18,172</td>
+      <td>1,189,056</td>
+      <td>14,657</td>
+      <td>31,417,433</td>
+      <td>43.80</td>
+      <td>65.43</td>
+      <td>11.46</td>
+    </tr>
+    <tr>
+      <td>TripAdvisor</td>
+      <td>9,765</td>
+      <td>5,429</td>
+      <td>296,118</td>
+      <td>10,948</td>
+      <td>6,992,065</td>
+      <td>30.32</td>
+      <td>54.54</td>
+      <td>9.73</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2-baseline"><strong>2) Baseline</strong></h3>
+
+<p>모델 성능을 비교하기 위해 다음과 같은 Baseline 모델들을 사용했습니다:</p>
+
+<ul>
+  <li>
+    <p><strong>CAML</strong>: GRU 기반의 설명 생성 모델</p>
+  </li>
+  <li>
+    <p><strong>NETE</strong>: 템플릿 기반 설명 생성 모델</p>
+  </li>
+  <li>
+    <p><strong>ReXPlug</strong>: 제어된 텍스트 생성 모델</p>
+  </li>
+  <li>
+    <p><strong>PETER</strong>: 프롬프트 학습을 활용한 LLM 기반 모델</p>
+  </li>
+  <li>
+    <p><strong>PEVAE</strong>: 변이형 오토인코더를 활용한 모델</p>
+  </li>
+  <li>
+    <p><strong>PRAG</strong>: 사실적 오류 문제를 해결한 모델</p>
+  </li>
+  <li>
+    <p><strong>CVAEs</strong>: 대조 학습을 활용한 변이형 오토인코더 모델</p>
+  </li>
+</ul>
+
+<h3 id="3-evaluation-metrics"><strong>3) Evaluation Metrics</strong></h3>
+
+<ul>
+  <li>
+    <p><strong>BLEU</strong>: 생성된 설명과 실제 설명 간의 n-그램 일치를 측정하여 문법적 유창성을 평가합니다.</p>
+  </li>
+  <li>
+    <p><strong>ROUGE</strong>: 생성된 설명과 실제 설명 간의 겹치는 단어를 기반으로 요약 능력을 평가합니다.</p>
+  </li>
+  <li>
+    <p><strong>Distinct-1, Distinct-2</strong>: 생성된 설명 내에서 고유한 1-그램 및 2-그램의 비율을 측정하여 다양성을 평가합니다.</p>
+  </li>
+  <li>
+    <p><strong>Concept Overlapping Ratio (COR)</strong>: 동일한 아이템에 대한 다른 사용자들의 설명에서 개념의 중복도를 측정합니다.</p>
+
+    <p>$ \text{COR}(v) = \frac{1}{\vert U_ v\vert(\vert U_ v\vert - 1)} \sum_ {u \in U_ v, u’ \in U_ v, u \ne u’} \frac{\vert(e_ {u,v} \cap C_ {u,v}) \cap (e_ {u’,v} \cap C_ {u’,v})\vert}{\vert(e_ {u,v} \cap C_ {u,v}) \cup (e_ {u’,v} \cap C_ {u’,v})\vert} $</p>
+
+    <p>여기서 $U_v$는 아이템 $v$를 평가한 사용자들의 집합입니다.</p>
+  </li>
+  <li>
+    <p><strong>Concept Matching Ratio (CMR)</strong>: 생성된 설명이 후보 개념과 얼마나 일치하는지를 측정합니다.</p>
+
+    <p>$ \text{CMR} = \frac{1}{\vert\Omega_ {\text{test}}\vert} \sum_ {(u,v) \in \Omega_ {\text{test}}} \sum_ {c \in C_ {u,v}} \delta(c \in e_ {u,v}) $</p>
+
+    <p>여기서 $\delta(\cdot)$는 인디케이터 함수입니다.</p>
+  </li>
+</ul>
+
+<h3 id="4-experiment-results"><strong>4) Experiment Results</strong></h3>
+
+<p><img src="https://i.postimg.cc/Y0xWjbbK/Aspose-Words-0249c0f3-4058-4d01-9481-a15a6217b858-004.png" alt="Aspose.Words.0249c0f3-4058-4d01-9481-a15a6217b858.004" /></p>
+
+<p><strong>실험 결과</strong>, <strong>LLM2ER-EQR</strong> 모델은 모든 데이터셋에서 Baseline 모델들을 능가하는 성능을 보여주었습니다.</p>
+
+<h4 id="a-텍스트-품질-측면"><strong>(a) 텍스트 품질 측면</strong></h4>
+
+<ul>
+  <li>
+    <p><strong>BLEU 및 ROUGE 점수</strong>: 생성된 설명이 실제 설명과 문법적으로 유사하고 내용적으로 풍부함을 나타냅니다.</p>
+
+    <ul>
+      <li>예를 들어, <strong>Amazon 데이터셋</strong>에서 <strong>BLEU-4</strong> 점수는 <strong>LLM2ER-EQR</strong>이 <strong>1.572</strong>로, 기존 최고 성능 모델인 <strong>CVAEs</strong>의 <strong>1.504</strong>보다 <strong>4.5%</strong> 향상되었습니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>실험 결과 해석</strong>: 높은 BLEU와 ROUGE 점수는 모델이 실제 인간의 언어 표현과 유사한 설명을 생성함을 의미합니다.</p>
+  </li>
+</ul>
+
+<h4 id="b-설명-품질-측면"><strong>(b) 설명 품질 측면</strong></h4>
+
+<ul>
+  <li>
+    <p><strong>Distinct 점수</strong>: 설명의 다양성과 독창성이 높음을 보여줍니다.</p>
+
+    <ul>
+      <li><strong>Yelp 데이터셋</strong>에서 <strong>Distinct-2</strong> 점수는 <strong>LLM2ER-EQR</strong>이 <strong>64.150</strong>으로, Baseline 모델들보다 높은 값을 나타냈습니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>COR 및 CMR</strong>: 개인화와 개념 일관성이 높음을 나타냅니다.</p>
+
+    <ul>
+      <li><strong>TripAdvisor 데이터셋</strong>에서 <strong>CMR</strong> 점수는 <strong>LLM2ER-EQR</strong>이 <strong>4.189</strong>로, 기존 모델들보다 <strong>4.5%</strong> 이상 향상되었습니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>실험 결과 해석</strong>: 낮은 COR 값은 설명들이 서로 중복되지 않고 다양함을 의미하며, 높은 CMR 값은 생성된 설명이 사용자와 아이템의 개념과 잘 일치함을 나타냅니다.</p>
+  </li>
+</ul>
+
+<h3 id="5-모델의-한계-및-강화-학습의-영향"><strong>5) 모델의 한계 및 강화 학습의 영향</strong></h3>
+
+<p>논문에서 직접 언급되지는 않았지만, 다음과 같은 모델의 한계점이나 강화 학습의 성능 저하 가능성이 있을 수 있습니다:</p>
+
+<ul>
+  <li>
+    <p><strong>모델의 복잡성</strong>: 개념 그래프를 구축하고 강화 학습을 적용하는 과정이 복잡하여, 대규모 데이터셋에서의 확장성 문제가 있을 수 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>강화 학습의 안정성</strong>: 강화 학습은 학습 과정에서 불안정할 수 있으며, 보상 함수의 설계에 따라 성능이 크게 좌우될 수 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>보상 모델의 일반화 능력</strong>: CCR과 HQAR이 특정 도메인이나 데이터셋에 과적합될 가능성이 있으며, 새로운 도메인에서의 일반화 성능이 떨어질 수 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>계산 비용</strong>: 복잡한 모델 구조와 강화 학습으로 인해 계산 비용이 증가하여 실시간 시스템에 적용하기 어려울 수 있습니다.</p>
+  </li>
+</ul>
+
+<p>따라서, 이러한 한계점을 고려하여 모델을 개선하고 적용 범위를 넓히는 것이 향후 연구에서 중요할 것입니다.</p>
+
+<h2 id="5-conclusion"><strong>5. Conclusion</strong></h2>
+
+<p>이 논문은 <strong>대형 언어 모델(LLM) 기반 설명 추천 시스템</strong>의 성능을 향상시키기 위해 <strong>LLM2ER-EQR</strong>이라는 새로운 모델을 제안했습니다. 기존 시스템이 가진 <strong>개인화 부족</strong>, <strong>설명의 일관성 문제</strong>, 그리고 <strong>품질 낮은 데이터</strong>의 한계를 극복하기 위해, <strong>강화 학습</strong>을 사용한 보상 모델을 설계하여 설명의 품질을 크게 개선했습니다.</p>
+
+<p><strong>Key Takeaways:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>강화 학습</strong>은 모델이 설명의 품질을 스스로 개선할 수 있도록 하는 강력한 방법으로 작용했습니다.</p>
+  </li>
+  <li>
+    <p><strong>개념 그래프</strong>를 활용하여 사용자와 아이템의 상호작용을 효과적으로 반영했습니다.</p>
+  </li>
+  <li>
+    <p><strong>개인화된 설명</strong>이 사용자 경험을 높이는 데 중요한 역할을 하며, <strong>설명의 일관성</strong>을 높이는 것이 추천 시스템의 신뢰성을 강화합니다.</p>
+  </li>
+  <li>
+    <p><strong>보상 기반 학습</strong>을 통해, 인간 피드백 없이도 시스템이 고품질 설명을 제공할 수 있는 모델로 발전할 수 있음을 보여줍니다.</p>
+  </li>
+</ul>
+
+<p><strong>Take Home Message:</strong></p>
+
+<p>이 연구의 핵심은 추천 시스템의 설명이 단순한 정보 제공이 아닌, <strong>사용자 맞춤형</strong>으로 전달되어야 한다는 것입니다. 이를 통해 사용자는 더 나은 선택을 할 수 있게 되고, 추천 시스템의 신뢰성도 자연스럽게 증가합니다. <strong>LLM</strong>과 <strong>강화 학습</strong>의 결합은, 복잡한 사용자 요구를 반영하는 <strong>개인화된 설명 시스템</strong>을 구현하는 데 매우 효과적임을 증명했습니다.</p>
+
+<p><strong>향후 연구 방향 및 고려사항:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>모델의 확장성 개선</strong>: 대규모 데이터셋에서도 효율적으로 작동할 수 있도록 모델의 복잡성을 줄이는 방법을 연구할 필요가 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>일반화 능력 향상</strong>: 다양한 도메인에 적용할 수 있도록 보상 모델과 전체 시스템의 일반화 능력을 높이는 것이 중요합니다.</p>
+  </li>
+  <li>
+    <p><strong>실시간 적용 가능성</strong>: 계산 효율성을 향상시켜 실시간 추천 시스템에 적용할 수 있도록 하는 것이 향후 과제입니다.</p>
+  </li>
+</ul>
+
+<h2 id="6-추가-이미지-및-내용"><strong>6. 추가 이미지 및 내용</strong></h2>
+
+<h3 id="실험-설정-및-추가-결과"><strong>실험 설정 및 추가 결과</strong></h3>
+
+<p>실험의 설정과 추가적인 결과를 제공하기 위해 남은 이미지를 포함합니다.</p>
+
+<h4 id="a-personalized-prompt"><strong>(a) Personalized Prompt</strong></h4>
+
+<p><img src="https://i.postimg.cc/bvhz5M6D/Aspose-Words-0249c0f3-4058-4d01-9481-a15a6217b858-003.png" alt="Aspose.Words.0249c0f3-4058-4d01-9481-a15a6217b858.003" /></p>
+
+<p><strong>개인화된 프롬프트 예시</strong>는 다음과 같습니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Prompt head: Please generate a recommendation explanation.
+
+Query input: Based on the {sentiment: positive/negative} sentiment and candidate concepts including {candidate concepts, e.g., user preferences, item features}, please provide explanations to recommend {item embedding} to {user embedding}.
+
+Query output: {explanation}
+</code></pre></div></div>
+
+<h4 id="b-concept-selection-effectiveness"><strong>(b) Concept Selection Effectiveness</strong></h4>
+
+<p><strong>개념 선택이 모델 성능에 미치는 영향</strong>을 분석하기 위해 다양한 최대 경로 길이와 경로 선택 수에 따른 성능 변화를 실험하였습니다.</p>
+
+<ul>
+  <li><strong>결과 해석</strong>: 최대 경로 길이와 경로 선택 수가 너무 크면 후보 개념의 수가 증가하여 COR 값이 높아져 개인화 정도가 감소할 수 있습니다. 반대로 너무 작으면 CMR 값이 낮아져 설명의 일관성이 떨어질 수 있습니다.</li>
+</ul>
+
+<h4 id="c-qualitative-case-study"><strong>(c) Qualitative Case Study</strong></h4>
+
+<h2><img src="https://i.postimg.cc/CLm8grRb/Aspose-Words-0249c0f3-4058-4d01-9481-a15a6217b858-005.png" alt="" /></h2>
+
+<p><strong>생성된 설명의 사례 비교</strong>를 통해 모델의 우수성을 보여줍니다.</p>
+
+<ul>
+  <li>
+    <p><strong>Case 1</strong>: 동일한 아이템에 대해 다른 사용자에게 추천할 때, <strong>LLM2ER-EQR</strong>은 사용자 선호도에 맞는 개인화된 설명을 생성합니다.</p>
+  </li>
+  <li>
+    <p><strong>Case 2</strong>: 생성된 설명은 Baseline 모델들보다 더 많은 사용자 선호도와 아이템 특성을 포함하며, 정보성이 높습니다.</p>
+  </li>
+</ul>
+
+
+    </div>
+
+
+
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2024 Copyright 2021 Google LLC. All rights reserved. <br />
+ Site last generated: Dec 5, 2024 <br />
+<p><img src="images/company_logo.png" alt="Company logo"/></p>
+                </div>
+            </div>
+</footer>
+
+
+
+
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-66296557-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+
+
+</html>
+
+
